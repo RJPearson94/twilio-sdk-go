@@ -1,0 +1,40 @@
+{
+  "status": "draft",
+  "definition": {
+    "states": [
+      {
+        "transitions": [],
+        "type": "trigger",
+        "name": "Trigger",
+        "properties": {
+          "offset": {
+            "y": 0,
+            "x": 0
+          }
+        }
+      }
+    ],
+    "initial_state": "Trigger",
+    "flags": {
+      "allow_concurrent_calls": true
+    },
+    "description": "A New Flow"
+  },
+  "errors": null,
+  "warnings": null,
+  "date_updated": null,
+  "friendly_name": "Test 2",
+  "account_sid": "ACxxxxxxxxxxxx",
+  "date_created": "2020-05-30T22:28:43Z",
+  "url": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxxx",
+  "valid": true,
+  "sid": "FWxxxxxxxxxxxx",
+  "commit_message": null,
+  "webhook_url": "https://webhooks.twilio.com/v1/Accounts/ACxxxxxxxxxxxx/Flows/FWxxxxxxxxxxxx",
+  "revision": 1,
+  "links": {
+    "test_users": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxxx/TestUsers",
+    "revisions": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxxx/Revisions",
+    "executions": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxxx/Executions"
+  }
+}
