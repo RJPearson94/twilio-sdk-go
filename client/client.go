@@ -42,6 +42,7 @@ type Operation struct {
 	HTTPPath    string
 	ContentType string
 	PathParams  map[string]string
+	QueryParams map[string]string
 }
 
 func (c Client) Send(context context.Context, op Operation, input interface{}, output interface{}) error {
@@ -69,6 +70,10 @@ func configureRequest(context context.Context, client *resty.Client, op Operatio
 
 	if op.PathParams != nil {
 		req = req.SetPathParams(op.PathParams)
+	}
+
+	if op.QueryParams != nil {
+		req = req.SetQueryParams(op.QueryParams)
 	}
 
 	if input != nil {

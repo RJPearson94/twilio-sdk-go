@@ -7,14 +7,13 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/utils"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/studio/v2"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var _ = Describe("Flow", func() {
@@ -33,6 +32,59 @@ var _ = Describe("Flow", func() {
 
 	Describe("Given the Flow Service", func() {
 		flowService := studioSession.Flows
+
+		Describe("When page of Flows is returned with default settings", func() {
+			getFlowPageRequest := &v2.GetFlowPageRequest{}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/defaultFlowPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := flowService.GetPage(getFlowPageRequest)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get flow page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Meta).ToNot(BeNil())
+				Expect(resp.Flows).ToNot(BeNil())
+				Expect(len(resp.Flows)).To(Equal(3))
+			})
+		})
+
+		Describe("When page of Flows is returned with PageSize and Page Specified", func() {
+			getFlowPageRequest := &v2.GetFlowPageRequest{
+				Page:     "1",
+				PageSize: "20",
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows?Page=1&PageSize=20",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pageSizeAndPageFlowPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := flowService.GetPage(getFlowPageRequest)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get flow page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Meta).ToNot(BeNil())
+				Expect(resp.Flows).ToNot(BeNil())
+				Expect(len(resp.Flows)).To(Equal(2))
+			})
+		})
 
 		Describe("When the Flow is successfully created", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
@@ -219,8 +271,6 @@ var _ = Describe("Flow", func() {
 			)
 
 			resp, err := studioSession.Flow("FW71").Get()
-			log.Println(resp)
-			log.Println(err.(*utils.TwilioError).Status)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

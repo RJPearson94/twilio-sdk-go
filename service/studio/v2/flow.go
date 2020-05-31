@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/mitchellh/mapstructure"
+
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
@@ -15,7 +17,16 @@ type Flow struct {
 	sid    string
 }
 
-type BaseFlowResponse struct {
+type MetaResponse struct {
+	Page            int     `json:"page"`
+	PageSize        int     `json:"page_size"`
+	PreviousPageURL *string `json:"first_page_url,omitempty"`
+	URL             string  `json:"url"`
+	NextPageURL     *string `json:"next_page_url"`
+	Key             string  `json:"key"`
+}
+
+type FlowResponse struct {
 	Sid           string         `json:"sid"`
 	AccountSid    string         `json:"account_sid"`
 	FriendlyName  string         `json:"friendly_name"`
@@ -32,15 +43,48 @@ type BaseFlowResponse struct {
 	URL           string         `json:"url"`
 }
 
+type GetFlowPageRequest struct {
+	PageSize string `mapstructure:"PageSize,omitempty"`
+	Page     string `mapstructure:"Page,omitempty"`
+}
+
+type GetFlowPageResponse struct {
+	Meta  MetaResponse   `json:"meta"`
+	Flows []FlowResponse `json:"flows"`
+}
+
+func (service FlowService) GetPage(input *GetFlowPageRequest) (*GetFlowPageResponse, error) {
+	return service.GetPageWithContext(context.Background(), input)
+}
+
+func (service FlowService) GetPageWithContext(context context.Context, input *GetFlowPageRequest) (*GetFlowPageResponse, error) {
+	queryParams := map[string]string{}
+	if err := mapstructure.Decode(input, &queryParams); err != nil {
+		return nil, err
+	}
+
+	op := client.Operation{
+		HTTPMethod:  http.MethodGet,
+		HTTPPath:    PathTemplates.Flow,
+		QueryParams: queryParams,
+	}
+
+	output := &GetFlowPageResponse{}
+	if err := service.client.Send(context, op, nil, output); err != nil {
+		return nil, err
+	}
+	return output, nil
+}
+
 type CreateFlowInput struct {
 	FriendlyName  string `validate:"required"`
 	Status        string `validate:"required"`
 	Definition    string `validate:"required"`
-	CommitMessage string `mapstructure:",omitempty"`
+	CommitMessage string `mapstructure:"CommitMessage,omitempty"`
 }
 
 type CreateFlowResponse struct {
-	*BaseFlowResponse
+	*FlowResponse
 }
 
 func (service FlowService) Create(input *CreateFlowInput) (*CreateFlowResponse, error) {
@@ -62,7 +106,7 @@ func (service FlowService) CreateWithContext(context context.Context, input *Cre
 }
 
 type GetFlowResponse struct {
-	*BaseFlowResponse
+	*FlowResponse
 }
 
 func (flow Flow) Get() (*GetFlowResponse, error) {
@@ -86,14 +130,14 @@ func (flow Flow) GetWithContext(context context.Context) (*GetFlowResponse, erro
 }
 
 type UpdateFlowInput struct {
-	FriendlyName  string `mapstructure:",omitempty"`
+	FriendlyName  string `mapstructure:"FriendlyName,omitempty"`
 	Status        string `validate:"required"`
-	Definition    string `mapstructure:",omitempty"`
-	CommitMessage string `mapstructure:",omitempty"`
+	Definition    string `mapstructure:"Definition,omitempty"`
+	CommitMessage string `mapstructure:"CommitMessage,omitempty"`
 }
 
 type UpdateFlowResponse struct {
-	*BaseFlowResponse
+	*FlowResponse
 }
 
 func (flow Flow) Update(input *UpdateFlowInput) (*UpdateFlowResponse, error) {
