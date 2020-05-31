@@ -25,3 +25,6 @@ vendor/
 # Misc
 .history
 .DS_Store
+
+# Code Gen
+temp
