@@ -24,12 +24,11 @@ type apiSchema struct {
 }
 
 type apiOperation struct {
-	Name        string       `json:"name"`
-	ServiceName string       `json:"serviceName"`
-	Service     string       `json:"service"`
-	Path        string       `json:"path"`
-	HTTPMethod  string       `json:"httpMethod"`
-	PathParams  *[]pathParam `json:"pathParams,omitempty"`
-	Input       *apiSchema   `json:"input"`
-	Response    *apiSchema   `json:"response"`
+	Name       string       `json:"name"`
+	Service    string       `json:"service"`
+	Path       string       `json:"path"`
+	HTTPMethod string       `json:"httpMethod"`
+	PathParams *[]pathParam `json:"pathParams,omitempty"`
+	Input      *apiSchema   `json:"input"`
+	Response   *apiSchema   `json:"response"`
 }
