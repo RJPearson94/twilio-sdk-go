@@ -12,8 +12,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type {{.ServiceName}} {{.Service}}Service
-
 {{$input := .Input}}{{if $input}} 
 type {{$input.Name}} struct { {{range $index, $property := $input.Properties }}
 {{ $property.Name }} {{ $property.Type }} {ifFormEncodedDataAddTags} {{end}}
@@ -24,23 +22,22 @@ type {{$response.Name}} struct { {{range $index, $property := $response.Properti
 {{ $property.Name }} {{if eq $property.Required false}}*{{end}}{{ $property.Type }} {ifJSONResponseAddTags} {{end}}
 }{{end}}
 
-func (service {{.ServiceName}}) {{.Name}}({{if $input}}input *{{$input.Name}}{{end}}) ({{if $response}}*{{$response.Name}}, {{end}}error) {
+func (service {{.Service}}Service) {{.Name}}({{if $input}}input *{{$input.Name}}{{end}}) ({{if $response}}*{{$response.Name}}, {{end}}error) {
 	return service.{{.Name}}WithContext(context.Background(){{if $input}}, input{{end}})
 }
 
-func (service {{.ServiceName}}) {{.Name}}WithContext(context context.Context{{if $input}}, input *{{$input.Name}}{{end}}) ({{if $response}}*{{$response.Name}}, {{end}}error) {
+func (service {{.Service}}Service) {{.Name}}WithContext(context context.Context{{if $input}}, input *{{$input.Name}}{{end}}) ({{if $response}}*{{$response.Name}}, {{end}}error) {
 	op := client.Operation{
 		HTTPMethod: http.Method{{.HTTPMethod}},
-		HTTPPath:   PathTemplates.{{.Path}},
-		{{if $input}}ContentType: client.{{$input.Type}},{{end}}
-		{{if .PathParams}}PathParams: map[string]string{ {{range $index, $pathParam := .PathParams }}
-			PathTemplateParamNames.{{ $pathParam.PathParamName }}: {{ if eq $pathParam.Value.OnService true}} service.{{$pathParam.Value.Property}}, {{end}} {{end}}
+		HTTPPath:   pathTemplates.{{.Path}}, {{if $input}}
+		ContentType: client.{{$input.Type}},{{end}} {{if .PathParams}}
+		PathParams: map[string]string{ {{range $index, $pathParam := .PathParams }}
+			pathParamNames.{{ $pathParam.PathParamName }}: {{ if eq $pathParam.Value.OnService true}} service.{{$pathParam.Value.Property}}, {{end}} {{end}}
 		},{{end}}
-
 	}
 
 	{{if $response}}output := &{{$response.Name}}{}{{end}}
-	if err := flow.client.Send(context, op, {{if $input}}input{{else}}nil{{end}}, {{if $response}}output{{else}}nil{{end}}); err != nil {
+	if err := service.client.Send(context, op, {{if $input}}input{{else}}nil{{end}}, {{if $response}}output{{else}}nil{{end}}); err != nil {
 		return {{if $response}}nil, {{end}}err
 	}
 	return {{if $response}}output, {{end}}nil
