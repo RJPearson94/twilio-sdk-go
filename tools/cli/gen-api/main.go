@@ -8,6 +8,8 @@ import (
 	"os"
 	"strings"
 	"text/template"
+
+	"github.com/iancoleman/strcase"
 )
 
 func main() {
@@ -24,7 +26,7 @@ func main() {
 	json.Unmarshal(fixture, &apiClients)
 
 	helpers := template.FuncMap{
-		"ToLowercase": strings.ToLower,
+		"ToSnakeCase": strcase.ToSnake,
 	}
 
 	r := strings.NewReplacer("{ifFormEncodedDataAddTags}", ifFormEncodedDataAddTags, "{ifJSONResponseAddTags}", ifJSONResponseAddTags)
@@ -32,7 +34,7 @@ func main() {
 	parsedAPIClientTemplate := template.Must(template.New("generateAPIClient").Funcs(helpers).Parse(apiClientContent))
 
 	for _, apiClient := range apiClients {
-		filePath := fmt.Sprintf("%s/%s", svcPath, strings.ToLower(apiClient.Name))
+		filePath := fmt.Sprintf("%s/%s", svcPath, strcase.ToSnake(apiClient.Name))
 
 		if err := CreateAndWriteFile(parsedAPIClientTemplate, filePath, "api_op_client.go", apiClient); err != nil {
 			return
@@ -41,7 +43,7 @@ func main() {
 		for _, operation := range apiClient.Operations {
 			operation.Service = apiClient.Name
 
-			if err := CreateAndWriteFile(parsedAPIOperationTemplate, filePath, fmt.Sprintf("api_op_%s.go", strings.ToLower(operation.Name)), operation); err != nil {
+			if err := CreateAndWriteFile(parsedAPIOperationTemplate, filePath, fmt.Sprintf("api_op_%s.go", strcase.ToSnake(operation.Name)), operation); err != nil {
 				return
 			}
 		}
