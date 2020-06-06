@@ -13,6 +13,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow_validation"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -336,6 +337,39 @@ var _ = Describe("Studio V2", func() {
 			err := studioSession.Flow("FW71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the Flow Validation Service", func() {
+		flowValidationClient := studioSession.FlowValidation
+
+		Describe("When the Flow is successfully validated", func() {
+			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
+
+			validateInput := &flow_validation.ValidateFlowInput{
+				FriendlyName: "Test 2",
+				Status:       "draft",
+				Definition:   string(flowDefinition),
+			}
+
+			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/Validate",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/validateFlowResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := flowValidationClient.Validate(validateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the validate flow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Valid).To(Equal(true))
 			})
 		})
 	})

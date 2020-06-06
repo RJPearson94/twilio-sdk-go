@@ -391,5 +391,57 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Flow Validation",
+    "operations": [
+      {
+        "name": "Validate",
+        "path": "/Flows/Validate",
+        "httpMethod": "Post",
+        "input": {
+          "name": "ValidateFlowInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "FriendlyName",
+              "required": true
+            },
+            {
+              "name": "Status",
+              "type": "string",
+              "value": "Status",
+              "required": true
+            },
+            {
+              "name": "Definition",
+              "type": "string",
+              "value": "Definition",
+              "required": true
+            },
+            {
+              "name": "CommitMessage",
+              "type": "string",
+              "value": "CommitMessage",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "ValidateFlowOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Valid",
+              "type": "bool",
+              "value": "valid",
+              "required": true
+            }
+          ]
+        }
+      }
+    ]
   }
 ]
