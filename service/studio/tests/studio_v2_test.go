@@ -7,17 +7,18 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/utils"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	v2 "github.com/RJPearson94/twilio-sdk-go/service/studio/v2"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-var _ = Describe("Flow", func() {
+var _ = Describe("Studio V2", func() {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
@@ -29,15 +30,15 @@ var _ = Describe("Flow", func() {
 		log.Panicf("%s", err)
 	}
 
-	studioSession := v2.NewWithCredentials(creds)
+	studioSession := studio.NewWithCredentials(creds).V2
 
-	Describe("Given the Flow Service", func() {
-		flowService := studioSession.Flows
+	Describe("Given the Flows Service", func() {
+		flowClient := studioSession.Flows
 
 		Describe("When the Flow is successfully created", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
-			createInput := &v2.CreateFlowInput{
+			createInput := &flows.CreateFlowInput{
 				FriendlyName: "Test 2",
 				Status:       "draft",
 				Definition:   string(flowDefinition),
@@ -52,7 +53,7 @@ var _ = Describe("Flow", func() {
 				},
 			)
 
-			resp, err := flowService.Create(createInput)
+			resp, err := flowClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -82,12 +83,12 @@ var _ = Describe("Flow", func() {
 		Describe("When the Flow does not contain a friendly name", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
-			createInput := &v2.CreateFlowInput{
+			createInput := &flows.CreateFlowInput{
 				Status:     "draft",
 				Definition: string(flowDefinition),
 			}
 
-			resp, err := flowService.Create(createInput)
+			resp, err := flowClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -100,12 +101,12 @@ var _ = Describe("Flow", func() {
 		Describe("When the Flow does not contain a status", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
-			createInput := &v2.CreateFlowInput{
+			createInput := &flows.CreateFlowInput{
 				FriendlyName: "Test 2",
 				Definition:   string(flowDefinition),
 			}
 
-			resp, err := flowService.Create(createInput)
+			resp, err := flowClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -116,12 +117,12 @@ var _ = Describe("Flow", func() {
 		})
 
 		Describe("When the Flow does not contain a definition", func() {
-			createInput := &v2.CreateFlowInput{
+			createInput := &flows.CreateFlowInput{
 				FriendlyName: "Test 2",
 				Status:       "draft",
 			}
 
-			resp, err := flowService.Create(createInput)
+			resp, err := flowClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -134,7 +135,7 @@ var _ = Describe("Flow", func() {
 		Describe("When the Create Flow API returns a 500 response", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
-			createInput := &v2.CreateFlowInput{
+			createInput := &flows.CreateFlowInput{
 				FriendlyName: "Test 2",
 				Status:       "draft",
 				Definition:   string(flowDefinition),
@@ -149,7 +150,7 @@ var _ = Describe("Flow", func() {
 				},
 			)
 
-			resp, err := flowService.Create(createInput)
+			resp, err := flowClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				Expect(err).ToNot(BeNil())
 				twilioErr, ok := err.(*utils.TwilioError)
@@ -167,7 +168,7 @@ var _ = Describe("Flow", func() {
 	})
 
 	Describe("Given I have a Flow SID", func() {
-		flow := studioSession.Flow("FWxxxxxxxxxxxx")
+		flowClient := studioSession.Flow("FWxxxxxxxxxxxx")
 
 		Describe("When the Flow is successfully retrieved", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
@@ -181,7 +182,7 @@ var _ = Describe("Flow", func() {
 				},
 			)
 
-			resp, err := flow.Get()
+			resp, err := flowClient.Get()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -219,8 +220,6 @@ var _ = Describe("Flow", func() {
 			)
 
 			resp, err := studioSession.Flow("FW71").Get()
-			log.Println(resp)
-			log.Println(err.(*utils.TwilioError).Status)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -242,11 +241,11 @@ var _ = Describe("Flow", func() {
 				},
 			)
 
-			updateInput := &v2.UpdateFlowInput{
+			updateInput := &flow.UpdateFlowInput{
 				Status: "published",
 			}
 
-			resp, err := flow.Update(updateInput)
+			resp, err := flowClient.Update(updateInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -283,7 +282,7 @@ var _ = Describe("Flow", func() {
 				},
 			)
 
-			updateInput := &v2.UpdateFlowInput{
+			updateInput := &flow.UpdateFlowInput{
 				Status: "published",
 			}
 
@@ -300,12 +299,12 @@ var _ = Describe("Flow", func() {
 		Describe("When the Update Flow Request does not contain a status", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
-			updateInput := &v2.UpdateFlowInput{
+			updateInput := &flow.UpdateFlowInput{
 				FriendlyName: "Test 2",
 				Definition:   string(flowDefinition),
 			}
 
-			resp, err := flow.Update(updateInput)
+			resp, err := flowClient.Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -318,7 +317,7 @@ var _ = Describe("Flow", func() {
 		Describe("When the Flow is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxxx", httpmock.NewStringResponder(204, ""))
 
-			err := flow.Delete()
+			err := flowClient.Delete()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})

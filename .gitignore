@@ -5,6 +5,7 @@
 
 # Artefact
 twilio-sdk-go
+tools/cli/gen-api/gen-api
 
 # Binaries for programs and plugins
 *.exe
