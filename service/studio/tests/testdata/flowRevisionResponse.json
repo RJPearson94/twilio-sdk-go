@@ -1,0 +1,16 @@
+{
+  "sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "definition": {
+    "initial_state": "Trigger"
+  },
+  "friendly_name": "Test Flow",
+  "status": "published",
+  "revision": "1",
+  "commit_message": null,
+  "valid": true,
+  "errors": [],
+  "date_created": "2017-11-06T12:00:00Z",
+  "date_updated": null,
+  "url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions/1"
+}

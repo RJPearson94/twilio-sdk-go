@@ -6,13 +6,15 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
-	"github.com/mitchellh/mapstructure"
+	"github.com/go-playground/form"
 	"gopkg.in/resty.v1"
 )
 
 const (
 	URLEncoded = "application/x-www-form-urlencoded"
 )
+
+var encoder = form.NewEncoder()
 
 type Client struct {
 	domain string
@@ -82,14 +84,14 @@ func configureRequest(context context.Context, client *resty.Client, op Operatio
 		}
 
 		if op.ContentType == URLEncoded {
-			requestPayload := map[string]string{}
-			if err := mapstructure.Decode(input, &requestPayload); err != nil {
+			values, err := encoder.Encode(&input)
+			if err != nil {
 				return nil, err
 			}
 
 			req = req.
 				SetContentLength(true).
-				SetFormData(requestPayload)
+				SetMultiValueFormData(values)
 		} else {
 			return nil, fmt.Errorf("%s is not a supported content type", op.ContentType)
 		}

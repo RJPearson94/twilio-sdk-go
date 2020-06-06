@@ -3,16 +3,28 @@ package flow
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/executions"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/revision"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
 )
 
 type Client struct {
-	client *client.Client
-	sid    string
+	client     *client.Client
+	sid        string
+	Revision   func(int) *revision.Client
+	TestUsers  func() *test_users.Client
+	Executions *executions.Client
+	Execution  func(string) *execution.Client
 }
 
 func New(client *client.Client, sid string) *Client {
 	return &Client{
-		client: client,
-		sid:    sid,
+		client:     client,
+		sid:        sid,
+		Revision:   func(revisionNumber int) *revision.Client { return revision.New(client, sid, revisionNumber) },
+		TestUsers:  func() *test_users.Client { return test_users.New(client, sid) },
+		Executions: executions.New(client, sid),
+		Execution:  func(executionSid string) *execution.Client { return execution.New(client, sid, executionSid) },
 	}
 }
