@@ -12,6 +12,21 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+var parsedAPIOperationTemplate, parsedAPIClientTemplate *template.Template
+
+func init() {
+	helpers := template.FuncMap{
+		"ToSnakeCase": strcase.ToSnake,
+		"ToCamel":     strcase.ToCamel,
+	}
+
+	parsedAPIOperationReplacer := strings.NewReplacer("{ifFormEncodedDataAddTags}", ifFormEncodedDataAddTags, "{ifJSONResponseAddTags}", ifJSONResponseAddTags)
+	parsedAPIOperationTemplate = template.Must(template.New("generateAPIOperations").Funcs(helpers).Parse(parsedAPIOperationReplacer.Replace(apiOperationContent)))
+
+	parsedAPIClientReplacer := strings.NewReplacer("{apiNewSubClient}", apiNewSubClient)
+	parsedAPIClientTemplate = template.Must(template.New("generateAPIClient").Funcs(helpers).Parse(parsedAPIClientReplacer.Replace(apiClientContent)))
+}
+
 func main() {
 	var svcPath string
 
@@ -25,29 +40,34 @@ func main() {
 	apiClients := make([]client, 0)
 	json.Unmarshal(fixture, &apiClients)
 
-	helpers := template.FuncMap{
-		"ToSnakeCase": strcase.ToSnake,
+	if err := GenerateApiClients(apiClients, svcPath); err != nil {
+		fmt.Println(err)
+		return
 	}
+}
 
-	r := strings.NewReplacer("{ifFormEncodedDataAddTags}", ifFormEncodedDataAddTags, "{ifJSONResponseAddTags}", ifJSONResponseAddTags)
-	parsedAPIOperationTemplate := template.Must(template.New("generateAPIOperations").Funcs(helpers).Parse(r.Replace(apiOperationContent)))
-	parsedAPIClientTemplate := template.Must(template.New("generateAPIClient").Funcs(helpers).Parse(apiClientContent))
-
+func GenerateApiClients(apiClients []client, path string) error {
 	for _, apiClient := range apiClients {
-		filePath := fmt.Sprintf("%s/%s", svcPath, strcase.ToSnake(apiClient.Name))
+		filePath := fmt.Sprintf("%s/%s", path, strcase.ToSnake(apiClient.Name))
+
+		if err := GenerateApiClients(apiClient.SubClients, filePath); err != nil {
+			return err
+		}
 
 		if err := CreateAndWriteFile(parsedAPIClientTemplate, filePath, "api_op_client.go", apiClient); err != nil {
-			return
+			return err
 		}
 
 		for _, operation := range apiClient.Operations {
 			operation.Service = apiClient.Name
+			operation.Properties = apiClient.Properties
 
 			if err := CreateAndWriteFile(parsedAPIOperationTemplate, filePath, fmt.Sprintf("api_op_%s.go", strcase.ToSnake(operation.Name)), operation); err != nil {
-				return
+				return err
 			}
 		}
 	}
+	return nil
 }
 
 func CreateAndWriteFile(template *template.Template, path string, fileName string, content interface{}) error {
