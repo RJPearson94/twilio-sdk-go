@@ -5,6 +5,7 @@
 
 # Artefact
 twilio-sdk-go
+tools/cli/gen-api/gen-api
 
 # Binaries for programs and plugins
 *.exe
@@ -25,6 +26,3 @@ vendor/
 # Misc
 .history
 .DS_Store
-
-# Code Gen
-temp
