@@ -1454,6 +1454,308 @@
             ]
           }
         ]
+      },
+      {
+        "name": "Activities",
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Workspaces/{workspaceSid}/Activities",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateActivityInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "Available",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateActivityOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "available",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Activity",
+        "function": {
+          "parameters": {
+            "activitySid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "activitySid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Workspaces/{workspaceSid}/Activities/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetActivityOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "available",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Workspaces/{workspaceSid}/Activities/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateActivityInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateActivityOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "available",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Workspaces/{workspaceSid}/Activities/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "operations": [
