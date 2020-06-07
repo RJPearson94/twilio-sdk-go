@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -17,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/executions"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow_validation"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -351,11 +350,10 @@ var _ = Describe("Studio V2", func() {
 		executionClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Executions
 
 		Describe("When the execution is successfully created", func() {
-			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+15017122661",
-				Parameters: &parameters,
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
@@ -387,10 +385,9 @@ var _ = Describe("Studio V2", func() {
 		})
 
 		Describe("When the execution does not contain a to", func() {
-			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				From:       "+15017122661",
-				Parameters: &parameters,
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			resp, err := executionClient.Create(createInput)
@@ -404,10 +401,9 @@ var _ = Describe("Studio V2", func() {
 		})
 
 		Describe("When the execution does not contain a from", func() {
-			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				To:         "+15017122661",
-				Parameters: &parameters,
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			resp, err := executionClient.Create(createInput)
@@ -421,11 +417,10 @@ var _ = Describe("Studio V2", func() {
 		})
 
 		Describe("When the Create Flow API returns a 500 response", func() {
-			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+15017122661",
-				Parameters: &parameters,
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
