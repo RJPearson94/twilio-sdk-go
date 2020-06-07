@@ -304,9 +304,11 @@ var _ = Describe("Studio V2", func() {
 		Describe("When the Update Flow Request does not contain a status", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
+			friendlyName := "Test 2"
+			definition := string(flowDefinition)
 			updateInput := &flow.UpdateFlowInput{
-				FriendlyName: "Test 2",
-				Definition:   string(flowDefinition),
+				FriendlyName: &friendlyName,
+				Definition:   &definition,
 			}
 
 			resp, err := flowClient.Update(updateInput)
@@ -349,10 +351,11 @@ var _ = Describe("Studio V2", func() {
 		executionClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Executions
 
 		Describe("When the execution is successfully created", func() {
+			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: &parameters,
 			}
 
 			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
@@ -384,9 +387,10 @@ var _ = Describe("Studio V2", func() {
 		})
 
 		Describe("When the execution does not contain a to", func() {
+			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				From:       "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: &parameters,
 			}
 
 			resp, err := executionClient.Create(createInput)
@@ -400,9 +404,10 @@ var _ = Describe("Studio V2", func() {
 		})
 
 		Describe("When the execution does not contain a from", func() {
+			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				To:         "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: &parameters,
 			}
 
 			resp, err := executionClient.Create(createInput)
@@ -416,10 +421,11 @@ var _ = Describe("Studio V2", func() {
 		})
 
 		Describe("When the Create Flow API returns a 500 response", func() {
+			parameters := "{\"name\": \"RJPearson94\"}"
 			createInput := &executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: &parameters,
 			}
 
 			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",

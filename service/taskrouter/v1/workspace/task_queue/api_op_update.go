@@ -10,12 +10,12 @@ import (
 )
 
 type UpdateTaskQueueInput struct {
-	FriendlyName           string `form:"FriendlyName,omitempty"`
-	AssignmentActivitySid  string `form:"AssignmentActivitySid,omitempty"`
-	MaxReservedWorkers     int    `form:"MaxReservedWorkers,omitempty"`
-	TargetWorkers          string `form:"TargetWorkers,omitempty"`
-	TaskOrder              string `form:"TaskOrder,omitempty"`
-	ReservationActivitySid string `form:"ReservationActivitySid,omitempty"`
+	FriendlyName           *string `form:"FriendlyName,omitempty"`
+	AssignmentActivitySid  *string `form:"AssignmentActivitySid,omitempty"`
+	MaxReservedWorkers     *int    `form:"MaxReservedWorkers,omitempty"`
+	TargetWorkers          *string `form:"TargetWorkers,omitempty"`
+	TaskOrder              *string `form:"TaskOrder,omitempty"`
+	ReservationActivitySid *string `form:"ReservationActivitySid,omitempty"`
 }
 
 type UpdateTaskQueueOutput struct {

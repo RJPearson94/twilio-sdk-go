@@ -10,7 +10,7 @@ import (
 )
 
 type UpdateActivityInput struct {
-	FriendlyName string `form:"FriendlyName,omitempty"`
+	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
 type UpdateActivityOutput struct {

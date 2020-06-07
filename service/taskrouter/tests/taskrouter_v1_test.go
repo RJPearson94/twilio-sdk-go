@@ -48,8 +48,10 @@ var _ = Describe("Taskrouter V1", func() {
 		workspacesClient := taskrouterSession.Workspaces
 
 		Describe("When the Task Queue is successfully created", func() {
+			multiTaskEnabled := false
 			createInput := &workspaces.CreateWorkspaceInput{
-				FriendlyName: "Test 2",
+				FriendlyName:     "Test 2",
+				MultiTaskEnabled: &multiTaskEnabled,
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces",
@@ -235,8 +237,9 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
+			friendlyName := "Test Workspace"
 			updateInput := &workspace.UpdateWorkspaceInput{
-				FriendlyName: "Test Workspace",
+				FriendlyName: &friendlyName,
 			}
 
 			resp, err := taskrouterSession.Workspace("WS71").Update(updateInput)
@@ -463,8 +466,9 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
+			friendlyName := "Test Queue"
 			updateInput := &task_queue.UpdateTaskQueueInput{
-				FriendlyName: "Test Queue",
+				FriendlyName: &friendlyName,
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Update(updateInput)
@@ -740,8 +744,9 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
+			friendlyName := "Test Queue"
 			updateInput := &workflow.UpdateWorkflowInput{
-				FriendlyName: "Test Queue",
+				FriendlyName: &friendlyName,
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Update(updateInput)
@@ -968,8 +973,9 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
+			friendlyName := "Test Worker"
 			updateInput := &worker.UpdateWorkerInput{
-				FriendlyName: "Test Worker",
+				FriendlyName: &friendlyName,
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Update(updateInput)
@@ -1012,9 +1018,11 @@ var _ = Describe("Taskrouter V1", func() {
 		activitiesClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activities
 
 		Describe("When the Activity is successfully created", func() {
+
+			available := true
 			createInput := &activities.CreateActivityInput{
 				FriendlyName: "NewAvailableActivity",
-				Available:    true,
+				Available:    &available,
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities",
@@ -1057,10 +1065,11 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
+		available := true
 		Describe("When the Activities API returns a 500 response", func() {
 			createInput := &activities.CreateActivityInput{
 				FriendlyName: "NewAvailableActivity",
-				Available:    true,
+				Available:    &available,
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities",
@@ -1180,8 +1189,9 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
+			friendlyName := "Test Activity"
 			updateInput := &activity.UpdateActivityInput{
-				FriendlyName: "Test Activity",
+				FriendlyName: &friendlyName,
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WA71").Update(updateInput)
