@@ -24,11 +24,11 @@ type UpdateTaskQueueOutput struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 	FriendlyName            string     `json:"friendly_name"`
 	EventCallbackURL        *string    `json:"event_callback_url,omitempty"`
-	AssignmentActivityName  string     `json:"assignment_activity_name"`
-	AssignmentActivitySid   string     `json:"assignment_activity_sid"`
-	ReservationActivityName string     `json:"reservation_activity_name"`
-	ReservationActivitySid  string     `json:"reservation_activity_sid"`
-	TargetWorkers           string     `json:"target_workers"`
+	AssignmentActivityName  *string    `json:"assignment_activity_name,omitempty"`
+	AssignmentActivitySid   *string    `json:"assignment_activity_sid,omitempty"`
+	ReservationActivityName *string    `json:"reservation_activity_name,omitempty"`
+	ReservationActivitySid  *string    `json:"reservation_activity_sid,omitempty"`
+	TargetWorkers           *string    `json:"target_workers,omitempty"`
 	TaskOrder               string     `json:"task_order"`
 	MaxReservedWorkers      int        `json:"max_reserved_workers"`
 	DateCreated             time.Time  `json:"date_created"`
