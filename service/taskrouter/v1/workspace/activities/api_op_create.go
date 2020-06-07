@@ -11,7 +11,7 @@ import (
 
 type CreateActivityInput struct {
 	FriendlyName string `validate:"required" form:"FriendlyName"`
-	Available    bool   `form:"Available,omitempty"`
+	Available    *bool  `form:"Available,omitempty"`
 }
 
 type CreateActivityOutput struct {
