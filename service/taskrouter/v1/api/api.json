@@ -1056,6 +1056,404 @@
             ]
           }
         ]
+      },
+      {
+        "name": "Workers",
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Workspaces/{workspaceSid}/Workers",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateWorkerInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": true
+                },
+                {
+                  "name": "ActivitySid",
+                  "type": "string",
+                  "value": "ActivitySid",
+                  "required": false
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "Attributes",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateWorkerOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "ActivitySid",
+                  "type": "string",
+                  "value": "activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "ActivityName",
+                  "type": "string",
+                  "value": "activity_name",
+                  "required": true
+                },
+                {
+                  "name": "Attributes",
+                  "type": "interface{}",
+                  "value": "attributes",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "available",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "DateStatusChange",
+                  "type": "time.Time",
+                  "value": "date_status_changed",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Worker",
+        "function": {
+          "parameters": {
+            "workerSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "workerSid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Workspaces/{workspaceSid}/Workers/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetWorkerOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "ActivitySid",
+                  "type": "string",
+                  "value": "activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "ActivityName",
+                  "type": "string",
+                  "value": "activity_name",
+                  "required": true
+                },
+                {
+                  "name": "Attributes",
+                  "type": "interface{}",
+                  "value": "attributes",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "available",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "DateStatusChange",
+                  "type": "time.Time",
+                  "value": "date_status_changed",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Workspaces/{workspaceSid}/Workers/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateWorkerInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": false
+                },
+                {
+                  "name": "ActivitySid",
+                  "type": "string",
+                  "value": "ActivitySid",
+                  "required": false
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "Attributes",
+                  "required": false
+                },
+                {
+                  "name": "RejectPendingReservations",
+                  "type": "bool",
+                  "value": "RejectPendingReservations",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateWorkflowOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "ActivitySid",
+                  "type": "string",
+                  "value": "activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "ActivityName",
+                  "type": "string",
+                  "value": "activity_name",
+                  "required": true
+                },
+                {
+                  "name": "Attributes",
+                  "type": "interface{}",
+                  "value": "attributes",
+                  "required": true
+                },
+                {
+                  "name": "Available",
+                  "type": "bool",
+                  "value": "available",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "DateStatusChange",
+                  "type": "time.Time",
+                  "value": "date_status_changed",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Workspaces/{workspaceSid}/Workers/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "operations": [
