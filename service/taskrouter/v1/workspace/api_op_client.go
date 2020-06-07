@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
 )
@@ -16,6 +18,8 @@ type Client struct {
 	TaskQueue  func(string) *task_queue.Client
 	Workflows  *workflows.Client
 	Workflow   func(string) *workflow.Client
+	Workers    *workers.Client
+	Worker     func(string) *worker.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -26,5 +30,7 @@ func New(client *client.Client, sid string) *Client {
 		TaskQueue:  func(taskQueueSid string) *task_queue.Client { return task_queue.New(client, taskQueueSid, sid) },
 		Workflows:  workflows.New(client, sid),
 		Workflow:   func(workflowSid string) *workflow.Client { return workflow.New(client, workflowSid, sid) },
+		Workers:    workers.New(client, sid),
+		Worker:     func(workerSid string) *worker.Client { return worker.New(client, workerSid, sid) },
 	}
 }
