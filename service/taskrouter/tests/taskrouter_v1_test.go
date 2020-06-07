@@ -7,22 +7,18 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspaces"
@@ -48,10 +44,9 @@ var _ = Describe("Taskrouter V1", func() {
 		workspacesClient := taskrouterSession.Workspaces
 
 		Describe("When the Task Queue is successfully created", func() {
-			multiTaskEnabled := false
 			createInput := &workspaces.CreateWorkspaceInput{
 				FriendlyName:     "Test 2",
-				MultiTaskEnabled: &multiTaskEnabled,
+				MultiTaskEnabled: utils.Bool(false),
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces",
@@ -75,8 +70,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.DefaultActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
-				eventCallbackURL := "https://ngrok.com"
-				Expect(resp.EventCallbackURL).To(Equal(&eventCallbackURL))
+				Expect(resp.EventCallbackURL).To(Equal(utils.String("https://ngrok.com")))
 				Expect(resp.EventsFilter).To(BeNil())
 				Expect(resp.FriendlyName).To(Equal("NewWorkspace"))
 				Expect(resp.MultiTaskEnabled).To(Equal(false))
@@ -157,8 +151,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.DefaultActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
-				eventCallbackURL := "https://ngrok.com"
-				Expect(resp.EventCallbackURL).To(Equal(&eventCallbackURL))
+				Expect(resp.EventCallbackURL).To(Equal(utils.String("https://ngrok.com")))
 				Expect(resp.EventsFilter).To(BeNil())
 				Expect(resp.FriendlyName).To(Equal("NewWorkspace"))
 				Expect(resp.MultiTaskEnabled).To(Equal(false))
@@ -214,8 +207,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.DefaultActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2016-08-01T23:10:40Z"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
-				eventCallbackURL := "https://ngrok.com"
-				Expect(resp.EventCallbackURL).To(Equal(&eventCallbackURL))
+				Expect(resp.EventCallbackURL).To(Equal(utils.String("https://ngrok.com")))
 				Expect(resp.EventsFilter).To(BeNil())
 				Expect(resp.FriendlyName).To(Equal("NewWorkspace"))
 				Expect(resp.MultiTaskEnabled).To(Equal(false))
@@ -237,9 +229,8 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			friendlyName := "Test Workspace"
 			updateInput := &workspace.UpdateWorkspaceInput{
-				FriendlyName: &friendlyName,
+				FriendlyName: utils.String("Test Workspace"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WS71").Update(updateInput)
@@ -466,9 +457,8 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			friendlyName := "Test Queue"
 			updateInput := &task_queue.UpdateTaskQueueInput{
-				FriendlyName: &friendlyName,
+				FriendlyName: utils.String("Test Queue"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Update(updateInput)
@@ -535,9 +525,7 @@ var _ = Describe("Taskrouter V1", func() {
 			It("Then the create workflow response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				assignmentCallbackURL := "https://example.com/"
-				Expect(resp.AssignmentCallbackURL).To(Equal(&assignmentCallbackURL))
+				Expect(resp.AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
 
 				configuration := make(map[string]interface{})
 				json.Unmarshal(taskRoutingConfiguration, &configuration)
@@ -546,10 +534,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T10:50:02Z"))
 				Expect(resp.DocumentContentType).To(Equal("application/json"))
-
-				fallbackAssignmentCallbackURL := "https://example2.com/"
-				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(&fallbackAssignmentCallbackURL))
-
+				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(utils.String("https://example2.com/")))
 				Expect(resp.FriendlyName).To(Equal("Sales, Marketing, Support Workflow"))
 				Expect(resp.Sid).To(Equal("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.TaskReservationTimeout).To(Equal(120))
@@ -647,8 +632,7 @@ var _ = Describe("Taskrouter V1", func() {
 			It("Then the get workflow response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				assignmentCallbackURL := "https://example.com/"
-				Expect(resp.AssignmentCallbackURL).To(Equal(&assignmentCallbackURL))
+				Expect(resp.AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
 
 				configuration := make(map[string]interface{})
 				json.Unmarshal(taskRoutingConfiguration, &configuration)
@@ -657,10 +641,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T10:50:02Z"))
 				Expect(resp.DocumentContentType).To(Equal("application/json"))
-
-				fallbackAssignmentCallbackURL := "https://example2.com/"
-				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(&fallbackAssignmentCallbackURL))
-
+				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(utils.String("https://example2.com/")))
 				Expect(resp.FriendlyName).To(Equal("Sales, Marketing, Support Workflow"))
 				Expect(resp.Sid).To(Equal("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.TaskReservationTimeout).To(Equal(120))
@@ -711,9 +692,7 @@ var _ = Describe("Taskrouter V1", func() {
 			It("Then the update workflow response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				assignmentCallbackURL := "https://example.com/"
-				Expect(resp.AssignmentCallbackURL).To(Equal(&assignmentCallbackURL))
+				Expect(resp.AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
 
 				configuration := make(map[string]interface{})
 				json.Unmarshal(taskRoutingConfiguration, &configuration)
@@ -722,10 +701,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2014-05-14T11:50:02Z"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T10:50:02Z"))
 				Expect(resp.DocumentContentType).To(Equal("application/json"))
-
-				fallbackAssignmentCallbackURL := "https://example2.com/"
-				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(&fallbackAssignmentCallbackURL))
-
+				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(utils.String("https://example2.com/")))
 				Expect(resp.FriendlyName).To(Equal("Sales, Marketing, Support Workflow"))
 				Expect(resp.Sid).To(Equal("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.TaskReservationTimeout).To(Equal(120))
@@ -744,9 +720,8 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			friendlyName := "Test Queue"
 			updateInput := &workflow.UpdateWorkflowInput{
-				FriendlyName: &friendlyName,
+				FriendlyName: utils.String("Test Queue"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Update(updateInput)
@@ -973,9 +948,8 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			friendlyName := "Test Worker"
 			updateInput := &worker.UpdateWorkerInput{
-				FriendlyName: &friendlyName,
+				FriendlyName: utils.String("Test Worker"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Update(updateInput)
@@ -1018,11 +992,9 @@ var _ = Describe("Taskrouter V1", func() {
 		activitiesClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activities
 
 		Describe("When the Activity is successfully created", func() {
-
-			available := true
 			createInput := &activities.CreateActivityInput{
 				FriendlyName: "NewAvailableActivity",
-				Available:    &available,
+				Available:    utils.Bool(true),
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities",
@@ -1065,11 +1037,10 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		available := true
 		Describe("When the Activities API returns a 500 response", func() {
 			createInput := &activities.CreateActivityInput{
 				FriendlyName: "NewAvailableActivity",
-				Available:    &available,
+				Available:    utils.Bool(true),
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities",
@@ -1189,9 +1160,8 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			friendlyName := "Test Activity"
 			updateInput := &activity.UpdateActivityInput{
-				FriendlyName: &friendlyName,
+				FriendlyName: utils.String("Test Activity"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WA71").Update(updateInput)
@@ -1240,13 +1210,9 @@ func ExpectNotFoundError(err error) {
 	Expect(err).ToNot(BeNil())
 	twilioErr, ok := err.(*utils.TwilioError)
 	Expect(ok).To(Equal(true))
-
-	code := 20404
-	Expect(twilioErr.Code).To(Equal(&code))
+	Expect(twilioErr.Code).To(Equal(utils.Int(20404)))
 	Expect(twilioErr.Message).To(Equal("The requested resource /Flows/FW71 was not found"))
-
-	moreInfo := "https://www.twilio.com/docs/errors/20404"
-	Expect(twilioErr.MoreInfo).To(Equal(&moreInfo))
+	Expect(twilioErr.MoreInfo).To(Equal(utils.String("https://www.twilio.com/docs/errors/20404")))
 	Expect(twilioErr.Status).To(Equal(404))
 }
 
