@@ -10,10 +10,10 @@ import (
 )
 
 type UpdateFlowInput struct {
-	FriendlyName  string `mapstructure:"FriendlyName,omitempty"`
-	Status        string `validate:"required" mapstructure:"Status"`
-	Definition    string `mapstructure:"Definition,omitempty"`
-	CommitMessage string `mapstructure:"CommitMessage,omitempty"`
+	FriendlyName  string `form:"FriendlyName,omitempty"`
+	Status        string `validate:"required" form:"Status"`
+	Definition    string `form:"Definition,omitempty"`
+	CommitMessage string `form:"CommitMessage,omitempty"`
 }
 
 type UpdateFlowOutput struct {

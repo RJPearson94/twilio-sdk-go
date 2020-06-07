@@ -10,7 +10,7 @@ import (
 )
 
 type UpdateExecutionInput struct {
-	Status string `validate:"required" mapstructure:"Status"`
+	Status string `validate:"required" form:"Status"`
 }
 
 type UpdateExecutionOutput struct {
