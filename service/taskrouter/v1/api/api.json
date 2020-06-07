@@ -1,0 +1,907 @@
+[
+  {
+    "name": "Workspaces",
+    "operations": [
+      {
+        "name": "Create",
+        "path": "/Workspaces",
+        "httpMethod": "Post",
+        "input": {
+          "name": "CreateWorkspaceInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "FriendlyName",
+              "required": true
+            },
+            {
+              "name": "EventCallbackUrl",
+              "type": "string",
+              "value": "EventCallbackUrl",
+              "required": false
+            },
+            {
+              "name": "EventsFilter",
+              "type": "string",
+              "value": "EventsFilter",
+              "required": false
+            },
+            {
+              "name": "MultiTaskEnabled",
+              "type": "bool",
+              "value": "MultiTaskEnabled",
+              "required": false
+            },
+            {
+              "name": "Template",
+              "type": "bool",
+              "value": "Template",
+              "required": false
+            },
+            {
+              "name": "PrioritizeQueueOrder",
+              "type": "bool",
+              "value": "PrioritizeQueueOrder",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "CreateWorkspaceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "friendly_name",
+              "required": true
+            },
+            {
+              "name": "EventCallbackURL",
+              "type": "string",
+              "value": "event_callback_url",
+              "required": false
+            },
+            {
+              "name": "EventsFilter",
+              "type": "string",
+              "value": "events_filter",
+              "required": false
+            },
+            {
+              "name": "DefaultActivityName",
+              "type": "string",
+              "value": "default_activity_name",
+              "required": true
+            },
+            {
+              "name": "DefaultActivitySid",
+              "type": "string",
+              "value": "default_activity_sid",
+              "required": true
+            },
+            {
+              "name": "MultiTaskEnabled",
+              "type": "bool",
+              "value": "multi_task_enabled",
+              "required": true
+            },
+            {
+              "name": "PrioritizeQueueOrder",
+              "type": "string",
+              "value": "prioritize_queue_order",
+              "required": true
+            },
+            {
+              "name": "TimeoutActivityName",
+              "type": "string",
+              "value": "timeout_activity_name",
+              "required": true
+            },
+            {
+              "name": "TimeoutActivitySid",
+              "type": "string",
+              "value": "timeout_activity_sid",
+              "required": true
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Workspace",
+    "properties": {
+      "sid": {
+        "dataType": "string"
+      }
+    },
+    "subClients": [
+      {
+        "name": "Task Queues",
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Workspaces/{workspaceSid}/TaskQueues",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateTaskQueueInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": true
+                },
+                {
+                  "name": "AssignmentActivitySid",
+                  "type": "string",
+                  "value": "AssignmentActivitySid",
+                  "required": false
+                },
+                {
+                  "name": "MaxReservedWorkers",
+                  "type": "int",
+                  "value": "MaxReservedWorkers",
+                  "required": false
+                },
+                {
+                  "name": "TargetWorkers",
+                  "type": "string",
+                  "value": "TargetWorkers",
+                  "required": false
+                },
+                {
+                  "name": "TaskOrder",
+                  "type": "string",
+                  "value": "TaskOrder",
+                  "required": false
+                },
+                {
+                  "name": "ReservationActivitySid",
+                  "type": "string",
+                  "value": "ReservationActivitySid",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateTaskQueueOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "EventCallbackURL",
+                  "type": "string",
+                  "value": "event_callback_url",
+                  "required": false
+                },
+
+                {
+                  "name": "AssignmentActivityName",
+                  "type": "string",
+                  "value": "assignment_activity_name",
+                  "required": true
+                },
+                {
+                  "name": "AssignmentActivitySid",
+                  "type": "string",
+                  "value": "assignment_activity_sid",
+                  "required": true
+                },
+
+                {
+                  "name": "ReservationActivityName",
+                  "type": "string",
+                  "value": "reservation_activity_name",
+                  "required": true
+                },
+                {
+                  "name": "ReservationActivitySid",
+                  "type": "string",
+                  "value": "reservation_activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "TargetWorkers",
+                  "type": "string",
+                  "value": "target_workers",
+                  "required": true
+                },
+                {
+                  "name": "TaskOrder",
+                  "type": "string",
+                  "value": "task_order",
+                  "required": true
+                },
+                {
+                  "name": "MaxReservedWorkers",
+                  "type": "int",
+                  "value": "max_reserved_workers",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Task Queue",
+        "function": {
+          "parameters": {
+            "taskQueueSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "taskQueueSid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetTaskQueueOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "EventCallbackURL",
+                  "type": "string",
+                  "value": "event_callback_url",
+                  "required": false
+                },
+
+                {
+                  "name": "AssignmentActivityName",
+                  "type": "string",
+                  "value": "assignment_activity_name",
+                  "required": true
+                },
+                {
+                  "name": "AssignmentActivitySid",
+                  "type": "string",
+                  "value": "assignment_activity_sid",
+                  "required": true
+                },
+
+                {
+                  "name": "ReservationActivityName",
+                  "type": "string",
+                  "value": "reservation_activity_name",
+                  "required": true
+                },
+                {
+                  "name": "ReservationActivitySid",
+                  "type": "string",
+                  "value": "reservation_activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "TargetWorkers",
+                  "type": "string",
+                  "value": "target_workers",
+                  "required": true
+                },
+                {
+                  "name": "TaskOrder",
+                  "type": "string",
+                  "value": "task_order",
+                  "required": true
+                },
+                {
+                  "name": "MaxReservedWorkers",
+                  "type": "int",
+                  "value": "max_reserved_workers",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateTaskQueueInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": false
+                },
+                {
+                  "name": "AssignmentActivitySid",
+                  "type": "string",
+                  "value": "AssignmentActivitySid",
+                  "required": false
+                },
+                {
+                  "name": "MaxReservedWorkers",
+                  "type": "int",
+                  "value": "MaxReservedWorkers",
+                  "required": false
+                },
+                {
+                  "name": "TargetWorkers",
+                  "type": "string",
+                  "value": "TargetWorkers",
+                  "required": false
+                },
+                {
+                  "name": "TaskOrder",
+                  "type": "string",
+                  "value": "TaskOrder",
+                  "required": false
+                },
+                {
+                  "name": "ReservationActivitySid",
+                  "type": "string",
+                  "value": "ReservationActivitySid",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateTaskQueueOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "EventCallbackURL",
+                  "type": "string",
+                  "value": "event_callback_url",
+                  "required": false
+                },
+                {
+                  "name": "AssignmentActivityName",
+                  "type": "string",
+                  "value": "assignment_activity_name",
+                  "required": true
+                },
+                {
+                  "name": "AssignmentActivitySid",
+                  "type": "string",
+                  "value": "assignment_activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "ReservationActivityName",
+                  "type": "string",
+                  "value": "reservation_activity_name",
+                  "required": true
+                },
+                {
+                  "name": "ReservationActivitySid",
+                  "type": "string",
+                  "value": "reservation_activity_sid",
+                  "required": true
+                },
+                {
+                  "name": "TargetWorkers",
+                  "type": "string",
+                  "value": "target_workers",
+                  "required": true
+                },
+                {
+                  "name": "TaskOrder",
+                  "type": "string",
+                  "value": "task_order",
+                  "required": true
+                },
+                {
+                  "name": "MaxReservedWorkers",
+                  "type": "int",
+                  "value": "max_reserved_workers",
+                  "required": true
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "operations": [
+      {
+        "name": "Get",
+        "path": "/Workspaces/{sid}",
+        "httpMethod": "Get",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "response": {
+          "name": "GetWorkspaceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "friendly_name",
+              "required": true
+            },
+            {
+              "name": "EventCallbackURL",
+              "type": "string",
+              "value": "event_callback_url",
+              "required": false
+            },
+            {
+              "name": "EventsFilter",
+              "type": "string",
+              "value": "events_filter",
+              "required": false
+            },
+            {
+              "name": "DefaultActivityName",
+              "type": "string",
+              "value": "default_activity_name",
+              "required": true
+            },
+            {
+              "name": "DefaultActivitySid",
+              "type": "string",
+              "value": "default_activity_sid",
+              "required": true
+            },
+
+            {
+              "name": "MultiTaskEnabled",
+              "type": "bool",
+              "value": "multi_task_enabled",
+              "required": true
+            },
+            {
+              "name": "PrioritizeQueueOrder",
+              "type": "string",
+              "value": "prioritize_queue_order",
+              "required": true
+            },
+            {
+              "name": "TimeoutActivityName",
+              "type": "string",
+              "value": "timeout_activity_name",
+              "required": true
+            },
+            {
+              "name": "TimeoutActivitySid",
+              "type": "string",
+              "value": "timeout_activity_sid",
+              "required": true
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Update",
+        "path": "/Workspaces/{sid}",
+        "httpMethod": "Post",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "input": {
+          "name": "UpdateWorkspaceInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "FriendlyName",
+              "required": false
+            },
+            {
+              "name": "EventCallbackUrl",
+              "type": "string",
+              "value": "EventCallbackUrl",
+              "required": false
+            },
+            {
+              "name": "EventsFilter",
+              "type": "string",
+              "value": "EventsFilter",
+              "required": false
+            },
+            {
+              "name": "MultiTaskEnabled",
+              "type": "bool",
+              "value": "MultiTaskEnabled",
+              "required": false
+            },
+            {
+              "name": "Template",
+              "type": "bool",
+              "value": "Template",
+              "required": false
+            },
+            {
+              "name": "PrioritizeQueueOrder",
+              "type": "bool",
+              "value": "PrioritizeQueueOrder",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "UpdateWorkspaceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "friendly_name",
+              "required": true
+            },
+            {
+              "name": "EventCallbackURL",
+              "type": "string",
+              "value": "event_callback_url",
+              "required": false
+            },
+            {
+              "name": "EventsFilter",
+              "type": "string",
+              "value": "events_filter",
+              "required": false
+            },
+            {
+              "name": "DefaultActivityName",
+              "type": "string",
+              "value": "default_activity_name",
+              "required": true
+            },
+            {
+              "name": "DefaultActivitySid",
+              "type": "string",
+              "value": "default_activity_sid",
+              "required": true
+            },
+            {
+              "name": "MultiTaskEnabled",
+              "type": "bool",
+              "value": "multi_task_enabled",
+              "required": true
+            },
+            {
+              "name": "PrioritizeQueueOrder",
+              "type": "string",
+              "value": "prioritize_queue_order",
+              "required": true
+            },
+            {
+              "name": "TimeoutActivityName",
+              "type": "string",
+              "value": "timeout_activity_name",
+              "required": true
+            },
+            {
+              "name": "TimeoutActivitySid",
+              "type": "string",
+              "value": "timeout_activity_sid",
+              "required": true
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Delete",
+        "path": "/Workspaces/{sid}",
+        "httpMethod": "Delete",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
