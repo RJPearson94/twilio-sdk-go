@@ -10,12 +10,12 @@ import (
 )
 
 type CreateWorkspaceInput struct {
-	FriendlyName         string  `validate:"required" form:"FriendlyName"`
-	EventCallbackUrl     *string `form:"EventCallbackUrl,omitempty"`
-	EventsFilter         *string `form:"EventsFilter,omitempty"`
-	MultiTaskEnabled     *bool   `form:"MultiTaskEnabled,omitempty"`
-	Template             *string `form:"Template,omitempty"`
-	PrioritizeQueueOrder *string `form:"PrioritizeQueueOrder,omitempty"`
+	FriendlyName         string `validate:"required" form:"FriendlyName"`
+	EventCallbackUrl     string `form:"EventCallbackUrl,omitempty"`
+	EventsFilter         string `form:"EventsFilter,omitempty"`
+	MultiTaskEnabled     *bool  `form:"MultiTaskEnabled,omitempty"`
+	Template             string `form:"Template,omitempty"`
+	PrioritizeQueueOrder string `form:"PrioritizeQueueOrder,omitempty"`
 }
 
 type CreateWorkspaceOutput struct {

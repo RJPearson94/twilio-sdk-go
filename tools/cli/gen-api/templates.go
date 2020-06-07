@@ -38,7 +38,7 @@ import (
 
 {{$input := .Input}} {{if $input}} 
 type {{$input.Name}} struct { {{range $index, $property := $input.Properties }}
-{{ $property.Name }} {{if eq $property.Required false}}*{{end}}{{ $property.Type }} {ifFormEncodedDataAddTags} {{end}}
+{{ $property.Name }} {{if eq $property.Required false}}{{if ne $property.Type "string"}}*{{end}}{{end}}{{ $property.Type }} {ifFormEncodedDataAddTags} {{end}}
 } {{end}}
 
 {{$response := .Response}} {{if $response}} 

@@ -230,7 +230,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &workspace.UpdateWorkspaceInput{
-				FriendlyName: utils.String("Test Workspace"),
+				FriendlyName: "Test Workspace",
 			}
 
 			resp, err := taskrouterSession.Workspace("WS71").Update(updateInput)
@@ -458,7 +458,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &task_queue.UpdateTaskQueueInput{
-				FriendlyName: utils.String("Test Queue"),
+				FriendlyName: "Test Queue",
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Update(updateInput)
@@ -721,7 +721,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &workflow.UpdateWorkflowInput{
-				FriendlyName: utils.String("Test Queue"),
+				FriendlyName: "Test Queue",
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Update(updateInput)
@@ -949,7 +949,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &worker.UpdateWorkerInput{
-				FriendlyName: utils.String("Test Worker"),
+				FriendlyName: "Test Worker",
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Update(updateInput)
@@ -1161,7 +1161,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &activity.UpdateActivityInput{
-				FriendlyName: utils.String("Test Activity"),
+				FriendlyName: "Test Activity",
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WA71").Update(updateInput)

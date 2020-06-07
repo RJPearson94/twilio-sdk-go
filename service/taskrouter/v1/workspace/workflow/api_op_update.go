@@ -10,12 +10,12 @@ import (
 )
 
 type UpdateWorkflowInput struct {
-	FriendlyName                  *string `form:"FriendlyName,omitempty"`
-	Configuration                 *string `form:"Configuration,omitempty"`
-	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
-	FallbackAssignmentCallbackURL *string `form:"fallbackAssignmentCallbackUrl,omitempty"`
-	TaskReservationTimeout        *string `form:"TaskReservationTimeout,omitempty"`
-	ReEvaluateTasks               *string `form:"ReEvaluateTasks,omitempty"`
+	FriendlyName                  string `form:"FriendlyName,omitempty"`
+	Configuration                 string `form:"Configuration,omitempty"`
+	AssignmentCallbackURL         string `form:"AssignmentCallbackUrl,omitempty"`
+	FallbackAssignmentCallbackURL string `form:"fallbackAssignmentCallbackUrl,omitempty"`
+	TaskReservationTimeout        string `form:"TaskReservationTimeout,omitempty"`
+	ReEvaluateTasks               string `form:"ReEvaluateTasks,omitempty"`
 }
 
 type UpdateWorkflowOutput struct {

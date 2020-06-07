@@ -10,10 +10,10 @@ import (
 )
 
 type UpdateFlowInput struct {
-	FriendlyName  *string `form:"FriendlyName,omitempty"`
-	Status        string  `validate:"required" form:"Status"`
-	Definition    *string `form:"Definition,omitempty"`
-	CommitMessage *string `form:"CommitMessage,omitempty"`
+	FriendlyName  string `form:"FriendlyName,omitempty"`
+	Status        string `validate:"required" form:"Status"`
+	Definition    string `form:"Definition,omitempty"`
+	CommitMessage string `form:"CommitMessage,omitempty"`
 }
 
 type UpdateFlowOutput struct {

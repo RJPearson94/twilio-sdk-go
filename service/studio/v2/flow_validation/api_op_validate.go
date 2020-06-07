@@ -9,10 +9,10 @@ import (
 )
 
 type ValidateFlowInput struct {
-	FriendlyName  string  `validate:"required" form:"FriendlyName"`
-	Status        string  `validate:"required" form:"Status"`
-	Definition    string  `validate:"required" form:"Definition"`
-	CommitMessage *string `form:"CommitMessage,omitempty"`
+	FriendlyName  string `validate:"required" form:"FriendlyName"`
+	Status        string `validate:"required" form:"Status"`
+	Definition    string `validate:"required" form:"Definition"`
+	CommitMessage string `form:"CommitMessage,omitempty"`
 }
 
 type ValidateFlowOutput struct {
