@@ -9,7 +9,7 @@ import (
 )
 
 type UpdateTestUsersInput struct {
-	TestUsers []string `validate:"required" mapstructure:"TestUsers"`
+	TestUsers []string `validate:"required" form:"TestUsers"`
 }
 
 type UpdateTestUsersOutput struct {
