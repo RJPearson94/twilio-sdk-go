@@ -36,13 +36,13 @@
             },
             {
               "name": "Template",
-              "type": "bool",
+              "type": "string",
               "value": "Template",
               "required": false
             },
             {
               "name": "PrioritizeQueueOrder",
-              "type": "bool",
+              "type": "string",
               "value": "PrioritizeQueueOrder",
               "required": false
             }
@@ -1907,13 +1907,13 @@
             },
             {
               "name": "Template",
-              "type": "bool",
+              "type": "string",
               "value": "Template",
               "required": false
             },
             {
               "name": "PrioritizeQueueOrder",
-              "type": "bool",
+              "type": "string",
               "value": "PrioritizeQueueOrder",
               "required": false
             }

@@ -14,8 +14,8 @@ type UpdateWorkspaceInput struct {
 	EventCallbackUrl     string `form:"EventCallbackUrl,omitempty"`
 	EventsFilter         string `form:"EventsFilter,omitempty"`
 	MultiTaskEnabled     bool   `form:"MultiTaskEnabled,omitempty"`
-	Template             bool   `form:"Template,omitempty"`
-	PrioritizeQueueOrder bool   `form:"PrioritizeQueueOrder,omitempty"`
+	Template             string `form:"Template,omitempty"`
+	PrioritizeQueueOrder string `form:"PrioritizeQueueOrder,omitempty"`
 }
 
 type UpdateWorkspaceOutput struct {
