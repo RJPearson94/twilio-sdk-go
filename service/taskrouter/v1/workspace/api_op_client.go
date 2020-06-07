@@ -3,6 +3,8 @@ package workspace
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
@@ -20,6 +22,8 @@ type Client struct {
 	Workflow   func(string) *workflow.Client
 	Workers    *workers.Client
 	Worker     func(string) *worker.Client
+	Activities *activities.Client
+	Activity   func(string) *activity.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -32,5 +36,7 @@ func New(client *client.Client, sid string) *Client {
 		Workflow:   func(workflowSid string) *workflow.Client { return workflow.New(client, workflowSid, sid) },
 		Workers:    workers.New(client, sid),
 		Worker:     func(workerSid string) *worker.Client { return worker.New(client, workerSid, sid) },
+		Activities: activities.New(client, sid),
+		Activity:   func(activitySid string) *activity.Client { return activity.New(client, activitySid, sid) },
 	}
 }
