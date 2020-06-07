@@ -16,7 +16,7 @@ type TaskRouter struct {
 
 func New(sess *session.Session) *TaskRouter {
 	config := client.GetDefaultConfig()
-	config.Beta = true
+	config.Beta = false
 	config.SubDomain = "taskrouter"
 	config.APIVersion = "v1"
 
