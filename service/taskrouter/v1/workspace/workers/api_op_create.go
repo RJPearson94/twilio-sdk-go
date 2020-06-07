@@ -10,9 +10,9 @@ import (
 )
 
 type CreateWorkerInput struct {
-	FriendlyName string  `validate:"required" form:"FriendlyName"`
-	ActivitySid  *string `form:"ActivitySid,omitempty"`
-	Attributes   *string `form:"Attributes,omitempty"`
+	FriendlyName string `validate:"required" form:"FriendlyName"`
+	ActivitySid  string `form:"ActivitySid,omitempty"`
+	Attributes   string `form:"Attributes,omitempty"`
 }
 
 type CreateWorkerOutput struct {

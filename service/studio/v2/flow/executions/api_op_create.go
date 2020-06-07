@@ -10,9 +10,9 @@ import (
 )
 
 type CreateExecutionInput struct {
-	To         string  `validate:"required" form:"To"`
-	From       string  `validate:"required" form:"From"`
-	Parameters *string `form:"Parameters,omitempty"`
+	To         string `validate:"required" form:"To"`
+	From       string `validate:"required" form:"From"`
+	Parameters string `form:"Parameters,omitempty"`
 }
 
 type CreateExecutionOutput struct {

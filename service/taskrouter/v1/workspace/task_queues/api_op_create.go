@@ -10,12 +10,12 @@ import (
 )
 
 type CreateTaskQueueInput struct {
-	FriendlyName           string  `validate:"required" form:"FriendlyName"`
-	AssignmentActivitySid  *string `form:"AssignmentActivitySid,omitempty"`
-	MaxReservedWorkers     *int    `form:"MaxReservedWorkers,omitempty"`
-	TargetWorkers          *string `form:"TargetWorkers,omitempty"`
-	TaskOrder              *string `form:"TaskOrder,omitempty"`
-	ReservationActivitySid *string `form:"ReservationActivitySid,omitempty"`
+	FriendlyName           string `validate:"required" form:"FriendlyName"`
+	AssignmentActivitySid  string `form:"AssignmentActivitySid,omitempty"`
+	MaxReservedWorkers     *int   `form:"MaxReservedWorkers,omitempty"`
+	TargetWorkers          string `form:"TargetWorkers,omitempty"`
+	TaskOrder              string `form:"TaskOrder,omitempty"`
+	ReservationActivitySid string `form:"ReservationActivitySid,omitempty"`
 }
 
 type CreateTaskQueueOutput struct {

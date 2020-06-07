@@ -10,11 +10,11 @@ import (
 )
 
 type CreateWorkflowInput struct {
-	FriendlyName                  string  `validate:"required" form:"FriendlyName"`
-	Configuration                 string  `validate:"required" form:"Configuration"`
-	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
-	FallbackAssignmentCallbackURL *string `form:"fallbackAssignmentCallbackUrl,omitempty"`
-	TaskReservationTimeout        *string `form:"TaskReservationTimeout,omitempty"`
+	FriendlyName                  string `validate:"required" form:"FriendlyName"`
+	Configuration                 string `validate:"required" form:"Configuration"`
+	AssignmentCallbackURL         string `form:"AssignmentCallbackUrl,omitempty"`
+	FallbackAssignmentCallbackURL string `form:"fallbackAssignmentCallbackUrl,omitempty"`
+	TaskReservationTimeout        string `form:"TaskReservationTimeout,omitempty"`
 }
 
 type CreateWorkflowOutput struct {
