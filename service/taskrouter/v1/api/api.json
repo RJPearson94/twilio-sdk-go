@@ -247,37 +247,35 @@
                   "value": "event_callback_url",
                   "required": false
                 },
-
                 {
                   "name": "AssignmentActivityName",
                   "type": "string",
                   "value": "assignment_activity_name",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "AssignmentActivitySid",
                   "type": "string",
                   "value": "assignment_activity_sid",
-                  "required": true
+                  "required": false
                 },
-
                 {
                   "name": "ReservationActivityName",
                   "type": "string",
                   "value": "reservation_activity_name",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "ReservationActivitySid",
                   "type": "string",
                   "value": "reservation_activity_sid",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "TargetWorkers",
                   "type": "string",
                   "value": "target_workers",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "TaskOrder",
@@ -388,37 +386,35 @@
                   "value": "event_callback_url",
                   "required": false
                 },
-
                 {
                   "name": "AssignmentActivityName",
                   "type": "string",
                   "value": "assignment_activity_name",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "AssignmentActivitySid",
                   "type": "string",
                   "value": "assignment_activity_sid",
-                  "required": true
+                  "required": false
                 },
-
                 {
                   "name": "ReservationActivityName",
                   "type": "string",
                   "value": "reservation_activity_name",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "ReservationActivitySid",
                   "type": "string",
                   "value": "reservation_activity_sid",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "TargetWorkers",
                   "type": "string",
                   "value": "target_workers",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "TaskOrder",
@@ -553,31 +549,31 @@
                   "name": "AssignmentActivityName",
                   "type": "string",
                   "value": "assignment_activity_name",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "AssignmentActivitySid",
                   "type": "string",
                   "value": "assignment_activity_sid",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "ReservationActivityName",
                   "type": "string",
                   "value": "reservation_activity_name",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "ReservationActivitySid",
                   "type": "string",
                   "value": "reservation_activity_sid",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "TargetWorkers",
                   "type": "string",
                   "value": "target_workers",
-                  "required": true
+                  "required": false
                 },
                 {
                   "name": "TaskOrder",
