@@ -7,16 +7,16 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspaces"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -437,6 +437,218 @@ var _ = Describe("Taskrouter V1", func() {
 
 		Describe("When the delete workspace response returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQ71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the Workflow Client", func() {
+		workflowsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflows
+
+		Describe("When the Workflow is successfully created", func() {
+			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
+
+			createInput := &workflows.CreateWorkflowInput{
+				FriendlyName:  "Test 2",
+				Configuration: string(taskRoutingConfiguration),
+			}
+
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workflowsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := workflowsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create workflow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				assignmentCallbackURL := "https://example.com/"
+				Expect(resp.AssignmentCallbackURL).To(Equal(&assignmentCallbackURL))
+
+				configuration := make(map[string]interface{})
+				json.Unmarshal(taskRoutingConfiguration, &configuration)
+				Expect(resp.Configuration).To(Equal(configuration))
+
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T10:50:02Z"))
+				Expect(resp.DocumentContentType).To(Equal("application/json"))
+
+				fallbackAssignmentCallbackURL := "https://example2.com/"
+				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(&fallbackAssignmentCallbackURL))
+
+				Expect(resp.FriendlyName).To(Equal("Sales, Marketing, Support Workflow"))
+				Expect(resp.Sid).To(Equal("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskReservationTimeout).To(Equal(120))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+	})
+
+	Describe("Given I have a Workflow SID", func() {
+		workflowClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the Workflow is successfully retrieved", func() {
+			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
+
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workflowsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := workflowClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get workflow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				assignmentCallbackURL := "https://example.com/"
+				Expect(resp.AssignmentCallbackURL).To(Equal(&assignmentCallbackURL))
+
+				configuration := make(map[string]interface{})
+				json.Unmarshal(taskRoutingConfiguration, &configuration)
+				Expect(resp.Configuration).To(Equal(configuration))
+
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T10:50:02Z"))
+				Expect(resp.DocumentContentType).To(Equal("application/json"))
+
+				fallbackAssignmentCallbackURL := "https://example2.com/"
+				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(&fallbackAssignmentCallbackURL))
+
+				Expect(resp.FriendlyName).To(Equal("Sales, Marketing, Support Workflow"))
+				Expect(resp.Sid).To(Equal("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskReservationTimeout).To(Equal(120))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get workflow response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WF71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get workflow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the Workflow is successfully updated", func() {
+			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
+
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updatedWorkflowsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &workflow.UpdateWorkflowInput{}
+
+			resp, err := workflowClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update workflow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				assignmentCallbackURL := "https://example.com/"
+				Expect(resp.AssignmentCallbackURL).To(Equal(&assignmentCallbackURL))
+
+				configuration := make(map[string]interface{})
+				json.Unmarshal(taskRoutingConfiguration, &configuration)
+				Expect(resp.Configuration).To(Equal(configuration))
+
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2014-05-14T11:50:02Z"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T10:50:02Z"))
+				Expect(resp.DocumentContentType).To(Equal("application/json"))
+
+				fallbackAssignmentCallbackURL := "https://example2.com/"
+				Expect(resp.FallbackAssignmentCallbackURL).To(Equal(&fallbackAssignmentCallbackURL))
+
+				Expect(resp.FriendlyName).To(Equal("Sales, Marketing, Support Workflow"))
+				Expect(resp.Sid).To(Equal("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskReservationTimeout).To(Equal(120))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update workflow response returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WF71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &workflow.UpdateWorkflowInput{
+				FriendlyName: "Test Queue",
+			}
+
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update task queue response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the workflow is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := workflowClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete workflow response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WF71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
 					resp := make(map[string]interface{})
