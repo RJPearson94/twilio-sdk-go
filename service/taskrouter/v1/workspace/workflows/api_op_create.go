@@ -14,7 +14,7 @@ type CreateWorkflowInput struct {
 	Configuration                 string `validate:"required" form:"Configuration"`
 	AssignmentCallbackURL         string `form:"AssignmentCallbackUrl,omitempty"`
 	FallbackAssignmentCallbackURL string `form:"fallbackAssignmentCallbackUrl,omitempty"`
-	TaskReservationTimeout        string `form:"TaskReservationTimeout,omitempty"`
+	TaskReservationTimeout        *int   `form:"TaskReservationTimeout,omitempty"`
 }
 
 type CreateWorkflowOutput struct {
