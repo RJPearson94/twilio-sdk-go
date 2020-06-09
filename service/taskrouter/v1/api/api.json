@@ -683,7 +683,7 @@
                 },
                 {
                   "name": "TaskReservationTimeout",
-                  "type": "string",
+                  "type": "int",
                   "value": "TaskReservationTimeout",
                   "required": false
                 }
@@ -939,13 +939,13 @@
                 },
                 {
                   "name": "TaskReservationTimeout",
-                  "type": "string",
+                  "type": "int",
                   "value": "TaskReservationTimeout",
                   "required": false
                 },
                 {
                   "name": "ReEvaluateTasks",
-                  "type": "string",
+                  "type": "bool",
                   "value": "ReEvaluateTasks",
                   "required": false
                 }

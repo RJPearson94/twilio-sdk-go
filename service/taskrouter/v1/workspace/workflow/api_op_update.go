@@ -14,8 +14,8 @@ type UpdateWorkflowInput struct {
 	Configuration                 string `form:"Configuration,omitempty"`
 	AssignmentCallbackURL         string `form:"AssignmentCallbackUrl,omitempty"`
 	FallbackAssignmentCallbackURL string `form:"fallbackAssignmentCallbackUrl,omitempty"`
-	TaskReservationTimeout        string `form:"TaskReservationTimeout,omitempty"`
-	ReEvaluateTasks               string `form:"ReEvaluateTasks,omitempty"`
+	TaskReservationTimeout        *int   `form:"TaskReservationTimeout,omitempty"`
+	ReEvaluateTasks               *bool  `form:"ReEvaluateTasks,omitempty"`
 }
 
 type UpdateWorkflowOutput struct {
