@@ -796,7 +796,7 @@ var _ = Describe("Taskrouter V1", func() {
 
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
-				Expect(resp.DateStatusChange.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
+				Expect(resp.DateStatusChanged.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
 				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
@@ -877,7 +877,7 @@ var _ = Describe("Taskrouter V1", func() {
 
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
-				Expect(resp.DateStatusChange.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
+				Expect(resp.DateStatusChanged.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
 				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
@@ -933,7 +933,7 @@ var _ = Describe("Taskrouter V1", func() {
 
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2017-05-31T23:19:38Z"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
-				Expect(resp.DateStatusChange.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
+				Expect(resp.DateStatusChanged.Format(time.RFC3339)).To(Equal("2017-05-30T23:19:38Z"))
 				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
