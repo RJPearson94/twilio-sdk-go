@@ -1164,7 +1164,7 @@
                   "required": false
                 },
                 {
-                  "name": "DateStatusChange",
+                  "name": "DateStatusChanged",
                   "type": "time.Time",
                   "value": "date_status_changed",
                   "required": false
@@ -1285,7 +1285,7 @@
                   "required": false
                 },
                 {
-                  "name": "DateStatusChange",
+                  "name": "DateStatusChanged",
                   "type": "time.Time",
                   "value": "date_status_changed",
                   "required": false
@@ -1414,7 +1414,7 @@
                   "required": false
                 },
                 {
-                  "name": "DateStatusChange",
+                  "name": "DateStatusChanged",
                   "type": "time.Time",
                   "value": "date_status_changed",
                   "required": false
