@@ -1752,6 +1752,338 @@
             ]
           }
         ]
+      },
+      {
+        "name": "Task Channels",
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Workspaces/{workspaceSid}/TaskChannels",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateTaskChannelInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": true
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "UniqueName",
+                  "required": true
+                },
+                {
+                  "name": "ChannelOptimizedRouting",
+                  "type": "bool",
+                  "value": "ChannelOptimizedRouting",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateTaskChannelOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "unique_name",
+                  "required": true
+                },
+                {
+                  "name": "ChannelOptimizedRouting",
+                  "type": "bool",
+                  "value": "channel_optimized_routing",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Task Channel",
+        "function": {
+          "parameters": {
+            "taskChannelSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "workspaceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "taskChannelSid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetTaskChannelOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "unique_name",
+                  "required": true
+                },
+                {
+                  "name": "ChannelOptimizedRouting",
+                  "type": "bool",
+                  "value": "channel_optimized_routing",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateTaskChannelInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "FriendlyName",
+                  "required": false
+                },
+                {
+                  "name": "ChannelOptimizedRouting",
+                  "type": "bool",
+                  "value": "ChannelOptimizedRouting",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateTaskChannelOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "WorkspaceSid",
+                  "type": "string",
+                  "value": "workspace_sid",
+                  "required": true
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": true
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "unique_name",
+                  "required": true
+                },
+                {
+                  "name": "ChannelOptimizedRouting",
+                  "type": "bool",
+                  "value": "channel_optimized_routing",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "workspaceSid",
+                "value": {
+                  "onService": true,
+                  "property": "workspaceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "operations": [
