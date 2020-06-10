@@ -44,10 +44,10 @@ var _ = Describe("Taskrouter V1", func() {
 
 	taskrouterSession := taskrouter.NewWithCredentials(creds).V1
 
-	Describe("Given the Workspace Client", func() {
+	Describe("Given the workspace client", func() {
 		workspacesClient := taskrouterSession.Workspaces
 
-		Describe("When the Task Queue is successfully created", func() {
+		Describe("When the workspace is successfully created", func() {
 			createInput := &workspaces.CreateWorkspaceInput{
 				FriendlyName:     "Test 2",
 				MultiTaskEnabled: utils.Bool(false),
@@ -86,7 +86,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workspace request does not contain a friendly name", func() {
+		Describe("When the workspace request does not contain a friendly name", func() {
 			createInput := &workspaces.CreateWorkspaceInput{}
 
 			resp, err := workspacesClient.Create(createInput)
@@ -99,7 +99,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workspaces API returns a 500 response", func() {
+		Describe("When the workspaces api returns a 500 response", func() {
 			createInput := &workspaces.CreateWorkspaceInput{
 				FriendlyName: "Test 2",
 			}
@@ -130,10 +130,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given I have a Workspace SID", func() {
+	Describe("Given I have a workspace sid", func() {
 		workspaceClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the Workspace is successfully retrieved", func() {
+		Describe("When the workspace is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/workspaceResponse.json")
@@ -223,7 +223,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the update flow response returns a 404", func() {
+		Describe("When the update workspace api returns a 404", func() {
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WS71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -273,7 +273,7 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given the Task Queues Client", func() {
+	Describe("Given the task queues client", func() {
 		taskQueuesClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueues
 
 		Describe("When the Task Queue is successfully created", func() {
@@ -314,7 +314,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Task Queue request does not contain a friendly name", func() {
+		Describe("When the task queue request does not contain a friendly name", func() {
 			createInput := &task_queues.CreateTaskQueueInput{}
 
 			resp, err := taskQueuesClient.Create(createInput)
@@ -327,7 +327,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Task Queue API returns a 500 response", func() {
+		Describe("When the task queue api returns a 500 response", func() {
 			createInput := &task_queues.CreateTaskQueueInput{
 				FriendlyName: "Test 2",
 			}
@@ -358,10 +358,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given I have a Task Queue SID", func() {
+	Describe("Given I have a task queue sid", func() {
 		taskQueueClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the Task Queue is successfully retrieved", func() {
+		Describe("When the task queue is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/taskQueueResponse.json")
@@ -395,7 +395,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the get workspace response returns a 404", func() {
+		Describe("When the get task queue api returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQ71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -415,7 +415,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workspace is successfully updated", func() {
+		Describe("When the task queue is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/updatedTaskQueueResponse.json")
@@ -432,7 +432,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the update workspace response should be returned", func() {
+			It("Then the update task queue response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AssignmentActivityName).To(Equal(utils.String("817ca1c5-3a05-11e5-9292-98e0d9a1eb73")))
@@ -451,7 +451,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the update flow response returns a 404", func() {
+		Describe("When the update task queue api returns a 404", func() {
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQ71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -475,7 +475,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the task is successfully deleted", func() {
+		Describe("When the task queue is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
 
 			err := taskQueueClient.Delete()
@@ -484,7 +484,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the delete workspace response returns a 404", func() {
+		Describe("When the delete task queue api returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQ71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -501,10 +501,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given the Workflow Client", func() {
+	Describe("Given the workflows client", func() {
 		workflowsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflows
 
-		Describe("When the Workflow is successfully created", func() {
+		Describe("When the workflow is successfully created", func() {
 			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
 
 			createInput := &workflows.CreateWorkflowInput{
@@ -547,7 +547,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workflow request does not contain a friendly name", func() {
+		Describe("When the workflow request does not contain a friendly name", func() {
 			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
 
 			createInput := &workflows.CreateWorkflowInput{
@@ -564,7 +564,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workflow request does not contain a configuration", func() {
+		Describe("When the workflow request does not contain a configuration", func() {
 			createInput := &workflows.CreateWorkflowInput{
 				FriendlyName: "Test 2",
 			}
@@ -579,7 +579,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workflow API returns a 500 response", func() {
+		Describe("When the workflow api returns a 500 response", func() {
 			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
 
 			createInput := &workflows.CreateWorkflowInput{
@@ -613,10 +613,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given I have a Workflow SID", func() {
+	Describe("Given I have a workflow sid", func() {
 		workflowClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the Workflow is successfully retrieved", func() {
+		Describe("When the workflow is successfully retrieved", func() {
 			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
 
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -674,7 +674,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Workflow is successfully updated", func() {
+		Describe("When the workflow is successfully updated", func() {
 			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -733,7 +733,7 @@ var _ = Describe("Taskrouter V1", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the update task queue response should be nil", func() {
+			It("Then the update workflow response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
@@ -764,7 +764,7 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given the Worker Client", func() {
+	Describe("Given the workers client", func() {
 		workersClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workers
 
 		Describe("When the Worker is successfully created", func() {
@@ -805,7 +805,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Worker request does not contain a friendly name", func() {
+		Describe("When the worker request does not contain a friendly name", func() {
 			createInput := &workers.CreateWorkerInput{}
 
 			resp, err := workersClient.Create(createInput)
@@ -818,7 +818,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Worker API returns a 500 response", func() {
+		Describe("When the worker api returns a 500 response", func() {
 			createInput := &workers.CreateWorkerInput{
 				FriendlyName: "NewWorker",
 			}
@@ -849,10 +849,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given I have a Worker SID", func() {
-		workersClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+	Describe("Given I have a worker sid", func() {
+		workerClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the Worker is successfully retrieved", func() {
+		Describe("When the worker is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/workersResponse.json")
@@ -862,7 +862,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := workersClient.Get()
+			resp, err := workerClient.Get()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -886,7 +886,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the get worker response returns a 404", func() {
+		Describe("When the get worker api returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WK71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -906,7 +906,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Worker is successfully updated", func() {
+		Describe("When the worker is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/updatedWorkersResponse.json")
@@ -918,7 +918,7 @@ var _ = Describe("Taskrouter V1", func() {
 
 			updateInput := &worker.UpdateWorkerInput{}
 
-			resp, err := workersClient.Update(updateInput)
+			resp, err := workerClient.Update(updateInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -969,7 +969,7 @@ var _ = Describe("Taskrouter V1", func() {
 		Describe("When the worker is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
 
-			err := workersClient.Delete()
+			err := workerClient.Delete()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -992,10 +992,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given the Activities Client", func() {
+	Describe("Given the activities client", func() {
 		activitiesClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activities
 
-		Describe("When the Activity is successfully created", func() {
+		Describe("When the activity is successfully created", func() {
 			createInput := &activities.CreateActivityInput{
 				FriendlyName: "NewAvailableActivity",
 				Available:    utils.Bool(true),
@@ -1028,7 +1028,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Activity request does not contain a friendly name", func() {
+		Describe("When the activity request does not contain a friendly name", func() {
 			createInput := &activities.CreateActivityInput{}
 
 			resp, err := activitiesClient.Create(createInput)
@@ -1041,7 +1041,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Activities API returns a 500 response", func() {
+		Describe("When the activities api returns a 500 response", func() {
 			createInput := &activities.CreateActivityInput{
 				FriendlyName: "NewAvailableActivity",
 				Available:    utils.Bool(true),
@@ -1073,10 +1073,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 	})
 
-	Describe("Given I have a Activity SID", func() {
+	Describe("Given I have a activity sid", func() {
 		activityClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the Activity is successfully retrieved", func() {
+		Describe("When the activity is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/activityResponse.json")
@@ -1124,7 +1124,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the Activity is successfully updated", func() {
+		Describe("When the activity is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/updatedActivityResponse.json")
