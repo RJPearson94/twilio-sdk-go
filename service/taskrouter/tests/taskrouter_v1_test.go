@@ -7,10 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channel"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channels"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -19,8 +15,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/tasks"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
@@ -1256,7 +1256,7 @@ var _ = Describe("Taskrouter V1", func() {
 			})
 		})
 
-		Describe("When the task channel request does not contain a unique friendly name", func() {
+		Describe("When the task channel request does not contain a unique name", func() {
 			createInput := &task_channels.CreateTaskChannelInput{
 				FriendlyName: "Test 2",
 			}
@@ -1430,6 +1430,240 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskChannel("TC71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the tasks client", func() {
+		tasksClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Tasks
+
+		Describe("When the task is successfully created", func() {
+			createInput := &tasks.CreateTaskInput{
+				TaskChannel: "default",
+			}
+
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/taskResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := tasksClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create task response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Age).To(Equal(25200))
+				Expect(resp.AssignmentStatus).To(Equal("pending"))
+
+				attributes := make(map[string]interface{})
+				attributes["type"] = "support"
+				Expect(resp.Attributes).To(Equal(attributes))
+
+				Expect(resp.Priority).To(Equal(utils.Int(1)))
+				Expect(resp.Reason).To(Equal(utils.String("Test Reason")))
+				Expect(resp.TaskQueueSid).To(Equal(utils.String("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.TaskChannelSid).To(Equal(utils.String("TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.TaskChannelUniqueName).To(Equal(utils.String("unique")))
+				Expect(resp.WorkflowSid).To(Equal(utils.String("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.WorkflowFriendlyName).To(Equal(utils.String("Example Workflow")))
+				Expect(resp.TaskQueueEnteredDate).To(BeNil())
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T18:50:02Z"))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the task api returns a 500 response", func() {
+			createInput := &tasks.CreateTaskInput{
+				TaskChannel: "default",
+			}
+
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := tasksClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				Expect(err).ToNot(BeNil())
+				twilioErr, ok := err.(*utils.TwilioError)
+				Expect(ok).To(Equal(true))
+				Expect(twilioErr.Code).To(BeNil())
+				Expect(twilioErr.Message).To(Equal("An error occurred"))
+				Expect(twilioErr.MoreInfo).To(BeNil())
+				Expect(twilioErr.Status).To(Equal(500))
+			})
+
+			It("Then the create task response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a task sid", func() {
+		taskClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the task is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/taskResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := taskClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get task response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Age).To(Equal(25200))
+				Expect(resp.AssignmentStatus).To(Equal("pending"))
+
+				attributes := make(map[string]interface{})
+				attributes["type"] = "support"
+				Expect(resp.Attributes).To(Equal(attributes))
+
+				Expect(resp.Priority).To(Equal(utils.Int(1)))
+				Expect(resp.Reason).To(Equal(utils.String("Test Reason")))
+				Expect(resp.TaskQueueSid).To(Equal(utils.String("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.TaskChannelSid).To(Equal(utils.String("TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.TaskChannelUniqueName).To(Equal(utils.String("unique")))
+				Expect(resp.WorkflowSid).To(Equal(utils.String("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.WorkflowFriendlyName).To(Equal(utils.String("Example Workflow")))
+				Expect(resp.TaskQueueEnteredDate).To(BeNil())
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T18:50:02Z"))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get task response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WT71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("WT71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get task response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the task is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updatedTaskResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &task.UpdateTaskInput{}
+
+			resp, err := taskClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update task response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Age).To(Equal(25200))
+				Expect(resp.AssignmentStatus).To(Equal("pending"))
+
+				attributes := make(map[string]interface{})
+				attributes["type"] = "support"
+				Expect(resp.Attributes).To(Equal(attributes))
+
+				Expect(resp.Priority).To(Equal(utils.Int(1)))
+				Expect(resp.Reason).To(Equal(utils.String("Test Reason")))
+				Expect(resp.TaskQueueSid).To(Equal(utils.String("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.TaskChannelSid).To(Equal(utils.String("TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.TaskChannelUniqueName).To(Equal(utils.String("unique")))
+				Expect(resp.WorkflowSid).To(Equal(utils.String("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.WorkflowFriendlyName).To(Equal(utils.String("Example Workflow")))
+				Expect(resp.TaskQueueEnteredDate).To(BeNil())
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2014-05-15T18:50:02Z"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2014-05-14T18:50:02Z"))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update task response returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WT71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &task.UpdateTaskInput{}
+
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("WT71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update task response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the task is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := taskClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete task response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WT71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("WT71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

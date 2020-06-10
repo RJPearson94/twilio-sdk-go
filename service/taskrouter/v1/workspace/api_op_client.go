@@ -5,10 +5,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/tasks"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
@@ -28,6 +30,8 @@ type Client struct {
 	Activity     func(string) *activity.Client
 	TaskChannels *task_channels.Client
 	TaskChannel  func(string) *task_channel.Client
+	Tasks        *tasks.Client
+	Task         func(string) *task.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -44,5 +48,7 @@ func New(client *client.Client, sid string) *Client {
 		Activity:     func(activitySid string) *activity.Client { return activity.New(client, activitySid, sid) },
 		TaskChannels: task_channels.New(client, sid),
 		TaskChannel:  func(taskChannelSid string) *task_channel.Client { return task_channel.New(client, taskChannelSid, sid) },
+		Tasks:        tasks.New(client, sid),
+		Task:         func(taskSid string) *task.Client { return task.New(client, taskSid, sid) },
 	}
 }
