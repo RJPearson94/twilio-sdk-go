@@ -9,6 +9,8 @@
 - Task Queue
 - Workers
 - Activities
+- sTask Channels
+
 
 ### Coming Soon
 
@@ -20,5 +22,4 @@
 - Task Queue Statistics
 - Task
 - Task Reservation
-- Task Channels
 - Events
