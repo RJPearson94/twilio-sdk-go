@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
@@ -14,29 +16,33 @@ import (
 )
 
 type Client struct {
-	client     *client.Client
-	sid        string
-	TaskQueues *task_queues.Client
-	TaskQueue  func(string) *task_queue.Client
-	Workflows  *workflows.Client
-	Workflow   func(string) *workflow.Client
-	Workers    *workers.Client
-	Worker     func(string) *worker.Client
-	Activities *activities.Client
-	Activity   func(string) *activity.Client
+	client       *client.Client
+	sid          string
+	TaskQueues   *task_queues.Client
+	TaskQueue    func(string) *task_queue.Client
+	Workflows    *workflows.Client
+	Workflow     func(string) *workflow.Client
+	Workers      *workers.Client
+	Worker       func(string) *worker.Client
+	Activities   *activities.Client
+	Activity     func(string) *activity.Client
+	TaskChannels *task_channels.Client
+	TaskChannel  func(string) *task_channel.Client
 }
 
 func New(client *client.Client, sid string) *Client {
 	return &Client{
-		client:     client,
-		sid:        sid,
-		TaskQueues: task_queues.New(client, sid),
-		TaskQueue:  func(taskQueueSid string) *task_queue.Client { return task_queue.New(client, taskQueueSid, sid) },
-		Workflows:  workflows.New(client, sid),
-		Workflow:   func(workflowSid string) *workflow.Client { return workflow.New(client, workflowSid, sid) },
-		Workers:    workers.New(client, sid),
-		Worker:     func(workerSid string) *worker.Client { return worker.New(client, workerSid, sid) },
-		Activities: activities.New(client, sid),
-		Activity:   func(activitySid string) *activity.Client { return activity.New(client, activitySid, sid) },
+		client:       client,
+		sid:          sid,
+		TaskQueues:   task_queues.New(client, sid),
+		TaskQueue:    func(taskQueueSid string) *task_queue.Client { return task_queue.New(client, taskQueueSid, sid) },
+		Workflows:    workflows.New(client, sid),
+		Workflow:     func(workflowSid string) *workflow.Client { return workflow.New(client, workflowSid, sid) },
+		Workers:      workers.New(client, sid),
+		Worker:       func(workerSid string) *worker.Client { return worker.New(client, workerSid, sid) },
+		Activities:   activities.New(client, sid),
+		Activity:     func(activitySid string) *activity.Client { return activity.New(client, activitySid, sid) },
+		TaskChannels: task_channels.New(client, sid),
+		TaskChannel:  func(taskChannelSid string) *task_channel.Client { return task_channel.New(client, taskChannelSid, sid) },
 	}
 }
