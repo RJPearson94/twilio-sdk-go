@@ -3,16 +3,22 @@ package service
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environments"
 )
 
 type Client struct {
-	client *client.Client
-	sid    string
+	client       *client.Client
+	sid          string
+	Environments *environments.Client
+	Environment  func(string) *environment.Client
 }
 
 func New(client *client.Client, sid string) *Client {
 	return &Client{
-		client: client,
-		sid:    sid,
+		client:       client,
+		sid:          sid,
+		Environments: environments.New(client, sid),
+		Environment:  func(environmentSid string) *environment.Client { return environment.New(client, sid, environmentSid) },
 	}
 }

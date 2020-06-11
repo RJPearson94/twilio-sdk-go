@@ -1,5 +1,5 @@
 {
-  "sid": "ZS00000000000000000000000000000000",
+  "sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "friendly_name": "Test 2",
   "unique_name": "Unique Test 2",
@@ -7,11 +7,11 @@
   "ui_editable": false,
   "date_created": "2018-11-10T20:00:00Z",
   "date_updated": null,
-  "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000",
+  "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "links": {
-    "environments": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments",
-    "functions": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions",
-    "assets": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets",
-    "builds": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds"
+    "environments": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments",
+    "functions": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions",
+    "assets": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets",
+    "builds": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds"
   }
 }

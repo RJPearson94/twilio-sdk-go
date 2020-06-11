@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environments"
+
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -57,7 +59,7 @@ var _ = Describe("Serverless V1", func() {
 
 			It("Then the create service response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
-				Expect(resp.Sid).To(Equal("ZS00000000000000000000000000000000"))
+				Expect(resp.Sid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.FriendlyName).To(Equal("Test 2"))
 				Expect(resp.UniqueName).To(Equal("Unique Test 2"))
@@ -65,7 +67,7 @@ var _ = Describe("Serverless V1", func() {
 				Expect(resp.UiEditable).To(Equal(false))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
 				Expect(resp.DateUpdated).To(BeNil())
-				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000"))
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
 
@@ -132,10 +134,10 @@ var _ = Describe("Serverless V1", func() {
 	})
 
 	Describe("Given I have a service sid", func() {
-		serviceClient := serverlessSession.Service("ZS00000000000000000000000000000000")
+		serviceClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the service is successfully retrieved", func() {
-			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000",
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/serviceResponse.json")
 					resp := make(map[string]interface{})
@@ -151,7 +153,7 @@ var _ = Describe("Serverless V1", func() {
 
 			It("Then the get service response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
-				Expect(resp.Sid).To(Equal("ZS00000000000000000000000000000000"))
+				Expect(resp.Sid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.FriendlyName).To(Equal("Test 2"))
 				Expect(resp.UniqueName).To(Equal("Unique Test 2"))
@@ -159,7 +161,7 @@ var _ = Describe("Serverless V1", func() {
 				Expect(resp.UiEditable).To(Equal(false))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
 				Expect(resp.DateUpdated).To(BeNil())
-				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000"))
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
 
@@ -184,7 +186,7 @@ var _ = Describe("Serverless V1", func() {
 		})
 
 		Describe("When the service is successfully updated", func() {
-			httpmock.RegisterResponder("POST", "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000",
+			httpmock.RegisterResponder("POST", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/updateServiceResponse.json")
 					resp := make(map[string]interface{})
@@ -202,7 +204,7 @@ var _ = Describe("Serverless V1", func() {
 
 			It("Then the update service response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
-				Expect(resp.Sid).To(Equal("ZS00000000000000000000000000000000"))
+				Expect(resp.Sid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.FriendlyName).To(Equal("Test 2"))
 				Expect(resp.UniqueName).To(Equal("Unique Test 2"))
@@ -210,7 +212,7 @@ var _ = Describe("Serverless V1", func() {
 				Expect(resp.UiEditable).To(Equal(false))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2018-11-11T20:00:00Z"))
-				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000"))
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
 
@@ -239,7 +241,7 @@ var _ = Describe("Serverless V1", func() {
 		})
 
 		Describe("When the service is successfully deleted", func() {
-			httpmock.RegisterResponder("DELETE", "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000", httpmock.NewStringResponder(204, ""))
+			httpmock.RegisterResponder("DELETE", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
 
 			err := serviceClient.Delete()
 			It("Then no error should be returned", func() {
@@ -258,6 +260,164 @@ var _ = Describe("Serverless V1", func() {
 			)
 
 			err := serverlessSession.Service("ZS71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the environments client", func() {
+		environmentsClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environments
+
+		Describe("When the environment is successfully created", func() {
+			createInput := &environments.CreateEnvironmentInput{
+				UniqueName: "test-2",
+			}
+
+			httpmock.RegisterResponder("POST", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/environmentResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := environmentsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create environment response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.UniqueName).To(Equal("test-2"))
+				Expect(resp.DomainSuffix).To(BeNil())
+				Expect(resp.DomainName).To(Equal("test-2.twil.io"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the environment does not contain a unique name", func() {
+			createInput := &environments.CreateEnvironmentInput{}
+
+			resp, err := environmentsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create environment response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create environment api returns a 500 response", func() {
+			createInput := &environments.CreateEnvironmentInput{
+				UniqueName: "Test 2",
+			}
+
+			httpmock.RegisterResponder("POST", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := environmentsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				Expect(err).ToNot(BeNil())
+				twilioErr, ok := err.(*utils.TwilioError)
+				Expect(ok).To(Equal(true))
+				Expect(twilioErr.Code).To(BeNil())
+				Expect(twilioErr.Message).To(Equal("An error occurred"))
+				Expect(twilioErr.MoreInfo).To(BeNil())
+				Expect(twilioErr.Status).To(Equal(500))
+			})
+
+			It("Then the create environment response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a environment sid", func() {
+		environmenClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the service is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/environmentResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := environmenClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get environment response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.UniqueName).To(Equal("test-2"))
+				Expect(resp.DomainSuffix).To(BeNil())
+				Expect(resp.DomainName).To(Equal("test-2.twil.io"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get environment response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZE71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZE71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get environment response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the environment is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := environmenClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete service response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZE71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZE71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
