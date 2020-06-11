@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environments"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/function"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/functions"
 )
 
 type Client struct {
@@ -12,6 +14,8 @@ type Client struct {
 	sid          string
 	Environments *environments.Client
 	Environment  func(string) *environment.Client
+	Functions    *functions.Client
+	Function     func(string) *function.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -20,5 +24,7 @@ func New(client *client.Client, sid string) *Client {
 		sid:          sid,
 		Environments: environments.New(client, sid),
 		Environment:  func(environmentSid string) *environment.Client { return environment.New(client, sid, environmentSid) },
+		Functions:    functions.New(client, sid),
+		Function:     func(functionSid string) *function.Client { return function.New(client, sid, functionSid) },
 	}
 }
