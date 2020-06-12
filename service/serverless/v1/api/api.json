@@ -235,6 +235,370 @@
             "functionParameter": "environmentSid"
           }
         },
+        "subClients": [
+          {
+            "name": "Variables",
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "environmentSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Create",
+                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "environmentSid",
+                    "value": {
+                      "onService": true,
+                      "property": "environmentSid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "CreateVariableInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "Key",
+                      "type": "string",
+                      "value": "Key",
+                      "required": true
+                    },
+                    {
+                      "name": "Value",
+                      "type": "string",
+                      "value": "Value",
+                      "required": true
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "CreateVariableOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "EnvironmentSid",
+                      "type": "string",
+                      "value": "environment_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Key",
+                      "type": "string",
+                      "value": "key",
+                      "required": true
+                    },
+                    {
+                      "name": "Value",
+                      "type": "string",
+                      "value": "value",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Variable",
+            "function": {
+              "parameters": {
+                "variableSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "environmentSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "variableSid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "environmentSid",
+                    "value": {
+                      "onService": true,
+                      "property": "environmentSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetVariableOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "EnvironmentSid",
+                      "type": "string",
+                      "value": "environment_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Key",
+                      "type": "string",
+                      "value": "key",
+                      "required": true
+                    },
+                    {
+                      "name": "Value",
+                      "type": "string",
+                      "value": "value",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Update",
+                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "environmentSid",
+                    "value": {
+                      "onService": true,
+                      "property": "environmentSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "UpdateVariableInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "Key",
+                      "type": "string",
+                      "value": "Key",
+                      "required": false
+                    },
+                    {
+                      "name": "Value",
+                      "type": "string",
+                      "value": "Value",
+                      "required": false
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "UpdateVariableOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "EnvironmentSid",
+                      "type": "string",
+                      "value": "environment_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Key",
+                      "type": "string",
+                      "value": "key",
+                      "required": true
+                    },
+                    {
+                      "name": "Value",
+                      "type": "string",
+                      "value": "value",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Delete",
+                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+                "httpMethod": "Delete",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "environmentSid",
+                    "value": {
+                      "onService": true,
+                      "property": "environmentSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "operations": [
           {
             "name": "Get",
