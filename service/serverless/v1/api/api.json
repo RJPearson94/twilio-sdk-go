@@ -597,6 +597,216 @@
                 ]
               }
             ]
+          },
+          {
+            "name": "Deployments",
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "environmentSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Create",
+                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "environmentSid",
+                    "value": {
+                      "onService": true,
+                      "property": "environmentSid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "CreateDeploymentInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "BuildSid",
+                      "type": "string",
+                      "value": "BuildSid",
+                      "required": false
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "CreateDeploymentOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "EnvironmentSid",
+                      "type": "string",
+                      "value": "environment_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "BuildSid",
+                      "type": "string",
+                      "value": "build_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Deployment",
+            "function": {
+              "parameters": {
+                "deploymentSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "environmentSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "deploymentSid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "environmentSid",
+                    "value": {
+                      "onService": true,
+                      "property": "environmentSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetDeploymentOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "EnvironmentSid",
+                      "type": "string",
+                      "value": "environment_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "BuildSid",
+                      "type": "string",
+                      "value": "build_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ],
         "operations": [
