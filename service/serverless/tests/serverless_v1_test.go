@@ -30,9 +30,6 @@ import (
 )
 
 var _ = Describe("Serverless V1", func() {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
-
 	creds, err := credentials.New(credentials.Account{
 		Sid:       "ACxxx",
 		AuthToken: "Test",
@@ -1000,7 +997,11 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the function versions is successfully created", func() {
 			createInput := &functionVersions.CreateVersionInput{
-				Content:    "Test Content",
+				Content: functionVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "application/javascript",
+					FileName:    "test.js",
+				},
 				Path:       "/test",
 				Visibility: "public",
 			}
@@ -1048,9 +1049,73 @@ var _ = Describe("Serverless V1", func() {
 			})
 		})
 
+		Describe("When the asset version request does not contain filename", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content: functionVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "application/javascript",
+				},
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create asset version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the asset version request does not contain content type", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content: functionVersions.ContentDetails{
+					Body:     "Test Content",
+					FileName: "test.js",
+				},
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create asset version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the asset version request does not contain content body", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content: functionVersions.ContentDetails{
+					ContentType: "application/javascript",
+					FileName:    "test.js",
+				},
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create asset version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
 		Describe("When the function version request does not contain a path", func() {
 			createInput := &functionVersions.CreateVersionInput{
-				Content:    "Test Content",
+				Content: functionVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "application/javascript",
+					FileName:    "test.js",
+				},
 				Visibility: "public",
 			}
 
@@ -1066,8 +1131,12 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the function version request does not contain visibility", func() {
 			createInput := &functionVersions.CreateVersionInput{
-				Content: "Test Content",
-				Path:    "/test",
+				Content: functionVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "application/javascript",
+					FileName:    "test.js",
+				},
+				Path: "/test",
 			}
 
 			resp, err := functionVersionsClient.Create(createInput)
@@ -1082,7 +1151,11 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the create function version api returns a 500 response", func() {
 			createInput := &functionVersions.CreateVersionInput{
-				Content:    "Test Content",
+				Content: functionVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "application/javascript",
+					FileName:    "test.js",
+				},
 				Path:       "/test",
 				Visibility: "public",
 			}
@@ -1429,7 +1502,11 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the asset versions is successfully created", func() {
 			createInput := &assetVersions.CreateVersionInput{
-				Content:    "Test Content",
+				Content: assetVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "image/png",
+					FileName:    "test.png",
+				},
 				Path:       "/test",
 				Visibility: "public",
 			}
@@ -1477,9 +1554,73 @@ var _ = Describe("Serverless V1", func() {
 			})
 		})
 
+		Describe("When the asset version request does not contain filename", func() {
+			createInput := &assetVersions.CreateVersionInput{
+				Content: assetVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "image/png",
+				},
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := assetVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create asset version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the asset version request does not contain content type", func() {
+			createInput := &assetVersions.CreateVersionInput{
+				Content: assetVersions.ContentDetails{
+					Body:     "Test Content",
+					FileName: "test.png",
+				},
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := assetVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create asset version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the asset version request does not contain content body", func() {
+			createInput := &assetVersions.CreateVersionInput{
+				Content: assetVersions.ContentDetails{
+					ContentType: "image/png",
+					FileName:    "test.png",
+				},
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := assetVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create asset version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
 		Describe("When the asset version request does not contain a path", func() {
 			createInput := &assetVersions.CreateVersionInput{
-				Content:    "Test Content",
+				Content: assetVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "image/png",
+					FileName:    "test.png",
+				},
 				Visibility: "public",
 			}
 
@@ -1495,8 +1636,12 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the asset version request does not contain visibility", func() {
 			createInput := &assetVersions.CreateVersionInput{
-				Content: "Test Content",
-				Path:    "/test",
+				Content: assetVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "image/png",
+					FileName:    "test.png",
+				},
+				Path: "/test",
 			}
 
 			resp, err := assetVersionsClient.Create(createInput)
@@ -1511,7 +1656,11 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the create asset version api returns a 500 response", func() {
 			createInput := &assetVersions.CreateVersionInput{
-				Content:    "Test Content",
+				Content: assetVersions.ContentDetails{
+					Body:        "Test Content",
+					ContentType: "image/png",
+					FileName:    "test.png",
+				},
 				Path:       "/test",
 				Visibility: "public",
 			}

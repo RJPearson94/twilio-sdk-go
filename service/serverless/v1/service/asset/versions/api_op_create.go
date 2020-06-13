@@ -10,10 +10,16 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+type ContentDetails struct {
+	Body        string `validate:"required" mapstructure:"Body"`
+	FileName    string `validate:"required" mapstructure:"FileName"`
+	ContentType string `validate:"required" mapstructure:"ContentType"`
+}
+
 type CreateVersionInput struct {
-	Content    string `validate:"required" mapstructure:"Content"`
-	Path       string `validate:"required" mapstructure:"Path"`
-	Visibility string `validate:"required" mapstructure:"Visibility"`
+	Content    ContentDetails `validate:"required" mapstructure:"Content"`
+	Path       string         `validate:"required" mapstructure:"Path"`
+	Visibility string         `validate:"required" mapstructure:"Visibility"`
 }
 
 type CreateVersionOutput struct {

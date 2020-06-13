@@ -157,6 +157,47 @@ var _ = Describe("Client", func() {
 			})
 		})
 
+		Describe("When a POST request is made with a form data and content deatils", func() {
+			httpmock.RegisterResponder("POST", "https://test.twilio.com/v1/test/1234",
+				func(req *http.Request) (*http.Response, error) {
+					resp := map[string]string{
+						"id":   "1234",
+						"name": "test",
+					}
+					return httpmock.NewJsonResponse(201, &resp)
+				},
+			)
+
+			op := client.Operation{
+				HTTPMethod:  http.MethodPost,
+				HTTPPath:    "/test/{id}",
+				ContentType: client.FormData,
+				PathParams: map[string]string{
+					"id": "1234",
+				},
+			}
+
+			testInput := &TestContentStructInput{
+				Name: "Test",
+				Content: ContentDetails{
+					Body:        "{}",
+					ContentType: "application/json",
+					FileName:    "test.json",
+				},
+			}
+			testOutput := &TestStructResponse{}
+			err := twilioClient.Send(context.Background(), op, testInput, testOutput)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the output should contain a id and name", func() {
+				Expect(testOutput.ID).To(Equal("1234"))
+				Expect(testOutput.Name).To(Equal("test"))
+			})
+		})
+
 		Describe("When a DELETE request is made with no path params, input & output interfaces", func() {
 			httpmock.RegisterResponder("DELETE", "https://test.twilio.com/v1/test", httpmock.NewStringResponder(200, ""))
 
@@ -192,6 +233,17 @@ var _ = Describe("Client", func() {
 
 type TestStructInput struct {
 	Name string `validate:"required"`
+}
+
+type ContentDetails struct {
+	Body        string `validate:"required"`
+	ContentType string `validate:"required"`
+	FileName    string `validate:"required"`
+}
+
+type TestContentStructInput struct {
+	Name    string         `validate:"required"`
+	Content ContentDetails `validate:"required"`
 }
 
 type TestStructResponse struct {
