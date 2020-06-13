@@ -1621,6 +1621,234 @@
             "functionParameter": "assetSid"
           }
         },
+        "subClients": [
+          {
+            "name": "Versions",
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "assetSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Create",
+                "path": "/Services/{serviceSid}/Assets/{assetSid}/Versions",
+                "overrides": {
+                  "subDomain": "serverless-upload",
+                  "apiVersion": "v1"
+                },
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "assetSid",
+                    "value": {
+                      "onService": true,
+                      "property": "assetSid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "CreateVersionInput",
+                  "type": "FormData",
+                  "properties": [
+                    {
+                      "name": "Content",
+                      "type": "string",
+                      "value": "Content",
+                      "required": true
+                    },
+                    {
+                      "name": "Path",
+                      "type": "string",
+                      "value": "Path",
+                      "required": true
+                    },
+                    {
+                      "name": "Visibility",
+                      "type": "string",
+                      "value": "Visibility",
+                      "required": true
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "CreateVersionOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AssetSid",
+                      "type": "string",
+                      "value": "asset_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Path",
+                      "type": "string",
+                      "value": "path",
+                      "required": true
+                    },
+                    {
+                      "name": "Visibility",
+                      "type": "string",
+                      "value": "visibility",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Version",
+            "function": {
+              "parameters": {
+                "versionSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "assetSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "versionSid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Assets/{assetSid}/Versions/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "assetSid",
+                    "value": {
+                      "onService": true,
+                      "property": "assetSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetVersionOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AssetSid",
+                      "type": "string",
+                      "value": "asset_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Path",
+                      "type": "string",
+                      "value": "path",
+                      "required": true
+                    },
+                    {
+                      "name": "Visibility",
+                      "type": "string",
+                      "value": "visibility",
+                      "required": true
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
         "operations": [
           {
             "name": "Get",
