@@ -18,10 +18,17 @@ type apiProperties struct {
 	Required         bool   `json:"required"`
 }
 
-type apiSchema struct {
+type additionalStruct struct {
 	Name       string          `json:"name"`
 	Type       string          `json:"type"`
 	Properties []apiProperties `json:"properties"`
+}
+
+type apiSchema struct {
+	Name              string              `json:"name"`
+	Type              string              `json:"type"`
+	AdditionalStructs *[]additionalStruct `json:"additionalStructs"`
+	Properties        []apiProperties     `json:"properties"`
 }
 
 type property struct {

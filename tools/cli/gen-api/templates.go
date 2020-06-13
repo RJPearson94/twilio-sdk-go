@@ -37,11 +37,21 @@ import (
 )
 
 {{$input := .Input}} {{if $input}} 
+{{if $input.AdditionalStructs}} {{range $index, $struct := $input.AdditionalStructs }}
+type {{$struct.Name}} struct { {{range $index, $property := $struct.Properties }}
+{{ $property.Name }} {{if eq $property.Required false}}{{if ne $property.Type "string"}}*{{end}}{{end}}{{ $property.Type }} {ifFormEncodedDataAddTags} {{end}}
+} 
+{{end}} {{end}}
 type {{$input.Name}} struct { {{range $index, $property := $input.Properties }}
 {{ $property.Name }} {{if eq $property.Required false}}{{if ne $property.Type "string"}}*{{end}}{{end}}{{ $property.Type }} {ifFormEncodedDataAddTags} {{end}}
 } {{end}}
 
-{{$response := .Response}} {{if $response}} 
+{{$response := .Response}} {{if $response}}
+{{if $response.AdditionalStructs}} {{range $index, $struct := $response.AdditionalStructs }}
+type {{$struct.Name}} struct { {{range $index, $property := $struct.Properties }}
+{{ $property.Name }} {{if eq $property.Required false}}{{if ne $property.Type "string"}}*{{end}}{{end}}{{ $property.Type }} {ifJSONResponseAddTags} {{end}}
+} 
+{{end}} {{end}}
 type {{$response.Name}} struct { {{range $index, $property := $response.Properties }}
 {{ $property.Name }} {{if eq $property.Required false}}*{{else}}{{ if $property.OverrideDataType }}*{{end}}{{end}}{{ $property.Type }} {ifJSONResponseAddTags} {{end}}
 } {{end}}
