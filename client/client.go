@@ -7,18 +7,25 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 	"github.com/go-playground/form"
-	"gopkg.in/resty.v1"
+	"github.com/go-resty/resty/v2"
+	"github.com/mitchellh/mapstructure"
 )
 
 const (
 	URLEncoded = "application/x-www-form-urlencoded"
+	FormData   = "multipart/form-data"
 )
 
 var encoder = form.NewEncoder()
 
 type Client struct {
-	domain string
-	client *resty.Client
+	baseURI string
+	client  *resty.Client
+}
+
+// Used for testing purposes only
+func (c Client) GetRestyClient() *resty.Client {
+	return c.client
 }
 
 func New(sess *session.Session, config Config) *Client {
@@ -34,17 +41,18 @@ func New(sess *session.Session, config Config) *Client {
 		SetHeader("Accept", "application/json")
 
 	return &Client{
-		domain: fmt.Sprintf("https://%s.twilio.com/%s", config.SubDomain, config.APIVersion),
-		client: restyClient,
+		baseURI: CreateBaseURI(config.SubDomain, config.APIVersion),
+		client:  restyClient,
 	}
 }
 
 type Operation struct {
-	HTTPMethod  string
-	HTTPPath    string
-	ContentType string
-	PathParams  map[string]string
-	QueryParams map[string]string
+	OverrideBaseURI *string
+	HTTPMethod      string
+	HTTPPath        string
+	ContentType     string
+	PathParams      map[string]string
+	QueryParams     map[string]string
 }
 
 func (c Client) Send(context context.Context, op Operation, input interface{}, output interface{}) error {
@@ -53,7 +61,12 @@ func (c Client) Send(context context.Context, op Operation, input interface{}, o
 		return err
 	}
 
-	resp, err := req.Execute(op.HTTPMethod, c.domain+op.HTTPPath)
+	var baseURI = c.baseURI
+	if op.OverrideBaseURI != nil {
+		baseURI = *op.OverrideBaseURI
+	}
+
+	resp, err := req.Execute(op.HTTPMethod, baseURI+op.HTTPPath)
 	if err != nil {
 		return err
 	}
@@ -63,6 +76,10 @@ func (c Client) Send(context context.Context, op Operation, input interface{}, o
 		return resp.Error().(*utils.TwilioError)
 	}
 	return nil
+}
+
+func CreateBaseURI(subDomain string, apiVersion string) string {
+	return fmt.Sprintf("https://%s.twilio.com/%s", subDomain, apiVersion)
 }
 
 func configureRequest(context context.Context, client *resty.Client, op Operation, input interface{}, output interface{}) (*resty.Request, error) {
@@ -79,22 +96,12 @@ func configureRequest(context context.Context, client *resty.Client, op Operatio
 	}
 
 	if input != nil {
-		if err := utils.ValidateInput(input); err != nil {
-			return nil, fmt.Errorf("Invalid input supplied")
+		inputReq, err := createInput(req, op.ContentType, input)
+		if err != nil {
+			return nil, err
 		}
 
-		if op.ContentType == URLEncoded {
-			values, err := encoder.Encode(&input)
-			if err != nil {
-				return nil, err
-			}
-
-			req = req.
-				SetContentLength(true).
-				SetMultiValueFormData(values)
-		} else {
-			return nil, fmt.Errorf("%s is not a supported content type", op.ContentType)
-		}
+		req = inputReq
 	}
 
 	if output != nil {
@@ -102,4 +109,33 @@ func configureRequest(context context.Context, client *resty.Client, op Operatio
 	}
 
 	return req, nil
+}
+
+func createInput(baseRequest *resty.Request, contentType string, input interface{}) (*resty.Request, error) {
+	if err := utils.ValidateInput(input); err != nil {
+		return nil, fmt.Errorf("Invalid input supplied")
+	}
+
+	if contentType == URLEncoded {
+		values, err := encoder.Encode(&input)
+		if err != nil {
+			return nil, err
+		}
+
+		return baseRequest.
+			SetContentLength(true).
+			SetFormDataFromValues(values), nil
+	}
+
+	if contentType == FormData {
+		values := map[string]string{}
+		if err := mapstructure.Decode(input, &values); err != nil {
+			return nil, err
+		}
+
+		return baseRequest.SetMultipartFormData(values), nil
+	}
+
+	return nil, fmt.Errorf("%s is not a supported content type", contentType)
+
 }

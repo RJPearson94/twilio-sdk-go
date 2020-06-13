@@ -30,11 +30,17 @@ type property struct {
 	FunctionParameter *string `json:"functionParameter"`
 }
 
+type overrides struct {
+	SubDomain  string `json:"subDomain"`
+	ApiVersion string `json:"apiVersion"`
+}
+
 type apiOperation struct {
 	Name       string       `json:"name"`
 	Path       string       `json:"path"`
 	HTTPMethod string       `json:"httpMethod"`
 	PathParams *[]pathParam `json:"pathParams,omitempty"`
+	Overrides  *overrides   `json:"overrides"`
 	Input      *apiSchema   `json:"input"`
 	Response   *apiSchema   `json:"response"`
 	Service    string
