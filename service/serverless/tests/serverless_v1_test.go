@@ -20,6 +20,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/variables"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environments"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/function"
+	functionVersions "github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/function/versions"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/functions"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -988,6 +989,226 @@ var _ = Describe("Serverless V1", func() {
 			err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZH71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the function versions client", func() {
+		functionVersionsClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Versions
+
+		Describe("When the function versions is successfully created", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content:    "Test Content",
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			httpmock.RegisterResponder("POST", "https://serverless-upload.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create function response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FunctionSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Path).To(Equal("/test"))
+				Expect(resp.Visibility).To(Equal("public"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the function version request does not contain content", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create function version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the function version request does not contain a path", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content:    "Test Content",
+				Visibility: "public",
+			}
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create function version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the function version request does not contain visibility", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content: "Test Content",
+				Path:    "/test",
+			}
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create function version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create function version api returns a 500 response", func() {
+			createInput := &functionVersions.CreateVersionInput{
+				Content:    "Test Content",
+				Path:       "/test",
+				Visibility: "public",
+			}
+
+			httpmock.RegisterResponder("POST", "https://serverless-upload.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := functionVersionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				Expect(err).ToNot(BeNil())
+				twilioErr, ok := err.(*utils.TwilioError)
+				Expect(ok).To(Equal(true))
+				Expect(twilioErr.Code).To(BeNil())
+				Expect(twilioErr.Message).To(Equal("An error occurred"))
+				Expect(twilioErr.MoreInfo).To(BeNil())
+				Expect(twilioErr.Status).To(Equal(500))
+			})
+
+			It("Then the create function version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a function version sid", func() {
+		functionVersionClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the function version is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := functionVersionClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get function version response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FunctionSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Path).To(Equal("/test"))
+				Expect(resp.Visibility).To(Equal("public"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get function version response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZN71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get function version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a function version content client", func() {
+		functionVersionContentClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Content
+
+		Describe("When the function version content is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Content",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionContentResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := functionVersionContentClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get function version response content should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FunctionSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Content).To(Equal("exports.handler = function (context, event, callback) { callback(null, \"Hello World\") }"))
+				Expect(resp.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Content"))
+			})
+		})
+
+		Describe("When the get function version content response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZN71/Content",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Content.Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get function version context response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})
