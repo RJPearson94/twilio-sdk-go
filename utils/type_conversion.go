@@ -5,6 +5,10 @@ func String(v string) *string {
 	return &v
 }
 
+func StringSlice(v []string) *[]string {
+	return &v
+}
+
 //  Returns a pointer to the bool value passed in.
 func Bool(v bool) *bool {
 	return &v
