@@ -1065,10 +1065,35 @@
                 "input": {
                   "name": "CreateVersionInput",
                   "type": "FormData",
+                  "additionalStructs": [
+                    {
+                      "name": "ContentDetails",
+                      "properties": [
+                        {
+                          "name": "Body",
+                          "type": "string",
+                          "value": "Body",
+                          "required": true
+                        },
+                        {
+                          "name": "FileName",
+                          "type": "string",
+                          "value": "FileName",
+                          "required": true
+                        },
+                        {
+                          "name": "ContentType",
+                          "type": "string",
+                          "value": "ContentType",
+                          "required": true
+                        }
+                      ]
+                    }
+                  ],
                   "properties": [
                     {
                       "name": "Content",
-                      "type": "string",
+                      "type": "ContentDetails",
                       "value": "Content",
                       "required": true
                     },
@@ -1662,10 +1687,35 @@
                 "input": {
                   "name": "CreateVersionInput",
                   "type": "FormData",
+                  "additionalStructs": [
+                    {
+                      "name": "ContentDetails",
+                      "properties": [
+                        {
+                          "name": "Body",
+                          "type": "string",
+                          "value": "Body",
+                          "required": true
+                        },
+                        {
+                          "name": "FileName",
+                          "type": "string",
+                          "value": "FileName",
+                          "required": true
+                        },
+                        {
+                          "name": "ContentType",
+                          "type": "string",
+                          "value": "ContentType",
+                          "required": true
+                        }
+                      ]
+                    }
+                  ],
                   "properties": [
                     {
                       "name": "Content",
-                      "type": "string",
+                      "type": "ContentDetails",
                       "value": "Content",
                       "required": true
                     },
