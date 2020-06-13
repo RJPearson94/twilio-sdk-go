@@ -2113,7 +2113,7 @@
                 },
                 {
                   "name": "Dependencies",
-                  "type": "[]string",
+                  "type": "string",
                   "value": "Dependencies",
                   "required": false
                 }
