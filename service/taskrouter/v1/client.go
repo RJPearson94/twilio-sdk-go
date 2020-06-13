@@ -10,8 +10,14 @@ import (
 )
 
 type TaskRouter struct {
+	client     *client.Client
 	Workspace  func(string) *workspace.Client
 	Workspaces *workspaces.Client
+}
+
+// Used for testing purposes only
+func (s TaskRouter) GetClient() *client.Client {
+	return s.client
 }
 
 func New(sess *session.Session) *TaskRouter {
@@ -20,9 +26,12 @@ func New(sess *session.Session) *TaskRouter {
 	config.SubDomain = "taskrouter"
 	config.APIVersion = "v1"
 
-	client := client.New(sess, config)
+	return NewWithClient(client.New(sess, config))
+}
 
+func NewWithClient(client *client.Client) *TaskRouter {
 	return &TaskRouter{
+		client:     client,
 		Workspace:  func(sid string) *workspace.Client { return workspace.New(client, sid) },
 		Workspaces: workspaces.New(client),
 	}

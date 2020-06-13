@@ -23,9 +23,6 @@ import (
 )
 
 var _ = Describe("Studio V2", func() {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
-
 	creds, err := credentials.New(credentials.Account{
 		Sid:       "ACxxx",
 		AuthToken: "Test",
@@ -35,6 +32,9 @@ var _ = Describe("Studio V2", func() {
 	}
 
 	studioSession := studio.NewWithCredentials(creds).V2
+
+	httpmock.ActivateNonDefault(studioSession.GetClient().GetRestyClient().GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	Describe("Given the Flows Client", func() {
 		flowClient := studioSession.Flows

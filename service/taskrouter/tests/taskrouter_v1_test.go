@@ -31,9 +31,6 @@ import (
 )
 
 var _ = Describe("Taskrouter V1", func() {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
-
 	creds, err := credentials.New(credentials.Account{
 		Sid:       "ACxxx",
 		AuthToken: "Test",
@@ -43,6 +40,9 @@ var _ = Describe("Taskrouter V1", func() {
 	}
 
 	taskrouterSession := taskrouter.NewWithCredentials(creds).V1
+
+	httpmock.ActivateNonDefault(taskrouterSession.GetClient().GetRestyClient().GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	Describe("Given the workspace client", func() {
 		workspacesClient := taskrouterSession.Workspaces

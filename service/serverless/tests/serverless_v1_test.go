@@ -40,6 +40,9 @@ var _ = Describe("Serverless V1", func() {
 
 	serverlessSession := serverless.NewWithCredentials(creds).V1
 
+	httpmock.ActivateNonDefault(serverlessSession.GetClient().GetRestyClient().GetClient())
+	defer httpmock.DeactivateAndReset()
+
 	Describe("Given the services client", func() {
 		servicesClient := serverlessSession.Services
 

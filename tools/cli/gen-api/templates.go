@@ -51,7 +51,8 @@ func (c Client) {{.Name}}({{if $input}}input *{{$input.Name}}{{end}}) ({{if $res
 }
 
 func (c Client) {{.Name}}WithContext(context context.Context{{if $input}}, input *{{$input.Name}}{{end}}) ({{if $response}}*{{$response.Name}}, {{end}}error) {
-	op := client.Operation{
+	op := client.Operation{ {{if .Overrides}}
+		OverrideBaseURI: utils.String(client.CreateBaseURI("{{.Overrides.SubDomain}}", "{{.Overrides.ApiVersion}}")),{{end}}
 		HTTPMethod: http.Method{{.HTTPMethod}},
 		HTTPPath:   "{{.Path}}", {{if $input}}
 		ContentType: client.{{$input.Type}},{{end}} {{if .PathParams}}{{$propertiesMap := .Properties}}
@@ -68,5 +69,5 @@ func (c Client) {{.Name}}WithContext(context context.Context{{if $input}}, input
 }
 `
 
-var ifFormEncodedDataAddTags = "{{if eq $input.Type \"URLEncoded\"}} `{{if eq $property.Required true}}validate:\"required\" {{end}}form:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"` {{end}}"
+var ifFormEncodedDataAddTags = "`{{if eq $property.Required true}}validate:\"required\" {{end}}{{if eq $input.Type \"URLEncoded\"}}form:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}{{if eq $input.Type \"FormData\"}}mapstructure:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}`"
 var ifJSONResponseAddTags = "{{if eq $response.Type \"JSON\"}} `json:\"{{$property.Value}}{{ if $property.OverrideDataType }},{{ $property.OverrideDataType }}{{end}}{{if eq $property.Required false}},omitempty{{end}}\"` {{end}}"
