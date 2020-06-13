@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/asset"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/assets"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/build"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/builds"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environments"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/function"
@@ -20,6 +22,8 @@ type Client struct {
 	Function     func(string) *function.Client
 	Assets       *assets.Client
 	Asset        func(string) *asset.Client
+	Builds       *builds.Client
+	Build        func(string) *build.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -32,5 +36,7 @@ func New(client *client.Client, sid string) *Client {
 		Function:     func(functionSid string) *function.Client { return function.New(client, sid, functionSid) },
 		Assets:       assets.New(client, sid),
 		Asset:        func(assetSid string) *asset.Client { return asset.New(client, sid, assetSid) },
+		Builds:       builds.New(client, sid),
+		Build:        func(buildSid string) *build.Client { return build.New(client, sid, buildSid) },
 	}
 }
