@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/jarcoal/httpmock"
@@ -998,7 +999,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the function versions is successfully created", func() {
 			createInput := &functionVersions.CreateVersionInput{
 				Content: functionVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "application/javascript",
 					FileName:    "test.js",
 				},
@@ -1052,7 +1053,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset version request does not contain filename", func() {
 			createInput := &functionVersions.CreateVersionInput{
 				Content: functionVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "application/javascript",
 				},
 				Path:       "/test",
@@ -1072,7 +1073,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset version request does not contain content type", func() {
 			createInput := &functionVersions.CreateVersionInput{
 				Content: functionVersions.ContentDetails{
-					Body:     "Test Content",
+					Body:     strings.NewReader("Test Content"),
 					FileName: "test.js",
 				},
 				Path:       "/test",
@@ -1112,7 +1113,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the function version request does not contain a path", func() {
 			createInput := &functionVersions.CreateVersionInput{
 				Content: functionVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "application/javascript",
 					FileName:    "test.js",
 				},
@@ -1132,7 +1133,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the function version request does not contain visibility", func() {
 			createInput := &functionVersions.CreateVersionInput{
 				Content: functionVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "application/javascript",
 					FileName:    "test.js",
 				},
@@ -1152,7 +1153,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the create function version api returns a 500 response", func() {
 			createInput := &functionVersions.CreateVersionInput{
 				Content: functionVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "application/javascript",
 					FileName:    "test.js",
 				},
@@ -1503,7 +1504,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset versions is successfully created", func() {
 			createInput := &assetVersions.CreateVersionInput{
 				Content: assetVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "image/png",
 					FileName:    "test.png",
 				},
@@ -1557,7 +1558,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset version request does not contain filename", func() {
 			createInput := &assetVersions.CreateVersionInput{
 				Content: assetVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "image/png",
 				},
 				Path:       "/test",
@@ -1577,7 +1578,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset version request does not contain content type", func() {
 			createInput := &assetVersions.CreateVersionInput{
 				Content: assetVersions.ContentDetails{
-					Body:     "Test Content",
+					Body:     strings.NewReader("Test Content"),
 					FileName: "test.png",
 				},
 				Path:       "/test",
@@ -1617,7 +1618,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset version request does not contain a path", func() {
 			createInput := &assetVersions.CreateVersionInput{
 				Content: assetVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "image/png",
 					FileName:    "test.png",
 				},
@@ -1637,7 +1638,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the asset version request does not contain visibility", func() {
 			createInput := &assetVersions.CreateVersionInput{
 				Content: assetVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "image/png",
 					FileName:    "test.png",
 				},
@@ -1657,7 +1658,7 @@ var _ = Describe("Serverless V1", func() {
 		Describe("When the create asset version api returns a 500 response", func() {
 			createInput := &assetVersions.CreateVersionInput{
 				Content: assetVersions.ContentDetails{
-					Body:        "Test Content",
+					Body:        strings.NewReader("Test Content"),
 					ContentType: "image/png",
 					FileName:    "test.png",
 				},

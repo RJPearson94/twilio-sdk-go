@@ -3,6 +3,7 @@ package versions
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"time"
 
@@ -11,9 +12,9 @@ import (
 )
 
 type ContentDetails struct {
-	Body        string `validate:"required" mapstructure:"Body"`
-	FileName    string `validate:"required" mapstructure:"FileName"`
-	ContentType string `validate:"required" mapstructure:"ContentType"`
+	Body        io.ReadSeeker `validate:"required" mapstructure:"Body"`
+	FileName    string        `validate:"required" mapstructure:"FileName"`
+	ContentType string        `validate:"required" mapstructure:"ContentType"`
 }
 
 type CreateVersionInput struct {
