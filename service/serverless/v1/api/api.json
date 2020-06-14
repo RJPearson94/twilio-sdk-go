@@ -1071,7 +1071,7 @@
                       "properties": [
                         {
                           "name": "Body",
-                          "type": "string",
+                          "type": "io.ReadSeeker",
                           "value": "Body",
                           "required": true
                         },
@@ -1693,7 +1693,7 @@
                       "properties": [
                         {
                           "name": "Body",
-                          "type": "string",
+                          "type": "io.ReadSeeker",
                           "value": "Body",
                           "required": true
                         },

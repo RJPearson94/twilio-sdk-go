@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/RJPearson94/twilio-sdk-go/session"
@@ -136,7 +137,7 @@ func createInput(baseRequest *resty.Request, contentType string, input interface
 
 		for key, value := range values {
 			fileName, contentType, content := getMultipartFieldDetails(value)
-			baseRequest = baseRequest.SetMultipartField(key, fileName, contentType, strings.NewReader(content))
+			baseRequest = baseRequest.SetMultipartField(key, fileName, contentType, content)
 		}
 
 		return baseRequest, nil
@@ -145,11 +146,11 @@ func createInput(baseRequest *resty.Request, contentType string, input interface
 	return nil, fmt.Errorf("%s is not a supported content type", contentType)
 }
 
-func getMultipartFieldDetails(value interface{}) (string, string, string) {
+func getMultipartFieldDetails(value interface{}) (string, string, io.ReadSeeker) {
 	fileDetails, ok := value.(map[string]interface{})
 	if ok {
-		return fileDetails["FileName"].(string), fileDetails["ContentType"].(string), fileDetails["Body"].(string)
+		return fileDetails["FileName"].(string), fileDetails["ContentType"].(string), fileDetails["Body"].(io.ReadSeeker)
 	}
 
-	return "", "", value.(string)
+	return "", "", strings.NewReader(value.(string))
 }
