@@ -2,7 +2,9 @@ package tests
 
 import (
 	"context"
+	"io"
 	"net/http"
+	"strings"
 
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
@@ -180,7 +182,7 @@ var _ = Describe("Client", func() {
 			testInput := &TestContentStructInput{
 				Name: "Test",
 				Content: ContentDetails{
-					Body:        "{}",
+					Body:        strings.NewReader("{}"),
 					ContentType: "application/json",
 					FileName:    "test.json",
 				},
@@ -236,9 +238,9 @@ type TestStructInput struct {
 }
 
 type ContentDetails struct {
-	Body        string `validate:"required"`
-	ContentType string `validate:"required"`
-	FileName    string `validate:"required"`
+	Body        io.ReadSeeker `validate:"required"`
+	ContentType string        `validate:"required"`
+	FileName    string        `validate:"required"`
 }
 
 type TestContentStructInput struct {
