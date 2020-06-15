@@ -14,6 +14,7 @@ import (
 )
 
 const (
+	JSON       = "application/json"
 	URLEncoded = "application/x-www-form-urlencoded"
 	FormData   = "multipart/form-data"
 )
@@ -141,6 +142,12 @@ func createInput(baseRequest *resty.Request, contentType string, input interface
 		}
 
 		return baseRequest, nil
+	}
+
+	if contentType == JSON {
+		return baseRequest.
+			SetContentLength(true).
+			SetBody(input), nil
 	}
 
 	return nil, fmt.Errorf("%s is not a supported content type", contentType)

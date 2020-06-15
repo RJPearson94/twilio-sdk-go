@@ -79,5 +79,5 @@ func (c Client) {{.Name}}WithContext(context context.Context{{if $input}}, input
 }
 `
 
-var ifFormEncodedDataAddTags = "`{{if eq $property.Required true}}validate:\"required\" {{end}}{{if eq $input.Type \"URLEncoded\"}}form:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}{{if eq $input.Type \"FormData\"}}mapstructure:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}`"
+var ifFormEncodedDataAddTags = "`{{if eq $property.Required true}}validate:\"required\" {{end}}{{if eq $input.Type \"URLEncoded\"}}form:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}{{if eq $input.Type \"FormData\"}}mapstructure:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}{{if eq $input.Type \"JSON\"}}json:\"{{$property.Value}}{{if eq $property.Required false}},omitempty{{end}}\"{{end}}`"
 var ifJSONResponseAddTags = "{{if eq $response.Type \"JSON\"}} `json:\"{{$property.Value}}{{ if $property.OverrideDataType }},{{ $property.OverrideDataType }}{{end}}{{if eq $property.Required false}},omitempty{{end}}\"` {{end}}"

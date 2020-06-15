@@ -5,7 +5,8 @@ func String(v string) *string {
 	return &v
 }
 
-func StringSlice(v []string) *[]string {
+//  Returns a pointer to the interface value passed in.
+func Interface(v interface{}) *interface{} {
 	return &v
 }
 

@@ -1,6 +1,7 @@
 package twilio
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/service/flex"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
@@ -9,6 +10,7 @@ import (
 )
 
 type Twilio struct {
+	Flex       *flex.Flex
 	Serverless *serverless.Serverless
 	Studio     *studio.Studio
 	TaskRouter *taskrouter.TaskRouter
@@ -16,6 +18,7 @@ type Twilio struct {
 
 func New(sess *session.Session) *Twilio {
 	c := &Twilio{}
+	c.Flex = flex.New(sess)
 	c.Serverless = serverless.New(sess)
 	c.Studio = studio.New(sess)
 	c.TaskRouter = taskrouter.New(sess)

@@ -1,0 +1,76 @@
+{
+  "crm_type": null,
+  "date_updated": null,
+  "integrations": null,
+  "crm_callback_url": null,
+  "serverless_service_sids": ["SZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"],
+  "queue_stats_configuration": null,
+  "plugin_service_enabled": null,
+  "crm_attributes": null,
+  "ui_version": "~1.19.0",
+  "crm_fallback_url": null,
+  "service_version": null,
+  "taskrouter_target_workflow_sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "messaging_service_instance_sid": null,
+  "plugin_service_attributes": null,
+  "call_recording_enabled": null,
+  "call_recording_webhook_url": null,
+  "public_attributes": null,
+  "crm_enabled": null,
+  "status": "ok",
+  "taskrouter_worker_attributes": null,
+  "chat_service_instance_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "taskrouter_worker_channels": null,
+  "ui_dependencies": null,
+  "taskrouter_offline_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "wfm_integrations": null,
+  "taskrouter_workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-05-10T20:17:41Z",
+  "taskrouter_skills": null,
+  "taskrouter_taskqueues": null,
+  "ui_attributes": {
+    "warmTransfers": {
+      "enabled": true
+    },
+    "version_compatibility": "yes",
+    "colorTheme": {
+      "light": true,
+      "baseName": "FlexLight",
+      "preset": {
+        "id": "light-blue",
+        "name": "Light Blue"
+      },
+      "overrides": {
+        "MainHeader": {
+          "Container": {
+            "background": "#233659"
+          }
+        },
+        "SideNav": {
+          "Button": {
+            "background": "#4F5E7A"
+          },
+          "Container": {
+            "background": "#4F5E7A"
+          }
+        }
+      }
+    },
+    "version_message": ""
+  },
+  "url": "https://flex-api.twilio.com/v1/Configuration",
+  "outbound_call_flows": null,
+  "taskrouter_target_taskqueue_sid": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "runtime_domain": "test.twil.io",
+  "ui_language": null,
+  "attributes": {
+    "seenOnboarding": true,
+    "previous_ui_version": {
+      "date": "2020-06-14T18:41:31.640Z",
+      "semver": "~1.17.3",
+      "version": "1.17.3"
+    }
+  },
+  "flex_service_instance_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
