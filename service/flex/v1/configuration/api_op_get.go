@@ -28,12 +28,12 @@ type GetConfigurationOutputWorkerChannel struct {
 }
 
 type GetConfigurationOutputIntegration struct {
-	Name   string `json:"name"`
-	Type   string `json:"type"`
-	Active bool   `json:"active"`
-	Config string `json:"config"`
-	Logo   string `json:"logo,omitempty"`
-	Author string `json:"author,omitempty"`
+	Name   string  `json:"name"`
+	Type   string  `json:"type"`
+	Active bool    `json:"active"`
+	Config string  `json:"config"`
+	Logo   *string `json:"logo,omitempty"`
+	Author *string `json:"author,omitempty"`
 }
 
 type GetConfigurationOutput struct {

@@ -87,12 +87,12 @@ type UpdateConfigurationOutputWorkerChannel struct {
 }
 
 type UpdateConfigurationOutputIntegration struct {
-	Name   string `json:"name"`
-	Type   string `json:"type"`
-	Active bool   `json:"active"`
-	Config string `json:"config"`
-	Logo   string `json:"logo,omitempty"`
-	Author string `json:"author,omitempty"`
+	Name   string  `json:"name"`
+	Type   string  `json:"type"`
+	Active bool    `json:"active"`
+	Config string  `json:"config"`
+	Logo   *string `json:"logo,omitempty"`
+	Author *string `json:"author,omitempty"`
 }
 
 type UpdateConfigurationOutput struct {

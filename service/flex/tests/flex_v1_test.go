@@ -7,6 +7,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
+
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
+
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -223,11 +227,297 @@ var _ = Describe("Flex V1", func() {
 			})
 		})
 	})
+
+	Describe("Given the flex flows client", func() {
+		flexFlowsClient := flexSession.FlexFlows
+
+		Describe("When the flex flow is successfully created", func() {
+			createInput := &flex_flows.CreateFlexFlowInput{
+				FriendlyName:   "Test Flex Flow",
+				ChatServiceSid: "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				ChannelType:    "web",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/FlexFlows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flexFlowResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := flexFlowsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create flex flow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test Flex Flow"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChannelType).To(Equal("web"))
+				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
+				Expect(resp.Enabled).To(Equal(true))
+				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
+				Expect(resp.Integration).To(Equal(&flex_flows.CreateFlexFlowOutputIntegration{
+					RetryCount: utils.Int(1),
+					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(resp.LongLived).To(Equal(utils.Bool(true)))
+				Expect(resp.JanitorEnabled).To(Equal(utils.Bool(true)))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the flex flow request does not contain a friendly name", func() {
+			createInput := &flex_flows.CreateFlexFlowInput{
+				ChatServiceSid: "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				ChannelType:    "web",
+			}
+
+			resp, err := flexFlowsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create flex flow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the flex flow request does not contain a chat service sid", func() {
+			createInput := &flex_flows.CreateFlexFlowInput{
+				FriendlyName: "Test Flex Flow",
+				ChannelType:  "web",
+			}
+
+			resp, err := flexFlowsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create flex flow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the flex flow request does not contain a channel type", func() {
+			createInput := &flex_flows.CreateFlexFlowInput{
+				FriendlyName:   "Test Flex Flow",
+				ChatServiceSid: "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			resp, err := flexFlowsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create flex flow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the flex flow api returns a 500 response", func() {
+			createInput := &flex_flows.CreateFlexFlowInput{
+				FriendlyName:   "Test Flex Flow",
+				ChatServiceSid: "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				ChannelType:    "web",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/FlexFlows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := flexFlowsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				Expect(err).ToNot(BeNil())
+				twilioErr, ok := err.(*utils.TwilioError)
+				Expect(ok).To(Equal(true))
+				Expect(twilioErr.Code).To(BeNil())
+				Expect(twilioErr.Message).To(Equal("An error occurred"))
+				Expect(twilioErr.MoreInfo).To(BeNil())
+				Expect(twilioErr.Status).To(Equal(500))
+			})
+
+			It("Then the create flex flow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a flex flow sid", func() {
+		flexFlowClient := flexSession.FlexFlow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the flex flow is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flexFlowResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := flexFlowClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get flex flow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test Flex Flow"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChannelType).To(Equal("web"))
+				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
+				Expect(resp.Enabled).To(Equal(true))
+				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
+				Expect(resp.Integration).To(Equal(&flex_flow.GetFlexFlowOutputIntegration{
+					RetryCount: utils.Int(1),
+					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(resp.LongLived).To(Equal(utils.Bool(true)))
+				Expect(resp.JanitorEnabled).To(Equal(utils.Bool(true)))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get flex flow response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows/FO71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := flexSession.FlexFlow("FO71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get flex flow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the flex flow is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updatedFlexFlowResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &flex_flow.UpdateFlexFlowInput{
+				FriendlyName: "New Flex Flow",
+			}
+
+			resp, err := flexFlowClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the updated flex flow response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("New Flex Flow"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChannelType).To(Equal("web"))
+				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
+				Expect(resp.Enabled).To(Equal(true))
+				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
+				Expect(resp.Integration).To(Equal(&flex_flow.UpdateFlexFlowOutputIntegration{
+					RetryCount: utils.Int(1),
+					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(resp.LongLived).To(Equal(utils.Bool(true)))
+				Expect(resp.JanitorEnabled).To(Equal(utils.Bool(true)))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2016-08-02T22:10:40Z"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update flex flow response returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/FlexFlows/FO71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &flex_flow.UpdateFlexFlowInput{}
+
+			resp, err := flexSession.FlexFlow("FO71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update flex flow response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the flex flow is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := flexFlowClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete flex flow response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://flex-api.twilio.com/v1/FlexFlows/FO71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := flexSession.FlexFlow("FO71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
 })
 
 func ExpectInvalidInputError(err error) {
 	ExpectErrorToNotBeATwilioError(err)
 	Expect(err.Error()).To(Equal("Invalid input supplied"))
+}
+
+func ExpectNotFoundError(err error) {
+	Expect(err).ToNot(BeNil())
+	twilioErr, ok := err.(*utils.TwilioError)
+	Expect(ok).To(Equal(true))
+	Expect(twilioErr.Code).To(Equal(utils.Int(20404)))
+	Expect(twilioErr.Message).To(Equal("The requested resource /FlexFlows/FO71 was not found"))
+	Expect(twilioErr.MoreInfo).To(Equal(utils.String("https://www.twilio.com/docs/errors/20404")))
+	Expect(twilioErr.Status).To(Equal(404))
 }
 
 func ExpectErrorToNotBeATwilioError(err error) {

@@ -1,0 +1,19 @@
+{
+  "sid": "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2016-08-01T22:10:40Z",
+  "date_updated": "2016-08-02T22:10:40Z",
+  "friendly_name": "New Flex Flow",
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "channel_type": "web",
+  "contact_identity": "12345",
+  "enabled": true,
+  "integration_type": "studio",
+  "integration": {
+    "flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "retry_count": 1
+  },
+  "long_lived": true,
+  "janitor_enabled": true,
+  "url": "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

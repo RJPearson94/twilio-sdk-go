@@ -49,7 +49,7 @@ type {{$input.Name}} struct { {{range $index, $property := $input.Properties }}
 {{$response := .Response}} {{if $response}}
 {{if $response.AdditionalStructs}} {{range $index, $struct := $response.AdditionalStructs }}
 type {{$struct.Name}} struct { {{range $index, $property := $struct.Properties }}
-{{ $property.Name }} {{if eq $property.Required false}}{{if ne $property.Type "string"}}*{{end}}{{end}}{{ $property.Type }} {ifJSONResponseAddTags} {{end}}
+{{ $property.Name }} {{if eq $property.Required false}}*{{else}}{{ if $property.OverrideDataType }}*{{end}}{{end}}{{ $property.Type }} {ifJSONResponseAddTags} {{end}}
 } 
 {{end}} {{end}}
 type {{$response.Name}} struct { {{range $index, $property := $response.Properties }}
