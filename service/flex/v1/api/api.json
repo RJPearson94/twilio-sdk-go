@@ -1700,5 +1700,227 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Channels",
+    "operations": [
+      {
+        "name": "Create",
+        "path": "/Channels",
+        "httpMethod": "Post",
+        "input": {
+          "name": "CreateChannelInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "FlexFlowSid",
+              "type": "string",
+              "value": "FlexFlowSid",
+              "required": true
+            },
+            {
+              "name": "Identity",
+              "type": "string",
+              "value": "Identity",
+              "required": true
+            },
+            {
+              "name": "ChatUserFriendlyName",
+              "type": "string",
+              "value": "ChatUserFriendlyName",
+              "required": true
+            },
+            {
+              "name": "ChatFriendlyName",
+              "type": "string",
+              "value": "ChatFriendlyName",
+              "required": true
+            },
+            {
+              "name": "Target",
+              "type": "string",
+              "value": "Target",
+              "required": false
+            },
+            {
+              "name": "ChatUniqueName",
+              "type": "string",
+              "value": "ChatUniqueName",
+              "required": false
+            },
+            {
+              "name": "PreEngagementData",
+              "type": "string",
+              "value": "PreEngagementData",
+              "required": false
+            },
+            {
+              "name": "TaskSid",
+              "type": "string",
+              "value": "TaskSid",
+              "required": false
+            },
+            {
+              "name": "TaskAttributes",
+              "type": "string",
+              "value": "TaskAttributes",
+              "required": false
+            },
+            {
+              "name": "LongLived",
+              "type": "bool",
+              "value": "LongLived",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "CreateChannelOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "FlexFlowSid",
+              "type": "string",
+              "value": "flex_flow_sid",
+              "required": true
+            },
+            {
+              "name": "TaskSid",
+              "type": "string",
+              "value": "task_sid",
+              "required": false
+            },
+            {
+              "name": "UserSid",
+              "type": "string",
+              "value": "user_sid",
+              "required": true
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Channel",
+    "properties": {
+      "sid": {
+        "dataType": "string"
+      }
+    },
+    "operations": [
+      {
+        "name": "Get",
+        "path": "/Channels/{sid}",
+        "httpMethod": "Get",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "response": {
+          "name": "GetChannelOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "FlexFlowSid",
+              "type": "string",
+              "value": "flex_flow_sid",
+              "required": true
+            },
+            {
+              "name": "TaskSid",
+              "type": "string",
+              "value": "task_sid",
+              "required": false
+            },
+            {
+              "name": "UserSid",
+              "type": "string",
+              "value": "user_sid",
+              "required": true
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Delete",
+        "path": "/Channels/{sid}",
+        "httpMethod": "Delete",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

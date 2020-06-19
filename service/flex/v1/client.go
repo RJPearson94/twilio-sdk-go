@@ -2,6 +2,8 @@ package v1
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
@@ -14,6 +16,8 @@ type Flex struct {
 	Configuration func() *configuration.Client
 	FlexFlows     *flex_flows.Client
 	FlexFlow      func(string) *flex_flow.Client
+	Channels      *channels.Client
+	Channel       func(string) *channel.Client
 }
 
 // Used for testing purposes only
@@ -36,6 +40,8 @@ func NewWithClient(client *client.Client) *Flex {
 		Configuration: func() *configuration.Client { return configuration.New(client) },
 		FlexFlows:     flex_flows.New(client),
 		FlexFlow:      func(sid string) *flex_flow.Client { return flex_flow.New(client, sid) },
+		Channels:      channels.New(client),
+		Channel:       func(sid string) *channel.Client { return channel.New(client, sid) },
 	}
 }
 
