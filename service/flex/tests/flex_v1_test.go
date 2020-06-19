@@ -16,6 +16,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -714,6 +716,269 @@ var _ = Describe("Flex V1", func() {
 			)
 
 			err := flexSession.Channel("CH71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the web channels client", func() {
+		webChannelsClient := flexSession.WebChannels
+
+		Describe("When the web channel is successfully created", func() {
+			createInput := &web_channels.CreateWebChannelInput{
+				FlexFlowSid:          "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				Identity:             "Test",
+				ChatFriendlyName:     "Test",
+				CustomerFriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/WebChannels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webChannelResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := webChannelsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create web channel response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FlexFlowSid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the web channels request does not contain a flex flow sid", func() {
+			createInput := &web_channels.CreateWebChannelInput{
+				Identity:             "Test",
+				ChatFriendlyName:     "Test",
+				CustomerFriendlyName: "Test",
+			}
+
+			resp, err := webChannelsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the web channels request does not contain a identity", func() {
+			createInput := &web_channels.CreateWebChannelInput{
+				FlexFlowSid:          "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				ChatFriendlyName:     "Test",
+				CustomerFriendlyName: "Test",
+			}
+
+			resp, err := webChannelsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the web channel request does not contain a chat friendly name", func() {
+			createInput := &web_channels.CreateWebChannelInput{
+				FlexFlowSid:          "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				Identity:             "Test",
+				CustomerFriendlyName: "Test",
+			}
+
+			resp, err := webChannelsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the web channel request does not contain a customer friendly name", func() {
+			createInput := &web_channels.CreateWebChannelInput{
+				FlexFlowSid:      "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				Identity:         "Test",
+				ChatFriendlyName: "Test",
+			}
+
+			resp, err := webChannelsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the web channel api returns a 500 response", func() {
+			createInput := &web_channels.CreateWebChannelInput{
+				FlexFlowSid:          "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				Identity:             "Test",
+				ChatFriendlyName:     "Test",
+				CustomerFriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/WebChannels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := webChannelsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				Expect(err).ToNot(BeNil())
+				twilioErr, ok := err.(*utils.TwilioError)
+				Expect(ok).To(Equal(true))
+				Expect(twilioErr.Code).To(BeNil())
+				Expect(twilioErr.Message).To(Equal("An error occurred"))
+				Expect(twilioErr.MoreInfo).To(BeNil())
+				Expect(twilioErr.Status).To(Equal(500))
+			})
+
+			It("Then the create web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a web channel sid", func() {
+		webChannelClient := flexSession.WebChannel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the web channel is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webChannelResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := webChannelClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get web channel response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FlexFlowSid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the web channel api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels/CH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := flexSession.WebChannel("CH71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the web channel is successfully updated", func() {
+			updateInput := &web_channel.UpdateWebChannelInput{}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateWebChannelResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := webChannelClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update web channel response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FlexFlowSid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2016-08-02T22:10:40Z"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the web channel api returns a 404", func() {
+			updateInput := &web_channel.UpdateWebChannelInput{}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/WebChannels/CH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := flexSession.WebChannel("CH71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update web channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the web channel is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := webChannelClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete web channel response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://flex-api.twilio.com/v1/WebChannels/CH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := flexSession.WebChannel("CH71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
