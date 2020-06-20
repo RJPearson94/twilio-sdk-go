@@ -304,8 +304,8 @@ var _ = Describe("Studio V2", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
 
 			updateInput := &flow.UpdateFlowInput{
-				FriendlyName: "Test 2",
-				Definition:   string(flowDefinition),
+				FriendlyName: utils.String("Test 2"),
+				Definition:   utils.String(string(flowDefinition)),
 			}
 
 			resp, err := flowClient.Update(updateInput)
@@ -351,7 +351,7 @@ var _ = Describe("Studio V2", func() {
 			createInput := &executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
@@ -385,7 +385,7 @@ var _ = Describe("Studio V2", func() {
 		Describe("When the execution does not contain a to", func() {
 			createInput := &executions.CreateExecutionInput{
 				From:       "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			resp, err := executionClient.Create(createInput)
@@ -401,7 +401,7 @@ var _ = Describe("Studio V2", func() {
 		Describe("When the execution does not contain a from", func() {
 			createInput := &executions.CreateExecutionInput{
 				To:         "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			resp, err := executionClient.Create(createInput)
@@ -418,7 +418,7 @@ var _ = Describe("Studio V2", func() {
 			createInput := &executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+15017122661",
-				Parameters: "{\"name\": \"RJPearson94\"}",
+				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
