@@ -1,0 +1,24 @@
+{
+  "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "data": {
+    "body": "some message"
+  },
+  "date_created": "2015-07-30T20:00:00Z",
+  "date_updated": null,
+  "participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "inbound_participant_sid": null,
+  "inbound_resource_sid": null,
+  "inbound_resource_status": null,
+  "inbound_resource_type": null,
+  "inbound_resource_url": null,
+  "outbound_participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "outbound_resource_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "outbound_resource_status": "sent",
+  "outbound_resource_type": "Message",
+  "outbound_resource_url": null,
+  "sid": "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "type": "message",
+  "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "session_sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

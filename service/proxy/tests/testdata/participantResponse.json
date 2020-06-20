@@ -1,0 +1,17 @@
+{
+  "sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "session_sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "identifier": "+123456789",
+  "proxy_identifier": "+123456788",
+  "proxy_identifier_sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "friendly_name": "Test",
+  "date_deleted": null,
+  "date_updated": null,
+  "date_created": "2015-07-30T20:00:00Z",
+  "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "links": {
+    "message_interactions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions"
+  }
+}

@@ -1,0 +1,2837 @@
+[
+  {
+    "name": "Services",
+    "operations": [
+      {
+        "name": "Create",
+        "path": "/Services",
+        "httpMethod": "Post",
+        "input": {
+          "name": "CreateServiceInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "UniqueName",
+              "type": "string",
+              "value": "UniqueName",
+              "required": true
+            },
+            {
+              "name": "DefaultTtl",
+              "type": "int",
+              "value": "DefaultTtl",
+              "required": false
+            },
+            {
+              "name": "CallbackUrl",
+              "type": "string",
+              "value": "CallbackUrl",
+              "required": false
+            },
+            {
+              "name": "GeoMatchLevel",
+              "type": "string",
+              "value": "GeoMatchLevel",
+              "required": false
+            },
+            {
+              "name": "NumberSelectionBehavior",
+              "type": "string",
+              "value": "NumberSelectionBehavior",
+              "required": false
+            },
+            {
+              "name": "InterceptCallbackUrl",
+              "type": "string",
+              "value": "InterceptCallbackUrl",
+              "required": false
+            },
+            {
+              "name": "OutOfSessionCallbackUrl",
+              "type": "string",
+              "value": "OutOfSessionCallbackUrl",
+              "required": false
+            },
+            {
+              "name": "ChatInstanceSid",
+              "type": "string",
+              "value": "ChatInstanceSid",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "CreateServiceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "ChatInstanceSid",
+              "type": "string",
+              "value": "chat_instance_sid",
+              "required": false
+            },
+            {
+              "name": "ChatServiceSid",
+              "type": "string",
+              "value": "chat_service_sid",
+              "required": true
+            },
+            {
+              "name": "UniqueName",
+              "type": "string",
+              "value": "unique_name",
+              "required": true
+            },
+            {
+              "name": "DefaultTtl",
+              "type": "int",
+              "value": "default_ttl",
+              "required": false
+            },
+            {
+              "name": "CallbackUrl",
+              "type": "string",
+              "value": "callback_url",
+              "required": false
+            },
+            {
+              "name": "GeoMatchLevel",
+              "type": "string",
+              "value": "geo_match_level",
+              "required": false
+            },
+            {
+              "name": "NumberSelectionBehavior",
+              "type": "string",
+              "value": "number_selection_behavior",
+              "required": false
+            },
+            {
+              "name": "InterceptCallbackUrl",
+              "type": "string",
+              "value": "intercept_callback_url",
+              "required": false
+            },
+            {
+              "name": "OutOfSessionCallbackUrl",
+              "type": "string",
+              "value": "out_of_session_callback_url",
+              "required": false
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Service",
+    "properties": {
+      "sid": {
+        "dataType": "string"
+      }
+    },
+    "subClients": [
+      {
+        "name": "Phone Numbers",
+        "properties": {
+          "serviceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Services/{serviceSid}/PhoneNumbers",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              }
+            ],
+            "httpMethod": "Post",
+            "input": {
+              "name": "CreatePhoneNumberInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "Sid",
+                  "required": false
+                },
+                {
+                  "name": "PhoneNumber",
+                  "type": "string",
+                  "value": "PhoneNumber",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "IsReserved",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreatePhoneNumberOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "CreatePhoneNumberResponseCapabilities",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "SmsInbound",
+                      "type": "bool",
+                      "value": "sms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SmsOutbound",
+                      "type": "bool",
+                      "value": "sms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionSmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_sms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionVoiceDomestic",
+                      "type": "bool",
+                      "value": "restriction_voice_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceOutbound",
+                      "type": "bool",
+                      "value": "voice_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceInbound",
+                      "type": "bool",
+                      "value": "voice_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxInbound",
+                      "type": "bool",
+                      "value": "fax_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxOutbound",
+                      "type": "bool",
+                      "value": "fax_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionFaxDomestic",
+                      "type": "bool",
+                      "value": "restriction_fax_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionMmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_mms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsOutbound",
+                      "type": "bool",
+                      "value": "mms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsInbound",
+                      "type": "bool",
+                      "value": "mms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SipTrunking",
+                      "type": "bool",
+                      "value": "sip_trunking",
+                      "required": false
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "PhoneNumber",
+                  "type": "string",
+                  "value": "phone_number",
+                  "required": false
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": false
+                },
+                {
+                  "name": "IsoCountry",
+                  "type": "string",
+                  "value": "iso_country",
+                  "required": false
+                },
+                {
+                  "name": "Capabilities",
+                  "type": "CreatePhoneNumberResponseCapabilities",
+                  "value": "capabilities",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "is_reserved",
+                  "required": false
+                },
+                {
+                  "name": "InUse",
+                  "type": "int",
+                  "value": "in_use",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Phone Number",
+        "function": {
+          "parameters": {
+            "phoneNumberSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "serviceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "phoneNumberSid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Services/{serviceSid}/PhoneNumbers/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetPhoneNumberOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "GetPhoneNumberResponseCapabilities",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "SmsInbound",
+                      "type": "bool",
+                      "value": "sms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SmsOutbound",
+                      "type": "bool",
+                      "value": "sms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionSmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_sms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionVoiceDomestic",
+                      "type": "bool",
+                      "value": "restriction_voice_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceOutbound",
+                      "type": "bool",
+                      "value": "voice_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceInbound",
+                      "type": "bool",
+                      "value": "voice_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxInbound",
+                      "type": "bool",
+                      "value": "fax_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxOutbound",
+                      "type": "bool",
+                      "value": "fax_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionFaxDomestic",
+                      "type": "bool",
+                      "value": "restriction_fax_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionMmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_mms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsOutbound",
+                      "type": "bool",
+                      "value": "mms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsInbound",
+                      "type": "bool",
+                      "value": "mms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SipTrunking",
+                      "type": "bool",
+                      "value": "sip_trunking",
+                      "required": false
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "PhoneNumber",
+                  "type": "string",
+                  "value": "phone_number",
+                  "required": false
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": false
+                },
+                {
+                  "name": "IsoCountry",
+                  "type": "string",
+                  "value": "iso_country",
+                  "required": false
+                },
+                {
+                  "name": "Capabilities",
+                  "type": "GetPhoneNumberResponseCapabilities",
+                  "value": "capabilities",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "is_reserved",
+                  "required": false
+                },
+                {
+                  "name": "InUse",
+                  "type": "int",
+                  "value": "in_use",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Services/{serviceSid}/PhoneNumbers/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdatePhoneNumberInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "IsReserved",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdatePhoneNumberOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "UpdatePhoneNumberResponseCapabilities",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "SmsInbound",
+                      "type": "bool",
+                      "value": "sms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SmsOutbound",
+                      "type": "bool",
+                      "value": "sms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionSmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_sms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionVoiceDomestic",
+                      "type": "bool",
+                      "value": "restriction_voice_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceOutbound",
+                      "type": "bool",
+                      "value": "voice_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceInbound",
+                      "type": "bool",
+                      "value": "voice_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxInbound",
+                      "type": "bool",
+                      "value": "fax_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxOutbound",
+                      "type": "bool",
+                      "value": "fax_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionFaxDomestic",
+                      "type": "bool",
+                      "value": "restriction_fax_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionMmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_mms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsOutbound",
+                      "type": "bool",
+                      "value": "mms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsInbound",
+                      "type": "bool",
+                      "value": "mms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SipTrunking",
+                      "type": "bool",
+                      "value": "sip_trunking",
+                      "required": false
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "PhoneNumber",
+                  "type": "string",
+                  "value": "phone_number",
+                  "required": false
+                },
+                {
+                  "name": "FriendlyName",
+                  "type": "string",
+                  "value": "friendly_name",
+                  "required": false
+                },
+                {
+                  "name": "IsoCountry",
+                  "type": "string",
+                  "value": "iso_country",
+                  "required": false
+                },
+                {
+                  "name": "Capabilities",
+                  "type": "UpdatePhoneNumberResponseCapabilities",
+                  "value": "capabilities",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "is_reserved",
+                  "required": false
+                },
+                {
+                  "name": "InUse",
+                  "type": "int",
+                  "value": "in_use",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Services/{serviceSid}/PhoneNumbers/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Short Codes",
+        "properties": {
+          "serviceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Services/{serviceSid}/ShortCodes",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateShortCodeInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "Sid",
+                  "required": true
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateShortCodeOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "CreateShortCodeResponseCapabilities",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "SmsInbound",
+                      "type": "bool",
+                      "value": "sms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SmsOutbound",
+                      "type": "bool",
+                      "value": "sms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionSmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_sms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionVoiceDomestic",
+                      "type": "bool",
+                      "value": "restriction_voice_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceOutbound",
+                      "type": "bool",
+                      "value": "voice_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceInbound",
+                      "type": "bool",
+                      "value": "voice_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxInbound",
+                      "type": "bool",
+                      "value": "fax_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxOutbound",
+                      "type": "bool",
+                      "value": "fax_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionFaxDomestic",
+                      "type": "bool",
+                      "value": "restriction_fax_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionMmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_mms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsOutbound",
+                      "type": "bool",
+                      "value": "mms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsInbound",
+                      "type": "bool",
+                      "value": "mms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SipTrunking",
+                      "type": "bool",
+                      "value": "sip_trunking",
+                      "required": false
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "ShortCode",
+                  "type": "string",
+                  "value": "short_code",
+                  "required": false
+                },
+                {
+                  "name": "IsoCountry",
+                  "type": "string",
+                  "value": "iso_country",
+                  "required": false
+                },
+                {
+                  "name": "Capabilities",
+                  "type": "CreateShortCodeResponseCapabilities",
+                  "value": "capabilities",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "is_reserved",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Short Code",
+        "function": {
+          "parameters": {
+            "shortCodeSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "serviceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "shortCodeSid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Services/{serviceSid}/ShortCodes/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetShortCodeOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "GetShortCodeResponseCapabilities",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "SmsInbound",
+                      "type": "bool",
+                      "value": "sms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SmsOutbound",
+                      "type": "bool",
+                      "value": "sms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionSmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_sms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionVoiceDomestic",
+                      "type": "bool",
+                      "value": "restriction_voice_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceOutbound",
+                      "type": "bool",
+                      "value": "voice_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceInbound",
+                      "type": "bool",
+                      "value": "voice_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxInbound",
+                      "type": "bool",
+                      "value": "fax_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxOutbound",
+                      "type": "bool",
+                      "value": "fax_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionFaxDomestic",
+                      "type": "bool",
+                      "value": "restriction_fax_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionMmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_mms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsOutbound",
+                      "type": "bool",
+                      "value": "mms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsInbound",
+                      "type": "bool",
+                      "value": "mms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SipTrunking",
+                      "type": "bool",
+                      "value": "sip_trunking",
+                      "required": false
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "ShortCode",
+                  "type": "string",
+                  "value": "short_code",
+                  "required": false
+                },
+                {
+                  "name": "IsoCountry",
+                  "type": "string",
+                  "value": "iso_country",
+                  "required": false
+                },
+                {
+                  "name": "Capabilities",
+                  "type": "GetShortCodeResponseCapabilities",
+                  "value": "capabilities",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "is_reserved",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Services/{serviceSid}/ShortCodes/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateShortCodeInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "IsReserved",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateShortCodeOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "UpdateShortCodeResponseCapabilities",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "SmsInbound",
+                      "type": "bool",
+                      "value": "sms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SmsOutbound",
+                      "type": "bool",
+                      "value": "sms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionSmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_sms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionVoiceDomestic",
+                      "type": "bool",
+                      "value": "restriction_voice_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceOutbound",
+                      "type": "bool",
+                      "value": "voice_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "VoiceInbound",
+                      "type": "bool",
+                      "value": "voice_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxInbound",
+                      "type": "bool",
+                      "value": "fax_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "FaxOutbound",
+                      "type": "bool",
+                      "value": "fax_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionFaxDomestic",
+                      "type": "bool",
+                      "value": "restriction_fax_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "RestrictionMmsDomestic",
+                      "type": "bool",
+                      "value": "restriction_mms_domestic",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsOutbound",
+                      "type": "bool",
+                      "value": "mms_outbound",
+                      "required": false
+                    },
+                    {
+                      "name": "MmsInbound",
+                      "type": "bool",
+                      "value": "mms_inbound",
+                      "required": false
+                    },
+                    {
+                      "name": "SipTrunking",
+                      "type": "bool",
+                      "value": "sip_trunking",
+                      "required": false
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "ShortCode",
+                  "type": "string",
+                  "value": "short_code",
+                  "required": false
+                },
+                {
+                  "name": "IsoCountry",
+                  "type": "string",
+                  "value": "iso_country",
+                  "required": false
+                },
+                {
+                  "name": "Capabilities",
+                  "type": "UpdateShortCodeResponseCapabilities",
+                  "value": "capabilities",
+                  "required": false
+                },
+                {
+                  "name": "IsReserved",
+                  "type": "bool",
+                  "value": "is_reserved",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Services/{serviceSid}/ShortCodes/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Sessions",
+        "properties": {
+          "serviceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Services/{serviceSid}/Sessions",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateSessionInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "UniqueName",
+                  "required": false
+                },
+                {
+                  "name": "DateExpiry",
+                  "type": "time.Time",
+                  "value": "DateExpiry",
+                  "required": false
+                },
+                {
+                  "name": "Ttl",
+                  "type": "int",
+                  "value": "Ttl",
+                  "required": false
+                },
+                {
+                  "name": "Mode",
+                  "type": "string",
+                  "value": "Mode",
+                  "required": false
+                },
+                {
+                  "name": "Status",
+                  "type": "string",
+                  "value": "Status",
+                  "required": false
+                },
+                {
+                  "name": "Participants",
+                  "type": "[]interface{}",
+                  "value": "Participants",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateSessionOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "Status",
+                  "type": "string",
+                  "value": "status",
+                  "required": false
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "unique_name",
+                  "required": true
+                },
+                {
+                  "name": "DateStarted",
+                  "type": "time.Time",
+                  "value": "date_started",
+                  "required": false
+                },
+                {
+                  "name": "DateEnded",
+                  "type": "time.Time",
+                  "value": "date_ended",
+                  "required": false
+                },
+                {
+                  "name": "DateLastInteraction",
+                  "type": "time.Time",
+                  "value": "date_last_interaction",
+                  "required": false
+                },
+                {
+                  "name": "DateExpiry",
+                  "type": "time.Time",
+                  "value": "date_expiry",
+                  "required": false
+                },
+                {
+                  "name": "Ttl",
+                  "type": "int",
+                  "value": "ttl",
+                  "required": false
+                },
+                {
+                  "name": "Mode",
+                  "type": "string",
+                  "value": "mode",
+                  "required": false
+                },
+                {
+                  "name": "ClosedReason",
+                  "type": "string",
+                  "value": "closed_reason",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Session",
+        "function": {
+          "parameters": {
+            "sessionSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "serviceSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "sessionSid"
+          }
+        },
+        "subClients": [
+          {
+            "name": "Participants",
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "sessionSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Create",
+                "path": "/Services/{serviceSid}/Sessions/{sessionSid}/Participants",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sessionSid",
+                    "value": {
+                      "onService": true,
+                      "property": "sessionSid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "CreateParticipantInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "Identifier",
+                      "type": "string",
+                      "value": "Identifier",
+                      "required": true
+                    },
+                    {
+                      "name": "FriendlyName",
+                      "type": "string",
+                      "value": "FriendlyName",
+                      "required": false
+                    },
+                    {
+                      "name": "ProxyIdentifier",
+                      "type": "string",
+                      "value": "ProxyIdentifier",
+                      "required": false
+                    },
+                    {
+                      "name": "ProxyIdentifierSid",
+                      "type": "string",
+                      "value": "ProxyIdentifierSid",
+                      "required": false
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "CreateParticipantOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "SessionSid",
+                      "type": "string",
+                      "value": "session_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Identifier",
+                      "type": "string",
+                      "value": "identifier",
+                      "required": true
+                    },
+                    {
+                      "name": "ProxyIdentifier",
+                      "type": "string",
+                      "value": "proxy_identifier",
+                      "required": false
+                    },
+                    {
+                      "name": "ProxyIdentifierSid",
+                      "type": "string",
+                      "value": "proxy_identifier_sid",
+                      "required": false
+                    },
+                    {
+                      "name": "FriendlyName",
+                      "type": "string",
+                      "value": "friendly_name",
+                      "required": false
+                    },
+                    {
+                      "name": "DateDeleted",
+                      "type": "time.Time",
+                      "value": "date_deleted",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Participant",
+            "function": {
+              "parameters": {
+                "participantSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "sessionSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "participantSid"
+              }
+            },
+            "subClients": [
+              {
+                "name": "Message Interactions",
+                "properties": {
+                  "serviceSid": {
+                    "dataType": "string",
+                    "parentProperty": "serviceSid"
+                  },
+                  "sessionSid": {
+                    "dataType": "string",
+                    "parentProperty": "sessionSid"
+                  },
+                  "participantSid": {
+                    "dataType": "string",
+                    "parentProperty": "sid"
+                  }
+                },
+                "operations": [
+                  {
+                    "name": "Create",
+                    "path": "/Services/{serviceSid}/Sessions/{sessionSid}/Participants/{participantSid}/MessageInteractions",
+                    "pathParams": [
+                      {
+                        "pathParamName": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "pathParamName": "sessionSid",
+                        "value": {
+                          "onService": true,
+                          "property": "sessionSid"
+                        }
+                      },
+                      {
+                        "pathParamName": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "property": "participantSid"
+                        }
+                      }
+                    ],
+                    "httpMethod": "Post",
+                    "input": {
+                      "name": "CreateMessageInteractionInput",
+                      "type": "URLEncoded",
+                      "properties": [
+                        {
+                          "name": "Body",
+                          "type": "string",
+                          "value": "Body",
+                          "required": false
+                        },
+                        {
+                          "name": "MediaUrl",
+                          "type": "string",
+                          "value": "MediaUrl",
+                          "required": false
+                        }
+                      ]
+                    },
+                    "response": {
+                      "name": "CreateMessageInteractionOutput",
+                      "type": "JSON",
+                      "properties": [
+                        {
+                          "name": "Sid",
+                          "type": "string",
+                          "value": "sid",
+                          "required": true
+                        },
+                        {
+                          "name": "AccountSid",
+                          "type": "string",
+                          "value": "account_sid",
+                          "required": true
+                        },
+                        {
+                          "name": "ServiceSid",
+                          "type": "string",
+                          "value": "service_sid",
+                          "required": true
+                        },
+                        {
+                          "name": "SessionSid",
+                          "type": "string",
+                          "value": "session_sid",
+                          "required": true
+                        },
+                        {
+                          "name": "ParticipantSid",
+                          "type": "string",
+                          "value": "participant_sid",
+                          "required": true
+                        },
+                        {
+                          "name": "Data",
+                          "type": "map[string]interface{}",
+                          "value": "data",
+                          "required": false
+                        },
+                        {
+                          "name": "InboundParticipantSid",
+                          "type": "string",
+                          "value": "inbound_participant_sid",
+                          "required": false
+                        },
+                        {
+                          "name": "InboundResourceSid",
+                          "type": "string",
+                          "value": "inbound_resource_sid",
+                          "required": false
+                        },
+                        {
+                          "name": "InboundResourceStatus",
+                          "type": "string",
+                          "value": "inbound_resource_status",
+                          "required": false
+                        },
+                        {
+                          "name": "InboundResourceType",
+                          "type": "string",
+                          "value": "inbound_resource_type",
+                          "required": false
+                        },
+                        {
+                          "name": "InboundResourceUrl",
+                          "type": "string",
+                          "value": "inbound_resource_url",
+                          "required": false
+                        },
+                        {
+                          "name": "OutboundParticipantSid",
+                          "type": "string",
+                          "value": "outbound_participant_sid",
+                          "required": false
+                        },
+                        {
+                          "name": "OutboundResourceSid",
+                          "type": "string",
+                          "value": "outbound_resource_sid",
+                          "required": false
+                        },
+                        {
+                          "name": "OutboundResourceStatus",
+                          "type": "string",
+                          "value": "outbound_resource_status",
+                          "required": false
+                        },
+                        {
+                          "name": "OutboundResourceType",
+                          "type": "string",
+                          "value": "outbound_resource_type",
+                          "required": false
+                        },
+                        {
+                          "name": "OutboundResourceUrl",
+                          "type": "string",
+                          "value": "outbound_resource_url",
+                          "required": false
+                        },
+                        {
+                          "name": "Type",
+                          "type": "string",
+                          "value": "type",
+                          "required": false
+                        },
+                        {
+                          "name": "DateCreated",
+                          "type": "time.Time",
+                          "value": "date_created",
+                          "required": true
+                        },
+                        {
+                          "name": "DateUpdated",
+                          "type": "time.Time",
+                          "value": "date_updated",
+                          "required": false
+                        },
+                        {
+                          "name": "URL",
+                          "type": "string",
+                          "value": "url",
+                          "required": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Sessions/{sessionSid}/Participants/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sessionSid",
+                    "value": {
+                      "onService": true,
+                      "property": "sessionSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetParticipantOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "SessionSid",
+                      "type": "string",
+                      "value": "session_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Identifier",
+                      "type": "string",
+                      "value": "identifier",
+                      "required": true
+                    },
+                    {
+                      "name": "ProxyIdentifier",
+                      "type": "string",
+                      "value": "proxy_identifier",
+                      "required": false
+                    },
+                    {
+                      "name": "ProxyIdentifierSid",
+                      "type": "string",
+                      "value": "proxy_identifier_sid",
+                      "required": false
+                    },
+                    {
+                      "name": "FriendlyName",
+                      "type": "string",
+                      "value": "friendly_name",
+                      "required": false
+                    },
+                    {
+                      "name": "DateDeleted",
+                      "type": "time.Time",
+                      "value": "date_deleted",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Delete",
+                "path": "/Services/{serviceSid}/Sessions/{sessionSid}/Participants/{sid}",
+                "httpMethod": "Delete",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sessionSid",
+                    "value": {
+                      "onService": true,
+                      "property": "sessionSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Interaction",
+            "function": {
+              "parameters": {
+                "interactionSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "sessionSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "interactionSid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Sessions/{sessionSid}/Interactions/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sessionSid",
+                    "value": {
+                      "onService": true,
+                      "property": "sessionSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetInteractionOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "SessionSid",
+                      "type": "string",
+                      "value": "session_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Data",
+                      "type": "map[string]interface{}",
+                      "value": "data",
+                      "required": false
+                    },
+                    {
+                      "name": "InboundParticipantSid",
+                      "type": "string",
+                      "value": "inbound_participant_sid",
+                      "required": false
+                    },
+                    {
+                      "name": "InboundResourceSid",
+                      "type": "string",
+                      "value": "inbound_resource_sid",
+                      "required": false
+                    },
+                    {
+                      "name": "InboundResourceStatus",
+                      "type": "string",
+                      "value": "inbound_resource_status",
+                      "required": false
+                    },
+                    {
+                      "name": "InboundResourceType",
+                      "type": "string",
+                      "value": "inbound_resource_type",
+                      "required": false
+                    },
+                    {
+                      "name": "InboundResourceUrl",
+                      "type": "string",
+                      "value": "inbound_resource_url",
+                      "required": false
+                    },
+                    {
+                      "name": "OutboundParticipantSid",
+                      "type": "string",
+                      "value": "outbound_participant_sid",
+                      "required": false
+                    },
+                    {
+                      "name": "OutboundResourceSid",
+                      "type": "string",
+                      "value": "outbound_resource_sid",
+                      "required": false
+                    },
+                    {
+                      "name": "OutboundResourceStatus",
+                      "type": "string",
+                      "value": "outbound_resource_status",
+                      "required": false
+                    },
+                    {
+                      "name": "OutboundResourceType",
+                      "type": "string",
+                      "value": "outbound_resource_type",
+                      "required": false
+                    },
+                    {
+                      "name": "OutboundResourceUrl",
+                      "type": "string",
+                      "value": "outbound_resource_url",
+                      "required": false
+                    },
+                    {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "type",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Delete",
+                "path": "/Services/{serviceSid}/Sessions/{sessionSid}/Interactions/{sid}",
+                "httpMethod": "Delete",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sessionSid",
+                    "value": {
+                      "onService": true,
+                      "property": "sessionSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Services/{serviceSid}/Sessions/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetSessionOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "Status",
+                  "type": "string",
+                  "value": "status",
+                  "required": false
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "unique_name",
+                  "required": true
+                },
+                {
+                  "name": "DateStarted",
+                  "type": "time.Time",
+                  "value": "date_started",
+                  "required": false
+                },
+                {
+                  "name": "DateEnded",
+                  "type": "time.Time",
+                  "value": "date_ended",
+                  "required": false
+                },
+                {
+                  "name": "DateLastInteraction",
+                  "type": "time.Time",
+                  "value": "date_last_interaction",
+                  "required": false
+                },
+                {
+                  "name": "DateExpiry",
+                  "type": "time.Time",
+                  "value": "date_expiry",
+                  "required": false
+                },
+                {
+                  "name": "Ttl",
+                  "type": "int",
+                  "value": "ttl",
+                  "required": false
+                },
+                {
+                  "name": "Mode",
+                  "type": "string",
+                  "value": "mode",
+                  "required": false
+                },
+                {
+                  "name": "ClosedReason",
+                  "type": "string",
+                  "value": "closed_reason",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Services/{serviceSid}/Sessions/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateSessionInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "DateExpiry",
+                  "type": "time.Time",
+                  "value": "DateExpiry",
+                  "required": false
+                },
+                {
+                  "name": "Ttl",
+                  "type": "int",
+                  "value": "Ttl",
+                  "required": false
+                },
+                {
+                  "name": "Status",
+                  "type": "string",
+                  "value": "Status",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateSessionOutput",
+              "type": "JSON",
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ServiceSid",
+                  "type": "string",
+                  "value": "service_sid",
+                  "required": true
+                },
+                {
+                  "name": "Status",
+                  "type": "string",
+                  "value": "status",
+                  "required": false
+                },
+                {
+                  "name": "UniqueName",
+                  "type": "string",
+                  "value": "unique_name",
+                  "required": true
+                },
+                {
+                  "name": "DateStarted",
+                  "type": "time.Time",
+                  "value": "date_started",
+                  "required": false
+                },
+                {
+                  "name": "DateEnded",
+                  "type": "time.Time",
+                  "value": "date_ended",
+                  "required": false
+                },
+                {
+                  "name": "DateLastInteraction",
+                  "type": "time.Time",
+                  "value": "date_last_interaction",
+                  "required": false
+                },
+                {
+                  "name": "DateExpiry",
+                  "type": "time.Time",
+                  "value": "date_expiry",
+                  "required": false
+                },
+                {
+                  "name": "Ttl",
+                  "type": "int",
+                  "value": "ttl",
+                  "required": false
+                },
+                {
+                  "name": "Mode",
+                  "type": "string",
+                  "value": "mode",
+                  "required": false
+                },
+                {
+                  "name": "ClosedReason",
+                  "type": "string",
+                  "value": "closed_reason",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Services/{serviceSid}/Sessions/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "serviceSid",
+                "value": {
+                  "onService": true,
+                  "property": "serviceSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "operations": [
+      {
+        "name": "Get",
+        "path": "/Services/{sid}",
+        "httpMethod": "Get",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "response": {
+          "name": "GetServiceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "ChatInstanceSid",
+              "type": "string",
+              "value": "chat_instance_sid",
+              "required": false
+            },
+            {
+              "name": "ChatServiceSid",
+              "type": "string",
+              "value": "chat_service_sid",
+              "required": true
+            },
+            {
+              "name": "UniqueName",
+              "type": "string",
+              "value": "unique_name",
+              "required": true
+            },
+            {
+              "name": "DefaultTtl",
+              "type": "int",
+              "value": "default_ttl",
+              "required": false
+            },
+            {
+              "name": "CallbackUrl",
+              "type": "string",
+              "value": "callback_url",
+              "required": false
+            },
+            {
+              "name": "GeoMatchLevel",
+              "type": "string",
+              "value": "geo_match_level",
+              "required": false
+            },
+            {
+              "name": "NumberSelectionBehavior",
+              "type": "string",
+              "value": "number_selection_behavior",
+              "required": false
+            },
+            {
+              "name": "InterceptCallbackUrl",
+              "type": "string",
+              "value": "intercept_callback_url",
+              "required": false
+            },
+            {
+              "name": "OutOfSessionCallbackUrl",
+              "type": "string",
+              "value": "out_of_session_callback_url",
+              "required": false
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Update",
+        "path": "/Services/{sid}",
+        "httpMethod": "Post",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "input": {
+          "name": "UpdateServiceInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "UniqueName",
+              "type": "string",
+              "value": "UniqueName",
+              "required": false
+            },
+            {
+              "name": "DefaultTtl",
+              "type": "int",
+              "value": "DefaultTtl",
+              "required": false
+            },
+            {
+              "name": "CallbackUrl",
+              "type": "string",
+              "value": "CallbackUrl",
+              "required": false
+            },
+            {
+              "name": "GeoMatchLevel",
+              "type": "string",
+              "value": "GeoMatchLevel",
+              "required": false
+            },
+            {
+              "name": "NumberSelectionBehavior",
+              "type": "string",
+              "value": "NumberSelectionBehavior",
+              "required": false
+            },
+            {
+              "name": "InterceptCallbackUrl",
+              "type": "string",
+              "value": "InterceptCallbackUrl",
+              "required": false
+            },
+            {
+              "name": "OutOfSessionCallbackUrl",
+              "type": "string",
+              "value": "OutOfSessionCallbackUrl",
+              "required": false
+            },
+            {
+              "name": "ChatInstanceSid",
+              "type": "string",
+              "value": "ChatInstanceSid",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "UpdateServiceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "ChatInstanceSid",
+              "type": "string",
+              "value": "chat_instance_sid",
+              "required": false
+            },
+            {
+              "name": "ChatServiceSid",
+              "type": "string",
+              "value": "chat_service_sid",
+              "required": true
+            },
+            {
+              "name": "UniqueName",
+              "type": "string",
+              "value": "unique_name",
+              "required": true
+            },
+            {
+              "name": "DefaultTtl",
+              "type": "int",
+              "value": "default_ttl",
+              "required": false
+            },
+            {
+              "name": "CallbackUrl",
+              "type": "string",
+              "value": "callback_url",
+              "required": false
+            },
+            {
+              "name": "GeoMatchLevel",
+              "type": "string",
+              "value": "geo_match_level",
+              "required": false
+            },
+            {
+              "name": "NumberSelectionBehavior",
+              "type": "string",
+              "value": "number_selection_behavior",
+              "required": false
+            },
+            {
+              "name": "InterceptCallbackUrl",
+              "type": "string",
+              "value": "intercept_callback_url",
+              "required": false
+            },
+            {
+              "name": "OutOfSessionCallbackUrl",
+              "type": "string",
+              "value": "out_of_session_callback_url",
+              "required": false
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Delete",
+        "path": "/Services/{sid}",
+        "httpMethod": "Delete",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

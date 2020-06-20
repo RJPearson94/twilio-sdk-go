@@ -1,0 +1,28 @@
+{
+  "sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2015-07-30T20:00:00Z",
+  "date_updated": null,
+  "phone_number": "+123456789",
+  "friendly_name": "Test",
+  "iso_country": "US",
+  "capabilities": {
+    "voice_inbound": true,
+    "sms_inbound": true,
+    "restriction_voice_domestic": false,
+    "fax_outbound": false,
+    "restriction_sms_domestic": false,
+    "fax_inbound": false,
+    "sms_outbound": true,
+    "restriction_mms_domestic": false,
+    "mms_outbound": true,
+    "voice_outbound": true,
+    "mms_inbound": true,
+    "restriction_fax_domestic": false,
+    "sip_trunking": true
+  },
+  "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "is_reserved": false,
+  "in_use": 0
+}
