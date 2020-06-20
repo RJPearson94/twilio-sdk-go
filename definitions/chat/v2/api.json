@@ -1,0 +1,676 @@
+[
+  {
+    "name": "Services",
+    "operations": [
+      {
+        "name": "Create",
+        "path": "/Services",
+        "httpMethod": "Post",
+        "input": {
+          "name": "CreateServiceInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "FriendlyName",
+              "required": true
+            }
+          ]
+        },
+        "response": {
+          "name": "CreateServiceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "ConsumptionReportInterval",
+              "type": "int",
+              "value": "consumption_report_interval",
+              "required": true
+            },
+            {
+              "name": "DefaultChannelCreatorRoleSid",
+              "type": "string",
+              "value": "default_channel_creator_role_sid",
+              "required": true
+            },
+            {
+              "name": "DefaultChannelRoleSid",
+              "type": "string",
+              "value": "default_channel_role_sid",
+              "required": true
+            },
+            {
+              "name": "DefaultServiceRoleSid",
+              "type": "string",
+              "value": "default_service_role_sid",
+              "required": true
+            },
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "friendly_name",
+              "required": true
+            },
+            {
+              "name": "Limits",
+              "type": "map[string]interface{}",
+              "value": "limits",
+              "required": true
+            },
+            {
+              "name": "Media",
+              "type": "map[string]interface{}",
+              "value": "media",
+              "required": true
+            },
+            {
+              "name": "Notifications",
+              "type": "map[string]interface{}",
+              "value": "notifications",
+              "required": true
+            },
+            {
+              "name": "PostWebhookRetryCount",
+              "type": "int",
+              "value": "post_webhook_retry_count",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "post_webhook_url",
+              "required": false
+            },
+            {
+              "name": "PreWebhookRetryCount",
+              "type": "int",
+              "value": "pre_webhook_retry_count",
+              "required": false
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "pre_webhook_url",
+              "required": false
+            },
+            {
+              "name": "ReachabilityEnabled",
+              "type": "bool",
+              "value": "reachability_enabled",
+              "required": true
+            },
+            {
+              "name": "ReadStatusEnabled",
+              "type": "bool",
+              "value": "read_status_enabled",
+              "required": true
+            },
+            {
+              "name": "TypingIndicatorTimeout",
+              "type": "int",
+              "value": "typing_indicator_timeout",
+              "required": true
+            },
+            {
+              "name": "WebhookFilters",
+              "type": "[]string",
+              "value": "webhook_filters",
+              "required": false
+            },
+            {
+              "name": "WebhookMethod",
+              "type": "string",
+              "value": "webhook_method",
+              "required": false
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Service",
+    "properties": {
+      "sid": {
+        "dataType": "string"
+      }
+    },
+    "operations": [
+      {
+        "name": "Get",
+        "path": "/Services/{sid}",
+        "httpMethod": "Get",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "response": {
+          "name": "GetServiceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "ConsumptionReportInterval",
+              "type": "int",
+              "value": "consumption_report_interval",
+              "required": true
+            },
+            {
+              "name": "DefaultChannelCreatorRoleSid",
+              "type": "string",
+              "value": "default_channel_creator_role_sid",
+              "required": true
+            },
+            {
+              "name": "DefaultChannelRoleSid",
+              "type": "string",
+              "value": "default_channel_role_sid",
+              "required": true
+            },
+            {
+              "name": "DefaultServiceRoleSid",
+              "type": "string",
+              "value": "default_service_role_sid",
+              "required": true
+            },
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "friendly_name",
+              "required": true
+            },
+            {
+              "name": "Limits",
+              "type": "map[string]interface{}",
+              "value": "limits",
+              "required": true
+            },
+            {
+              "name": "Media",
+              "type": "map[string]interface{}",
+              "value": "media",
+              "required": true
+            },
+            {
+              "name": "Notifications",
+              "type": "map[string]interface{}",
+              "value": "notifications",
+              "required": true
+            },
+            {
+              "name": "PostWebhookRetryCount",
+              "type": "int",
+              "value": "post_webhook_retry_count",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "post_webhook_url",
+              "required": false
+            },
+            {
+              "name": "PreWebhookRetryCount",
+              "type": "int",
+              "value": "pre_webhook_retry_count",
+              "required": false
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "pre_webhook_url",
+              "required": false
+            },
+            {
+              "name": "ReachabilityEnabled",
+              "type": "bool",
+              "value": "reachability_enabled",
+              "required": true
+            },
+            {
+              "name": "ReadStatusEnabled",
+              "type": "bool",
+              "value": "read_status_enabled",
+              "required": true
+            },
+            {
+              "name": "TypingIndicatorTimeout",
+              "type": "int",
+              "value": "typing_indicator_timeout",
+              "required": true
+            },
+            {
+              "name": "WebhookFilters",
+              "type": "[]string",
+              "value": "webhook_filters",
+              "required": false
+            },
+            {
+              "name": "WebhookMethod",
+              "type": "string",
+              "value": "webhook_method",
+              "required": false
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Update",
+        "path": "/Services/{sid}",
+        "httpMethod": "Post",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ],
+        "input": {
+          "name": "UpdateServiceInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "FriendlyName",
+              "required": false
+            },
+            {
+              "name": "DefaultServiceRoleSid",
+              "type": "string",
+              "value": "DefaultServiceRoleSid",
+              "required": false
+            },
+            {
+              "name": "DefaultChannelRoleSid",
+              "type": "string",
+              "value": "DefaultChannelRoleSid",
+              "required": false
+            },
+            {
+              "name": "DefaultChannelCreatorRoleSid",
+              "type": "string",
+              "value": "DefaultChannelCreatorRoleSid",
+              "required": false
+            },
+            {
+              "name": "ReadStatusEnabled",
+              "type": "bool",
+              "value": "ReadStatusEnabled",
+              "required": false
+            },
+            {
+              "name": "TypingIndicatorTimeout",
+              "type": "int",
+              "value": "TypingIndicatorTimeout",
+              "required": false
+            },
+            {
+              "name": "ConsumptionReportInterval",
+              "type": "int",
+              "value": "ConsumptionReportInterval",
+              "required": false
+            },
+            {
+              "name": "NotificationsNewMessageEnabled",
+              "type": "bool",
+              "value": "Notifications.NewMessage.Enabled",
+              "required": false
+            },
+            {
+              "name": "NotificationsNewMessageTemplate",
+              "type": "string",
+              "value": "Notifications.NewMessage.Template",
+              "required": false
+            },
+            {
+              "name": "NotificationsNewMessageSound",
+              "type": "string",
+              "value": "Notifications.NewMessage.Sound",
+              "required": false
+            },
+            {
+              "name": "NotificationsNewMessageBadgeCountEnabled",
+              "type": "bool",
+              "value": "Notifications.NewMessage.BadgeCountEnabled",
+              "required": false
+            },
+            {
+              "name": "NotificationsAddedToChannelEnabled",
+              "type": "bool",
+              "value": "Notifications.AddedToChannel.Enabled",
+              "required": false
+            },
+            {
+              "name": "NotificationsAddedToChannelTemplate",
+              "type": "string",
+              "value": "Notifications.AddedToChannel.Template",
+              "required": false
+            },
+            {
+              "name": "NotificationsAddedToChannelSound",
+              "type": "string",
+              "value": "Notifications.AddedToChannel.Sound",
+              "required": false
+            },
+            {
+              "name": "NotificationsRemovedToChannelEnabled",
+              "type": "bool",
+              "value": "Notifications.RemovedToChannel.Enabled",
+              "required": false
+            },
+            {
+              "name": "NotificationsRemovedToChannelTemplate",
+              "type": "string",
+              "value": "Notifications.RemovedToChannel.Template",
+              "required": false
+            },
+            {
+              "name": "NotificationsRemovedToChannelSound",
+              "type": "string",
+              "value": "Notifications.RemovedToChannel.Sound",
+              "required": false
+            },
+            {
+              "name": "NotificationsInvitedToChannelEnabled",
+              "type": "bool",
+              "value": "Notifications.InvitedToChannel.Enabled",
+              "required": false
+            },
+            {
+              "name": "NotificationsInvitedToChannelTemplate",
+              "type": "string",
+              "value": "Notifications.InvitedToChannel.Template",
+              "required": false
+            },
+            {
+              "name": "NotificationsInvitedToChannelSound",
+              "type": "string",
+              "value": "Notifications.InvitedToChannel.Sound",
+              "required": false
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "PreWebhookUrl",
+              "required": false
+            },
+            {
+              "name": "PreWebhookRetryCount",
+              "type": "int",
+              "value": "PreWebhookRetryCount",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "PostWebhookUrl",
+              "required": false
+            },
+            {
+              "name": "PostWebhookRetryCount",
+              "type": "int",
+              "value": "PostWebhookRetryCount",
+              "required": false
+            },
+            {
+              "name": "WebhookMethod",
+              "type": "string",
+              "value": "WebhookMethod",
+              "required": false
+            },
+            {
+              "name": "WebhookFilters",
+              "type": "[]string",
+              "value": "WebhookFilters",
+              "required": false
+            },
+            {
+              "name": "LimitsChannelMembers",
+              "type": "int",
+              "value": "Limits.ChannelMembers",
+              "required": false
+            },
+            {
+              "name": "LimitsUserChannels",
+              "type": "int",
+              "value": "Limits.UserChannels",
+              "required": false
+            },
+            {
+              "name": "MediaCompatibilityMessage",
+              "type": "int",
+              "value": "Media.CompatibilityMessage",
+              "required": false
+            },
+            {
+              "name": "NotificationsLogEnabled",
+              "type": "bool",
+              "value": "Notifications.LogEnabled",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "UpdateServiceOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "Sid",
+              "type": "string",
+              "value": "sid",
+              "required": true
+            },
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "ConsumptionReportInterval",
+              "type": "int",
+              "value": "consumption_report_interval",
+              "required": true
+            },
+            {
+              "name": "DefaultChannelCreatorRoleSid",
+              "type": "string",
+              "value": "default_channel_creator_role_sid",
+              "required": true
+            },
+            {
+              "name": "DefaultChannelRoleSid",
+              "type": "string",
+              "value": "default_channel_role_sid",
+              "required": true
+            },
+            {
+              "name": "DefaultServiceRoleSid",
+              "type": "string",
+              "value": "default_service_role_sid",
+              "required": true
+            },
+            {
+              "name": "FriendlyName",
+              "type": "string",
+              "value": "friendly_name",
+              "required": true
+            },
+            {
+              "name": "Limits",
+              "type": "map[string]interface{}",
+              "value": "limits",
+              "required": true
+            },
+            {
+              "name": "Media",
+              "type": "map[string]interface{}",
+              "value": "media",
+              "required": true
+            },
+            {
+              "name": "Notifications",
+              "type": "map[string]interface{}",
+              "value": "notifications",
+              "required": true
+            },
+            {
+              "name": "PostWebhookRetryCount",
+              "type": "int",
+              "value": "post_webhook_retry_count",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "post_webhook_url",
+              "required": false
+            },
+            {
+              "name": "PreWebhookRetryCount",
+              "type": "int",
+              "value": "pre_webhook_retry_count",
+              "required": false
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "pre_webhook_url",
+              "required": false
+            },
+            {
+              "name": "ReachabilityEnabled",
+              "type": "bool",
+              "value": "reachability_enabled",
+              "required": true
+            },
+            {
+              "name": "ReadStatusEnabled",
+              "type": "bool",
+              "value": "read_status_enabled",
+              "required": true
+            },
+            {
+              "name": "TypingIndicatorTimeout",
+              "type": "int",
+              "value": "typing_indicator_timeout",
+              "required": true
+            },
+            {
+              "name": "WebhookFilters",
+              "type": "[]string",
+              "value": "webhook_filters",
+              "required": false
+            },
+            {
+              "name": "WebhookMethod",
+              "type": "string",
+              "value": "webhook_method",
+              "required": false
+            },
+            {
+              "name": "DateCreated",
+              "type": "time.Time",
+              "value": "date_created",
+              "required": true
+            },
+            {
+              "name": "DateUpdated",
+              "type": "time.Time",
+              "value": "date_updated",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Delete",
+        "path": "/Services/{sid}",
+        "httpMethod": "Delete",
+        "pathParams": [
+          {
+            "pathParamName": "sid",
+            "value": {
+              "onService": true,
+              "property": "sid"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

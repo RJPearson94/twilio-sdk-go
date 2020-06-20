@@ -1,6 +1,7 @@
 package twilio
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/service/chat"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless"
@@ -11,6 +12,7 @@ import (
 )
 
 type Twilio struct {
+	Chat       *chat.Chat
 	Flex       *flex.Flex
 	Proxy      *proxy.Proxy
 	Serverless *serverless.Serverless
@@ -20,6 +22,7 @@ type Twilio struct {
 
 func New(sess *session.Session) *Twilio {
 	c := &Twilio{}
+	c.Chat = chat.New(sess)
 	c.Flex = flex.New(sess)
 	c.Proxy = proxy.New(sess)
 	c.Serverless = serverless.New(sess)

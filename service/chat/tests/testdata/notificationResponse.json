@@ -1,0 +1,15 @@
+{
+  "removed_from_channel": {
+    "enabled": false
+  },
+  "log_enabled": false,
+  "added_to_channel": {
+    "enabled": false
+  },
+  "new_message": {
+    "enabled": false
+  },
+  "invited_to_channel": {
+    "enabled": false
+  }
+}
