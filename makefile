@@ -6,22 +6,19 @@ download:
 	@echo "==> Download dependencies"
 	go mod vendor
 
-build: fmtcheck generate
+build: fmt generate
 	go install
 
-test: fmtcheck generate
+test: fmt generate
 	go test $(TESTARGS) -timeout=30s -parallel=4 $(TEST)
 
 fmt:
-	@echo "==> Fixing source code with gofmt..."
-	gofmt -w -s .
-
-fmtcheck:
-	@echo "==> Checking that code complies with gofmt requirements..."
-	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
+	@echo "==> Fixing source code with goimports (uses gofmt under the hood)..."
+	goimports -w .
 
 tools:
 	@echo "==> installing required tooling..."
+	go install golang.org/x/tools/cmd/goimports
 	go install github.com/client9/misspell/cmd/misspell
 
 generate:
