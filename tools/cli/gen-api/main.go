@@ -20,7 +20,7 @@ func init() {
 		"ToCamel":     strcase.ToCamel,
 	}
 
-	parsedAPIOperationReplacer := strings.NewReplacer("{ifFormEncodedDataAddTags}", ifFormEncodedDataAddTags, "{ifJSONResponseAddTags}", ifJSONResponseAddTags)
+	parsedAPIOperationReplacer := strings.NewReplacer("{addRequestTags}", addRequestTags, "{addResponseTags}", addResponseTags)
 	parsedAPIOperationTemplate = template.Must(template.New("generateAPIOperations").Funcs(helpers).Parse(parsedAPIOperationReplacer.Replace(apiOperationContent)))
 
 	parsedAPIClientReplacer := strings.NewReplacer("{apiNewSubClient}", apiNewSubClient)

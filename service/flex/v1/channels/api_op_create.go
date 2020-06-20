@@ -10,16 +10,16 @@ import (
 )
 
 type CreateChannelInput struct {
-	FlexFlowSid          string `validate:"required" form:"FlexFlowSid"`
-	Identity             string `validate:"required" form:"Identity"`
-	ChatUserFriendlyName string `validate:"required" form:"ChatUserFriendlyName"`
-	ChatFriendlyName     string `validate:"required" form:"ChatFriendlyName"`
-	Target               string `form:"Target,omitempty"`
-	ChatUniqueName       string `form:"ChatUniqueName,omitempty"`
-	PreEngagementData    string `form:"PreEngagementData,omitempty"`
-	TaskSid              string `form:"TaskSid,omitempty"`
-	TaskAttributes       string `form:"TaskAttributes,omitempty"`
-	LongLived            *bool  `form:"LongLived,omitempty"`
+	FlexFlowSid          string  `validate:"required" form:"FlexFlowSid"`
+	Identity             string  `validate:"required" form:"Identity"`
+	ChatUserFriendlyName string  `validate:"required" form:"ChatUserFriendlyName"`
+	ChatFriendlyName     string  `validate:"required" form:"ChatFriendlyName"`
+	Target               *string `form:"Target,omitempty"`
+	ChatUniqueName       *string `form:"ChatUniqueName,omitempty"`
+	PreEngagementData    *string `form:"PreEngagementData,omitempty"`
+	TaskSid              *string `form:"TaskSid,omitempty"`
+	TaskAttributes       *string `form:"TaskAttributes,omitempty"`
+	LongLived            *bool   `form:"LongLived,omitempty"`
 }
 
 type CreateChannelOutput struct {

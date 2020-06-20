@@ -10,8 +10,8 @@ import (
 )
 
 type UpdateTaskChannelInput struct {
-	FriendlyName            string `form:"FriendlyName,omitempty"`
-	ChannelOptimizedRouting *bool  `form:"ChannelOptimizedRouting,omitempty"`
+	FriendlyName            *string `form:"FriendlyName,omitempty"`
+	ChannelOptimizedRouting *bool   `form:"ChannelOptimizedRouting,omitempty"`
 }
 
 type UpdateTaskChannelOutput struct {

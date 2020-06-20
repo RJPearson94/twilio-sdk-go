@@ -10,11 +10,11 @@ import (
 )
 
 type UpdateTaskInput struct {
-	Attributes       string `form:"Attributes,omitempty"`
-	AssignmentStatus string `form:"AssignmentStatus,omitempty"`
-	Reason           string `form:"Reason,omitempty"`
-	Priority         *int   `form:"Priority,omitempty"`
-	TaskChannel      string `form:"TaskChannel,omitempty"`
+	Attributes       *string `form:"Attributes,omitempty"`
+	AssignmentStatus *string `form:"AssignmentStatus,omitempty"`
+	Reason           *string `form:"Reason,omitempty"`
+	Priority         *int    `form:"Priority,omitempty"`
+	TaskChannel      *string `form:"TaskChannel,omitempty"`
 }
 
 type UpdateTaskOutput struct {

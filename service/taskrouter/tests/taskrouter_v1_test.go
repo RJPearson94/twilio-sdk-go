@@ -234,7 +234,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &workspace.UpdateWorkspaceInput{
-				FriendlyName: "Test Workspace",
+				FriendlyName: utils.String("Test Workspace"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WS71").Update(updateInput)
@@ -462,7 +462,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &task_queue.UpdateTaskQueueInput{
-				FriendlyName: "Test Queue",
+				FriendlyName: utils.String("Test Queue"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Update(updateInput)
@@ -725,7 +725,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &workflow.UpdateWorkflowInput{
-				FriendlyName: "Test Queue",
+				FriendlyName: utils.String("Test Queue"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Update(updateInput)
@@ -953,7 +953,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &worker.UpdateWorkerInput{
-				FriendlyName: "Test Worker",
+				FriendlyName: utils.String("Test Worker"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Update(updateInput)
@@ -1165,7 +1165,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &activity.UpdateActivityInput{
-				FriendlyName: "Test Activity",
+				FriendlyName: utils.String("Test Activity"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WA71").Update(updateInput)
@@ -1397,7 +1397,7 @@ var _ = Describe("Taskrouter V1", func() {
 			)
 
 			updateInput := &task_channel.UpdateTaskChannelInput{
-				FriendlyName: "Test Task Channel",
+				FriendlyName: utils.String("Test Task Channel"),
 			}
 
 			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskChannel("TC71").Update(updateInput)
@@ -1441,7 +1441,7 @@ var _ = Describe("Taskrouter V1", func() {
 
 		Describe("When the task is successfully created", func() {
 			createInput := &tasks.CreateTaskInput{
-				TaskChannel: "default",
+				TaskChannel: utils.String("default"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks",
@@ -1486,7 +1486,7 @@ var _ = Describe("Taskrouter V1", func() {
 
 		Describe("When the task api returns a 500 response", func() {
 			createInput := &tasks.CreateTaskInput{
-				TaskChannel: "default",
+				TaskChannel: utils.String("default"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks",

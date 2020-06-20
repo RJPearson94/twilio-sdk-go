@@ -10,12 +10,12 @@ import (
 )
 
 type CreateWebChannelInput struct {
-	ChatFriendlyName     string `validate:"required" form:"ChatFriendlyName"`
-	ChatUniqueName       string `form:"ChatUniqueName,omitempty"`
-	CustomerFriendlyName string `validate:"required" form:"CustomerFriendlyName"`
-	FlexFlowSid          string `validate:"required" form:"FlexFlowSid"`
-	Identity             string `validate:"required" form:"Identity"`
-	PreEngagementData    string `form:"PreEngagementData,omitempty"`
+	ChatFriendlyName     string  `validate:"required" form:"ChatFriendlyName"`
+	ChatUniqueName       *string `form:"ChatUniqueName,omitempty"`
+	CustomerFriendlyName string  `validate:"required" form:"CustomerFriendlyName"`
+	FlexFlowSid          string  `validate:"required" form:"FlexFlowSid"`
+	Identity             string  `validate:"required" form:"Identity"`
+	PreEngagementData    *string `form:"PreEngagementData,omitempty"`
 }
 
 type CreateWebChannelOutput struct {

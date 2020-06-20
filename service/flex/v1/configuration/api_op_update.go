@@ -28,35 +28,35 @@ type UpdateConfigurationInputWorkerChannel struct {
 }
 
 type UpdateConfigurationInputIntegration struct {
-	Name   string `validate:"required" json:"name"`
-	Type   string `validate:"required" json:"type"`
-	Active bool   `validate:"required" json:"active"`
-	Config string `validate:"required" json:"config"`
-	Logo   string `json:"logo,omitempty"`
-	Author string `json:"author,omitempty"`
+	Name   string  `validate:"required" json:"name"`
+	Type   string  `validate:"required" json:"type"`
+	Active bool    `validate:"required" json:"active"`
+	Config string  `validate:"required" json:"config"`
+	Logo   *string `json:"logo,omitempty"`
+	Author *string `json:"author,omitempty"`
 }
 
 type UpdateConfigurationInput struct {
 	AccountSid                   string                                              `validate:"required" json:"account_sid"`
-	ChatServiceInstanceSid       string                                              `json:"chat_service_instance_sid,omitempty"`
-	MessagingServiceInstanceSid  string                                              `json:"messaging_service_instance_sid,omitempty"`
+	ChatServiceInstanceSid       *string                                             `json:"chat_service_instance_sid,omitempty"`
+	MessagingServiceInstanceSid  *string                                             `json:"messaging_service_instance_sid,omitempty"`
 	CrmEnabled                   *bool                                               `json:"crm_type,omitempty"`
-	CrmType                      string                                              `json:"crm_type,omitempty"`
-	CrmCallbackURL               string                                              `json:"crm_callback_url,omitempty"`
-	CrmFallbackURL               string                                              `json:"crm_fallback_url,omitempty"`
+	CrmType                      *string                                             `json:"crm_type,omitempty"`
+	CrmCallbackURL               *string                                             `json:"crm_callback_url,omitempty"`
+	CrmFallbackURL               *string                                             `json:"crm_fallback_url,omitempty"`
 	CrmAttributes                *interface{}                                        `json:"crm_attributes,omitempty"`
-	UiLanguage                   string                                              `json:"ui_language,omitempty"`
+	UiLanguage                   *string                                             `json:"ui_language,omitempty"`
 	UiAttributes                 *interface{}                                        `json:"ui_attributes,omitempty"`
 	UiDependencies               *interface{}                                        `json:"ui_dependencies,omitempty"`
-	UiVersion                    string                                              `json:"ui_version,omitempty"`
-	TaskRouterTargetWorkflowSid  string                                              `json:"taskrouter_target_workflow_sid,omitempty"`
-	TaskRouterTargetTaskQueueSid string                                              `json:"taskrouter_target_taskqueue_sid,omitempty"`
+	UiVersion                    *string                                             `json:"ui_version,omitempty"`
+	TaskRouterTargetWorkflowSid  *string                                             `json:"taskrouter_target_workflow_sid,omitempty"`
+	TaskRouterTargetTaskQueueSid *string                                             `json:"taskrouter_target_taskqueue_sid,omitempty"`
 	TaskRouterTaskQueues         *[]UpdateConfigurationInputTaskQueue                `json:"taskrouter_taskqueues,omitempty"`
 	TaskRouterSkills             *[]UpdateConfigurationInputSkill                    `json:"taskrouter_skills,omitempty"`
 	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationInputWorkerChannel `json:"taskrouter_worker_channels,omitempty"`
 	TaskRouterWorkerAttributes   *map[string]interface{}                             `json:"taskrouter_worker_attributes,omitempty"`
 	CallRecordingEnabled         *bool                                               `json:"call_recording_enabled,omitempty"`
-	CallRecordingWebhookURL      string                                              `json:"call_recording_webhook_url,omitempty"`
+	CallRecordingWebhookURL      *string                                             `json:"call_recording_webhook_url,omitempty"`
 	PublicAttributes             *interface{}                                        `json:"public_attributes,omitempty"`
 	Attributes                   *interface{}                                        `json:"attributes,omitempty"`
 	PluginServiceEnabled         *bool                                               `json:"plugin_service_enabled,omitempty"`

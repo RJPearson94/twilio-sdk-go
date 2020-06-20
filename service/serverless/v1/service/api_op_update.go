@@ -10,9 +10,9 @@ import (
 )
 
 type UpdateServiceInput struct {
-	FriendlyName       string `form:"FriendlyName,omitempty"`
-	IncludeCredentials *bool  `form:"IncludeCredentials,omitempty"`
-	UiEditable         *bool  `form:"UiEditable,omitempty"`
+	FriendlyName       *string `form:"FriendlyName,omitempty"`
+	IncludeCredentials *bool   `form:"IncludeCredentials,omitempty"`
+	UiEditable         *bool   `form:"UiEditable,omitempty"`
 }
 
 type UpdateServiceOutput struct {

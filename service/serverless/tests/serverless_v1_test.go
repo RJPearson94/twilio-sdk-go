@@ -237,7 +237,7 @@ var _ = Describe("Serverless V1", func() {
 			)
 
 			updateInput := &service.UpdateServiceInput{
-				FriendlyName: "New Friendly Name",
+				FriendlyName: utils.String("New Friendly Name"),
 			}
 
 			resp, err := serverlessSession.Service("ZS71").Update(updateInput)
@@ -587,8 +587,8 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the variable is successfully updated", func() {
 			updateInput := &variable.UpdateVariableInput{
-				Key:   "key",
-				Value: "value",
+				Key:   utils.String("key"),
+				Value: utils.String("value"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -621,8 +621,8 @@ var _ = Describe("Serverless V1", func() {
 
 		Describe("When the update variable response returns a 404", func() {
 			updateInput := &variable.UpdateVariableInput{
-				Key:   "Key",
-				Value: "Value",
+				Key:   utils.String("Key"),
+				Value: utils.String("Value"),
 			}
 
 			httpmock.RegisterResponder("POST", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZV71",

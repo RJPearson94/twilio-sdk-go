@@ -10,8 +10,8 @@ import (
 )
 
 type CreateEnvironmentInput struct {
-	UniqueName   string `validate:"required" form:"UniqueName"`
-	DomainSuffix string `form:"DomainSuffix,omitempty"`
+	UniqueName   string  `validate:"required" form:"UniqueName"`
+	DomainSuffix *string `form:"DomainSuffix,omitempty"`
 }
 
 type CreateEnvironmentOutput struct {

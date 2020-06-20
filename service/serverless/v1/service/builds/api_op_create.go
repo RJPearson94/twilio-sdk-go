@@ -12,7 +12,7 @@ import (
 type CreateBuildInput struct {
 	AssetVersions    *[]string `form:"AssetVersions,omitempty"`
 	FunctionVersions *[]string `form:"FunctionVersions,omitempty"`
-	Dependencies     string    `form:"Dependencies,omitempty"`
+	Dependencies     *string   `form:"Dependencies,omitempty"`
 }
 
 type FunctionVersion struct {

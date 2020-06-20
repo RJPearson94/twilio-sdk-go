@@ -427,7 +427,7 @@ var _ = Describe("Flex V1", func() {
 			)
 
 			updateInput := &flex_flow.UpdateFlexFlowInput{
-				FriendlyName: "New Flex Flow",
+				FriendlyName: utils.String("New Flex Flow"),
 			}
 
 			resp, err := flexFlowClient.Update(updateInput)

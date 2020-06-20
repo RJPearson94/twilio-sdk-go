@@ -10,11 +10,11 @@ import (
 )
 
 type CreateTaskInput struct {
-	Timeout     *int   `form:"Timeout,omitempty"`
-	Attributes  string `form:"Attributes,omitempty"`
-	Priority    *int   `form:"Priority,omitempty"`
-	TaskChannel string `form:"TaskChannel,omitempty"`
-	WorkflowSid string `form:"WorkflowSid,omitempty"`
+	Timeout     *int    `form:"Timeout,omitempty"`
+	Attributes  *string `form:"Attributes,omitempty"`
+	Priority    *int    `form:"Priority,omitempty"`
+	TaskChannel *string `form:"TaskChannel,omitempty"`
+	WorkflowSid *string `form:"WorkflowSid,omitempty"`
 }
 
 type CreateTaskOutput struct {

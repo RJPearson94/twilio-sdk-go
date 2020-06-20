@@ -10,8 +10,8 @@ import (
 )
 
 type UpdateVariableInput struct {
-	Key   string `form:"Key,omitempty"`
-	Value string `form:"Value,omitempty"`
+	Key   *string `form:"Key,omitempty"`
+	Value *string `form:"Value,omitempty"`
 }
 
 type UpdateVariableOutput struct {

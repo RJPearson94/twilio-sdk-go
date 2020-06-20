@@ -10,10 +10,10 @@ import (
 )
 
 type UpdateWorkerInput struct {
-	FriendlyName              string `form:"FriendlyName,omitempty"`
-	ActivitySid               string `form:"ActivitySid,omitempty"`
-	Attributes                string `form:"Attributes,omitempty"`
-	RejectPendingReservations *bool  `form:"RejectPendingReservations,omitempty"`
+	FriendlyName              *string `form:"FriendlyName,omitempty"`
+	ActivitySid               *string `form:"ActivitySid,omitempty"`
+	Attributes                *string `form:"Attributes,omitempty"`
+	RejectPendingReservations *bool   `form:"RejectPendingReservations,omitempty"`
 }
 
 type UpdateWorkflowOutput struct {

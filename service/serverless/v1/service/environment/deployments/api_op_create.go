@@ -10,7 +10,7 @@ import (
 )
 
 type CreateDeploymentInput struct {
-	BuildSid string `form:"BuildSid,omitempty"`
+	BuildSid *string `form:"BuildSid,omitempty"`
 }
 
 type CreateDeploymentOutput struct {

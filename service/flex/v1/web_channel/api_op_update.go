@@ -10,8 +10,8 @@ import (
 )
 
 type UpdateWebChannelInput struct {
-	ChatStatus        string `form:"ChatStatus,omitempty"`
-	PreEngagementData string `form:"PreEngagementData,omitempty"`
+	ChatStatus        *string `form:"ChatStatus,omitempty"`
+	PreEngagementData *string `form:"PreEngagementData,omitempty"`
 }
 
 type UpdateWebChannelOutput struct {

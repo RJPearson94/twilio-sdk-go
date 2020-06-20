@@ -10,22 +10,22 @@ import (
 )
 
 type CreateFlexFlowInput struct {
-	FriendlyName                 string `validate:"required" form:"FriendlyName"`
-	ChatServiceSid               string `validate:"required" form:"ChatServiceSid"`
-	ChannelType                  string `validate:"required" form:"ChannelType"`
-	ContactIdentity              string `form:"ContactIdentity,omitempty"`
-	Enabled                      *bool  `form:"Enabled,omitempty"`
-	IntegrationType              string `form:"IntegrationType,omitempty"`
-	IntegrationFlowSid           string `form:"Integration.FlowSid,omitempty"`
-	IntegrationUrl               string `form:"Integration.Url,omitempty"`
-	IntegrationWorkspaceSid      string `form:"Integration.WorkspaceSid,omitempty"`
-	IntegrationChannel           string `form:"Integration.Channel,omitempty"`
-	IntegrationTimeout           *int   `form:"Integration.Timeout,omitempty"`
-	IntegrationPriority          *int   `form:"Integration.Priority,omitempty"`
-	IntegrationCreationOnMessage string `form:"Integration.CreationOnMessage,omitempty"`
-	IntegrationRetryCount        *int   `form:"Integration.RetryCount,omitempty"`
-	LongLived                    *bool  `form:"LongLived,omitempty"`
-	JanitorEnabled               *bool  `form:"JanitorEnabled,omitempty"`
+	FriendlyName                 string  `validate:"required" form:"FriendlyName"`
+	ChatServiceSid               string  `validate:"required" form:"ChatServiceSid"`
+	ChannelType                  string  `validate:"required" form:"ChannelType"`
+	ContactIdentity              *string `form:"ContactIdentity,omitempty"`
+	Enabled                      *bool   `form:"Enabled,omitempty"`
+	IntegrationType              *string `form:"IntegrationType,omitempty"`
+	IntegrationFlowSid           *string `form:"Integration.FlowSid,omitempty"`
+	IntegrationUrl               *string `form:"Integration.Url,omitempty"`
+	IntegrationWorkspaceSid      *string `form:"Integration.WorkspaceSid,omitempty"`
+	IntegrationChannel           *string `form:"Integration.Channel,omitempty"`
+	IntegrationTimeout           *int    `form:"Integration.Timeout,omitempty"`
+	IntegrationPriority          *int    `form:"Integration.Priority,omitempty"`
+	IntegrationCreationOnMessage *string `form:"Integration.CreationOnMessage,omitempty"`
+	IntegrationRetryCount        *int    `form:"Integration.RetryCount,omitempty"`
+	LongLived                    *bool   `form:"LongLived,omitempty"`
+	JanitorEnabled               *bool   `form:"JanitorEnabled,omitempty"`
 }
 
 type CreateFlexFlowOutputIntegration struct {
