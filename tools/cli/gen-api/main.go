@@ -28,19 +28,24 @@ func init() {
 }
 
 func main() {
-	var svcPath string
+	var definitionPath string
+	var outputPath string
 
-	flag.StringVar(&svcPath, "path", "",
-		"The `path` to client definition and to generate api in to.",
+	flag.StringVar(&definitionPath, "definition", "",
+		"The `path` to client definition",
+	)
+
+	flag.StringVar(&outputPath, "target", "",
+		"The target `path` to generate the api into",
 	)
 
 	flag.Parse()
 
-	fixture, _ := ioutil.ReadFile(fmt.Sprintf("%s/api/api.json", svcPath))
+	fixture, _ := ioutil.ReadFile(fmt.Sprintf("%s/api.json", definitionPath))
 	apiClients := make([]client, 0)
 	json.Unmarshal(fixture, &apiClients)
 
-	if err := GenerateApiClients(apiClients, svcPath); err != nil {
+	if err := GenerateApiClients(apiClients, outputPath); err != nil {
 		fmt.Println(err)
 		return
 	}
