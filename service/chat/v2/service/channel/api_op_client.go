@@ -9,6 +9,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/members"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/messages"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhooks"
 )
 
 type Client struct {
@@ -21,6 +23,8 @@ type Client struct {
 	Member     func(string) *member.Client
 	Messages   *messages.Client
 	Message    func(string) *message.Client
+	Webhooks   *webhooks.Client
+	Webhook    func(string) *webhook.Client
 }
 
 func New(client *client.Client, serviceSid string, sid string) *Client {
@@ -34,5 +38,7 @@ func New(client *client.Client, serviceSid string, sid string) *Client {
 		Member:     func(memberSid string) *member.Client { return member.New(client, sid, serviceSid, memberSid) },
 		Messages:   messages.New(client, sid, serviceSid),
 		Message:    func(messageSid string) *message.Client { return message.New(client, sid, serviceSid, messageSid) },
+		Webhooks:   webhooks.New(client, sid, serviceSid),
+		Webhook:    func(webhookSid string) *webhook.Client { return webhook.New(client, sid, serviceSid, webhookSid) },
 	}
 }
