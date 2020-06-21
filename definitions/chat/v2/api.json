@@ -1217,6 +1217,548 @@
                 ]
               }
             ]
+          },
+          {
+            "name": "Messages",
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "channelSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Create",
+                "path": "/Services/{serviceSid}/Channels/{channelSid}/Messages",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "channelSid",
+                    "value": {
+                      "onService": true,
+                      "property": "channelSid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "CreateChannelMessageInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "From",
+                      "type": "string",
+                      "value": "From",
+                      "required": false
+                    },
+                    {
+                      "name": "Attributes",
+                      "type": "string",
+                      "value": "Attributes",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "DateCreated",
+                      "required": false
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "DateUpdated",
+                      "required": false
+                    },
+                    {
+                      "name": "LastUpdatedBy",
+                      "type": "string",
+                      "value": "LastUpdatedBy",
+                      "required": false
+                    },
+                    {
+                      "name": "Body",
+                      "type": "string",
+                      "value": "Body",
+                      "required": false
+                    },
+                    {
+                      "name": "MediaSid",
+                      "type": "string",
+                      "value": "MediaSid",
+                      "required": false
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "CreateChannelMessageOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ChannelSid",
+                      "type": "string",
+                      "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "To",
+                      "type": "string",
+                      "value": "to",
+                      "required": false
+                    },
+                    {
+                      "name": "Attributes",
+                      "type": "string",
+                      "value": "attributes",
+                      "required": false
+                    },
+                    {
+                      "name": "LastUpdatedBy",
+                      "type": "string",
+                      "value": "last_updated_by",
+                      "required": false
+                    },
+                    {
+                      "name": "WasEdited",
+                      "type": "bool",
+                      "value": "was_edited",
+                      "required": false
+                    },
+                    {
+                      "name": "From",
+                      "type": "string",
+                      "value": "from",
+                      "required": false
+                    },
+                    {
+                      "name": "Body",
+                      "type": "string",
+                      "value": "body",
+                      "required": false
+                    },
+                    {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "type",
+                      "required": false
+                    },
+                    {
+                      "name": "Index",
+                      "type": "int",
+                      "value": "index",
+                      "required": false
+                    },
+                    {
+                      "name": "Media",
+                      "type": "map[string]interface{}",
+                      "value": "media",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Message",
+            "function": {
+              "parameters": {
+                "messageSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "channelSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "messageSid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Channels/{channelSid}/Messages/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "channelSid",
+                    "value": {
+                      "onService": true,
+                      "property": "channelSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetChannelMessageOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ChannelSid",
+                      "type": "string",
+                      "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "To",
+                      "type": "string",
+                      "value": "to",
+                      "required": false
+                    },
+                    {
+                      "name": "Attributes",
+                      "type": "string",
+                      "value": "attributes",
+                      "required": false
+                    },
+                    {
+                      "name": "LastUpdatedBy",
+                      "type": "string",
+                      "value": "last_updated_by",
+                      "required": false
+                    },
+                    {
+                      "name": "WasEdited",
+                      "type": "bool",
+                      "value": "was_edited",
+                      "required": false
+                    },
+                    {
+                      "name": "From",
+                      "type": "string",
+                      "value": "from",
+                      "required": false
+                    },
+                    {
+                      "name": "Body",
+                      "type": "string",
+                      "value": "body",
+                      "required": false
+                    },
+                    {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "type",
+                      "required": false
+                    },
+                    {
+                      "name": "Index",
+                      "type": "int",
+                      "value": "index",
+                      "required": false
+                    },
+                    {
+                      "name": "Media",
+                      "type": "map[string]interface{}",
+                      "value": "media",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Update",
+                "path": "/Services/{serviceSid}/Channels/{channelSid}/Messages/{sid}",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "channelSid",
+                    "value": {
+                      "onService": true,
+                      "property": "channelSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "UpdateChannelMessageInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "From",
+                      "type": "string",
+                      "value": "From",
+                      "required": false
+                    },
+                    {
+                      "name": "Attributes",
+                      "type": "string",
+                      "value": "Attributes",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "DateCreated",
+                      "required": false
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "DateUpdated",
+                      "required": false
+                    },
+                    {
+                      "name": "LastUpdatedBy",
+                      "type": "string",
+                      "value": "LastUpdatedBy",
+                      "required": false
+                    },
+                    {
+                      "name": "Body",
+                      "type": "string",
+                      "value": "Body",
+                      "required": false
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "UpdateChannelMessageOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ChannelSid",
+                      "type": "string",
+                      "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "To",
+                      "type": "string",
+                      "value": "to",
+                      "required": false
+                    },
+                    {
+                      "name": "Attributes",
+                      "type": "string",
+                      "value": "attributes",
+                      "required": false
+                    },
+                    {
+                      "name": "LastUpdatedBy",
+                      "type": "string",
+                      "value": "last_updated_by",
+                      "required": false
+                    },
+                    {
+                      "name": "WasEdited",
+                      "type": "bool",
+                      "value": "was_edited",
+                      "required": false
+                    },
+                    {
+                      "name": "From",
+                      "type": "string",
+                      "value": "from",
+                      "required": false
+                    },
+                    {
+                      "name": "Body",
+                      "type": "string",
+                      "value": "body",
+                      "required": false
+                    },
+                    {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "type",
+                      "required": false
+                    },
+                    {
+                      "name": "Index",
+                      "type": "int",
+                      "value": "index",
+                      "required": false
+                    },
+                    {
+                      "name": "Media",
+                      "type": "map[string]interface{}",
+                      "value": "media",
+                      "required": false
+                    },
+                    {
+                      "name": "DateCreated",
+                      "type": "time.Time",
+                      "value": "date_created",
+                      "required": true
+                    },
+                    {
+                      "name": "DateUpdated",
+                      "type": "time.Time",
+                      "value": "date_updated",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Delete",
+                "path": "/Services/{serviceSid}/Channels/{channelSid}/Messages/{sid}",
+                "httpMethod": "Delete",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "channelSid",
+                    "value": {
+                      "onService": true,
+                      "property": "channelSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            ]
           }
         ],
         "operations": [

@@ -1,0 +1,18 @@
+{
+  "sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "to": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "channel_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "attributes": null,
+  "date_created": "2020-06-20T22:19:51Z",
+  "date_updated": "2020-06-20T23:19:51Z",
+  "last_updated_by": "system",
+  "was_edited": true,
+  "from": "system",
+  "body": "Hello World",
+  "index": 0,
+  "type": "text",
+  "media": null,
+  "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
