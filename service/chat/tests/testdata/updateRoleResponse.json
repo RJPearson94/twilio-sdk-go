@@ -1,0 +1,11 @@
+{
+  "sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "friendly_name": "Test",
+  "type": "channel",
+  "permissions": ["sendMessage", "leaveChannel"],
+  "date_created": "2020-06-20T22:19:51Z",
+  "date_updated": "2020-06-20T23:19:51Z",
+  "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

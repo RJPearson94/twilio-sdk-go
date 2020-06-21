@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/binding"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channels"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/role"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/roles"
 )
 
 type Client struct {
@@ -14,6 +16,8 @@ type Client struct {
 	Binding  func(string) *binding.Client
 	Channels *channels.Client
 	Channel  func(string) *channel.Client
+	Roles    *roles.Client
+	Role     func(string) *role.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -23,5 +27,7 @@ func New(client *client.Client, sid string) *Client {
 		Binding:  func(bindingSid string) *binding.Client { return binding.New(client, sid, bindingSid) },
 		Channels: channels.New(client, sid),
 		Channel:  func(channelSid string) *channel.Client { return channel.New(client, sid, channelSid) },
+		Roles:    roles.New(client, sid),
+		Role:     func(roleSid string) *role.Client { return role.New(client, sid, roleSid) },
 	}
 }
