@@ -1,0 +1,14 @@
+{
+  "sid": "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T22:19:51Z",
+  "date_updated": null,
+  "endpoint": "Test",
+  "identity": "TestUser",
+  "user_sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "binding_type": "gcm",
+  "credential_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "message_types": ["removed_from_channel", "new_message"],
+  "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
