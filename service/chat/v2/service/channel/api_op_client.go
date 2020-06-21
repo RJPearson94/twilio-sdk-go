@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/invite"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/invites"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/member"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/members"
 )
 
 type Client struct {
@@ -13,6 +15,8 @@ type Client struct {
 	sid        string
 	Invites    *invites.Client
 	Invite     func(string) *invite.Client
+	Members    *members.Client
+	Member     func(string) *member.Client
 }
 
 func New(client *client.Client, serviceSid string, sid string) *Client {
@@ -22,5 +26,7 @@ func New(client *client.Client, serviceSid string, sid string) *Client {
 		sid:        sid,
 		Invites:    invites.New(client, sid, serviceSid),
 		Invite:     func(inviteSid string) *invite.Client { return invite.New(client, sid, serviceSid, inviteSid) },
+		Members:    members.New(client, sid, serviceSid),
+		Member:     func(memberSid string) *member.Client { return member.New(client, sid, serviceSid, memberSid) },
 	}
 }

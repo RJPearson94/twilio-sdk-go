@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/member"
+
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -17,6 +19,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/invites"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/members"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/roles"
@@ -1666,6 +1669,226 @@ var _ = Describe("Chat V2", func() {
 			)
 
 			err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Invite("IN71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the channel members client", func() {
+		channelMembersClient := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Members
+
+		Describe("When the channel invite is successfully created", func() {
+			createInput := &members.CreateChannelMemberInput{
+				Identity: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/channelMemberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := channelMembersClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create channel member response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.Identity).To(Equal("Test"))
+				Expect(resp.LastConsumedMessageIndex).To(Equal(utils.Int(20)))
+				Expect(resp.LastConsumedTimestamp.Format(time.RFC3339)).To(Equal("2020-06-20T23:19:51Z"))
+				Expect(resp.Attributes).To(Equal(utils.String("{}")))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the channel member does not contain a identity", func() {
+			createInput := &members.CreateChannelMemberInput{}
+
+			resp, err := channelMembersClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create channel member response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the channel member api returns a 500 response", func() {
+			createInput := &members.CreateChannelMemberInput{
+				Identity: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := channelMembersClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				Expect(err).ToNot(BeNil())
+				twilioErr, ok := err.(*utils.TwilioError)
+				Expect(ok).To(Equal(true))
+				Expect(twilioErr.Code).To(BeNil())
+				Expect(twilioErr.Message).To(Equal("An error occurred"))
+				Expect(twilioErr.MoreInfo).To(BeNil())
+				Expect(twilioErr.Status).To(Equal(500))
+			})
+
+			It("Then the create channel member response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a channel member sid", func() {
+		channelMemberClient := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the channel member is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/channelMemberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := channelMemberClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get channel member response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.Identity).To(Equal("Test"))
+				Expect(resp.LastConsumedMessageIndex).To(Equal(utils.Int(20)))
+				Expect(resp.LastConsumedTimestamp.Format(time.RFC3339)).To(Equal("2020-06-20T23:19:51Z"))
+				Expect(resp.Attributes).To(Equal(utils.String("{}")))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the channel member api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MB71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("MB71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get channel member response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the channel member is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateChannelMemberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &member.UpdateChannelMemberInput{}
+
+			resp, err := channelMemberClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update channel member response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.Identity).To(Equal("Test"))
+				Expect(resp.LastConsumedMessageIndex).To(Equal(utils.Int(20)))
+				Expect(resp.LastConsumedTimestamp.Format(time.RFC3339)).To(Equal("2020-06-20T23:19:51Z"))
+				Expect(resp.Attributes).To(Equal(utils.String("{}")))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T23:19:51Z"))
+				Expect(resp.URL).To(Equal("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the channel member api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MB71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &member.UpdateChannelMemberInput{}
+
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("MB71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update channel member response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the channel member is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := channelMemberClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the channel member api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MB71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("MB71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
