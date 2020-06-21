@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/roles"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/users"
 )
 
 type Client struct {
@@ -18,6 +20,8 @@ type Client struct {
 	Channel  func(string) *channel.Client
 	Roles    *roles.Client
 	Role     func(string) *role.Client
+	Users    *users.Client
+	User     func(string) *user.Client
 }
 
 func New(client *client.Client, sid string) *Client {
@@ -29,5 +33,7 @@ func New(client *client.Client, sid string) *Client {
 		Channel:  func(channelSid string) *channel.Client { return channel.New(client, sid, channelSid) },
 		Roles:    roles.New(client, sid),
 		Role:     func(roleSid string) *role.Client { return role.New(client, sid, roleSid) },
+		Users:    users.New(client, sid),
+		User:     func(userSid string) *user.Client { return user.New(client, sid, userSid) },
 	}
 }
