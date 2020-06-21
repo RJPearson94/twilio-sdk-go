@@ -1399,6 +1399,244 @@
                 ]
               }
             ]
+          },
+          {
+            "name": "Channel",
+            "function": {
+              "parameters": {
+                "channelSid": {
+                  "dataType": "string"
+                }
+              }
+            },
+            "properties": {
+              "serviceSid": {
+                "dataType": "string",
+                "parentProperty": "serviceSid"
+              },
+              "userSid": {
+                "dataType": "string",
+                "parentProperty": "sid"
+              },
+              "sid": {
+                "dataType": "string",
+                "functionParameter": "channelSid"
+              }
+            },
+            "operations": [
+              {
+                "name": "Get",
+                "path": "/Services/{serviceSid}/Users/{userSid}/Channels/{sid}",
+                "httpMethod": "Get",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "userSid",
+                    "value": {
+                      "onService": true,
+                      "property": "userSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "response": {
+                  "name": "GetUserChannelOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ChannelSid",
+                      "type": "string",
+                      "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "UserSid",
+                      "type": "string",
+                      "value": "user_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "MemberSid",
+                      "type": "string",
+                      "value": "member_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Status",
+                      "type": "string",
+                      "value": "status",
+                      "required": true
+                    },
+                    {
+                      "name": "LastConsumedMessageIndex",
+                      "type": "int",
+                      "value": "last_consumed_message_index",
+                      "required": false
+                    },
+                    {
+                      "name": "UnreadMessagesCount",
+                      "type": "int",
+                      "value": "unread_messages_count",
+                      "required": false
+                    },
+                    {
+                      "name": "NotificationLevel",
+                      "type": "string",
+                      "value": "notification_level",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "Update",
+                "path": "/Services/{serviceSid}/Users/{userSid}/Channels/{sid}",
+                "httpMethod": "Post",
+                "pathParams": [
+                  {
+                    "pathParamName": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "userSid",
+                    "value": {
+                      "onService": true,
+                      "property": "userSid"
+                    }
+                  },
+                  {
+                    "pathParamName": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid"
+                    }
+                  }
+                ],
+                "input": {
+                  "name": "UpdateUserChannelInput",
+                  "type": "URLEncoded",
+                  "properties": [
+                    {
+                      "name": "NotificationLevel",
+                      "type": "string",
+                      "value": "NotificationLevel",
+                      "required": false
+                    },
+                    {
+                      "name": "LastConsumedMessageIndex",
+                      "type": "int",
+                      "value": "LastConsumedMessageIndex",
+                      "required": false
+                    },
+                    {
+                      "name": "LastConsumptionTimestamp",
+                      "type": "time.Time",
+                      "value": "LastConsumptionTimestamp",
+                      "required": false
+                    }
+                  ]
+                },
+                "response": {
+                  "name": "UpdateUserChannelOutput",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "AccountSid",
+                      "type": "string",
+                      "value": "account_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ServiceSid",
+                      "type": "string",
+                      "value": "service_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ChannelSid",
+                      "type": "string",
+                      "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "UserSid",
+                      "type": "string",
+                      "value": "user_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "MemberSid",
+                      "type": "string",
+                      "value": "member_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Status",
+                      "type": "string",
+                      "value": "status",
+                      "required": true
+                    },
+                    {
+                      "name": "LastConsumedMessageIndex",
+                      "type": "int",
+                      "value": "last_consumed_message_index",
+                      "required": false
+                    },
+                    {
+                      "name": "UnreadMessagesCount",
+                      "type": "int",
+                      "value": "unread_messages_count",
+                      "required": false
+                    },
+                    {
+                      "name": "NotificationLevel",
+                      "type": "string",
+                      "value": "notification_level",
+                      "required": false
+                    },
+                    {
+                      "name": "URL",
+                      "type": "string",
+                      "value": "url",
+                      "required": true
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ],
         "operations": [

@@ -4,6 +4,7 @@ package user
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/binding"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/channel"
 )
 
 type Client struct {
@@ -11,6 +12,7 @@ type Client struct {
 	serviceSid string
 	sid        string
 	Binding    func(string) *binding.Client
+	Channel    func(string) *channel.Client
 }
 
 func New(client *client.Client, serviceSid string, sid string) *Client {
@@ -19,5 +21,6 @@ func New(client *client.Client, serviceSid string, sid string) *Client {
 		serviceSid: serviceSid,
 		sid:        sid,
 		Binding:    func(bindingSid string) *binding.Client { return binding.New(client, serviceSid, bindingSid, sid) },
+		Channel:    func(channelSid string) *channel.Client { return channel.New(client, serviceSid, channelSid, sid) },
 	}
 }
