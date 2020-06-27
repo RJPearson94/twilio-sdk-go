@@ -3965,21 +3965,21 @@
               "required": false
             },
             {
-              "name": "NotificationsRemovedToChannelEnabled",
+              "name": "NotificationsRemovedFromChannelEnabled",
               "type": "bool",
-              "value": "Notifications.RemovedToChannel.Enabled",
+              "value": "Notifications.RemovedFromChannel.Enabled",
               "required": false
             },
             {
-              "name": "NotificationsRemovedToChannelTemplate",
+              "name": "NotificationsRemovedFromChannelTemplate",
               "type": "string",
-              "value": "Notifications.RemovedToChannel.Template",
+              "value": "Notifications.RemovedFromChannel.Template",
               "required": false
             },
             {
-              "name": "NotificationsRemovedToChannelSound",
+              "name": "NotificationsRemovedFromChannelSound",
               "type": "string",
-              "value": "Notifications.RemovedToChannel.Sound",
+              "value": "Notifications.RemovedFromChannel.Sound",
               "required": false
             },
             {

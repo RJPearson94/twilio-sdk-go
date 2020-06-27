@@ -24,9 +24,9 @@ type UpdateServiceInput struct {
 	NotificationsAddedToChannelEnabled       *bool     `form:"Notifications.AddedToChannel.Enabled,omitempty"`
 	NotificationsAddedToChannelTemplate      *string   `form:"Notifications.AddedToChannel.Template,omitempty"`
 	NotificationsAddedToChannelSound         *string   `form:"Notifications.AddedToChannel.Sound,omitempty"`
-	NotificationsRemovedToChannelEnabled     *bool     `form:"Notifications.RemovedToChannel.Enabled,omitempty"`
-	NotificationsRemovedToChannelTemplate    *string   `form:"Notifications.RemovedToChannel.Template,omitempty"`
-	NotificationsRemovedToChannelSound       *string   `form:"Notifications.RemovedToChannel.Sound,omitempty"`
+	NotificationsRemovedFromChannelEnabled   *bool     `form:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelTemplate  *string   `form:"Notifications.RemovedFromChannel.Template,omitempty"`
+	NotificationsRemovedFromChannelSound     *string   `form:"Notifications.RemovedFromChannel.Sound,omitempty"`
 	NotificationsInvitedToChannelEnabled     *bool     `form:"Notifications.InvitedToChannel.Enabled,omitempty"`
 	NotificationsInvitedToChannelTemplate    *string   `form:"Notifications.InvitedToChannel.Template,omitempty"`
 	NotificationsInvitedToChannelSound       *string   `form:"Notifications.InvitedToChannel.Sound,omitempty"`
