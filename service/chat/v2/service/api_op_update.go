@@ -38,7 +38,7 @@ type UpdateServiceInput struct {
 	WebhookFilters                           *[]string `form:"WebhookFilters,omitempty"`
 	LimitsChannelMembers                     *int      `form:"Limits.ChannelMembers,omitempty"`
 	LimitsUserChannels                       *int      `form:"Limits.UserChannels,omitempty"`
-	MediaCompatibilityMessage                *int      `form:"Media.CompatibilityMessage,omitempty"`
+	MediaCompatibilityMessage                *string   `form:"Media.CompatibilityMessage,omitempty"`
 	NotificationsLogEnabled                  *bool     `form:"Notifications.LogEnabled,omitempty"`
 }
 

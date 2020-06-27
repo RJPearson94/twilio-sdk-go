@@ -4050,7 +4050,7 @@
             },
             {
               "name": "MediaCompatibilityMessage",
-              "type": "int",
+              "type": "string",
               "value": "Media.CompatibilityMessage",
               "required": false
             },
