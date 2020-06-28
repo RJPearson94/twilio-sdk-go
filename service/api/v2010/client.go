@@ -4,6 +4,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
 	"github.com/RJPearson94/twilio-sdk-go/session"
+	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 type V2010 struct {
@@ -30,4 +31,8 @@ func NewWithClient(client *client.Client) *V2010 {
 		client:  client,
 		Account: func(accountSid string) *account.Client { return account.New(client, accountSid) },
 	}
+}
+
+func NewWithCredentials(creds *credentials.Credentials) *V2010 {
+	return New(session.New(creds))
 }
