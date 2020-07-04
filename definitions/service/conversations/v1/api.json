@@ -162,6 +162,526 @@
         "dataType": "string"
       }
     },
+    "subClients": [
+      {
+        "name": "Messages",
+        "properties": {
+          "conversationSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Create",
+            "path": "/Conversations/{conversationSid}/Messages",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "conversationSid",
+                "value": {
+                  "onService": true,
+                  "property": "conversationSid"
+                }
+              }
+            ],
+            "input": {
+              "name": "CreateMessageInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "Author",
+                  "type": "string",
+                  "value": "Author",
+                  "required": false
+                },
+                {
+                  "name": "Body",
+                  "type": "string",
+                  "value": "Body",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "utils.RFC2822Time",
+                  "value": "DateCreated",
+                  "required": false
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "utils.RFC2822Time",
+                  "value": "DateUpdated",
+                  "required": false
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "Attributes.Filters",
+                  "required": false
+                },
+                {
+                  "name": "MediaSid",
+                  "type": "string",
+                  "value": "MediaSid",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "CreateMessageOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "CreateMessageOutputMedia",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ContentType",
+                      "type": "string",
+                      "value": "content_type",
+                      "required": true
+                    },
+                    {
+                      "name": "Filename",
+                      "type": "string",
+                      "value": "filename",
+                      "required": true
+                    },
+                    {
+                      "name": "Size",
+                      "type": "int",
+                      "value": "size",
+                      "required": true
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ConversationSid",
+                  "type": "string",
+                  "value": "conversation_sid",
+                  "required": true
+                },
+                {
+                  "name": "ParticipantSid",
+                  "type": "string",
+                  "value": "participant_sid",
+                  "required": false
+                },
+                {
+                  "name": "Body",
+                  "type": "string",
+                  "value": "body",
+                  "required": false
+                },
+                {
+                  "name": "Index",
+                  "type": "int",
+                  "value": "index",
+                  "required": true
+                },
+                {
+                  "name": "Author",
+                  "type": "string",
+                  "value": "author",
+                  "required": true
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "attributes",
+                  "required": true
+                },
+                {
+                  "name": "Media",
+                  "type": "[]CreateMessageOutputMedia",
+                  "value": "media",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Message",
+        "function": {
+          "parameters": {
+            "messageSid": {
+              "dataType": "string"
+            }
+          }
+        },
+        "properties": {
+          "conversationSid": {
+            "dataType": "string",
+            "parentProperty": "sid"
+          },
+          "sid": {
+            "dataType": "string",
+            "functionParameter": "messageSid"
+          }
+        },
+        "operations": [
+          {
+            "name": "Get",
+            "path": "/Conversations/{conversationSid}/Messages/{sid}",
+            "httpMethod": "Get",
+            "pathParams": [
+              {
+                "pathParamName": "conversationSid",
+                "value": {
+                  "onService": true,
+                  "property": "conversationSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "response": {
+              "name": "GetMessageOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "GetMessageOutputMedia",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ContentType",
+                      "type": "string",
+                      "value": "content_type",
+                      "required": true
+                    },
+                    {
+                      "name": "Filename",
+                      "type": "string",
+                      "value": "filename",
+                      "required": true
+                    },
+                    {
+                      "name": "Size",
+                      "type": "int",
+                      "value": "size",
+                      "required": true
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ConversationSid",
+                  "type": "string",
+                  "value": "conversation_sid",
+                  "required": true
+                },
+                {
+                  "name": "ParticipantSid",
+                  "type": "string",
+                  "value": "participant_sid",
+                  "required": false
+                },
+                {
+                  "name": "Body",
+                  "type": "string",
+                  "value": "body",
+                  "required": false
+                },
+                {
+                  "name": "Index",
+                  "type": "int",
+                  "value": "index",
+                  "required": true
+                },
+                {
+                  "name": "Author",
+                  "type": "string",
+                  "value": "author",
+                  "required": true
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "attributes",
+                  "required": true
+                },
+                {
+                  "name": "Media",
+                  "type": "[]GetMessageOutputMedia",
+                  "value": "media",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Update",
+            "path": "/Conversations/{conversationSid}/Messages/{sid}",
+            "httpMethod": "Post",
+            "pathParams": [
+              {
+                "pathParamName": "conversationSid",
+                "value": {
+                  "onService": true,
+                  "property": "conversationSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ],
+            "input": {
+              "name": "UpdateMessageInput",
+              "type": "URLEncoded",
+              "properties": [
+                {
+                  "name": "Author",
+                  "type": "string",
+                  "value": "Author",
+                  "required": false
+                },
+                {
+                  "name": "Body",
+                  "type": "string",
+                  "value": "Body",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "utils.RFC2822Time",
+                  "value": "DateCreated",
+                  "required": false
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "utils.RFC2822Time",
+                  "value": "DateUpdated",
+                  "required": false
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "Attributes.Filters",
+                  "required": false
+                }
+              ]
+            },
+            "response": {
+              "name": "UpdateMessageOutput",
+              "type": "JSON",
+              "additionalStructs": [
+                {
+                  "name": "UpdateMessageOutputMedia",
+                  "type": "JSON",
+                  "properties": [
+                    {
+                      "name": "Sid",
+                      "type": "string",
+                      "value": "sid",
+                      "required": true
+                    },
+                    {
+                      "name": "ContentType",
+                      "type": "string",
+                      "value": "content_type",
+                      "required": true
+                    },
+                    {
+                      "name": "Filename",
+                      "type": "string",
+                      "value": "filename",
+                      "required": true
+                    },
+                    {
+                      "name": "Size",
+                      "type": "int",
+                      "value": "size",
+                      "required": true
+                    }
+                  ]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "Sid",
+                  "type": "string",
+                  "value": "sid",
+                  "required": true
+                },
+                {
+                  "name": "AccountSid",
+                  "type": "string",
+                  "value": "account_sid",
+                  "required": true
+                },
+                {
+                  "name": "ConversationSid",
+                  "type": "string",
+                  "value": "conversation_sid",
+                  "required": true
+                },
+                {
+                  "name": "ParticipantSid",
+                  "type": "string",
+                  "value": "participant_sid",
+                  "required": false
+                },
+                {
+                  "name": "Body",
+                  "type": "string",
+                  "value": "body",
+                  "required": false
+                },
+                {
+                  "name": "Index",
+                  "type": "int",
+                  "value": "index",
+                  "required": true
+                },
+                {
+                  "name": "Author",
+                  "type": "string",
+                  "value": "author",
+                  "required": true
+                },
+                {
+                  "name": "Attributes",
+                  "type": "string",
+                  "value": "attributes",
+                  "required": true
+                },
+                {
+                  "name": "Media",
+                  "type": "[]UpdateMessageOutputMedia",
+                  "value": "media",
+                  "required": false
+                },
+                {
+                  "name": "DateCreated",
+                  "type": "time.Time",
+                  "value": "date_created",
+                  "required": true
+                },
+                {
+                  "name": "DateUpdated",
+                  "type": "time.Time",
+                  "value": "date_updated",
+                  "required": false
+                },
+                {
+                  "name": "URL",
+                  "type": "string",
+                  "value": "url",
+                  "required": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "Delete",
+            "path": "/Conversations/{conversationSid}/Messages/{sid}",
+            "httpMethod": "Delete",
+            "pathParams": [
+              {
+                "pathParamName": "conversationSid",
+                "value": {
+                  "onService": true,
+                  "property": "conversationSid"
+                }
+              },
+              {
+                "pathParamName": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "operations": [
       {
         "name": "Get",
