@@ -15,6 +15,9 @@ import (
 	conversationResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/messages"
+	conversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
+	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -30,13 +33,13 @@ var _ = Describe("Conversation V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	conversationSession := conversations.NewWithCredentials(creds).V1
+	conversationsSession := conversations.NewWithCredentials(creds).V1
 
-	httpmock.ActivateNonDefault(conversationSession.GetClient().GetRestyClient().GetClient())
+	httpmock.ActivateNonDefault(conversationsSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()
 
 	Describe("Given the conversations client", func() {
-		conversationsClient := conversationSession.Conversations
+		conversationsClient := conversationsSession.Conversations
 
 		Describe("When the conversation resource is successfully created", func() {
 			createInput := &conversationsResource.CreateConversationInput{
@@ -99,7 +102,7 @@ var _ = Describe("Conversation V1", func() {
 	})
 
 	Describe("Given I have a conversation sid", func() {
-		conversationClient := conversationSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		conversationClient := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the conversation resource is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -142,7 +145,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationSession.Conversation("CH71").Get()
+			resp, err := conversationsSession.Conversation("CH71").Get()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -209,7 +212,7 @@ var _ = Describe("Conversation V1", func() {
 				FriendlyName: utils.String("Test 2"),
 			}
 
-			resp, err := conversationSession.Conversation("CH71").Update(updateInput)
+			resp, err := conversationsSession.Conversation("CH71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -238,7 +241,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			err := conversationSession.Conversation("CH71").Delete()
+			err := conversationsSession.Conversation("CH71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -246,7 +249,7 @@ var _ = Describe("Conversation V1", func() {
 	})
 
 	Describe("Given I have a webhook client", func() {
-		webhookClient := conversationSession.Webhook()
+		webhookClient := conversationsSession.Webhook()
 
 		Describe("When the webhook resource is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/Webhooks",
@@ -357,7 +360,7 @@ var _ = Describe("Conversation V1", func() {
 	})
 
 	Describe("Given the messages client", func() {
-		messagesClient := conversationSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Messages
+		messagesClient := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Messages
 
 		Describe("When the message is successfully created", func() {
 			createInput := &messages.CreateMessageInput{
@@ -421,7 +424,7 @@ var _ = Describe("Conversation V1", func() {
 	})
 
 	Describe("Given I have a message sid", func() {
-		messageClient := conversationSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		messageClient := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the message is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -465,7 +468,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Get()
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Get()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -525,7 +528,7 @@ var _ = Describe("Conversation V1", func() {
 				Body: utils.String("Hello World Updated"),
 			}
 
-			resp, err := conversationSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Update(updateInput)
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -554,7 +557,217 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			err := conversationSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Delete()
+			err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the conversation webhooks client", func() {
+		conversationWebhooksClient := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhooks
+
+		Describe("When the conversation webhook is successfully created", func() {
+			createInput := &conversationWebhooks.CreateConversationWebhookInput{
+				Target:               "studio",
+				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationWebhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := conversationWebhooksClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create conversation webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("studio"))
+				Expect(resp.Configuration).To(Equal(conversationWebhooks.CreateConversationWebhookOutputConfiguration{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the conversation webhook does not contain a target", func() {
+			createInput := &webhooks.CreateConversationWebhookInput{}
+
+			resp, err := conversationWebhooksClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create conversation webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation webhook api returns a 500 response", func() {
+			createInput := &webhooks.CreateConversationWebhookInput{
+				Target:               "studio",
+				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := conversationWebhooksClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create conversation webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a conversation webhook sid", func() {
+		conversationWebhookClient := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the conversation webhook is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationWebhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := conversationWebhookClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get conversation webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("studio"))
+				Expect(resp.Configuration).To(Equal(conversationWebhook.GetConversationWebhookOutputConfiguration{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the conversation webhook api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get conversation webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation webhook is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateConversationWebhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &conversationWebhook.UpdateConversationWebhookInput{}
+
+			resp, err := conversationWebhookClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update conversation webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("studio"))
+				Expect(resp.Configuration).To(Equal(conversationWebhook.UpdateConversationWebhookOutputConfiguration{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T23:19:51Z"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the conversation webhook api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &conversationWebhook.UpdateConversationWebhookInput{}
+
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update conversation webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation webhook is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := conversationWebhookClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation webhook api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
