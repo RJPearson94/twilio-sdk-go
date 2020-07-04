@@ -32,6 +32,7 @@ type UpdateChannelWebhookOutput struct {
 	AccountSid    string                                  `json:"account_sid"`
 	ServiceSid    string                                  `json:"service_sid"`
 	ChannelSid    string                                  `json:"channel_sid"`
+	Type          string                                  `json:"Type"`
 	Configuration UpdateChannelWebhookOutputConfiguration `json:"configuration"`
 	DateCreated   time.Time                               `json:"date_created"`
 	DateUpdated   *time.Time                              `json:"date_updated,omitempty"`

@@ -1914,6 +1914,12 @@
                       "required": true
                     },
                     {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "Type",
+                      "required": true
+                    },
+                    {
                       "name": "Configuration",
                       "type": "CreateChannelWebhookOutputConfiguration",
                       "value": "configuration",
@@ -2063,6 +2069,12 @@
                       "name": "ChannelSid",
                       "type": "string",
                       "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "Type",
                       "required": true
                     },
                     {
@@ -2231,6 +2243,12 @@
                       "name": "ChannelSid",
                       "type": "string",
                       "value": "channel_sid",
+                      "required": true
+                    },
+                    {
+                      "name": "Type",
+                      "type": "string",
+                      "value": "Type",
                       "required": true
                     },
                     {

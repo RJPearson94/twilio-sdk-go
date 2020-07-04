@@ -2150,6 +2150,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("studio"))
 				Expect(resp.Configuration).To(Equal(webhooks.CreateChannelWebhookOutputConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -2228,6 +2229,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("studio"))
 				Expect(resp.Configuration).To(Equal(webhook.GetChannelWebhookOutputConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -2280,6 +2282,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("studio"))
 				Expect(resp.Configuration).To(Equal(webhook.UpdateChannelWebhookOutputConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
