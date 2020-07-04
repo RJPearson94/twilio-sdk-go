@@ -14,6 +14,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
 	conversationResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -86,13 +87,7 @@ var _ = Describe("Conversation V1", func() {
 
 			resp, err := conversationsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create conversation response should be nil", func() {
@@ -247,6 +242,117 @@ var _ = Describe("Conversation V1", func() {
 			})
 		})
 	})
+
+	Describe("Given I have a webhook client", func() {
+		webhookClient := conversationSession.Webhook()
+
+		Describe("When the webhook resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := webhookClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("webhook"))
+				Expect(resp.Method).To(Equal("POST"))
+				Expect(resp.PreWebhookUrl).To(BeNil())
+				Expect(resp.PostWebhookUrl).To(BeNil())
+				Expect(len(resp.Filters)).To(Equal(0))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/Webhooks"))
+			})
+		})
+
+		Describe("When the webhook api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := webhookClient.Get()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the webhook is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateWebhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			filters := []string{"onMessageAdded"}
+			updateInput := &webhook.UpdateWebhookInput{
+				PostWebhookUrl: utils.String("http://localhost/pre"),
+				Filters:        &filters,
+			}
+
+			resp, err := webhookClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("webhook"))
+				Expect(resp.Method).To(Equal("POST"))
+				Expect(resp.PreWebhookUrl).To(Equal(utils.String("http://localhost/pre")))
+				Expect(resp.PostWebhookUrl).To(BeNil())
+				Expect(len(resp.Filters)).To(Equal(1))
+				Expect(resp.Filters[0]).To(Equal("onMessageAdded"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/Webhooks"))
+			})
+		})
+
+		Describe("When the update webhook response returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			filters := []string{"onMessageAdded"}
+			updateInput := &webhook.UpdateWebhookInput{
+				PostWebhookUrl: utils.String("http://localhost/pre"),
+				Filters:        &filters,
+			}
+
+			resp, err := webhookClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the update webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
 })
 
 func ExpectInvalidInputError(err error) {
@@ -266,6 +372,16 @@ func ExpectNotFoundError(err error) {
 	moreInfo := "https://www.twilio.com/docs/errors/20404"
 	Expect(twilioErr.MoreInfo).To(Equal(&moreInfo))
 	Expect(twilioErr.Status).To(Equal(404))
+}
+
+func ExpectInternalServerError(err error) {
+	Expect(err).ToNot(BeNil())
+	twilioErr, ok := err.(*utils.TwilioError)
+	Expect(ok).To(Equal(true))
+	Expect(twilioErr.Code).To(BeNil())
+	Expect(twilioErr.Message).To(Equal("An error occurred"))
+	Expect(twilioErr.MoreInfo).To(BeNil())
+	Expect(twilioErr.Status).To(Equal(500))
 }
 
 func ExpectErrorToNotBeATwilioError(err error) {

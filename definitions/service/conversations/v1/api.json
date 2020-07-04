@@ -444,5 +444,153 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Webhook",
+    "properties": {},
+    "operations": [
+      {
+        "name": "Get",
+        "path": "/Conversations/Webhooks",
+        "httpMethod": "Get",
+        "response": {
+          "name": "GetWebhookOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "Method",
+              "type": "string",
+              "value": "method",
+              "required": true
+            },
+            {
+              "name": "Target",
+              "type": "string",
+              "value": "target",
+              "required": true
+            },
+            {
+              "name": "Filters",
+              "type": "[]string",
+              "value": "filters",
+              "required": true
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "pre_webhook_url",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "post_webhook_url",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Update",
+        "path": "/Conversations/Webhooks",
+        "httpMethod": "Post",
+        "input": {
+          "name": "UpdateWebhookInput",
+          "type": "URLEncoded",
+          "properties": [
+            {
+              "name": "Method",
+              "type": "string",
+              "value": "Method",
+              "required": false
+            },
+            {
+              "name": "Filters",
+              "type": "[]string",
+              "value": "Filters",
+              "required": false
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "PreWebhookUrl",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "PostWebhookUrl",
+              "required": false
+            },
+            {
+              "name": "Target",
+              "type": "string",
+              "value": "Target",
+              "required": false
+            }
+          ]
+        },
+        "response": {
+          "name": "UpdateWebhookOutput",
+          "type": "JSON",
+          "properties": [
+            {
+              "name": "AccountSid",
+              "type": "string",
+              "value": "account_sid",
+              "required": true
+            },
+            {
+              "name": "Method",
+              "type": "string",
+              "value": "method",
+              "required": true
+            },
+            {
+              "name": "Target",
+              "type": "string",
+              "value": "target",
+              "required": true
+            },
+            {
+              "name": "Filters",
+              "type": "[]string",
+              "value": "filters",
+              "required": true
+            },
+            {
+              "name": "PreWebhookUrl",
+              "type": "string",
+              "value": "pre_webhook_url",
+              "required": false
+            },
+            {
+              "name": "PostWebhookUrl",
+              "type": "string",
+              "value": "post_webhook_url",
+              "required": false
+            },
+            {
+              "name": "URL",
+              "type": "string",
+              "value": "url",
+              "required": true
+            }
+          ]
+        }
+      }
+    ]
   }
 ]
