@@ -2160,7 +2160,7 @@ var _ = Describe("Chat V2", func() {
 			})
 		})
 
-		Describe("When the channel message does not contain a type", func() {
+		Describe("When the channel webhook does not contain a type", func() {
 			createInput := &webhooks.CreateChannelWebhookInput{}
 
 			resp, err := channelWebhooksClient.Create(createInput)
@@ -2168,7 +2168,7 @@ var _ = Describe("Chat V2", func() {
 				ExpectInvalidInputError(err)
 			})
 
-			It("Then the create channel message response should be nil", func() {
+			It("Then the create channel webhook response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
