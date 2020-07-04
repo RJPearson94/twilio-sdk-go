@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestV1(t *testing.T) {
+func TestV2(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Proxy Test Suite")
+	RunSpecs(t, "Chat Test Suite")
 }
