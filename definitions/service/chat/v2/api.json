@@ -1852,7 +1852,7 @@
                         {
                           "name": "Url",
                           "type": "string",
-                          "value": "Url",
+                          "value": "url",
                           "required": false
                         },
                         {
@@ -1916,7 +1916,7 @@
                     {
                       "name": "Type",
                       "type": "string",
-                      "value": "Type",
+                      "value": "type",
                       "required": true
                     },
                     {
@@ -2010,7 +2010,7 @@
                         {
                           "name": "Url",
                           "type": "string",
-                          "value": "Url",
+                          "value": "url",
                           "required": false
                         },
                         {
@@ -2074,7 +2074,7 @@
                     {
                       "name": "Type",
                       "type": "string",
-                      "value": "Type",
+                      "value": "type",
                       "required": true
                     },
                     {
@@ -2184,7 +2184,7 @@
                         {
                           "name": "Url",
                           "type": "string",
-                          "value": "Url",
+                          "value": "url",
                           "required": false
                         },
                         {
@@ -2248,7 +2248,7 @@
                     {
                       "name": "Type",
                       "type": "string",
-                      "value": "Type",
+                      "value": "type",
                       "required": true
                     },
                     {

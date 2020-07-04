@@ -10,7 +10,7 @@ import (
 )
 
 type GetChannelWebhookOutputConfiguration struct {
-	Url        *string   `json:"Url,omitempty"`
+	Url        *string   `json:"url,omitempty"`
 	Method     *string   `json:"method,omitempty"`
 	Filters    *[]string `json:"filters,omitempty"`
 	Triggers   *[]string `json:"triggers,omitempty"`
@@ -23,7 +23,7 @@ type GetChannelWebhookOutput struct {
 	AccountSid    string                               `json:"account_sid"`
 	ServiceSid    string                               `json:"service_sid"`
 	ChannelSid    string                               `json:"channel_sid"`
-	Type          string                               `json:"Type"`
+	Type          string                               `json:"type"`
 	Configuration GetChannelWebhookOutputConfiguration `json:"configuration"`
 	DateCreated   time.Time                            `json:"date_created"`
 	DateUpdated   *time.Time                           `json:"date_updated,omitempty"`
