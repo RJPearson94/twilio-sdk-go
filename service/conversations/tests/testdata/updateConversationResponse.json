@@ -1,0 +1,21 @@
+{
+  "date_updated": "2020-06-20T20:55:24Z",
+  "friendly_name": "Test 2",
+  "timers": {
+    "date_closed": "2020-06-20T21:00:24Z",
+    "date_inactive": "2020-06-20T20:51:24Z"
+  },
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "state": "active",
+  "date_created": "2020-06-20T20:50:24Z",
+  "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "attributes": "{}",
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "links": {
+    "participants": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+    "messages": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages",
+    "webhooks": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks"
+  }
+}
