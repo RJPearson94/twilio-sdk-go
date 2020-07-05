@@ -5,26 +5,32 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/messages"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/participant"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/participants"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 )
 
 type Client struct {
-	client   *client.Client
-	sid      string
-	Messages *messages.Client
-	Message  func(string) *message.Client
-	Webhooks *webhooks.Client
-	Webhook  func(string) *webhook.Client
+	client       *client.Client
+	sid          string
+	Messages     *messages.Client
+	Message      func(string) *message.Client
+	Participants *participants.Client
+	Participant  func(string) *participant.Client
+	Webhooks     *webhooks.Client
+	Webhook      func(string) *webhook.Client
 }
 
 func New(client *client.Client, sid string) *Client {
 	return &Client{
-		client:   client,
-		sid:      sid,
-		Messages: messages.New(client, sid),
-		Message:  func(messageSid string) *message.Client { return message.New(client, sid, messageSid) },
-		Webhooks: webhooks.New(client, sid),
-		Webhook:  func(webhookSid string) *webhook.Client { return webhook.New(client, sid, webhookSid) },
+		client:       client,
+		sid:          sid,
+		Messages:     messages.New(client, sid),
+		Message:      func(messageSid string) *message.Client { return message.New(client, sid, messageSid) },
+		Participants: participants.New(client, sid),
+		Participant:  func(participantSid string) *participant.Client { return participant.New(client, sid, participantSid) },
+		Webhooks:     webhooks.New(client, sid),
+		Webhook:      func(webhookSid string) *webhook.Client { return webhook.New(client, sid, webhookSid) },
 	}
 }
