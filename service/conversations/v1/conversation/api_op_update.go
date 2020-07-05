@@ -12,8 +12,8 @@ import (
 
 type UpdateConversationInput struct {
 	FriendlyName        *string            `form:"FriendlyName,omitempty"`
-	DateCreated         utils.RFC2822Time  `validate:"required" form:"DateCreated"`
-	DateUpdated         *utils.RFC2822Time `form:"date_updated,omitempty"`
+	DateCreated         *utils.RFC2822Time `form:"DateCreated,omitempty"`
+	DateUpdated         *utils.RFC2822Time `form:"DateUpdated,omitempty"`
 	MessagingServiceSid *string            `form:"MessagingServiceSid,omitempty"`
 	Attributes          *string            `form:"Attributes,omitempty"`
 	State               *string            `form:"State,omitempty"`

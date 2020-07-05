@@ -20,12 +20,12 @@
               "name": "DateCreated",
               "type": "utils.RFC2822Time",
               "value": "DateCreated",
-              "required": true
+              "required": false
             },
             {
               "name": "DateUpdated",
               "type": "utils.RFC2822Time",
-              "value": "date_updated",
+              "value": "DateUpdated",
               "required": false
             },
             {
@@ -1304,12 +1304,12 @@
               "name": "DateCreated",
               "type": "utils.RFC2822Time",
               "value": "DateCreated",
-              "required": true
+              "required": false
             },
             {
               "name": "DateUpdated",
               "type": "utils.RFC2822Time",
-              "value": "date_updated",
+              "value": "DateUpdated",
               "required": false
             },
             {
