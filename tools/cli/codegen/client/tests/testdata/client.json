@@ -1,0 +1,27 @@
+{
+  "packageName": "v1",
+  "name": "Proxy",
+  "config": {
+    "beta": true,
+    "subDomain": "proxy",
+    "apiVersion": "v1"
+  },
+  "imports": [
+    "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service",
+    "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/services"
+  ],
+  "subClients": [
+    {
+      "name": "Services"
+    },
+    {
+      "name": "Service",
+      "functionParams": [
+        {
+          "name": "serviceSid",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
