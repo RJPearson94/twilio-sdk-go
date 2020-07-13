@@ -21,31 +21,31 @@ type CreateParticipantInput struct {
 	Identity                         *string            `form:"Identity,omitempty"`
 }
 
-type CreateParticipantOutputMessageBinding struct {
+type CreateParticipantResponseMessageBinding struct {
 	Type             string  `json:"type"`
 	Address          string  `json:"address"`
 	ProxyAddress     string  `json:"proxy_address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
 }
 
-type CreateParticipantOutput struct {
-	Sid              string                                 `json:"sid"`
-	AccountSid       string                                 `json:"account_sid"`
-	ConversationSid  string                                 `json:"conversation_sid"`
-	Identity         *string                                `json:"identity,omitempty"`
-	Attributes       string                                 `json:"attributes"`
-	MessagingBinding *CreateParticipantOutputMessageBinding `json:"messaging_binding,omitempty"`
-	RoleSid          *string                                `json:"role_sid,omitempty"`
-	DateCreated      time.Time                              `json:"date_created"`
-	DateUpdated      *time.Time                             `json:"date_updated,omitempty"`
-	URL              string                                 `json:"url"`
+type CreateParticipantResponse struct {
+	Sid              string                                   `json:"sid"`
+	AccountSid       string                                   `json:"account_sid"`
+	ConversationSid  string                                   `json:"conversation_sid"`
+	Identity         *string                                  `json:"identity,omitempty"`
+	Attributes       string                                   `json:"attributes"`
+	MessagingBinding *CreateParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	RoleSid          *string                                  `json:"role_sid,omitempty"`
+	DateCreated      time.Time                                `json:"date_created"`
+	DateUpdated      *time.Time                               `json:"date_updated,omitempty"`
+	URL              string                                   `json:"url"`
 }
 
-func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantOutput, error) {
+func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/{conversationSid}/Participants",
@@ -55,9 +55,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateParticip
 		},
 	}
 
-	output := &CreateParticipantOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateParticipantResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

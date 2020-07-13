@@ -9,33 +9,33 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetMessageOutputMedia struct {
+type GetMessageResponseMedia struct {
 	Sid         string `json:"sid"`
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Size        int    `json:"size"`
 }
 
-type GetMessageOutput struct {
-	Sid             string                   `json:"sid"`
-	AccountSid      string                   `json:"account_sid"`
-	ConversationSid string                   `json:"conversation_sid"`
-	ParticipantSid  *string                  `json:"participant_sid,omitempty"`
-	Body            *string                  `json:"body,omitempty"`
-	Index           int                      `json:"index"`
-	Author          string                   `json:"author"`
-	Attributes      string                   `json:"attributes"`
-	Media           *[]GetMessageOutputMedia `json:"media,omitempty"`
-	DateCreated     time.Time                `json:"date_created"`
-	DateUpdated     *time.Time               `json:"date_updated,omitempty"`
-	URL             string                   `json:"url"`
+type GetMessageResponse struct {
+	Sid             string                     `json:"sid"`
+	AccountSid      string                     `json:"account_sid"`
+	ConversationSid string                     `json:"conversation_sid"`
+	ParticipantSid  *string                    `json:"participant_sid,omitempty"`
+	Body            *string                    `json:"body,omitempty"`
+	Index           int                        `json:"index"`
+	Author          string                     `json:"author"`
+	Attributes      string                     `json:"attributes"`
+	Media           *[]GetMessageResponseMedia `json:"media,omitempty"`
+	DateCreated     time.Time                  `json:"date_created"`
+	DateUpdated     *time.Time                 `json:"date_updated,omitempty"`
+	URL             string                     `json:"url"`
 }
 
-func (c Client) Get() (*GetMessageOutput, error) {
+func (c Client) Get() (*GetMessageResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetMessageOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetMessageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Conversations/{conversationSid}/Messages/{sid}",
@@ -45,9 +45,9 @@ func (c Client) GetWithContext(context context.Context) (*GetMessageOutput, erro
 		},
 	}
 
-	output := &GetMessageOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetMessageResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

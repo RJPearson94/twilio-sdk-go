@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetWebhookOutput struct {
+type GetWebhookResponse struct {
 	AccountSid     string   `json:"account_sid"`
 	Method         string   `json:"method"`
 	Target         string   `json:"target"`
@@ -18,19 +18,19 @@ type GetWebhookOutput struct {
 	URL            string   `json:"url"`
 }
 
-func (c Client) Get() (*GetWebhookOutput, error) {
+func (c Client) Get() (*GetWebhookResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetWebhookOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetWebhookResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Conversations/Webhooks",
 	}
 
-	output := &GetWebhookOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetWebhookResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

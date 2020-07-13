@@ -19,31 +19,31 @@ type UpdateParticipantInput struct {
 	MessagingBindingProjectedAddress *string            `form:"MessagingBinding.ProjectedAddress,omitempty"`
 }
 
-type UpdateParticipantOutputMessageBinding struct {
+type UpdateParticipantResponseMessageBinding struct {
 	Type             string  `json:"type"`
 	Address          string  `json:"address"`
 	ProxyAddress     string  `json:"proxy_address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
 }
 
-type UpdateParticipantOutput struct {
-	Sid              string                                 `json:"sid"`
-	AccountSid       string                                 `json:"account_sid"`
-	ConversationSid  string                                 `json:"conversation_sid"`
-	Identity         *string                                `json:"identity,omitempty"`
-	Attributes       string                                 `json:"attributes"`
-	MessagingBinding *UpdateParticipantOutputMessageBinding `json:"messaging_binding,omitempty"`
-	RoleSid          *string                                `json:"role_sid,omitempty"`
-	DateCreated      time.Time                              `json:"date_created"`
-	DateUpdated      *time.Time                             `json:"date_updated,omitempty"`
-	URL              string                                 `json:"url"`
+type UpdateParticipantResponse struct {
+	Sid              string                                   `json:"sid"`
+	AccountSid       string                                   `json:"account_sid"`
+	ConversationSid  string                                   `json:"conversation_sid"`
+	Identity         *string                                  `json:"identity,omitempty"`
+	Attributes       string                                   `json:"attributes"`
+	MessagingBinding *UpdateParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	RoleSid          *string                                  `json:"role_sid,omitempty"`
+	DateCreated      time.Time                                `json:"date_created"`
+	DateUpdated      *time.Time                               `json:"date_updated,omitempty"`
+	URL              string                                   `json:"url"`
 }
 
-func (c Client) Update(input *UpdateParticipantInput) (*UpdateParticipantOutput, error) {
+func (c Client) Update(input *UpdateParticipantInput) (*UpdateParticipantResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateParticipantInput) (*UpdateParticipantOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateParticipantInput) (*UpdateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/{conversationSid}/Participants/{sid}",
@@ -54,9 +54,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateParticip
 		},
 	}
 
-	output := &UpdateParticipantOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateParticipantResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

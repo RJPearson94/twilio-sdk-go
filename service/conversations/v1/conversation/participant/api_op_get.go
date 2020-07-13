@@ -9,31 +9,31 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetParticipantOutputMessageBinding struct {
+type GetParticipantResponseMessageBinding struct {
 	Type             string  `json:"type"`
 	Address          string  `json:"address"`
 	ProxyAddress     string  `json:"proxy_address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
 }
 
-type GetParticipantOutput struct {
-	Sid              string                              `json:"sid"`
-	AccountSid       string                              `json:"account_sid"`
-	ConversationSid  string                              `json:"conversation_sid"`
-	Identity         *string                             `json:"identity,omitempty"`
-	Attributes       string                              `json:"attributes"`
-	MessagingBinding *GetParticipantOutputMessageBinding `json:"messaging_binding,omitempty"`
-	RoleSid          *string                             `json:"role_sid,omitempty"`
-	DateCreated      time.Time                           `json:"date_created"`
-	DateUpdated      *time.Time                          `json:"date_updated,omitempty"`
-	URL              string                              `json:"url"`
+type GetParticipantResponse struct {
+	Sid              string                                `json:"sid"`
+	AccountSid       string                                `json:"account_sid"`
+	ConversationSid  string                                `json:"conversation_sid"`
+	Identity         *string                               `json:"identity,omitempty"`
+	Attributes       string                                `json:"attributes"`
+	MessagingBinding *GetParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	RoleSid          *string                               `json:"role_sid,omitempty"`
+	DateCreated      time.Time                             `json:"date_created"`
+	DateUpdated      *time.Time                            `json:"date_updated,omitempty"`
+	URL              string                                `json:"url"`
 }
 
-func (c Client) Get() (*GetParticipantOutput, error) {
+func (c Client) Get() (*GetParticipantResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetParticipantOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetParticipantResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Conversations/{conversationSid}/Participants/{sid}",
@@ -43,9 +43,9 @@ func (c Client) GetWithContext(context context.Context) (*GetParticipantOutput, 
 		},
 	}
 
-	output := &GetParticipantOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetParticipantResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

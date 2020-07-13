@@ -34,8 +34,12 @@ func NewWithClient(client *client.Client) *Conversations {
 	return &Conversations{
 		client:        client,
 		Conversations: conversations.New(client),
-		Conversation:  func(sid string) *conversation.Client { return conversation.New(client, sid) },
-		Webhook:       func() *webhook.Client { return webhook.New(client) },
+		Conversation: func(sid string) *conversation.Client {
+			return conversation.New(client, conversation.ClientProperties{
+				Sid: sid,
+			})
+		},
+		Webhook: func() *webhook.Client { return webhook.New(client) },
 	}
 }
 

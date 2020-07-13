@@ -9,30 +9,30 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetConversationOutputTimers struct {
+type GetConversationResponseTimers struct {
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 	DateClosed   *time.Time `json:"date_closed,omitempty"`
 }
 
-type GetConversationOutput struct {
-	Sid                 string                      `json:"sid"`
-	AccountSid          string                      `json:"account_sid"`
-	ChatServiceSid      *string                     `json:"chat_service_sid,omitempty"`
-	MessagingServiceSid *string                     `json:"messaging_service_sid,omitempty"`
-	FriendlyName        *string                     `json:"friendly_name,omitempty"`
-	Attributes          string                      `json:"attributes"`
-	State               string                      `json:"state"`
-	Timers              GetConversationOutputTimers `json:"timers"`
-	DateCreated         time.Time                   `json:"date_created"`
-	DateUpdated         *time.Time                  `json:"date_updated,omitempty"`
-	URL                 string                      `json:"url"`
+type GetConversationResponse struct {
+	Sid                 string                        `json:"sid"`
+	AccountSid          string                        `json:"account_sid"`
+	ChatServiceSid      *string                       `json:"chat_service_sid,omitempty"`
+	MessagingServiceSid *string                       `json:"messaging_service_sid,omitempty"`
+	FriendlyName        *string                       `json:"friendly_name,omitempty"`
+	Attributes          string                        `json:"attributes"`
+	State               string                        `json:"state"`
+	Timers              GetConversationResponseTimers `json:"timers"`
+	DateCreated         time.Time                     `json:"date_created"`
+	DateUpdated         *time.Time                    `json:"date_updated,omitempty"`
+	URL                 string                        `json:"url"`
 }
 
-func (c Client) Get() (*GetConversationOutput, error) {
+func (c Client) Get() (*GetConversationResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetConversationOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetConversationResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Conversations/{sid}",
@@ -41,9 +41,9 @@ func (c Client) GetWithContext(context context.Context) (*GetConversationOutput,
 		},
 	}
 
-	output := &GetConversationOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetConversationResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

@@ -16,7 +16,7 @@ type UpdateWebhookInput struct {
 	Target         *string   `form:"Target,omitempty"`
 }
 
-type UpdateWebhookOutput struct {
+type UpdateWebhookResponse struct {
 	AccountSid     string   `json:"account_sid"`
 	Method         string   `json:"method"`
 	Target         string   `json:"target"`
@@ -26,20 +26,20 @@ type UpdateWebhookOutput struct {
 	URL            string   `json:"url"`
 }
 
-func (c Client) Update(input *UpdateWebhookInput) (*UpdateWebhookOutput, error) {
+func (c Client) Update(input *UpdateWebhookInput) (*UpdateWebhookResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateWebhookInput) (*UpdateWebhookOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateWebhookInput) (*UpdateWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/Webhooks",
 		ContentType: client.URLEncoded,
 	}
 
-	output := &UpdateWebhookOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateWebhookResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

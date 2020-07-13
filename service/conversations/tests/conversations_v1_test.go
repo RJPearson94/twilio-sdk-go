@@ -71,7 +71,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.State).To(Equal("active"))
-				Expect(resp.Timers).To(Equal(conversationsResource.CreateConversationOutputTimers{}))
+				Expect(resp.Timers).To(Equal(conversationsResource.CreateConversationResponseTimers{}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -130,7 +130,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.State).To(Equal("active"))
-				Expect(resp.Timers).To(Equal(conversationResource.GetConversationOutputTimers{}))
+				Expect(resp.Timers).To(Equal(conversationResource.GetConversationResponseTimers{}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -190,7 +190,7 @@ var _ = Describe("Conversation V1", func() {
 
 				dateClosed, _ := time.Parse(time.RFC3339, "2020-06-20T21:00:24Z")
 				dateInactive, _ := time.Parse(time.RFC3339, "2020-06-20T20:51:24Z")
-				Expect(resp.Timers).To(Equal(conversationResource.UpdateConversationOutputTimers{
+				Expect(resp.Timers).To(Equal(conversationResource.UpdateConversationResponseTimers{
 					DateClosed:   utils.Time(dateClosed),
 					DateInactive: utils.Time(dateInactive),
 				}))
@@ -631,7 +631,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(BeNil())
 
-				messagingBinding := participants.CreateParticipantOutputMessageBinding{
+				messagingBinding := participants.CreateParticipantResponseMessageBinding{
 					Type:         "sms",
 					Address:      "+123456789",
 					ProxyAddress: "+987654321",
@@ -783,7 +783,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(BeNil())
 
-				messagingBinding := participant.UpdateParticipantOutputMessageBinding{
+				messagingBinding := participant.UpdateParticipantResponseMessageBinding{
 					Type:         "sms",
 					Address:      "+123456789",
 					ProxyAddress: "+987654321",
@@ -875,7 +875,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhooks.CreateConversationWebhookOutputConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhooks.CreateConversationWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -947,7 +947,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhook.GetConversationWebhookOutputConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhook.GetConversationWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -999,7 +999,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhook.UpdateConversationWebhookOutputConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhook.UpdateConversationWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))

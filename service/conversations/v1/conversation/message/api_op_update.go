@@ -18,33 +18,33 @@ type UpdateMessageInput struct {
 	Attributes  *string            `form:"Attributes.Filters,omitempty"`
 }
 
-type UpdateMessageOutputMedia struct {
+type UpdateMessageResponseMedia struct {
 	Sid         string `json:"sid"`
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Size        int    `json:"size"`
 }
 
-type UpdateMessageOutput struct {
-	Sid             string                      `json:"sid"`
-	AccountSid      string                      `json:"account_sid"`
-	ConversationSid string                      `json:"conversation_sid"`
-	ParticipantSid  *string                     `json:"participant_sid,omitempty"`
-	Body            *string                     `json:"body,omitempty"`
-	Index           int                         `json:"index"`
-	Author          string                      `json:"author"`
-	Attributes      string                      `json:"attributes"`
-	Media           *[]UpdateMessageOutputMedia `json:"media,omitempty"`
-	DateCreated     time.Time                   `json:"date_created"`
-	DateUpdated     *time.Time                  `json:"date_updated,omitempty"`
-	URL             string                      `json:"url"`
+type UpdateMessageResponse struct {
+	Sid             string                        `json:"sid"`
+	AccountSid      string                        `json:"account_sid"`
+	ConversationSid string                        `json:"conversation_sid"`
+	ParticipantSid  *string                       `json:"participant_sid,omitempty"`
+	Body            *string                       `json:"body,omitempty"`
+	Index           int                           `json:"index"`
+	Author          string                        `json:"author"`
+	Attributes      string                        `json:"attributes"`
+	Media           *[]UpdateMessageResponseMedia `json:"media,omitempty"`
+	DateCreated     time.Time                     `json:"date_created"`
+	DateUpdated     *time.Time                    `json:"date_updated,omitempty"`
+	URL             string                        `json:"url"`
 }
 
-func (c Client) Update(input *UpdateMessageInput) (*UpdateMessageOutput, error) {
+func (c Client) Update(input *UpdateMessageInput) (*UpdateMessageResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateMessageInput) (*UpdateMessageOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateMessageInput) (*UpdateMessageResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/{conversationSid}/Messages/{sid}",
@@ -55,9 +55,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateMessageI
 		},
 	}
 
-	output := &UpdateMessageOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateMessageResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

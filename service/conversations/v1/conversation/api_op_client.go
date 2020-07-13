@@ -12,8 +12,10 @@ import (
 )
 
 type Client struct {
-	client       *client.Client
-	sid          string
+	client *client.Client
+
+	sid string
+
 	Messages     *messages.Client
 	Message      func(string) *message.Client
 	Participants *participants.Client
@@ -22,15 +24,42 @@ type Client struct {
 	Webhook      func(string) *webhook.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		sid:          sid,
-		Messages:     messages.New(client, sid),
-		Message:      func(messageSid string) *message.Client { return message.New(client, sid, messageSid) },
-		Participants: participants.New(client, sid),
-		Participant:  func(participantSid string) *participant.Client { return participant.New(client, sid, participantSid) },
-		Webhooks:     webhooks.New(client, sid),
-		Webhook:      func(webhookSid string) *webhook.Client { return webhook.New(client, sid, webhookSid) },
+		client: client,
+
+		sid: properties.Sid,
+
+		Messages: messages.New(client, messages.ClientProperties{
+			ConversationSid: properties.Sid,
+		}),
+		Message: func(messageSid string) *message.Client {
+			return message.New(client, message.ClientProperties{
+				ConversationSid: properties.Sid,
+				Sid:             messageSid,
+			})
+		},
+		Participants: participants.New(client, participants.ClientProperties{
+			ConversationSid: properties.Sid,
+		}),
+		Participant: func(participantSid string) *participant.Client {
+			return participant.New(client, participant.ClientProperties{
+				ConversationSid: properties.Sid,
+				Sid:             participantSid,
+			})
+		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+			ConversationSid: properties.Sid,
+		}),
+		Webhook: func(webhookSid string) *webhook.Client {
+			return webhook.New(client, webhook.ClientProperties{
+				Sid:             webhookSid,
+				ConversationSid: properties.Sid,
+			})
+		},
 	}
 }

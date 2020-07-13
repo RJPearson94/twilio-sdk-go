@@ -17,7 +17,7 @@ type UpdateConversationWebhookInput struct {
 	ConfigurationFlowSid  *string   `form:"Configuration.FlowSid,omitempty"`
 }
 
-type UpdateConversationWebhookOutputConfiguration struct {
+type UpdateConversationWebhookResponseConfiguration struct {
 	Url         *string   `json:"url,omitempty"`
 	Method      *string   `json:"method,omitempty"`
 	Filters     *[]string `json:"filters,omitempty"`
@@ -26,22 +26,22 @@ type UpdateConversationWebhookOutputConfiguration struct {
 	ReplayAfter *int      `json:"replay_after,omitempty"`
 }
 
-type UpdateConversationWebhookOutput struct {
-	Sid             string                                       `json:"sid"`
-	AccountSid      string                                       `json:"account_sid"`
-	ConversationSid string                                       `json:"conversation_sid"`
-	Target          string                                       `json:"target"`
-	Configuration   UpdateConversationWebhookOutputConfiguration `json:"configuration"`
-	DateCreated     time.Time                                    `json:"date_created"`
-	DateUpdated     *time.Time                                   `json:"date_updated,omitempty"`
-	URL             string                                       `json:"url"`
+type UpdateConversationWebhookResponse struct {
+	Sid             string                                         `json:"sid"`
+	AccountSid      string                                         `json:"account_sid"`
+	ConversationSid string                                         `json:"conversation_sid"`
+	Target          string                                         `json:"target"`
+	Configuration   UpdateConversationWebhookResponseConfiguration `json:"configuration"`
+	DateCreated     time.Time                                      `json:"date_created"`
+	DateUpdated     *time.Time                                     `json:"date_updated,omitempty"`
+	URL             string                                         `json:"url"`
 }
 
-func (c Client) Update(input *UpdateConversationWebhookInput) (*UpdateConversationWebhookOutput, error) {
+func (c Client) Update(input *UpdateConversationWebhookInput) (*UpdateConversationWebhookResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateConversationWebhookInput) (*UpdateConversationWebhookOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateConversationWebhookInput) (*UpdateConversationWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/{conversationSid}/Webhooks/{sid}",
@@ -52,9 +52,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateConversa
 		},
 	}
 
-	output := &UpdateConversationWebhookOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateConversationWebhookResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

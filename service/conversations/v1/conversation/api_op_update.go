@@ -21,30 +21,30 @@ type UpdateConversationInput struct {
 	TimersClosed        *string            `form:"Timers.Closed,omitempty"`
 }
 
-type UpdateConversationOutputTimers struct {
+type UpdateConversationResponseTimers struct {
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 	DateClosed   *time.Time `json:"date_closed,omitempty"`
 }
 
-type UpdateConversationOutput struct {
-	Sid                 string                         `json:"sid"`
-	AccountSid          string                         `json:"account_sid"`
-	ChatServiceSid      *string                        `json:"chat_service_sid,omitempty"`
-	MessagingServiceSid *string                        `json:"messaging_service_sid,omitempty"`
-	FriendlyName        *string                        `json:"friendly_name,omitempty"`
-	Attributes          string                         `json:"attributes"`
-	State               string                         `json:"state"`
-	Timers              UpdateConversationOutputTimers `json:"timers"`
-	DateCreated         time.Time                      `json:"date_created"`
-	DateUpdated         *time.Time                     `json:"date_updated,omitempty"`
-	URL                 string                         `json:"url"`
+type UpdateConversationResponse struct {
+	Sid                 string                           `json:"sid"`
+	AccountSid          string                           `json:"account_sid"`
+	ChatServiceSid      *string                          `json:"chat_service_sid,omitempty"`
+	MessagingServiceSid *string                          `json:"messaging_service_sid,omitempty"`
+	FriendlyName        *string                          `json:"friendly_name,omitempty"`
+	Attributes          string                           `json:"attributes"`
+	State               string                           `json:"state"`
+	Timers              UpdateConversationResponseTimers `json:"timers"`
+	DateCreated         time.Time                        `json:"date_created"`
+	DateUpdated         *time.Time                       `json:"date_updated,omitempty"`
+	URL                 string                           `json:"url"`
 }
 
-func (c Client) Update(input *UpdateConversationInput) (*UpdateConversationOutput, error) {
+func (c Client) Update(input *UpdateConversationInput) (*UpdateConversationResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateConversationInput) (*UpdateConversationOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateConversationInput) (*UpdateConversationResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/{sid}",
@@ -54,9 +54,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateConversa
 		},
 	}
 
-	output := &UpdateConversationOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateConversationResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
