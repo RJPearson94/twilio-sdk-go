@@ -17,7 +17,7 @@ type UpdateTaskInput struct {
 	TaskChannel      *string `form:"TaskChannel,omitempty"`
 }
 
-type UpdateTaskOutput struct {
+type UpdateTaskResponse struct {
 	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
 	WorkspaceSid          string      `json:"workspace_sid"`
@@ -39,11 +39,11 @@ type UpdateTaskOutput struct {
 	URL                   string      `json:"url"`
 }
 
-func (c Client) Update(input *UpdateTaskInput) (*UpdateTaskOutput, error) {
+func (c Client) Update(input *UpdateTaskInput) (*UpdateTaskResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskInput) (*UpdateTaskOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskInput) (*UpdateTaskResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Tasks/{sid}",
@@ -54,9 +54,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskInpu
 		},
 	}
 
-	output := &UpdateTaskOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateTaskResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

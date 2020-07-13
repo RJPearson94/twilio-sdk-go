@@ -18,8 +18,10 @@ import (
 )
 
 type Client struct {
-	client       *client.Client
-	sid          string
+	client *client.Client
+
+	sid string
+
 	TaskQueues   *task_queues.Client
 	TaskQueue    func(string) *task_queue.Client
 	Workflows    *workflows.Client
@@ -34,21 +36,69 @@ type Client struct {
 	Task         func(string) *task.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		sid:          sid,
-		TaskQueues:   task_queues.New(client, sid),
-		TaskQueue:    func(taskQueueSid string) *task_queue.Client { return task_queue.New(client, taskQueueSid, sid) },
-		Workflows:    workflows.New(client, sid),
-		Workflow:     func(workflowSid string) *workflow.Client { return workflow.New(client, workflowSid, sid) },
-		Workers:      workers.New(client, sid),
-		Worker:       func(workerSid string) *worker.Client { return worker.New(client, workerSid, sid) },
-		Activities:   activities.New(client, sid),
-		Activity:     func(activitySid string) *activity.Client { return activity.New(client, activitySid, sid) },
-		TaskChannels: task_channels.New(client, sid),
-		TaskChannel:  func(taskChannelSid string) *task_channel.Client { return task_channel.New(client, taskChannelSid, sid) },
-		Tasks:        tasks.New(client, sid),
-		Task:         func(taskSid string) *task.Client { return task.New(client, taskSid, sid) },
+		client: client,
+
+		sid: properties.Sid,
+
+		TaskQueues: task_queues.New(client, task_queues.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		TaskQueue: func(taskQueueSid string) *task_queue.Client {
+			return task_queue.New(client, task_queue.ClientProperties{
+				Sid:          taskQueueSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Workflows: workflows.New(client, workflows.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Workflow: func(workflowSid string) *workflow.Client {
+			return workflow.New(client, workflow.ClientProperties{
+				Sid:          workflowSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Workers: workers.New(client, workers.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Worker: func(workerSid string) *worker.Client {
+			return worker.New(client, worker.ClientProperties{
+				Sid:          workerSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Activities: activities.New(client, activities.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Activity: func(activitySid string) *activity.Client {
+			return activity.New(client, activity.ClientProperties{
+				Sid:          activitySid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		TaskChannels: task_channels.New(client, task_channels.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		TaskChannel: func(taskChannelSid string) *task_channel.Client {
+			return task_channel.New(client, task_channel.ClientProperties{
+				Sid:          taskChannelSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Tasks: tasks.New(client, tasks.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Task: func(taskSid string) *task.Client {
+			return task.New(client, task.ClientProperties{
+				Sid:          taskSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
 	}
 }

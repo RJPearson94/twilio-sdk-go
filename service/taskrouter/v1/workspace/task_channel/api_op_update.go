@@ -14,7 +14,7 @@ type UpdateTaskChannelInput struct {
 	ChannelOptimizedRouting *bool   `form:"ChannelOptimizedRouting,omitempty"`
 }
 
-type UpdateTaskChannelOutput struct {
+type UpdateTaskChannelResponse struct {
 	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
 	WorkspaceSid            string     `json:"workspace_sid"`
@@ -26,11 +26,11 @@ type UpdateTaskChannelOutput struct {
 	URL                     string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateTaskChannelInput) (*UpdateTaskChannelOutput, error) {
+func (c Client) Update(input *UpdateTaskChannelInput) (*UpdateTaskChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskChannelInput) (*UpdateTaskChannelOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskChannelInput) (*UpdateTaskChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
@@ -41,9 +41,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskChan
 		},
 	}
 
-	output := &UpdateTaskChannelOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateTaskChannelResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

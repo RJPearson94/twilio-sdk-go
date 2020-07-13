@@ -14,7 +14,7 @@ type CreateActivityInput struct {
 	Available    *bool  `form:"Available,omitempty"`
 }
 
-type CreateActivityOutput struct {
+type CreateActivityResponse struct {
 	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	WorkspaceSid string     `json:"workspace_sid"`
@@ -25,11 +25,11 @@ type CreateActivityOutput struct {
 	URL          string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateActivityInput) (*CreateActivityOutput, error) {
+func (c Client) Create(input *CreateActivityInput) (*CreateActivityResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateActivityInput) (*CreateActivityOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateActivityInput) (*CreateActivityResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Activities",
@@ -39,9 +39,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateActivity
 		},
 	}
 
-	output := &CreateActivityOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateActivityResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

@@ -18,7 +18,7 @@ type UpdateTaskQueueInput struct {
 	ReservationActivitySid *string `form:"ReservationActivitySid,omitempty"`
 }
 
-type UpdateTaskQueueOutput struct {
+type UpdateTaskQueueResponse struct {
 	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
 	WorkspaceSid            string     `json:"workspace_sid"`
@@ -36,11 +36,11 @@ type UpdateTaskQueueOutput struct {
 	URL                     string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateTaskQueueInput) (*UpdateTaskQueueOutput, error) {
+func (c Client) Update(input *UpdateTaskQueueInput) (*UpdateTaskQueueResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskQueueInput) (*UpdateTaskQueueOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskQueueInput) (*UpdateTaskQueueResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
@@ -51,9 +51,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskQueu
 		},
 	}
 
-	output := &UpdateTaskQueueOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateTaskQueueResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

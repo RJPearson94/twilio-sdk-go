@@ -18,7 +18,7 @@ type CreateWorkspaceInput struct {
 	PrioritizeQueueOrder *string `form:"PrioritizeQueueOrder,omitempty"`
 }
 
-type CreateWorkspaceOutput struct {
+type CreateWorkspaceResponse struct {
 	Sid                  string     `json:"sid"`
 	AccountSid           string     `json:"account_sid"`
 	FriendlyName         string     `json:"friendly_name"`
@@ -35,20 +35,20 @@ type CreateWorkspaceOutput struct {
 	URL                  string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateWorkspaceInput) (*CreateWorkspaceOutput, error) {
+func (c Client) Create(input *CreateWorkspaceInput) (*CreateWorkspaceResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateWorkspaceInput) (*CreateWorkspaceOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateWorkspaceInput) (*CreateWorkspaceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces",
 		ContentType: client.URLEncoded,
 	}
 
-	output := &CreateWorkspaceOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateWorkspaceResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

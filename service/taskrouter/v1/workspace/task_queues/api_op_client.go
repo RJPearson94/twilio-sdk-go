@@ -4,13 +4,19 @@ package task_queues
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client       *client.Client
+	client *client.Client
+
 	workspaceSid string
 }
 
-func New(client *client.Client, workspaceSid string) *Client {
+type ClientProperties struct {
+	WorkspaceSid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		workspaceSid: workspaceSid,
+		client: client,
+
+		workspaceSid: properties.WorkspaceSid,
 	}
 }

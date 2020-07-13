@@ -4,15 +4,22 @@ package task
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client       *client.Client
-	sid          string
+	client *client.Client
+
 	workspaceSid string
+	sid          string
 }
 
-func New(client *client.Client, sid string, workspaceSid string) *Client {
+type ClientProperties struct {
+	WorkspaceSid string
+	Sid          string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		sid:          sid,
-		workspaceSid: workspaceSid,
+		client: client,
+
+		workspaceSid: properties.WorkspaceSid,
+		sid:          properties.Sid,
 	}
 }

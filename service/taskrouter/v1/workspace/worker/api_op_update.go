@@ -16,7 +16,7 @@ type UpdateWorkerInput struct {
 	RejectPendingReservations *bool   `form:"RejectPendingReservations,omitempty"`
 }
 
-type UpdateWorkflowOutput struct {
+type UpdateWorkflowResponse struct {
 	Sid               string      `json:"sid"`
 	AccountSid        string      `json:"account_sid"`
 	WorkspaceSid      string      `json:"workspace_sid"`
@@ -31,11 +31,11 @@ type UpdateWorkflowOutput struct {
 	URL               string      `json:"url"`
 }
 
-func (c Client) Update(input *UpdateWorkerInput) (*UpdateWorkflowOutput, error) {
+func (c Client) Update(input *UpdateWorkerInput) (*UpdateWorkflowResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkerInput) (*UpdateWorkflowOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkerInput) (*UpdateWorkflowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Workers/{sid}",
@@ -46,9 +46,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkerIn
 		},
 	}
 
-	output := &UpdateWorkflowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateWorkflowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

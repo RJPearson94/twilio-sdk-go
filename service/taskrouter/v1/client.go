@@ -31,8 +31,12 @@ func New(sess *session.Session) *TaskRouter {
 
 func NewWithClient(client *client.Client) *TaskRouter {
 	return &TaskRouter{
-		client:     client,
-		Workspace:  func(sid string) *workspace.Client { return workspace.New(client, sid) },
+		client: client,
+		Workspace: func(sid string) *workspace.Client {
+			return workspace.New(client, workspace.ClientProperties{
+				Sid: sid,
+			})
+		},
 		Workspaces: workspaces.New(client),
 	}
 }

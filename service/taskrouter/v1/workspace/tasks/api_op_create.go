@@ -17,7 +17,7 @@ type CreateTaskInput struct {
 	WorkflowSid *string `form:"WorkflowSid,omitempty"`
 }
 
-type CreateTaskOutput struct {
+type CreateTaskResponse struct {
 	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
 	WorkspaceSid          string      `json:"workspace_sid"`
@@ -39,11 +39,11 @@ type CreateTaskOutput struct {
 	URL                   string      `json:"url"`
 }
 
-func (c Client) Create(input *CreateTaskInput) (*CreateTaskOutput, error) {
+func (c Client) Create(input *CreateTaskInput) (*CreateTaskResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateTaskInput) (*CreateTaskOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateTaskInput) (*CreateTaskResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Tasks",
@@ -53,9 +53,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateTaskInpu
 		},
 	}
 
-	output := &CreateTaskOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateTaskResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

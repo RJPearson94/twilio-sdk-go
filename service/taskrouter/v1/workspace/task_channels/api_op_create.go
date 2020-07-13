@@ -15,7 +15,7 @@ type CreateTaskChannelInput struct {
 	ChannelOptimizedRouting *bool  `form:"ChannelOptimizedRouting,omitempty"`
 }
 
-type CreateTaskChannelOutput struct {
+type CreateTaskChannelResponse struct {
 	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
 	WorkspaceSid            string     `json:"workspace_sid"`
@@ -27,11 +27,11 @@ type CreateTaskChannelOutput struct {
 	URL                     string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateTaskChannelInput) (*CreateTaskChannelOutput, error) {
+func (c Client) Create(input *CreateTaskChannelInput) (*CreateTaskChannelResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateTaskChannelInput) (*CreateTaskChannelOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateTaskChannelInput) (*CreateTaskChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/TaskChannels",
@@ -41,9 +41,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateTaskChan
 		},
 	}
 
-	output := &CreateTaskChannelOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateTaskChannelResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

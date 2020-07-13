@@ -15,7 +15,7 @@ type CreateWorkerInput struct {
 	Attributes   *string `form:"Attributes,omitempty"`
 }
 
-type CreateWorkerOutput struct {
+type CreateWorkerResponse struct {
 	Sid               string      `json:"sid"`
 	AccountSid        string      `json:"account_sid"`
 	WorkspaceSid      string      `json:"workspace_sid"`
@@ -30,11 +30,11 @@ type CreateWorkerOutput struct {
 	URL               string      `json:"url"`
 }
 
-func (c Client) Create(input *CreateWorkerInput) (*CreateWorkerOutput, error) {
+func (c Client) Create(input *CreateWorkerInput) (*CreateWorkerResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateWorkerInput) (*CreateWorkerOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateWorkerInput) (*CreateWorkerResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Workers",
@@ -44,9 +44,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateWorkerIn
 		},
 	}
 
-	output := &CreateWorkerOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateWorkerResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

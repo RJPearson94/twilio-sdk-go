@@ -18,7 +18,7 @@ type CreateTaskQueueInput struct {
 	ReservationActivitySid *string `form:"ReservationActivitySid,omitempty"`
 }
 
-type CreateTaskQueueOutput struct {
+type CreateTaskQueueResponse struct {
 	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
 	WorkspaceSid            string     `json:"workspace_sid"`
@@ -36,11 +36,11 @@ type CreateTaskQueueOutput struct {
 	URL                     string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateTaskQueueInput) (*CreateTaskQueueOutput, error) {
+func (c Client) Create(input *CreateTaskQueueInput) (*CreateTaskQueueResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateTaskQueueInput) (*CreateTaskQueueOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateTaskQueueInput) (*CreateTaskQueueResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/TaskQueues",
@@ -50,9 +50,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateTaskQueu
 		},
 	}
 
-	output := &CreateTaskQueueOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateTaskQueueResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

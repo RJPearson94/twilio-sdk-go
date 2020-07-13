@@ -17,7 +17,7 @@ type CreateWorkflowInput struct {
 	TaskReservationTimeout        *int    `form:"TaskReservationTimeout,omitempty"`
 }
 
-type CreateWorkflowOutput struct {
+type CreateWorkflowResponse struct {
 	Sid                           string      `json:"sid"`
 	AccountSid                    string      `json:"account_sid"`
 	WorkspaceSid                  string      `json:"workspace_sid"`
@@ -32,11 +32,11 @@ type CreateWorkflowOutput struct {
 	URL                           string      `json:"url"`
 }
 
-func (c Client) Create(input *CreateWorkflowInput) (*CreateWorkflowOutput, error) {
+func (c Client) Create(input *CreateWorkflowInput) (*CreateWorkflowResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateWorkflowInput) (*CreateWorkflowOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateWorkflowInput) (*CreateWorkflowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Workflows",
@@ -46,9 +46,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateWorkflow
 		},
 	}
 
-	output := &CreateWorkflowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateWorkflowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

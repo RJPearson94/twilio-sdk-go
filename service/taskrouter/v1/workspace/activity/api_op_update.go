@@ -13,7 +13,7 @@ type UpdateActivityInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-type UpdateActivityOutput struct {
+type UpdateActivityResponse struct {
 	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	WorkspaceSid string     `json:"workspace_sid"`
@@ -24,11 +24,11 @@ type UpdateActivityOutput struct {
 	URL          string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateActivityInput) (*UpdateActivityOutput, error) {
+func (c Client) Update(input *UpdateActivityInput) (*UpdateActivityResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateActivityInput) (*UpdateActivityOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateActivityInput) (*UpdateActivityResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Activities/{sid}",
@@ -39,9 +39,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateActivity
 		},
 	}
 
-	output := &UpdateActivityOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateActivityResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

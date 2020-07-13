@@ -18,7 +18,7 @@ type UpdateWorkspaceInput struct {
 	PrioritizeQueueOrder *string `form:"PrioritizeQueueOrder,omitempty"`
 }
 
-type UpdateWorkspaceOutput struct {
+type UpdateWorkspaceResponse struct {
 	Sid                  string     `json:"sid"`
 	AccountSid           string     `json:"account_sid"`
 	FriendlyName         string     `json:"friendly_name"`
@@ -35,11 +35,11 @@ type UpdateWorkspaceOutput struct {
 	URL                  string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateWorkspaceInput) (*UpdateWorkspaceOutput, error) {
+func (c Client) Update(input *UpdateWorkspaceInput) (*UpdateWorkspaceResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkspaceInput) (*UpdateWorkspaceOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkspaceInput) (*UpdateWorkspaceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{sid}",
@@ -49,9 +49,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkspac
 		},
 	}
 
-	output := &UpdateWorkspaceOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateWorkspaceResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

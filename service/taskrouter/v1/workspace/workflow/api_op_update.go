@@ -18,7 +18,7 @@ type UpdateWorkflowInput struct {
 	ReEvaluateTasks               *bool   `form:"ReEvaluateTasks,omitempty"`
 }
 
-type UpdateWorkflowOutput struct {
+type UpdateWorkflowResponse struct {
 	Sid                           string      `json:"sid"`
 	AccountSid                    string      `json:"account_sid"`
 	WorkspaceSid                  string      `json:"workspace_sid"`
@@ -33,11 +33,11 @@ type UpdateWorkflowOutput struct {
 	URL                           string      `json:"url"`
 }
 
-func (c Client) Update(input *UpdateWorkflowInput) (*UpdateWorkflowOutput, error) {
+func (c Client) Update(input *UpdateWorkflowInput) (*UpdateWorkflowResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkflowInput) (*UpdateWorkflowOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkflowInput) (*UpdateWorkflowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Workspaces/{workspaceSid}/Workflows/{sid}",
@@ -48,9 +48,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkflow
 		},
 	}
 
-	output := &UpdateWorkflowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateWorkflowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
