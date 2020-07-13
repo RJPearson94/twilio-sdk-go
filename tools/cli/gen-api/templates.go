@@ -49,9 +49,9 @@ func (c Client) {{.Name}}({{if $input}}input *{{$input.Name}}{{end}}) ({{if $res
 
 func (c Client) {{.Name}}WithContext(context context.Context{{if $input}}, input *{{$input.Name}}{{end}}) ({{if $response}}*{{$response.Name}}, {{end}}error) {
 	op := client.Operation{ {{if .Overrides}}
-		OverrideBaseURI: utils.String(client.CreateBaseURI("{{.Overrides.SubDomain}}", "{{.Overrides.ApiVersion}}")),{{end}}
-		HTTPMethod: http.Method{{.HTTPMethod}},
-		HTTPPath:   "{{.Path}}", {{if $input}}
+		OverrideBaseURL: utils.String(client.CreateBaseURL("{{.Overrides.SubDomain}}", "{{.Overrides.ApiVersion}}")),{{end}}
+		Method: http.Method{{.HTTPMethod}},
+		URI:   "{{.Path}}", {{if $input}}
 		ContentType: client.{{$input.Type}},{{end}} {{if .PathParams}}{{$propertiesMap := .Properties}}
 		PathParams: map[string]string{ {{range $index, $pathParam := .PathParams }}
 			"{{ $pathParam.PathParamName }}": {{ if eq $pathParam.Value.OnService true}} {{if eq (index $propertiesMap $pathParam.PathParamName).DataType "int"}} strconv.Itoa(c.{{$pathParam.Value.Property}}) {{else}} c.{{$pathParam.Value.Property}} {{end}}, {{end}} {{end}}

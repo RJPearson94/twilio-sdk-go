@@ -20,7 +20,7 @@ var _ = Describe("Client", func() {
 	Describe("Given the client", func() {
 		config := client.Config{
 			Beta:         false,
-			DebugEnabled: true,
+			DebugEnabled: false,
 			RetryConfig: client.RetryConfig{
 				Attempts: 0,
 				WaitTime: 0,
@@ -51,8 +51,8 @@ var _ = Describe("Client", func() {
 			)
 
 			op := client.Operation{
-				HTTPMethod:  http.MethodPost,
-				HTTPPath:    "/test/{id}",
+				Method:      http.MethodPost,
+				URI:         "/test/{id}",
 				ContentType: client.URLEncoded,
 				PathParams: map[string]string{
 					"id": "1234",
@@ -87,8 +87,8 @@ var _ = Describe("Client", func() {
 			)
 
 			op := client.Operation{
-				HTTPMethod:  http.MethodPost,
-				HTTPPath:    "/test/{id}",
+				Method:      http.MethodPost,
+				URI:         "/test/{id}",
 				ContentType: client.URLEncoded,
 				PathParams: map[string]string{
 					"id": "1234",
@@ -105,8 +105,8 @@ var _ = Describe("Client", func() {
 
 		Describe("When a POST request is made with a unsupported content type", func() {
 			op := client.Operation{
-				HTTPMethod:  http.MethodPost,
-				HTTPPath:    "/test/{id}",
+				Method:      http.MethodPost,
+				URI:         "/test/{id}",
 				ContentType: "application/pdf",
 				PathParams: map[string]string{
 					"id": "1234",
@@ -135,8 +135,8 @@ var _ = Describe("Client", func() {
 			)
 
 			op := client.Operation{
-				HTTPMethod:  http.MethodPost,
-				HTTPPath:    "/test/{id}",
+				Method:      http.MethodPost,
+				URI:         "/test/{id}",
 				ContentType: client.FormData,
 				PathParams: map[string]string{
 					"id": "1234",
@@ -171,8 +171,8 @@ var _ = Describe("Client", func() {
 			)
 
 			op := client.Operation{
-				HTTPMethod:  http.MethodPost,
-				HTTPPath:    "/test/{id}",
+				Method:      http.MethodPost,
+				URI:         "/test/{id}",
 				ContentType: client.FormData,
 				PathParams: map[string]string{
 					"id": "1234",
@@ -204,8 +204,8 @@ var _ = Describe("Client", func() {
 			httpmock.RegisterResponder("DELETE", "https://test.twilio.com/v1/test", httpmock.NewStringResponder(200, ""))
 
 			op := client.Operation{
-				HTTPMethod: http.MethodDelete,
-				HTTPPath:   "/test",
+				Method: http.MethodDelete,
+				URI:    "/test",
 			}
 
 			err := twilioClient.Send(context.Background(), op, nil, nil)
@@ -219,9 +219,9 @@ var _ = Describe("Client", func() {
 			httpmock.RegisterResponder("DELETE", "https://test-2.twilio.com/v2/test", httpmock.NewStringResponder(200, ""))
 
 			op := client.Operation{
-				OverrideBaseURI: utils.String(client.CreateBaseURI("test-2", "v2")),
-				HTTPMethod:      http.MethodDelete,
-				HTTPPath:        "/test",
+				OverrideBaseURL: utils.String(client.CreateBaseURL("test-2", "v2")),
+				Method:          http.MethodDelete,
+				URI:             "/test",
 			}
 
 			err := twilioClient.Send(context.Background(), op, nil, nil)

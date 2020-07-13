@@ -22,7 +22,7 @@ const (
 var encoder = form.NewEncoder()
 
 type Client struct {
-	baseURI string
+	baseURL string
 	client  *resty.Client
 }
 
@@ -44,15 +44,15 @@ func New(sess *session.Session, config Config) *Client {
 		SetHeader("Accept", "application/json")
 
 	return &Client{
-		baseURI: CreateBaseURI(config.SubDomain, config.APIVersion),
+		baseURL: CreateBaseURL(config.SubDomain, config.APIVersion),
 		client:  restyClient,
 	}
 }
 
 type Operation struct {
-	OverrideBaseURI *string
-	HTTPMethod      string
-	HTTPPath        string
+	OverrideBaseURL *string
+	Method          string
+	URI             string
 	ContentType     string
 	PathParams      map[string]string
 	QueryParams     map[string]string
@@ -64,12 +64,12 @@ func (c Client) Send(context context.Context, op Operation, input interface{}, o
 		return err
 	}
 
-	var baseURI = c.baseURI
-	if op.OverrideBaseURI != nil {
-		baseURI = *op.OverrideBaseURI
+	var baseURL = c.baseURL
+	if op.OverrideBaseURL != nil {
+		baseURL = *op.OverrideBaseURL
 	}
 
-	resp, err := req.Execute(op.HTTPMethod, baseURI+op.HTTPPath)
+	resp, err := req.Execute(op.Method, baseURL+op.URI)
 	if err != nil {
 		return err
 	}
@@ -81,7 +81,7 @@ func (c Client) Send(context context.Context, op Operation, input interface{}, o
 	return nil
 }
 
-func CreateBaseURI(subDomain string, apiVersion string) string {
+func CreateBaseURL(subDomain string, apiVersion string) string {
 	return fmt.Sprintf("https://%s.twilio.com/%s", subDomain, apiVersion)
 }
 
