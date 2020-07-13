@@ -1,0 +1,19 @@
+{
+  "packageName": "service",
+  "name": "Service",
+  "properties": [{ "type": "string", "name": "sid" }],
+  "subClients": [
+    {
+      "name": "Phone Numbers"
+    },
+    {
+      "name": "Phone Number",
+      "functionParams": [
+        {
+          "type": "string",
+          "name": "phoneNumberSid"
+        }
+      ]
+    }
+  ]
+}

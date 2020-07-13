@@ -3,6 +3,7 @@ module github.com/RJPearson94/twilio-sdk-go
 go 1.14
 
 require (
+	github.com/Jeffail/gabs/v2 v2.5.1
 	github.com/go-playground/form v3.1.4+incompatible
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible
@@ -13,5 +14,6 @@ require (
 	github.com/mitchellh/mapstructure v1.3.2
 	github.com/onsi/ginkgo v1.14.0
 	github.com/onsi/gomega v1.10.1
+	golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )

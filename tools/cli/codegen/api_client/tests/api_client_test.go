@@ -2,9 +2,9 @@ package tests
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
+	"github.com/Jeffail/gabs/v2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -26,9 +26,26 @@ var _ = Describe("API Client CodeGen", func() {
 			})
 
 			It("Then the response should match the golden data", func() {
-				fmt.Println(string(*resp))
-				fmt.Println(string(goldenData))
 				Expect(string(*resp)).To(Equal(string(goldenData)))
+			})
+		})
+	})
+
+	Describe("Given the api json", func() {
+		Describe("When the json is translated", func() {
+			apiJSON, _ := ioutil.ReadFile("testdata/subClient.json")
+
+			apiClientJSON, _ := ioutil.ReadFile("testdata/translationOutput.json")
+			apiClientData, _ := gabs.ParseJSON(apiClientJSON)
+
+			resp, err := apiclient.Translate(apiJSON)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the response should match the golden data", func() {
+				Expect(*resp).To(Equal(apiClientData.Data()))
 			})
 		})
 	})
