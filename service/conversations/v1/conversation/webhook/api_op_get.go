@@ -35,8 +35,8 @@ func (c Client) Get() (*GetConversationWebhookOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetConversationWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Conversations/{conversationSid}/Webhooks/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Conversations/{conversationSid}/Webhooks/{sid}",
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,
 			"sid":             c.sid,

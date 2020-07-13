@@ -24,8 +24,8 @@ func (c Client) Get() (*GetWebhookOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Conversations/Webhooks",
+		Method: http.MethodGet,
+		URI:    "/Conversations/Webhooks",
 	}
 
 	output := &GetWebhookOutput{}

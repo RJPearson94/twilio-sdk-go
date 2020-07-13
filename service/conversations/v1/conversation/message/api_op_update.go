@@ -46,8 +46,8 @@ func (c Client) Update(input *UpdateMessageInput) (*UpdateMessageOutput, error) 
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateMessageInput) (*UpdateMessageOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Conversations/{conversationSid}/Messages/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Conversations/{conversationSid}/Messages/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,

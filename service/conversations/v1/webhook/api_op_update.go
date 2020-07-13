@@ -32,8 +32,8 @@ func (c Client) Update(input *UpdateWebhookInput) (*UpdateWebhookOutput, error) 
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWebhookInput) (*UpdateWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Conversations/Webhooks",
+		Method:      http.MethodPost,
+		URI:         "/Conversations/Webhooks",
 		ContentType: client.URLEncoded,
 	}
 

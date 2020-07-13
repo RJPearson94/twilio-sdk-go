@@ -45,8 +45,8 @@ func (c Client) Create(input *CreateConversationWebhookInput) (*CreateConversati
 
 func (c Client) CreateWithContext(context context.Context, input *CreateConversationWebhookInput) (*CreateConversationWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Conversations/{conversationSid}/Webhooks",
+		Method:      http.MethodPost,
+		URI:         "/Conversations/{conversationSid}/Webhooks",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,

@@ -37,8 +37,8 @@ func (c Client) Get() (*GetMessageOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetMessageOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Conversations/{conversationSid}/Messages/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Conversations/{conversationSid}/Messages/{sid}",
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,
 			"sid":             c.sid,

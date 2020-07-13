@@ -43,8 +43,8 @@ func (c Client) Update(input *UpdateConversationWebhookInput) (*UpdateConversati
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateConversationWebhookInput) (*UpdateConversationWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Conversations/{conversationSid}/Webhooks/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Conversations/{conversationSid}/Webhooks/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,

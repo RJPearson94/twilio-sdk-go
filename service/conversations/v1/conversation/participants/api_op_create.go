@@ -47,8 +47,8 @@ func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantOutput,
 
 func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Conversations/{conversationSid}/Participants",
+		Method:      http.MethodPost,
+		URI:         "/Conversations/{conversationSid}/Participants",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,
