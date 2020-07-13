@@ -14,8 +14,8 @@ func (c Client) Delete() error {
 
 func (c Client) DeleteWithContext(context context.Context) error {
 	op := client.Operation{
-		HTTPMethod: http.MethodDelete,
-		HTTPPath:   "/Services/{serviceSid}/Assets/{sid}",
+		Method: http.MethodDelete,
+		URI:    "/Services/{serviceSid}/Assets/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

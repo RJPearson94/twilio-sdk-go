@@ -25,8 +25,8 @@ func (c Client) Get() (*GetAssetOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetAssetOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Assets/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Assets/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

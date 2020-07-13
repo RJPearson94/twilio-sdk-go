@@ -23,8 +23,8 @@ func (c Client) Get() (*GetContentOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetContentOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Functions/{functionSid}/Versions/{versionSid}/Content",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Functions/{functionSid}/Versions/{versionSid}/Content",
 		PathParams: map[string]string{
 			"serviceSid":  c.serviceSid,
 			"functionSid": c.functionSid,

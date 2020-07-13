@@ -30,8 +30,8 @@ func (c Client) Create(input *CreateDeploymentInput) (*CreateDeploymentOutput, e
 
 func (c Client) CreateWithContext(context context.Context, input *CreateDeploymentInput) (*CreateDeploymentOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Environments/{environmentSid}/Deployments",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Environments/{environmentSid}/Deployments",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid":     c.serviceSid,

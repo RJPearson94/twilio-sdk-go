@@ -26,8 +26,8 @@ func (c Client) Get() (*GetVersionOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetVersionOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Functions/{functionSid}/Versions/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Functions/{functionSid}/Versions/{sid}",
 		PathParams: map[string]string{
 			"serviceSid":  c.serviceSid,
 			"functionSid": c.functionSid,

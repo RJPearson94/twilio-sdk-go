@@ -32,8 +32,8 @@ func (c Client) Create(input *CreateVariableInput) (*CreateVariableOutput, error
 
 func (c Client) CreateWithContext(context context.Context, input *CreateVariableInput) (*CreateVariableOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Environments/{environmentSid}/Variables",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Environments/{environmentSid}/Variables",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid":     c.serviceSid,

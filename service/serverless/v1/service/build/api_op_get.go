@@ -53,8 +53,8 @@ func (c Client) Get() (*GetBuildOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetBuildOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Builds/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Builds/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

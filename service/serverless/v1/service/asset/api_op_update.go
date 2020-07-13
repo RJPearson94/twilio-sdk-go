@@ -29,8 +29,8 @@ func (c Client) Update(input *UpdateAssetInput) (*UpdateAssetOutput, error) {
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateAssetInput) (*UpdateAssetOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Assets/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Assets/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

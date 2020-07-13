@@ -29,8 +29,8 @@ func (c Client) Update(input *UpdateFunctionInput) (*UpdateFunctionOutput, error
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateFunctionInput) (*UpdateFunctionOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Functions/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Functions/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

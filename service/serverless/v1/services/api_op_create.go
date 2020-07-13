@@ -34,8 +34,8 @@ func (c Client) Create(input *CreateServiceInput) (*CreateServiceOutput, error) 
 
 func (c Client) CreateWithContext(context context.Context, input *CreateServiceInput) (*CreateServiceOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services",
+		Method:      http.MethodPost,
+		URI:         "/Services",
 		ContentType: client.URLEncoded,
 	}
 

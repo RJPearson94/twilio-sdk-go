@@ -40,9 +40,9 @@ func (c Client) Create(input *CreateVersionInput) (*CreateVersionOutput, error) 
 
 func (c Client) CreateWithContext(context context.Context, input *CreateVersionInput) (*CreateVersionOutput, error) {
 	op := client.Operation{
-		OverrideBaseURI: utils.String(client.CreateBaseURI("serverless-upload", "v1")),
-		HTTPMethod:      http.MethodPost,
-		HTTPPath:        "/Services/{serviceSid}/Assets/{assetSid}/Versions",
+		OverrideBaseURL: utils.String(client.CreateBaseURL("serverless-upload", "v1")),
+		Method:          http.MethodPost,
+		URI:             "/Services/{serviceSid}/Assets/{assetSid}/Versions",
 		ContentType:     client.FormData,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

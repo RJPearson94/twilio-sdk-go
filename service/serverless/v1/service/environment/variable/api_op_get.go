@@ -27,8 +27,8 @@ func (c Client) Get() (*GetVariableOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetVariableOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
 		PathParams: map[string]string{
 			"serviceSid":     c.serviceSid,
 			"environmentSid": c.environmentSid,

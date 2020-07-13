@@ -29,8 +29,8 @@ func (c Client) Create(input *CreateAssetInput) (*CreateAssetOutput, error) {
 
 func (c Client) CreateWithContext(context context.Context, input *CreateAssetInput) (*CreateAssetOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Assets",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Assets",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
