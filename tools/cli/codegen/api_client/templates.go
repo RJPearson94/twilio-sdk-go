@@ -36,14 +36,14 @@ const addPropertiesToClientInitialisation = `{{if $Properties}} {{range $key, $v
 `
 
 const addSubClientsToStruct = `{{ if .subClients }} {{ range $index, $subClient := .subClients }}
-	{{ $subClient.name | ToCamelCase }} {{ if .functionParams }} func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.type }}, {{ end }}) {{ end }} *{{ $subClient.name | ToSnakeCase }}.Client {{ end }} {{ end }}
+	{{ $subClient.name | ToCamelCase }} {{ if .functionParams | IsDefined }} func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.type }}, {{ end }}) {{ end }} *{{ $subClient.name | ToSnakeCase }}.Client {{ end }} {{ end }}
 `
 
 const addSubClientsToClientInitialisation = `{{ if .subClients }} {{ range $index, $subClient := .subClients }}
 	{{ $subClient.name | ToCamelCase }}: ${addSubClientPropertyDetails}, {{ end }} {{ end }}
 `
 
-const addSubClientPropertyDetails = `{{ if .functionParams }} ${addSubClientFunction} {{ else }} {{ $subClient.name | ToSnakeCase }}.New(client, ${addClientPropertiesToSubClientInitialisations}) {{ end }}`
+const addSubClientPropertyDetails = `{{ if .functionParams | IsDefined }} ${addSubClientFunction} {{ else }} {{ $subClient.name | ToSnakeCase }}.New(client, ${addClientPropertiesToSubClientInitialisations}) {{ end }}`
 
 const addSubClientFunction = `func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.name }} {{ $functionParam.type }}, {{ end }}) *{{ $subClient.name | ToSnakeCase }}.Client { return {{ $subClient.name | ToSnakeCase }}.New(client, ${addClientPropertiesToSubClientInitialisations}) }`
 

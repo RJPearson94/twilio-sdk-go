@@ -19,6 +19,9 @@ func init() {
 		"ToSnakeCase": strcase.ToSnake,
 		"ToLowerCase": strings.ToLower,
 		"ToCamelCase": strcase.ToCamel,
+		"IsDefined": func(value interface{}) bool {
+			return value != nil
+		},
 	}
 
 	options = &imports.Options{
