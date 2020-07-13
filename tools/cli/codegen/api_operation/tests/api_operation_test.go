@@ -18,7 +18,7 @@ var _ = Describe("API Operation CodeGen", func() {
 			var apiOperationData interface{}
 			_ = json.Unmarshal(apiOperationJSON, &apiOperationData)
 
-			resp, err := apioperation.Generate(apiOperationData)
+			resp, err := apioperation.Generate(apiOperationData, true)
 
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())

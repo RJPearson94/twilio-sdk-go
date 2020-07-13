@@ -19,7 +19,7 @@ var _ = Describe("API Client CodeGen", func() {
 			var apiClientData interface{}
 			_ = json.Unmarshal(apiClientJSON, &apiClientData)
 
-			resp, err := apiclient.Generate(apiClientData)
+			resp, err := apiclient.Generate(apiClientData, true)
 
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())

@@ -38,7 +38,7 @@ func init() {
 	parsedAPIOperationTemplate = template.Must(template.New("generateAPIOperation").Funcs(helpers).Parse(parsedAPIOperationReplacer.Replace(apiOperationContent)))
 }
 
-func Generate(content interface{}) (*[]byte, error) {
+func Generate(content interface{}, formatFile bool) (*[]byte, error) {
 	var buffer bytes.Buffer
 	writer := bufio.NewWriter(&buffer)
 
@@ -48,10 +48,14 @@ func Generate(content interface{}) (*[]byte, error) {
 
 	writer.Flush()
 
-	resp, err := imports.Process("", buffer.Bytes(), options)
-	if err != nil {
-		return nil, fmt.Errorf("Unable to format file contents. %s", err)
+	if formatFile {
+		resp, err := imports.Process("", buffer.Bytes(), options)
+		if err != nil {
+			return nil, fmt.Errorf("Unable to format file contents. %s", err)
+		}
+		return &resp, nil
 	}
 
+	resp := buffer.Bytes()
 	return &resp, nil
 }
