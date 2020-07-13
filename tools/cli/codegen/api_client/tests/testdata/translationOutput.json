@@ -4,7 +4,14 @@
   "properties": [{ "type": "string", "name": "sid" }],
   "subClients": [
     {
-      "name": "Phone Numbers"
+      "name": "Phone Numbers",
+      "properties": [
+        {
+          "type": "string",
+          "name": "serviceSid",
+          "parentProperty": "sid"
+        }
+      ]
     },
     {
       "name": "Phone Number",
@@ -12,6 +19,18 @@
         {
           "type": "string",
           "name": "phoneNumberSid"
+        }
+      ],
+      "properties": [
+        {
+          "type": "string",
+          "name": "serviceSid",
+          "parentProperty": "sid"
+        },
+        {
+          "type": "string",
+          "name": "sid",
+          "functionParameter": "phoneNumberSid"
         }
       ]
     }

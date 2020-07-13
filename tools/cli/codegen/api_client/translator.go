@@ -36,12 +36,32 @@ func Translate(content []byte) (*interface{}, error) {
 			if subClient.Exists("function") {
 				subClientResponse.Array("functionParams")
 
-				for key, property := range subClient.S("function", "parameters").ChildrenMap() {
+				for key, parameter := range subClient.S("function", "parameters").ChildrenMap() {
 					functionParamsResponse := gabs.New()
-					functionParamsResponse.Set(property.Path("dataType").Data(), "type")
+					functionParamsResponse.Set(parameter.Path("dataType").Data(), "type")
 					functionParamsResponse.Set(key, "name")
 
 					subClientResponse.ArrayAppend(functionParamsResponse.Data(), "functionParams")
+				}
+			}
+
+			if subClient.Exists("properties") {
+				subClientResponse.Array("properties")
+
+				for key, property := range subClient.S("properties").ChildrenMap() {
+					propertiesResponse := gabs.New()
+					propertiesResponse.Set(property.Path("dataType").Data(), "type")
+					propertiesResponse.Set(key, "name")
+
+					if property.Exists("parentProperty") {
+						propertiesResponse.Set(property.Path("parentProperty").Data(), "parentProperty")
+					}
+
+					if property.Exists("functionParameter") {
+						propertiesResponse.Set(property.Path("functionParameter").Data(), "functionParameter")
+					}
+
+					subClientResponse.ArrayAppend(propertiesResponse.Data(), "properties")
 				}
 			}
 

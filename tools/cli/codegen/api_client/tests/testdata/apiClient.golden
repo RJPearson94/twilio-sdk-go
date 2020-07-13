@@ -16,13 +16,24 @@ type Client struct {
 	PhoneNumber  func(string) *phone_number.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		sid: sid,
+		sid: properties.Sid,
 
-		PhoneNumbers: phone_numbers.New(client, sid),
-		PhoneNumber:  func(phoneNumberSid string) *phone_number.Client { return phone_number.New(client, sid, phoneNumberSid) },
+		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
+			ServiceSid: properties.sid,
+		}),
+		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
+			return phone_number.New(client, phone_number.ClientProperties{
+				ServiceSid: properties.sid,
+				Sid:        phoneNumberSid,
+			})
+		},
 	}
 }
