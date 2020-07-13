@@ -33,8 +33,8 @@ func (c Client) Create(input *CreateWebChannelInput) (*CreateWebChannelOutput, e
 
 func (c Client) CreateWithContext(context context.Context, input *CreateWebChannelInput) (*CreateWebChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/WebChannels",
+		Method:      http.MethodPost,
+		URI:         "/WebChannels",
 		ContentType: client.URLEncoded,
 	}
 

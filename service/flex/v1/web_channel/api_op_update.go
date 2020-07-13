@@ -29,8 +29,8 @@ func (c Client) Update(input *UpdateWebChannelInput) (*UpdateWebChannelOutput, e
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWebChannelInput) (*UpdateWebChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/WebChannels/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/WebChannels/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"sid": c.sid,

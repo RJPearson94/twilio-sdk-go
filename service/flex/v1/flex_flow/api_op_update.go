@@ -62,8 +62,8 @@ func (c Client) Update(input *UpdateFlexFlowInput) (*UpdateFlexFlowOutput, error
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateFlexFlowInput) (*UpdateFlexFlowOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/FlexFlows/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/FlexFlows/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"sid": c.sid,

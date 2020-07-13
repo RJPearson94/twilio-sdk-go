@@ -83,8 +83,8 @@ func (c Client) Get() (*GetConfigurationOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetConfigurationOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Configuration",
+		Method: http.MethodGet,
+		URI:    "/Configuration",
 	}
 
 	output := &GetConfigurationOutput{}

@@ -43,8 +43,8 @@ func (c Client) Get() (*GetFlexFlowOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetFlexFlowOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/FlexFlows/{sid}",
+		Method: http.MethodGet,
+		URI:    "/FlexFlows/{sid}",
 		PathParams: map[string]string{
 			"sid": c.sid,
 		},

@@ -26,8 +26,8 @@ func (c Client) Get() (*GetChannelOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Channels/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Channels/{sid}",
 		PathParams: map[string]string{
 			"sid": c.sid,
 		},

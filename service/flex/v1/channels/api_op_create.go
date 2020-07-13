@@ -39,8 +39,8 @@ func (c Client) Create(input *CreateChannelInput) (*CreateChannelOutput, error) 
 
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelInput) (*CreateChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Channels",
+		Method:      http.MethodPost,
+		URI:         "/Channels",
 		ContentType: client.URLEncoded,
 	}
 

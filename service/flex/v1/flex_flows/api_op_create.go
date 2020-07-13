@@ -62,8 +62,8 @@ func (c Client) Create(input *CreateFlexFlowInput) (*CreateFlexFlowOutput, error
 
 func (c Client) CreateWithContext(context context.Context, input *CreateFlexFlowInput) (*CreateFlexFlowOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/FlexFlows",
+		Method:      http.MethodPost,
+		URI:         "/FlexFlows",
 		ContentType: client.URLEncoded,
 	}
 

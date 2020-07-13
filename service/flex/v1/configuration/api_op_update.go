@@ -142,8 +142,8 @@ func (c Client) Update(input *UpdateConfigurationInput) (*UpdateConfigurationOut
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateConfigurationInput) (*UpdateConfigurationOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Configuration",
+		Method:      http.MethodPost,
+		URI:         "/Configuration",
 		ContentType: client.JSON,
 	}
 
