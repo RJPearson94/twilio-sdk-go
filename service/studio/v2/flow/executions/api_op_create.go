@@ -33,8 +33,8 @@ func (c Client) Create(input *CreateExecutionInput) (*CreateExecutionOutput, err
 
 func (c Client) CreateWithContext(context context.Context, input *CreateExecutionInput) (*CreateExecutionOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Flows/{flowSid}/Executions",
+		Method:      http.MethodPost,
+		URI:         "/Flows/{flowSid}/Executions",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"flowSid": c.flowSid,

@@ -39,8 +39,8 @@ func (c Client) Create(input *CreateFlowInput) (*CreateFlowOutput, error) {
 
 func (c Client) CreateWithContext(context context.Context, input *CreateFlowInput) (*CreateFlowOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Flows",
+		Method:      http.MethodPost,
+		URI:         "/Flows",
 		ContentType: client.URLEncoded,
 	}
 

@@ -25,8 +25,8 @@ func (c Client) Validate(input *ValidateFlowInput) (*ValidateFlowOutput, error) 
 
 func (c Client) ValidateWithContext(context context.Context, input *ValidateFlowInput) (*ValidateFlowOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Flows/Validate",
+		Method:      http.MethodPost,
+		URI:         "/Flows/Validate",
 		ContentType: client.URLEncoded,
 	}
 

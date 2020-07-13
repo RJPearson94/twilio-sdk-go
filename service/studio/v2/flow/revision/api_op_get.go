@@ -33,8 +33,8 @@ func (c Client) Get() (*GetRevisionOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetRevisionOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Flows/{flowSid}/Revisions/{revisionNumber}",
+		Method: http.MethodGet,
+		URI:    "/Flows/{flowSid}/Revisions/{revisionNumber}",
 		PathParams: map[string]string{
 			"flowSid":        c.flowSid,
 			"revisionNumber": strconv.Itoa(c.revisionNumber),

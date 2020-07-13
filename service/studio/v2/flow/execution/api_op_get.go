@@ -27,8 +27,8 @@ func (c Client) Get() (*GetExecutionOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetExecutionOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Flows/{flowSid}/Executions/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Flows/{flowSid}/Executions/{sid}",
 		PathParams: map[string]string{
 			"flowSid": c.flowSid,
 			"sid":     c.sid,

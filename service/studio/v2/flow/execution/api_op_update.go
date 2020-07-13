@@ -31,8 +31,8 @@ func (c Client) Update(input *UpdateExecutionInput) (*UpdateExecutionOutput, err
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateExecutionInput) (*UpdateExecutionOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Flows/{flowSid}/Executions/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Flows/{flowSid}/Executions/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"flowSid": c.flowSid,
