@@ -26,8 +26,8 @@ func (c Client) Get() (*GetAccountOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetAccountOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Accounts/{sid}.json",
+		Method: http.MethodGet,
+		URI:    "/Accounts/{sid}.json",
 		PathParams: map[string]string{
 			"sid": c.sid,
 		},

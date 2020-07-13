@@ -27,8 +27,8 @@ func (c Client) Create(input *CreateKeyInput) (*CreateKeyOutput, error) {
 
 func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput) (*CreateKeyOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Accounts/{accountSid}/Keys.json",
+		Method:      http.MethodPost,
+		URI:         "/Accounts/{accountSid}/Keys.json",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"accountSid": c.accountSid,

@@ -22,8 +22,8 @@ func (c Client) Get() (*GetKeyOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetKeyOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Accounts/{accountSid}/Keys/{sid}.json",
+		Method: http.MethodGet,
+		URI:    "/Accounts/{accountSid}/Keys/{sid}.json",
 		PathParams: map[string]string{
 			"accountSid": c.accountSid,
 			"sid":        c.sid,

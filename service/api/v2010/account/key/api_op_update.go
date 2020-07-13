@@ -26,8 +26,8 @@ func (c Client) Update(input *UpdateKeyInput) (*UpdateKeyOutput, error) {
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateKeyInput) (*UpdateKeyOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Accounts/{accountSid}/Keys/{sid}.json",
+		Method:      http.MethodPost,
+		URI:         "/Accounts/{accountSid}/Keys/{sid}.json",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"accountSid": c.accountSid,
