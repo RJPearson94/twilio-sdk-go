@@ -33,9 +33,13 @@ func New(sess *session.Session) *Studio {
 
 func NewWithClient(client *client.Client) *Studio {
 	return &Studio{
-		client:         client,
-		Flows:          flows.New(client),
-		Flow:           func(sid string) *flow.Client { return flow.New(client, sid) },
+		client: client,
+		Flows:  flows.New(client),
+		Flow: func(sid string) *flow.Client {
+			return flow.New(client, flow.ClientProperties{
+				Sid: sid,
+			})
+		},
 		FlowValidation: flow_validation.New(client),
 	}
 }

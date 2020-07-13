@@ -16,7 +16,7 @@ type CreateFlowInput struct {
 	CommitMessage *string `form:"CommitMessage,omitempty"`
 }
 
-type CreateFlowOutput struct {
+type CreateFlowResponse struct {
 	Sid           string         `json:"sid"`
 	AccountSid    string         `json:"account_sid"`
 	FriendlyName  string         `json:"friendly_name"`
@@ -33,20 +33,20 @@ type CreateFlowOutput struct {
 	URL           string         `json:"url"`
 }
 
-func (c Client) Create(input *CreateFlowInput) (*CreateFlowOutput, error) {
+func (c Client) Create(input *CreateFlowInput) (*CreateFlowResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateFlowInput) (*CreateFlowOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateFlowInput) (*CreateFlowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Flows",
 		ContentType: client.URLEncoded,
 	}
 
-	output := &CreateFlowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateFlowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

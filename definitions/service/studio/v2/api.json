@@ -1,1275 +1,1343 @@
-[
-  {
-    "name": "Flows",
-    "operations": [
-      {
-        "name": "Create",
-        "path": "/Flows",
-        "httpMethod": "Post",
-        "input": {
-          "name": "CreateFlowInput",
-          "type": "URLEncoded",
-          "properties": [
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "FriendlyName",
-              "required": true
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "Status",
-              "required": true
-            },
-            {
-              "name": "Definition",
-              "type": "string",
-              "value": "Definition",
-              "required": true
-            },
-            {
-              "name": "CommitMessage",
-              "type": "string",
-              "value": "CommitMessage",
-              "required": false
-            }
-          ]
-        },
-        "response": {
-          "name": "CreateFlowOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
-            },
-            {
-              "name": "AccountSid",
-              "type": "string",
-              "value": "account_sid",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "Definition",
-              "type": "interface{}",
-              "value": "definition",
-              "required": true
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "status",
-              "required": true
-            },
-            {
-              "name": "Revision",
-              "type": "int",
-              "value": "revision",
-              "required": true
-            },
-            {
-              "name": "CommitMessage",
-              "type": "string",
-              "value": "commit_message",
-              "required": false
-            },
-            {
-              "name": "Valid",
-              "type": "bool",
-              "value": "valid",
-              "required": true
-            },
-            {
-              "name": "Errors",
-              "type": "[]interface{}",
-              "value": "errors",
-              "required": false
-            },
-            {
-              "name": "Warnings",
-              "type": "[]interface{}",
-              "value": "warnings",
-              "required": false
-            },
-            {
-              "name": "DateCreated",
-              "type": "time.Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "time.Time",
-              "value": "date_updated",
-              "required": false
-            },
-            {
-              "name": "WebhookURL",
-              "type": "string",
-              "value": "webhook_url",
-              "required": true
-            },
-            {
-              "name": "URL",
-              "type": "string",
-              "value": "url",
-              "required": true
-            }
-          ]
-        }
-      }
-    ]
+{
+  "packageName": "v2",
+  "name": "Studio",
+  "config": {
+    "includeDefaults": true,
+    "beta": true,
+    "subDomain": "studio",
+    "apiVersion": "v2"
   },
-  {
-    "name": "Flow",
-    "properties": {
-      "sid": {
-        "dataType": "string"
-      }
+  "subClients": [
+    {
+      "name": "Flows",
+      "packageName": "flows",
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Flows",
+            "method": "Post"
+          },
+          "input": {
+            "name": "CreateFlowInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "Status",
+                "required": true
+              },
+              {
+                "name": "Definition",
+                "type": "string",
+                "value": "Definition",
+                "required": true
+              },
+              {
+                "name": "CommitMessage",
+                "type": "string",
+                "value": "CommitMessage",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "CreateFlowResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "Definition",
+                "type": "interface{}",
+                "value": "definition",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "Revision",
+                "type": "int",
+                "value": "revision",
+                "required": true
+              },
+              {
+                "name": "CommitMessage",
+                "type": "string",
+                "value": "commit_message",
+                "required": false
+              },
+              {
+                "name": "Valid",
+                "type": "bool",
+                "value": "valid",
+                "required": true
+              },
+              {
+                "name": "Errors",
+                "type": "[]interface{}",
+                "value": "errors",
+                "required": false
+              },
+              {
+                "name": "Warnings",
+                "type": "[]interface{}",
+                "value": "warnings",
+                "required": false
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "WebhookURL",
+                "type": "string",
+                "value": "webhook_url",
+                "required": true
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
     },
-    "subClients": [
-      {
-        "name": "Revision",
-        "function": {
-          "parameters": {
+    {
+      "name": "Flow",
+      "packageName": "flow",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "subClients": [
+        {
+          "name": "Revision",
+          "packageName": "revision",
+          "function": {
+            "parameters": {
+              "revisionNumber": {
+                "dataType": "int"
+              }
+            }
+          },
+          "properties": {
+            "flowSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
             "revisionNumber": {
-              "dataType": "int"
+              "dataType": "int",
+              "functionParameter": "revisionNumber"
             }
-          }
-        },
-        "properties": {
-          "flowSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
           },
-          "revisionNumber": {
-            "dataType": "int",
-            "functionParameter": "revisionNumber"
-          }
-        },
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Flows/{flowSid}/Revisions/{revisionNumber}",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "flowSid",
-                "value": {
-                  "onService": true,
-                  "property": "flowSid"
-                }
-              },
-              {
-                "pathParamName": "revisionNumber",
-                "value": {
-                  "onService": true,
-                  "property": "revisionNumber"
-                }
-              }
-            ],
-            "response": {
-              "name": "GetRevisionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "Definition",
-                  "type": "interface{}",
-                  "value": "definition",
-                  "required": true
-                },
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "status",
-                  "required": true
-                },
-                {
-                  "name": "Revision",
-                  "type": "int",
-                  "value": "revision",
-                  "overrideDataType": "string",
-                  "required": true
-                },
-                {
-                  "name": "CommitMessage",
-                  "type": "string",
-                  "value": "commit_message",
-                  "required": false
-                },
-                {
-                  "name": "Valid",
-                  "type": "bool",
-                  "value": "valid",
-                  "required": true
-                },
-                {
-                  "name": "Errors",
-                  "type": "[]interface{}",
-                  "value": "errors",
-                  "required": false
-                },
-                {
-                  "name": "Warnings",
-                  "type": "[]interface{}",
-                  "value": "warnings",
-                  "required": false
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "WebhookURL",
-                  "type": "string",
-                  "value": "webhook_url",
-                  "required": true
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Test Users",
-        "function": {
-          "parameters": {}
-        },
-        "properties": {
-          "flowSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Update",
-            "path": "/Flows/{flowSid}/TestUsers",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "flowSid",
-                "value": {
-                  "onService": true,
-                  "property": "flowSid"
-                }
-              }
-            ],
-            "input": {
-              "name": "UpdateTestUsersInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "TestUsers",
-                  "type": "[]string",
-                  "value": "TestUsers",
-                  "required": true
-                }
-              ]
-            },
-            "response": {
-              "name": "UpdateTestUsersOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "TestUsers",
-                  "type": "[]string",
-                  "value": "test_users",
-                  "required": true
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Executions",
-        "properties": {
-          "flowSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Create",
-            "path": "/Flows/{flowSid}/Executions",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "flowSid",
-                "value": {
-                  "onService": true,
-                  "property": "flowSid"
-                }
-              }
-            ],
-            "input": {
-              "name": "CreateExecutionInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "To",
-                  "type": "string",
-                  "value": "To",
-                  "required": true
-                },
-                {
-                  "name": "From",
-                  "type": "string",
-                  "value": "From",
-                  "required": true
-                },
-                {
-                  "name": "Parameters",
-                  "type": "string",
-                  "value": "Parameters",
-                  "required": false
-                }
-              ]
-            },
-            "response": {
-              "name": "CreateExecutionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "FlowSid",
-                  "type": "string",
-                  "value": "flow_sid",
-                  "required": true
-                },
-                {
-                  "name": "Context",
-                  "type": "interface{}",
-                  "value": "context",
-                  "required": true
-                },
-                {
-                  "name": "ContactChannelAddress",
-                  "type": "string",
-                  "value": "contact_channel_address",
-                  "required": true
-                },
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "status",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Execution",
-        "function": {
-          "parameters": {
-            "executionSid": {
-              "dataType": "string"
-            }
-          }
-        },
-        "properties": {
-          "flowSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          },
-          "sid": {
-            "dataType": "string",
-            "functionParameter": "executionSid"
-          }
-        },
-        "subClients": [
-          {
-            "name": "Context",
-            "function": {
-              "parameters": {}
-            },
-            "properties": {
-              "flowSid": {
-                "dataType": "string",
-                "parentProperty": "flowSid"
-              },
-              "executionSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              }
-            },
-            "operations": [
-              {
-                "name": "Get",
-                "path": "/Flows/{flowSid}/Executions/{executionSid}/Context",
-                "httpMethod": "Get",
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Flows/{flowSid}/Revisions/{revisionNumber}",
+                "method": "Get",
                 "pathParams": [
                   {
-                    "pathParamName": "flowSid",
+                    "name": "flowSid",
                     "value": {
                       "onService": true,
+                      "type": "string",
                       "property": "flowSid"
                     }
                   },
                   {
-                    "pathParamName": "executionSid",
+                    "name": "revisionNumber",
                     "value": {
                       "onService": true,
-                      "property": "executionSid"
+                      "type": "int",
+                      "property": "revisionNumber"
                     }
                   }
-                ],
-                "response": {
-                  "name": "GetContextOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "FlowSid",
-                      "type": "string",
-                      "value": "flow_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ExecutionSid",
-                      "type": "string",
-                      "value": "execution_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Context",
-                      "type": "interface{}",
-                      "value": "context",
-                      "required": true
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "name": "Step",
-            "function": {
-              "parameters": {
-                "stepSid": {
-                  "dataType": "string"
-                }
-              }
-            },
-            "properties": {
-              "flowSid": {
-                "dataType": "string",
-                "parentProperty": "flowSid"
+                ]
               },
-              "executionSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              },
-              "sid": {
-                "dataType": "string",
-                "functionParameter": "stepSid"
-              }
-            },
-            "subClients": [
-              {
-                "name": "Context",
-                "function": {
-                  "parameters": {}
-                },
-                "properties": {
-                  "flowSid": {
-                    "dataType": "string",
-                    "parentProperty": "flowSid"
-                  },
-                  "executionSid": {
-                    "dataType": "string",
-                    "parentProperty": "executionSid"
-                  },
-                  "stepSid": {
-                    "dataType": "string",
-                    "parentProperty": "sid"
-                  }
-                },
-                "operations": [
+              "response": {
+                "name": "GetRevisionResponse",
+                "type": "JSON",
+                "properties": [
                   {
-                    "name": "Get",
-                    "path": "/Flows/{flowSid}/Executions/{executionSid}/Steps/{stepSid}/Context",
-                    "httpMethod": "Get",
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "Definition",
+                    "type": "interface{}",
+                    "value": "definition",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Revision",
+                    "type": "int",
+                    "value": "revision",
+                    "required": true
+                  },
+                  {
+                    "name": "CommitMessage",
+                    "type": "string",
+                    "value": "commit_message",
+                    "required": false
+                  },
+                  {
+                    "name": "Valid",
+                    "type": "bool",
+                    "value": "valid",
+                    "required": true
+                  },
+                  {
+                    "name": "Errors",
+                    "type": "[]interface{}",
+                    "value": "errors",
+                    "required": false
+                  },
+                  {
+                    "name": "Warnings",
+                    "type": "[]interface{}",
+                    "value": "warnings",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "WebhookURL",
+                    "type": "string",
+                    "value": "webhook_url",
+                    "required": true
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Test Users",
+          "packageName": "test_users",
+          "function": {
+            "parameters": {}
+          },
+          "properties": {
+            "flowSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Flows/{flowSid}/TestUsers",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "flowSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateTestUsersInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "TestUsers",
+                    "type": "[]string",
+                    "value": "TestUsers",
+                    "required": true
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateTestUsersResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "TestUsers",
+                    "type": "[]string",
+                    "value": "test_users",
+                    "required": true
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Executions",
+          "packageName": "executions",
+          "properties": {
+            "flowSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Flows/{flowSid}/Executions",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "flowSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateExecutionInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "To",
+                    "type": "string",
+                    "value": "To",
+                    "required": true
+                  },
+                  {
+                    "name": "From",
+                    "type": "string",
+                    "value": "From",
+                    "required": true
+                  },
+                  {
+                    "name": "Parameters",
+                    "type": "string",
+                    "value": "Parameters",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateExecutionResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FlowSid",
+                    "type": "string",
+                    "value": "flow_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Context",
+                    "type": "interface{}",
+                    "value": "context",
+                    "required": true
+                  },
+                  {
+                    "name": "ContactChannelAddress",
+                    "type": "string",
+                    "value": "contact_channel_address",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Execution",
+          "packageName": "execution",
+          "function": {
+            "parameters": {
+              "executionSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "flowSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "executionSid"
+            }
+          },
+          "subClients": [
+            {
+              "name": "Context",
+              "packageName": "context",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "flowSid": {
+                  "dataType": "string",
+                  "parentProperty": "flowSid"
+                },
+                "executionSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Flows/{flowSid}/Executions/{executionSid}/Context",
+                    "method": "Get",
                     "pathParams": [
                       {
-                        "pathParamName": "flowSid",
+                        "name": "flowSid",
                         "value": {
                           "onService": true,
+                          "type": "string",
                           "property": "flowSid"
                         }
                       },
                       {
-                        "pathParamName": "executionSid",
+                        "name": "executionSid",
                         "value": {
                           "onService": true,
+                          "type": "string",
+                          "property": "executionSid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetContextResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FlowSid",
+                        "type": "string",
+                        "value": "flow_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ExecutionSid",
+                        "type": "string",
+                        "value": "execution_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Context",
+                        "type": "interface{}",
+                        "value": "context",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Step",
+              "packageName": "step",
+              "function": {
+                "parameters": {
+                  "stepSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "flowSid": {
+                  "dataType": "string",
+                  "parentProperty": "flowSid"
+                },
+                "executionSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "stepSid"
+                }
+              },
+              "subClients": [
+                {
+                  "name": "Context",
+                  "packageName": "context",
+                  "function": {
+                    "parameters": {}
+                  },
+                  "properties": {
+                    "flowSid": {
+                      "dataType": "string",
+                      "parentProperty": "flowSid"
+                    },
+                    "executionSid": {
+                      "dataType": "string",
+                      "parentProperty": "executionSid"
+                    },
+                    "stepSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    }
+                  },
+                  "operations": [
+                    {
+                      "name": "Get",
+                      "http": {
+                        "uri": "/Flows/{flowSid}/Executions/{executionSid}/Steps/{stepSid}/Context",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "flowSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "flowSid"
+                            }
+                          },
+                          {
+                            "name": "executionSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "executionSid"
+                            }
+                          },
+                          {
+                            "name": "stepSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "stepSid"
+                            }
+                          }
+                        ]
+                      },
+                      "response": {
+                        "name": "GetContextResponse",
+                        "type": "JSON",
+                        "properties": [
+                          {
+                            "name": "Sid",
+                            "type": "string",
+                            "value": "sid",
+                            "required": true
+                          },
+                          {
+                            "name": "AccountSid",
+                            "type": "string",
+                            "value": "account_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "FlowSid",
+                            "type": "string",
+                            "value": "flow_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "ExecutionSid",
+                            "type": "string",
+                            "value": "execution_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "StepSid",
+                            "type": "string",
+                            "value": "step_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "Context",
+                            "type": "interface{}",
+                            "value": "context",
+                            "required": true
+                          },
+                          {
+                            "name": "URL",
+                            "type": "string",
+                            "value": "url",
+                            "required": true
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Flows/{flowSid}/Executions/{executionSid}/Steps/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "flowSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "flowSid"
+                        }
+                      },
+                      {
+                        "name": "executionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
                           "property": "executionSid"
                         }
                       },
                       {
-                        "pathParamName": "stepSid",
+                        "name": "sid",
                         "value": {
                           "onService": true,
-                          "property": "stepSid"
+                          "type": "string",
+                          "property": "sid"
                         }
                       }
-                    ],
-                    "response": {
-                      "name": "GetContextOutput",
-                      "type": "JSON",
-                      "properties": [
-                        {
-                          "name": "Sid",
-                          "type": "string",
-                          "value": "sid",
-                          "required": true
-                        },
-                        {
-                          "name": "AccountSid",
-                          "type": "string",
-                          "value": "account_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "FlowSid",
-                          "type": "string",
-                          "value": "flow_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "ExecutionSid",
-                          "type": "string",
-                          "value": "execution_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "StepSid",
-                          "type": "string",
-                          "value": "step_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "Context",
-                          "type": "interface{}",
-                          "value": "context",
-                          "required": true
-                        },
-                        {
-                          "name": "URL",
-                          "type": "string",
-                          "value": "url",
-                          "required": true
-                        }
-                      ]
-                    }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetStepResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FlowSid",
+                        "type": "string",
+                        "value": "flow_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ExecutionSid",
+                        "type": "string",
+                        "value": "execution_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Name",
+                        "type": "string",
+                        "value": "name",
+                        "required": true
+                      },
+                      {
+                        "name": "Context",
+                        "type": "interface{}",
+                        "value": "context",
+                        "required": true
+                      },
+                      {
+                        "name": "TransitionedFrom",
+                        "type": "string",
+                        "value": "transitioned_from",
+                        "required": true
+                      },
+                      {
+                        "name": "TransitionedTo",
+                        "type": "string",
+                        "value": "transitioned_to",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
                   }
-                ]
-              }
-            ],
-            "operations": [
-              {
-                "name": "Get",
-                "path": "/Flows/{flowSid}/Executions/{executionSid}/Steps/{sid}",
-                "httpMethod": "Get",
+                }
+              ]
+            }
+          ],
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Flows/{flowSid}/Executions/{sid}",
+                "method": "Get",
                 "pathParams": [
                   {
-                    "pathParamName": "flowSid",
+                    "name": "flowSid",
                     "value": {
                       "onService": true,
+                      "type": "string",
                       "property": "flowSid"
                     }
                   },
                   {
-                    "pathParamName": "executionSid",
+                    "name": "sid",
                     "value": {
                       "onService": true,
-                      "property": "executionSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
+                      "type": "string",
                       "property": "sid"
                     }
                   }
-                ],
-                "response": {
-                  "name": "GetStepOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
+                ]
+              },
+              "response": {
+                "name": "GetExecutionResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FlowSid",
+                    "type": "string",
+                    "value": "flow_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Context",
+                    "type": "interface{}",
+                    "value": "context",
+                    "required": true
+                  },
+                  {
+                    "name": "ContactChannelAddress",
+                    "type": "string",
+                    "value": "contact_channel_address",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Flows/{flowSid}/Executions/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
                       "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "FlowSid",
-                      "type": "string",
-                      "value": "flow_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ExecutionSid",
-                      "type": "string",
-                      "value": "execution_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Name",
-                      "type": "string",
-                      "value": "name",
-                      "required": true
-                    },
-                    {
-                      "name": "Context",
-                      "type": "interface{}",
-                      "value": "context",
-                      "required": true
-                    },
-                    {
-                      "name": "TransitionedFrom",
-                      "type": "string",
-                      "value": "transitioned_from",
-                      "required": true
-                    },
-                    {
-                      "name": "TransitionedTo",
-                      "type": "string",
-                      "value": "transitioned_to",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "DateUpdated",
-                      "type": "time.Time",
-                      "value": "date_updated",
-                      "required": false
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
+                      "property": "flowSid"
                     }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Flows/{flowSid}/Executions/{sid}",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "flowSid",
-                "value": {
-                  "onService": true,
-                  "property": "flowSid"
-                }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
               },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "response": {
-              "name": "GetExecutionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "FlowSid",
-                  "type": "string",
-                  "value": "flow_sid",
-                  "required": true
-                },
-                {
-                  "name": "Context",
-                  "type": "interface{}",
-                  "value": "context",
-                  "required": true
-                },
-                {
-                  "name": "ContactChannelAddress",
-                  "type": "string",
-                  "value": "contact_channel_address",
-                  "required": true
-                },
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "status",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          },
-          {
-            "name": "Update",
-            "path": "/Flows/{flowSid}/Executions/{sid}",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "flowSid",
-                "value": {
-                  "onService": true,
-                  "property": "flowSid"
-                }
+              "input": {
+                "name": "UpdateExecutionInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "Status",
+                    "required": true
+                  }
+                ]
               },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
+              "response": {
+                "name": "UpdateExecutionResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FlowSid",
+                    "type": "string",
+                    "value": "flow_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Context",
+                    "type": "interface{}",
+                    "value": "context",
+                    "required": true
+                  },
+                  {
+                    "name": "ContactChannelAddress",
+                    "type": "string",
+                    "value": "contact_channel_address",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
               }
-            ],
-            "input": {
-              "name": "UpdateExecutionInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "Status",
-                  "required": true
-                }
-              ]
             },
-            "response": {
-              "name": "UpdateExecutionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "FlowSid",
-                  "type": "string",
-                  "value": "flow_sid",
-                  "required": true
-                },
-                {
-                  "name": "Context",
-                  "type": "interface{}",
-                  "value": "context",
-                  "required": true
-                },
-                {
-                  "name": "ContactChannelAddress",
-                  "type": "string",
-                  "value": "contact_channel_address",
-                  "required": true
-                },
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "status",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Flows/{flowSid}/Executions/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "flowSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
             }
-          },
-          {
-            "name": "Delete",
-            "path": "/Flows/{flowSid}/Executions/{sid}",
-            "httpMethod": "Delete",
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "name": "Get",
+          "http": {
+            "uri": "/Flows/{sid}",
+            "method": "Get",
             "pathParams": [
               {
-                "pathParamName": "flowSid",
+                "name": "sid",
                 "value": {
                   "onService": true,
-                  "property": "flowSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
+                  "type": "string",
                   "property": "sid"
                 }
               }
             ]
+          },
+          "response": {
+            "name": "GetFlowResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "Definition",
+                "type": "interface{}",
+                "value": "definition",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "Revision",
+                "type": "int",
+                "value": "revision",
+                "required": true
+              },
+              {
+                "name": "CommitMessage",
+                "type": "string",
+                "value": "commit_message",
+                "required": false
+              },
+              {
+                "name": "Valid",
+                "type": "bool",
+                "value": "valid",
+                "required": true
+              },
+              {
+                "name": "Errors",
+                "type": "[]interface{}",
+                "value": "errors",
+                "required": false
+              },
+              {
+                "name": "Warnings",
+                "type": "[]interface{}",
+                "value": "warnings",
+                "required": false
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "WebhookURL",
+                "type": "string",
+                "value": "webhook_url",
+                "required": true
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
           }
-        ]
-      }
-    ],
-    "operations": [
-      {
-        "name": "Get",
-        "path": "/Flows/{sid}",
-        "httpMethod": "Get",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
-            }
-          }
-        ],
-        "response": {
-          "name": "GetFlowOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
-            },
-            {
-              "name": "AccountSid",
-              "type": "string",
-              "value": "account_sid",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "Definition",
-              "type": "interface{}",
-              "value": "definition",
-              "required": true
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "status",
-              "required": true
-            },
-            {
-              "name": "Revision",
-              "type": "int",
-              "value": "revision",
-              "required": true
-            },
-            {
-              "name": "CommitMessage",
-              "type": "string",
-              "value": "commit_message",
-              "required": false
-            },
-            {
-              "name": "Valid",
-              "type": "bool",
-              "value": "valid",
-              "required": true
-            },
-            {
-              "name": "Errors",
-              "type": "[]interface{}",
-              "value": "errors",
-              "required": false
-            },
-            {
-              "name": "Warnings",
-              "type": "[]interface{}",
-              "value": "warnings",
-              "required": false
-            },
-            {
-              "name": "DateCreated",
-              "type": "time.Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "time.Time",
-              "value": "date_updated",
-              "required": false
-            },
-            {
-              "name": "WebhookURL",
-              "type": "string",
-              "value": "webhook_url",
-              "required": true
-            },
-            {
-              "name": "URL",
-              "type": "string",
-              "value": "url",
-              "required": true
-            }
-          ]
-        }
-      },
-      {
-        "name": "Update",
-        "path": "/Flows/{sid}",
-        "httpMethod": "Post",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
-            }
-          }
-        ],
-        "input": {
-          "name": "UpdateFlowInput",
-          "type": "URLEncoded",
-          "properties": [
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "FriendlyName",
-              "required": false
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "Status",
-              "required": true
-            },
-            {
-              "name": "Definition",
-              "type": "string",
-              "value": "Definition",
-              "required": false
-            },
-            {
-              "name": "CommitMessage",
-              "type": "string",
-              "value": "CommitMessage",
-              "required": false
-            }
-          ]
         },
-        "response": {
-          "name": "UpdateFlowOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
-            },
-            {
-              "name": "AccountSid",
-              "type": "string",
-              "value": "account_sid",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "Definition",
-              "type": "interface{}",
-              "value": "definition",
-              "required": true
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "status",
-              "required": true
-            },
-            {
-              "name": "Revision",
-              "type": "int",
-              "value": "revision",
-              "required": true
-            },
-            {
-              "name": "CommitMessage",
-              "type": "string",
-              "value": "commit_message",
-              "required": false
-            },
-            {
-              "name": "Valid",
-              "type": "bool",
-              "value": "valid",
-              "required": true
-            },
-            {
-              "name": "Errors",
-              "type": "[]interface{}",
-              "value": "errors",
-              "required": false
-            },
-            {
-              "name": "Warnings",
-              "type": "[]interface{}",
-              "value": "warnings",
-              "required": false
-            },
-            {
-              "name": "DateCreated",
-              "type": "time.Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "time.Time",
-              "value": "date_updated",
-              "required": false
-            },
-            {
-              "name": "WebhookURL",
-              "type": "string",
-              "value": "webhook_url",
-              "required": true
-            },
-            {
-              "name": "URL",
-              "type": "string",
-              "value": "url",
-              "required": true
-            }
-          ]
-        }
-      },
-      {
-        "name": "Delete",
-        "path": "/Flows/{sid}",
-        "httpMethod": "Delete",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
-            }
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Flows/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "input": {
+            "name": "UpdateFlowInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "Status",
+                "required": true
+              },
+              {
+                "name": "Definition",
+                "type": "string",
+                "value": "Definition",
+                "required": false
+              },
+              {
+                "name": "CommitMessage",
+                "type": "string",
+                "value": "CommitMessage",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "UpdateFlowResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "Definition",
+                "type": "interface{}",
+                "value": "definition",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "Revision",
+                "type": "int",
+                "value": "revision",
+                "required": true
+              },
+              {
+                "name": "CommitMessage",
+                "type": "string",
+                "value": "commit_message",
+                "required": false
+              },
+              {
+                "name": "Valid",
+                "type": "bool",
+                "value": "valid",
+                "required": true
+              },
+              {
+                "name": "Errors",
+                "type": "[]interface{}",
+                "value": "errors",
+                "required": false
+              },
+              {
+                "name": "Warnings",
+                "type": "[]interface{}",
+                "value": "warnings",
+                "required": false
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "WebhookURL",
+                "type": "string",
+                "value": "webhook_url",
+                "required": true
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
           }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Flow Validation",
-    "operations": [
-      {
-        "name": "Validate",
-        "path": "/Flows/Validate",
-        "httpMethod": "Post",
-        "input": {
-          "name": "ValidateFlowInput",
-          "type": "URLEncoded",
-          "properties": [
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "FriendlyName",
-              "required": true
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "Status",
-              "required": true
-            },
-            {
-              "name": "Definition",
-              "type": "string",
-              "value": "Definition",
-              "required": true
-            },
-            {
-              "name": "CommitMessage",
-              "type": "string",
-              "value": "CommitMessage",
-              "required": false
-            }
-          ]
         },
-        "response": {
-          "name": "ValidateFlowOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Valid",
-              "type": "bool",
-              "value": "valid",
-              "required": true
-            }
-          ]
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Flows/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          }
         }
-      }
-    ]
-  }
-]
+      ]
+    },
+    {
+      "name": "Flow Validation",
+      "packageName": "flow_validation",
+      "operations": [
+        {
+          "name": "Validate",
+          "http": {
+            "uri": "/Flows/Validate",
+            "method": "Post"
+          },
+          "input": {
+            "name": "ValidateFlowInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "Status",
+                "required": true
+              },
+              {
+                "name": "Definition",
+                "type": "string",
+                "value": "Definition",
+                "required": true
+              },
+              {
+                "name": "CommitMessage",
+                "type": "string",
+                "value": "CommitMessage",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "ValidateFlowResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Valid",
+                "type": "bool",
+                "value": "valid",
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

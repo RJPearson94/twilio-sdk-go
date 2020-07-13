@@ -12,17 +12,17 @@ type UpdateTestUsersInput struct {
 	TestUsers []string `validate:"required" form:"TestUsers"`
 }
 
-type UpdateTestUsersOutput struct {
+type UpdateTestUsersResponse struct {
 	Sid       string   `json:"sid"`
 	TestUsers []string `json:"test_users"`
 	URL       string   `json:"url"`
 }
 
-func (c Client) Update(input *UpdateTestUsersInput) (*UpdateTestUsersOutput, error) {
+func (c Client) Update(input *UpdateTestUsersInput) (*UpdateTestUsersResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateTestUsersInput) (*UpdateTestUsersOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateTestUsersInput) (*UpdateTestUsersResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Flows/{flowSid}/TestUsers",
@@ -32,9 +32,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateTestUser
 		},
 	}
 
-	output := &UpdateTestUsersOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateTestUsersResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

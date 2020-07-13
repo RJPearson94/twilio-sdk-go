@@ -16,7 +16,7 @@ type UpdateFlowInput struct {
 	CommitMessage *string `form:"CommitMessage,omitempty"`
 }
 
-type UpdateFlowOutput struct {
+type UpdateFlowResponse struct {
 	Sid           string         `json:"sid"`
 	AccountSid    string         `json:"account_sid"`
 	FriendlyName  string         `json:"friendly_name"`
@@ -33,11 +33,11 @@ type UpdateFlowOutput struct {
 	URL           string         `json:"url"`
 }
 
-func (c Client) Update(input *UpdateFlowInput) (*UpdateFlowOutput, error) {
+func (c Client) Update(input *UpdateFlowInput) (*UpdateFlowResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateFlowInput) (*UpdateFlowOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateFlowInput) (*UpdateFlowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Flows/{sid}",
@@ -47,9 +47,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateFlowInpu
 		},
 	}
 
-	output := &UpdateFlowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateFlowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

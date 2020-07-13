@@ -13,7 +13,7 @@ type UpdateExecutionInput struct {
 	Status string `validate:"required" form:"Status"`
 }
 
-type UpdateExecutionOutput struct {
+type UpdateExecutionResponse struct {
 	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
 	FlowSid               string      `json:"flow_sid"`
@@ -25,11 +25,11 @@ type UpdateExecutionOutput struct {
 	URL                   string      `json:"url"`
 }
 
-func (c Client) Update(input *UpdateExecutionInput) (*UpdateExecutionOutput, error) {
+func (c Client) Update(input *UpdateExecutionInput) (*UpdateExecutionResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateExecutionInput) (*UpdateExecutionOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateExecutionInput) (*UpdateExecutionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Flows/{flowSid}/Executions/{sid}",
@@ -40,9 +40,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateExecutio
 		},
 	}
 
-	output := &UpdateExecutionOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateExecutionResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

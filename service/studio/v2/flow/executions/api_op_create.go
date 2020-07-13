@@ -15,7 +15,7 @@ type CreateExecutionInput struct {
 	Parameters *string `form:"Parameters,omitempty"`
 }
 
-type CreateExecutionOutput struct {
+type CreateExecutionResponse struct {
 	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
 	FlowSid               string      `json:"flow_sid"`
@@ -27,11 +27,11 @@ type CreateExecutionOutput struct {
 	URL                   string      `json:"url"`
 }
 
-func (c Client) Create(input *CreateExecutionInput) (*CreateExecutionOutput, error) {
+func (c Client) Create(input *CreateExecutionInput) (*CreateExecutionResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateExecutionInput) (*CreateExecutionOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateExecutionInput) (*CreateExecutionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Flows/{flowSid}/Executions",
@@ -41,9 +41,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateExecutio
 		},
 	}
 
-	output := &CreateExecutionOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateExecutionResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

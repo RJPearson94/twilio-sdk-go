@@ -4,15 +4,22 @@ package revision
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client         *client.Client
+	client *client.Client
+
 	flowSid        string
 	revisionNumber int
 }
 
-func New(client *client.Client, flowSid string, revisionNumber int) *Client {
+type ClientProperties struct {
+	FlowSid        string
+	RevisionNumber int
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:         client,
-		flowSid:        flowSid,
-		revisionNumber: revisionNumber,
+		client: client,
+
+		flowSid:        properties.FlowSid,
+		revisionNumber: properties.RevisionNumber,
 	}
 }

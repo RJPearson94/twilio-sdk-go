@@ -4,13 +4,19 @@ package test_users
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client  *client.Client
+	client *client.Client
+
 	flowSid string
 }
 
-func New(client *client.Client, flowSid string) *Client {
+type ClientProperties struct {
+	FlowSid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:  client,
-		flowSid: flowSid,
+		client: client,
+
+		flowSid: properties.FlowSid,
 	}
 }

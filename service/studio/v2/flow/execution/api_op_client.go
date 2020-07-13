@@ -8,19 +8,39 @@ import (
 )
 
 type Client struct {
-	client  *client.Client
+	client *client.Client
+
 	flowSid string
 	sid     string
+
 	Context func() *context.Client
 	Step    func(string) *step.Client
 }
 
-func New(client *client.Client, flowSid string, sid string) *Client {
+type ClientProperties struct {
+	FlowSid string
+	Sid     string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:  client,
-		flowSid: flowSid,
-		sid:     sid,
-		Context: func() *context.Client { return context.New(client, sid, flowSid) },
-		Step:    func(stepSid string) *step.Client { return step.New(client, sid, flowSid, stepSid) },
+		client: client,
+
+		flowSid: properties.FlowSid,
+		sid:     properties.Sid,
+
+		Context: func() *context.Client {
+			return context.New(client, context.ClientProperties{
+				ExecutionSid: properties.Sid,
+				FlowSid:      properties.FlowSid,
+			})
+		},
+		Step: func(stepSid string) *step.Client {
+			return step.New(client, step.ClientProperties{
+				FlowSid:      properties.FlowSid,
+				Sid:          stepSid,
+				ExecutionSid: properties.Sid,
+			})
+		},
 	}
 }

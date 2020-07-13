@@ -15,24 +15,24 @@ type ValidateFlowInput struct {
 	CommitMessage *string `form:"CommitMessage,omitempty"`
 }
 
-type ValidateFlowOutput struct {
+type ValidateFlowResponse struct {
 	Valid bool `json:"valid"`
 }
 
-func (c Client) Validate(input *ValidateFlowInput) (*ValidateFlowOutput, error) {
+func (c Client) Validate(input *ValidateFlowInput) (*ValidateFlowResponse, error) {
 	return c.ValidateWithContext(context.Background(), input)
 }
 
-func (c Client) ValidateWithContext(context context.Context, input *ValidateFlowInput) (*ValidateFlowOutput, error) {
+func (c Client) ValidateWithContext(context context.Context, input *ValidateFlowInput) (*ValidateFlowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Flows/Validate",
 		ContentType: client.URLEncoded,
 	}
 
-	output := &ValidateFlowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &ValidateFlowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

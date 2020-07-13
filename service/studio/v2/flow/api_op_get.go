@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetFlowOutput struct {
+type GetFlowResponse struct {
 	Sid           string         `json:"sid"`
 	AccountSid    string         `json:"account_sid"`
 	FriendlyName  string         `json:"friendly_name"`
@@ -26,11 +26,11 @@ type GetFlowOutput struct {
 	URL           string         `json:"url"`
 }
 
-func (c Client) Get() (*GetFlowOutput, error) {
+func (c Client) Get() (*GetFlowResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetFlowOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetFlowResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Flows/{sid}",
@@ -39,9 +39,9 @@ func (c Client) GetWithContext(context context.Context) (*GetFlowOutput, error) 
 		},
 	}
 
-	output := &GetFlowOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetFlowResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

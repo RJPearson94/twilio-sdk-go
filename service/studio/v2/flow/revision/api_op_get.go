@@ -10,13 +10,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetRevisionOutput struct {
+type GetRevisionResponse struct {
 	Sid           string         `json:"sid"`
 	AccountSid    string         `json:"account_sid"`
 	FriendlyName  string         `json:"friendly_name"`
 	Definition    interface{}    `json:"definition"`
 	Status        string         `json:"status"`
-	Revision      *int           `json:"revision,string"`
+	Revision      int            `json:"revision"`
 	CommitMessage *string        `json:"commit_message,omitempty"`
 	Valid         bool           `json:"valid"`
 	Errors        *[]interface{} `json:"errors,omitempty"`
@@ -27,11 +27,11 @@ type GetRevisionOutput struct {
 	URL           string         `json:"url"`
 }
 
-func (c Client) Get() (*GetRevisionOutput, error) {
+func (c Client) Get() (*GetRevisionResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetRevisionOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetRevisionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Flows/{flowSid}/Revisions/{revisionNumber}",
@@ -41,9 +41,9 @@ func (c Client) GetWithContext(context context.Context) (*GetRevisionOutput, err
 		},
 	}
 
-	output := &GetRevisionOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetRevisionResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
