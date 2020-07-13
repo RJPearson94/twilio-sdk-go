@@ -18,7 +18,7 @@ type UpdateCredentialInput struct {
 	Secret       *string `form:"Secret,omitempty"`
 }
 
-type UpdateCredentialOutput struct {
+type UpdateCredentialResponse struct {
 	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	FriendlyName *string    `json:"friendly_name,omitempty"`
@@ -29,11 +29,11 @@ type UpdateCredentialOutput struct {
 	URL          string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateCredentialInput) (*UpdateCredentialOutput, error) {
+func (c Client) Update(input *UpdateCredentialInput) (*UpdateCredentialResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateCredentialInput) (*UpdateCredentialOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateCredentialInput) (*UpdateCredentialResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Credentials/{sid}",
@@ -43,9 +43,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateCredenti
 		},
 	}
 
-	output := &UpdateCredentialOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateCredentialResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

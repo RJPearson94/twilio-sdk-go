@@ -14,31 +14,76 @@ import (
 )
 
 type Client struct {
-	client     *client.Client
-	serviceSid string
+	client *client.Client
+
 	sid        string
-	Invites    *invites.Client
-	Invite     func(string) *invite.Client
-	Members    *members.Client
-	Member     func(string) *member.Client
-	Messages   *messages.Client
-	Message    func(string) *message.Client
-	Webhooks   *webhooks.Client
-	Webhook    func(string) *webhook.Client
+	serviceSid string
+
+	Invites  *invites.Client
+	Invite   func(string) *invite.Client
+	Members  *members.Client
+	Member   func(string) *member.Client
+	Messages *messages.Client
+	Message  func(string) *message.Client
+	Webhooks *webhooks.Client
+	Webhook  func(string) *webhook.Client
 }
 
-func New(client *client.Client, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	Sid        string
+	ServiceSid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:     client,
-		serviceSid: serviceSid,
-		sid:        sid,
-		Invites:    invites.New(client, sid, serviceSid),
-		Invite:     func(inviteSid string) *invite.Client { return invite.New(client, sid, serviceSid, inviteSid) },
-		Members:    members.New(client, sid, serviceSid),
-		Member:     func(memberSid string) *member.Client { return member.New(client, sid, serviceSid, memberSid) },
-		Messages:   messages.New(client, sid, serviceSid),
-		Message:    func(messageSid string) *message.Client { return message.New(client, sid, serviceSid, messageSid) },
-		Webhooks:   webhooks.New(client, sid, serviceSid),
-		Webhook:    func(webhookSid string) *webhook.Client { return webhook.New(client, sid, serviceSid, webhookSid) },
+		client: client,
+
+		sid:        properties.Sid,
+		serviceSid: properties.ServiceSid,
+
+		Invites: invites.New(client, invites.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			ChannelSid: properties.Sid,
+		}),
+		Invite: func(inviteSid string) *invite.Client {
+			return invite.New(client, invite.ClientProperties{
+				ServiceSid: properties.ServiceSid,
+				Sid:        inviteSid,
+				ChannelSid: properties.Sid,
+			})
+		},
+		Members: members.New(client, members.ClientProperties{
+			ChannelSid: properties.Sid,
+			ServiceSid: properties.ServiceSid,
+		}),
+		Member: func(memberSid string) *member.Client {
+			return member.New(client, member.ClientProperties{
+				Sid:        memberSid,
+				ChannelSid: properties.Sid,
+				ServiceSid: properties.ServiceSid,
+			})
+		},
+		Messages: messages.New(client, messages.ClientProperties{
+			ChannelSid: properties.Sid,
+			ServiceSid: properties.ServiceSid,
+		}),
+		Message: func(messageSid string) *message.Client {
+			return message.New(client, message.ClientProperties{
+				ChannelSid: properties.Sid,
+				ServiceSid: properties.ServiceSid,
+				Sid:        messageSid,
+			})
+		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			ChannelSid: properties.Sid,
+		}),
+		Webhook: func(webhookSid string) *webhook.Client {
+			return webhook.New(client, webhook.ClientProperties{
+				Sid:        webhookSid,
+				ChannelSid: properties.Sid,
+				ServiceSid: properties.ServiceSid,
+			})
+		},
 	}
 }

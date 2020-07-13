@@ -18,7 +18,7 @@ type UpdateChannelWebhookInput struct {
 	ConfigurationRetryCount *int      `form:"Configuration.RetryCount,omitempty"`
 }
 
-type UpdateChannelWebhookOutputConfiguration struct {
+type UpdateChannelWebhookResponseConfiguration struct {
 	Url        *string   `json:"url,omitempty"`
 	Method     *string   `json:"method,omitempty"`
 	Filters    *[]string `json:"filters,omitempty"`
@@ -27,23 +27,23 @@ type UpdateChannelWebhookOutputConfiguration struct {
 	RetryCount *int      `json:"retry_count,omitempty"`
 }
 
-type UpdateChannelWebhookOutput struct {
-	Sid           string                                  `json:"sid"`
-	AccountSid    string                                  `json:"account_sid"`
-	ServiceSid    string                                  `json:"service_sid"`
-	ChannelSid    string                                  `json:"channel_sid"`
-	Type          string                                  `json:"type"`
-	Configuration UpdateChannelWebhookOutputConfiguration `json:"configuration"`
-	DateCreated   time.Time                               `json:"date_created"`
-	DateUpdated   *time.Time                              `json:"date_updated,omitempty"`
-	URL           string                                  `json:"url"`
+type UpdateChannelWebhookResponse struct {
+	Sid           string                                    `json:"sid"`
+	AccountSid    string                                    `json:"account_sid"`
+	ServiceSid    string                                    `json:"service_sid"`
+	ChannelSid    string                                    `json:"channel_sid"`
+	Type          string                                    `json:"type"`
+	Configuration UpdateChannelWebhookResponseConfiguration `json:"configuration"`
+	DateCreated   time.Time                                 `json:"date_created"`
+	DateUpdated   *time.Time                                `json:"date_updated,omitempty"`
+	URL           string                                    `json:"url"`
 }
 
-func (c Client) Update(input *UpdateChannelWebhookInput) (*UpdateChannelWebhookOutput, error) {
+func (c Client) Update(input *UpdateChannelWebhookInput) (*UpdateChannelWebhookResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelWebhookInput) (*UpdateChannelWebhookOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelWebhookInput) (*UpdateChannelWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
@@ -55,9 +55,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelW
 		},
 	}
 
-	output := &UpdateChannelWebhookOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateChannelWebhookResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

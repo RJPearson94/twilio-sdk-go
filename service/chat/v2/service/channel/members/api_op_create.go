@@ -19,7 +19,7 @@ type CreateChannelMemberInput struct {
 	Attributes               *string    `form:"Attributes,omitempty"`
 }
 
-type CreateChannelMemberOutput struct {
+type CreateChannelMemberResponse struct {
 	Sid                      string     `json:"sid"`
 	AccountSid               string     `json:"account_sid"`
 	ServiceSid               string     `json:"service_sid"`
@@ -34,11 +34,11 @@ type CreateChannelMemberOutput struct {
 	URL                      string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateChannelMemberInput) (*CreateChannelMemberOutput, error) {
+func (c Client) Create(input *CreateChannelMemberInput) (*CreateChannelMemberResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateChannelMemberInput) (*CreateChannelMemberOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateChannelMemberInput) (*CreateChannelMemberResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Channels/{channelSid}/Members",
@@ -49,9 +49,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateChannelM
 		},
 	}
 
-	output := &CreateChannelMemberOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateChannelMemberResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

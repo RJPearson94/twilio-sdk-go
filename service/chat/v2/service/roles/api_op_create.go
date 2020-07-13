@@ -15,7 +15,7 @@ type CreateRoleInput struct {
 	Permission   []string `validate:"required" form:"Permission"`
 }
 
-type CreateRoleOutput struct {
+type CreateRoleResponse struct {
 	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	ServiceSid   string     `json:"service_sid"`
@@ -27,11 +27,11 @@ type CreateRoleOutput struct {
 	URL          string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateRoleInput) (*CreateRoleOutput, error) {
+func (c Client) Create(input *CreateRoleInput) (*CreateRoleResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateRoleInput) (*CreateRoleOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateRoleInput) (*CreateRoleResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Roles",
@@ -41,9 +41,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateRoleInpu
 		},
 	}
 
-	output := &CreateRoleOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateRoleResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

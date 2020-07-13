@@ -34,11 +34,19 @@ func New(sess *session.Session) *Chat {
 
 func NewWithClient(client *client.Client) *Chat {
 	return &Chat{
-		client:      client,
-		Services:    services.New(client),
-		Service:     func(sid string) *service.Client { return service.New(client, sid) },
+		client:   client,
+		Services: services.New(client),
+		Service: func(sid string) *service.Client {
+			return service.New(client, service.ClientProperties{
+				Sid: sid,
+			})
+		},
 		Credentials: v2Credentials.New(client),
-		Credential:  func(sid string) *v2Credential.Client { return v2Credential.New(client, sid) },
+		Credential: func(sid string) *v2Credential.Client {
+			return v2Credential.New(client, v2Credential.ClientProperties{
+				Sid: sid,
+			})
+		},
 	}
 }
 

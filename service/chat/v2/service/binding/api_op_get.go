@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetBindingOutput struct {
+type GetBindingResponse struct {
 	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
 	CredentialSid *string    `json:"credential_sid,omitempty"`
@@ -23,11 +23,11 @@ type GetBindingOutput struct {
 	URL           string     `json:"url"`
 }
 
-func (c Client) Get() (*GetBindingOutput, error) {
+func (c Client) Get() (*GetBindingResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetBindingOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetBindingResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Bindings/{sid}",
@@ -37,9 +37,9 @@ func (c Client) GetWithContext(context context.Context) (*GetBindingOutput, erro
 		},
 	}
 
-	output := &GetBindingOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetBindingResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

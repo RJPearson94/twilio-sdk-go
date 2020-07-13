@@ -16,7 +16,7 @@ type CreateUserInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-type CreateUserOutput struct {
+type CreateUserResponse struct {
 	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
 	ServiceSid          string     `json:"service_sid"`
@@ -32,11 +32,11 @@ type CreateUserOutput struct {
 	URL                 string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateUserInput) (*CreateUserOutput, error) {
+func (c Client) Create(input *CreateUserInput) (*CreateUserResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateUserInput) (*CreateUserOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateUserInput) (*CreateUserResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Users",
@@ -46,9 +46,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateUserInpu
 		},
 	}
 
-	output := &CreateUserOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateUserResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

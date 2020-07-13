@@ -8,19 +8,40 @@ import (
 )
 
 type Client struct {
-	client     *client.Client
+	client *client.Client
+
 	serviceSid string
 	sid        string
-	Binding    func(string) *binding.Client
-	Channel    func(string) *channel.Client
+
+	Binding func(string) *binding.Client
+	Channel func(string) *channel.Client
 }
 
-func New(client *client.Client, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	ServiceSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:     client,
-		serviceSid: serviceSid,
-		sid:        sid,
-		Binding:    func(bindingSid string) *binding.Client { return binding.New(client, serviceSid, bindingSid, sid) },
-		Channel:    func(channelSid string) *channel.Client { return channel.New(client, serviceSid, channelSid, sid) },
+		client: client,
+
+		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
+
+		Binding: func(bindingSid string) *binding.Client {
+			return binding.New(client, binding.ClientProperties{
+				Sid:        bindingSid,
+				UserSid:    properties.Sid,
+				ServiceSid: properties.ServiceSid,
+			})
+		},
+		Channel: func(channelSid string) *channel.Client {
+			return channel.New(client, channel.ClientProperties{
+				ServiceSid: properties.ServiceSid,
+				Sid:        channelSid,
+				UserSid:    properties.Sid,
+			})
+		},
 	}
 }

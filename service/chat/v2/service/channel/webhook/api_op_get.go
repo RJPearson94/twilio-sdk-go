@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetChannelWebhookOutputConfiguration struct {
+type GetChannelWebhookResponseConfiguration struct {
 	Url        *string   `json:"url,omitempty"`
 	Method     *string   `json:"method,omitempty"`
 	Filters    *[]string `json:"filters,omitempty"`
@@ -18,23 +18,23 @@ type GetChannelWebhookOutputConfiguration struct {
 	RetryCount *int      `json:"retry_count,omitempty"`
 }
 
-type GetChannelWebhookOutput struct {
-	Sid           string                               `json:"sid"`
-	AccountSid    string                               `json:"account_sid"`
-	ServiceSid    string                               `json:"service_sid"`
-	ChannelSid    string                               `json:"channel_sid"`
-	Type          string                               `json:"type"`
-	Configuration GetChannelWebhookOutputConfiguration `json:"configuration"`
-	DateCreated   time.Time                            `json:"date_created"`
-	DateUpdated   *time.Time                           `json:"date_updated,omitempty"`
-	URL           string                               `json:"url"`
+type GetChannelWebhookResponse struct {
+	Sid           string                                 `json:"sid"`
+	AccountSid    string                                 `json:"account_sid"`
+	ServiceSid    string                                 `json:"service_sid"`
+	ChannelSid    string                                 `json:"channel_sid"`
+	Type          string                                 `json:"type"`
+	Configuration GetChannelWebhookResponseConfiguration `json:"configuration"`
+	DateCreated   time.Time                              `json:"date_created"`
+	DateUpdated   *time.Time                             `json:"date_updated,omitempty"`
+	URL           string                                 `json:"url"`
 }
 
-func (c Client) Get() (*GetChannelWebhookOutput, error) {
+func (c Client) Get() (*GetChannelWebhookResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetChannelWebhookOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetChannelWebhookResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
@@ -45,9 +45,9 @@ func (c Client) GetWithContext(context context.Context) (*GetChannelWebhookOutpu
 		},
 	}
 
-	output := &GetChannelWebhookOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetChannelWebhookResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

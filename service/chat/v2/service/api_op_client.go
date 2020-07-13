@@ -13,8 +13,10 @@ import (
 )
 
 type Client struct {
-	client   *client.Client
-	sid      string
+	client *client.Client
+
+	sid string
+
 	Binding  func(string) *binding.Client
 	Channels *channels.Client
 	Channel  func(string) *channel.Client
@@ -24,16 +26,48 @@ type Client struct {
 	User     func(string) *user.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:   client,
-		sid:      sid,
-		Binding:  func(bindingSid string) *binding.Client { return binding.New(client, sid, bindingSid) },
-		Channels: channels.New(client, sid),
-		Channel:  func(channelSid string) *channel.Client { return channel.New(client, sid, channelSid) },
-		Roles:    roles.New(client, sid),
-		Role:     func(roleSid string) *role.Client { return role.New(client, sid, roleSid) },
-		Users:    users.New(client, sid),
-		User:     func(userSid string) *user.Client { return user.New(client, sid, userSid) },
+		client: client,
+
+		sid: properties.Sid,
+
+		Binding: func(bindingSid string) *binding.Client {
+			return binding.New(client, binding.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        bindingSid,
+			})
+		},
+		Channels: channels.New(client, channels.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Channel: func(channelSid string) *channel.Client {
+			return channel.New(client, channel.ClientProperties{
+				Sid:        channelSid,
+				ServiceSid: properties.Sid,
+			})
+		},
+		Roles: roles.New(client, roles.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Role: func(roleSid string) *role.Client {
+			return role.New(client, role.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        roleSid,
+			})
+		},
+		Users: users.New(client, users.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		User: func(userSid string) *user.Client {
+			return user.New(client, user.ClientProperties{
+				Sid:        userSid,
+				ServiceSid: properties.Sid,
+			})
+		},
 	}
 }

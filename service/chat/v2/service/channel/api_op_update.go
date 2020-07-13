@@ -18,7 +18,7 @@ type UpdateChannelInput struct {
 	CreatedBy    *string    `form:"CreatedBy,omitempty"`
 }
 
-type UpdateChannelOutput struct {
+type UpdateChannelResponse struct {
 	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
 	ServiceSid    string     `json:"service_sid"`
@@ -34,11 +34,11 @@ type UpdateChannelOutput struct {
 	URL           string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateChannelInput) (*UpdateChannelOutput, error) {
+func (c Client) Update(input *UpdateChannelInput) (*UpdateChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelInput) (*UpdateChannelOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelInput) (*UpdateChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Channels/{sid}",
@@ -49,9 +49,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelI
 		},
 	}
 
-	output := &UpdateChannelOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateChannelResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

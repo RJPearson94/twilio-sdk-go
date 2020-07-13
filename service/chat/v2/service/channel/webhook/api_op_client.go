@@ -4,17 +4,25 @@ package webhook
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client     *client.Client
+	client *client.Client
+
 	channelSid string
 	serviceSid string
 	sid        string
 }
 
-func New(client *client.Client, channelSid string, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	ChannelSid string
+	ServiceSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:     client,
-		channelSid: channelSid,
-		serviceSid: serviceSid,
-		sid:        sid,
+		client: client,
+
+		channelSid: properties.ChannelSid,
+		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
 	}
 }

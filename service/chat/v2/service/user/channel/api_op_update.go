@@ -15,7 +15,7 @@ type UpdateUserChannelInput struct {
 	LastConsumptionTimestamp *time.Time `form:"LastConsumptionTimestamp,omitempty"`
 }
 
-type UpdateUserChannelOutput struct {
+type UpdateUserChannelResponse struct {
 	AccountSid               string  `json:"account_sid"`
 	ServiceSid               string  `json:"service_sid"`
 	ChannelSid               string  `json:"channel_sid"`
@@ -28,11 +28,11 @@ type UpdateUserChannelOutput struct {
 	URL                      string  `json:"url"`
 }
 
-func (c Client) Update(input *UpdateUserChannelInput) (*UpdateUserChannelOutput, error) {
+func (c Client) Update(input *UpdateUserChannelInput) (*UpdateUserChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateUserChannelInput) (*UpdateUserChannelOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateUserChannelInput) (*UpdateUserChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Users/{userSid}/Channels/{sid}",
@@ -44,9 +44,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateUserChan
 		},
 	}
 
-	output := &UpdateUserChannelOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateUserChannelResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
