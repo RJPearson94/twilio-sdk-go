@@ -48,8 +48,8 @@ func (c Client) Create(input *CreateShortCodeInput) (*CreateShortCodeOutput, err
 
 func (c Client) CreateWithContext(context context.Context, input *CreateShortCodeInput) (*CreateShortCodeOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/ShortCodes",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/ShortCodes",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

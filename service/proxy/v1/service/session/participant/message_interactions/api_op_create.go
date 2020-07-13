@@ -43,8 +43,8 @@ func (c Client) Create(input *CreateMessageInteractionInput) (*CreateMessageInte
 
 func (c Client) CreateWithContext(context context.Context, input *CreateMessageInteractionInput) (*CreateMessageInteractionOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Sessions/{sessionSid}/Participants/{participantSid}/MessageInteractions",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Sessions/{sessionSid}/Participants/{participantSid}/MessageInteractions",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid":     c.serviceSid,

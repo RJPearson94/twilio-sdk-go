@@ -46,8 +46,8 @@ func (c Client) Get() (*GetPhoneNumberOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetPhoneNumberOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/PhoneNumbers/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/PhoneNumbers/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

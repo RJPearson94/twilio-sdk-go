@@ -33,8 +33,8 @@ func (c Client) Get() (*GetSessionOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetSessionOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Sessions/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Sessions/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

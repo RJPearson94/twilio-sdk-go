@@ -48,8 +48,8 @@ func (c Client) Update(input *UpdateShortCodeInput) (*UpdateShortCodeOutput, err
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateShortCodeInput) (*UpdateShortCodeOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/ShortCodes/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/ShortCodes/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

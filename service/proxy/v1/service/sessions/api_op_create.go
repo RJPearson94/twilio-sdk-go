@@ -42,8 +42,8 @@ func (c Client) Create(input *CreateSessionInput) (*CreateSessionOutput, error) 
 
 func (c Client) CreateWithContext(context context.Context, input *CreateSessionInput) (*CreateSessionOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Sessions",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Sessions",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

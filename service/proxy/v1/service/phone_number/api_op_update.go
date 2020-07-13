@@ -50,8 +50,8 @@ func (c Client) Update(input *UpdatePhoneNumberInput) (*UpdatePhoneNumberOutput,
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdatePhoneNumberInput) (*UpdatePhoneNumberOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/PhoneNumbers/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/PhoneNumbers/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

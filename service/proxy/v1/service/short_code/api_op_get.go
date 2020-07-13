@@ -44,8 +44,8 @@ func (c Client) Get() (*GetShortCodeOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetShortCodeOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/ShortCodes/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/ShortCodes/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,
