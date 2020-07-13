@@ -36,8 +36,8 @@ func (c Client) Get() (*GetChannelWebhookOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetChannelWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"channelSid": c.channelSid,

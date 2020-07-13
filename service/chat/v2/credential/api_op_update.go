@@ -35,8 +35,8 @@ func (c Client) Update(input *UpdateCredentialInput) (*UpdateCredentialOutput, e
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateCredentialInput) (*UpdateCredentialOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Credentials/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Credentials/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"sid": c.sid,

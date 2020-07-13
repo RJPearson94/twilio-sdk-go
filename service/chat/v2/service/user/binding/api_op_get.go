@@ -30,8 +30,8 @@ func (c Client) Get() (*GetUserBindingOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetUserBindingOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Users/{userSid}/Bindings/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Users/{userSid}/Bindings/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"userSid":    c.userSid,

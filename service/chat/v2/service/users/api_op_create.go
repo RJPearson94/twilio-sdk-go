@@ -38,8 +38,8 @@ func (c Client) Create(input *CreateUserInput) (*CreateUserOutput, error) {
 
 func (c Client) CreateWithContext(context context.Context, input *CreateUserInput) (*CreateUserOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Users",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Users",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

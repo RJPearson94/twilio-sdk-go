@@ -29,8 +29,8 @@ func (c Client) Get() (*GetBindingOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetBindingOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Bindings/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Bindings/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

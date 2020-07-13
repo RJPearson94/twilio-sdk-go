@@ -27,8 +27,8 @@ func (c Client) Get() (*GetRoleOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetRoleOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Services/{serviceSid}/Roles/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Services/{serviceSid}/Roles/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 			"sid":        c.sid,

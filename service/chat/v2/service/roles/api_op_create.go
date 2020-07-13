@@ -33,8 +33,8 @@ func (c Client) Create(input *CreateRoleInput) (*CreateRoleOutput, error) {
 
 func (c Client) CreateWithContext(context context.Context, input *CreateRoleInput) (*CreateRoleOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Roles",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Roles",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

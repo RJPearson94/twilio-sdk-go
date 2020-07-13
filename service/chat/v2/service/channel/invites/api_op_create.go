@@ -33,8 +33,8 @@ func (c Client) Create(input *CreateChannelInviteInput) (*CreateChannelInviteOut
 
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelInviteInput) (*CreateChannelInviteOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Channels/{channelSid}/Invites",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Channels/{channelSid}/Invites",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

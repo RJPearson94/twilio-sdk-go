@@ -41,8 +41,8 @@ func (c Client) Create(input *CreateChannelInput) (*CreateChannelOutput, error) 
 
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelInput) (*CreateChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Channels",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Channels",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

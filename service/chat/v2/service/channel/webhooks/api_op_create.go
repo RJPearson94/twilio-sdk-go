@@ -46,8 +46,8 @@ func (c Client) Create(input *CreateChannelWebhookInput) (*CreateChannelWebhookO
 
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelWebhookInput) (*CreateChannelWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Channels/{channelSid}/Webhooks",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Channels/{channelSid}/Webhooks",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

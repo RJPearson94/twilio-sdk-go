@@ -45,8 +45,8 @@ func (c Client) Update(input *UpdateChannelWebhookInput) (*UpdateChannelWebhookO
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelWebhookInput) (*UpdateChannelWebhookOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

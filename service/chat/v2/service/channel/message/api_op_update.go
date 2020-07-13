@@ -43,8 +43,8 @@ func (c Client) Update(input *UpdateChannelMessageInput) (*UpdateChannelMessageO
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelMessageInput) (*UpdateChannelMessageOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Services/{serviceSid}/Channels/{channelSid}/Messages/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Services/{serviceSid}/Channels/{channelSid}/Messages/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,

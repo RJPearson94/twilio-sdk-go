@@ -36,8 +36,8 @@ func (c Client) Create(input *CreateCredentialInput) (*CreateCredentialOutput, e
 
 func (c Client) CreateWithContext(context context.Context, input *CreateCredentialInput) (*CreateCredentialOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Credentials",
+		Method:      http.MethodPost,
+		URI:         "/Credentials",
 		ContentType: client.URLEncoded,
 	}
 

@@ -26,8 +26,8 @@ func (c Client) Get() (*GetCredentialOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetCredentialOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Credentials/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Credentials/{sid}",
 		PathParams: map[string]string{
 			"sid": c.sid,
 		},
