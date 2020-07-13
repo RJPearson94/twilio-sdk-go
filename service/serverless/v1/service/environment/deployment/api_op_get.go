@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetDeploymentOutput struct {
+type GetDeploymentResponse struct {
 	Sid            string     `json:"sid"`
 	AccountSid     string     `json:"account_sid"`
 	ServiceSid     string     `json:"service_sid"`
@@ -20,11 +20,11 @@ type GetDeploymentOutput struct {
 	URL            string     `json:"url"`
 }
 
-func (c Client) Get() (*GetDeploymentOutput, error) {
+func (c Client) Get() (*GetDeploymentResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetDeploymentOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetDeploymentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Environments/{environmentSid}/Deployments/{sid}",
@@ -35,9 +35,9 @@ func (c Client) GetWithContext(context context.Context) (*GetDeploymentOutput, e
 		},
 	}
 
-	output := &GetDeploymentOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetDeploymentResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

@@ -1,2743 +1,2892 @@
-[
-  {
-    "name": "Services",
-    "operations": [
-      {
-        "name": "Create",
-        "path": "/Services",
-        "httpMethod": "Post",
-        "input": {
-          "name": "CreateServiceInput",
-          "type": "URLEncoded",
-          "properties": [
-            {
-              "name": "UniqueName",
-              "type": "string",
-              "value": "UniqueName",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "FriendlyName",
-              "required": true
-            },
-            {
-              "name": "IncludeCredentials",
-              "type": "bool",
-              "value": "IncludeCredentials",
-              "required": false
-            },
-            {
-              "name": "UiEditable",
-              "type": "bool",
-              "value": "UiEditable",
-              "required": false
-            }
-          ]
-        },
-        "response": {
-          "name": "CreateServiceOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
-            },
-            {
-              "name": "AccountSid",
-              "type": "string",
-              "value": "account_sid",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "UniqueName",
-              "type": "string",
-              "value": "unique_name",
-              "required": true
-            },
-            {
-              "name": "IncludeCredentials",
-              "type": "bool",
-              "value": "include_credentials",
-              "required": true
-            },
-            {
-              "name": "UiEditable",
-              "type": "bool",
-              "value": "ui_editable",
-              "required": true
-            },
-            {
-              "name": "DateCreated",
-              "type": "time.Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "time.Time",
-              "value": "date_updated",
-              "required": false
-            },
-            {
-              "name": "URL",
-              "type": "string",
-              "value": "url",
-              "required": true
-            }
-          ]
-        }
-      }
-    ]
+{
+  "packageName": "v1",
+  "name": "Serverless",
+  "config": {
+    "includeDefaults": true,
+    "beta": true,
+    "subDomain": "serverless",
+    "apiVersion": "v1"
   },
-  {
-    "name": "Service",
-    "properties": {
-      "sid": {
-        "dataType": "string"
-      }
-    },
-    "subClients": [
-      {
-        "name": "Environments",
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Create",
-            "path": "/Services/{serviceSid}/Environments",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              }
-            ],
-            "input": {
-              "name": "CreateEnvironmentInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "UniqueName",
-                  "type": "string",
-                  "value": "UniqueName",
-                  "required": true
-                },
-                {
-                  "name": "DomainSuffix",
-                  "type": "string",
-                  "value": "DomainSuffix",
-                  "required": false
-                }
-              ]
-            },
-            "response": {
-              "name": "CreateEnvironmentOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "BuildSid",
-                  "type": "string",
-                  "value": "build_sid",
-                  "required": false
-                },
-                {
-                  "name": "UniqueName",
-                  "type": "string",
-                  "value": "unique_name",
-                  "required": true
-                },
-                {
-                  "name": "DomainSuffix",
-                  "type": "string",
-                  "value": "domain_suffix",
-                  "required": false
-                },
-                {
-                  "name": "DomainName",
-                  "type": "string",
-                  "value": "domain_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Environment",
-        "function": {
-          "parameters": {
-            "environmentSid": {
-              "dataType": "string"
-            }
-          }
-        },
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
+  "subClients": [
+    {
+      "name": "Services",
+      "packageName": "services",
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Services",
+            "method": "Post"
           },
-          "sid": {
-            "dataType": "string",
-            "functionParameter": "environmentSid"
-          }
-        },
-        "subClients": [
-          {
-            "name": "Variables",
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
-              },
-              "environmentSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              }
-            },
-            "operations": [
+          "input": {
+            "name": "CreateServiceInput",
+            "type": "URLEncoded",
+            "properties": [
               {
-                "name": "Create",
-                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables",
-                "httpMethod": "Post",
-                "pathParams": [
-                  {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "environmentSid",
-                    "value": {
-                      "onService": true,
-                      "property": "environmentSid"
-                    }
-                  }
-                ],
-                "input": {
-                  "name": "CreateVariableInput",
-                  "type": "URLEncoded",
-                  "properties": [
-                    {
-                      "name": "Key",
-                      "type": "string",
-                      "value": "Key",
-                      "required": true
-                    },
-                    {
-                      "name": "Value",
-                      "type": "string",
-                      "value": "Value",
-                      "required": true
-                    }
-                  ]
-                },
-                "response": {
-                  "name": "CreateVariableOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "EnvironmentSid",
-                      "type": "string",
-                      "value": "environment_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Key",
-                      "type": "string",
-                      "value": "key",
-                      "required": true
-                    },
-                    {
-                      "name": "Value",
-                      "type": "string",
-                      "value": "value",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "DateUpdated",
-                      "type": "time.Time",
-                      "value": "date_updated",
-                      "required": false
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
+                "name": "UniqueName",
+                "type": "string",
+                "value": "UniqueName",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": true
+              },
+              {
+                "name": "IncludeCredentials",
+                "type": "bool",
+                "value": "IncludeCredentials",
+                "required": false
+              },
+              {
+                "name": "UiEditable",
+                "type": "bool",
+                "value": "UiEditable",
+                "required": false
               }
             ]
           },
-          {
-            "name": "Variable",
-            "function": {
-              "parameters": {
-                "variableSid": {
-                  "dataType": "string"
-                }
+          "response": {
+            "name": "CreateServiceResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "UniqueName",
+                "type": "string",
+                "value": "unique_name",
+                "required": true
+              },
+              {
+                "name": "IncludeCredentials",
+                "type": "bool",
+                "value": "include_credentials",
+                "required": true
+              },
+              {
+                "name": "UiEditable",
+                "type": "bool",
+                "value": "ui_editable",
+                "required": true
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
               }
-            },
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
-              },
-              "environmentSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              },
-              "sid": {
-                "dataType": "string",
-                "functionParameter": "variableSid"
-              }
-            },
-            "operations": [
-              {
-                "name": "Get",
-                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
-                "httpMethod": "Get",
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "packageName": "service",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "subClients": [
+        {
+          "name": "Environments",
+          "packageName": "environments",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Environments",
+                "method": "Post",
                 "pathParams": [
                   {
-                    "pathParamName": "serviceSid",
+                    "name": "serviceSid",
                     "value": {
                       "onService": true,
+                      "type": "string",
                       "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "environmentSid",
-                    "value": {
-                      "onService": true,
-                      "property": "environmentSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
-                      "property": "sid"
-                    }
-                  }
-                ],
-                "response": {
-                  "name": "GetVariableOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "EnvironmentSid",
-                      "type": "string",
-                      "value": "environment_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Key",
-                      "type": "string",
-                      "value": "key",
-                      "required": true
-                    },
-                    {
-                      "name": "Value",
-                      "type": "string",
-                      "value": "value",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "DateUpdated",
-                      "type": "time.Time",
-                      "value": "date_updated",
-                      "required": false
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
-              },
-              {
-                "name": "Update",
-                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
-                "httpMethod": "Post",
-                "pathParams": [
-                  {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "environmentSid",
-                    "value": {
-                      "onService": true,
-                      "property": "environmentSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
-                      "property": "sid"
-                    }
-                  }
-                ],
-                "input": {
-                  "name": "UpdateVariableInput",
-                  "type": "URLEncoded",
-                  "properties": [
-                    {
-                      "name": "Key",
-                      "type": "string",
-                      "value": "Key",
-                      "required": false
-                    },
-                    {
-                      "name": "Value",
-                      "type": "string",
-                      "value": "Value",
-                      "required": false
-                    }
-                  ]
-                },
-                "response": {
-                  "name": "UpdateVariableOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "EnvironmentSid",
-                      "type": "string",
-                      "value": "environment_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Key",
-                      "type": "string",
-                      "value": "key",
-                      "required": true
-                    },
-                    {
-                      "name": "Value",
-                      "type": "string",
-                      "value": "value",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "DateUpdated",
-                      "type": "time.Time",
-                      "value": "date_updated",
-                      "required": false
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
-              },
-              {
-                "name": "Delete",
-                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
-                "httpMethod": "Delete",
-                "pathParams": [
-                  {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "environmentSid",
-                    "value": {
-                      "onService": true,
-                      "property": "environmentSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
-                      "property": "sid"
                     }
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "name": "Deployments",
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
               },
+              "input": {
+                "name": "CreateEnvironmentInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": true
+                  },
+                  {
+                    "name": "DomainSuffix",
+                    "type": "string",
+                    "value": "DomainSuffix",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateEnvironmentResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "BuildSid",
+                    "type": "string",
+                    "value": "build_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DomainSuffix",
+                    "type": "string",
+                    "value": "domain_suffix",
+                    "required": false
+                  },
+                  {
+                    "name": "DomainName",
+                    "type": "string",
+                    "value": "domain_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Environment",
+          "packageName": "environment",
+          "function": {
+            "parameters": {
               "environmentSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
+                "dataType": "string"
               }
-            },
-            "operations": [
-              {
-                "name": "Create",
-                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments",
-                "httpMethod": "Post",
-                "pathParams": [
-                  {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "environmentSid",
-                    "value": {
-                      "onService": true,
-                      "property": "environmentSid"
-                    }
-                  }
-                ],
-                "input": {
-                  "name": "CreateDeploymentInput",
-                  "type": "URLEncoded",
-                  "properties": [
-                    {
-                      "name": "BuildSid",
-                      "type": "string",
-                      "value": "BuildSid",
-                      "required": false
-                    }
-                  ]
-                },
-                "response": {
-                  "name": "CreateDeploymentOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "EnvironmentSid",
-                      "type": "string",
-                      "value": "environment_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "BuildSid",
-                      "type": "string",
-                      "value": "build_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "DateUpdated",
-                      "type": "time.Time",
-                      "value": "date_updated",
-                      "required": false
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "name": "Deployment",
-            "function": {
-              "parameters": {
-                "deploymentSid": {
-                  "dataType": "string"
-                }
-              }
-            },
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
-              },
-              "environmentSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              },
-              "sid": {
-                "dataType": "string",
-                "functionParameter": "deploymentSid"
-              }
-            },
-            "operations": [
-              {
-                "name": "Get",
-                "path": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments/{sid}",
-                "httpMethod": "Get",
-                "pathParams": [
-                  {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "environmentSid",
-                    "value": {
-                      "onService": true,
-                      "property": "environmentSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
-                      "property": "sid"
-                    }
-                  }
-                ],
-                "response": {
-                  "name": "GetDeploymentOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "EnvironmentSid",
-                      "type": "string",
-                      "value": "environment_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "BuildSid",
-                      "type": "string",
-                      "value": "build_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "DateUpdated",
-                      "type": "time.Time",
-                      "value": "date_updated",
-                      "required": false
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Services/{serviceSid}/Environments/{sid}",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "response": {
-              "name": "GetEnvironmentOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "BuildSid",
-                  "type": "string",
-                  "value": "build_sid",
-                  "required": false
-                },
-                {
-                  "name": "UniqueName",
-                  "type": "string",
-                  "value": "unique_name",
-                  "required": true
-                },
-                {
-                  "name": "DomainSuffix",
-                  "type": "string",
-                  "value": "domain_suffix",
-                  "required": false
-                },
-                {
-                  "name": "DomainName",
-                  "type": "string",
-                  "value": "domain_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
             }
           },
-          {
-            "name": "Delete",
-            "path": "/Services/{serviceSid}/Environments/{sid}",
-            "httpMethod": "Delete",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Functions",
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Create",
-            "path": "/Services/{serviceSid}/Functions",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              }
-            ],
-            "input": {
-              "name": "CreateFunctionInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "FriendlyName",
-                  "required": true
-                }
-              ]
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
             },
-            "response": {
-              "name": "CreateFunctionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "environmentSid"
             }
-          }
-        ]
-      },
-      {
-        "name": "Function",
-        "function": {
-          "parameters": {
-            "functionSid": {
-              "dataType": "string"
-            }
-          }
-        },
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
           },
-          "sid": {
-            "dataType": "string",
-            "functionParameter": "functionSid"
-          }
-        },
-        "subClients": [
-          {
-            "name": "Versions",
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
-              },
-              "functionSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              }
-            },
-            "operations": [
-              {
-                "name": "Create",
-                "path": "/Services/{serviceSid}/Functions/{functionSid}/Versions",
-                "overrides": {
-                  "subDomain": "serverless-upload",
-                  "apiVersion": "v1"
+          "subClients": [
+            {
+              "name": "Variables",
+              "packageName": "variables",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
                 },
-                "httpMethod": "Post",
-                "pathParams": [
-                  {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "functionSid",
-                    "value": {
-                      "onService": true,
-                      "property": "functionSid"
-                    }
-                  }
-                ],
-                "input": {
-                  "name": "CreateVersionInput",
-                  "type": "FormData",
-                  "additionalStructs": [
-                    {
-                      "name": "ContentDetails",
-                      "properties": [
-                        {
-                          "name": "Body",
-                          "type": "io.ReadSeeker",
-                          "value": "Body",
-                          "required": true
-                        },
-                        {
-                          "name": "FileName",
-                          "type": "string",
-                          "value": "FileName",
-                          "required": true
-                        },
-                        {
-                          "name": "ContentType",
-                          "type": "string",
-                          "value": "ContentType",
-                          "required": true
-                        }
-                      ]
-                    }
-                  ],
-                  "properties": [
-                    {
-                      "name": "Content",
-                      "type": "ContentDetails",
-                      "value": "Content",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "Path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "Visibility",
-                      "required": true
-                    }
-                  ]
-                },
-                "response": {
-                  "name": "CreateVersionOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "FunctionSid",
-                      "type": "string",
-                      "value": "function_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
+                "environmentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
                 }
-              }
-            ]
-          },
-          {
-            "name": "Version",
-            "function": {
-              "parameters": {
-                "versionSid": {
-                  "dataType": "string"
-                }
-              }
-            },
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
               },
-              "functionSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              },
-              "sid": {
-                "dataType": "string",
-                "functionParameter": "versionSid"
-              }
-            },
-            "subClients": [
-              {
-                "name": "Content",
-                "properties": {
-                  "serviceSid": {
-                    "dataType": "string",
-                    "parentProperty": "serviceSid"
-                  },
-                  "functionSid": {
-                    "dataType": "string",
-                    "parentProperty": "functionSid"
-                  },
-                  "versionSid": {
-                    "dataType": "string",
-                    "parentProperty": "sid"
-                  }
-                },
-                "operations": [
-                  {
-                    "name": "Get",
-                    "path": "/Services/{serviceSid}/Functions/{functionSid}/Versions/{versionSid}/Content",
-                    "httpMethod": "Get",
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Variables",
+                    "method": "Post",
                     "pathParams": [
                       {
-                        "pathParamName": "serviceSid",
+                        "name": "serviceSid",
                         "value": {
                           "onService": true,
+                          "type": "string",
                           "property": "serviceSid"
                         }
                       },
                       {
-                        "pathParamName": "functionSid",
+                        "name": "environmentSid",
                         "value": {
                           "onService": true,
-                          "property": "functionSid"
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateVariableInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Key",
+                        "type": "string",
+                        "value": "Key",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "Value",
+                        "required": true
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateVariableResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "EnvironmentSid",
+                        "type": "string",
+                        "value": "environment_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Key",
+                        "type": "string",
+                        "value": "key",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Variable",
+              "packageName": "variable",
+              "function": {
+                "parameters": {
+                  "variableSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "environmentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "variableSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
                         }
                       },
                       {
-                        "pathParamName": "versionSid",
+                        "name": "environmentSid",
                         "value": {
                           "onService": true,
-                          "property": "versionSid"
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
                         }
                       }
-                    ],
-                    "response": {
-                      "name": "GetContentOutput",
-                      "type": "JSON",
-                      "properties": [
-                        {
-                          "name": "Sid",
+                    ]
+                  },
+                  "response": {
+                    "name": "GetVariableResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "EnvironmentSid",
+                        "type": "string",
+                        "value": "environment_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Key",
+                        "type": "string",
+                        "value": "key",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
                           "type": "string",
-                          "value": "sid",
-                          "required": true
-                        },
-                        {
-                          "name": "AccountSid",
-                          "type": "string",
-                          "value": "account_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "ServiceSid",
-                          "type": "string",
-                          "value": "service_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "FunctionSid",
-                          "type": "string",
-                          "value": "function_sid",
-                          "required": true
-                        },
-                        {
-                          "name": "Content",
-                          "type": "string",
-                          "value": "content",
-                          "required": true
-                        },
-                        {
-                          "name": "URL",
-                          "type": "string",
-                          "value": "url",
-                          "required": true
+                          "property": "serviceSid"
                         }
-                      ]
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "UpdateVariableInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Key",
+                        "type": "string",
+                        "value": "Key",
+                        "required": false
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "Value",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "UpdateVariableResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "EnvironmentSid",
+                        "type": "string",
+                        "value": "environment_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Key",
+                        "type": "string",
+                        "value": "key",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Deployments",
+              "packageName": "deployments",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "environmentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateDeploymentInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "BuildSid",
+                        "type": "string",
+                        "value": "BuildSid",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateDeploymentResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "EnvironmentSid",
+                        "type": "string",
+                        "value": "environment_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "BuildSid",
+                        "type": "string",
+                        "value": "build_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Deployment",
+              "packageName": "deployment",
+              "function": {
+                "parameters": {
+                  "deploymentSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "environmentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "deploymentSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetDeploymentResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "EnvironmentSid",
+                        "type": "string",
+                        "value": "environment_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "BuildSid",
+                        "type": "string",
+                        "value": "build_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Environments/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetEnvironmentResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "BuildSid",
+                    "type": "string",
+                    "value": "build_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DomainSuffix",
+                    "type": "string",
+                    "value": "domain_suffix",
+                    "required": false
+                  },
+                  {
+                    "name": "DomainName",
+                    "type": "string",
+                    "value": "domain_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Environments/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
                     }
                   }
                 ]
               }
-            ],
-            "operations": [
-              {
-                "name": "Get",
-                "path": "/Services/{serviceSid}/Functions/{functionSid}/Versions/{sid}",
-                "httpMethod": "Get",
+            }
+          ]
+        },
+        {
+          "name": "Functions",
+          "packageName": "functions",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Functions",
+                "method": "Post",
                 "pathParams": [
                   {
-                    "pathParamName": "serviceSid",
+                    "name": "serviceSid",
                     "value": {
                       "onService": true,
+                      "type": "string",
                       "property": "serviceSid"
                     }
-                  },
-                  {
-                    "pathParamName": "functionSid",
-                    "value": {
-                      "onService": true,
-                      "property": "functionSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
-                      "property": "sid"
-                    }
                   }
-                ],
-                "response": {
-                  "name": "GetVersionOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "FunctionSid",
-                      "type": "string",
-                      "value": "function_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Services/{serviceSid}/Functions/{sid}",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
+                ]
               },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "response": {
-              "name": "GetFunctionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          },
-          {
-            "name": "Update",
-            "path": "/Services/{serviceSid}/Functions/{sid}",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "input": {
-              "name": "UpdateFunctionInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "FriendlyName",
-                  "required": true
-                }
-              ]
-            },
-            "response": {
-              "name": "UpdateFunctionOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          },
-          {
-            "name": "Delete",
-            "path": "/Services/{serviceSid}/Functions/{sid}",
-            "httpMethod": "Delete",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Assets",
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Create",
-            "path": "/Services/{serviceSid}/Assets",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              }
-            ],
-            "input": {
-              "name": "CreateAssetInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "FriendlyName",
-                  "required": true
-                }
-              ]
-            },
-            "response": {
-              "name": "CreateAssetOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Asset",
-        "function": {
-          "parameters": {
-            "assetSid": {
-              "dataType": "string"
-            }
-          }
-        },
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          },
-          "sid": {
-            "dataType": "string",
-            "functionParameter": "assetSid"
-          }
-        },
-        "subClients": [
-          {
-            "name": "Versions",
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
-              },
-              "assetSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              }
-            },
-            "operations": [
-              {
-                "name": "Create",
-                "path": "/Services/{serviceSid}/Assets/{assetSid}/Versions",
-                "overrides": {
-                  "subDomain": "serverless-upload",
-                  "apiVersion": "v1"
-                },
-                "httpMethod": "Post",
-                "pathParams": [
+              "input": {
+                "name": "CreateFunctionInput",
+                "type": "URLEncoded",
+                "properties": [
                   {
-                    "pathParamName": "serviceSid",
-                    "value": {
-                      "onService": true,
-                      "property": "serviceSid"
-                    }
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": true
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateFunctionResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
                   },
                   {
-                    "pathParamName": "assetSid",
-                    "value": {
-                      "onService": true,
-                      "property": "assetSid"
-                    }
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
                   }
-                ],
-                "input": {
-                  "name": "CreateVersionInput",
-                  "type": "FormData",
-                  "additionalStructs": [
-                    {
-                      "name": "ContentDetails",
-                      "properties": [
-                        {
-                          "name": "Body",
-                          "type": "io.ReadSeeker",
-                          "value": "Body",
-                          "required": true
-                        },
-                        {
-                          "name": "FileName",
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Function",
+          "packageName": "function",
+          "function": {
+            "parameters": {
+              "functionSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "functionSid"
+            }
+          },
+          "subClients": [
+            {
+              "name": "Versions",
+              "packageName": "versions",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "functionSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Functions/{functionSid}/Versions",
+                    "overrides": {
+                      "subDomain": "serverless-upload",
+                      "apiVersion": "v1"
+                    },
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
                           "type": "string",
-                          "value": "FileName",
-                          "required": true
-                        },
-                        {
-                          "name": "ContentType",
-                          "type": "string",
-                          "value": "ContentType",
-                          "required": true
+                          "property": "serviceSid"
                         }
-                      ]
-                    }
-                  ],
-                  "properties": [
-                    {
-                      "name": "Content",
-                      "type": "ContentDetails",
-                      "value": "Content",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "Path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "Visibility",
-                      "required": true
-                    }
-                  ]
+                      },
+                      {
+                        "name": "functionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "functionSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateVersionInput",
+                    "type": "FormData",
+                    "additionalStructs": [
+                      {
+                        "name": "ContentDetails",
+                        "type": "FormData",
+                        "properties": [
+                          {
+                            "name": "Body",
+                            "type": "io.ReadSeeker",
+                            "value": "Body",
+                            "required": true
+                          },
+                          {
+                            "name": "FileName",
+                            "type": "string",
+                            "value": "FileName",
+                            "required": true
+                          },
+                          {
+                            "name": "ContentType",
+                            "type": "string",
+                            "value": "ContentType",
+                            "required": true
+                          }
+                        ]
+                      }
+                    ],
+                    "properties": [
+                      {
+                        "name": "Content",
+                        "type": "ContentDetails",
+                        "value": "Content",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "Path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "Visibility",
+                        "required": true
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateVersionResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FunctionSid",
+                        "type": "string",
+                        "value": "function_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Version",
+              "packageName": "version",
+              "function": {
+                "parameters": {
+                  "versionSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
                 },
-                "response": {
-                  "name": "CreateVersionOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
+                "functionSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "versionSid"
+                }
+              },
+              "subClients": [
+                {
+                  "name": "Content",
+                  "packageName": "content",
+                  "properties": {
+                    "serviceSid": {
+                      "dataType": "string",
+                      "parentProperty": "serviceSid"
                     },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
+                    "functionSid": {
+                      "dataType": "string",
+                      "parentProperty": "functionSid"
                     },
+                    "versionSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    }
+                  },
+                  "operations": [
                     {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AssetSid",
-                      "type": "string",
-                      "value": "asset_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
+                      "name": "Get",
+                      "http": {
+                        "uri": "/Services/{serviceSid}/Functions/{functionSid}/Versions/{versionSid}/Content",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "serviceSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "serviceSid"
+                            }
+                          },
+                          {
+                            "name": "functionSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "functionSid"
+                            }
+                          },
+                          {
+                            "name": "versionSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "versionSid"
+                            }
+                          }
+                        ]
+                      },
+                      "response": {
+                        "name": "GetContentResponse",
+                        "type": "JSON",
+                        "properties": [
+                          {
+                            "name": "Sid",
+                            "type": "string",
+                            "value": "sid",
+                            "required": true
+                          },
+                          {
+                            "name": "AccountSid",
+                            "type": "string",
+                            "value": "account_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "ServiceSid",
+                            "type": "string",
+                            "value": "service_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "FunctionSid",
+                            "type": "string",
+                            "value": "function_sid",
+                            "required": true
+                          },
+                          {
+                            "name": "Content",
+                            "type": "string",
+                            "value": "content",
+                            "required": true
+                          },
+                          {
+                            "name": "URL",
+                            "type": "string",
+                            "value": "url",
+                            "required": true
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
-              }
-            ]
-          },
-          {
-            "name": "Version",
-            "function": {
-              "parameters": {
-                "versionSid": {
-                  "dataType": "string"
+              ],
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Functions/{functionSid}/Versions/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "functionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "functionSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetVersionResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FunctionSid",
+                        "type": "string",
+                        "value": "function_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
                 }
-              }
-            },
-            "properties": {
-              "serviceSid": {
-                "dataType": "string",
-                "parentProperty": "serviceSid"
-              },
-              "assetSid": {
-                "dataType": "string",
-                "parentProperty": "sid"
-              },
-              "sid": {
-                "dataType": "string",
-                "functionParameter": "versionSid"
-              }
-            },
-            "operations": [
-              {
-                "name": "Get",
-                "path": "/Services/{serviceSid}/Assets/{assetSid}/Versions/{sid}",
-                "httpMethod": "Get",
+              ]
+            }
+          ],
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Functions/{sid}",
+                "method": "Get",
                 "pathParams": [
                   {
-                    "pathParamName": "serviceSid",
+                    "name": "serviceSid",
                     "value": {
                       "onService": true,
+                      "type": "string",
                       "property": "serviceSid"
                     }
                   },
                   {
-                    "pathParamName": "assetSid",
+                    "name": "sid",
                     "value": {
                       "onService": true,
-                      "property": "assetSid"
-                    }
-                  },
-                  {
-                    "pathParamName": "sid",
-                    "value": {
-                      "onService": true,
+                      "type": "string",
                       "property": "sid"
                     }
                   }
+                ]
+              },
+              "response": {
+                "name": "GetFunctionResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Functions/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateFunctionInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": true
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateFunctionResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Functions/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Assets",
+          "packageName": "assets",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Assets",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateAssetInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": true
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateAssetResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Asset",
+          "packageName": "asset",
+          "function": {
+            "parameters": {
+              "assetSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "assetSid"
+            }
+          },
+          "subClients": [
+            {
+              "name": "Versions",
+              "packageName": "versions",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "assetSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Assets/{assetSid}/Versions",
+                    "overrides": {
+                      "subDomain": "serverless-upload",
+                      "apiVersion": "v1"
+                    },
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "assetSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assetSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateVersionInput",
+                    "type": "FormData",
+                    "additionalStructs": [
+                      {
+                        "name": "ContentDetails",
+                        "type": "FormData",
+                        "properties": [
+                          {
+                            "name": "Body",
+                            "type": "io.ReadSeeker",
+                            "value": "Body",
+                            "required": true
+                          },
+                          {
+                            "name": "FileName",
+                            "type": "string",
+                            "value": "FileName",
+                            "required": true
+                          },
+                          {
+                            "name": "ContentType",
+                            "type": "string",
+                            "value": "ContentType",
+                            "required": true
+                          }
+                        ]
+                      }
+                    ],
+                    "properties": [
+                      {
+                        "name": "Content",
+                        "type": "ContentDetails",
+                        "value": "Content",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "Path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "Visibility",
+                        "required": true
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateVersionResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssetSid",
+                        "type": "string",
+                        "value": "asset_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Version",
+              "packageName": "version",
+              "function": {
+                "parameters": {
+                  "versionSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "assetSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "versionSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Assets/{assetSid}/Versions/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "assetSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assetSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetVersionResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssetSid",
+                        "type": "string",
+                        "value": "asset_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Assets/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetAssetResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Assets/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateAssetInput",
+                "structure": "AssetInput"
+              },
+              "input": {
+                "name": "UpdateAssetInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": true
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateAssetResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Assets/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Builds",
+          "packageName": "builds",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Builds",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateBuildInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "AssetVersions",
+                    "type": "[]string",
+                    "value": "AssetVersions",
+                    "required": false
+                  },
+                  {
+                    "name": "FunctionVersions",
+                    "type": "[]string",
+                    "value": "FunctionVersions",
+                    "required": false
+                  },
+                  {
+                    "name": "Dependencies",
+                    "type": "string",
+                    "value": "Dependencies",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateBuildResponse",
+                "type": "JSON",
+                "additionalStructs": [
+                  {
+                    "name": "FunctionVersion",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FunctionSid",
+                        "type": "string",
+                        "value": "function_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "AssetVersion",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssetSid",
+                        "type": "string",
+                        "value": "asset_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Dependency",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Name",
+                        "type": "string",
+                        "value": "name",
+                        "required": true
+                      },
+                      {
+                        "name": "Version",
+                        "type": "string",
+                        "value": "version",
+                        "required": true
+                      }
+                    ]
+                  }
                 ],
-                "response": {
-                  "name": "GetVersionOutput",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AssetSid",
-                      "type": "string",
-                      "value": "asset_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "URL",
-                      "type": "string",
-                      "value": "url",
-                      "required": true
-                    }
-                  ]
-                }
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssetVersions",
+                    "type": "[]AssetVersion",
+                    "value": "asset_versions",
+                    "required": false
+                  },
+                  {
+                    "name": "FunctionVersions",
+                    "type": "[]FunctionVersion",
+                    "value": "function_versions",
+                    "required": false
+                  },
+                  {
+                    "name": "Dependencies",
+                    "type": "[]Dependency",
+                    "value": "dependencies",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
               }
-            ]
-          }
-        ],
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Services/{serviceSid}/Assets/{sid}",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "response": {
-              "name": "GetAssetOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
             }
-          },
-          {
-            "name": "Update",
-            "path": "/Services/{serviceSid}/Assets/{sid}",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "input": {
-              "name": "UpdateAssetInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "FriendlyName",
-                  "required": true
-                }
-              ]
-            },
-            "response": {
-              "name": "UpdateAssetOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          },
-          {
-            "name": "Delete",
-            "path": "/Services/{serviceSid}/Assets/{sid}",
-            "httpMethod": "Delete",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Builds",
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
+          ]
         },
-        "operations": [
-          {
-            "name": "Create",
-            "path": "/Services/{serviceSid}/Builds",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
+        {
+          "name": "Build",
+          "packageName": "build",
+          "function": {
+            "parameters": {
+              "buildSid": {
+                "dataType": "string"
               }
-            ],
-            "input": {
-              "name": "CreateBuildInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "AssetVersions",
-                  "type": "[]string",
-                  "value": "AssetVersions",
-                  "required": false
-                },
-                {
-                  "name": "FunctionVersions",
-                  "type": "[]string",
-                  "value": "FunctionVersions",
-                  "required": false
-                },
-                {
-                  "name": "Dependencies",
-                  "type": "string",
-                  "value": "Dependencies",
-                  "required": false
-                }
-              ]
-            },
-            "response": {
-              "name": "CreateBuildOutput",
-              "type": "JSON",
-              "additionalStructs": [
-                {
-                  "name": "FunctionVersion",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "FunctionSid",
-                      "type": "string",
-                      "value": "function_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    }
-                  ]
-                },
-                {
-                  "name": "AssetVersion",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AssetSid",
-                      "type": "string",
-                      "value": "asset_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    }
-                  ]
-                },
-                {
-                  "name": "Dependency",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Name",
-                      "type": "string",
-                      "value": "name",
-                      "required": true
-                    },
-                    {
-                      "name": "Version",
-                      "type": "string",
-                      "value": "version",
-                      "required": true
-                    }
-                  ]
-                }
-              ],
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "AssetVersions",
-                  "type": "[]AssetVersion",
-                  "value": "asset_versions",
-                  "required": false
-                },
-                {
-                  "name": "FunctionVersions",
-                  "type": "[]FunctionVersion",
-                  "value": "function_versions",
-                  "required": false
-                },
-                {
-                  "name": "Dependencies",
-                  "type": "[]Dependency",
-                  "value": "dependencies",
-                  "required": false
-                },
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "status",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "Build",
-        "function": {
-          "parameters": {
-            "buildSid": {
-              "dataType": "string"
-            }
-          }
-        },
-        "properties": {
-          "serviceSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          },
-          "sid": {
-            "dataType": "string",
-            "functionParameter": "buildSid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Services/{serviceSid}/Builds/{sid}",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "response": {
-              "name": "GetBuildOutput",
-              "type": "JSON",
-              "additionalStructs": [
-                {
-                  "name": "FunctionVersion",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "FunctionSid",
-                      "type": "string",
-                      "value": "function_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    }
-                  ]
-                },
-                {
-                  "name": "AssetVersion",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Sid",
-                      "type": "string",
-                      "value": "sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AccountSid",
-                      "type": "string",
-                      "value": "account_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "ServiceSid",
-                      "type": "string",
-                      "value": "service_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "AssetSid",
-                      "type": "string",
-                      "value": "asset_sid",
-                      "required": true
-                    },
-                    {
-                      "name": "DateCreated",
-                      "type": "time.Time",
-                      "value": "date_created",
-                      "required": true
-                    },
-                    {
-                      "name": "Path",
-                      "type": "string",
-                      "value": "path",
-                      "required": true
-                    },
-                    {
-                      "name": "Visibility",
-                      "type": "string",
-                      "value": "visibility",
-                      "required": true
-                    }
-                  ]
-                },
-                {
-                  "name": "Dependency",
-                  "type": "JSON",
-                  "properties": [
-                    {
-                      "name": "Name",
-                      "type": "string",
-                      "value": "name",
-                      "required": true
-                    },
-                    {
-                      "name": "Version",
-                      "type": "string",
-                      "value": "version",
-                      "required": true
-                    }
-                  ]
-                }
-              ],
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "AccountSid",
-                  "type": "string",
-                  "value": "account_sid",
-                  "required": true
-                },
-                {
-                  "name": "ServiceSid",
-                  "type": "string",
-                  "value": "service_sid",
-                  "required": true
-                },
-                {
-                  "name": "AssetVersions",
-                  "type": "[]AssetVersion",
-                  "value": "asset_versions",
-                  "required": false
-                },
-                {
-                  "name": "FunctionVersions",
-                  "type": "[]FunctionVersion",
-                  "value": "function_versions",
-                  "required": false
-                },
-                {
-                  "name": "Dependencies",
-                  "type": "[]Dependency",
-                  "value": "dependencies",
-                  "required": false
-                },
-                {
-                  "name": "Status",
-                  "type": "string",
-                  "value": "status",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "time.Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "time.Time",
-                  "value": "date_updated",
-                  "required": false
-                },
-                {
-                  "name": "URL",
-                  "type": "string",
-                  "value": "url",
-                  "required": true
-                }
-              ]
             }
           },
-          {
-            "name": "Delete",
-            "path": "/Services/{serviceSid}/Builds/{sid}",
-            "httpMethod": "Delete",
-            "pathParams": [
-              {
-                "pathParamName": "serviceSid",
-                "value": {
-                  "onService": true,
-                  "property": "serviceSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "operations": [
-      {
-        "name": "Get",
-        "path": "/Services/{sid}",
-        "httpMethod": "Get",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "buildSid"
             }
-          }
-        ],
-        "response": {
-          "name": "GetServiceOutput",
-          "type": "JSON",
-          "properties": [
+          },
+          "operations": [
             {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Builds/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetBuildResponse",
+                "type": "JSON",
+                "additionalStructs": [
+                  {
+                    "name": "FunctionVersion",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FunctionSid",
+                        "type": "string",
+                        "value": "function_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "AssetVersion",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ServiceSid",
+                        "type": "string",
+                        "value": "service_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssetSid",
+                        "type": "string",
+                        "value": "asset_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "Path",
+                        "type": "string",
+                        "value": "path",
+                        "required": true
+                      },
+                      {
+                        "name": "Visibility",
+                        "type": "string",
+                        "value": "visibility",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Dependency",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Name",
+                        "type": "string",
+                        "value": "name",
+                        "required": true
+                      },
+                      {
+                        "name": "Version",
+                        "type": "string",
+                        "value": "version",
+                        "required": true
+                      }
+                    ]
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ServiceSid",
+                    "type": "string",
+                    "value": "service_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssetVersions",
+                    "type": "[]AssetVersion",
+                    "value": "asset_versions",
+                    "required": false
+                  },
+                  {
+                    "name": "FunctionVersions",
+                    "type": "[]FunctionVersion",
+                    "value": "function_versions",
+                    "required": false
+                  },
+                  {
+                    "name": "Dependencies",
+                    "type": "[]Dependency",
+                    "value": "dependencies",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
             },
             {
-              "name": "AccountSid",
-              "type": "string",
-              "value": "account_sid",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "UniqueName",
-              "type": "string",
-              "value": "unique_name",
-              "required": true
-            },
-            {
-              "name": "IncludeCredentials",
-              "type": "bool",
-              "value": "include_credentials",
-              "required": true
-            },
-            {
-              "name": "UiEditable",
-              "type": "bool",
-              "value": "ui_editable",
-              "required": true
-            },
-            {
-              "name": "DateCreated",
-              "type": "time.Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "time.Time",
-              "value": "date_updated",
-              "required": false
-            },
-            {
-              "name": "URL",
-              "type": "string",
-              "value": "url",
-              "required": true
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Builds/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
-      },
-      {
-        "name": "Update",
-        "path": "/Services/{sid}",
-        "httpMethod": "Post",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
-            }
+      ],
+      "operations": [
+        {
+          "name": "Get",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "response": {
+            "name": "GetServiceResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "UniqueName",
+                "type": "string",
+                "value": "unique_name",
+                "required": true
+              },
+              {
+                "name": "IncludeCredentials",
+                "type": "bool",
+                "value": "include_credentials",
+                "required": true
+              },
+              {
+                "name": "UiEditable",
+                "type": "bool",
+                "value": "ui_editable",
+                "required": true
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
           }
-        ],
-        "input": {
-          "name": "UpdateServiceInput",
-          "type": "URLEncoded",
-          "properties": [
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "FriendlyName",
-              "required": false
-            },
-            {
-              "name": "IncludeCredentials",
-              "type": "bool",
-              "value": "IncludeCredentials",
-              "required": false
-            },
-            {
-              "name": "UiEditable",
-              "type": "bool",
-              "value": "UiEditable",
-              "required": false
-            }
-          ]
         },
-        "response": {
-          "name": "UpdateServiceOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
-            },
-            {
-              "name": "AccountSid",
-              "type": "string",
-              "value": "account_sid",
-              "required": true
-            },
-            {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "UniqueName",
-              "type": "string",
-              "value": "unique_name",
-              "required": true
-            },
-            {
-              "name": "IncludeCredentials",
-              "type": "bool",
-              "value": "include_credentials",
-              "required": true
-            },
-            {
-              "name": "UiEditable",
-              "type": "bool",
-              "value": "ui_editable",
-              "required": true
-            },
-            {
-              "name": "DateCreated",
-              "type": "time.Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "time.Time",
-              "value": "date_updated",
-              "required": false
-            },
-            {
-              "name": "URL",
-              "type": "string",
-              "value": "url",
-              "required": true
-            }
-          ]
-        }
-      },
-      {
-        "name": "Delete",
-        "path": "/Services/{sid}",
-        "httpMethod": "Delete",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
-            }
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "input": {
+            "name": "UpdateServiceInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": false
+              },
+              {
+                "name": "IncludeCredentials",
+                "type": "bool",
+                "value": "IncludeCredentials",
+                "required": false
+              },
+              {
+                "name": "UiEditable",
+                "type": "bool",
+                "value": "UiEditable",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "UpdateServiceResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "UniqueName",
+                "type": "string",
+                "value": "unique_name",
+                "required": true
+              },
+              {
+                "name": "IncludeCredentials",
+                "type": "bool",
+                "value": "include_credentials",
+                "required": true
+              },
+              {
+                "name": "UiEditable",
+                "type": "bool",
+                "value": "ui_editable",
+                "required": true
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
           }
-        ]
-      }
-    ]
-  }
-]
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

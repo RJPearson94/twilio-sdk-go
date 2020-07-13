@@ -14,7 +14,7 @@ type CreateEnvironmentInput struct {
 	DomainSuffix *string `form:"DomainSuffix,omitempty"`
 }
 
-type CreateEnvironmentOutput struct {
+type CreateEnvironmentResponse struct {
 	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	ServiceSid   string     `json:"service_sid"`
@@ -27,11 +27,11 @@ type CreateEnvironmentOutput struct {
 	URL          string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateEnvironmentInput) (*CreateEnvironmentOutput, error) {
+func (c Client) Create(input *CreateEnvironmentInput) (*CreateEnvironmentResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateEnvironmentInput) (*CreateEnvironmentOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateEnvironmentInput) (*CreateEnvironmentResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Environments",
@@ -41,9 +41,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateEnvironm
 		},
 	}
 
-	output := &CreateEnvironmentOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateEnvironmentResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

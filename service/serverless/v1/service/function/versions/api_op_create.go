@@ -23,7 +23,7 @@ type CreateVersionInput struct {
 	Visibility string         `validate:"required" mapstructure:"Visibility"`
 }
 
-type CreateVersionOutput struct {
+type CreateVersionResponse struct {
 	Sid         string    `json:"sid"`
 	AccountSid  string    `json:"account_sid"`
 	ServiceSid  string    `json:"service_sid"`
@@ -34,11 +34,11 @@ type CreateVersionOutput struct {
 	URL         string    `json:"url"`
 }
 
-func (c Client) Create(input *CreateVersionInput) (*CreateVersionOutput, error) {
+func (c Client) Create(input *CreateVersionInput) (*CreateVersionResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateVersionInput) (*CreateVersionOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateVersionInput) (*CreateVersionResponse, error) {
 	op := client.Operation{
 		OverrideBaseURL: utils.String(client.CreateBaseURL("serverless-upload", "v1")),
 		Method:          http.MethodPost,
@@ -50,9 +50,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateVersionI
 		},
 	}
 
-	output := &CreateVersionOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateVersionResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

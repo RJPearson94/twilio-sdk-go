@@ -10,25 +10,50 @@ import (
 )
 
 type Client struct {
-	client      *client.Client
-	serviceSid  string
-	sid         string
+	client *client.Client
+
+	serviceSid string
+	sid        string
+
 	Variables   *variables.Client
 	Variable    func(string) *variable.Client
 	Deployments *deployments.Client
 	Deployment  func(string) *deployment.Client
 }
 
-func New(client *client.Client, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	ServiceSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:      client,
-		serviceSid:  serviceSid,
-		sid:         sid,
-		Variables:   variables.New(client, sid, serviceSid),
-		Variable:    func(variableSid string) *variable.Client { return variable.New(client, sid, serviceSid, variableSid) },
-		Deployments: deployments.New(client, sid, serviceSid),
+		client: client,
+
+		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
+
+		Variables: variables.New(client, variables.ClientProperties{
+			EnvironmentSid: properties.Sid,
+			ServiceSid:     properties.ServiceSid,
+		}),
+		Variable: func(variableSid string) *variable.Client {
+			return variable.New(client, variable.ClientProperties{
+				EnvironmentSid: properties.Sid,
+				ServiceSid:     properties.ServiceSid,
+				Sid:            variableSid,
+			})
+		},
+		Deployments: deployments.New(client, deployments.ClientProperties{
+			EnvironmentSid: properties.Sid,
+			ServiceSid:     properties.ServiceSid,
+		}),
 		Deployment: func(deploymentSid string) *deployment.Client {
-			return deployment.New(client, sid, serviceSid, deploymentSid)
+			return deployment.New(client, deployment.ClientProperties{
+				EnvironmentSid: properties.Sid,
+				ServiceSid:     properties.ServiceSid,
+				Sid:            deploymentSid,
+			})
 		},
 	}
 }

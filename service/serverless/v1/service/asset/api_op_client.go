@@ -8,19 +8,37 @@ import (
 )
 
 type Client struct {
-	client     *client.Client
+	client *client.Client
+
 	serviceSid string
 	sid        string
-	Versions   *versions.Client
-	Version    func(string) *version.Client
+
+	Versions *versions.Client
+	Version  func(string) *version.Client
 }
 
-func New(client *client.Client, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	ServiceSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:     client,
-		serviceSid: serviceSid,
-		sid:        sid,
-		Versions:   versions.New(client, sid, serviceSid),
-		Version:    func(versionSid string) *version.Client { return version.New(client, sid, serviceSid, versionSid) },
+		client: client,
+
+		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
+
+		Versions: versions.New(client, versions.ClientProperties{
+			AssetSid:   properties.Sid,
+			ServiceSid: properties.ServiceSid,
+		}),
+		Version: func(versionSid string) *version.Client {
+			return version.New(client, version.ClientProperties{
+				ServiceSid: properties.ServiceSid,
+				Sid:        versionSid,
+				AssetSid:   properties.Sid,
+			})
+		},
 	}
 }

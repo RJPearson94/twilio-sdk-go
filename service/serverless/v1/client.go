@@ -30,8 +30,12 @@ func New(sess *session.Session) *Serverless {
 
 func NewWithClient(client *client.Client) *Serverless {
 	return &Serverless{
-		client:   client,
-		Service:  func(sid string) *service.Client { return service.New(client, sid) },
+		client: client,
+		Service: func(sid string) *service.Client {
+			return service.New(client, service.ClientProperties{
+				Sid: sid,
+			})
+		},
 		Services: services.New(client),
 	}
 }

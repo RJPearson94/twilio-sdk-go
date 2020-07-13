@@ -4,17 +4,25 @@ package version
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client     *client.Client
+	client *client.Client
+
 	assetSid   string
 	serviceSid string
 	sid        string
 }
 
-func New(client *client.Client, assetSid string, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	AssetSid   string
+	ServiceSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:     client,
-		assetSid:   assetSid,
-		serviceSid: serviceSid,
-		sid:        sid,
+		client: client,
+
+		assetSid:   properties.AssetSid,
+		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
 	}
 }

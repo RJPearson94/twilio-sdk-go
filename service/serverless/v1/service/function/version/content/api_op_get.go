@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetContentOutput struct {
+type GetContentResponse struct {
 	Sid         string `json:"sid"`
 	AccountSid  string `json:"account_sid"`
 	ServiceSid  string `json:"service_sid"`
@@ -17,11 +17,11 @@ type GetContentOutput struct {
 	URL         string `json:"url"`
 }
 
-func (c Client) Get() (*GetContentOutput, error) {
+func (c Client) Get() (*GetContentResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetContentOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetContentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Functions/{functionSid}/Versions/{versionSid}/Content",
@@ -32,9 +32,9 @@ func (c Client) GetWithContext(context context.Context) (*GetContentOutput, erro
 		},
 	}
 
-	output := &GetContentOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetContentResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

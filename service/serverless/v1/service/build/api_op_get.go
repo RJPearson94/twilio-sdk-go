@@ -34,7 +34,7 @@ type Dependency struct {
 	Version string `json:"version"`
 }
 
-type GetBuildOutput struct {
+type GetBuildResponse struct {
 	Sid              string             `json:"sid"`
 	AccountSid       string             `json:"account_sid"`
 	ServiceSid       string             `json:"service_sid"`
@@ -47,11 +47,11 @@ type GetBuildOutput struct {
 	URL              string             `json:"url"`
 }
 
-func (c Client) Get() (*GetBuildOutput, error) {
+func (c Client) Get() (*GetBuildResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetBuildOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetBuildResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Builds/{sid}",
@@ -61,9 +61,9 @@ func (c Client) GetWithContext(context context.Context) (*GetBuildOutput, error)
 		},
 	}
 
-	output := &GetBuildOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetBuildResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

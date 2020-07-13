@@ -40,7 +40,7 @@ type Dependency struct {
 	Version string `json:"version"`
 }
 
-type CreateBuildOutput struct {
+type CreateBuildResponse struct {
 	Sid              string             `json:"sid"`
 	AccountSid       string             `json:"account_sid"`
 	ServiceSid       string             `json:"service_sid"`
@@ -53,11 +53,11 @@ type CreateBuildOutput struct {
 	URL              string             `json:"url"`
 }
 
-func (c Client) Create(input *CreateBuildInput) (*CreateBuildOutput, error) {
+func (c Client) Create(input *CreateBuildInput) (*CreateBuildResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateBuildInput) (*CreateBuildOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateBuildInput) (*CreateBuildResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Builds",
@@ -67,9 +67,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateBuildInp
 		},
 	}
 
-	output := &CreateBuildOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateBuildResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

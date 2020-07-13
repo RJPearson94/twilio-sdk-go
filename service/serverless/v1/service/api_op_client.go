@@ -14,8 +14,10 @@ import (
 )
 
 type Client struct {
-	client       *client.Client
-	sid          string
+	client *client.Client
+
+	sid string
+
 	Environments *environments.Client
 	Environment  func(string) *environment.Client
 	Functions    *functions.Client
@@ -26,17 +28,51 @@ type Client struct {
 	Build        func(string) *build.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		sid:          sid,
-		Environments: environments.New(client, sid),
-		Environment:  func(environmentSid string) *environment.Client { return environment.New(client, sid, environmentSid) },
-		Functions:    functions.New(client, sid),
-		Function:     func(functionSid string) *function.Client { return function.New(client, sid, functionSid) },
-		Assets:       assets.New(client, sid),
-		Asset:        func(assetSid string) *asset.Client { return asset.New(client, sid, assetSid) },
-		Builds:       builds.New(client, sid),
-		Build:        func(buildSid string) *build.Client { return build.New(client, sid, buildSid) },
+		client: client,
+
+		sid: properties.Sid,
+
+		Environments: environments.New(client, environments.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Environment: func(environmentSid string) *environment.Client {
+			return environment.New(client, environment.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        environmentSid,
+			})
+		},
+		Functions: functions.New(client, functions.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Function: func(functionSid string) *function.Client {
+			return function.New(client, function.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        functionSid,
+			})
+		},
+		Assets: assets.New(client, assets.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Asset: func(assetSid string) *asset.Client {
+			return asset.New(client, asset.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        assetSid,
+			})
+		},
+		Builds: builds.New(client, builds.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Build: func(buildSid string) *build.Client {
+			return build.New(client, build.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        buildSid,
+			})
+		},
 	}
 }

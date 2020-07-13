@@ -4,17 +4,25 @@ package variable
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 type Client struct {
-	client         *client.Client
+	client *client.Client
+
 	environmentSid string
 	serviceSid     string
 	sid            string
 }
 
-func New(client *client.Client, environmentSid string, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	EnvironmentSid string
+	ServiceSid     string
+	Sid            string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:         client,
-		environmentSid: environmentSid,
-		serviceSid:     serviceSid,
-		sid:            sid,
+		client: client,
+
+		environmentSid: properties.EnvironmentSid,
+		serviceSid:     properties.ServiceSid,
+		sid:            properties.Sid,
 	}
 }

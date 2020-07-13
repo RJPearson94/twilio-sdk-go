@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetVariableOutput struct {
+type GetVariableResponse struct {
 	Sid            string     `json:"sid"`
 	AccountSid     string     `json:"account_sid"`
 	ServiceSid     string     `json:"service_sid"`
@@ -21,11 +21,11 @@ type GetVariableOutput struct {
 	URL            string     `json:"url"`
 }
 
-func (c Client) Get() (*GetVariableOutput, error) {
+func (c Client) Get() (*GetVariableResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetVariableOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetVariableResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
@@ -36,9 +36,9 @@ func (c Client) GetWithContext(context context.Context) (*GetVariableOutput, err
 		},
 	}
 
-	output := &GetVariableOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetVariableResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
