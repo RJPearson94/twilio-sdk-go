@@ -9,25 +9,45 @@ import (
 )
 
 type Client struct {
-	client       *client.Client
-	serviceSid   string
-	sid          string
+	client *client.Client
+
+	serviceSid string
+	sid        string
+
 	Participants *participants.Client
 	Participant  func(string) *participant.Client
 	Interaction  func(string) *interaction.Client
 }
 
-func New(client *client.Client, serviceSid string, sid string) *Client {
+type ClientProperties struct {
+	ServiceSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		serviceSid:   serviceSid,
-		sid:          sid,
-		Participants: participants.New(client, serviceSid, sid),
+		client: client,
+
+		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
+
+		Participants: participants.New(client, participants.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			SessionSid: properties.Sid,
+		}),
 		Participant: func(participantSid string) *participant.Client {
-			return participant.New(client, serviceSid, sid, participantSid)
+			return participant.New(client, participant.ClientProperties{
+				ServiceSid: properties.ServiceSid,
+				SessionSid: properties.Sid,
+				Sid:        participantSid,
+			})
 		},
 		Interaction: func(interactionSid string) *interaction.Client {
-			return interaction.New(client, serviceSid, sid, interactionSid)
+			return interaction.New(client, interaction.ClientProperties{
+				ServiceSid: properties.ServiceSid,
+				SessionSid: properties.Sid,
+				Sid:        interactionSid,
+			})
 		},
 	}
 }

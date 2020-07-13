@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetSessionOutput struct {
+type GetSessionResponse struct {
 	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
 	ServiceSid          string     `json:"service_sid"`
@@ -27,11 +27,11 @@ type GetSessionOutput struct {
 	URL                 string     `json:"url"`
 }
 
-func (c Client) Get() (*GetSessionOutput, error) {
+func (c Client) Get() (*GetSessionResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetSessionOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetSessionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Sessions/{sid}",
@@ -41,9 +41,9 @@ func (c Client) GetWithContext(context context.Context) (*GetSessionOutput, erro
 		},
 	}
 
-	output := &GetSessionOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetSessionResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

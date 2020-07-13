@@ -20,7 +20,7 @@ type UpdateServiceInput struct {
 	ChatInstanceSid         *string `form:"ChatInstanceSid,omitempty"`
 }
 
-type UpdateServiceOutput struct {
+type UpdateServiceResponse struct {
 	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
 	ChatInstanceSid         *string    `json:"chat_instance_sid,omitempty"`
@@ -37,11 +37,11 @@ type UpdateServiceOutput struct {
 	URL                     string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateServiceInput) (*UpdateServiceOutput, error) {
+func (c Client) Update(input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateServiceInput) (*UpdateServiceOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{sid}",
@@ -51,9 +51,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateServiceI
 		},
 	}
 
-	output := &UpdateServiceOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateServiceResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

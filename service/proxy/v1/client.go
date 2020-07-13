@@ -32,7 +32,11 @@ func NewWithClient(client *client.Client) *Proxy {
 	return &Proxy{
 		client:   client,
 		Services: services.New(client),
-		Service:  func(sid string) *service.Client { return service.New(client, sid) },
+		Service: func(sid string) *service.Client {
+			return service.New(client, service.ClientProperties{
+				Sid: sid,
+			})
+		},
 	}
 }
 

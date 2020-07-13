@@ -12,8 +12,10 @@ import (
 )
 
 type Client struct {
-	client       *client.Client
-	sid          string
+	client *client.Client
+
+	sid string
+
 	PhoneNumbers *phone_numbers.Client
 	PhoneNumber  func(string) *phone_number.Client
 	ShortCodes   *short_codes.Client
@@ -22,15 +24,42 @@ type Client struct {
 	Session      func(string) *session.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
-		client:       client,
-		sid:          sid,
-		PhoneNumbers: phone_numbers.New(client, sid),
-		PhoneNumber:  func(phoneNumberSid string) *phone_number.Client { return phone_number.New(client, sid, phoneNumberSid) },
-		ShortCodes:   short_codes.New(client, sid),
-		ShortCode:    func(shortCodeSid string) *short_code.Client { return short_code.New(client, sid, shortCodeSid) },
-		Sessions:     sessions.New(client, sid),
-		Session:      func(sessionSid string) *session.Client { return session.New(client, sid, sessionSid) },
+		client: client,
+
+		sid: properties.Sid,
+
+		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
+			return phone_number.New(client, phone_number.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        phoneNumberSid,
+			})
+		},
+		ShortCodes: short_codes.New(client, short_codes.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		ShortCode: func(shortCodeSid string) *short_code.Client {
+			return short_code.New(client, short_code.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        shortCodeSid,
+			})
+		},
+		Sessions: sessions.New(client, sessions.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Session: func(sessionSid string) *session.Client {
+			return session.New(client, session.ClientProperties{
+				Sid:        sessionSid,
+				ServiceSid: properties.Sid,
+			})
+		},
 	}
 }

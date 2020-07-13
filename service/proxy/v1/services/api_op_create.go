@@ -20,7 +20,7 @@ type CreateServiceInput struct {
 	ChatInstanceSid         *string `form:"ChatInstanceSid,omitempty"`
 }
 
-type CreateServiceOutput struct {
+type CreateServiceResponse struct {
 	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
 	ChatInstanceSid         *string    `json:"chat_instance_sid,omitempty"`
@@ -37,20 +37,20 @@ type CreateServiceOutput struct {
 	URL                     string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateServiceInput) (*CreateServiceOutput, error) {
+func (c Client) Create(input *CreateServiceInput) (*CreateServiceResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateServiceInput) (*CreateServiceOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateServiceInput) (*CreateServiceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services",
 		ContentType: client.URLEncoded,
 	}
 
-	output := &CreateServiceOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateServiceResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

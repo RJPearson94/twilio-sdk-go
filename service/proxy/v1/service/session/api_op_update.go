@@ -15,7 +15,7 @@ type UpdateSessionInput struct {
 	Status     *string    `form:"Status,omitempty"`
 }
 
-type UpdateSessionOutput struct {
+type UpdateSessionResponse struct {
 	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
 	ServiceSid          string     `json:"service_sid"`
@@ -33,11 +33,11 @@ type UpdateSessionOutput struct {
 	URL                 string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateSessionInput) (*UpdateSessionOutput, error) {
+func (c Client) Update(input *UpdateSessionInput) (*UpdateSessionResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateSessionInput) (*UpdateSessionOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateSessionInput) (*UpdateSessionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Sessions/{sid}",
@@ -48,9 +48,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateSessionI
 		},
 	}
 
-	output := &UpdateSessionOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateSessionResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

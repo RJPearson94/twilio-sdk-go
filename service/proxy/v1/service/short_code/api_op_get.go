@@ -25,7 +25,7 @@ type GetShortCodeResponseCapabilities struct {
 	SipTrunking              *bool `json:"sip_trunking,omitempty"`
 }
 
-type GetShortCodeOutput struct {
+type GetShortCodeResponse struct {
 	Sid          string                            `json:"sid"`
 	AccountSid   string                            `json:"account_sid"`
 	ServiceSid   string                            `json:"service_sid"`
@@ -38,11 +38,11 @@ type GetShortCodeOutput struct {
 	URL          string                            `json:"url"`
 }
 
-func (c Client) Get() (*GetShortCodeOutput, error) {
+func (c Client) Get() (*GetShortCodeResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetShortCodeOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetShortCodeResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/ShortCodes/{sid}",
@@ -52,9 +52,9 @@ func (c Client) GetWithContext(context context.Context) (*GetShortCodeOutput, er
 		},
 	}
 
-	output := &GetShortCodeOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetShortCodeResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

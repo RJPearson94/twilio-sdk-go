@@ -29,7 +29,7 @@ type UpdatePhoneNumberResponseCapabilities struct {
 	SipTrunking              *bool `json:"sip_trunking,omitempty"`
 }
 
-type UpdatePhoneNumberOutput struct {
+type UpdatePhoneNumberResponse struct {
 	Sid          string                                 `json:"sid"`
 	AccountSid   string                                 `json:"account_sid"`
 	ServiceSid   string                                 `json:"service_sid"`
@@ -44,11 +44,11 @@ type UpdatePhoneNumberOutput struct {
 	URL          string                                 `json:"url"`
 }
 
-func (c Client) Update(input *UpdatePhoneNumberInput) (*UpdatePhoneNumberOutput, error) {
+func (c Client) Update(input *UpdatePhoneNumberInput) (*UpdatePhoneNumberResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdatePhoneNumberInput) (*UpdatePhoneNumberOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdatePhoneNumberInput) (*UpdatePhoneNumberResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/PhoneNumbers/{sid}",
@@ -59,9 +59,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdatePhoneNum
 		},
 	}
 
-	output := &UpdatePhoneNumberOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdatePhoneNumberResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

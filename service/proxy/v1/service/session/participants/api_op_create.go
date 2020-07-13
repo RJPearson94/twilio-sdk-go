@@ -16,7 +16,7 @@ type CreateParticipantInput struct {
 	ProxyIdentifierSid *string `form:"ProxyIdentifierSid,omitempty"`
 }
 
-type CreateParticipantOutput struct {
+type CreateParticipantResponse struct {
 	Sid                string     `json:"sid"`
 	AccountSid         string     `json:"account_sid"`
 	ServiceSid         string     `json:"service_sid"`
@@ -31,11 +31,11 @@ type CreateParticipantOutput struct {
 	URL                string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantOutput, error) {
+func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Services/{serviceSid}/Sessions/{sessionSid}/Participants",
@@ -46,9 +46,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateParticip
 		},
 	}
 
-	output := &CreateParticipantOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateParticipantResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
