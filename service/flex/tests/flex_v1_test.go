@@ -263,7 +263,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flows.CreateFlexFlowOutputIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flows.CreateFlexFlowResponseIntegration{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -384,7 +384,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flow.GetFlexFlowOutputIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flow.GetFlexFlowResponseIntegration{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -445,7 +445,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flow.UpdateFlexFlowOutputIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flow.UpdateFlexFlowResponseIntegration{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))

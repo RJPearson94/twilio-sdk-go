@@ -68,25 +68,25 @@ type UpdateConfigurationInput struct {
 	ServerlessServiceSids        *[]string                                           `json:"serverless_service_sids,omitempty"`
 }
 
-type UpdateConfigurationOutputTaskQueue struct {
+type UpdateConfigurationResponseTaskQueue struct {
 	Sid         string `json:"sid"`
 	Targettable bool   `json:"targettable"`
 }
 
-type UpdateConfigurationOutputSkill struct {
+type UpdateConfigurationResponseSkill struct {
 	Name       string `json:"name"`
 	MultiValue bool   `json:"multivalue"`
 	Minimum    int    `json:"minimum"`
 	Maximum    bool   `json:"maximum"`
 }
 
-type UpdateConfigurationOutputWorkerChannel struct {
+type UpdateConfigurationResponseWorkerChannel struct {
 	Name         string `json:"name"`
 	Availability bool   `json:"availability"`
 	Capacity     int    `json:"capacity"`
 }
 
-type UpdateConfigurationOutputIntegration struct {
+type UpdateConfigurationResponseIntegration struct {
 	Name   string  `json:"name"`
 	Type   string  `json:"type"`
 	Active bool    `json:"active"`
@@ -95,61 +95,61 @@ type UpdateConfigurationOutputIntegration struct {
 	Author *string `json:"author,omitempty"`
 }
 
-type UpdateConfigurationOutput struct {
-	AccountSid                   string                                               `json:"account_sid"`
-	FlexServiceInstanceSid       string                                               `json:"flex_service_instance_sid"`
-	ChatServiceInstanceSid       *string                                              `json:"chat_service_instance_sid,omitempty"`
-	MessagingServiceInstanceSid  *string                                              `json:"messaging_service_instance_sid,omitempty"`
-	CrmEnabled                   *bool                                                `json:"crm_type,omitempty"`
-	CrmType                      *string                                              `json:"crm_type,omitempty"`
-	CrmCallbackURL               *string                                              `json:"crm_callback_url,omitempty"`
-	CrmFallbackURL               *string                                              `json:"crm_fallback_url,omitempty"`
-	CrmAttributes                *interface{}                                         `json:"crm_attributes,omitempty"`
-	UiLanguage                   *string                                              `json:"ui_language,omitempty"`
-	UiAttributes                 *interface{}                                         `json:"ui_attributes,omitempty"`
-	UiDependencies               *interface{}                                         `json:"ui_dependencies,omitempty"`
-	UiVersion                    string                                               `json:"ui_version"`
-	TaskRouterWorkspaceSid       string                                               `json:"taskrouter_workspace_sid"`
-	TaskRouterTargetWorkflowSid  string                                               `json:"taskrouter_target_workflow_sid"`
-	TaskRouterTargetTaskQueueSid string                                               `json:"taskrouter_target_taskqueue_sid"`
-	TaskRouterTaskQueues         *[]UpdateConfigurationOutputTaskQueue                `json:"taskrouter_taskqueues,omitempty"`
-	TaskRouterSkills             *[]UpdateConfigurationOutputSkill                    `json:"taskrouter_skills,omitempty"`
-	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationOutputWorkerChannel `json:"taskrouter_worker_channels,omitempty"`
-	TaskRouterWorkerAttributes   *map[string]interface{}                              `json:"taskrouter_worker_attributes,omitempty"`
-	TaskRouterOfflineActivitySid string                                               `json:"taskrouter_offline_activity_sid"`
-	CallRecordingEnabled         *bool                                                `json:"call_recording_enabled,omitempty"`
-	CallRecordingWebhookURL      *string                                              `json:"call_recording_webhook_url,omitempty"`
-	PublicAttributes             *interface{}                                         `json:"public_attributes,omitempty"`
-	Attributes                   *interface{}                                         `json:"attributes,omitempty"`
-	Status                       string                                               `json:"status"`
-	RuntimeDomain                string                                               `json:"runtime_domain"`
-	ServiceVersion               *string                                              `json:"service_version,omitempty"`
-	PluginServiceEnabled         *bool                                                `json:"plugin_service_enabled,omitempty"`
-	PluginServiceAttributes      *interface{}                                         `json:"plugin_service_attributes,omitempty"`
-	Integrations                 *[]UpdateConfigurationOutputIntegration              `json:"integrations,omitempty"`
-	WfmIntegrations              *[]UpdateConfigurationOutputIntegration              `json:"wfm_integrations,omitempty"`
-	OutboundCallFlows            *interface{}                                         `json:"outbound_call_flows,omitempty"`
-	QueueStatsConfiguration      *interface{}                                         `json:"queue_stats_configuration,omitempty"`
-	ServerlessServiceSids        *[]string                                            `json:"serverless_service_sids,omitempty"`
-	DateCreated                  time.Time                                            `json:"date_created"`
-	DateUpdated                  *time.Time                                           `json:"date_updated,omitempty"`
-	URL                          string                                               `json:"url"`
+type UpdateConfigurationResponse struct {
+	AccountSid                   string                                                 `json:"account_sid"`
+	FlexServiceInstanceSid       string                                                 `json:"flex_service_instance_sid"`
+	ChatServiceInstanceSid       *string                                                `json:"chat_service_instance_sid,omitempty"`
+	MessagingServiceInstanceSid  *string                                                `json:"messaging_service_instance_sid,omitempty"`
+	CrmEnabled                   *bool                                                  `json:"crm_type,omitempty"`
+	CrmType                      *string                                                `json:"crm_type,omitempty"`
+	CrmCallbackURL               *string                                                `json:"crm_callback_url,omitempty"`
+	CrmFallbackURL               *string                                                `json:"crm_fallback_url,omitempty"`
+	CrmAttributes                *interface{}                                           `json:"crm_attributes,omitempty"`
+	UiLanguage                   *string                                                `json:"ui_language,omitempty"`
+	UiAttributes                 *interface{}                                           `json:"ui_attributes,omitempty"`
+	UiDependencies               *interface{}                                           `json:"ui_dependencies,omitempty"`
+	UiVersion                    string                                                 `json:"ui_version"`
+	TaskRouterWorkspaceSid       string                                                 `json:"taskrouter_workspace_sid"`
+	TaskRouterTargetWorkflowSid  string                                                 `json:"taskrouter_target_workflow_sid"`
+	TaskRouterTargetTaskQueueSid string                                                 `json:"taskrouter_target_taskqueue_sid"`
+	TaskRouterTaskQueues         *[]UpdateConfigurationResponseTaskQueue                `json:"taskrouter_taskqueues,omitempty"`
+	TaskRouterSkills             *[]UpdateConfigurationResponseSkill                    `json:"taskrouter_skills,omitempty"`
+	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationResponseWorkerChannel `json:"taskrouter_worker_channels,omitempty"`
+	TaskRouterWorkerAttributes   *map[string]interface{}                                `json:"taskrouter_worker_attributes,omitempty"`
+	TaskRouterOfflineActivitySid string                                                 `json:"taskrouter_offline_activity_sid"`
+	CallRecordingEnabled         *bool                                                  `json:"call_recording_enabled,omitempty"`
+	CallRecordingWebhookURL      *string                                                `json:"call_recording_webhook_url,omitempty"`
+	PublicAttributes             *interface{}                                           `json:"public_attributes,omitempty"`
+	Attributes                   *interface{}                                           `json:"attributes,omitempty"`
+	Status                       string                                                 `json:"status"`
+	RuntimeDomain                string                                                 `json:"runtime_domain"`
+	ServiceVersion               *string                                                `json:"service_version,omitempty"`
+	PluginServiceEnabled         *bool                                                  `json:"plugin_service_enabled,omitempty"`
+	PluginServiceAttributes      *interface{}                                           `json:"plugin_service_attributes,omitempty"`
+	Integrations                 *[]UpdateConfigurationResponseIntegration              `json:"integrations,omitempty"`
+	WfmIntegrations              *[]UpdateConfigurationResponseIntegration              `json:"wfm_integrations,omitempty"`
+	OutboundCallFlows            *interface{}                                           `json:"outbound_call_flows,omitempty"`
+	QueueStatsConfiguration      *interface{}                                           `json:"queue_stats_configuration,omitempty"`
+	ServerlessServiceSids        *[]string                                              `json:"serverless_service_sids,omitempty"`
+	DateCreated                  time.Time                                              `json:"date_created"`
+	DateUpdated                  *time.Time                                             `json:"date_updated,omitempty"`
+	URL                          string                                                 `json:"url"`
 }
 
-func (c Client) Update(input *UpdateConfigurationInput) (*UpdateConfigurationOutput, error) {
+func (c Client) Update(input *UpdateConfigurationInput) (*UpdateConfigurationResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateConfigurationInput) (*UpdateConfigurationOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateConfigurationInput) (*UpdateConfigurationResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Configuration",
 		ContentType: client.JSON,
 	}
 
-	output := &UpdateConfigurationOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateConfigurationResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

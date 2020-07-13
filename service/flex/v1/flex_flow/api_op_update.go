@@ -28,7 +28,7 @@ type UpdateFlexFlowInput struct {
 	JanitorEnabled               *bool   `form:"JanitorEnabled,omitempty"`
 }
 
-type UpdateFlexFlowOutputIntegration struct {
+type UpdateFlexFlowResponseIntegration struct {
 	FlowSid           *string `json:"flow_sid,omitempty"`
 	Url               *string `json:"url,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
@@ -39,28 +39,28 @@ type UpdateFlexFlowOutputIntegration struct {
 	RetryCount        *int    `json:"retry_count,omitempty"`
 }
 
-type UpdateFlexFlowOutput struct {
-	Sid             string                           `json:"sid"`
-	AccountSid      string                           `json:"account_sid"`
-	FriendlyName    string                           `json:"friendly_name"`
-	ChatServiceSid  string                           `json:"chat_service_sid"`
-	ChannelType     string                           `json:"channel_type"`
-	ContactIdentity *string                          `json:"contact_identity,omitempty"`
-	Enabled         bool                             `json:"enabled"`
-	IntegrationType *string                          `json:"integration_type,omitempty"`
-	Integration     *UpdateFlexFlowOutputIntegration `json:"integration,omitempty"`
-	LongLived       *bool                            `json:"long_lived,omitempty"`
-	JanitorEnabled  *bool                            `json:"janitor_enabled,omitempty"`
-	DateCreated     time.Time                        `json:"date_created"`
-	DateUpdated     *time.Time                       `json:"date_updated,omitempty"`
-	URL             string                           `json:"url"`
+type UpdateFlexFlowResponse struct {
+	Sid             string                             `json:"sid"`
+	AccountSid      string                             `json:"account_sid"`
+	FriendlyName    string                             `json:"friendly_name"`
+	ChatServiceSid  string                             `json:"chat_service_sid"`
+	ChannelType     string                             `json:"channel_type"`
+	ContactIdentity *string                            `json:"contact_identity,omitempty"`
+	Enabled         bool                               `json:"enabled"`
+	IntegrationType *string                            `json:"integration_type,omitempty"`
+	Integration     *UpdateFlexFlowResponseIntegration `json:"integration,omitempty"`
+	LongLived       *bool                              `json:"long_lived,omitempty"`
+	JanitorEnabled  *bool                              `json:"janitor_enabled,omitempty"`
+	DateCreated     time.Time                          `json:"date_created"`
+	DateUpdated     *time.Time                         `json:"date_updated,omitempty"`
+	URL             string                             `json:"url"`
 }
 
-func (c Client) Update(input *UpdateFlexFlowInput) (*UpdateFlexFlowOutput, error) {
+func (c Client) Update(input *UpdateFlexFlowInput) (*UpdateFlexFlowResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateFlexFlowInput) (*UpdateFlexFlowOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateFlexFlowInput) (*UpdateFlexFlowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/FlexFlows/{sid}",
@@ -70,9 +70,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateFlexFlow
 		},
 	}
 
-	output := &UpdateFlexFlowOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateFlexFlowResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

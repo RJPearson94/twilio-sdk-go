@@ -18,7 +18,7 @@ type CreateWebChannelInput struct {
 	PreEngagementData    *string `form:"PreEngagementData,omitempty"`
 }
 
-type CreateWebChannelOutput struct {
+type CreateWebChannelResponse struct {
 	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
 	FlexFlowSid string     `json:"flex_flow_sid"`
@@ -27,20 +27,20 @@ type CreateWebChannelOutput struct {
 	URL         string     `json:"url"`
 }
 
-func (c Client) Create(input *CreateWebChannelInput) (*CreateWebChannelOutput, error) {
+func (c Client) Create(input *CreateWebChannelInput) (*CreateWebChannelResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateWebChannelInput) (*CreateWebChannelOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateWebChannelInput) (*CreateWebChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/WebChannels",
 		ContentType: client.URLEncoded,
 	}
 
-	output := &CreateWebChannelOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateWebChannelResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

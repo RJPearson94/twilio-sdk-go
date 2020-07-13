@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetFlexFlowOutputIntegration struct {
+type GetFlexFlowResponseIntegration struct {
 	FlowSid           *string `json:"flow_sid,omitempty"`
 	Url               *string `json:"url,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
@@ -20,28 +20,28 @@ type GetFlexFlowOutputIntegration struct {
 	RetryCount        *int    `json:"retry_count,omitempty"`
 }
 
-type GetFlexFlowOutput struct {
-	Sid             string                        `json:"sid"`
-	AccountSid      string                        `json:"account_sid"`
-	FriendlyName    string                        `json:"friendly_name"`
-	ChatServiceSid  string                        `json:"chat_service_sid"`
-	ChannelType     string                        `json:"channel_type"`
-	ContactIdentity *string                       `json:"contact_identity,omitempty"`
-	Enabled         bool                          `json:"enabled"`
-	IntegrationType *string                       `json:"integration_type,omitempty"`
-	Integration     *GetFlexFlowOutputIntegration `json:"integration,omitempty"`
-	LongLived       *bool                         `json:"long_lived,omitempty"`
-	JanitorEnabled  *bool                         `json:"janitor_enabled,omitempty"`
-	DateCreated     time.Time                     `json:"date_created"`
-	DateUpdated     *time.Time                    `json:"date_updated,omitempty"`
-	URL             string                        `json:"url"`
+type GetFlexFlowResponse struct {
+	Sid             string                          `json:"sid"`
+	AccountSid      string                          `json:"account_sid"`
+	FriendlyName    string                          `json:"friendly_name"`
+	ChatServiceSid  string                          `json:"chat_service_sid"`
+	ChannelType     string                          `json:"channel_type"`
+	ContactIdentity *string                         `json:"contact_identity,omitempty"`
+	Enabled         bool                            `json:"enabled"`
+	IntegrationType *string                         `json:"integration_type,omitempty"`
+	Integration     *GetFlexFlowResponseIntegration `json:"integration,omitempty"`
+	LongLived       *bool                           `json:"long_lived,omitempty"`
+	JanitorEnabled  *bool                           `json:"janitor_enabled,omitempty"`
+	DateCreated     time.Time                       `json:"date_created"`
+	DateUpdated     *time.Time                      `json:"date_updated,omitempty"`
+	URL             string                          `json:"url"`
 }
 
-func (c Client) Get() (*GetFlexFlowOutput, error) {
+func (c Client) Get() (*GetFlexFlowResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetFlexFlowOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetFlexFlowResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/FlexFlows/{sid}",
@@ -50,9 +50,9 @@ func (c Client) GetWithContext(context context.Context) (*GetFlexFlowOutput, err
 		},
 	}
 
-	output := &GetFlexFlowOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetFlexFlowResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

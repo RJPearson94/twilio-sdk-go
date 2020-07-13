@@ -43,11 +43,23 @@ func NewWithClient(client *client.Client) *Flex {
 		client:        client,
 		Configuration: func() *configuration.Client { return configuration.New(client) },
 		FlexFlows:     flex_flows.New(client),
-		FlexFlow:      func(sid string) *flex_flow.Client { return flex_flow.New(client, sid) },
-		Channels:      channels.New(client),
-		Channel:       func(sid string) *channel.Client { return channel.New(client, sid) },
-		WebChannels:   web_channels.New(client),
-		WebChannel:    func(sid string) *web_channel.Client { return web_channel.New(client, sid) },
+		FlexFlow: func(sid string) *flex_flow.Client {
+			return flex_flow.New(client, flex_flow.ClientProperties{
+				Sid: sid,
+			})
+		},
+		Channels: channels.New(client),
+		Channel: func(sid string) *channel.Client {
+			return channel.New(client, channel.ClientProperties{
+				Sid: sid,
+			})
+		},
+		WebChannels: web_channels.New(client),
+		WebChannel: func(sid string) *web_channel.Client {
+			return web_channel.New(client, web_channel.ClientProperties{
+				Sid: sid,
+			})
+		},
 	}
 }
 

@@ -14,7 +14,7 @@ type UpdateWebChannelInput struct {
 	PreEngagementData *string `form:"PreEngagementData,omitempty"`
 }
 
-type UpdateWebChannelOutput struct {
+type UpdateWebChannelResponse struct {
 	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
 	FlexFlowSid string     `json:"flex_flow_sid"`
@@ -23,11 +23,11 @@ type UpdateWebChannelOutput struct {
 	URL         string     `json:"url"`
 }
 
-func (c Client) Update(input *UpdateWebChannelInput) (*UpdateWebChannelOutput, error) {
+func (c Client) Update(input *UpdateWebChannelInput) (*UpdateWebChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateWebChannelInput) (*UpdateWebChannelOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateWebChannelInput) (*UpdateWebChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/WebChannels/{sid}",
@@ -37,9 +37,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWebChann
 		},
 	}
 
-	output := &UpdateWebChannelOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateWebChannelResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

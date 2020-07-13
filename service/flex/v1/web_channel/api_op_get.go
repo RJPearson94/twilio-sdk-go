@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetWebChannelOutput struct {
+type GetWebChannelResponse struct {
 	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
 	FlexFlowSid string     `json:"flex_flow_sid"`
@@ -18,11 +18,11 @@ type GetWebChannelOutput struct {
 	URL         string     `json:"url"`
 }
 
-func (c Client) Get() (*GetWebChannelOutput, error) {
+func (c Client) Get() (*GetWebChannelResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetWebChannelOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetWebChannelResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/WebChannels/{sid}",
@@ -31,9 +31,9 @@ func (c Client) GetWithContext(context context.Context) (*GetWebChannelOutput, e
 		},
 	}
 
-	output := &GetWebChannelOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetWebChannelResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }
