@@ -9,16 +9,20 @@ import (
 
 type Client struct {
 	client *client.Client
-	sid    string
-	Keys   *keys.Client
-	Key    func(string) *key.Client
+
+	sid string
+
+	Keys *keys.Client
+	Key  func(string) *key.Client
 }
 
 func New(client *client.Client, sid string) *Client {
 	return &Client{
 		client: client,
-		sid:    sid,
-		Keys:   keys.New(client, sid),
-		Key:    func(keySid string) *key.Client { return key.New(client, sid, keySid) },
+
+		sid: sid,
+
+		Keys: keys.New(client, sid),
+		Key:  func(keySid string) *key.Client { return key.New(client, sid, keySid) },
 	}
 }

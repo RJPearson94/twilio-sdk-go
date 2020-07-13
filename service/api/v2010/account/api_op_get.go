@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-type GetAccountOutput struct {
+type GetAccountResponse struct {
 	Sid             string             `json:"sid"`
 	OwnerAccountSid string             `json:"owner_account_sid"`
 	FriendlyName    string             `json:"friendly_name"`
@@ -20,11 +20,11 @@ type GetAccountOutput struct {
 	DateUpdated     *utils.RFC2822Time `json:"date_updated,omitempty"`
 }
 
-func (c Client) Get() (*GetAccountOutput, error) {
+func (c Client) Get() (*GetAccountResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetAccountOutput, error) {
+func (c Client) GetWithContext(context context.Context) (*GetAccountResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Accounts/{sid}.json",
@@ -33,9 +33,9 @@ func (c Client) GetWithContext(context context.Context) (*GetAccountOutput, erro
 		},
 	}
 
-	output := &GetAccountOutput{}
-	if err := c.client.Send(context, op, nil, output); err != nil {
+	response := &GetAccountResponse{}
+	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

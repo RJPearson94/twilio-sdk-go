@@ -13,18 +13,18 @@ type UpdateKeyInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-type UpdateKeyOutput struct {
+type UpdateKeyResponse struct {
 	Sid          string             `json:"sid"`
 	FriendlyName string             `json:"friendly_name"`
 	DateCreated  utils.RFC2822Time  `json:"date_created"`
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
 }
 
-func (c Client) Update(input *UpdateKeyInput) (*UpdateKeyOutput, error) {
+func (c Client) Update(input *UpdateKeyInput) (*UpdateKeyResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateKeyInput) (*UpdateKeyOutput, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateKeyInput) (*UpdateKeyResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Accounts/{accountSid}/Keys/{sid}.json",
@@ -35,9 +35,9 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateKeyInput
 		},
 	}
 
-	output := &UpdateKeyOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &UpdateKeyResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

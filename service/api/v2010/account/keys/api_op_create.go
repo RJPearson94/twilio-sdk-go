@@ -13,7 +13,7 @@ type CreateKeyInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-type CreateKeyOutput struct {
+type CreateKeyResponse struct {
 	Sid          string             `json:"sid"`
 	FriendlyName string             `json:"friendly_name"`
 	Secret       string             `json:"secret"`
@@ -21,11 +21,11 @@ type CreateKeyOutput struct {
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
 }
 
-func (c Client) Create(input *CreateKeyInput) (*CreateKeyOutput, error) {
+func (c Client) Create(input *CreateKeyInput) (*CreateKeyResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput) (*CreateKeyOutput, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput) (*CreateKeyResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Accounts/{accountSid}/Keys.json",
@@ -35,9 +35,9 @@ func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput
 		},
 	}
 
-	output := &CreateKeyOutput{}
-	if err := c.client.Send(context, op, input, output); err != nil {
+	response := &CreateKeyResponse{}
+	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}
-	return output, nil
+	return response, nil
 }

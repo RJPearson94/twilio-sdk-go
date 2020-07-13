@@ -1,312 +1,343 @@
-[
-  {
-    "name": "Account",
-    "properties": {
-      "sid": {
-        "dataType": "string"
-      }
-    },
-    "subClients": [
-      {
-        "name": "Keys",
-        "properties": {
-          "accountSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Create",
-            "path": "/Accounts/{accountSid}/Keys.json",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "accountSid",
-                "value": {
-                  "onService": true,
-                  "property": "accountSid"
-                }
-              }
-            ],
-            "input": {
-              "name": "CreateKeyInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "FriendlyName",
-                  "required": false
-                }
-              ]
-            },
-            "response": {
-              "name": "CreateKeyOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "Secret",
-                  "type": "string",
-                  "value": "secret",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "utils.RFC2822Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "utils.RFC2822Time",
-                  "value": "date_updated",
-                  "required": false
-                }
-              ]
-            }
-          }
-        ]
+{
+  "packageName": "v2010",
+  "name": "V2010",
+  "config": {
+    "includeDefaults": true,
+    "beta": false,
+    "subDomain": "api",
+    "apiVersion": "2010-04-01"
+  },
+  "subClients": [
+    {
+      "name": "Account",
+      "packageName": "account",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
       },
-      {
-        "name": "Key",
-        "function": {
-          "parameters": {
-            "keySid": {
-              "dataType": "string"
+      "subClients": [
+        {
+          "name": "Keys",
+          "packageName": "keys",
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
             }
-          }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Keys.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateKeyInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateKeyResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "Secret",
+                    "type": "string",
+                    "value": "secret",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_updated",
+                    "required": false
+                  }
+                ]
+              }
+            }
+          ]
         },
-        "properties": {
-          "accountSid": {
-            "dataType": "string",
-            "parentProperty": "sid"
-          },
-          "sid": {
-            "dataType": "string",
-            "functionParameter": "keySid"
-          }
-        },
-        "operations": [
-          {
-            "name": "Get",
-            "path": "/Accounts/{accountSid}/Keys/{sid}.json",
-            "httpMethod": "Get",
-            "pathParams": [
-              {
-                "pathParamName": "accountSid",
-                "value": {
-                  "onService": true,
-                  "property": "accountSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
+        {
+          "name": "Key",
+          "packageName": "key",
+          "function": {
+            "parameters": {
+              "keySid": {
+                "dataType": "string"
               }
-            ],
-            "response": {
-              "name": "GetKeyOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "utils.RFC2822Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "utils.RFC2822Time",
-                  "value": "date_updated",
-                  "required": false
-                }
-              ]
             }
           },
-          {
-            "name": "Update",
-            "path": "/Accounts/{accountSid}/Keys/{sid}.json",
-            "httpMethod": "Post",
-            "pathParams": [
-              {
-                "pathParamName": "accountSid",
-                "value": {
-                  "onService": true,
-                  "property": "accountSid"
-                }
-              },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
-              }
-            ],
-            "input": {
-              "name": "UpdateKeyInput",
-              "type": "URLEncoded",
-              "properties": [
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "FriendlyName",
-                  "required": false
-                }
-              ]
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
             },
-            "response": {
-              "name": "UpdateKeyOutput",
-              "type": "JSON",
-              "properties": [
-                {
-                  "name": "Sid",
-                  "type": "string",
-                  "value": "sid",
-                  "required": true
-                },
-                {
-                  "name": "FriendlyName",
-                  "type": "string",
-                  "value": "friendly_name",
-                  "required": true
-                },
-                {
-                  "name": "DateCreated",
-                  "type": "utils.RFC2822Time",
-                  "value": "date_created",
-                  "required": true
-                },
-                {
-                  "name": "DateUpdated",
-                  "type": "utils.RFC2822Time",
-                  "value": "date_updated",
-                  "required": false
-                }
-              ]
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "keySid"
             }
           },
-          {
-            "name": "Delete",
-            "path": "/Accounts/{accountSid}/Keys/{sid}.json",
-            "httpMethod": "Delete",
-            "pathParams": [
-              {
-                "pathParamName": "accountSid",
-                "value": {
-                  "onService": true,
-                  "property": "accountSid"
-                }
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Keys/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
               },
-              {
-                "pathParamName": "sid",
-                "value": {
-                  "onService": true,
-                  "property": "sid"
-                }
+              "response": {
+                "name": "GetKeyResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_updated",
+                    "required": false
+                  }
+                ]
               }
-            ]
-          }
-        ]
-      }
-    ],
-    "operations": [
-      {
-        "name": "Get",
-        "path": "/Accounts/{sid}.json",
-        "httpMethod": "Get",
-        "pathParams": [
-          {
-            "pathParamName": "sid",
-            "value": {
-              "onService": true,
-              "property": "sid"
-            }
-          }
-        ],
-        "response": {
-          "name": "GetAccountOutput",
-          "type": "JSON",
-          "properties": [
-            {
-              "name": "Sid",
-              "type": "string",
-              "value": "sid",
-              "required": true
             },
             {
-              "name": "OwnerAccountSid",
-              "type": "string",
-              "value": "owner_account_sid",
-              "required": true
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Keys/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateKeyInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateKeyResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_updated",
+                    "required": false
+                  }
+                ]
+              }
             },
             {
-              "name": "FriendlyName",
-              "type": "string",
-              "value": "friendly_name",
-              "required": true
-            },
-            {
-              "name": "Status",
-              "type": "string",
-              "value": "status",
-              "required": true
-            },
-            {
-              "name": "AuthToken",
-              "type": "string",
-              "value": "auth_token",
-              "required": true
-            },
-            {
-              "name": "Type",
-              "type": "string",
-              "value": "type",
-              "required": true
-            },
-            {
-              "name": "DateCreated",
-              "type": "utils.RFC2822Time",
-              "value": "date_created",
-              "required": true
-            },
-            {
-              "name": "DateUpdated",
-              "type": "utils.RFC2822Time",
-              "value": "date_updated",
-              "required": false
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Keys/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
-      }
-    ]
-  }
-]
+      ],
+      "operations": [
+        {
+          "name": "Get",
+          "http": {
+            "uri": "/Accounts/{sid}.json",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid",
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "response": {
+            "name": "GetAccountResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "OwnerAccountSid",
+                "type": "string",
+                "value": "owner_account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "AuthToken",
+                "type": "string",
+                "value": "auth_token",
+                "required": true
+              },
+              {
+                "name": "Type",
+                "type": "string",
+                "value": "type",
+                "required": true
+              },
+              {
+                "name": "DateCreated",
+                "type": "utils.RFC2822Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "utils.RFC2822Time",
+                "value": "date_updated",
+                "required": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
