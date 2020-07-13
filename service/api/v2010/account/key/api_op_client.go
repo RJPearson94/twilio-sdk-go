@@ -10,11 +10,16 @@ type Client struct {
 	sid        string
 }
 
-func New(client *client.Client, accountSid string, sid string) *Client {
+type ClientProperties struct {
+	AccountSid string
+	Sid        string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		accountSid: accountSid,
-		sid:        sid,
+		accountSid: properties.AccountSid,
+		sid:        properties.Sid,
 	}
 }

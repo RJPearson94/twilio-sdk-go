@@ -16,13 +16,24 @@ type Client struct {
 	Key  func(string) *key.Client
 }
 
-func New(client *client.Client, sid string) *Client {
+type ClientProperties struct {
+	Sid string
+}
+
+func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		sid: sid,
+		sid: properties.Sid,
 
-		Keys: keys.New(client, sid),
-		Key:  func(keySid string) *key.Client { return key.New(client, sid, keySid) },
+		Keys: keys.New(client, keys.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		Key: func(keySid string) *key.Client {
+			return key.New(client, key.ClientProperties{
+				AccountSid: properties.Sid,
+				Sid:        keySid,
+			})
+		},
 	}
 }

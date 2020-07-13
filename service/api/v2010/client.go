@@ -28,8 +28,12 @@ func New(sess *session.Session) *V2010 {
 
 func NewWithClient(client *client.Client) *V2010 {
 	return &V2010{
-		client:  client,
-		Account: func(accountSid string) *account.Client { return account.New(client, accountSid) },
+		client: client,
+		Account: func(accountSid string) *account.Client {
+			return account.New(client, account.ClientProperties{
+				Sid: accountSid,
+			})
+		},
 	}
 }
 
