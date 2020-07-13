@@ -30,8 +30,8 @@ func (c Client) Get() (*GetWorkerOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetWorkerOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Workspaces/{workspaceSid}/Workers/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Workspaces/{workspaceSid}/Workers/{sid}",
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 			"sid":          c.sid,

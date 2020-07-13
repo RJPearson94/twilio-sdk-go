@@ -31,8 +31,8 @@ func (c Client) Create(input *CreateActivityInput) (*CreateActivityOutput, error
 
 func (c Client) CreateWithContext(context context.Context, input *CreateActivityInput) (*CreateActivityOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/Activities",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/Activities",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

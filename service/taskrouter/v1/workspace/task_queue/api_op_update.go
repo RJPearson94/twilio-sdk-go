@@ -42,8 +42,8 @@ func (c Client) Update(input *UpdateTaskQueueInput) (*UpdateTaskQueueOutput, err
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskQueueInput) (*UpdateTaskQueueOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

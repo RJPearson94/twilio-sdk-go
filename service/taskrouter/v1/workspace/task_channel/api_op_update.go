@@ -32,8 +32,8 @@ func (c Client) Update(input *UpdateTaskChannelInput) (*UpdateTaskChannelOutput,
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskChannelInput) (*UpdateTaskChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

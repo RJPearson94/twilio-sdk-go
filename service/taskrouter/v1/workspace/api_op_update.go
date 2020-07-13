@@ -41,8 +41,8 @@ func (c Client) Update(input *UpdateWorkspaceInput) (*UpdateWorkspaceOutput, err
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkspaceInput) (*UpdateWorkspaceOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"sid": c.sid,

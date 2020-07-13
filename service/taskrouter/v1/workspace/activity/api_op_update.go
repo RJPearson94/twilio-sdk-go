@@ -30,8 +30,8 @@ func (c Client) Update(input *UpdateActivityInput) (*UpdateActivityOutput, error
 
 func (c Client) UpdateWithContext(context context.Context, input *UpdateActivityInput) (*UpdateActivityOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/Activities/{sid}",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/Activities/{sid}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

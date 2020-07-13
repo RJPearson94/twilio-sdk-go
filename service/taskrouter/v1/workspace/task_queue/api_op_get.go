@@ -33,8 +33,8 @@ func (c Client) Get() (*GetTaskQueueOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetTaskQueueOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 			"sid":          c.sid,

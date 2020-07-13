@@ -42,8 +42,8 @@ func (c Client) Create(input *CreateTaskQueueInput) (*CreateTaskQueueOutput, err
 
 func (c Client) CreateWithContext(context context.Context, input *CreateTaskQueueInput) (*CreateTaskQueueOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/TaskQueues",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/TaskQueues",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

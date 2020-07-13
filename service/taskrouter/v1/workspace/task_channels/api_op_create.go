@@ -33,8 +33,8 @@ func (c Client) Create(input *CreateTaskChannelInput) (*CreateTaskChannelOutput,
 
 func (c Client) CreateWithContext(context context.Context, input *CreateTaskChannelInput) (*CreateTaskChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/TaskChannels",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/TaskChannels",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

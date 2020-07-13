@@ -26,8 +26,8 @@ func (c Client) Get() (*GetActivityOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetActivityOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Workspaces/{workspaceSid}/Activities/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Workspaces/{workspaceSid}/Activities/{sid}",
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 			"sid":          c.sid,

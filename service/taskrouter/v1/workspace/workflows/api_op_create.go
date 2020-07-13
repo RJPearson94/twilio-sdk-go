@@ -38,8 +38,8 @@ func (c Client) Create(input *CreateWorkflowInput) (*CreateWorkflowOutput, error
 
 func (c Client) CreateWithContext(context context.Context, input *CreateWorkflowInput) (*CreateWorkflowOutput, error) {
 	op := client.Operation{
-		HTTPMethod:  http.MethodPost,
-		HTTPPath:    "/Workspaces/{workspaceSid}/Workflows",
+		Method:      http.MethodPost,
+		URI:         "/Workspaces/{workspaceSid}/Workflows",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,

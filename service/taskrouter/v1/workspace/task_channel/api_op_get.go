@@ -27,8 +27,8 @@ func (c Client) Get() (*GetTaskChannelOutput, error) {
 
 func (c Client) GetWithContext(context context.Context) (*GetTaskChannelOutput, error) {
 	op := client.Operation{
-		HTTPMethod: http.MethodGet,
-		HTTPPath:   "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
+		Method: http.MethodGet,
+		URI:    "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 			"sid":          c.sid,
