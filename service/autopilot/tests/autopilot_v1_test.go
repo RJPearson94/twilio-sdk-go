@@ -13,6 +13,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistants"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -232,6 +233,113 @@ var _ = Describe("Autopilot V1", func() {
 			err := autopilotSession.Assistant("UA71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a defaults client", func() {
+		defaultsClient := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Defaults()
+
+		Describe("When the default is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/defaultsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := defaultsClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get defaults response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				data := make(map[string]interface{})
+				Expect(resp.Data).To(Equal(data))
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults"))
+			})
+		})
+
+		Describe("When the defaults api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := defaultsClient.Get()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get defaults response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the defaults are successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateDefaultsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &defaults.UpdateDefaultInput{
+				Defaults: utils.String(`{ "defaults": { "fallback": "http://localhost/fallback" } }`),
+			}
+
+			resp, err := defaultsClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update defaults response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				defaultsData, _ := ioutil.ReadFile("testdata/defaultsData.json")
+				data := make(map[string]interface{})
+				json.Unmarshal(defaultsData, &data)
+				Expect(resp.Data).To(Equal(data))
+
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults"))
+			})
+		})
+
+		Describe("When the defaults api returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			updateInput := &defaults.UpdateDefaultInput{
+				Defaults: utils.String(`{ "defaults": { "fallback": "http://localhost/fallback" } }`),
+			}
+
+			resp, err := defaultsClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get defaults response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

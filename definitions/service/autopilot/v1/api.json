@@ -161,6 +161,129 @@
           "dataType": "string"
         }
       },
+      "subClients": [
+        {
+          "name": "Defaults",
+          "packageName": "defaults",
+          "function": {
+            "parameters": {}
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Defaults",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetDefaultResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Data",
+                    "type": "interface{}",
+                    "value": "data",
+                    "required": true
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Defaults",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateDefaultInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "Defaults",
+                    "type": "string",
+                    "value": "Defaults",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateDefaultResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Data",
+                    "type": "interface{}",
+                    "value": "data",
+                    "required": true
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Get",

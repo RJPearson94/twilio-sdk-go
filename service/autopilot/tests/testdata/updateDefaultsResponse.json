@@ -1,0 +1,10 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Defaults",
+  "data": {
+    "defaults": {
+      "fallback": "http://localhost/fallback"
+    }
+  }
+}
