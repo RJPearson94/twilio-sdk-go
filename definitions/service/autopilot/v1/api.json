@@ -41,7 +41,7 @@
                 "required": false
               },
               {
-                "name": "CallbackUrl",
+                "name": "CallbackURL",
                 "type": "string",
                 "value": "CallbackUrl",
                 "required": false
@@ -107,7 +107,7 @@
                 "required": false
               },
               {
-                "name": "CallbackUrl",
+                "name": "CallbackURL",
                 "type": "string",
                 "value": "callback_url",
                 "required": false
@@ -403,6 +403,373 @@
               }
             }
           ]
+        },
+        {
+          "name": "Tasks",
+          "packageName": "tasks",
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Tasks",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateTaskInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": false
+                  },
+                  {
+                    "name": "Actions",
+                    "type": "string",
+                    "value": "Actions",
+                    "required": false
+                  },
+                  {
+                    "name": "ActionsURL",
+                    "type": "string",
+                    "value": "ActionsUrl",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateTaskResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": false
+                  },
+                  {
+                    "name": "ActionsURL",
+                    "type": "string",
+                    "value": "actions_url",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Task",
+          "packageName": "task",
+          "function": {
+            "parameters": {
+              "taskSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "taskSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Tasks/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetAssistantResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": false
+                  },
+                  {
+                    "name": "ActionsURL",
+                    "type": "string",
+                    "value": "actions_url",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Tasks/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateTaskInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "FriendlyName",
+                    "required": false
+                  },
+                  {
+                    "name": "Actions",
+                    "type": "string",
+                    "value": "Actions",
+                    "required": false
+                  },
+                  {
+                    "name": "ActionsURL",
+                    "type": "string",
+                    "value": "ActionsUrl",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateTaskResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "value": "friendly_name",
+                    "required": false
+                  },
+                  {
+                    "name": "ActionsURL",
+                    "type": "string",
+                    "value": "actions_url",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Tasks/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -463,7 +830,7 @@
                 "required": false
               },
               {
-                "name": "CallbackUrl",
+                "name": "CallbackURL",
                 "type": "string",
                 "value": "callback_url",
                 "required": false
@@ -546,7 +913,7 @@
                 "required": false
               },
               {
-                "name": "CallbackUrl",
+                "name": "CallbackURL",
                 "type": "string",
                 "value": "CallbackUrl",
                 "required": false
@@ -618,7 +985,7 @@
                 "required": false
               },
               {
-                "name": "CallbackUrl",
+                "name": "CallbackURL",
                 "type": "string",
                 "value": "callback_url",
                 "required": false

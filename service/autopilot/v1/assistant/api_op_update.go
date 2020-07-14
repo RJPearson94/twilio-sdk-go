@@ -13,7 +13,7 @@ type UpdateAssistantInput struct {
 	FriendlyName     *string `form:"FriendlyName,omitempty"`
 	LogQueries       *bool   `form:"LogQueries,omitempty"`
 	UniqueName       *string `form:"UniqueName,omitempty"`
-	CallbackUrl      *string `form:"CallbackUrl,omitempty"`
+	CallbackURL      *string `form:"CallbackUrl,omitempty"`
 	CallbackEvents   *string `form:"CallbackEvents,omitempty"`
 	StyleSheet       *string `form:"StyleSheet,omitempty"`
 	Defaults         *string `form:"Defaults,omitempty"`
@@ -27,7 +27,7 @@ type UpdateAssistantResponse struct {
 	UniqueName          string     `json:"unique_name"`
 	FriendlyName        *string    `json:"friendly_name,omitempty"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`
-	CallbackUrl         *string    `json:"callback_url,omitempty"`
+	CallbackURL         *string    `json:"callback_url,omitempty"`
 	LogQueries          bool       `json:"log_queries"`
 	DevelopmentStage    string     `json:"development_stage"`
 	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`

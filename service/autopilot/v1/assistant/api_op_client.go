@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/tasks"
 )
 
 type Client struct {
@@ -14,6 +16,8 @@ type Client struct {
 
 	Defaults   func() *defaults.Client
 	StyleSheet func() *style_sheet.Client
+	Tasks      *tasks.Client
+	Task       func(string) *task.Client
 }
 
 type ClientProperties struct {
@@ -34,6 +38,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		StyleSheet: func() *style_sheet.Client {
 			return style_sheet.New(client, style_sheet.ClientProperties{
 				AssistantSid: properties.Sid,
+			})
+		},
+		Tasks: tasks.New(client, tasks.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
+		Task: func(taskSid string) *task.Client {
+			return task.New(client, task.ClientProperties{
+				AssistantSid: properties.Sid,
+				Sid:          taskSid,
 			})
 		},
 	}

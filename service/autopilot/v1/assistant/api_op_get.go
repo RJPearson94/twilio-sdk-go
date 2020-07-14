@@ -16,7 +16,7 @@ type GetAssistantResponse struct {
 	UniqueName          string     `json:"unique_name"`
 	FriendlyName        *string    `json:"friendly_name,omitempty"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`
-	CallbackUrl         *string    `json:"callback_url,omitempty"`
+	CallbackURL         *string    `json:"callback_url,omitempty"`
 	LogQueries          bool       `json:"log_queries"`
 	DevelopmentStage    string     `json:"development_stage"`
 	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
