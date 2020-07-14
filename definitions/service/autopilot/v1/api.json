@@ -543,6 +543,161 @@
               "functionParameter": "taskSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Actions",
+              "packageName": "actions",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Actions",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetActionResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Data",
+                        "type": "interface{}",
+                        "value": "data",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Actions",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "UpdateActionInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Actions",
+                        "type": "string",
+                        "value": "Actions",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "UpdateActionResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Data",
+                        "type": "interface{}",
+                        "value": "data",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Get",

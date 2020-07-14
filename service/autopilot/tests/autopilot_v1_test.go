@@ -16,6 +16,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/actions"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/tasks"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistants"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -662,6 +663,116 @@ var _ = Describe("Autopilot V1", func() {
 			})
 		})
 	})
+
+	Describe("Given I have a actions client", func() {
+		actionsClient := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Actions()
+
+		Describe("When the actions is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/actionsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := actionsClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get actions response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskSid).To(Equal("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				data := make(map[string]interface{})
+				Expect(resp.Data).To(Equal(data))
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions"))
+			})
+		})
+
+		Describe("When the actions api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := actionsClient.Get()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get actions response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the actions are successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateActionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &actions.UpdateActionInput{
+				Actions: utils.String(`{"actions": [{ "say": { "speech": "Test Speech" } }] }`),
+			}
+
+			resp, err := actionsClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update actions response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskSid).To(Equal("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				actionsData, _ := ioutil.ReadFile("testdata/actionsData.json")
+				data := make(map[string]interface{})
+				json.Unmarshal(actionsData, &data)
+				Expect(resp.Data).To(Equal(data))
+
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions"))
+			})
+		})
+
+		Describe("When the actions api returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			updateInput := &actions.UpdateActionInput{
+				Actions: utils.String(`{"actions": [{ "say": { "speech": "Test Speech" } }] }`),
+			}
+
+			resp, err := actionsClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get actions response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
 })
 
 func ExpectInternalServerError(err error) {
