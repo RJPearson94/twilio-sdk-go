@@ -696,6 +696,92 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Statistics",
+              "packageName": "statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Statistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetStatisticsResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "SamplesCount",
+                        "type": "int",
+                        "value": "samples_count",
+                        "required": true
+                      },
+                      {
+                        "name": "FieldsCount",
+                        "type": "int",
+                        "value": "fields_count",
+                        "required": true
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ],
           "operations": [
