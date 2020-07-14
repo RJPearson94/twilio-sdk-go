@@ -4,6 +4,7 @@ package assistant
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 )
 
 type Client struct {
@@ -11,7 +12,8 @@ type Client struct {
 
 	sid string
 
-	Defaults func() *defaults.Client
+	Defaults   func() *defaults.Client
+	StyleSheet func() *style_sheet.Client
 }
 
 type ClientProperties struct {
@@ -26,6 +28,11 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		Defaults: func() *defaults.Client {
 			return defaults.New(client, defaults.ClientProperties{
+				AssistantSid: properties.Sid,
+			})
+		},
+		StyleSheet: func() *style_sheet.Client {
+			return style_sheet.New(client, style_sheet.ClientProperties{
 				AssistantSid: properties.Sid,
 			})
 		},

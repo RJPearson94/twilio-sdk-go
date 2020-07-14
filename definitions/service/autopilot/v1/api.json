@@ -282,6 +282,127 @@
               }
             }
           ]
+        },
+        {
+          "name": "StyleSheet",
+          "packageName": "style_sheet",
+          "function": {
+            "parameters": {}
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/StyleSheet",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetStyleSheetResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Data",
+                    "type": "interface{}",
+                    "value": "data",
+                    "required": true
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/StyleSheet",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateStyleSheetInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "StyleSheet",
+                    "type": "string",
+                    "value": "StyleSheet",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateStyleSheetResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Data",
+                    "type": "interface{}",
+                    "value": "data",
+                    "required": true
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [

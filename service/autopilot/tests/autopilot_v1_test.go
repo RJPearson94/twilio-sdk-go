@@ -14,6 +14,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistants"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -339,6 +340,113 @@ var _ = Describe("Autopilot V1", func() {
 			})
 
 			It("Then the get defaults response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a stylesheet client", func() {
+		stylesheetClient := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").StyleSheet()
+
+		Describe("When the stylesheet is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/stylesheetResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := stylesheetClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get stylesheet response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				data := make(map[string]interface{})
+				Expect(resp.Data).To(Equal(data))
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet"))
+			})
+		})
+
+		Describe("When the stylesheet api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := stylesheetClient.Get()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get stylesheet response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the stylesheet are successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateStylesheetResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &style_sheet.UpdateStyleSheetInput{
+				StyleSheet: utils.String(`{ "voice": { "say_voice": "Polly.Matthew" } }`),
+			}
+
+			resp, err := stylesheetClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update stylesheet response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				stylesheetData, _ := ioutil.ReadFile("testdata/stylesheetData.json")
+				data := make(map[string]interface{})
+				json.Unmarshal(stylesheetData, &data)
+				Expect(resp.Data).To(Equal(data))
+
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet"))
+			})
+		})
+
+		Describe("When the stylesheet api returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			updateInput := &style_sheet.UpdateStyleSheetInput{
+				StyleSheet: utils.String(`{ "voice": { "say_voice": "Polly.Matthew" } }`),
+			}
+
+			resp, err := stylesheetClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get stylesheet response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
