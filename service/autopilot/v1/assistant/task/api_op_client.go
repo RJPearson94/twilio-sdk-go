@@ -4,6 +4,8 @@ package task
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/actions"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/field"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/fields"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/sample"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/samples"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/statistics"
@@ -12,9 +14,11 @@ import (
 type Client struct {
 	client *client.Client
 
-	sid          string
 	assistantSid string
+	sid          string
 
+	Fields     *fields.Client
+	Field      func(string) *field.Client
 	Samples    *samples.Client
 	Sample     func(string) *sample.Client
 	Actions    func() *actions.Client
@@ -22,32 +26,43 @@ type Client struct {
 }
 
 type ClientProperties struct {
-	Sid          string
 	AssistantSid string
+	Sid          string
 }
 
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		sid:          properties.Sid,
 		assistantSid: properties.AssistantSid,
+		sid:          properties.Sid,
 
+		Fields: fields.New(client, fields.ClientProperties{
+			AssistantSid: properties.AssistantSid,
+			TaskSid:      properties.Sid,
+		}),
+		Field: func(fieldSid string) *field.Client {
+			return field.New(client, field.ClientProperties{
+				Sid:          fieldSid,
+				TaskSid:      properties.Sid,
+				AssistantSid: properties.AssistantSid,
+			})
+		},
 		Samples: samples.New(client, samples.ClientProperties{
 			AssistantSid: properties.AssistantSid,
 			TaskSid:      properties.Sid,
 		}),
 		Sample: func(sampleSid string) *sample.Client {
 			return sample.New(client, sample.ClientProperties{
-				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
 				Sid:          sampleSid,
+				TaskSid:      properties.Sid,
 			})
 		},
 		Actions: func() *actions.Client {
 			return actions.New(client, actions.ClientProperties{
-				AssistantSid: properties.AssistantSid,
 				TaskSid:      properties.Sid,
+				AssistantSid: properties.AssistantSid,
 			})
 		},
 		Statistics: func() *statistics.Client {

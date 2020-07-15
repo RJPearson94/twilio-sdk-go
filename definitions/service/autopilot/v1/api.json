@@ -545,6 +545,278 @@
           },
           "subClients": [
             {
+              "name": "Fields",
+              "packageName": "fields",
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Fields",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateFieldInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "UniqueName",
+                        "type": "string",
+                        "value": "UniqueName",
+                        "required": true
+                      },
+                      {
+                        "name": "FieldType",
+                        "type": "string",
+                        "value": "FieldType",
+                        "required": true
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateFieldResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "UniqueName",
+                        "type": "string",
+                        "value": "unique_name",
+                        "required": true
+                      },
+                      {
+                        "name": "FieldType",
+                        "type": "string",
+                        "value": "field_type",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Field",
+              "packageName": "field",
+              "function": {
+                "parameters": {
+                  "fieldSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "fieldSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Fields/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetFieldResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "UniqueName",
+                        "type": "string",
+                        "value": "unique_name",
+                        "required": true
+                      },
+                      {
+                        "name": "FieldType",
+                        "type": "string",
+                        "value": "field_type",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Fields/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
               "name": "Samples",
               "packageName": "samples",
               "properties": {
