@@ -4,35 +4,50 @@ package task
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/actions"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/sample"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/samples"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/statistics"
 )
 
 type Client struct {
 	client *client.Client
 
-	assistantSid string
 	sid          string
+	assistantSid string
 
+	Samples    *samples.Client
+	Sample     func(string) *sample.Client
 	Actions    func() *actions.Client
 	Statistics func() *statistics.Client
 }
 
 type ClientProperties struct {
-	AssistantSid string
 	Sid          string
+	AssistantSid string
 }
 
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		assistantSid: properties.AssistantSid,
 		sid:          properties.Sid,
+		assistantSid: properties.AssistantSid,
 
-		Actions: func() *actions.Client {
-			return actions.New(client, actions.ClientProperties{
+		Samples: samples.New(client, samples.ClientProperties{
+			AssistantSid: properties.AssistantSid,
+			TaskSid:      properties.Sid,
+		}),
+		Sample: func(sampleSid string) *sample.Client {
+			return sample.New(client, sample.ClientProperties{
 				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
+				Sid:          sampleSid,
+			})
+		},
+		Actions: func() *actions.Client {
+			return actions.New(client, actions.ClientProperties{
+				AssistantSid: properties.AssistantSid,
+				TaskSid:      properties.Sid,
 			})
 		},
 		Statistics: func() *statistics.Client {

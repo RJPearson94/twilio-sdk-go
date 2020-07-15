@@ -545,6 +545,419 @@
           },
           "subClients": [
             {
+              "name": "Samples",
+              "packageName": "samples",
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Samples",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateSampleInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "Language",
+                        "required": true
+                      },
+                      {
+                        "name": "TaggedText",
+                        "type": "string",
+                        "value": "TaggedText",
+                        "required": true
+                      },
+                      {
+                        "name": "SourceChannel",
+                        "type": "string",
+                        "value": "SourceChannel",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateSampleResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "language",
+                        "required": true
+                      },
+                      {
+                        "name": "TaggedText",
+                        "type": "string",
+                        "value": "tagged_text",
+                        "required": true
+                      },
+                      {
+                        "name": "SourceChannel",
+                        "type": "string",
+                        "value": "source_channel",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Sample",
+              "packageName": "sample",
+              "function": {
+                "parameters": {
+                  "sampleSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "sampleSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Samples/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetSampleResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "language",
+                        "required": true
+                      },
+                      {
+                        "name": "TaggedText",
+                        "type": "string",
+                        "value": "tagged_text",
+                        "required": true
+                      },
+                      {
+                        "name": "SourceChannel",
+                        "type": "string",
+                        "value": "source_channel",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Samples/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "UpdateSampleInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "Language",
+                        "required": false
+                      },
+                      {
+                        "name": "TaggedText",
+                        "type": "string",
+                        "value": "TaggedText",
+                        "required": false
+                      },
+                      {
+                        "name": "SourceChannel",
+                        "type": "string",
+                        "value": "SourceChannel",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "UpdateSampleResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "TaskSid",
+                        "type": "string",
+                        "value": "task_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "language",
+                        "required": true
+                      },
+                      {
+                        "name": "TaggedText",
+                        "type": "string",
+                        "value": "tagged_text",
+                        "required": true
+                      },
+                      {
+                        "name": "SourceChannel",
+                        "type": "string",
+                        "value": "source_channel",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Samples/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
               "name": "Actions",
               "packageName": "actions",
               "function": {

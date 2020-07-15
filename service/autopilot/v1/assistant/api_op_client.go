@@ -45,8 +45,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		Task: func(taskSid string) *task.Client {
 			return task.New(client, task.ClientProperties{
-				Sid:          taskSid,
 				AssistantSid: properties.Sid,
+				Sid:          taskSid,
 			})
 		},
 	}

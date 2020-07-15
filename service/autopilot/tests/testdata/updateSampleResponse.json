@@ -1,0 +1,12 @@
+{
+  "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "task_sid": "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-27T23:00:00Z",
+  "language": "en-US",
+  "tagged_text": "hello world",
+  "date_updated": "2020-06-27T23:10:00Z",
+  "source_channel": "alexa"
+}
