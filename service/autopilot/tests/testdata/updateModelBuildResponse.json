@@ -1,0 +1,12 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_updated": "2020-06-27T23:10:00Z",
+  "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "status": "completed",
+  "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-27T23:00:00Z",
+  "sid": "UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "unique_name": "new name",
+  "build_duration": 1000,
+  "error_code": null
+}

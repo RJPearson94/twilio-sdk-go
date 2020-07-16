@@ -54,21 +54,21 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		Sample: func(sampleSid string) *sample.Client {
 			return sample.New(client, sample.ClientProperties{
+				AssistantSid: properties.AssistantSid,
 				Sid:          sampleSid,
 				TaskSid:      properties.Sid,
-				AssistantSid: properties.AssistantSid,
 			})
 		},
 		Actions: func() *actions.Client {
 			return actions.New(client, actions.ClientProperties{
-				AssistantSid: properties.AssistantSid,
 				TaskSid:      properties.Sid,
+				AssistantSid: properties.AssistantSid,
 			})
 		},
 		Statistics: func() *statistics.Client {
 			return statistics.New(client, statistics.ClientProperties{
-				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
+				TaskSid:      properties.Sid,
 			})
 		},
 	}

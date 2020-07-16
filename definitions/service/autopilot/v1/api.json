@@ -2313,6 +2313,361 @@
               }
             }
           ]
+        },
+        {
+          "name": "Model Builds",
+          "packageName": "model_builds",
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/ModelBuilds",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateModelBuildInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": false
+                  },
+                  {
+                    "name": "StatusCallback",
+                    "type": "string",
+                    "value": "StatusCallback",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateModelBuildResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "BuildDuration",
+                    "type": "int",
+                    "value": "build_duration",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "ErrorCode",
+                    "type": "int",
+                    "value": "error_code",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Model Build",
+          "packageName": "model_build",
+          "function": {
+            "parameters": {
+              "modelBuildSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "modelBuildSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/ModelBuilds/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetModelBuildResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "BuildDuration",
+                    "type": "int",
+                    "value": "build_duration",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "ErrorCode",
+                    "type": "int",
+                    "value": "error_code",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/ModelBuilds/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateModelBuildInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateModelBuildResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "BuildDuration",
+                    "type": "int",
+                    "value": "build_duration",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "ErrorCode",
+                    "type": "int",
+                    "value": "error_code",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/ModelBuilds/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [

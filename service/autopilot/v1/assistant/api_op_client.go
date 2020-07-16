@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_type"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_types"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/model_build"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/model_builds"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/tasks"
@@ -16,12 +18,14 @@ type Client struct {
 
 	sid string
 
-	Defaults   func() *defaults.Client
-	StyleSheet func() *style_sheet.Client
-	Tasks      *tasks.Client
-	Task       func(string) *task.Client
-	FieldTypes *field_types.Client
-	FieldType  func(string) *field_type.Client
+	Defaults    func() *defaults.Client
+	StyleSheet  func() *style_sheet.Client
+	Tasks       *tasks.Client
+	Task        func(string) *task.Client
+	FieldTypes  *field_types.Client
+	FieldType   func(string) *field_type.Client
+	ModelBuilds *model_builds.Client
+	ModelBuild  func(string) *model_build.Client
 }
 
 type ClientProperties struct {
@@ -59,6 +63,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		FieldType: func(fieldTypeSid string) *field_type.Client {
 			return field_type.New(client, field_type.ClientProperties{
 				Sid:          fieldTypeSid,
+				AssistantSid: properties.Sid,
+			})
+		},
+		ModelBuilds: model_builds.New(client, model_builds.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
+		ModelBuild: func(modelBuildSid string) *model_build.Client {
+			return model_build.New(client, model_build.ClientProperties{
+				Sid:          modelBuildSid,
 				AssistantSid: properties.Sid,
 			})
 		},
