@@ -3245,6 +3245,391 @@
               }
             }
           ]
+        },
+        {
+          "name": "Webhooks",
+          "packageName": "webhooks",
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Webhooks",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateWebhookInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": true
+                  },
+                  {
+                    "name": "Events",
+                    "type": "string",
+                    "value": "Events",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookURL",
+                    "type": "string",
+                    "value": "WebhookUrl",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookMethod",
+                    "type": "string",
+                    "value": "WebhookMethod",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateWebhookResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "Events",
+                    "type": "string",
+                    "value": "events",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookURL",
+                    "type": "string",
+                    "value": "webhook_url",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookMethod",
+                    "type": "string",
+                    "value": "webhook_method",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Webhook",
+          "packageName": "webhook",
+          "function": {
+            "parameters": {
+              "webhookSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "webhookSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Webhooks/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetWebhookResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "Events",
+                    "type": "string",
+                    "value": "events",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookURL",
+                    "type": "string",
+                    "value": "webhook_url",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookMethod",
+                    "type": "string",
+                    "value": "webhook_method",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Webhooks/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateWebhookInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "UniqueName",
+                    "required": false
+                  },
+                  {
+                    "name": "Events",
+                    "type": "string",
+                    "value": "Events",
+                    "required": false
+                  },
+                  {
+                    "name": "WebhookURL",
+                    "type": "string",
+                    "value": "WebhookUrl",
+                    "required": false
+                  },
+                  {
+                    "name": "WebhookMethod",
+                    "type": "string",
+                    "value": "WebhookMethod",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateWebhookResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "UniqueName",
+                    "type": "string",
+                    "value": "unique_name",
+                    "required": true
+                  },
+                  {
+                    "name": "Events",
+                    "type": "string",
+                    "value": "events",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookURL",
+                    "type": "string",
+                    "value": "webhook_url",
+                    "required": true
+                  },
+                  {
+                    "name": "WebhookMethod",
+                    "type": "string",
+                    "value": "webhook_method",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Webhooks/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [

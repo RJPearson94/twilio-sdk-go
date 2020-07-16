@@ -1,0 +1,12 @@
+{
+  "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_updated": null,
+  "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-27T23:00:00Z",
+  "unique_name": "test",
+  "events": "onDialogueEnd",
+  "webhook_url": "https://localhost/webhook",
+  "webhook_method": "POST"
+}

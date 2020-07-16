@@ -13,6 +13,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/tasks"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/webhooks"
 )
 
 type Client struct {
@@ -30,6 +32,8 @@ type Client struct {
 	ModelBuild  func(string) *model_build.Client
 	Queries     *queries.Client
 	Query       func(string) *query.Client
+	Webhooks    *webhooks.Client
+	Webhook     func(string) *webhook.Client
 }
 
 type ClientProperties struct {
@@ -57,8 +61,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		Task: func(taskSid string) *task.Client {
 			return task.New(client, task.ClientProperties{
-				AssistantSid: properties.Sid,
 				Sid:          taskSid,
+				AssistantSid: properties.Sid,
 			})
 		},
 		FieldTypes: field_types.New(client, field_types.ClientProperties{
@@ -66,8 +70,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		FieldType: func(fieldTypeSid string) *field_type.Client {
 			return field_type.New(client, field_type.ClientProperties{
-				Sid:          fieldTypeSid,
 				AssistantSid: properties.Sid,
+				Sid:          fieldTypeSid,
 			})
 		},
 		ModelBuilds: model_builds.New(client, model_builds.ClientProperties{
@@ -84,8 +88,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		Query: func(querySid string) *query.Client {
 			return query.New(client, query.ClientProperties{
-				Sid:          querySid,
 				AssistantSid: properties.Sid,
+				Sid:          querySid,
+			})
+		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
+		Webhook: func(webhookSid string) *webhook.Client {
+			return webhook.New(client, webhook.ClientProperties{
+				AssistantSid: properties.Sid,
+				Sid:          webhookSid,
 			})
 		},
 	}
