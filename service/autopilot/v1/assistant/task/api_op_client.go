@@ -61,8 +61,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		},
 		Actions: func() *actions.Client {
 			return actions.New(client, actions.ClientProperties{
-				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
+				TaskSid:      properties.Sid,
 			})
 		},
 		Statistics: func() *statistics.Client {

@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_types"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/model_build"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/model_builds"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/queries"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/query"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/tasks"
@@ -26,6 +28,8 @@ type Client struct {
 	FieldType   func(string) *field_type.Client
 	ModelBuilds *model_builds.Client
 	ModelBuild  func(string) *model_build.Client
+	Queries     *queries.Client
+	Query       func(string) *query.Client
 }
 
 type ClientProperties struct {
@@ -71,7 +75,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		ModelBuild: func(modelBuildSid string) *model_build.Client {
 			return model_build.New(client, model_build.ClientProperties{
+				AssistantSid: properties.Sid,
 				Sid:          modelBuildSid,
+			})
+		},
+		Queries: queries.New(client, queries.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
+		Query: func(querySid string) *query.Client {
+			return query.New(client, query.ClientProperties{
+				Sid:          querySid,
 				AssistantSid: properties.Sid,
 			})
 		},

@@ -2668,6 +2668,583 @@
               }
             }
           ]
+        },
+        {
+          "name": "Queries",
+          "packageName": "queries",
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Queries",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateQueryInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "Language",
+                    "type": "string",
+                    "value": "Language",
+                    "required": true
+                  },
+                  {
+                    "name": "Query",
+                    "type": "string",
+                    "value": "Query",
+                    "required": true
+                  },
+                  {
+                    "name": "Tasks",
+                    "type": "string",
+                    "value": "Tasks",
+                    "required": false
+                  },
+                  {
+                    "name": "ModelBuild",
+                    "type": "string",
+                    "value": "ModelBuild",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateQueryResponse",
+                "type": "JSON",
+                "additionalStructs": [
+                  {
+                    "name": "CreateQueryResponseField",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Name",
+                        "type": "string",
+                        "value": "name",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "Type",
+                        "type": "string",
+                        "value": "type",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "CreateQueryResponseResult",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Task",
+                        "type": "string",
+                        "value": "task",
+                        "required": true
+                      },
+                      {
+                        "name": "Fields",
+                        "type": "[]CreateQueryResponseField",
+                        "value": "fields",
+                        "required": true
+                      }
+                    ]
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ModelBuildSid",
+                    "type": "string",
+                    "value": "model_build_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "SampleSid",
+                    "type": "string",
+                    "value": "sample_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Language",
+                    "type": "string",
+                    "value": "language",
+                    "required": true
+                  },
+                  {
+                    "name": "Query",
+                    "type": "string",
+                    "value": "query",
+                    "required": true
+                  },
+                  {
+                    "name": "Results",
+                    "type": "CreateQueryResponseResult",
+                    "value": "results",
+                    "required": true
+                  },
+                  {
+                    "name": "SourceChannel",
+                    "type": "string",
+                    "value": "source_channel",
+                    "required": true
+                  },
+                  {
+                    "name": "DialogueSid",
+                    "type": "string",
+                    "value": "dialogue_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Query",
+          "packageName": "query",
+          "function": {
+            "parameters": {
+              "querySid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "querySid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Queries/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetQueryResponse",
+                "type": "JSON",
+                "additionalStructs": [
+                  {
+                    "name": "GetQueryResponseField",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Name",
+                        "type": "string",
+                        "value": "name",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "Type",
+                        "type": "string",
+                        "value": "type",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "GetQueryResponseResult",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Task",
+                        "type": "string",
+                        "value": "task",
+                        "required": true
+                      },
+                      {
+                        "name": "Fields",
+                        "type": "[]GetQueryResponseField",
+                        "value": "fields",
+                        "required": true
+                      }
+                    ]
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ModelBuildSid",
+                    "type": "string",
+                    "value": "model_build_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "SampleSid",
+                    "type": "string",
+                    "value": "sample_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Language",
+                    "type": "string",
+                    "value": "language",
+                    "required": true
+                  },
+                  {
+                    "name": "Query",
+                    "type": "string",
+                    "value": "query",
+                    "required": true
+                  },
+                  {
+                    "name": "Results",
+                    "type": "GetQueryResponseResult",
+                    "value": "results",
+                    "required": true
+                  },
+                  {
+                    "name": "SourceChannel",
+                    "type": "string",
+                    "value": "source_channel",
+                    "required": true
+                  },
+                  {
+                    "name": "DialogueSid",
+                    "type": "string",
+                    "value": "dialogue_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Queries/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateQueryInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "SampleSid",
+                    "type": "string",
+                    "value": "SampleSid",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "Status",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateQueryResponse",
+                "type": "JSON",
+                "additionalStructs": [
+                  {
+                    "name": "UpdateQueryResponseField",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Name",
+                        "type": "string",
+                        "value": "name",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "Type",
+                        "type": "string",
+                        "value": "type",
+                        "required": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "UpdateQueryResponseResult",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Task",
+                        "type": "string",
+                        "value": "task",
+                        "required": true
+                      },
+                      {
+                        "name": "Fields",
+                        "type": "[]UpdateQueryResponseField",
+                        "value": "fields",
+                        "required": true
+                      }
+                    ]
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AssistantSid",
+                    "type": "string",
+                    "value": "assistant_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ModelBuildSid",
+                    "type": "string",
+                    "value": "model_build_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "SampleSid",
+                    "type": "string",
+                    "value": "sample_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Language",
+                    "type": "string",
+                    "value": "language",
+                    "required": true
+                  },
+                  {
+                    "name": "Query",
+                    "type": "string",
+                    "value": "query",
+                    "required": true
+                  },
+                  {
+                    "name": "Results",
+                    "type": "UpdateQueryResponseResult",
+                    "value": "results",
+                    "required": true
+                  },
+                  {
+                    "name": "SourceChannel",
+                    "type": "string",
+                    "value": "source_channel",
+                    "required": true
+                  },
+                  {
+                    "name": "DialogueSid",
+                    "type": "string",
+                    "value": "dialogue_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Queries/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
