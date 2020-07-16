@@ -4,6 +4,8 @@ package assistant
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_type"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_types"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/tasks"
@@ -18,6 +20,8 @@ type Client struct {
 	StyleSheet func() *style_sheet.Client
 	Tasks      *tasks.Client
 	Task       func(string) *task.Client
+	FieldTypes *field_types.Client
+	FieldType  func(string) *field_type.Client
 }
 
 type ClientProperties struct {
@@ -47,6 +51,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			return task.New(client, task.ClientProperties{
 				AssistantSid: properties.Sid,
 				Sid:          taskSid,
+			})
+		},
+		FieldTypes: field_types.New(client, field_types.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
+		FieldType: func(fieldTypeSid string) *field_type.Client {
+			return field_type.New(client, field_type.ClientProperties{
+				AssistantSid: properties.Sid,
+				Sid:          fieldTypeSid,
 			})
 		},
 	}

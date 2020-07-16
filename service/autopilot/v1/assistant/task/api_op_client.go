@@ -43,14 +43,14 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		Field: func(fieldSid string) *field.Client {
 			return field.New(client, field.ClientProperties{
-				Sid:          fieldSid,
 				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
+				Sid:          fieldSid,
 			})
 		},
 		Samples: samples.New(client, samples.ClientProperties{
-			AssistantSid: properties.AssistantSid,
 			TaskSid:      properties.Sid,
+			AssistantSid: properties.AssistantSid,
 		}),
 		Sample: func(sampleSid string) *sample.Client {
 			return sample.New(client, sample.ClientProperties{
@@ -61,8 +61,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		},
 		Actions: func() *actions.Client {
 			return actions.New(client, actions.ClientProperties{
-				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
+				TaskSid:      properties.Sid,
 			})
 		},
 		Statistics: func() *statistics.Client {
