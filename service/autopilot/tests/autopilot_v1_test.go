@@ -15,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_type"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_type/field_values"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_types"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/style_sheet"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task"
@@ -1430,6 +1431,179 @@ var _ = Describe("Autopilot V1", func() {
 			)
 
 			err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UB71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the field values client", func() {
+		fieldValuesClient := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldValues
+
+		Describe("When the field values is successfully created", func() {
+			createInput := &field_values.CreateFieldValueInput{
+				Language: "en-US",
+				Value:    "test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/fieldValueResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := fieldValuesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create field value response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FieldTypeSid).To(Equal("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Language).To(Equal("en-US"))
+				Expect(resp.Value).To(Equal("test"))
+				Expect(resp.SynonymOf).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the field value does not contain a language", func() {
+			createInput := &field_values.CreateFieldValueInput{
+				Value: "test",
+			}
+
+			resp, err := fieldValuesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create field value response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the field value does not contain a value", func() {
+			createInput := &field_values.CreateFieldValueInput{
+				Language: "en-US",
+			}
+
+			resp, err := fieldValuesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create field value response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create field values api returns a 500 response", func() {
+			createInput := &field_values.CreateFieldValueInput{
+				Language: "en-US",
+				Value:    "test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := fieldValuesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create field value response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a field value sid", func() {
+		fieldValueClient := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldValue("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the field value is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/fieldValueResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := fieldValueClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get field value response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssistantSid).To(Equal("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FieldTypeSid).To(Equal("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Language).To(Equal("en-US"))
+				Expect(resp.Value).To(Equal("test"))
+				Expect(resp.SynonymOf).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the field value api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UC71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldValue("UC71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get field value response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the field value is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := fieldValueClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the field values api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UC71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldValue("UC71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

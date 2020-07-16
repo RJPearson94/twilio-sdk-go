@@ -58,8 +58,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		FieldType: func(fieldTypeSid string) *field_type.Client {
 			return field_type.New(client, field_type.ClientProperties{
-				AssistantSid: properties.Sid,
 				Sid:          fieldTypeSid,
+				AssistantSid: properties.Sid,
 			})
 		},
 	}

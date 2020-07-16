@@ -1818,6 +1818,298 @@
               "functionParameter": "fieldTypeSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Field Values",
+              "packageName": "field_values",
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "fieldTypeSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/FieldTypes/{fieldTypeSid}/FieldValues",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "fieldTypeSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "fieldTypeSid"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateFieldValueInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "Language",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "Value",
+                        "required": true
+                      },
+                      {
+                        "name": "SynonymOf",
+                        "type": "string",
+                        "value": "SynonymOf",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateFieldValueResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FieldTypeSid",
+                        "type": "string",
+                        "value": "field_type_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "language",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "SynonymOf",
+                        "type": "string",
+                        "value": "synonym_of",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Field Value",
+              "packageName": "field_value",
+              "function": {
+                "parameters": {
+                  "fieldValueSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "assistantSid": {
+                  "dataType": "string",
+                  "parentProperty": "assistantSid"
+                },
+                "fieldTypeSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "fieldValueSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/FieldTypes/{fieldTypeSid}/FieldValues/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "fieldTypeSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "fieldTypeSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetFieldValueResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AssistantSid",
+                        "type": "string",
+                        "value": "assistant_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "FieldTypeSid",
+                        "type": "string",
+                        "value": "field_type_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "value": "language",
+                        "required": true
+                      },
+                      {
+                        "name": "Value",
+                        "type": "string",
+                        "value": "value",
+                        "required": true
+                      },
+                      {
+                        "name": "SynonymOf",
+                        "type": "string",
+                        "value": "synonym_of",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "time.Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "time.Time",
+                        "value": "date_updated",
+                        "required": false
+                      },
+                      {
+                        "name": "URL",
+                        "type": "string",
+                        "value": "url",
+                        "required": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/FieldTypes/{fieldTypeSid}/FieldValues/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "fieldTypeSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "fieldTypeSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Get",

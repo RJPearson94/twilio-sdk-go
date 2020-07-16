@@ -1,0 +1,12 @@
+{
+  "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "language": "en-US",
+  "date_updated": null,
+  "synonym_of": null,
+  "value": "test",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-27T23:00:00Z",
+  "field_type_sid": "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
