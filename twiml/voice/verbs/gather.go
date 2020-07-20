@@ -35,6 +35,10 @@ type Gather struct {
 	Children []interface{}
 }
 
+func (g *Gather) Pause() {
+	g.Children = append(g.Children, &nouns.Pause{})
+}
+
 func (g *Gather) PauseWithAttributes(attributes *nouns.PauseAttributes) {
 	g.Children = append(g.Children, &nouns.Pause{
 		PauseAttributes: attributes,

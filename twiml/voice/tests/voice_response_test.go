@@ -20,7 +20,7 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/connectAutopilot.golden.xml")
 
 			response := voice.New()
-			connect := response.ConnectWithAttributes(verbs.ConnectAttributes{})
+			connect := response.Connect()
 			connect.Autopilot("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 			twiML, err := response.ToTwiML()
 
@@ -39,7 +39,7 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/connectRoom.golden.xml")
 
 			response := voice.New()
-			connect := response.ConnectWithAttributes(verbs.ConnectAttributes{})
+			connect := response.Connect()
 			connect.Room("HelloWorld")
 			twiML, err := response.ToTwiML()
 
@@ -79,7 +79,26 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/connectStream.golden.xml")
 
 			response := voice.New()
-			connect := response.ConnectWithAttributes(verbs.ConnectAttributes{})
+			connect := response.Connect()
+			connect.Stream()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with a stream attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/connectStreamWithAttributes.golden.xml")
+
+			response := voice.New()
+			connect := response.Connect()
 			connect.StreamWithAttributes(nouns.StreamAttributes{
 				URL: utils.String("wss://localhost/stream"),
 			})
@@ -157,6 +176,27 @@ var _ = Describe("Voice Response TwiML", func() {
 	Describe("Given I need to generate a voice response with a dial client with parameter", func() {
 		Describe("When the twiML is generated", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/dialClientWithCustomParameter.golden.xml")
+
+			response := voice.New()
+			dial := response.Dial(nil)
+			client := dial.Client(nil)
+			client.Identity("RJPearson94")
+			client.Parameter()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with a dial client with parameter attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/dialClientWithCustomParameterAttributes.golden.xml")
 
 			response := voice.New()
 			dial := response.Dial(nil)
@@ -488,7 +528,7 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/gather.golden.xml")
 
 			response := voice.New()
-			response.GatherWithAttributes(nil)
+			response.Gather()
 			twiML, err := response.ToTwiML()
 
 			It("Then no error should be returned", func() {
@@ -506,7 +546,7 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/gather.golden.xml")
 
 			response := voice.New()
-			response.GatherWithAttributes(nil)
+			response.Gather()
 			twiML, err := response.ToTwiML()
 
 			It("Then no error should be returned", func() {
@@ -524,7 +564,7 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/gatherWithAttributesAndSayNoun.golden.xml")
 
 			response := voice.New()
-			gather := response.GatherWithAttributes(&verbs.GatherAttributes{
+			gather := response.GatherWithAttributes(verbs.GatherAttributes{
 				Input:     utils.String("speech dtmf"),
 				Timeout:   utils.Int(3),
 				NumDigits: utils.Int(1),
@@ -547,8 +587,27 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/gatherPlay.golden.xml")
 
 			response := voice.New()
-			gather := response.GatherWithAttributes(nil)
+			gather := response.Gather()
 			gather.Play(utils.String("https://localhost/test.mp3"))
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with gather pause nouns", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/gatherPause.golden.xml")
+
+			response := voice.New()
+			gather := response.Gather()
+			gather.Pause()
 			twiML, err := response.ToTwiML()
 
 			It("Then no error should be returned", func() {
@@ -566,7 +625,7 @@ var _ = Describe("Voice Response TwiML", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/gatherSayAndPause.golden.xml")
 
 			response := voice.New()
-			gather := response.GatherWithAttributes(nil)
+			gather := response.Gather()
 			gather.Say("Hello")
 			gather.PauseWithAttributes(&nouns.PauseAttributes{
 				Length: utils.Int(10),

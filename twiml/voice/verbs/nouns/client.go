@@ -27,8 +27,12 @@ func (c *Client) Identity(clientIdentity string) {
 	})
 }
 
+func (c *Client) Parameter() {
+	c.Children = append(c.Children, &Parameter{})
+}
+
 func (c *Client) ParameterWithAttributes(attributes ParameterAttributes) {
-	c.Children = append(c.Children, Parameter{
-		ParameterAttributes: attributes,
+	c.Children = append(c.Children, &Parameter{
+		ParameterAttributes: &attributes,
 	})
 }

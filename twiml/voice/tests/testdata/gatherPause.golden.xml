@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Connect>
-        <Stream></Stream>
-    </Connect>
+    <Gather>
+        <Pause></Pause>
+    </Gather>
 </Response>

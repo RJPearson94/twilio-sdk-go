@@ -12,12 +12,16 @@ type StreamAttributes struct {
 type Stream struct {
 	XMLName xml.Name `xml:"Stream"`
 
-	StreamAttributes
+	*StreamAttributes
 	Children []interface{}
 }
 
+func (s *Stream) Parameter() {
+	s.Children = append(s.Children, &Parameter{})
+}
+
 func (s *Stream) ParameterWithAttributes(attributes ParameterAttributes) {
-	s.Children = append(s.Children, Parameter{
-		ParameterAttributes: attributes,
+	s.Children = append(s.Children, &Parameter{
+		ParameterAttributes: &attributes,
 	})
 }

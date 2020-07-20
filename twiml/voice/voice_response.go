@@ -17,14 +17,23 @@ func New() *VoiceResponse {
 	}
 }
 
+func (m *VoiceResponse) Connect() *verbs.Connect {
+	connect := &verbs.Connect{
+		Children: make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, connect)
+	return connect
+}
+
 func (m *VoiceResponse) ConnectWithAttributes(attributes verbs.ConnectAttributes) *verbs.Connect {
-	message := &verbs.Connect{
-		ConnectAttributes: attributes,
+	connect := &verbs.Connect{
+		ConnectAttributes: &attributes,
 		Children:          make([]interface{}, 0),
 	}
 
-	m.Children = append(m.Children, message)
-	return message
+	m.Children = append(m.Children, connect)
+	return connect
 }
 
 func (m *VoiceResponse) Dial(phoneNumber *string) *verbs.Dial {
@@ -69,14 +78,27 @@ func (m *VoiceResponse) EnqueueWithAttributes(attributes verbs.EnqueueAttributes
 	return enqueue
 }
 
-func (m *VoiceResponse) GatherWithAttributes(attributes *verbs.GatherAttributes) *verbs.Gather {
+func (m *VoiceResponse) Gather() *verbs.Gather {
 	gather := &verbs.Gather{
-		GatherAttributes: attributes,
+		Children: make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, gather)
+	return gather
+}
+
+func (m *VoiceResponse) GatherWithAttributes(attributes verbs.GatherAttributes) *verbs.Gather {
+	gather := &verbs.Gather{
+		GatherAttributes: &attributes,
 		Children:         make([]interface{}, 0),
 	}
 
 	m.Children = append(m.Children, gather)
 	return gather
+}
+
+func (m *VoiceResponse) Hangup() {
+	m.Children = append(m.Children, &verbs.Hangup{})
 }
 
 func (m *VoiceResponse) ToTwiML() (*string, error) {

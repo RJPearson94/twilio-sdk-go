@@ -3,7 +3,7 @@
   <Dial>
     <Client>
       <Identity>RJPearson94</Identity>
-      <Parameter></Parameter>
+      <Parameter name="VIP" value="true"></Parameter>
     </Client>
   </Dial>
 </Response>

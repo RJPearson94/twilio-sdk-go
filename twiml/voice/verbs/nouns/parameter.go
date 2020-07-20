@@ -10,5 +10,5 @@ type ParameterAttributes struct {
 type Parameter struct {
 	XMLName xml.Name `xml:"Parameter"`
 
-	ParameterAttributes
+	*ParameterAttributes
 }
