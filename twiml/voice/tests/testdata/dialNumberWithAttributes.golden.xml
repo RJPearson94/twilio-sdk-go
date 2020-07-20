@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Dial>
+        <Number
+         statusCallback="https://localhost/answered"
+         statusCallbackEvent="answered"
+         statusCallbackMethod="POST">
+            415-123-9876
+        </Number>
+    </Dial>
+</Response>

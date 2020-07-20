@@ -27,6 +27,27 @@ func (m *VoiceResponse) ConnectWithAttributes(attributes verbs.ConnectAttributes
 	return message
 }
 
+func (m *VoiceResponse) Dial(phoneNumber *string) *verbs.Dial {
+	dial := &verbs.Dial{
+		Text:     phoneNumber,
+		Children: make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, dial)
+	return dial
+}
+
+func (m *VoiceResponse) DialWithAttributes(attributes verbs.DialAttributes, phoneNumber *string) *verbs.Dial {
+	dial := &verbs.Dial{
+		DialAttributes: attributes,
+		Text:           phoneNumber,
+		Children:       make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, dial)
+	return dial
+}
+
 func (m *VoiceResponse) ToTwiML() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {
