@@ -48,6 +48,27 @@ func (m *VoiceResponse) DialWithAttributes(attributes verbs.DialAttributes, phon
 	return dial
 }
 
+func (m *VoiceResponse) Enqueue(name *string) *verbs.Enqueue {
+	enqueue := &verbs.Enqueue{
+		Text:     name,
+		Children: make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, enqueue)
+	return enqueue
+}
+
+func (m *VoiceResponse) EnqueueWithAttributes(attributes verbs.EnqueueAttributes, name *string) *verbs.Enqueue {
+	enqueue := &verbs.Enqueue{
+		EnqueueAttributes: attributes,
+		Text:              name,
+		Children:          make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, enqueue)
+	return enqueue
+}
+
 func (m *VoiceResponse) ToTwiML() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {

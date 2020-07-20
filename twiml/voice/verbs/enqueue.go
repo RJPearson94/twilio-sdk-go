@@ -16,8 +16,9 @@ type EnqueueAttributes struct {
 
 type Enqueue struct {
 	XMLName xml.Name `xml:"Enqueue"`
+	Text    *string  `xml:",chardata"`
 
-	ConnectAttributes
+	EnqueueAttributes
 
 	Children []interface{}
 }

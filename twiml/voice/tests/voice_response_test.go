@@ -403,6 +403,85 @@ var _ = Describe("Voice Response TwiML", func() {
 			})
 		})
 	})
+
+	Describe("Given I need to generate a voice response with enqueue verb", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/enqueue.golden.xml")
+
+			response := voice.New()
+			response.Enqueue(utils.String("test"))
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with enqueue attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/enqueueWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.EnqueueWithAttributes(verbs.EnqueueAttributes{
+				WaitURL: utils.String("http://localhost/test.xml"),
+			}, utils.String("test"))
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with enqueue task noun", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/enqueueTask.golden.xml")
+
+			response := voice.New()
+			enqueue := response.Enqueue(nil)
+			enqueue.Task("test")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with enqueue attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/enqueueTaskWithAttributes.golden.xml")
+
+			response := voice.New()
+			enqueue := response.Enqueue(nil)
+			enqueue.TaskWithAttributes(nouns.TaskAttributes{
+				Priority: utils.Int(1),
+				Timeout:  utils.Int(2),
+			}, "test")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
 })
 
 func CompareXML(actual string, expected string) {
