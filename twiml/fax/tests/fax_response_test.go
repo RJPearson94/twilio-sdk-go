@@ -11,7 +11,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var ignoreRegex = regexp.MustCompile(`\r?\n|\s`)
+var ignoreRegex = regexp.MustCompile(`\r?\n|\s\s`)
 
 var _ = Describe("Fax Response TwiML", func() {
 	Describe("Given I need to generate a fax response with an action receive attribute", func() {
