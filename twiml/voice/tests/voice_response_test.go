@@ -482,6 +482,107 @@ var _ = Describe("Voice Response TwiML", func() {
 			})
 		})
 	})
+
+	Describe("Given I need to generate a voice response with gather verb", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/gather.golden.xml")
+
+			response := voice.New()
+			response.GatherWithAttributes(nil)
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with gather verb", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/gather.golden.xml")
+
+			response := voice.New()
+			response.GatherWithAttributes(nil)
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with gather attributes and play noun", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/gatherWithAttributesAndSayNoun.golden.xml")
+
+			response := voice.New()
+			gather := response.GatherWithAttributes(&verbs.GatherAttributes{
+				Input:     utils.String("speech dtmf"),
+				Timeout:   utils.Int(3),
+				NumDigits: utils.Int(1),
+			})
+			gather.Say("Please press 1")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with gather play noun", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/gatherPlay.golden.xml")
+
+			response := voice.New()
+			gather := response.GatherWithAttributes(nil)
+			gather.Play(utils.String("https://localhost/test.mp3"))
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with gather say and pause nouns", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/gatherSayAndPause.golden.xml")
+
+			response := voice.New()
+			gather := response.GatherWithAttributes(nil)
+			gather.Say("Hello")
+			gather.PauseWithAttributes(&nouns.PauseAttributes{
+				Length: utils.Int(10),
+			})
+			gather.Say("World")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
 })
 
 func CompareXML(actual string, expected string) {

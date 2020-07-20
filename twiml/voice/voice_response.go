@@ -69,6 +69,16 @@ func (m *VoiceResponse) EnqueueWithAttributes(attributes verbs.EnqueueAttributes
 	return enqueue
 }
 
+func (m *VoiceResponse) GatherWithAttributes(attributes *verbs.GatherAttributes) *verbs.Gather {
+	gather := &verbs.Gather{
+		GatherAttributes: attributes,
+		Children:         make([]interface{}, 0),
+	}
+
+	m.Children = append(m.Children, gather)
+	return gather
+}
+
 func (m *VoiceResponse) ToTwiML() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {

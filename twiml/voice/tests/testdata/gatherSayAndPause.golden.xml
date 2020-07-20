@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Gather>
+        <Say>Hello</Say>
+        <Pause length="10"></Pause>
+        <Say>World</Say>
+    </Gather>
+</Response>
