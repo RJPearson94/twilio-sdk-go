@@ -2,8 +2,6 @@ package verbs
 
 import (
 	"encoding/xml"
-
-	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs/nouns"
 )
 
 type PromptAttributes struct {
@@ -38,13 +36,13 @@ func (p *Prompt) Play(url *string) {
 }
 
 func (p *Prompt) Say(message string) {
-	p.Children = append(p.Children, &nouns.Say{
+	p.Children = append(p.Children, &Say{
 		Text: message,
 	})
 }
 
-func (p *Prompt) SayWithAttributes(attributes nouns.SayAttributes, message string) {
-	p.Children = append(p.Children, &nouns.Say{
+func (p *Prompt) SayWithAttributes(attributes SayAttributes, message string) {
+	p.Children = append(p.Children, &Say{
 		Text:          message,
 		SayAttributes: attributes,
 	})

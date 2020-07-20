@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Refer action="http://localhost/refer" method="POST"></Refer>
+</Response>

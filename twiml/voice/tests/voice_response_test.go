@@ -938,6 +938,319 @@ var _ = Describe("Voice Response TwiML", func() {
 			})
 		})
 	})
+
+	Describe("Given I need to generate a voice response with queue", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/queue.golden.xml")
+
+			response := voice.New()
+			response.Queue("test")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with queue attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/queueWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.QueueWithAttributes(nouns.QueueAttributes{
+				URL: utils.String("http://localhost/test.xml"),
+			}, "test")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with record", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/record.golden.xml")
+
+			response := voice.New()
+			response.Record()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with record attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/recordWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.RecordWithAttributes(verbs.RecordAttributes{
+				Transcribe:         utils.Bool(true),
+				TranscribeCallback: utils.String("http://localhost/transcript"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with redirect", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/redirect.golden.xml")
+
+			response := voice.New()
+			response.Redirect("http://localhost/redirect")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with redirect attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/redirectWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.RedirectWithAttributes(verbs.RedirectAttributes{
+				Method: utils.String("POST"),
+			}, "http://localhost/redirect")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with refer", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/refer.golden.xml")
+
+			response := voice.New()
+			response.Refer()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with refer attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/referWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.ReferWithAttributes(verbs.ReferAttributes{
+				Action: utils.String("http://localhost/refer"),
+				Method: utils.String("POST"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with refer sip", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/referSip.golden.xml")
+
+			response := voice.New()
+			refer := response.Refer()
+			refer.Sip("test@test.com")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with refer sip attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/referSipWithAttributes.golden.xml")
+
+			response := voice.New()
+			refer := response.Refer()
+			refer.SipWithAttributes(nouns.SipAttributes{
+				Username: utils.String("test"),
+				Password: utils.String("test"),
+			}, "test@test.com")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with refer and refer sip", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/referWithReferSip.golden.xml")
+
+			response := voice.New()
+			refer := response.Refer()
+			refer.ReferSip("refer@test.com")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with refer and refer sip attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/referWithReferSipAttributes.golden.xml")
+
+			response := voice.New()
+			refer := response.Refer()
+			refer.ReferSipWithAttributes(nouns.ReferSipAttributes{
+				Username: utils.String("test"),
+				Password: utils.String("test"),
+			}, "refer@test.com")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with reject", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/reject.golden.xml")
+
+			response := voice.New()
+			response.Reject()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with reject attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/rejectWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.RejectWithAttributes(verbs.RejectAttributes{
+				Reason: utils.String("busy"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with say", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/say.golden.xml")
+
+			response := voice.New()
+			response.Say("Hello World")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with reject attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/sayWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.SayWithAttributes(verbs.SayAttributes{
+				Voice:    utils.String("man"),
+				Language: utils.String("en-US"),
+			}, "Hello World")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
 })
 
 func CompareXML(actual string, expected string) {

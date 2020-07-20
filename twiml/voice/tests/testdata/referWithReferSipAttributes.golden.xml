@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Refer>
+        <ReferSip password="test" username="test">refer@test.com</ReferSip>
+    </Refer>
+</Response>

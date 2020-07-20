@@ -2,8 +2,6 @@ package verbs
 
 import (
 	"encoding/xml"
-
-	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs/nouns"
 )
 
 type GatherAttributes struct {
@@ -59,13 +57,13 @@ func (g *Gather) PlayWithAttributes(attributes PlayAttributes, url *string) {
 }
 
 func (g *Gather) Say(message string) {
-	g.Children = append(g.Children, &nouns.Say{
+	g.Children = append(g.Children, &Say{
 		Text: message,
 	})
 }
 
-func (g *Gather) SayWithAttributes(attributes nouns.SayAttributes, message string) {
-	g.Children = append(g.Children, &nouns.Say{
+func (g *Gather) SayWithAttributes(attributes SayAttributes, message string) {
+	g.Children = append(g.Children, &Say{
 		Text:          message,
 		SayAttributes: attributes,
 	})

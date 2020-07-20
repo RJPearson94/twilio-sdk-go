@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 
 	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs"
+	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs/nouns"
 )
 
 type VoiceResponse struct {
@@ -157,6 +158,79 @@ func (m *VoiceResponse) PromptWithAttributes(attributes verbs.PromptAttributes) 
 	}
 	m.Children = append(m.Children, prompt)
 	return prompt
+}
+
+func (m *VoiceResponse) Queue(name string) {
+	m.Children = append(m.Children, &nouns.Queue{
+		Text: name,
+	})
+}
+
+func (m *VoiceResponse) QueueWithAttributes(attributes nouns.QueueAttributes, name string) {
+	m.Children = append(m.Children, &nouns.Queue{
+		QueueAttributes: &attributes,
+		Text:            name,
+	})
+}
+
+func (m *VoiceResponse) Record() {
+	m.Children = append(m.Children, &verbs.Record{})
+}
+
+func (m *VoiceResponse) RecordWithAttributes(attributes verbs.RecordAttributes) {
+	m.Children = append(m.Children, &verbs.Record{
+		RecordAttributes: &attributes,
+	})
+}
+
+func (m *VoiceResponse) Redirect(url string) {
+	m.Children = append(m.Children, &verbs.Redirect{
+		Text: url,
+	})
+}
+
+func (m *VoiceResponse) RedirectWithAttributes(attributes verbs.RedirectAttributes, url string) {
+	m.Children = append(m.Children, &verbs.Redirect{
+		Text:               url,
+		RedirectAttributes: &attributes,
+	})
+}
+
+func (m *VoiceResponse) Refer() *verbs.Refer {
+	refer := &verbs.Refer{}
+	m.Children = append(m.Children, refer)
+	return refer
+}
+
+func (m *VoiceResponse) ReferWithAttributes(attributes verbs.ReferAttributes) *verbs.Refer {
+	refer := &verbs.Refer{
+		ReferAttributes: &attributes,
+	}
+	m.Children = append(m.Children, refer)
+	return refer
+}
+
+func (m *VoiceResponse) Reject() {
+	m.Children = append(m.Children, &verbs.Reject{})
+}
+
+func (m *VoiceResponse) RejectWithAttributes(attributes verbs.RejectAttributes) {
+	m.Children = append(m.Children, &verbs.Reject{
+		RejectAttributes: &attributes,
+	})
+}
+
+func (m *VoiceResponse) Say(message string) {
+	m.Children = append(m.Children, &verbs.Say{
+		Text: message,
+	})
+}
+
+func (m *VoiceResponse) SayWithAttributes(attributes verbs.SayAttributes, message string) {
+	m.Children = append(m.Children, &verbs.Say{
+		Text:          message,
+		SayAttributes: attributes,
+	})
 }
 
 func (m *VoiceResponse) ToTwiML() (*string, error) {
