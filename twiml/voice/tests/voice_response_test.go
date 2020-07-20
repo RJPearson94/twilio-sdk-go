@@ -642,6 +642,24 @@ var _ = Describe("Voice Response TwiML", func() {
 			})
 		})
 	})
+
+	Describe("Given I need to generate a voice response with hangup verb", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/hangup.golden.xml")
+
+			response := voice.New()
+			response.Hangup()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
 })
 
 func CompareXML(actual string, expected string) {
