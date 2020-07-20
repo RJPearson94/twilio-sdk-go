@@ -36,25 +36,25 @@ type Gather struct {
 }
 
 func (g *Gather) Pause() {
-	g.Children = append(g.Children, &nouns.Pause{})
+	g.Children = append(g.Children, &Pause{})
 }
 
-func (g *Gather) PauseWithAttributes(attributes *nouns.PauseAttributes) {
-	g.Children = append(g.Children, &nouns.Pause{
-		PauseAttributes: attributes,
+func (g *Gather) PauseWithAttributes(attributes PauseAttributes) {
+	g.Children = append(g.Children, &Pause{
+		PauseAttributes: &attributes,
 	})
 }
 
 func (g *Gather) Play(url *string) {
-	g.Children = append(g.Children, &nouns.Play{
+	g.Children = append(g.Children, &Play{
 		Text: url,
 	})
 }
 
-func (g *Gather) PlayWithAttributes(attributes *nouns.PlayAttributes, url *string) {
-	g.Children = append(g.Children, &nouns.Play{
+func (g *Gather) PlayWithAttributes(attributes PlayAttributes, url *string) {
+	g.Children = append(g.Children, &Play{
 		Text:           url,
-		PlayAttributes: attributes,
+		PlayAttributes: &attributes,
 	})
 }
 

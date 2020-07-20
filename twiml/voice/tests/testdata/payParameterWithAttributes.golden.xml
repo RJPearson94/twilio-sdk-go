@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Pay>
+        <Parameter name="VIP" value="true"></Parameter>
+    </Pay>
+</Response>

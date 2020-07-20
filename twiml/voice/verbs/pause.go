@@ -1,4 +1,4 @@
-package nouns
+package verbs
 
 import "encoding/xml"
 

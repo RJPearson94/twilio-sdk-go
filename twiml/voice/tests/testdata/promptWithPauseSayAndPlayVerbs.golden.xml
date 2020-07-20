@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Prompt>
+        <Say>Please enter your cvv which is on the back of your card</Say>
+        <Pause length="10"></Pause>
+        <Play>http://localhost/cvv-prompt</Play>
+    </Prompt>
+</Response>

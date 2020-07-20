@@ -101,6 +101,64 @@ func (m *VoiceResponse) Hangup() {
 	m.Children = append(m.Children, &verbs.Hangup{})
 }
 
+func (m *VoiceResponse) Leave() {
+	m.Children = append(m.Children, &verbs.Leave{})
+}
+
+func (m *VoiceResponse) Pause() {
+	m.Children = append(m.Children, &verbs.Pause{})
+}
+
+func (m *VoiceResponse) PauseWithAttributes(attributes verbs.PauseAttributes) {
+	m.Children = append(m.Children, &verbs.Pause{
+		PauseAttributes: &attributes,
+	})
+}
+
+func (m *VoiceResponse) Pay() *verbs.Pay {
+	pay := &verbs.Pay{
+		Children: make([]interface{}, 0),
+	}
+	m.Children = append(m.Children, pay)
+	return pay
+}
+
+func (m *VoiceResponse) PayWithAttributes(attributes verbs.PayAttributes) *verbs.Pay {
+	pay := &verbs.Pay{
+		PayAttributes: &attributes,
+		Children:      make([]interface{}, 0),
+	}
+	m.Children = append(m.Children, pay)
+	return pay
+}
+
+func (m *VoiceResponse) Play(url *string) {
+	m.Children = append(m.Children, &verbs.Play{
+		Text: url,
+	})
+}
+
+func (m *VoiceResponse) PlayWithAttributes(attributes verbs.PlayAttributes, url *string) {
+	m.Children = append(m.Children, &verbs.Play{
+		Text:           url,
+		PlayAttributes: &attributes,
+	})
+}
+
+func (m *VoiceResponse) Prompt() *verbs.Prompt {
+	prompt := &verbs.Prompt{}
+	m.Children = append(m.Children, prompt)
+	return prompt
+}
+
+func (m *VoiceResponse) PromptWithAttributes(attributes verbs.PromptAttributes) *verbs.Prompt {
+	prompt := &verbs.Prompt{
+		PromptAttributes: &attributes,
+	}
+	m.Children = append(m.Children, prompt)
+	return prompt
+}
+
 func (m *VoiceResponse) ToTwiML() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {

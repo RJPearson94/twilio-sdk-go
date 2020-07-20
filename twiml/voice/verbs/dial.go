@@ -84,7 +84,7 @@ func (d *Dial) Queue(name string) {
 
 func (d *Dial) QueueWithAttributes(attributes nouns.QueueAttributes, name string) {
 	d.Children = append(d.Children, &nouns.Queue{
-		QueueAttributes: attributes,
+		QueueAttributes: &attributes,
 		Text:            name,
 	})
 }

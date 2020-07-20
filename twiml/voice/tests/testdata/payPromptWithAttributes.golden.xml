@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Pay>
+        <Prompt attempt="1" for="cvv">
+            <Say>Please enter your cvv which is on the back of your card</Say>
+        </Prompt>
+    </Pay>
+</Response>

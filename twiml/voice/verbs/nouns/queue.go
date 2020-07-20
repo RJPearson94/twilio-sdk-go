@@ -13,5 +13,5 @@ type Queue struct {
 	XMLName xml.Name `xml:"Queue"`
 	Text    string   `xml:",chardata"`
 
-	QueueAttributes
+	*QueueAttributes
 }
