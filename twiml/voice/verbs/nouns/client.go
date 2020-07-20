@@ -5,11 +5,11 @@ import (
 )
 
 type ClientAttributes struct {
-	Method               *string   `xml:"method,attr,omitempty"`
-	StatusCallback       *string   `xml:"statusCallback,attr,omitempty"`
-	StatusCallbackEvent  *string   `xml:"statusCallbackEvent,attr,omitempty"`
-	StatusCallbackMethod *[]string `xml:"statusCallbackMethod,attr,omitempty"`
-	URL                  *[]string `xml:"url,attr,omitempty"`
+	Method               *string `xml:"method,attr,omitempty"`
+	StatusCallback       *string `xml:"statusCallback,attr,omitempty"`
+	StatusCallbackEvent  *string `xml:"statusCallbackEvent,attr,omitempty"`
+	StatusCallbackMethod *string `xml:"statusCallbackMethod,attr,omitempty"`
+	URL                  *string `xml:"url,attr,omitempty"`
 }
 
 type Client struct {
