@@ -3,13 +3,15 @@ package v2010
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 type V2010 struct {
-	client  *client.Client
-	Account func(string) *account.Client
+	client   *client.Client
+	Accounts *accounts.Client
+	Account  func(string) *account.Client
 }
 
 // Used for testing purposes only
@@ -28,7 +30,8 @@ func New(sess *session.Session) *V2010 {
 
 func NewWithClient(client *client.Client) *V2010 {
 	return &V2010{
-		client: client,
+		client:   client,
+		Accounts: accounts.New(client),
 		Account: func(accountSid string) *account.Client {
 			return account.New(client, account.ClientProperties{
 				Sid: accountSid,

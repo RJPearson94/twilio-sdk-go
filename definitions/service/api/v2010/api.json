@@ -9,6 +9,91 @@
   },
   "subClients": [
     {
+      "name": "Accounts",
+      "packageName": "accounts",
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Accounts.json",
+            "method": "Post"
+          },
+          "input": {
+            "name": "CreateAccountInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "Status",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "CreateAccountResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "OwnerAccountSid",
+                "type": "string",
+                "value": "owner_account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "AuthToken",
+                "type": "string",
+                "value": "auth_token",
+                "required": true
+              },
+              {
+                "name": "Type",
+                "type": "string",
+                "value": "type",
+                "required": true
+              },
+              {
+                "name": "DateCreated",
+                "type": "utils.RFC2822Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "utils.RFC2822Time",
+                "value": "date_updated",
+                "required": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "name": "Account",
       "packageName": "account",
       "properties": {
@@ -284,6 +369,95 @@
           },
           "response": {
             "name": "GetAccountResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "OwnerAccountSid",
+                "type": "string",
+                "value": "owner_account_sid",
+                "required": true
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "friendly_name",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "AuthToken",
+                "type": "string",
+                "value": "auth_token",
+                "required": true
+              },
+              {
+                "name": "Type",
+                "type": "string",
+                "value": "type",
+                "required": true
+              },
+              {
+                "name": "DateCreated",
+                "type": "utils.RFC2822Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "utils.RFC2822Time",
+                "value": "date_updated",
+                "required": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Accounts/{sid}.json",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "property": "sid",
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "input": {
+            "name": "UpdateAccountInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "value": "FriendlyName",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "Status",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "UpdateAccountResponse",
             "type": "JSON",
             "properties": [
               {
