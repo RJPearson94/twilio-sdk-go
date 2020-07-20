@@ -3,6 +3,7 @@ package twilio
 import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/fax"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless"
@@ -16,6 +17,7 @@ import (
 type Twilio struct {
 	Chat          *chat.Chat
 	Conversations *conversations.Conversations
+	Fax           *fax.Fax
 	Flex          *flex.Flex
 	Proxy         *proxy.Proxy
 	Serverless    *serverless.Serverless
@@ -28,6 +30,7 @@ func New(sess *session.Session) *Twilio {
 	c := &Twilio{}
 	c.Chat = chat.New(sess)
 	c.Conversations = conversations.New(sess)
+	c.Fax = fax.New(sess)
 	c.Flex = flex.New(sess)
 	c.Proxy = proxy.New(sess)
 	c.Serverless = serverless.New(sess)

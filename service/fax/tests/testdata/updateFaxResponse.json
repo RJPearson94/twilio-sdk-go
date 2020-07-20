@@ -1,0 +1,22 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "api_version": "v1",
+  "date_created": "2020-06-20T20:50:24Z",
+  "date_updated": "2020-06-20T20:55:24Z",
+  "direction": "outbound",
+  "from": "+1123456789",
+  "media_url": "http://localhost/media",
+  "media_sid": null,
+  "num_pages": null,
+  "price": null,
+  "price_unit": null,
+  "quality": "superfine",
+  "sid": "FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "status": "canceled",
+  "to": "+1987654321",
+  "duration": null,
+  "links": {
+    "media": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media"
+  },
+  "url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

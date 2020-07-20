@@ -1,0 +1,606 @@
+{
+  "packageName": "v1",
+  "name": "Fax",
+  "config": {
+    "includeDefaults": true,
+    "beta": true,
+    "subDomain": "fax",
+    "apiVersion": "v1"
+  },
+  "subClients": [
+    {
+      "name": "Faxes",
+      "packageName": "faxes",
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Faxes",
+            "method": "Post"
+          },
+          "input": {
+            "name": "CreateFaxInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "To",
+                "type": "string",
+                "value": "To",
+                "required": true
+              },
+              {
+                "name": "MediaURL",
+                "type": "string",
+                "value": "MediaUrl",
+                "required": true
+              },
+              {
+                "name": "Quality",
+                "type": "string",
+                "value": "Quality",
+                "required": false
+              },
+              {
+                "name": "StatusCallback",
+                "type": "string",
+                "value": "StatusCallback",
+                "required": false
+              },
+              {
+                "name": "From",
+                "type": "string",
+                "value": "From",
+                "required": false
+              },
+              {
+                "name": "SipAuthUsername",
+                "type": "string",
+                "value": "SipAuthUsername",
+                "required": false
+              },
+              {
+                "name": "SipAuthPassword",
+                "type": "string",
+                "value": "SipAuthPassword",
+                "required": false
+              },
+              {
+                "name": "StoreMedia",
+                "type": "bool",
+                "value": "StoreMedia",
+                "required": false
+              },
+              {
+                "name": "Ttl",
+                "type": "int",
+                "value": "Ttl",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "CreateFaxResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "APIVersion",
+                "type": "string",
+                "value": "api_version",
+                "required": true
+              },
+              {
+                "name": "Direction",
+                "type": "string",
+                "value": "direction",
+                "required": true
+              },
+              {
+                "name": "From",
+                "type": "string",
+                "value": "from",
+                "required": true
+              },
+              {
+                "name": "To",
+                "type": "string",
+                "value": "to",
+                "required": true
+              },
+              {
+                "name": "Quality",
+                "type": "string",
+                "value": "quality",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "MediaURL",
+                "type": "string",
+                "value": "media_url",
+                "required": false
+              },
+              {
+                "name": "MediaSid",
+                "type": "string",
+                "value": "media_sid",
+                "required": false
+              },
+              {
+                "name": "Duration",
+                "type": "int",
+                "value": "duration",
+                "required": false
+              },
+              {
+                "name": "NumPages",
+                "type": "int",
+                "value": "num_pages",
+                "required": false
+              },
+              {
+                "name": "Price",
+                "type": "string",
+                "value": "price",
+                "required": false
+              },
+              {
+                "name": "PriceUnit",
+                "type": "string",
+                "value": "price_unit",
+                "required": false
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fax",
+      "packageName": "fax",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "subClients": [
+        {
+          "name": "Media",
+          "packageName": "media",
+          "function": {
+            "parameters": {
+              "mediaSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "faxSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "mediaSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Faxes/{faxSid}/Media/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "faxSid",
+                    "value": {
+                      "onService": true,
+                      "property": "faxSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetMediaResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "FaxSid",
+                    "type": "string",
+                    "value": "fax_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "ContentType",
+                    "type": "string",
+                    "value": "content_type",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "time.Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "time.Time",
+                    "value": "date_updated",
+                    "required": false
+                  },
+                  {
+                    "name": "URL",
+                    "type": "string",
+                    "value": "url",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Faxes/{faxSid}/Media/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "faxSid",
+                    "value": {
+                      "onService": true,
+                      "property": "faxSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "name": "Get",
+          "http": {
+            "uri": "/Faxes/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "response": {
+            "name": "GetFaxResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "APIVersion",
+                "type": "string",
+                "value": "api_version",
+                "required": true
+              },
+              {
+                "name": "Direction",
+                "type": "string",
+                "value": "direction",
+                "required": true
+              },
+              {
+                "name": "From",
+                "type": "string",
+                "value": "from",
+                "required": true
+              },
+              {
+                "name": "To",
+                "type": "string",
+                "value": "to",
+                "required": true
+              },
+              {
+                "name": "Quality",
+                "type": "string",
+                "value": "quality",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "MediaURL",
+                "type": "string",
+                "value": "media_url",
+                "required": false
+              },
+              {
+                "name": "MediaSid",
+                "type": "string",
+                "value": "media_sid",
+                "required": false
+              },
+              {
+                "name": "Duration",
+                "type": "int",
+                "value": "duration",
+                "required": false
+              },
+              {
+                "name": "NumPages",
+                "type": "int",
+                "value": "num_pages",
+                "required": false
+              },
+              {
+                "name": "Price",
+                "type": "string",
+                "value": "price",
+                "required": false
+              },
+              {
+                "name": "PriceUnit",
+                "type": "string",
+                "value": "price_unit",
+                "required": false
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Faxes/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "input": {
+            "name": "UpdateFaxInput",
+            "type": "URLEncoded",
+            "properties": [
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "Status",
+                "required": false
+              }
+            ]
+          },
+          "response": {
+            "name": "UpdateFaxResponse",
+            "type": "JSON",
+            "properties": [
+              {
+                "name": "Sid",
+                "type": "string",
+                "value": "sid",
+                "required": true
+              },
+              {
+                "name": "AccountSid",
+                "type": "string",
+                "value": "account_sid",
+                "required": true
+              },
+              {
+                "name": "APIVersion",
+                "type": "string",
+                "value": "api_version",
+                "required": true
+              },
+              {
+                "name": "Direction",
+                "type": "string",
+                "value": "direction",
+                "required": true
+              },
+              {
+                "name": "From",
+                "type": "string",
+                "value": "from",
+                "required": true
+              },
+              {
+                "name": "To",
+                "type": "string",
+                "value": "to",
+                "required": true
+              },
+              {
+                "name": "Quality",
+                "type": "string",
+                "value": "quality",
+                "required": true
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "status",
+                "required": true
+              },
+              {
+                "name": "MediaURL",
+                "type": "string",
+                "value": "media_url",
+                "required": false
+              },
+              {
+                "name": "MediaSid",
+                "type": "string",
+                "value": "media_sid",
+                "required": false
+              },
+              {
+                "name": "Duration",
+                "type": "int",
+                "value": "duration",
+                "required": false
+              },
+              {
+                "name": "NumPages",
+                "type": "int",
+                "value": "num_pages",
+                "required": false
+              },
+              {
+                "name": "Price",
+                "type": "string",
+                "value": "price",
+                "required": false
+              },
+              {
+                "name": "PriceUnit",
+                "type": "string",
+                "value": "price_unit",
+                "required": false
+              },
+              {
+                "name": "DateCreated",
+                "type": "time.Time",
+                "value": "date_created",
+                "required": true
+              },
+              {
+                "name": "DateUpdated",
+                "type": "time.Time",
+                "value": "date_updated",
+                "required": false
+              },
+              {
+                "name": "URL",
+                "type": "string",
+                "value": "url",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Faxes/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
