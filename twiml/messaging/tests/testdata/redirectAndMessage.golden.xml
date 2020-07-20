@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Redirect>
+        http://localhost/redirect
+    </Redirect>
+    <Message>
+        Hello World
+    </Message>
+</Response>

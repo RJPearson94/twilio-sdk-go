@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Message action="http://localhost/action" method="POST">
+        Hello World
+    </Message>
+</Response>

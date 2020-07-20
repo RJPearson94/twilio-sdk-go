@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/twiml"
 )
 
 type Twilio struct {
@@ -20,6 +21,7 @@ type Twilio struct {
 	Serverless    *serverless.Serverless
 	Studio        *studio.Studio
 	TaskRouter    *taskrouter.TaskRouter
+	TwiML         *twiml.TwiML
 }
 
 func New(sess *session.Session) *Twilio {
@@ -31,6 +33,7 @@ func New(sess *session.Session) *Twilio {
 	c.Serverless = serverless.New(sess)
 	c.Studio = studio.New(sess)
 	c.TaskRouter = taskrouter.New(sess)
+	c.TwiML = twiml.New()
 	return c
 }
 
