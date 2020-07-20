@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Sms from="+10123456789" statusCallback="http://localhost/sms-callback" to="+1987654321">Hello World</Sms>
+</Response>

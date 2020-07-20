@@ -12,5 +12,5 @@ type Say struct {
 	XMLName xml.Name `xml:"Say"`
 	Text    string   `xml:",chardata"`
 
-	SayAttributes
+	*SayAttributes
 }

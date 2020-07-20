@@ -65,6 +65,6 @@ func (g *Gather) Say(message string) {
 func (g *Gather) SayWithAttributes(attributes SayAttributes, message string) {
 	g.Children = append(g.Children, &Say{
 		Text:          message,
-		SayAttributes: attributes,
+		SayAttributes: &attributes,
 	})
 }

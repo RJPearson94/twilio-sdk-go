@@ -44,6 +44,6 @@ func (p *Prompt) Say(message string) {
 func (p *Prompt) SayWithAttributes(attributes SayAttributes, message string) {
 	p.Children = append(p.Children, &Say{
 		Text:          message,
-		SayAttributes: attributes,
+		SayAttributes: &attributes,
 	})
 }

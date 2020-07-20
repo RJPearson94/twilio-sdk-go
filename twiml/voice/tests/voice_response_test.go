@@ -1231,7 +1231,7 @@ var _ = Describe("Voice Response TwiML", func() {
 		})
 	})
 
-	Describe("Given I need to generate a voice response with reject attributes", func() {
+	Describe("Given I need to generate a voice response with say attributes", func() {
 		Describe("When the twiML is generated", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/sayWithAttributes.golden.xml")
 
@@ -1240,6 +1240,284 @@ var _ = Describe("Voice Response TwiML", func() {
 				Voice:    utils.String("man"),
 				Language: utils.String("en-US"),
 			}, "Hello World")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with sms", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/sms.golden.xml")
+
+			response := voice.New()
+			response.Sms("Hello World")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with sms attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/smsWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.SmsWithAttributes(verbs.SmsAttributes{
+				To:             utils.String("+1987654321"),
+				From:           utils.String("+10123456789"),
+				StatusCallback: utils.String("http://localhost/sms-callback"),
+			}, "Hello World")
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with start", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/start.golden.xml")
+
+			response := voice.New()
+			response.Start()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with start attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/startWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.StartWithAttributes(verbs.StartAttributes{
+				Action: utils.String("http://localhost/start"),
+				Method: utils.String("POST"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with start stream", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/startStream.golden.xml")
+
+			response := voice.New()
+			start := response.Start()
+			start.Stream()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with start stream attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/startStreamWithAttributes.golden.xml")
+
+			response := voice.New()
+			start := response.Start()
+			start.StreamWithAttributes(nouns.StreamAttributes{
+				URL: utils.String("wss://localhost/stream"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with start siprec", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/startSiprec.golden.xml")
+
+			response := voice.New()
+			start := response.Start()
+			start.Siprec()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with start siprec attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/startSiprecWithAttributes.golden.xml")
+
+			response := voice.New()
+			start := response.Start()
+			start.SiprecWithAttributes(nouns.SiprecAttributes{
+				Name: utils.String("test"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with stop", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/stop.golden.xml")
+
+			response := voice.New()
+			response.Stop()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with stop attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/stopWithAttributes.golden.xml")
+
+			response := voice.New()
+			response.StopWithAttributes(verbs.StopAttributes{
+				Action: utils.String("http://localhost/stop"),
+				Method: utils.String("POST"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with stop stream", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/stopStream.golden.xml")
+
+			response := voice.New()
+			stop := response.Stop()
+			stop.Stream()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with stop stream attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/stopStreamWithAttributes.golden.xml")
+
+			response := voice.New()
+			stop := response.Stop()
+			stop.StreamWithAttributes(nouns.StreamAttributes{
+				URL: utils.String("wss://localhost/stream"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with stop siprec", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/stopSiprec.golden.xml")
+
+			response := voice.New()
+			stop := response.Stop()
+			stop.Siprec()
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with stop siprec attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/stopSiprecWithAttributes.golden.xml")
+
+			response := voice.New()
+			stop := response.Stop()
+			stop.SiprecWithAttributes(nouns.SiprecAttributes{
+				Name: utils.String("test"),
+			})
 			twiML, err := response.ToTwiML()
 
 			It("Then no error should be returned", func() {

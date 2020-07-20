@@ -39,7 +39,9 @@ func (c *Connect) RoomWithAttributes(attributes nouns.RoomAttributes, name strin
 }
 
 func (c *Connect) Stream() *nouns.Stream {
-	stream := &nouns.Stream{}
+	stream := &nouns.Stream{
+		Children: make([]interface{}, 0),
+	}
 	c.Children = append(c.Children, stream)
 	return stream
 }
@@ -47,6 +49,7 @@ func (c *Connect) Stream() *nouns.Stream {
 func (c *Connect) StreamWithAttributes(attributes nouns.StreamAttributes) *nouns.Stream {
 	stream := &nouns.Stream{
 		StreamAttributes: &attributes,
+		Children:         make([]interface{}, 0),
 	}
 	c.Children = append(c.Children, stream)
 	return stream

@@ -229,8 +229,55 @@ func (m *VoiceResponse) Say(message string) {
 func (m *VoiceResponse) SayWithAttributes(attributes verbs.SayAttributes, message string) {
 	m.Children = append(m.Children, &verbs.Say{
 		Text:          message,
-		SayAttributes: attributes,
+		SayAttributes: &attributes,
 	})
+}
+
+func (m *VoiceResponse) Sms(message string) {
+	m.Children = append(m.Children, &verbs.Sms{
+		Text: message,
+	})
+}
+
+func (m *VoiceResponse) SmsWithAttributes(attributes verbs.SmsAttributes, message string) {
+	m.Children = append(m.Children, &verbs.Sms{
+		Text:          message,
+		SmsAttributes: &attributes,
+	})
+}
+
+func (m *VoiceResponse) Start() *verbs.Start {
+	start := &verbs.Start{
+		Children: make([]interface{}, 0),
+	}
+	m.Children = append(m.Children, start)
+	return start
+}
+
+func (m *VoiceResponse) StartWithAttributes(attributes verbs.StartAttributes) *verbs.Start {
+	start := &verbs.Start{
+		StartAttributes: &attributes,
+		Children:        make([]interface{}, 0),
+	}
+	m.Children = append(m.Children, start)
+	return start
+}
+
+func (m *VoiceResponse) Stop() *verbs.Stop {
+	stop := &verbs.Stop{
+		Children: make([]interface{}, 0),
+	}
+	m.Children = append(m.Children, stop)
+	return stop
+}
+
+func (m *VoiceResponse) StopWithAttributes(attributes verbs.StopAttributes) *verbs.Stop {
+	stop := &verbs.Stop{
+		StopAttributes: &attributes,
+		Children:       make([]interface{}, 0),
+	}
+	m.Children = append(m.Children, stop)
+	return stop
 }
 
 func (m *VoiceResponse) ToTwiML() (*string, error) {
