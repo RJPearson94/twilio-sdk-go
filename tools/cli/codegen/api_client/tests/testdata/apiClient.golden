@@ -27,11 +27,11 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		sid: properties.Sid,
 
 		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
-			ServiceSid: properties.sid,
+			ServiceSid: properties.Sid,
 		}),
 		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
 			return phone_number.New(client, phone_number.ClientProperties{
-				ServiceSid: properties.sid,
+				ServiceSid: properties.Sid,
 				Sid:        phoneNumberSid,
 			})
 		},
