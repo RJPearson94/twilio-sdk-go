@@ -1,0 +1,25 @@
+{
+  "body": "Hello World",
+  "num_segments": "1",
+  "direction": "outbound-api",
+  "from": "",
+  "date_updated": null,
+  "price": null,
+  "error_message": null,
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "num_media": "0",
+  "to": "+10123456789",
+  "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+  "status": "failed",
+  "sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_sent": "Sat, 27 Jun 2020 23:00:00 +0000",
+  "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "error_code": 21704,
+  "price_unit": "GBP",
+  "api_version": "2010-04-01",
+  "subresource_uris": {
+    "media": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json",
+    "feedback": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Feedback.json"
+  }
+}

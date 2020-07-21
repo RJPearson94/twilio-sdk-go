@@ -348,6 +348,590 @@
               }
             }
           ]
+        },
+        {
+          "name": "Messages",
+          "packageName": "messages",
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Messages.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "CreateMessageInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "To",
+                    "type": "string",
+                    "value": "To",
+                    "required": true
+                  },
+                  {
+                    "name": "StatusCallback",
+                    "type": "string",
+                    "value": "StatusCallback",
+                    "required": false
+                  },
+                  {
+                    "name": "ApplicationSid",
+                    "type": "string",
+                    "value": "ApplicationSid",
+                    "required": false
+                  },
+                  {
+                    "name": "MaxPrice",
+                    "type": "string",
+                    "value": "MaxPrice",
+                    "required": false
+                  },
+                  {
+                    "name": "ProvideFeedback",
+                    "type": "bool",
+                    "value": "ProvideFeedback",
+                    "required": false
+                  },
+                  {
+                    "name": "Attempt",
+                    "type": "int",
+                    "value": "Attempt",
+                    "required": false
+                  },
+                  {
+                    "name": "ValidityPeriod",
+                    "type": "int",
+                    "value": "ValidityPeriod",
+                    "required": false
+                  },
+                  {
+                    "name": "ForceDelivery",
+                    "type": "bool",
+                    "value": "ForceDelivery",
+                    "required": false
+                  },
+                  {
+                    "name": "ContentRetention",
+                    "type": "string",
+                    "value": "ContentRetention",
+                    "required": false
+                  },
+                  {
+                    "name": "AddressRetention",
+                    "type": "string",
+                    "value": "AddressRetention",
+                    "required": false
+                  },
+                  {
+                    "name": "SmartEncoded",
+                    "type": "bool",
+                    "value": "SmartEncoded",
+                    "required": false
+                  },
+                  {
+                    "name": "PersistentActions",
+                    "type": "[]string",
+                    "value": "PersistentAction",
+                    "required": false
+                  },
+                  {
+                    "name": "From",
+                    "type": "string",
+                    "value": "From",
+                    "required": false
+                  },
+                  {
+                    "name": "MessagingServiceSid",
+                    "type": "string",
+                    "value": "MessagingServiceSid",
+                    "required": false
+                  },
+                  {
+                    "name": "Body",
+                    "type": "string",
+                    "value": "Body",
+                    "required": false
+                  },
+                  {
+                    "name": "MediaURLs",
+                    "type": "[]string",
+                    "value": "MediaUrl",
+                    "required": false
+                  }
+                ]
+              },
+              "response": {
+                "name": "CreateMessageResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Body",
+                    "type": "string",
+                    "value": "body",
+                    "required": true
+                  },
+                  {
+                    "name": "NumSegments",
+                    "type": "string",
+                    "value": "num_segments",
+                    "required": true
+                  },
+                  {
+                    "name": "Direction",
+                    "type": "string",
+                    "value": "direction",
+                    "required": true
+                  },
+                  {
+                    "name": "From",
+                    "type": "string",
+                    "value": "from",
+                    "required": false
+                  },
+                  {
+                    "name": "Price",
+                    "type": "string",
+                    "value": "price",
+                    "required": false
+                  },
+                  {
+                    "name": "ErrorMessage",
+                    "type": "string",
+                    "value": "error_message",
+                    "required": false
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "NumMedia",
+                    "type": "string",
+                    "value": "num_media",
+                    "required": true
+                  },
+                  {
+                    "name": "To",
+                    "type": "string",
+                    "value": "to",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "MessagingServiceSid",
+                    "type": "string",
+                    "value": "messaging_service_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "ErrorCode",
+                    "type": "int",
+                    "value": "error_code",
+                    "required": false
+                  },
+                  {
+                    "name": "PriceUnit",
+                    "type": "string",
+                    "value": "price_unit",
+                    "required": true
+                  },
+                  {
+                    "name": "APIVersion",
+                    "type": "string",
+                    "value": "api_version",
+                    "required": true
+                  },
+                  {
+                    "name": "DateSent",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_sent",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_updated",
+                    "required": false
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Message",
+          "packageName": "message",
+          "function": {
+            "parameters": {
+              "messageSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "messageSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Messages/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetMessageResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Body",
+                    "type": "string",
+                    "value": "body",
+                    "required": true
+                  },
+                  {
+                    "name": "NumSegments",
+                    "type": "string",
+                    "value": "num_segments",
+                    "required": true
+                  },
+                  {
+                    "name": "Direction",
+                    "type": "string",
+                    "value": "direction",
+                    "required": true
+                  },
+                  {
+                    "name": "From",
+                    "type": "string",
+                    "value": "from",
+                    "required": false
+                  },
+                  {
+                    "name": "Price",
+                    "type": "string",
+                    "value": "price",
+                    "required": false
+                  },
+                  {
+                    "name": "ErrorMessage",
+                    "type": "string",
+                    "value": "error_message",
+                    "required": false
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "NumMedia",
+                    "type": "string",
+                    "value": "num_media",
+                    "required": true
+                  },
+                  {
+                    "name": "To",
+                    "type": "string",
+                    "value": "to",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+                  {
+                    "name": "MessagingServiceSid",
+                    "type": "string",
+                    "value": "messaging_service_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "ErrorCode",
+                    "type": "int",
+                    "value": "error_code",
+                    "required": false
+                  },
+                  {
+                    "name": "PriceUnit",
+                    "type": "string",
+                    "value": "price_unit",
+                    "required": true
+                  },
+                  {
+                    "name": "APIVersion",
+                    "type": "string",
+                    "value": "api_version",
+                    "required": true
+                  },
+                  {
+                    "name": "DateSent",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_sent",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_updated",
+                    "required": false
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Messages/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateMessageInput",
+                "type": "URLEncoded",
+                "properties": [
+                  {
+                    "name": "Body",
+                    "type": "string",
+                    "value": "Body",
+                    "required": true
+                  }
+                ]
+              },
+              "response": {
+                "name": "UpdateMessageResponse",
+                "type": "JSON",
+                "properties": [
+                  {
+                    "name": "Body",
+                    "type": "string",
+                    "value": "body",
+                    "required": true
+                  },
+                  {
+                    "name": "NumSegments",
+                    "type": "string",
+                    "value": "num_segments",
+                    "required": true
+                  },
+                  {
+                    "name": "Direction",
+                    "type": "string",
+                    "value": "direction",
+                    "required": true
+                  },
+                  {
+                    "name": "From",
+                    "type": "string",
+                    "value": "from",
+                    "required": false
+                  },
+                  {
+                    "name": "Price",
+                    "type": "string",
+                    "value": "price",
+                    "required": false
+                  },
+                  {
+                    "name": "ErrorMessage",
+                    "type": "string",
+                    "value": "error_message",
+                    "required": false
+                  },
+                  {
+                    "name": "AccountSid",
+                    "type": "string",
+                    "value": "account_sid",
+                    "required": true
+                  },
+                  {
+                    "name": "NumMedia",
+                    "type": "string",
+                    "value": "num_media",
+                    "required": true
+                  },
+                  {
+                    "name": "To",
+                    "type": "string",
+                    "value": "to",
+                    "required": true
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "value": "status",
+                    "required": true
+                  },
+                  {
+                    "name": "Sid",
+                    "type": "string",
+                    "value": "sid",
+                    "required": true
+                  },
+
+                  {
+                    "name": "MessagingServiceSid",
+                    "type": "string",
+                    "value": "messaging_service_sid",
+                    "required": false
+                  },
+                  {
+                    "name": "ErrorCode",
+                    "type": "int",
+                    "value": "error_code",
+                    "required": false
+                  },
+                  {
+                    "name": "PriceUnit",
+                    "type": "string",
+                    "value": "price_unit",
+                    "required": true
+                  },
+                  {
+                    "name": "APIVersion",
+                    "type": "string",
+                    "value": "api_version",
+                    "required": true
+                  },
+                  {
+                    "name": "DateSent",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_sent",
+                    "required": true
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_created",
+                    "required": true
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "utils.RFC2822Time",
+                    "value": "date_updated",
+                    "required": false
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Messages/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
