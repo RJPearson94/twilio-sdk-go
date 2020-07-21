@@ -709,6 +709,141 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Media",
+              "packageName": "media",
+              "function": {
+                "parameters": {
+                  "mediaSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "messageSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "mediaSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Messages/{messageSid}/Media/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "messageSid",
+                        "value": {
+                          "onService": true,
+                          "property": "messageSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetMediaResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ParentSid",
+                        "type": "string",
+                        "value": "parent_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "ContentType",
+                        "type": "string",
+                        "value": "content_type",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "utils.RFC2822Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "utils.RFC2822Time",
+                        "value": "date_updated",
+                        "required": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Messages/{messageSid}/Media/{sid}.json",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "messageSid",
+                        "value": {
+                          "onService": true,
+                          "property": "messageSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ],
           "operations": [

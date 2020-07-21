@@ -35,8 +35,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		}),
 		Key: func(keySid string) *key.Client {
 			return key.New(client, key.ClientProperties{
-				AccountSid: properties.Sid,
 				Sid:        keySid,
+				AccountSid: properties.Sid,
 			})
 		},
 		Messages: messages.New(client, messages.ClientProperties{

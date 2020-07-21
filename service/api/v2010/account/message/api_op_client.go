@@ -4,6 +4,7 @@ package message
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedback"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media"
 )
 
 type Client struct {
@@ -13,6 +14,7 @@ type Client struct {
 	sid        string
 
 	Feedback *feedback.Client
+	Media    func(string) *media.Client
 }
 
 type ClientProperties struct {
@@ -31,5 +33,12 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			AccountSid: properties.AccountSid,
 			MessageSid: properties.Sid,
 		}),
+		Media: func(mediaSid string) *media.Client {
+			return media.New(client, media.ClientProperties{
+				AccountSid: properties.AccountSid,
+				MessageSid: properties.Sid,
+				Sid:        mediaSid,
+			})
+		},
 	}
 }
