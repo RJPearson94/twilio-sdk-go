@@ -614,6 +614,103 @@
               "functionParameter": "messageSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Feedback",
+              "packageName": "feedback",
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "messageSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Messages/{messageSid}/Feedback.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "messageSid",
+                        "value": {
+                          "onService": true,
+                          "property": "messageSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "CreateFeedbackInput",
+                    "type": "URLEncoded",
+                    "properties": [
+                      {
+                        "name": "Outcome",
+                        "type": "string",
+                        "value": "Outcome",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "CreateFeedbackResponse",
+                    "type": "JSON",
+                    "properties": [
+                      {
+                        "name": "Sid",
+                        "type": "string",
+                        "value": "sid",
+                        "required": true
+                      },
+                      {
+                        "name": "AccountSid",
+                        "type": "string",
+                        "value": "account_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "MessageSid",
+                        "type": "string",
+                        "value": "message_sid",
+                        "required": true
+                      },
+                      {
+                        "name": "Outcome",
+                        "type": "string",
+                        "value": "outcome",
+                        "required": true
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "utils.RFC2822Time",
+                        "value": "date_created",
+                        "required": true
+                      },
+                      {
+                        "name": "DateUpdated",
+                        "type": "utils.RFC2822Time",
+                        "value": "date_updated",
+                        "required": false
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Get",

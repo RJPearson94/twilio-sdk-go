@@ -16,6 +16,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedback"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -435,6 +436,22 @@ var _ = Describe("API V2010", func() {
 			})
 		})
 
+		Describe("When the message request does not contain a to", func() {
+			createInput := &messages.CreateMessageInput{
+				MessagingServiceSid: utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Body:                utils.String("Hello World"),
+			}
+
+			resp, err := messagesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create fax response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
 		Describe("When the create message api returns a 500 response", func() {
 			createInput := &messages.CreateMessageInput{
 				To:                  "+10123456789",
@@ -615,6 +632,62 @@ var _ = Describe("API V2010", func() {
 		})
 	})
 
+	Describe("Given the feedback client", func() {
+		feedbackClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedback
+
+		Describe("When the feedback is successfully created", func() {
+			createInput := &feedback.CreateFeedbackInput{
+				Outcome: utils.String("confirmed"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Feedback.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/feedbackResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := feedbackClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create feedback response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.MessageSid).To(Equal("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Outcome).To(Equal("confirmed"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the create feedback api returns a 500 response", func() {
+			createInput := &feedback.CreateFeedbackInput{
+				Outcome: utils.String("confirmed"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Feedback.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := feedbackClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create feedback response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
 })
 
 func ExpectInternalServerError(err error) {
