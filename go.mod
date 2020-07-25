@@ -11,7 +11,7 @@ require (
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
 	github.com/jarcoal/httpmock v1.0.5
 	github.com/leodido/go-urn v1.2.0 // indirect
-	github.com/mitchellh/mapstructure v1.3.2
+	github.com/mitchellh/mapstructure v1.3.3
 	github.com/onsi/ginkgo v1.14.0
 	github.com/onsi/gomega v1.10.1
 	golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
