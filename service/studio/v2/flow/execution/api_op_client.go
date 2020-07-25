@@ -37,9 +37,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		},
 		Step: func(stepSid string) *step.Client {
 			return step.New(client, step.ClientProperties{
+				ExecutionSid: properties.Sid,
 				FlowSid:      properties.FlowSid,
 				Sid:          stepSid,
-				ExecutionSid: properties.Sid,
 			})
 		},
 	}

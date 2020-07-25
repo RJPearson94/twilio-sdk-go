@@ -10,20 +10,20 @@ import (
 )
 
 type CreateExecutionInput struct {
-	To         string  `validate:"required" form:"To"`
 	From       string  `validate:"required" form:"From"`
 	Parameters *string `form:"Parameters,omitempty"`
+	To         string  `validate:"required" form:"To"`
 }
 
 type CreateExecutionResponse struct {
-	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
-	FlowSid               string      `json:"flow_sid"`
-	Context               interface{} `json:"context"`
 	ContactChannelAddress string      `json:"contact_channel_address"`
-	Status                string      `json:"status"`
+	Context               interface{} `json:"context"`
 	DateCreated           time.Time   `json:"date_created"`
 	DateUpdated           *time.Time  `json:"date_updated,omitempty"`
+	FlowSid               string      `json:"flow_sid"`
+	Sid                   string      `json:"sid"`
+	Status                string      `json:"status"`
 	URL                   string      `json:"url"`
 }
 

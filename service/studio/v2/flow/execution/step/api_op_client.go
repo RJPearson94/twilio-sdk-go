@@ -9,32 +9,32 @@ import (
 type Client struct {
 	client *client.Client
 
-	sid          string
 	executionSid string
 	flowSid      string
+	sid          string
 
 	Context func() *context.Client
 }
 
 type ClientProperties struct {
-	Sid          string
 	ExecutionSid string
 	FlowSid      string
+	Sid          string
 }
 
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		sid:          properties.Sid,
 		executionSid: properties.ExecutionSid,
 		flowSid:      properties.FlowSid,
+		sid:          properties.Sid,
 
 		Context: func() *context.Client {
 			return context.New(client, context.ClientProperties{
+				ExecutionSid: properties.ExecutionSid,
 				FlowSid:      properties.FlowSid,
 				StepSid:      properties.Sid,
-				ExecutionSid: properties.ExecutionSid,
 			})
 		},
 	}

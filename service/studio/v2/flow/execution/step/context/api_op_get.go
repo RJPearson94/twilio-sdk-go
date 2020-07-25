@@ -9,12 +9,12 @@ import (
 )
 
 type GetContextResponse struct {
-	Sid          string      `json:"sid"`
 	AccountSid   string      `json:"account_sid"`
-	FlowSid      string      `json:"flow_sid"`
-	ExecutionSid string      `json:"execution_sid"`
-	StepSid      string      `json:"step_sid"`
 	Context      interface{} `json:"context"`
+	ExecutionSid string      `json:"execution_sid"`
+	FlowSid      string      `json:"flow_sid"`
+	Sid          string      `json:"sid"`
+	StepSid      string      `json:"step_sid"`
 	URL          string      `json:"url"`
 }
 

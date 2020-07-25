@@ -10,14 +10,14 @@ import (
 )
 
 type GetExecutionResponse struct {
-	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
-	FlowSid               string      `json:"flow_sid"`
-	Context               interface{} `json:"context"`
 	ContactChannelAddress string      `json:"contact_channel_address"`
-	Status                string      `json:"status"`
+	Context               interface{} `json:"context"`
 	DateCreated           time.Time   `json:"date_created"`
 	DateUpdated           *time.Time  `json:"date_updated,omitempty"`
+	FlowSid               string      `json:"flow_sid"`
+	Sid                   string      `json:"sid"`
+	Status                string      `json:"status"`
 	URL                   string      `json:"url"`
 }
 

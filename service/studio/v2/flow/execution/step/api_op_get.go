@@ -10,16 +10,16 @@ import (
 )
 
 type GetStepResponse struct {
-	Sid              string      `json:"sid"`
 	AccountSid       string      `json:"account_sid"`
-	FlowSid          string      `json:"flow_sid"`
-	ExecutionSid     string      `json:"execution_sid"`
-	Name             string      `json:"name"`
 	Context          interface{} `json:"context"`
-	TransitionedFrom string      `json:"transitioned_from"`
-	TransitionedTo   string      `json:"transitioned_to"`
 	DateCreated      time.Time   `json:"date_created"`
 	DateUpdated      *time.Time  `json:"date_updated,omitempty"`
+	ExecutionSid     string      `json:"execution_sid"`
+	FlowSid          string      `json:"flow_sid"`
+	Name             string      `json:"name"`
+	Sid              string      `json:"sid"`
+	TransitionedFrom string      `json:"transitioned_from"`
+	TransitionedTo   string      `json:"transitioned_to"`
 	URL              string      `json:"url"`
 }
 

@@ -10,27 +10,27 @@ import (
 )
 
 type CreateFlowInput struct {
+	CommitMessage *string `form:"CommitMessage,omitempty"`
+	Definition    string  `validate:"required" form:"Definition"`
 	FriendlyName  string  `validate:"required" form:"FriendlyName"`
 	Status        string  `validate:"required" form:"Status"`
-	Definition    string  `validate:"required" form:"Definition"`
-	CommitMessage *string `form:"CommitMessage,omitempty"`
 }
 
 type CreateFlowResponse struct {
-	Sid           string         `json:"sid"`
 	AccountSid    string         `json:"account_sid"`
-	FriendlyName  string         `json:"friendly_name"`
-	Definition    interface{}    `json:"definition"`
-	Status        string         `json:"status"`
-	Revision      int            `json:"revision"`
 	CommitMessage *string        `json:"commit_message,omitempty"`
-	Valid         bool           `json:"valid"`
-	Errors        *[]interface{} `json:"errors,omitempty"`
-	Warnings      *[]interface{} `json:"warnings,omitempty"`
 	DateCreated   time.Time      `json:"date_created"`
 	DateUpdated   *time.Time     `json:"date_updated,omitempty"`
-	WebhookURL    string         `json:"webhook_url"`
+	Definition    interface{}    `json:"definition"`
+	Errors        *[]interface{} `json:"errors,omitempty"`
+	FriendlyName  string         `json:"friendly_name"`
+	Revision      int            `json:"revision"`
+	Sid           string         `json:"sid"`
+	Status        string         `json:"status"`
 	URL           string         `json:"url"`
+	Valid         bool           `json:"valid"`
+	Warnings      *[]interface{} `json:"warnings,omitempty"`
+	WebhookURL    string         `json:"webhook_url"`
 }
 
 func (c Client) Create(input *CreateFlowInput) (*CreateFlowResponse, error) {

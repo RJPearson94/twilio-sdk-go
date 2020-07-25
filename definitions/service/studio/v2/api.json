@@ -19,124 +19,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateFlowInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "Status",
-                "required": true
-              },
-              {
-                "name": "Definition",
-                "type": "string",
-                "value": "Definition",
-                "required": true
-              },
-              {
-                "name": "CommitMessage",
-                "type": "string",
-                "value": "CommitMessage",
-                "required": false
-              }
-            ]
+            "structure": "CreateFlowInput"
           },
           "response": {
             "name": "CreateFlowResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "Definition",
-                "type": "interface{}",
-                "value": "definition",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "Revision",
-                "type": "int",
-                "value": "revision",
-                "required": true
-              },
-              {
-                "name": "CommitMessage",
-                "type": "string",
-                "value": "commit_message",
-                "required": false
-              },
-              {
-                "name": "Valid",
-                "type": "bool",
-                "value": "valid",
-                "required": true
-              },
-              {
-                "name": "Errors",
-                "type": "[]interface{}",
-                "value": "errors",
-                "required": false
-              },
-              {
-                "name": "Warnings",
-                "type": "[]interface{}",
-                "value": "warnings",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "WebhookURL",
-                "type": "string",
-                "value": "webhook_url",
-                "required": true
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "FlowResponse"
           }
         }
       ]
@@ -197,93 +84,7 @@
               },
               "response": {
                 "name": "GetRevisionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Definition",
-                    "type": "interface{}",
-                    "value": "definition",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Revision",
-                    "type": "int",
-                    "value": "revision",
-                    "required": true
-                  },
-                  {
-                    "name": "CommitMessage",
-                    "type": "string",
-                    "value": "commit_message",
-                    "required": false
-                  },
-                  {
-                    "name": "Valid",
-                    "type": "bool",
-                    "value": "valid",
-                    "required": true
-                  },
-                  {
-                    "name": "Errors",
-                    "type": "[]interface{}",
-                    "value": "errors",
-                    "required": false
-                  },
-                  {
-                    "name": "Warnings",
-                    "type": "[]interface{}",
-                    "value": "warnings",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "WebhookURL",
-                    "type": "string",
-                    "value": "webhook_url",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FlowResponse"
               }
             }
           ]
@@ -318,40 +119,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateTestUsersInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "TestUsers",
-                    "type": "[]string",
-                    "value": "TestUsers",
-                    "required": true
-                  }
-                ]
+                "structure": "UpdateTestUsersInput"
               },
               "response": {
                 "name": "UpdateTestUsersResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "TestUsers",
-                    "type": "[]string",
-                    "value": "test_users",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TestUsersResponse"
               }
             }
           ]
@@ -383,88 +155,11 @@
                 ]
               },
               "input": {
-                "name": "CreateExecutionInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "To",
-                    "type": "string",
-                    "value": "To",
-                    "required": true
-                  },
-                  {
-                    "name": "From",
-                    "type": "string",
-                    "value": "From",
-                    "required": true
-                  },
-                  {
-                    "name": "Parameters",
-                    "type": "string",
-                    "value": "Parameters",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateExecutionInput"
               },
               "response": {
                 "name": "CreateExecutionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FlowSid",
-                    "type": "string",
-                    "value": "flow_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Context",
-                    "type": "interface{}",
-                    "value": "context",
-                    "required": true
-                  },
-                  {
-                    "name": "ContactChannelAddress",
-                    "type": "string",
-                    "value": "contact_channel_address",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ExecutionResponse"
               }
             }
           ]
@@ -533,39 +228,7 @@
                   },
                   "response": {
                     "name": "GetContextResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FlowSid",
-                        "type": "string",
-                        "value": "flow_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ExecutionSid",
-                        "type": "string",
-                        "value": "execution_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Context",
-                        "type": "interface{}",
-                        "value": "context",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "ContextResponse"
                   }
                 }
               ]
@@ -650,51 +313,7 @@
                       },
                       "response": {
                         "name": "GetContextResponse",
-                        "type": "JSON",
-                        "properties": [
-                          {
-                            "name": "Sid",
-                            "type": "string",
-                            "value": "sid",
-                            "required": true
-                          },
-                          {
-                            "name": "AccountSid",
-                            "type": "string",
-                            "value": "account_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "FlowSid",
-                            "type": "string",
-                            "value": "flow_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "ExecutionSid",
-                            "type": "string",
-                            "value": "execution_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "StepSid",
-                            "type": "string",
-                            "value": "step_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "Context",
-                            "type": "interface{}",
-                            "value": "context",
-                            "required": true
-                          },
-                          {
-                            "name": "URL",
-                            "type": "string",
-                            "value": "url",
-                            "required": true
-                          }
-                        ]
+                        "structure": "StepContextResponse"
                       }
                     }
                   ]
@@ -735,75 +354,7 @@
                   },
                   "response": {
                     "name": "GetStepResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FlowSid",
-                        "type": "string",
-                        "value": "flow_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ExecutionSid",
-                        "type": "string",
-                        "value": "execution_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Name",
-                        "type": "string",
-                        "value": "name",
-                        "required": true
-                      },
-                      {
-                        "name": "Context",
-                        "type": "interface{}",
-                        "value": "context",
-                        "required": true
-                      },
-                      {
-                        "name": "TransitionedFrom",
-                        "type": "string",
-                        "value": "transitioned_from",
-                        "required": true
-                      },
-                      {
-                        "name": "TransitionedTo",
-                        "type": "string",
-                        "value": "transitioned_to",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "StepResponse"
                   }
                 }
               ]
@@ -836,63 +387,7 @@
               },
               "response": {
                 "name": "GetExecutionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FlowSid",
-                    "type": "string",
-                    "value": "flow_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Context",
-                    "type": "interface{}",
-                    "value": "context",
-                    "required": true
-                  },
-                  {
-                    "name": "ContactChannelAddress",
-                    "type": "string",
-                    "value": "contact_channel_address",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ExecutionResponse"
               }
             },
             {
@@ -920,76 +415,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateExecutionInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "Status",
-                    "required": true
-                  }
-                ]
+                "structure": "UpdateExecutionInput"
               },
               "response": {
                 "name": "UpdateExecutionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FlowSid",
-                    "type": "string",
-                    "value": "flow_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Context",
-                    "type": "interface{}",
-                    "value": "context",
-                    "required": true
-                  },
-                  {
-                    "name": "ContactChannelAddress",
-                    "type": "string",
-                    "value": "contact_channel_address",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ExecutionResponse"
               }
             },
             {
@@ -1039,93 +469,7 @@
           },
           "response": {
             "name": "GetFlowResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "Definition",
-                "type": "interface{}",
-                "value": "definition",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "Revision",
-                "type": "int",
-                "value": "revision",
-                "required": true
-              },
-              {
-                "name": "CommitMessage",
-                "type": "string",
-                "value": "commit_message",
-                "required": false
-              },
-              {
-                "name": "Valid",
-                "type": "bool",
-                "value": "valid",
-                "required": true
-              },
-              {
-                "name": "Errors",
-                "type": "[]interface{}",
-                "value": "errors",
-                "required": false
-              },
-              {
-                "name": "Warnings",
-                "type": "[]interface{}",
-                "value": "warnings",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "WebhookURL",
-                "type": "string",
-                "value": "webhook_url",
-                "required": true
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "FlowResponse"
           }
         },
         {
@@ -1145,124 +489,11 @@
             ]
           },
           "input": {
-            "name": "UpdateFlowInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "Status",
-                "required": true
-              },
-              {
-                "name": "Definition",
-                "type": "string",
-                "value": "Definition",
-                "required": false
-              },
-              {
-                "name": "CommitMessage",
-                "type": "string",
-                "value": "CommitMessage",
-                "required": false
-              }
-            ]
+            "structure": "UpdateFlowInput"
           },
           "response": {
             "name": "UpdateFlowResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "Definition",
-                "type": "interface{}",
-                "value": "definition",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "Revision",
-                "type": "int",
-                "value": "revision",
-                "required": true
-              },
-              {
-                "name": "CommitMessage",
-                "type": "string",
-                "value": "commit_message",
-                "required": false
-              },
-              {
-                "name": "Valid",
-                "type": "bool",
-                "value": "valid",
-                "required": true
-              },
-              {
-                "name": "Errors",
-                "type": "[]interface{}",
-                "value": "errors",
-                "required": false
-              },
-              {
-                "name": "Warnings",
-                "type": "[]interface{}",
-                "value": "warnings",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "WebhookURL",
-                "type": "string",
-                "value": "webhook_url",
-                "required": true
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "FlowResponse"
           }
         },
         {
@@ -1295,49 +526,437 @@
             "method": "Post"
           },
           "input": {
-            "name": "ValidateFlowInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "Status",
-                "required": true
-              },
-              {
-                "name": "Definition",
-                "type": "string",
-                "value": "Definition",
-                "required": true
-              },
-              {
-                "name": "CommitMessage",
-                "type": "string",
-                "value": "CommitMessage",
-                "required": false
-              }
-            ]
+            "structure": "ValidateFlowInput"
           },
           "response": {
-            "name": "ValidateFlowResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Valid",
-                "type": "bool",
-                "value": "valid",
-                "required": true
-              }
-            ]
+            "structure": "ValidateFlowResponse"
           }
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "CreateFlowInput": {
+      "type": "URLEncoded",
+      "extends": "BaseFlowInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "Definition",
+          "type": "string",
+          "value": "Definition",
+          "required": true
+        }
+      ]
+    },
+    "UpdateFlowInput": {
+      "type": "URLEncoded",
+      "extends": "BaseFlowInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Definition",
+          "type": "string",
+          "value": "Definition",
+          "required": false
+        }
+      ]
+    },
+    "BaseFlowInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": true
+        },
+        {
+          "name": "CommitMessage",
+          "type": "string",
+          "value": "CommitMessage",
+          "required": false
+        }
+      ]
+    },
+    "FlowResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Definition",
+          "type": "interface{}",
+          "value": "definition",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "Revision",
+          "type": "int",
+          "value": "revision",
+          "required": true
+        },
+        {
+          "name": "CommitMessage",
+          "type": "string",
+          "value": "commit_message",
+          "required": false
+        },
+        {
+          "name": "Valid",
+          "type": "bool",
+          "value": "valid",
+          "required": true
+        },
+        {
+          "name": "Errors",
+          "type": "array",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "errors",
+          "required": false
+        },
+        {
+          "name": "Warnings",
+          "type": "array",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "warnings",
+          "required": false
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "webhook_url",
+          "required": true
+        }
+      ]
+    },
+    "UpdateTestUsersInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "TestUsers",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "TestUsers",
+          "required": true
+        }
+      ]
+    },
+    "TestUsersResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "TestUsers",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "test_users",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateExecutionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "To",
+          "type": "string",
+          "value": "To",
+          "required": true
+        },
+        {
+          "name": "From",
+          "type": "string",
+          "value": "From",
+          "required": true
+        },
+        {
+          "name": "Parameters",
+          "type": "string",
+          "value": "Parameters",
+          "required": false
+        }
+      ]
+    },
+    "UpdateExecutionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": true
+        }
+      ]
+    },
+    "ExecutionResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "flow_sid",
+          "required": true
+        },
+        {
+          "name": "Context",
+          "type": "interface{}",
+          "value": "context",
+          "required": true
+        },
+        {
+          "name": "ContactChannelAddress",
+          "type": "string",
+          "value": "contact_channel_address",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        }
+      ]
+    },
+    "ContextResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "flow_sid",
+          "required": true
+        },
+        {
+          "name": "ExecutionSid",
+          "type": "string",
+          "value": "execution_sid",
+          "required": true
+        },
+        {
+          "name": "Context",
+          "type": "interface{}",
+          "value": "context",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "StepResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "flow_sid",
+          "required": true
+        },
+        {
+          "name": "ExecutionSid",
+          "type": "string",
+          "value": "execution_sid",
+          "required": true
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Context",
+          "type": "interface{}",
+          "value": "context",
+          "required": true
+        },
+        {
+          "name": "TransitionedFrom",
+          "type": "string",
+          "value": "transitioned_from",
+          "required": true
+        },
+        {
+          "name": "TransitionedTo",
+          "type": "string",
+          "value": "transitioned_to",
+          "required": true
+        }
+      ]
+    },
+    "StepContextResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "flow_sid",
+          "required": true
+        },
+        {
+          "name": "ExecutionSid",
+          "type": "string",
+          "value": "execution_sid",
+          "required": true
+        },
+        {
+          "name": "StepSid",
+          "type": "string",
+          "value": "step_sid",
+          "required": true
+        },
+        {
+          "name": "Context",
+          "type": "interface{}",
+          "value": "context",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "ValidateFlowInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": true
+        },
+        {
+          "name": "Definition",
+          "type": "string",
+          "value": "Definition",
+          "required": true
+        },
+        {
+          "name": "CommitMessage",
+          "type": "string",
+          "value": "CommitMessage",
+          "required": false
+        }
+      ]
+    },
+    "ValidateFlowResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Valid",
+          "type": "bool",
+          "value": "valid",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
 }
