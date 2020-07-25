@@ -16,12 +16,12 @@ type Client struct {
 
 	sid string
 
-	Messages     *messages.Client
 	Message      func(string) *message.Client
-	Participants *participants.Client
+	Messages     *messages.Client
 	Participant  func(string) *participant.Client
-	Webhooks     *webhooks.Client
+	Participants *participants.Client
 	Webhook      func(string) *webhook.Client
+	Webhooks     *webhooks.Client
 }
 
 type ClientProperties struct {
@@ -34,16 +34,13 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
-		Messages: messages.New(client, messages.ClientProperties{
-			ConversationSid: properties.Sid,
-		}),
 		Message: func(messageSid string) *message.Client {
 			return message.New(client, message.ClientProperties{
 				ConversationSid: properties.Sid,
 				Sid:             messageSid,
 			})
 		},
-		Participants: participants.New(client, participants.ClientProperties{
+		Messages: messages.New(client, messages.ClientProperties{
 			ConversationSid: properties.Sid,
 		}),
 		Participant: func(participantSid string) *participant.Client {
@@ -52,14 +49,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:             participantSid,
 			})
 		},
-		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+		Participants: participants.New(client, participants.ClientProperties{
 			ConversationSid: properties.Sid,
 		}),
 		Webhook: func(webhookSid string) *webhook.Client {
 			return webhook.New(client, webhook.ClientProperties{
-				Sid:             webhookSid,
 				ConversationSid: properties.Sid,
+				Sid:             webhookSid,
 			})
 		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+			ConversationSid: properties.Sid,
+		}),
 	}
 }

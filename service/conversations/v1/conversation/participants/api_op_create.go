@@ -11,33 +11,33 @@ import (
 )
 
 type CreateParticipantInput struct {
+	Attributes                       *string            `form:"Attributes,omitempty"`
 	DateCreated                      *utils.RFC2822Time `form:"DateCreated,omitempty"`
 	DateUpdated                      *utils.RFC2822Time `form:"DateUpdated,omitempty"`
-	Attributes                       *string            `form:"Attributes,omitempty"`
-	RoleSid                          *string            `form:"RoleSid,omitempty"`
-	MessagingBindingAddress          *string            `form:"MessagingBinding.Address,omitempty"`
-	MessagingBindingProxyAddress     *string            `form:"MessagingBinding.ProxyAddress,omitempty"`
-	MessagingBindingProjectedAddress *string            `form:"MessagingBinding.ProjectedAddress,omitempty"`
 	Identity                         *string            `form:"Identity,omitempty"`
+	MessagingBindingAddress          *string            `form:"MessagingBinding.Address,omitempty"`
+	MessagingBindingProjectedAddress *string            `form:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress     *string            `form:"MessagingBinding.ProxyAddress,omitempty"`
+	RoleSid                          *string            `form:"RoleSid,omitempty"`
 }
 
 type CreateParticipantResponseMessageBinding struct {
-	Type             string  `json:"type"`
 	Address          string  `json:"address"`
-	ProxyAddress     string  `json:"proxy_address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
+	ProxyAddress     string  `json:"proxy_address"`
+	Type             string  `json:"type"`
 }
 
 type CreateParticipantResponse struct {
-	Sid              string                                   `json:"sid"`
 	AccountSid       string                                   `json:"account_sid"`
-	ConversationSid  string                                   `json:"conversation_sid"`
-	Identity         *string                                  `json:"identity,omitempty"`
 	Attributes       string                                   `json:"attributes"`
-	MessagingBinding *CreateParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
-	RoleSid          *string                                  `json:"role_sid,omitempty"`
+	ConversationSid  string                                   `json:"conversation_sid"`
 	DateCreated      time.Time                                `json:"date_created"`
 	DateUpdated      *time.Time                               `json:"date_updated,omitempty"`
+	Identity         *string                                  `json:"identity,omitempty"`
+	MessagingBinding *CreateParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	RoleSid          *string                                  `json:"role_sid,omitempty"`
+	Sid              string                                   `json:"sid"`
 	URL              string                                   `json:"url"`
 }
 

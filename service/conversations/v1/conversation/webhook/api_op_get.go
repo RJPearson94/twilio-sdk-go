@@ -10,22 +10,22 @@ import (
 )
 
 type GetConversationWebhookResponseConfiguration struct {
-	Url         *string   `json:"url,omitempty"`
-	Method      *string   `json:"method,omitempty"`
 	Filters     *[]string `json:"filters,omitempty"`
-	Triggers    *[]string `json:"triggers,omitempty"`
 	FlowSid     *string   `json:"flow_sid,omitempty"`
+	Method      *string   `json:"method,omitempty"`
 	ReplayAfter *int      `json:"replay_after,omitempty"`
+	Triggers    *[]string `json:"triggers,omitempty"`
+	URL         *string   `json:"url,omitempty"`
 }
 
 type GetConversationWebhookResponse struct {
-	Sid             string                                      `json:"sid"`
 	AccountSid      string                                      `json:"account_sid"`
-	ConversationSid string                                      `json:"conversation_sid"`
-	Target          string                                      `json:"target"`
 	Configuration   GetConversationWebhookResponseConfiguration `json:"configuration"`
+	ConversationSid string                                      `json:"conversation_sid"`
 	DateCreated     time.Time                                   `json:"date_created"`
 	DateUpdated     *time.Time                                  `json:"date_updated,omitempty"`
+	Sid             string                                      `json:"sid"`
+	Target          string                                      `json:"target"`
 	URL             string                                      `json:"url"`
 }
 

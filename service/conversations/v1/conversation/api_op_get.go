@@ -10,21 +10,21 @@ import (
 )
 
 type GetConversationResponseTimers struct {
-	DateInactive *time.Time `json:"date_inactive,omitempty"`
 	DateClosed   *time.Time `json:"date_closed,omitempty"`
+	DateInactive *time.Time `json:"date_inactive,omitempty"`
 }
 
 type GetConversationResponse struct {
-	Sid                 string                        `json:"sid"`
 	AccountSid          string                        `json:"account_sid"`
-	ChatServiceSid      *string                       `json:"chat_service_sid,omitempty"`
-	MessagingServiceSid *string                       `json:"messaging_service_sid,omitempty"`
-	FriendlyName        *string                       `json:"friendly_name,omitempty"`
 	Attributes          string                        `json:"attributes"`
-	State               string                        `json:"state"`
-	Timers              GetConversationResponseTimers `json:"timers"`
+	ChatServiceSid      *string                       `json:"chat_service_sid,omitempty"`
 	DateCreated         time.Time                     `json:"date_created"`
 	DateUpdated         *time.Time                    `json:"date_updated,omitempty"`
+	FriendlyName        *string                       `json:"friendly_name,omitempty"`
+	MessagingServiceSid *string                       `json:"messaging_service_sid,omitempty"`
+	Sid                 string                        `json:"sid"`
+	State               string                        `json:"state"`
+	Timers              GetConversationResponseTimers `json:"timers"`
 	URL                 string                        `json:"url"`
 }
 

@@ -10,24 +10,24 @@ import (
 )
 
 type GetMessageResponseMedia struct {
-	Sid         string `json:"sid"`
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
+	Sid         string `json:"sid"`
 	Size        int    `json:"size"`
 }
 
 type GetMessageResponse struct {
-	Sid             string                     `json:"sid"`
 	AccountSid      string                     `json:"account_sid"`
-	ConversationSid string                     `json:"conversation_sid"`
-	ParticipantSid  *string                    `json:"participant_sid,omitempty"`
-	Body            *string                    `json:"body,omitempty"`
-	Index           int                        `json:"index"`
-	Author          string                     `json:"author"`
 	Attributes      string                     `json:"attributes"`
-	Media           *[]GetMessageResponseMedia `json:"media,omitempty"`
+	Author          string                     `json:"author"`
+	Body            *string                    `json:"body,omitempty"`
+	ConversationSid string                     `json:"conversation_sid"`
 	DateCreated     time.Time                  `json:"date_created"`
 	DateUpdated     *time.Time                 `json:"date_updated,omitempty"`
+	Index           int                        `json:"index"`
+	Media           *[]GetMessageResponseMedia `json:"media,omitempty"`
+	ParticipantSid  *string                    `json:"participant_sid,omitempty"`
+	Sid             string                     `json:"sid"`
 	URL             string                     `json:"url"`
 }
 

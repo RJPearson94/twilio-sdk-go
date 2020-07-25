@@ -10,11 +10,11 @@ import (
 
 type GetWebhookResponse struct {
 	AccountSid     string   `json:"account_sid"`
-	Method         string   `json:"method"`
-	Target         string   `json:"target"`
 	Filters        []string `json:"filters"`
-	PreWebhookUrl  *string  `json:"pre_webhook_url,omitempty"`
+	Method         string   `json:"method"`
 	PostWebhookUrl *string  `json:"post_webhook_url,omitempty"`
+	PreWebhookUrl  *string  `json:"pre_webhook_url,omitempty"`
+	Target         string   `json:"target"`
 	URL            string   `json:"url"`
 }
 
