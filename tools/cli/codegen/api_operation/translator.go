@@ -21,12 +21,12 @@ func Translate(content []byte) (*interface{}, error) {
 	structures := jsonParsed.S("structures").ChildrenMap()
 
 	if jsonParsed.Exists("input") {
-		inputStructure := mapStructure(jsonParsed.Path("input"), jsonParsed.Path("name").Data().(string), apiOperationName, structures)
+		inputStructure := mapStructure(jsonParsed.Path("input"), apiOperationName, structures)
 		response.Set(inputStructure.Data(), "input")
 	}
 
 	if jsonParsed.Exists("response") {
-		responseStructure := mapStructure(jsonParsed.Path("response"), jsonParsed.Path("name").Data().(string), apiOperationName, structures)
+		responseStructure := mapStructure(jsonParsed.Path("response"), apiOperationName, structures)
 		response.Set(responseStructure.Data(), "response")
 	}
 
@@ -34,7 +34,7 @@ func Translate(content []byte) (*interface{}, error) {
 	return &data, nil
 }
 
-func mapStructure(structure *gabs.Container, structureName string, apiOperationName string, structures map[string]*gabs.Container) *gabs.Container {
+func mapStructure(structure *gabs.Container, apiOperationName string, structures map[string]*gabs.Container) *gabs.Container {
 	structureResponse := gabs.New()
 	nestedStructureName := structure.Path("structure").Data().(string)
 
@@ -52,11 +52,8 @@ func mapStructure(structure *gabs.Container, structureName string, apiOperationN
 	dataType := nestedStructure.Path("type").Data().(string)
 	structureResponse.Set(dataType, "type")
 
-	if nestedStructure.Exists("extends") {
-		parentStructure := structures[nestedStructure.Path("extends").Data().(string)]
-		properties := append(nestedStructure.Path("properties").Data().([]interface{}), parentStructure.Path("properties").Data().([]interface{})...)
-		nestedStructure.Set(properties, "properties")
-	}
+	properties := getProperties(nestedStructure, structures)
+	nestedStructure.Set(properties, "properties")
 
 	properties, additionalStructs := mapProperties(nestedStructure, dataType, apiOperationName, structures)
 	structureResponse.Set(properties, "properties")
@@ -68,22 +65,38 @@ func mapStructure(structure *gabs.Container, structureName string, apiOperationN
 	return structureResponse
 }
 
+func getProperties(structure *gabs.Container, structures map[string]*gabs.Container) []interface{} {
+	structureProperties := structure.Path("properties").Data().([]interface{})
+	properties := make([]interface{}, 0)
+
+	properties = append(properties, structureProperties...)
+
+	if structure.Exists("extends") {
+		parentStructure := structures[structure.Path("extends").Data().(string)]
+		properties = append(properties, getProperties(parentStructure, structures)...)
+	}
+
+	return properties
+}
+
 func mapProperties(structure *gabs.Container, dataType string, apiOperationName string, structures map[string]*gabs.Container) ([]interface{}, []interface{}) {
 	properties := make([]interface{}, 0)
 	additionalStructs := make([]interface{}, 0)
 
 	for _, property := range structure.S("properties").Children() {
-		propertiesResponse := gabs.New()
-		propertiesResponse.Set(property.Path("value").Data(), "value")
-		propertiesResponse.Set(property.Path("name").Data(), "name")
-		propertiesResponse.Set(property.Path("required").Data(), "required")
+		if property != nil {
+			propertiesResponse := gabs.New()
+			propertiesResponse.Set(property.Path("value").Data(), "value")
+			propertiesResponse.Set(property.Path("name").Data(), "name")
+			propertiesResponse.Set(property.Path("required").Data(), "required")
 
-		typeName, nestedAdditionalStructs := mapType(property, dataType, apiOperationName, structures)
-		propertiesResponse.Set(typeName, "type")
+			typeName, nestedAdditionalStructs := mapType(property, dataType, apiOperationName, structures)
+			propertiesResponse.Set(typeName, "type")
 
-		additionalStructs = append(additionalStructs, nestedAdditionalStructs...)
+			additionalStructs = append(additionalStructs, nestedAdditionalStructs...)
 
-		properties = append(properties, propertiesResponse.Data())
+			properties = append(properties, propertiesResponse.Data())
+		}
 	}
 
 	return properties, additionalStructs
