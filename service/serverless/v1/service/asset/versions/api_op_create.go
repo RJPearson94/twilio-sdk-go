@@ -11,27 +11,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-type ContentDetails struct {
+type CreateContentDetails struct {
 	Body        io.ReadSeeker `validate:"required" mapstructure:"Body"`
-	FileName    string        `validate:"required" mapstructure:"FileName"`
 	ContentType string        `validate:"required" mapstructure:"ContentType"`
+	FileName    string        `validate:"required" mapstructure:"FileName"`
 }
 
 type CreateVersionInput struct {
-	Content    ContentDetails `validate:"required" mapstructure:"Content"`
-	Path       string         `validate:"required" mapstructure:"Path"`
-	Visibility string         `validate:"required" mapstructure:"Visibility"`
+	Content    CreateContentDetails `validate:"required" mapstructure:"Content"`
+	Path       string               `validate:"required" mapstructure:"Path"`
+	Visibility string               `validate:"required" mapstructure:"Visibility"`
 }
 
 type CreateVersionResponse struct {
-	Sid         string    `json:"sid"`
 	AccountSid  string    `json:"account_sid"`
-	ServiceSid  string    `json:"service_sid"`
 	AssetSid    string    `json:"asset_sid"`
-	Path        string    `json:"path"`
-	Visibility  string    `json:"visibility"`
 	DateCreated time.Time `json:"date_created"`
+	Path        string    `json:"path"`
+	ServiceSid  string    `json:"service_sid"`
+	Sid         string    `json:"sid"`
 	URL         string    `json:"url"`
+	Visibility  string    `json:"visibility"`
 }
 
 func (c Client) Create(input *CreateVersionInput) (*CreateVersionResponse, error) {

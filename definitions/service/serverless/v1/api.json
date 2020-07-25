@@ -19,94 +19,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateServiceInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "UniqueName",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": true
-              },
-              {
-                "name": "IncludeCredentials",
-                "type": "bool",
-                "value": "IncludeCredentials",
-                "required": false
-              },
-              {
-                "name": "UiEditable",
-                "type": "bool",
-                "value": "UiEditable",
-                "required": false
-              }
-            ]
+            "structure": "CreateServiceInput"
           },
           "response": {
             "name": "CreateServiceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "IncludeCredentials",
-                "type": "bool",
-                "value": "include_credentials",
-                "required": true
-              },
-              {
-                "name": "UiEditable",
-                "type": "bool",
-                "value": "ui_editable",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ServiceResponse"
           }
         }
       ]
@@ -147,88 +64,11 @@
                 ]
               },
               "input": {
-                "name": "CreateEnvironmentInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": true
-                  },
-                  {
-                    "name": "DomainSuffix",
-                    "type": "string",
-                    "value": "DomainSuffix",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateEnvironmentInput"
               },
               "response": {
                 "name": "CreateEnvironmentResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "BuildSid",
-                    "type": "string",
-                    "value": "build_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DomainSuffix",
-                    "type": "string",
-                    "value": "domain_suffix",
-                    "required": false
-                  },
-                  {
-                    "name": "DomainName",
-                    "type": "string",
-                    "value": "domain_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "EnvironmentResponse"
               }
             }
           ]
@@ -293,82 +133,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateVariableInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Key",
-                        "type": "string",
-                        "value": "Key",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "Value",
-                        "required": true
-                      }
-                    ]
+                    "structure": "CreateVariableInput"
                   },
                   "response": {
                     "name": "CreateVariableResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "EnvironmentSid",
-                        "type": "string",
-                        "value": "environment_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Key",
-                        "type": "string",
-                        "value": "key",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "VariableResponse"
                   }
                 }
               ]
@@ -432,63 +201,7 @@
                   },
                   "response": {
                     "name": "GetVariableResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "EnvironmentSid",
-                        "type": "string",
-                        "value": "environment_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Key",
-                        "type": "string",
-                        "value": "key",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "VariableResponse"
                   }
                 },
                 {
@@ -524,82 +237,11 @@
                     ]
                   },
                   "input": {
-                    "name": "UpdateVariableInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Key",
-                        "type": "string",
-                        "value": "Key",
-                        "required": false
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "Value",
-                        "required": false
-                      }
-                    ]
+                    "structure": "UpdateVariableInput"
                   },
                   "response": {
                     "name": "UpdateVariableResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "EnvironmentSid",
-                        "type": "string",
-                        "value": "environment_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Key",
-                        "type": "string",
-                        "value": "key",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "VariableResponse"
                   }
                 },
                 {
@@ -676,70 +318,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateDeploymentInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "BuildSid",
-                        "type": "string",
-                        "value": "BuildSid",
-                        "required": false
-                      }
-                    ]
+                    "structure": "CreateDeploymentInput"
                   },
                   "response": {
                     "name": "CreateDeploymentResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "EnvironmentSid",
-                        "type": "string",
-                        "value": "environment_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "BuildSid",
-                        "type": "string",
-                        "value": "build_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "DeploymentResponse"
                   }
                 }
               ]
@@ -803,57 +386,7 @@
                   },
                   "response": {
                     "name": "GetDeploymentResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "EnvironmentSid",
-                        "type": "string",
-                        "value": "environment_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "BuildSid",
-                        "type": "string",
-                        "value": "build_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "DeploymentResponse"
                   }
                 }
               ]
@@ -886,69 +419,7 @@
               },
               "response": {
                 "name": "GetEnvironmentResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "BuildSid",
-                    "type": "string",
-                    "value": "build_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DomainSuffix",
-                    "type": "string",
-                    "value": "domain_suffix",
-                    "required": false
-                  },
-                  {
-                    "name": "DomainName",
-                    "type": "string",
-                    "value": "domain_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "EnvironmentResponse"
               }
             },
             {
@@ -1006,63 +477,11 @@
               },
               "input": {
                 "name": "CreateFunctionInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  }
-                ]
+                "structure": "FunctionInput"
               },
               "response": {
                 "name": "CreateFunctionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FunctionResponse"
               }
             }
           ]
@@ -1131,108 +550,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateVersionInput",
-                    "type": "FormData",
-                    "additionalStructs": [
-                      {
-                        "name": "ContentDetails",
-                        "type": "FormData",
-                        "properties": [
-                          {
-                            "name": "Body",
-                            "type": "io.ReadSeeker",
-                            "value": "Body",
-                            "required": true
-                          },
-                          {
-                            "name": "FileName",
-                            "type": "string",
-                            "value": "FileName",
-                            "required": true
-                          },
-                          {
-                            "name": "ContentType",
-                            "type": "string",
-                            "value": "ContentType",
-                            "required": true
-                          }
-                        ]
-                      }
-                    ],
-                    "properties": [
-                      {
-                        "name": "Content",
-                        "type": "ContentDetails",
-                        "value": "Content",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "Path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "Visibility",
-                        "required": true
-                      }
-                    ]
+                    "structure": "CreateVersionInput"
                   },
                   "response": {
                     "name": "CreateVersionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FunctionSid",
-                        "type": "string",
-                        "value": "function_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "FunctionVersionResponse"
                   }
                 }
               ]
@@ -1314,45 +636,7 @@
                       },
                       "response": {
                         "name": "GetContentResponse",
-                        "type": "JSON",
-                        "properties": [
-                          {
-                            "name": "Sid",
-                            "type": "string",
-                            "value": "sid",
-                            "required": true
-                          },
-                          {
-                            "name": "AccountSid",
-                            "type": "string",
-                            "value": "account_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "ServiceSid",
-                            "type": "string",
-                            "value": "service_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "FunctionSid",
-                            "type": "string",
-                            "value": "function_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "Content",
-                            "type": "string",
-                            "value": "content",
-                            "required": true
-                          },
-                          {
-                            "name": "URL",
-                            "type": "string",
-                            "value": "url",
-                            "required": true
-                          }
-                        ]
+                        "structure": "FunctionContentResponse"
                       }
                     }
                   ]
@@ -1393,57 +677,7 @@
                   },
                   "response": {
                     "name": "GetVersionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FunctionSid",
-                        "type": "string",
-                        "value": "function_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "FunctionVersionResponse"
                   }
                 }
               ]
@@ -1476,51 +710,7 @@
               },
               "response": {
                 "name": "GetFunctionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FunctionResponse"
               }
             },
             {
@@ -1549,63 +739,11 @@
               },
               "input": {
                 "name": "UpdateFunctionInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  }
-                ]
+                "structure": "FunctionInput"
               },
               "response": {
                 "name": "UpdateFunctionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FunctionResponse"
               }
             },
             {
@@ -1663,63 +801,11 @@
               },
               "input": {
                 "name": "CreateAssetInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  }
-                ]
+                "structure": "AssetInput"
               },
               "response": {
                 "name": "CreateAssetResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "AssetResponse"
               }
             }
           ]
@@ -1788,108 +874,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateVersionInput",
-                    "type": "FormData",
-                    "additionalStructs": [
-                      {
-                        "name": "ContentDetails",
-                        "type": "FormData",
-                        "properties": [
-                          {
-                            "name": "Body",
-                            "type": "io.ReadSeeker",
-                            "value": "Body",
-                            "required": true
-                          },
-                          {
-                            "name": "FileName",
-                            "type": "string",
-                            "value": "FileName",
-                            "required": true
-                          },
-                          {
-                            "name": "ContentType",
-                            "type": "string",
-                            "value": "ContentType",
-                            "required": true
-                          }
-                        ]
-                      }
-                    ],
-                    "properties": [
-                      {
-                        "name": "Content",
-                        "type": "ContentDetails",
-                        "value": "Content",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "Path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "Visibility",
-                        "required": true
-                      }
-                    ]
+                    "structure": "CreateVersionInput"
                   },
                   "response": {
                     "name": "CreateVersionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssetSid",
-                        "type": "string",
-                        "value": "asset_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "AssetVersionResponse"
                   }
                 }
               ]
@@ -1953,57 +942,7 @@
                   },
                   "response": {
                     "name": "GetVersionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssetSid",
-                        "type": "string",
-                        "value": "asset_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "AssetVersionResponse"
                   }
                 }
               ]
@@ -2036,51 +975,7 @@
               },
               "response": {
                 "name": "GetAssetResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "AssetResponse"
               }
             },
             {
@@ -2111,65 +1006,9 @@
                 "name": "UpdateAssetInput",
                 "structure": "AssetInput"
               },
-              "input": {
-                "name": "UpdateAssetInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  }
-                ]
-              },
               "response": {
                 "name": "UpdateAssetResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "AssetResponse"
               }
             },
             {
@@ -2226,210 +1065,11 @@
                 ]
               },
               "input": {
-                "name": "CreateBuildInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "AssetVersions",
-                    "type": "[]string",
-                    "value": "AssetVersions",
-                    "required": false
-                  },
-                  {
-                    "name": "FunctionVersions",
-                    "type": "[]string",
-                    "value": "FunctionVersions",
-                    "required": false
-                  },
-                  {
-                    "name": "Dependencies",
-                    "type": "string",
-                    "value": "Dependencies",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateBuildInput"
               },
               "response": {
                 "name": "CreateBuildResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "FunctionVersion",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FunctionSid",
-                        "type": "string",
-                        "value": "function_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "AssetVersion",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssetSid",
-                        "type": "string",
-                        "value": "asset_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Dependency",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Name",
-                        "type": "string",
-                        "value": "name",
-                        "required": true
-                      },
-                      {
-                        "name": "Version",
-                        "type": "string",
-                        "value": "version",
-                        "required": true
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssetVersions",
-                    "type": "[]AssetVersion",
-                    "value": "asset_versions",
-                    "required": false
-                  },
-                  {
-                    "name": "FunctionVersions",
-                    "type": "[]FunctionVersion",
-                    "value": "function_versions",
-                    "required": false
-                  },
-                  {
-                    "name": "Dependencies",
-                    "type": "[]Dependency",
-                    "value": "dependencies",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "BuildResponse"
               }
             }
           ]
@@ -2481,185 +1121,7 @@
               },
               "response": {
                 "name": "GetBuildResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "FunctionVersion",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FunctionSid",
-                        "type": "string",
-                        "value": "function_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "AssetVersion",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssetSid",
-                        "type": "string",
-                        "value": "asset_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "Path",
-                        "type": "string",
-                        "value": "path",
-                        "required": true
-                      },
-                      {
-                        "name": "Visibility",
-                        "type": "string",
-                        "value": "visibility",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Dependency",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Name",
-                        "type": "string",
-                        "value": "name",
-                        "required": true
-                      },
-                      {
-                        "name": "Version",
-                        "type": "string",
-                        "value": "version",
-                        "required": true
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssetVersions",
-                    "type": "[]AssetVersion",
-                    "value": "asset_versions",
-                    "required": false
-                  },
-                  {
-                    "name": "FunctionVersions",
-                    "type": "[]FunctionVersion",
-                    "value": "function_versions",
-                    "required": false
-                  },
-                  {
-                    "name": "Dependencies",
-                    "type": "[]Dependency",
-                    "value": "dependencies",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "BuildResponse"
               }
             },
             {
@@ -2709,63 +1171,7 @@
           },
           "response": {
             "name": "GetServiceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "IncludeCredentials",
-                "type": "bool",
-                "value": "include_credentials",
-                "required": true
-              },
-              {
-                "name": "UiEditable",
-                "type": "bool",
-                "value": "ui_editable",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ServiceResponse"
           }
         },
         {
@@ -2785,88 +1191,11 @@
             ]
           },
           "input": {
-            "name": "UpdateServiceInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "IncludeCredentials",
-                "type": "bool",
-                "value": "IncludeCredentials",
-                "required": false
-              },
-              {
-                "name": "UiEditable",
-                "type": "bool",
-                "value": "UiEditable",
-                "required": false
-              }
-            ]
+            "structure": "UpdateServiceInput"
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "IncludeCredentials",
-                "type": "bool",
-                "value": "include_credentials",
-                "required": true
-              },
-              {
-                "name": "UiEditable",
-                "type": "bool",
-                "value": "ui_editable",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ServiceResponse"
           }
         },
         {
@@ -2888,5 +1217,719 @@
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "CreateServiceInput": {
+      "type": "URLEncoded",
+      "extends": "BaseServiceInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateServiceInput": {
+      "type": "URLEncoded",
+      "extends": "BaseServiceInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "BaseServiceInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "IncludeCredentials",
+          "type": "bool",
+          "value": "IncludeCredentials",
+          "required": false
+        },
+        {
+          "name": "UiEditable",
+          "type": "bool",
+          "value": "UiEditable",
+          "required": false
+        }
+      ]
+    },
+    "ServiceResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "IncludeCredentials",
+          "type": "bool",
+          "value": "include_credentials",
+          "required": true
+        },
+        {
+          "name": "UiEditable",
+          "type": "bool",
+          "value": "ui_editable",
+          "required": true
+        }
+      ]
+    },
+    "CreateEnvironmentInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "DomainSuffix",
+          "type": "string",
+          "value": "DomainSuffix",
+          "required": false
+        }
+      ]
+    },
+    "EnvironmentResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "BuildSid",
+          "type": "string",
+          "value": "build_sid",
+          "required": false
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "DomainSuffix",
+          "type": "string",
+          "value": "domain_suffix",
+          "required": false
+        },
+        {
+          "name": "DomainName",
+          "type": "string",
+          "value": "domain_name",
+          "required": true
+        }
+      ]
+    },
+    "CreateVariableInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "Key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "Value",
+          "required": true
+        }
+      ]
+    },
+    "UpdateVariableInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "Key",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "Value",
+          "required": false
+        }
+      ]
+    },
+    "VariableResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "EnvironmentSid",
+          "type": "string",
+          "value": "environment_sid",
+          "required": true
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    },
+    "CreateDeploymentInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "BuildSid",
+          "type": "string",
+          "value": "BuildSid",
+          "required": false
+        }
+      ]
+    },
+    "DeploymentResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "EnvironmentSid",
+          "type": "string",
+          "value": "environment_sid",
+          "required": true
+        },
+        {
+          "name": "BuildSid",
+          "type": "string",
+          "value": "build_sid",
+          "required": true
+        }
+      ]
+    },
+    "FunctionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "FunctionResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "ContentDetails": {
+      "type": "FormData",
+      "properties": [
+        {
+          "name": "Body",
+          "type": "io.ReadSeeker",
+          "value": "Body",
+          "required": true
+        },
+        {
+          "name": "FileName",
+          "type": "string",
+          "value": "FileName",
+          "required": true
+        },
+        {
+          "name": "ContentType",
+          "type": "string",
+          "value": "ContentType",
+          "required": true
+        }
+      ]
+    },
+    "CreateVersionInput": {
+      "type": "FormData",
+      "properties": [
+        {
+          "name": "Content",
+          "structure": "ContentDetails",
+          "value": "Content",
+          "required": true
+        },
+        {
+          "name": "Path",
+          "type": "string",
+          "value": "Path",
+          "required": true
+        },
+        {
+          "name": "Visibility",
+          "type": "string",
+          "value": "Visibility",
+          "required": true
+        }
+      ]
+    },
+    "FunctionVersionResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "FunctionSid",
+          "type": "string",
+          "value": "function_sid",
+          "required": true
+        },
+        {
+          "name": "Path",
+          "type": "string",
+          "value": "path",
+          "required": true
+        },
+        {
+          "name": "Visibility",
+          "type": "string",
+          "value": "visibility",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "FunctionContentResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "FunctionSid",
+          "type": "string",
+          "value": "function_sid",
+          "required": true
+        },
+        {
+          "name": "Content",
+          "type": "string",
+          "value": "content",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "AssetInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "AssetResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "AssetVersionResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "AssetSid",
+          "type": "string",
+          "value": "asset_sid",
+          "required": true
+        },
+        {
+          "name": "Path",
+          "type": "string",
+          "value": "path",
+          "required": true
+        },
+        {
+          "name": "Visibility",
+          "type": "string",
+          "value": "visibility",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateBuildInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AssetVersions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "AssetVersions",
+          "required": false
+        },
+        {
+          "name": "FunctionVersions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "FunctionVersions",
+          "required": false
+        },
+        {
+          "name": "Dependencies",
+          "type": "string",
+          "value": "Dependencies",
+          "required": false
+        }
+      ]
+    },
+    "FunctionVersion": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "FunctionSid",
+          "type": "string",
+          "value": "function_sid",
+          "required": true
+        },
+        {
+          "name": "Path",
+          "type": "string",
+          "value": "path",
+          "required": true
+        },
+        {
+          "name": "Visibility",
+          "type": "string",
+          "value": "visibility",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "AssetVersion": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "AssetSid",
+          "type": "string",
+          "value": "asset_sid",
+          "required": true
+        },
+        {
+          "name": "Path",
+          "type": "string",
+          "value": "path",
+          "required": true
+        },
+        {
+          "name": "Visibility",
+          "type": "string",
+          "value": "visibility",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "Dependency": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "version",
+          "required": true
+        }
+      ]
+    },
+    "BuildResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "AssetVersions",
+          "type": "array",
+          "items": {
+            "structure": "AssetVersion"
+          },
+          "value": "asset_versions",
+          "required": false
+        },
+        {
+          "name": "FunctionVersions",
+          "type": "array",
+          "items": {
+            "structure": "FunctionVersion"
+          },
+          "value": "function_versions",
+          "required": false
+        },
+        {
+          "name": "Dependencies",
+          "type": "array",
+          "items": {
+            "structure": "Dependency"
+          },
+          "value": "dependencies",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
 }

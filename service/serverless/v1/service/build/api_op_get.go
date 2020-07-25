@@ -9,42 +9,44 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FunctionVersion struct {
-	Sid         string    `json:"sid"`
+type GetAssetVersion struct {
 	AccountSid  string    `json:"account_sid"`
-	ServiceSid  string    `json:"service_sid"`
-	FunctionSid string    `json:"function_sid"`
-	DateCreated time.Time `json:"date_created"`
-	Path        string    `json:"path"`
-	Visibility  string    `json:"visibility"`
-}
-
-type AssetVersion struct {
-	Sid         string    `json:"sid"`
-	AccountSid  string    `json:"account_sid"`
-	ServiceSid  string    `json:"service_sid"`
 	AssetSid    string    `json:"asset_sid"`
 	DateCreated time.Time `json:"date_created"`
 	Path        string    `json:"path"`
+	ServiceSid  string    `json:"service_sid"`
+	Sid         string    `json:"sid"`
+	URL         string    `json:"url"`
 	Visibility  string    `json:"visibility"`
 }
 
-type Dependency struct {
+type GetDependency struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 }
 
+type GetFunctionVersion struct {
+	AccountSid  string    `json:"account_sid"`
+	DateCreated time.Time `json:"date_created"`
+	FunctionSid string    `json:"function_sid"`
+	Path        string    `json:"path"`
+	ServiceSid  string    `json:"service_sid"`
+	Sid         string    `json:"sid"`
+	URL         string    `json:"url"`
+	Visibility  string    `json:"visibility"`
+}
+
 type GetBuildResponse struct {
-	Sid              string             `json:"sid"`
-	AccountSid       string             `json:"account_sid"`
-	ServiceSid       string             `json:"service_sid"`
-	AssetVersions    *[]AssetVersion    `json:"asset_versions,omitempty"`
-	FunctionVersions *[]FunctionVersion `json:"function_versions,omitempty"`
-	Dependencies     *[]Dependency      `json:"dependencies,omitempty"`
-	Status           string             `json:"status"`
-	DateCreated      time.Time          `json:"date_created"`
-	DateUpdated      *time.Time         `json:"date_updated,omitempty"`
-	URL              string             `json:"url"`
+	AccountSid       string                `json:"account_sid"`
+	AssetVersions    *[]GetAssetVersion    `json:"asset_versions,omitempty"`
+	DateCreated      time.Time             `json:"date_created"`
+	DateUpdated      *time.Time            `json:"date_updated,omitempty"`
+	Dependencies     *[]GetDependency      `json:"dependencies,omitempty"`
+	FunctionVersions *[]GetFunctionVersion `json:"function_versions,omitempty"`
+	ServiceSid       string                `json:"service_sid"`
+	Sid              string                `json:"sid"`
+	Status           string                `json:"status"`
+	URL              string                `json:"url"`
 }
 
 func (c Client) Get() (*GetBuildResponse, error) {

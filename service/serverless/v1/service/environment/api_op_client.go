@@ -15,10 +15,10 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Variables   *variables.Client
-	Variable    func(string) *variable.Client
-	Deployments *deployments.Client
 	Deployment  func(string) *deployment.Client
+	Deployments *deployments.Client
+	Variable    func(string) *variable.Client
+	Variables   *variables.Client
 }
 
 type ClientProperties struct {
@@ -33,7 +33,14 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		serviceSid: properties.ServiceSid,
 		sid:        properties.Sid,
 
-		Variables: variables.New(client, variables.ClientProperties{
+		Deployment: func(deploymentSid string) *deployment.Client {
+			return deployment.New(client, deployment.ClientProperties{
+				EnvironmentSid: properties.Sid,
+				ServiceSid:     properties.ServiceSid,
+				Sid:            deploymentSid,
+			})
+		},
+		Deployments: deployments.New(client, deployments.ClientProperties{
 			EnvironmentSid: properties.Sid,
 			ServiceSid:     properties.ServiceSid,
 		}),
@@ -44,16 +51,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:            variableSid,
 			})
 		},
-		Deployments: deployments.New(client, deployments.ClientProperties{
+		Variables: variables.New(client, variables.ClientProperties{
 			EnvironmentSid: properties.Sid,
 			ServiceSid:     properties.ServiceSid,
 		}),
-		Deployment: func(deploymentSid string) *deployment.Client {
-			return deployment.New(client, deployment.ClientProperties{
-				EnvironmentSid: properties.Sid,
-				ServiceSid:     properties.ServiceSid,
-				Sid:            deploymentSid,
-			})
-		},
 	}
 }

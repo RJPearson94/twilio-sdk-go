@@ -13,8 +13,8 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Versions *versions.Client
 	Version  func(string) *version.Client
+	Versions *versions.Client
 }
 
 type ClientProperties struct {
@@ -29,16 +29,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		serviceSid: properties.ServiceSid,
 		sid:        properties.Sid,
 
+		Version: func(versionSid string) *version.Client {
+			return version.New(client, version.ClientProperties{
+				AssetSid:   properties.Sid,
+				ServiceSid: properties.ServiceSid,
+				Sid:        versionSid,
+			})
+		},
 		Versions: versions.New(client, versions.ClientProperties{
 			AssetSid:   properties.Sid,
 			ServiceSid: properties.ServiceSid,
 		}),
-		Version: func(versionSid string) *version.Client {
-			return version.New(client, version.ClientProperties{
-				ServiceSid: properties.ServiceSid,
-				Sid:        versionSid,
-				AssetSid:   properties.Sid,
-			})
-		},
 	}
 }

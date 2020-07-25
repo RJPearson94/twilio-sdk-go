@@ -10,14 +10,14 @@ import (
 )
 
 type GetVersionResponse struct {
-	Sid         string    `json:"sid"`
 	AccountSid  string    `json:"account_sid"`
-	ServiceSid  string    `json:"service_sid"`
+	DateCreated time.Time `json:"date_created"`
 	FunctionSid string    `json:"function_sid"`
 	Path        string    `json:"path"`
-	Visibility  string    `json:"visibility"`
-	DateCreated time.Time `json:"date_created"`
+	ServiceSid  string    `json:"service_sid"`
+	Sid         string    `json:"sid"`
 	URL         string    `json:"url"`
+	Visibility  string    `json:"visibility"`
 }
 
 func (c Client) Get() (*GetVersionResponse, error) {

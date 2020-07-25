@@ -10,21 +10,21 @@ import (
 )
 
 type CreateEnvironmentInput struct {
-	UniqueName   string  `validate:"required" form:"UniqueName"`
 	DomainSuffix *string `form:"DomainSuffix,omitempty"`
+	UniqueName   string  `validate:"required" form:"UniqueName"`
 }
 
 type CreateEnvironmentResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
-	ServiceSid   string     `json:"service_sid"`
 	BuildSid     *string    `json:"build_sid,omitempty"`
-	UniqueName   string     `json:"unique_name"`
-	DomainSuffix *string    `json:"domain_suffix,omitempty"`
-	DomainName   string     `json:"domain_name"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	DomainName   string     `json:"domain_name"`
+	DomainSuffix *string    `json:"domain_suffix,omitempty"`
+	ServiceSid   string     `json:"service_sid"`
+	Sid          string     `json:"sid"`
 	URL          string     `json:"url"`
+	UniqueName   string     `json:"unique_name"`
 }
 
 func (c Client) Create(input *CreateEnvironmentInput) (*CreateEnvironmentResponse, error) {

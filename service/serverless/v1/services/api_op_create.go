@@ -10,22 +10,22 @@ import (
 )
 
 type CreateServiceInput struct {
-	UniqueName         string `validate:"required" form:"UniqueName"`
 	FriendlyName       string `validate:"required" form:"FriendlyName"`
 	IncludeCredentials *bool  `form:"IncludeCredentials,omitempty"`
 	UiEditable         *bool  `form:"UiEditable,omitempty"`
+	UniqueName         string `validate:"required" form:"UniqueName"`
 }
 
 type CreateServiceResponse struct {
-	Sid                string     `json:"sid"`
 	AccountSid         string     `json:"account_sid"`
-	FriendlyName       string     `json:"friendly_name"`
-	UniqueName         string     `json:"unique_name"`
-	IncludeCredentials bool       `json:"include_credentials"`
-	UiEditable         bool       `json:"ui_editable"`
 	DateCreated        time.Time  `json:"date_created"`
 	DateUpdated        *time.Time `json:"date_updated,omitempty"`
+	FriendlyName       string     `json:"friendly_name"`
+	IncludeCredentials bool       `json:"include_credentials"`
+	Sid                string     `json:"sid"`
 	URL                string     `json:"url"`
+	UiEditable         bool       `json:"ui_editable"`
+	UniqueName         string     `json:"unique_name"`
 }
 
 func (c Client) Create(input *CreateServiceInput) (*CreateServiceResponse, error) {

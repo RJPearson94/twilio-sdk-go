@@ -18,14 +18,14 @@ type Client struct {
 
 	sid string
 
-	Environments *environments.Client
-	Environment  func(string) *environment.Client
-	Functions    *functions.Client
-	Function     func(string) *function.Client
-	Assets       *assets.Client
 	Asset        func(string) *asset.Client
-	Builds       *builds.Client
+	Assets       *assets.Client
 	Build        func(string) *build.Client
+	Builds       *builds.Client
+	Environment  func(string) *environment.Client
+	Environments *environments.Client
+	Function     func(string) *function.Client
+	Functions    *functions.Client
 }
 
 type ClientProperties struct {
@@ -38,34 +38,13 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
-		Environments: environments.New(client, environments.ClientProperties{
-			ServiceSid: properties.Sid,
-		}),
-		Environment: func(environmentSid string) *environment.Client {
-			return environment.New(client, environment.ClientProperties{
-				ServiceSid: properties.Sid,
-				Sid:        environmentSid,
-			})
-		},
-		Functions: functions.New(client, functions.ClientProperties{
-			ServiceSid: properties.Sid,
-		}),
-		Function: func(functionSid string) *function.Client {
-			return function.New(client, function.ClientProperties{
-				ServiceSid: properties.Sid,
-				Sid:        functionSid,
-			})
-		},
-		Assets: assets.New(client, assets.ClientProperties{
-			ServiceSid: properties.Sid,
-		}),
 		Asset: func(assetSid string) *asset.Client {
 			return asset.New(client, asset.ClientProperties{
 				ServiceSid: properties.Sid,
 				Sid:        assetSid,
 			})
 		},
-		Builds: builds.New(client, builds.ClientProperties{
+		Assets: assets.New(client, assets.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 		Build: func(buildSid string) *build.Client {
@@ -74,5 +53,26 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        buildSid,
 			})
 		},
+		Builds: builds.New(client, builds.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Environment: func(environmentSid string) *environment.Client {
+			return environment.New(client, environment.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        environmentSid,
+			})
+		},
+		Environments: environments.New(client, environments.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Function: func(functionSid string) *function.Client {
+			return function.New(client, function.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        functionSid,
+			})
+		},
+		Functions: functions.New(client, functions.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
 	}
 }

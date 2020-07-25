@@ -10,12 +10,12 @@ import (
 )
 
 type GetFunctionResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
-	ServiceSid   string     `json:"service_sid"`
-	FriendlyName string     `json:"friendly_name"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName string     `json:"friendly_name"`
+	ServiceSid   string     `json:"service_sid"`
+	Sid          string     `json:"sid"`
 	URL          string     `json:"url"`
 }
 

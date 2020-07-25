@@ -9,11 +9,11 @@ import (
 )
 
 type GetContentResponse struct {
-	Sid         string `json:"sid"`
 	AccountSid  string `json:"account_sid"`
-	ServiceSid  string `json:"service_sid"`
-	FunctionSid string `json:"function_sid"`
 	Content     string `json:"content"`
+	FunctionSid string `json:"function_sid"`
+	ServiceSid  string `json:"service_sid"`
+	Sid         string `json:"sid"`
 	URL         string `json:"url"`
 }
 
