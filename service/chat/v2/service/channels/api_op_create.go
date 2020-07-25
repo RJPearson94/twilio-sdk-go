@@ -15,6 +15,7 @@ type CreateChannelInput struct {
 	DateCreated  *time.Time `form:"DateCreated,omitempty"`
 	DateUpdated  *time.Time `form:"DateUpdated,omitempty"`
 	FriendlyName *string    `form:"FriendlyName,omitempty"`
+	Type         *string    `form:"type,omitempty"`
 	UniqueName   *string    `form:"UniqueName,omitempty"`
 }
 

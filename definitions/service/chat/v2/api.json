@@ -141,8 +141,7 @@
                 ]
               },
               "input": {
-                "name": "CreateChannelInput",
-                "structure": "ChannelInput"
+                "structure": "CreateChannelInput"
               },
               "response": {
                 "name": "CreateChannelResponse",
@@ -1982,6 +1981,18 @@
             "type": "string"
           },
           "value": "message_types",
+          "required": false
+        }
+      ]
+    },
+    "CreateChannelInput": {
+      "type": "URLEncoded",
+      "extends": "ChannelInput",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
           "required": false
         }
       ]
