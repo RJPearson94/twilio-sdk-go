@@ -15,15 +15,15 @@ type CreateChannelInviteInput struct {
 }
 
 type CreateChannelInviteResponse struct {
-	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
-	ServiceSid  string     `json:"service_sid"`
 	ChannelSid  string     `json:"channel_sid"`
-	RoleSid     *string    `json:"role_sid,omitempty"`
 	CreatedBy   *string    `json:"created_by,omitempty"`
-	Identity    string     `json:"identity"`
 	DateCreated time.Time  `json:"date_created"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	Identity    string     `json:"identity"`
+	RoleSid     *string    `json:"role_sid,omitempty"`
+	ServiceSid  string     `json:"service_sid"`
+	Sid         string     `json:"sid"`
 	URL         string     `json:"url"`
 }
 

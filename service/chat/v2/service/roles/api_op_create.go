@@ -11,19 +11,19 @@ import (
 
 type CreateRoleInput struct {
 	FriendlyName string   `validate:"required" form:"FriendlyName"`
-	Type         string   `validate:"required" form:"Type"`
 	Permission   []string `validate:"required" form:"Permission"`
+	Type         string   `validate:"required" form:"Type"`
 }
 
 type CreateRoleResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
-	ServiceSid   string     `json:"service_sid"`
-	FriendlyName string     `json:"friendly_name"`
-	Type         string     `json:"type"`
-	Permissions  []string   `json:"permissions"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName string     `json:"friendly_name"`
+	Permissions  []string   `json:"permissions"`
+	ServiceSid   string     `json:"service_sid"`
+	Sid          string     `json:"sid"`
+	Type         string     `json:"type"`
 	URL          string     `json:"url"`
 }
 

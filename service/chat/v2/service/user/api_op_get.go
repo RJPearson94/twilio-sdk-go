@@ -10,18 +10,18 @@ import (
 )
 
 type GetUserResponse struct {
-	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
-	ServiceSid          string     `json:"service_sid"`
-	RoleSid             string     `json:"role_sid"`
-	Identity            string     `json:"identity"`
 	Attributes          *string    `json:"attributes,omitempty"`
-	FriendlyName        *string    `json:"friendly_name,omitempty"`
-	IsOnline            *bool      `json:"is_online,omitempty"`
-	IsNotifiable        *bool      `json:"is_notifiable,omitempty"`
-	JoinedChannelsCount *int       `json:"joined_channels_count,omitempty"`
 	DateCreated         time.Time  `json:"date_created"`
 	DateUpdated         *time.Time `json:"date_updated,omitempty"`
+	FriendlyName        *string    `json:"friendly_name,omitempty"`
+	Identity            string     `json:"identity"`
+	IsNotifiable        *bool      `json:"is_notifiable,omitempty"`
+	IsOnline            *bool      `json:"is_online,omitempty"`
+	JoinedChannelsCount *int       `json:"joined_channels_count,omitempty"`
+	RoleSid             string     `json:"role_sid"`
+	ServiceSid          string     `json:"service_sid"`
+	Sid                 string     `json:"sid"`
 	URL                 string     `json:"url"`
 }
 

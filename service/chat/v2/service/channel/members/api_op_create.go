@@ -10,27 +10,27 @@ import (
 )
 
 type CreateChannelMemberInput struct {
-	Identity                 string     `validate:"required" form:"Identity"`
-	RoleSid                  *string    `form:"RoleSid,omitempty"`
-	LastConsumedMessageIndex *int       `form:"LastConsumedMessageIndex,omitempty"`
-	LastConsumptionTimestamp *time.Time `form:"LastConsumptionTimestamp,omitempty"`
+	Attributes               *string    `form:"Attributes,omitempty"`
 	DateCreated              *time.Time `form:"DateCreated,omitempty"`
 	DateUpdated              *time.Time `form:"DateUpdated,omitempty"`
-	Attributes               *string    `form:"Attributes,omitempty"`
+	Identity                 string     `validate:"required" form:"Identity"`
+	LastConsumedMessageIndex *int       `form:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `form:"LastConsumptionTimestamp,omitempty"`
+	RoleSid                  *string    `form:"RoleSid,omitempty"`
 }
 
 type CreateChannelMemberResponse struct {
-	Sid                      string     `json:"sid"`
 	AccountSid               string     `json:"account_sid"`
-	ServiceSid               string     `json:"service_sid"`
+	Attributes               *string    `json:"attributes,omitempty"`
 	ChannelSid               string     `json:"channel_sid"`
-	RoleSid                  *string    `json:"role_sid,omitempty"`
+	DateCreated              time.Time  `json:"date_created"`
+	DateUpdated              *time.Time `json:"date_updated,omitempty"`
 	Identity                 string     `json:"identity"`
 	LastConsumedMessageIndex *int       `json:"last_consumed_message_index,omitempty"`
 	LastConsumedTimestamp    *time.Time `json:"last_consumption_timestamp,omitempty"`
-	Attributes               *string    `json:"attributes,omitempty"`
-	DateCreated              time.Time  `json:"date_created"`
-	DateUpdated              *time.Time `json:"date_updated,omitempty"`
+	RoleSid                  *string    `json:"role_sid,omitempty"`
+	ServiceSid               string     `json:"service_sid"`
+	Sid                      string     `json:"sid"`
 	URL                      string     `json:"url"`
 }
 

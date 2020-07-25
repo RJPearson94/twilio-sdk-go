@@ -10,22 +10,22 @@ import (
 )
 
 type UpdateCredentialInput struct {
-	FriendlyName *string `form:"FriendlyName,omitempty"`
+	ApiKey       *string `form:"ApiKey,omitempty"`
 	Certificate  *string `form:"Certificate,omitempty"`
+	FriendlyName *string `form:"FriendlyName,omitempty"`
 	PrivateKey   *string `form:"PrivateKey,omitempty"`
 	Sandbox      *bool   `form:"Sandbox,omitempty"`
-	ApiKey       *string `form:"ApiKey,omitempty"`
 	Secret       *string `form:"Secret,omitempty"`
 }
 
 type UpdateCredentialResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
-	Type         string     `json:"type"`
-	Sandbox      *string    `json:"sandbox,omitempty"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName *string    `json:"friendly_name,omitempty"`
+	Sandbox      *string    `json:"sandbox,omitempty"`
+	Sid          string     `json:"sid"`
+	Type         string     `json:"type"`
 	URL          string     `json:"url"`
 }
 

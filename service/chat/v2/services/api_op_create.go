@@ -14,9 +14,10 @@ type CreateServiceInput struct {
 }
 
 type CreateServiceResponse struct {
-	Sid                          string                 `json:"sid"`
 	AccountSid                   string                 `json:"account_sid"`
 	ConsumptionReportInterval    int                    `json:"consumption_report_interval"`
+	DateCreated                  time.Time              `json:"date_created"`
+	DateUpdated                  *time.Time             `json:"date_updated,omitempty"`
 	DefaultChannelCreatorRoleSid string                 `json:"default_channel_creator_role_sid"`
 	DefaultChannelRoleSid        string                 `json:"default_channel_role_sid"`
 	DefaultServiceRoleSid        string                 `json:"default_service_role_sid"`
@@ -30,12 +31,11 @@ type CreateServiceResponse struct {
 	PreWebhookUrl                *string                `json:"pre_webhook_url,omitempty"`
 	ReachabilityEnabled          bool                   `json:"reachability_enabled"`
 	ReadStatusEnabled            bool                   `json:"read_status_enabled"`
+	Sid                          string                 `json:"sid"`
 	TypingIndicatorTimeout       int                    `json:"typing_indicator_timeout"`
+	URL                          string                 `json:"url"`
 	WebhookFilters               *[]string              `json:"webhook_filters,omitempty"`
 	WebhookMethod                *string                `json:"webhook_method,omitempty"`
-	DateCreated                  time.Time              `json:"date_created"`
-	DateUpdated                  *time.Time             `json:"date_updated,omitempty"`
-	URL                          string                 `json:"url"`
 }
 
 func (c Client) Create(input *CreateServiceInput) (*CreateServiceResponse, error) {

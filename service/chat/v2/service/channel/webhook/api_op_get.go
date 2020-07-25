@@ -10,23 +10,23 @@ import (
 )
 
 type GetChannelWebhookResponseConfiguration struct {
-	Url        *string   `json:"url,omitempty"`
-	Method     *string   `json:"method,omitempty"`
 	Filters    *[]string `json:"filters,omitempty"`
-	Triggers   *[]string `json:"triggers,omitempty"`
 	FlowSid    *string   `json:"flow_sid,omitempty"`
+	Method     *string   `json:"method,omitempty"`
 	RetryCount *int      `json:"retry_count,omitempty"`
+	Triggers   *[]string `json:"triggers,omitempty"`
+	Url        *string   `json:"url,omitempty"`
 }
 
 type GetChannelWebhookResponse struct {
-	Sid           string                                 `json:"sid"`
 	AccountSid    string                                 `json:"account_sid"`
-	ServiceSid    string                                 `json:"service_sid"`
 	ChannelSid    string                                 `json:"channel_sid"`
-	Type          string                                 `json:"type"`
 	Configuration GetChannelWebhookResponseConfiguration `json:"configuration"`
 	DateCreated   time.Time                              `json:"date_created"`
 	DateUpdated   *time.Time                             `json:"date_updated,omitempty"`
+	ServiceSid    string                                 `json:"service_sid"`
+	Sid           string                                 `json:"sid"`
+	Type          string                                 `json:"type"`
 	URL           string                                 `json:"url"`
 }
 

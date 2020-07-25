@@ -10,19 +10,19 @@ import (
 )
 
 type GetChannelResponse struct {
-	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
-	ServiceSid    string     `json:"service_sid"`
-	FriendlyName  *string    `json:"friendly_name,omitempty"`
-	UniqueName    *string    `json:"unique_name,omitempty"`
 	Attributes    *string    `json:"attributes,omitempty"`
-	Type          string     `json:"type"`
 	CreatedBy     string     `json:"created_by"`
-	MembersCount  int        `json:"members_count"`
-	MessagesCount int        `json:"messages_count"`
 	DateCreated   time.Time  `json:"date_created"`
 	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	FriendlyName  *string    `json:"friendly_name,omitempty"`
+	MembersCount  int        `json:"members_count"`
+	MessagesCount int        `json:"messages_count"`
+	ServiceSid    string     `json:"service_sid"`
+	Sid           string     `json:"sid"`
+	Type          string     `json:"type"`
 	URL           string     `json:"url"`
+	UniqueName    *string    `json:"unique_name,omitempty"`
 }
 
 func (c Client) Get() (*GetChannelResponse, error) {

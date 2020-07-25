@@ -31,9 +31,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		Binding: func(bindingSid string) *binding.Client {
 			return binding.New(client, binding.ClientProperties{
+				ServiceSid: properties.ServiceSid,
 				Sid:        bindingSid,
 				UserSid:    properties.Sid,
-				ServiceSid: properties.ServiceSid,
 			})
 		},
 		Channel: func(channelSid string) *channel.Client {

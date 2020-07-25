@@ -10,42 +10,43 @@ import (
 )
 
 type UpdateServiceInput struct {
-	FriendlyName                             *string   `form:"FriendlyName,omitempty"`
-	DefaultServiceRoleSid                    *string   `form:"DefaultServiceRoleSid,omitempty"`
-	DefaultChannelRoleSid                    *string   `form:"DefaultChannelRoleSid,omitempty"`
-	DefaultChannelCreatorRoleSid             *string   `form:"DefaultChannelCreatorRoleSid,omitempty"`
-	ReadStatusEnabled                        *bool     `form:"ReadStatusEnabled,omitempty"`
-	TypingIndicatorTimeout                   *int      `form:"TypingIndicatorTimeout,omitempty"`
 	ConsumptionReportInterval                *int      `form:"ConsumptionReportInterval,omitempty"`
-	NotificationsNewMessageEnabled           *bool     `form:"Notifications.NewMessage.Enabled,omitempty"`
-	NotificationsNewMessageTemplate          *string   `form:"Notifications.NewMessage.Template,omitempty"`
-	NotificationsNewMessageSound             *string   `form:"Notifications.NewMessage.Sound,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled *bool     `form:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-	NotificationsAddedToChannelEnabled       *bool     `form:"Notifications.AddedToChannel.Enabled,omitempty"`
-	NotificationsAddedToChannelTemplate      *string   `form:"Notifications.AddedToChannel.Template,omitempty"`
-	NotificationsAddedToChannelSound         *string   `form:"Notifications.AddedToChannel.Sound,omitempty"`
-	NotificationsRemovedFromChannelEnabled   *bool     `form:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-	NotificationsRemovedFromChannelTemplate  *string   `form:"Notifications.RemovedFromChannel.Template,omitempty"`
-	NotificationsRemovedFromChannelSound     *string   `form:"Notifications.RemovedFromChannel.Sound,omitempty"`
-	NotificationsInvitedToChannelEnabled     *bool     `form:"Notifications.InvitedToChannel.Enabled,omitempty"`
-	NotificationsInvitedToChannelTemplate    *string   `form:"Notifications.InvitedToChannel.Template,omitempty"`
-	NotificationsInvitedToChannelSound       *string   `form:"Notifications.InvitedToChannel.Sound,omitempty"`
-	PreWebhookUrl                            *string   `form:"PreWebhookUrl,omitempty"`
-	PreWebhookRetryCount                     *int      `form:"PreWebhookRetryCount,omitempty"`
-	PostWebhookUrl                           *string   `form:"PostWebhookUrl,omitempty"`
-	PostWebhookRetryCount                    *int      `form:"PostWebhookRetryCount,omitempty"`
-	WebhookMethod                            *string   `form:"WebhookMethod,omitempty"`
-	WebhookFilters                           *[]string `form:"WebhookFilters,omitempty"`
+	DefaultChannelCreatorRoleSid             *string   `form:"DefaultChannelCreatorRoleSid,omitempty"`
+	DefaultChannelRoleSid                    *string   `form:"DefaultChannelRoleSid,omitempty"`
+	DefaultServiceRoleSid                    *string   `form:"DefaultServiceRoleSid,omitempty"`
+	FriendlyName                             *string   `form:"FriendlyName,omitempty"`
 	LimitsChannelMembers                     *int      `form:"Limits.ChannelMembers,omitempty"`
 	LimitsUserChannels                       *int      `form:"Limits.UserChannels,omitempty"`
 	MediaCompatibilityMessage                *string   `form:"Media.CompatibilityMessage,omitempty"`
+	NotificationsAddedToChannelEnabled       *bool     `form:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelSound         *string   `form:"Notifications.AddedToChannel.Sound,omitempty"`
+	NotificationsAddedToChannelTemplate      *string   `form:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelEnabled     *bool     `form:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelSound       *string   `form:"Notifications.InvitedToChannel.Sound,omitempty"`
+	NotificationsInvitedToChannelTemplate    *string   `form:"Notifications.InvitedToChannel.Template,omitempty"`
 	NotificationsLogEnabled                  *bool     `form:"Notifications.LogEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled *bool     `form:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	NotificationsNewMessageEnabled           *bool     `form:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageSound             *string   `form:"Notifications.NewMessage.Sound,omitempty"`
+	NotificationsNewMessageTemplate          *string   `form:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsRemovedFromChannelEnabled   *bool     `form:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelSound     *string   `form:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	NotificationsRemovedFromChannelTemplate  *string   `form:"Notifications.RemovedFromChannel.Template,omitempty"`
+	PostWebhookRetryCount                    *int      `form:"PostWebhookRetryCount,omitempty"`
+	PostWebhookUrl                           *string   `form:"PostWebhookUrl,omitempty"`
+	PreWebhookRetryCount                     *int      `form:"PreWebhookRetryCount,omitempty"`
+	PreWebhookUrl                            *string   `form:"PreWebhookUrl,omitempty"`
+	ReadStatusEnabled                        *bool     `form:"ReadStatusEnabled,omitempty"`
+	TypingIndicatorTimeout                   *int      `form:"TypingIndicatorTimeout,omitempty"`
+	WebhookFilters                           *[]string `form:"WebhookFilters,omitempty"`
+	WebhookMethod                            *string   `form:"WebhookMethod,omitempty"`
 }
 
 type UpdateServiceResponse struct {
-	Sid                          string                 `json:"sid"`
 	AccountSid                   string                 `json:"account_sid"`
 	ConsumptionReportInterval    int                    `json:"consumption_report_interval"`
+	DateCreated                  time.Time              `json:"date_created"`
+	DateUpdated                  *time.Time             `json:"date_updated,omitempty"`
 	DefaultChannelCreatorRoleSid string                 `json:"default_channel_creator_role_sid"`
 	DefaultChannelRoleSid        string                 `json:"default_channel_role_sid"`
 	DefaultServiceRoleSid        string                 `json:"default_service_role_sid"`
@@ -59,12 +60,11 @@ type UpdateServiceResponse struct {
 	PreWebhookUrl                *string                `json:"pre_webhook_url,omitempty"`
 	ReachabilityEnabled          bool                   `json:"reachability_enabled"`
 	ReadStatusEnabled            bool                   `json:"read_status_enabled"`
+	Sid                          string                 `json:"sid"`
 	TypingIndicatorTimeout       int                    `json:"typing_indicator_timeout"`
+	URL                          string                 `json:"url"`
 	WebhookFilters               *[]string              `json:"webhook_filters,omitempty"`
 	WebhookMethod                *string                `json:"webhook_method,omitempty"`
-	DateCreated                  time.Time              `json:"date_created"`
-	DateUpdated                  *time.Time             `json:"date_updated,omitempty"`
-	URL                          string                 `json:"url"`
 }
 
 func (c Client) Update(input *UpdateServiceInput) (*UpdateServiceResponse, error) {

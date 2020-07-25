@@ -10,33 +10,33 @@ import (
 )
 
 type CreateChannelWebhookInput struct {
-	Type                    string    `validate:"required" form:"Type"`
-	ConfigurationUrl        *string   `form:"Configuration.Url,omitempty"`
-	ConfigurationMethod     *string   `form:"Configuration.Method,omitempty"`
 	ConfigurationFilters    *[]string `form:"Configuration.Filters,omitempty"`
-	ConfigurationTriggers   *[]string `form:"Configuration.Triggers,omitempty"`
 	ConfigurationFlowSid    *string   `form:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod     *string   `form:"Configuration.Method,omitempty"`
 	ConfigurationRetryCount *int      `form:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers   *[]string `form:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl        *string   `form:"Configuration.Url,omitempty"`
+	Type                    string    `validate:"required" form:"Type"`
 }
 
 type CreateChannelWebhookResponseConfiguration struct {
-	Url        *string   `json:"url,omitempty"`
-	Method     *string   `json:"method,omitempty"`
 	Filters    *[]string `json:"filters,omitempty"`
-	Triggers   *[]string `json:"triggers,omitempty"`
 	FlowSid    *string   `json:"flow_sid,omitempty"`
+	Method     *string   `json:"method,omitempty"`
 	RetryCount *int      `json:"retry_count,omitempty"`
+	Triggers   *[]string `json:"triggers,omitempty"`
+	Url        *string   `json:"url,omitempty"`
 }
 
 type CreateChannelWebhookResponse struct {
-	Sid           string                                    `json:"sid"`
 	AccountSid    string                                    `json:"account_sid"`
-	ServiceSid    string                                    `json:"service_sid"`
 	ChannelSid    string                                    `json:"channel_sid"`
-	Type          string                                    `json:"type"`
 	Configuration CreateChannelWebhookResponseConfiguration `json:"configuration"`
 	DateCreated   time.Time                                 `json:"date_created"`
 	DateUpdated   *time.Time                                `json:"date_updated,omitempty"`
+	ServiceSid    string                                    `json:"service_sid"`
+	Sid           string                                    `json:"sid"`
+	Type          string                                    `json:"type"`
 	URL           string                                    `json:"url"`
 }
 

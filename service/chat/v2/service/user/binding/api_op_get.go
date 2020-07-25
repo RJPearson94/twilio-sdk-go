@@ -10,18 +10,18 @@ import (
 )
 
 type GetUserBindingResponse struct {
-	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
-	ServiceSid    string     `json:"service_sid"`
-	UserSid       string     `json:"user_sid"`
-	CredentialSid string     `json:"credential_sid"`
-	Endpoint      *string    `json:"endpoint,omitempty"`
-	Identity      *string    `json:"identity,omitempty"`
 	BindingType   *string    `json:"binding_type,omitempty"`
-	MessageTypes  *[]string  `json:"message_types,omitempty"`
+	CredentialSid string     `json:"credential_sid"`
 	DateCreated   time.Time  `json:"date_created"`
 	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	Endpoint      *string    `json:"endpoint,omitempty"`
+	Identity      *string    `json:"identity,omitempty"`
+	MessageTypes  *[]string  `json:"message_types,omitempty"`
+	ServiceSid    string     `json:"service_sid"`
+	Sid           string     `json:"sid"`
 	URL           string     `json:"url"`
+	UserSid       string     `json:"user_sid"`
 }
 
 func (c Client) Get() (*GetUserBindingResponse, error) {

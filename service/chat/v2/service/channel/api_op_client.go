@@ -16,54 +16,50 @@ import (
 type Client struct {
 	client *client.Client
 
-	sid        string
 	serviceSid string
+	sid        string
 
-	Invites  *invites.Client
 	Invite   func(string) *invite.Client
-	Members  *members.Client
+	Invites  *invites.Client
 	Member   func(string) *member.Client
-	Messages *messages.Client
+	Members  *members.Client
 	Message  func(string) *message.Client
-	Webhooks *webhooks.Client
+	Messages *messages.Client
 	Webhook  func(string) *webhook.Client
+	Webhooks *webhooks.Client
 }
 
 type ClientProperties struct {
-	Sid        string
 	ServiceSid string
+	Sid        string
 }
 
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		sid:        properties.Sid,
 		serviceSid: properties.ServiceSid,
+		sid:        properties.Sid,
 
-		Invites: invites.New(client, invites.ClientProperties{
-			ServiceSid: properties.ServiceSid,
-			ChannelSid: properties.Sid,
-		}),
 		Invite: func(inviteSid string) *invite.Client {
 			return invite.New(client, invite.ClientProperties{
+				ChannelSid: properties.Sid,
 				ServiceSid: properties.ServiceSid,
 				Sid:        inviteSid,
-				ChannelSid: properties.Sid,
 			})
 		},
-		Members: members.New(client, members.ClientProperties{
+		Invites: invites.New(client, invites.ClientProperties{
 			ChannelSid: properties.Sid,
 			ServiceSid: properties.ServiceSid,
 		}),
 		Member: func(memberSid string) *member.Client {
 			return member.New(client, member.ClientProperties{
-				Sid:        memberSid,
 				ChannelSid: properties.Sid,
 				ServiceSid: properties.ServiceSid,
+				Sid:        memberSid,
 			})
 		},
-		Messages: messages.New(client, messages.ClientProperties{
+		Members: members.New(client, members.ClientProperties{
 			ChannelSid: properties.Sid,
 			ServiceSid: properties.ServiceSid,
 		}),
@@ -74,16 +70,20 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        messageSid,
 			})
 		},
-		Webhooks: webhooks.New(client, webhooks.ClientProperties{
-			ServiceSid: properties.ServiceSid,
+		Messages: messages.New(client, messages.ClientProperties{
 			ChannelSid: properties.Sid,
+			ServiceSid: properties.ServiceSid,
 		}),
 		Webhook: func(webhookSid string) *webhook.Client {
 			return webhook.New(client, webhook.ClientProperties{
-				Sid:        webhookSid,
 				ChannelSid: properties.Sid,
 				ServiceSid: properties.ServiceSid,
+				Sid:        webhookSid,
 			})
 		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+			ChannelSid: properties.Sid,
+			ServiceSid: properties.ServiceSid,
+		}),
 	}
 }

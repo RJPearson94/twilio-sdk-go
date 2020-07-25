@@ -18,12 +18,12 @@ type Client struct {
 	sid string
 
 	Binding  func(string) *binding.Client
-	Channels *channels.Client
 	Channel  func(string) *channel.Client
-	Roles    *roles.Client
+	Channels *channels.Client
 	Role     func(string) *role.Client
-	Users    *users.Client
+	Roles    *roles.Client
 	User     func(string) *user.Client
+	Users    *users.Client
 }
 
 type ClientProperties struct {
@@ -42,16 +42,13 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        bindingSid,
 			})
 		},
-		Channels: channels.New(client, channels.ClientProperties{
-			ServiceSid: properties.Sid,
-		}),
 		Channel: func(channelSid string) *channel.Client {
 			return channel.New(client, channel.ClientProperties{
-				Sid:        channelSid,
 				ServiceSid: properties.Sid,
+				Sid:        channelSid,
 			})
 		},
-		Roles: roles.New(client, roles.ClientProperties{
+		Channels: channels.New(client, channels.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 		Role: func(roleSid string) *role.Client {
@@ -60,14 +57,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        roleSid,
 			})
 		},
-		Users: users.New(client, users.ClientProperties{
+		Roles: roles.New(client, roles.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 		User: func(userSid string) *user.Client {
 			return user.New(client, user.ClientProperties{
-				Sid:        userSid,
 				ServiceSid: properties.Sid,
+				Sid:        userSid,
 			})
 		},
+		Users: users.New(client, users.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
 	}
 }

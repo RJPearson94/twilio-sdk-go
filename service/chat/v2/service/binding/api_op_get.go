@@ -10,16 +10,16 @@ import (
 )
 
 type GetBindingResponse struct {
-	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
-	CredentialSid *string    `json:"credential_sid,omitempty"`
-	ServiceSid    string     `json:"service_sid"`
 	BindingType   *string    `json:"binding_type,omitempty"`
+	CredentialSid *string    `json:"credential_sid,omitempty"`
+	DateCreated   time.Time  `json:"date_created"`
+	DateUpdated   *time.Time `json:"date_updated,omitempty"`
 	Endpoint      *string    `json:"endpoint,omitempty"`
 	Identity      *string    `json:"identity,omitempty"`
 	MessageTypes  *[]string  `json:"message_types,omitempty"`
-	DateCreated   time.Time  `json:"date_created"`
-	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	ServiceSid    string     `json:"service_sid"`
+	Sid           string     `json:"sid"`
 	URL           string     `json:"url"`
 }
 
