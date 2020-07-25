@@ -10,28 +10,28 @@ import (
 )
 
 type UpdateServiceInput struct {
-	CallbackUrl             *string `form:"CallbackUrl,omitempty"`
+	CallbackURL             *string `form:"CallbackUrl,omitempty"`
 	ChatInstanceSid         *string `form:"ChatInstanceSid,omitempty"`
 	DefaultTtl              *int    `form:"DefaultTtl,omitempty"`
 	GeoMatchLevel           *string `form:"GeoMatchLevel,omitempty"`
-	InterceptCallbackUrl    *string `form:"InterceptCallbackUrl,omitempty"`
+	InterceptCallbackURL    *string `form:"InterceptCallbackUrl,omitempty"`
 	NumberSelectionBehavior *string `form:"NumberSelectionBehavior,omitempty"`
-	OutOfSessionCallbackUrl *string `form:"OutOfSessionCallbackUrl,omitempty"`
+	OutOfSessionCallbackURL *string `form:"OutOfSessionCallbackUrl,omitempty"`
 	UniqueName              *string `form:"UniqueName,omitempty"`
 }
 
 type UpdateServiceResponse struct {
 	AccountSid              string     `json:"account_sid"`
-	CallbackUrl             *string    `json:"callback_url,omitempty"`
+	CallbackURL             *string    `json:"callback_url,omitempty"`
 	ChatInstanceSid         *string    `json:"chat_instance_sid,omitempty"`
 	ChatServiceSid          string     `json:"chat_service_sid"`
 	DateCreated             time.Time  `json:"date_created"`
 	DateUpdated             *time.Time `json:"date_updated,omitempty"`
 	DefaultTtl              *int       `json:"default_ttl,omitempty"`
 	GeoMatchLevel           *string    `json:"geo_match_level,omitempty"`
-	InterceptCallbackUrl    *string    `json:"intercept_callback_url,omitempty"`
+	InterceptCallbackURL    *string    `json:"intercept_callback_url,omitempty"`
 	NumberSelectionBehavior *string    `json:"number_selection_behavior,omitempty"`
-	OutOfSessionCallbackUrl *string    `json:"out_of_session_callback_url,omitempty"`
+	OutOfSessionCallbackURL *string    `json:"out_of_session_callback_url,omitempty"`
 	Sid                     string     `json:"sid"`
 	URL                     string     `json:"url"`
 	UniqueName              string     `json:"unique_name"`

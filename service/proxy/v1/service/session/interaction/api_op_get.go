@@ -18,12 +18,12 @@ type GetInteractionResponse struct {
 	InboundResourceSid     *string                 `json:"inbound_resource_sid,omitempty"`
 	InboundResourceStatus  *string                 `json:"inbound_resource_status,omitempty"`
 	InboundResourceType    *string                 `json:"inbound_resource_type,omitempty"`
-	InboundResourceUrl     *string                 `json:"inbound_resource_url,omitempty"`
+	InboundResourceURL     *string                 `json:"inbound_resource_url,omitempty"`
 	OutboundParticipantSid *string                 `json:"outbound_participant_sid,omitempty"`
 	OutboundResourceSid    *string                 `json:"outbound_resource_sid,omitempty"`
 	OutboundResourceStatus *string                 `json:"outbound_resource_status,omitempty"`
 	OutboundResourceType   *string                 `json:"outbound_resource_type,omitempty"`
-	OutboundResourceUrl    *string                 `json:"outbound_resource_url,omitempty"`
+	OutboundResourceURL    *string                 `json:"outbound_resource_url,omitempty"`
 	ServiceSid             string                  `json:"service_sid"`
 	SessionSid             string                  `json:"session_sid"`
 	Sid                    string                  `json:"sid"`

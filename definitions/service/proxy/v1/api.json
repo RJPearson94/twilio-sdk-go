@@ -881,7 +881,7 @@
           "required": false
         },
         {
-          "name": "CallbackUrl",
+          "name": "CallbackURL",
           "type": "string",
           "value": "CallbackUrl",
           "required": false
@@ -899,13 +899,13 @@
           "required": false
         },
         {
-          "name": "InterceptCallbackUrl",
+          "name": "InterceptCallbackURL",
           "type": "string",
           "value": "InterceptCallbackUrl",
           "required": false
         },
         {
-          "name": "OutOfSessionCallbackUrl",
+          "name": "OutOfSessionCallbackURL",
           "type": "string",
           "value": "OutOfSessionCallbackUrl",
           "required": false
@@ -947,7 +947,7 @@
           "required": false
         },
         {
-          "name": "CallbackUrl",
+          "name": "CallbackURL",
           "type": "string",
           "value": "callback_url",
           "required": false
@@ -965,13 +965,13 @@
           "required": false
         },
         {
-          "name": "InterceptCallbackUrl",
+          "name": "InterceptCallbackURL",
           "type": "string",
           "value": "intercept_callback_url",
           "required": false
         },
         {
-          "name": "OutOfSessionCallbackUrl",
+          "name": "OutOfSessionCallbackURL",
           "type": "string",
           "value": "out_of_session_callback_url",
           "required": false
@@ -1487,7 +1487,7 @@
           "required": false
         },
         {
-          "name": "MediaUrl",
+          "name": "MediaURL",
           "type": "string",
           "value": "MediaUrl",
           "required": false
@@ -1550,7 +1550,7 @@
           "required": false
         },
         {
-          "name": "InboundResourceUrl",
+          "name": "InboundResourceURL",
           "type": "string",
           "value": "inbound_resource_url",
           "required": false
@@ -1580,7 +1580,7 @@
           "required": false
         },
         {
-          "name": "OutboundResourceUrl",
+          "name": "OutboundResourceURL",
           "type": "string",
           "value": "outbound_resource_url",
           "required": false
@@ -1643,7 +1643,7 @@
           "required": false
         },
         {
-          "name": "InboundResourceUrl",
+          "name": "InboundResourceURL",
           "type": "string",
           "value": "inbound_resource_url",
           "required": false
@@ -1673,7 +1673,7 @@
           "required": false
         },
         {
-          "name": "OutboundResourceUrl",
+          "name": "OutboundResourceURL",
           "type": "string",
           "value": "outbound_resource_url",
           "required": false
