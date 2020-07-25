@@ -714,7 +714,10 @@
         },
         {
           "name": "MediaURLs",
-          "type": "[]string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "value": "MediaUrl",
           "required": false
         }
