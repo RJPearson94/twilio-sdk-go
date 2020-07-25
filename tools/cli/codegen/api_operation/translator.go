@@ -134,7 +134,7 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 		structureResponse.Set(nestedProperties, "properties")
 
 		if len(nestedAdditionalStructs) > 0 {
-			additionalStructs = append(additionalStructs, nestedAdditionalStructs)
+			additionalStructs = append(additionalStructs, nestedAdditionalStructs...)
 		}
 		additionalStructs = append(additionalStructs, structureResponse.Data())
 	}
