@@ -19,11 +19,11 @@ type CreateWebChannelInput struct {
 }
 
 type CreateWebChannelResponse struct {
-	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
-	FlexFlowSid string     `json:"flex_flow_sid"`
 	DateCreated time.Time  `json:"date_created"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	FlexFlowSid string     `json:"flex_flow_sid"`
+	Sid         string     `json:"sid"`
 	URL         string     `json:"url"`
 }
 

@@ -19,651 +19,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "UpdateConfigurationInput",
-            "type": "JSON",
-            "additionalStructs": [
-              {
-                "name": "UpdateConfigurationInputTaskQueue",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Targettable",
-                    "type": "bool",
-                    "value": "targettable",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "UpdateConfigurationInputSkill",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "MultiValue",
-                    "type": "bool",
-                    "value": "multivalue",
-                    "required": true
-                  },
-                  {
-                    "name": "Minimum",
-                    "type": "int",
-                    "value": "minimum",
-                    "required": true
-                  },
-                  {
-                    "name": "Maximum",
-                    "type": "bool",
-                    "value": "maximum",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "UpdateConfigurationInputWorkerChannel",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "Availability",
-                    "type": "bool",
-                    "value": "availability",
-                    "required": true
-                  },
-                  {
-                    "name": "Capacity",
-                    "type": "int",
-                    "value": "capacity",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "UpdateConfigurationInputIntegration",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "Type",
-                    "type": "string",
-                    "value": "type",
-                    "required": true
-                  },
-                  {
-                    "name": "Active",
-                    "type": "bool",
-                    "value": "active",
-                    "required": true
-                  },
-                  {
-                    "name": "Config",
-                    "type": "string",
-                    "value": "config",
-                    "required": true
-                  },
-                  {
-                    "name": "Logo",
-                    "type": "string",
-                    "value": "logo",
-                    "required": false
-                  },
-                  {
-                    "name": "Author",
-                    "type": "string",
-                    "value": "author",
-                    "required": false
-                  }
-                ]
-              }
-            ],
-            "properties": [
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "ChatServiceInstanceSid",
-                "type": "string",
-                "value": "chat_service_instance_sid",
-                "required": false
-              },
-              {
-                "name": "MessagingServiceInstanceSid",
-                "type": "string",
-                "value": "messaging_service_instance_sid",
-                "required": false
-              },
-              {
-                "name": "CrmEnabled",
-                "type": "bool",
-                "value": "crm_type",
-                "required": false
-              },
-              {
-                "name": "CrmType",
-                "type": "string",
-                "value": "crm_type",
-                "required": false
-              },
-              {
-                "name": "CrmCallbackURL",
-                "type": "string",
-                "value": "crm_callback_url",
-                "required": false
-              },
-              {
-                "name": "CrmFallbackURL",
-                "type": "string",
-                "value": "crm_fallback_url",
-                "required": false
-              },
-              {
-                "name": "CrmAttributes",
-                "type": "interface{}",
-                "value": "crm_attributes",
-                "required": false
-              },
-              {
-                "name": "UiLanguage",
-                "type": "string",
-                "value": "ui_language",
-                "required": false
-              },
-              {
-                "name": "UiAttributes",
-                "type": "interface{}",
-                "value": "ui_attributes",
-                "required": false
-              },
-              {
-                "name": "UiDependencies",
-                "type": "interface{}",
-                "value": "ui_dependencies",
-                "required": false
-              },
-              {
-                "name": "UiVersion",
-                "type": "string",
-                "value": "ui_version",
-                "required": false
-              },
-              {
-                "name": "TaskRouterTargetWorkflowSid",
-                "type": "string",
-                "value": "taskrouter_target_workflow_sid",
-                "required": false
-              },
-              {
-                "name": "TaskRouterTargetTaskQueueSid",
-                "type": "string",
-                "value": "taskrouter_target_taskqueue_sid",
-                "required": false
-              },
-              {
-                "name": "TaskRouterTaskQueues",
-                "type": "[]UpdateConfigurationInputTaskQueue",
-                "value": "taskrouter_taskqueues",
-                "required": false
-              },
-              {
-                "name": "TaskRouterSkills",
-                "type": "[]UpdateConfigurationInputSkill",
-                "value": "taskrouter_skills",
-                "required": false
-              },
-              {
-                "name": "TaskRouterWorkerChannels",
-                "type": "map[string][]UpdateConfigurationInputWorkerChannel",
-                "value": "taskrouter_worker_channels",
-                "required": false
-              },
-              {
-                "name": "TaskRouterWorkerAttributes",
-                "type": "map[string]interface{}",
-                "value": "taskrouter_worker_attributes",
-                "required": false
-              },
-              {
-                "name": "CallRecordingEnabled",
-                "type": "bool",
-                "value": "call_recording_enabled",
-                "required": false
-              },
-              {
-                "name": "CallRecordingWebhookURL",
-                "type": "string",
-                "value": "call_recording_webhook_url",
-                "required": false
-              },
-              {
-                "name": "PublicAttributes",
-                "type": "interface{}",
-                "value": "public_attributes",
-                "required": false
-              },
-              {
-                "name": "Attributes",
-                "type": "interface{}",
-                "value": "attributes",
-                "required": false
-              },
-              {
-                "name": "PluginServiceEnabled",
-                "type": "bool",
-                "value": "plugin_service_enabled",
-                "required": false
-              },
-              {
-                "name": "PluginServiceAttributes",
-                "type": "interface{}",
-                "value": "plugin_service_attributes",
-                "required": false
-              },
-              {
-                "name": "Integrations",
-                "type": "[]UpdateConfigurationInputIntegration",
-                "value": "integrations",
-                "required": false
-              },
-              {
-                "name": "WfmIntegrations",
-                "type": "[]UpdateConfigurationInputIntegration",
-                "value": "wfm_integrations",
-                "required": false
-              },
-              {
-                "name": "OutboundCallFlows",
-                "type": "interface{}",
-                "value": "outbound_call_flows",
-                "required": false
-              },
-              {
-                "name": "QueueStatsConfiguration",
-                "type": "interface{}",
-                "value": "queue_stats_configuration",
-                "required": false
-              },
-              {
-                "name": "ServerlessServiceSids",
-                "type": "[]string",
-                "value": "serverless_service_sids",
-                "required": false
-              }
-            ]
+            "structure": "UpdateConfigurationInput"
           },
           "response": {
             "name": "UpdateConfigurationResponse",
-            "type": "JSON",
-            "additionalStructs": [
-              {
-                "name": "UpdateConfigurationResponseTaskQueue",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Targettable",
-                    "type": "bool",
-                    "value": "targettable",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "UpdateConfigurationResponseSkill",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "MultiValue",
-                    "type": "bool",
-                    "value": "multivalue",
-                    "required": true
-                  },
-                  {
-                    "name": "Minimum",
-                    "type": "int",
-                    "value": "minimum",
-                    "required": true
-                  },
-                  {
-                    "name": "Maximum",
-                    "type": "bool",
-                    "value": "maximum",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "UpdateConfigurationResponseWorkerChannel",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "Availability",
-                    "type": "bool",
-                    "value": "availability",
-                    "required": true
-                  },
-                  {
-                    "name": "Capacity",
-                    "type": "int",
-                    "value": "capacity",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "UpdateConfigurationResponseIntegration",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "Type",
-                    "type": "string",
-                    "value": "type",
-                    "required": true
-                  },
-                  {
-                    "name": "Active",
-                    "type": "bool",
-                    "value": "active",
-                    "required": true
-                  },
-                  {
-                    "name": "Config",
-                    "type": "string",
-                    "value": "config",
-                    "required": true
-                  },
-                  {
-                    "name": "Logo",
-                    "type": "string",
-                    "value": "logo",
-                    "required": false
-                  },
-                  {
-                    "name": "Author",
-                    "type": "string",
-                    "value": "author",
-                    "required": false
-                  }
-                ]
-              }
-            ],
-            "properties": [
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexServiceInstanceSid",
-                "type": "string",
-                "value": "flex_service_instance_sid",
-                "required": true
-              },
-              {
-                "name": "ChatServiceInstanceSid",
-                "type": "string",
-                "value": "chat_service_instance_sid",
-                "required": false
-              },
-              {
-                "name": "MessagingServiceInstanceSid",
-                "type": "string",
-                "value": "messaging_service_instance_sid",
-                "required": false
-              },
-              {
-                "name": "CrmEnabled",
-                "type": "bool",
-                "value": "crm_type",
-                "required": false
-              },
-              {
-                "name": "CrmType",
-                "type": "string",
-                "value": "crm_type",
-                "required": false
-              },
-              {
-                "name": "CrmCallbackURL",
-                "type": "string",
-                "value": "crm_callback_url",
-                "required": false
-              },
-              {
-                "name": "CrmFallbackURL",
-                "type": "string",
-                "value": "crm_fallback_url",
-                "required": false
-              },
-              {
-                "name": "CrmAttributes",
-                "type": "interface{}",
-                "value": "crm_attributes",
-                "required": false
-              },
-              {
-                "name": "UiLanguage",
-                "type": "string",
-                "value": "ui_language",
-                "required": false
-              },
-              {
-                "name": "UiAttributes",
-                "type": "interface{}",
-                "value": "ui_attributes",
-                "required": false
-              },
-              {
-                "name": "UiDependencies",
-                "type": "interface{}",
-                "value": "ui_dependencies",
-                "required": false
-              },
-              {
-                "name": "UiVersion",
-                "type": "string",
-                "value": "ui_version",
-                "required": true
-              },
-              {
-                "name": "TaskRouterWorkspaceSid",
-                "type": "string",
-                "value": "taskrouter_workspace_sid",
-                "required": true
-              },
-              {
-                "name": "TaskRouterTargetWorkflowSid",
-                "type": "string",
-                "value": "taskrouter_target_workflow_sid",
-                "required": true
-              },
-              {
-                "name": "TaskRouterTargetTaskQueueSid",
-                "type": "string",
-                "value": "taskrouter_target_taskqueue_sid",
-                "required": true
-              },
-              {
-                "name": "TaskRouterTaskQueues",
-                "type": "[]UpdateConfigurationResponseTaskQueue",
-                "value": "taskrouter_taskqueues",
-                "required": false
-              },
-              {
-                "name": "TaskRouterSkills",
-                "type": "[]UpdateConfigurationResponseSkill",
-                "value": "taskrouter_skills",
-                "required": false
-              },
-              {
-                "name": "TaskRouterWorkerChannels",
-                "type": "map[string][]UpdateConfigurationResponseWorkerChannel",
-                "value": "taskrouter_worker_channels",
-                "required": false
-              },
-              {
-                "name": "TaskRouterWorkerAttributes",
-                "type": "map[string]interface{}",
-                "value": "taskrouter_worker_attributes",
-                "required": false
-              },
-              {
-                "name": "TaskRouterOfflineActivitySid",
-                "type": "string",
-                "value": "taskrouter_offline_activity_sid",
-                "required": true
-              },
-              {
-                "name": "CallRecordingEnabled",
-                "type": "bool",
-                "value": "call_recording_enabled",
-                "required": false
-              },
-              {
-                "name": "CallRecordingWebhookURL",
-                "type": "string",
-                "value": "call_recording_webhook_url",
-                "required": false
-              },
-              {
-                "name": "PublicAttributes",
-                "type": "interface{}",
-                "value": "public_attributes",
-                "required": false
-              },
-              {
-                "name": "Attributes",
-                "type": "interface{}",
-                "value": "attributes",
-                "required": false
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "RuntimeDomain",
-                "type": "string",
-                "value": "runtime_domain",
-                "required": true
-              },
-              {
-                "name": "ServiceVersion",
-                "type": "string",
-                "value": "service_version",
-                "required": false
-              },
-              {
-                "name": "PluginServiceEnabled",
-                "type": "bool",
-                "value": "plugin_service_enabled",
-                "required": false
-              },
-              {
-                "name": "PluginServiceAttributes",
-                "type": "interface{}",
-                "value": "plugin_service_attributes",
-                "required": false
-              },
-              {
-                "name": "Integrations",
-                "type": "[]UpdateConfigurationResponseIntegration",
-                "value": "integrations",
-                "required": false
-              },
-              {
-                "name": "WfmIntegrations",
-                "type": "[]UpdateConfigurationResponseIntegration",
-                "value": "wfm_integrations",
-                "required": false
-              },
-              {
-                "name": "OutboundCallFlows",
-                "type": "interface{}",
-                "value": "outbound_call_flows",
-                "required": false
-              },
-              {
-                "name": "QueueStatsConfiguration",
-                "type": "interface{}",
-                "value": "queue_stats_configuration",
-                "required": false
-              },
-              {
-                "name": "ServerlessServiceSids",
-                "type": "[]string",
-                "value": "serverless_service_sids",
-                "required": false
-              },
-
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ConfigurationResponse"
           }
         },
         {
@@ -674,354 +34,7 @@
           },
           "response": {
             "name": "GetConfigurationResponse",
-            "type": "JSON",
-            "additionalStructs": [
-              {
-                "name": "GetConfigurationResponseTaskQueue",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Targettable",
-                    "type": "bool",
-                    "value": "targettable",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "GetConfigurationResponseSkill",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "MultiValue",
-                    "type": "bool",
-                    "value": "multivalue",
-                    "required": true
-                  },
-                  {
-                    "name": "Minimum",
-                    "type": "int",
-                    "value": "minimum",
-                    "required": true
-                  },
-                  {
-                    "name": "Maximum",
-                    "type": "bool",
-                    "value": "maximum",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "GetConfigurationResponseWorkerChannel",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "Availability",
-                    "type": "bool",
-                    "value": "availability",
-                    "required": true
-                  },
-                  {
-                    "name": "Capacity",
-                    "type": "int",
-                    "value": "capacity",
-                    "required": true
-                  }
-                ]
-              },
-              {
-                "name": "GetConfigurationResponseIntegration",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Name",
-                    "type": "string",
-                    "value": "name",
-                    "required": true
-                  },
-                  {
-                    "name": "Type",
-                    "type": "string",
-                    "value": "type",
-                    "required": true
-                  },
-                  {
-                    "name": "Active",
-                    "type": "bool",
-                    "value": "active",
-                    "required": true
-                  },
-                  {
-                    "name": "Config",
-                    "type": "string",
-                    "value": "config",
-                    "required": true
-                  },
-                  {
-                    "name": "Logo",
-                    "type": "string",
-                    "value": "logo",
-                    "required": false
-                  },
-                  {
-                    "name": "Author",
-                    "type": "string",
-                    "value": "author",
-                    "required": false
-                  }
-                ]
-              }
-            ],
-            "properties": [
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexServiceInstanceSid",
-                "type": "string",
-                "value": "flex_service_instance_sid",
-                "required": true
-              },
-              {
-                "name": "ChatServiceInstanceSid",
-                "type": "string",
-                "value": "chat_service_instance_sid",
-                "required": false
-              },
-              {
-                "name": "MessagingServiceInstanceSid",
-                "type": "string",
-                "value": "messaging_service_instance_sid",
-                "required": false
-              },
-              {
-                "name": "CrmEnabled",
-                "type": "bool",
-                "value": "crm_type",
-                "required": false
-              },
-              {
-                "name": "CrmType",
-                "type": "string",
-                "value": "crm_type",
-                "required": false
-              },
-              {
-                "name": "CrmCallbackURL",
-                "type": "string",
-                "value": "crm_callback_url",
-                "required": false
-              },
-              {
-                "name": "CrmFallbackURL",
-                "type": "string",
-                "value": "crm_fallback_url",
-                "required": false
-              },
-              {
-                "name": "CrmAttributes",
-                "type": "interface{}",
-                "value": "crm_attributes",
-                "required": false
-              },
-              {
-                "name": "UiLanguage",
-                "type": "string",
-                "value": "ui_language",
-                "required": false
-              },
-              {
-                "name": "UiAttributes",
-                "type": "interface{}",
-                "value": "ui_attributes",
-                "required": false
-              },
-              {
-                "name": "UiDependencies",
-                "type": "interface{}",
-                "value": "ui_dependencies",
-                "required": false
-              },
-              {
-                "name": "UiVersion",
-                "type": "string",
-                "value": "ui_version",
-                "required": true
-              },
-              {
-                "name": "TaskRouterWorkspaceSid",
-                "type": "string",
-                "value": "taskrouter_workspace_sid",
-                "required": true
-              },
-              {
-                "name": "TaskRouterTargetWorkflowSid",
-                "type": "string",
-                "value": "taskrouter_target_workflow_sid",
-                "required": true
-              },
-              {
-                "name": "TaskRouterTargetTaskQueueSid",
-                "type": "string",
-                "value": "taskrouter_target_taskqueue_sid",
-                "required": true
-              },
-              {
-                "name": "TaskRouterTaskQueues",
-                "type": "[]GetConfigurationResponseTaskQueue",
-                "value": "taskrouter_taskqueues",
-                "required": false
-              },
-              {
-                "name": "TaskRouterSkills",
-                "type": "[]GetConfigurationResponseSkill",
-                "value": "taskrouter_skills",
-                "required": false
-              },
-              {
-                "name": "TaskRouterWorkerChannels",
-                "type": "map[string][]GetConfigurationResponseWorkerChannel",
-                "value": "taskrouter_worker_channels",
-                "required": false
-              },
-              {
-                "name": "TaskRouterWorkerAttributes",
-                "type": "map[string]interface{}",
-                "value": "taskrouter_worker_attributes",
-                "required": false
-              },
-              {
-                "name": "TaskRouterOfflineActivitySid",
-                "type": "string",
-                "value": "taskrouter_offline_activity_sid",
-                "required": true
-              },
-              {
-                "name": "CallRecordingEnabled",
-                "type": "bool",
-                "value": "call_recording_enabled",
-                "required": false
-              },
-              {
-                "name": "CallRecordingWebhookURL",
-                "type": "string",
-                "value": "call_recording_webhook_url",
-                "required": false
-              },
-              {
-                "name": "PublicAttributes",
-                "type": "interface{}",
-                "value": "public_attributes",
-                "required": false
-              },
-              {
-                "name": "Attributes",
-                "type": "interface{}",
-                "value": "attributes",
-                "required": false
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "RuntimeDomain",
-                "type": "string",
-                "value": "runtime_domain",
-                "required": true
-              },
-              {
-                "name": "ServiceVersion",
-                "type": "string",
-                "value": "service_version",
-                "required": false
-              },
-              {
-                "name": "PluginServiceEnabled",
-                "type": "bool",
-                "value": "plugin_service_enabled",
-                "required": false
-              },
-              {
-                "name": "PluginServiceAttributes",
-                "type": "interface{}",
-                "value": "plugin_service_attributes",
-                "required": false
-              },
-              {
-                "name": "Integrations",
-                "type": "[]GetConfigurationResponseIntegration",
-                "value": "integrations",
-                "required": false
-              },
-              {
-                "name": "WfmIntegrations",
-                "type": "[]GetConfigurationResponseIntegration",
-                "value": "wfm_integrations",
-                "required": false
-              },
-              {
-                "name": "OutboundCallFlows",
-                "type": "interface{}",
-                "value": "outbound_call_flows",
-                "required": false
-              },
-              {
-                "name": "QueueStatsConfiguration",
-                "type": "interface{}",
-                "value": "queue_stats_configuration",
-                "required": false
-              },
-              {
-                "name": "ServerlessServiceSids",
-                "type": "[]string",
-                "value": "serverless_service_sids",
-                "required": false
-              },
-
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ConfigurationResponse"
           }
         }
       ]
@@ -1037,252 +50,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateFlexFlowInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": true
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "ChatServiceSid",
-                "required": true
-              },
-              {
-                "name": "ChannelType",
-                "type": "string",
-                "value": "ChannelType",
-                "required": true
-              },
-              {
-                "name": "ContactIdentity",
-                "type": "string",
-                "value": "ContactIdentity",
-                "required": false
-              },
-              {
-                "name": "Enabled",
-                "type": "bool",
-                "value": "Enabled",
-                "required": false
-              },
-              {
-                "name": "IntegrationType",
-                "type": "string",
-                "value": "IntegrationType",
-                "required": false
-              },
-              {
-                "name": "IntegrationFlowSid",
-                "type": "string",
-                "value": "Integration.FlowSid",
-                "required": false
-              },
-              {
-                "name": "IntegrationUrl",
-                "type": "string",
-                "value": "Integration.Url",
-                "required": false
-              },
-              {
-                "name": "IntegrationWorkspaceSid",
-                "type": "string",
-                "value": "Integration.WorkspaceSid",
-                "required": false
-              },
-              {
-                "name": "IntegrationChannel",
-                "type": "string",
-                "value": "Integration.Channel",
-                "required": false
-              },
-              {
-                "name": "IntegrationTimeout",
-                "type": "int",
-                "value": "Integration.Timeout",
-                "required": false
-              },
-              {
-                "name": "IntegrationPriority",
-                "type": "int",
-                "value": "Integration.Priority",
-                "required": false
-              },
-              {
-                "name": "IntegrationCreationOnMessage",
-                "type": "string",
-                "value": "Integration.CreationOnMessage",
-                "required": false
-              },
-              {
-                "name": "IntegrationRetryCount",
-                "type": "int",
-                "value": "Integration.RetryCount",
-                "required": false
-              },
-              {
-                "name": "LongLived",
-                "type": "bool",
-                "value": "LongLived",
-                "required": false
-              },
-              {
-                "name": "JanitorEnabled",
-                "type": "bool",
-                "value": "JanitorEnabled",
-                "required": false
-              }
-            ]
+            "structure": "CreateFlexFlowInput"
           },
           "response": {
             "name": "CreateFlexFlowResponse",
-            "type": "JSON",
-            "additionalStructs": [
-              {
-                "name": "CreateFlexFlowResponseIntegration",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "FlowSid",
-                    "type": "string",
-                    "value": "flow_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "Url",
-                    "type": "string",
-                    "value": "url",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "Channel",
-                    "type": "string",
-                    "value": "channel",
-                    "required": false
-                  },
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "timeout",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "priority",
-                    "required": false
-                  },
-                  {
-                    "name": "CreationOnMessage",
-                    "type": "string",
-                    "value": "creation_on_message",
-                    "required": false
-                  },
-                  {
-                    "name": "RetryCount",
-                    "type": "int",
-                    "value": "retry_count",
-                    "required": false
-                  }
-                ]
-              }
-            ],
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "chat_service_sid",
-                "required": true
-              },
-              {
-                "name": "ChannelType",
-                "type": "string",
-                "value": "channel_type",
-                "required": true
-              },
-              {
-                "name": "ContactIdentity",
-                "type": "string",
-                "value": "contact_identity",
-                "required": false
-              },
-              {
-                "name": "Enabled",
-                "type": "bool",
-                "value": "enabled",
-                "required": true
-              },
-              {
-                "name": "IntegrationType",
-                "type": "string",
-                "value": "integration_type",
-                "required": false
-              },
-              {
-                "name": "Integration",
-                "type": "CreateFlexFlowResponseIntegration",
-                "value": "integration",
-                "required": false
-              },
-              {
-                "name": "LongLived",
-                "type": "bool",
-                "value": "long_lived",
-                "required": false
-              },
-              {
-                "name": "JanitorEnabled",
-                "type": "bool",
-                "value": "janitor_enabled",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "FlexFlowResponse"
           }
         }
       ]
@@ -1314,149 +86,7 @@
           },
           "response": {
             "name": "GetFlexFlowResponse",
-            "type": "JSON",
-            "additionalStructs": [
-              {
-                "name": "GetFlexFlowResponseIntegration",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "FlowSid",
-                    "type": "string",
-                    "value": "flow_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "Url",
-                    "type": "string",
-                    "value": "url",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "Channel",
-                    "type": "string",
-                    "value": "channel",
-                    "required": false
-                  },
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "timeout",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "priority",
-                    "required": false
-                  },
-                  {
-                    "name": "CreationOnMessage",
-                    "type": "string",
-                    "value": "creation_on_message",
-                    "required": false
-                  },
-                  {
-                    "name": "RetryCount",
-                    "type": "int",
-                    "value": "retry_count",
-                    "required": false
-                  }
-                ]
-              }
-            ],
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "chat_service_sid",
-                "required": true
-              },
-              {
-                "name": "ChannelType",
-                "type": "string",
-                "value": "channel_type",
-                "required": true
-              },
-              {
-                "name": "ContactIdentity",
-                "type": "string",
-                "value": "contact_identity",
-                "required": false
-              },
-              {
-                "name": "Enabled",
-                "type": "bool",
-                "value": "enabled",
-                "required": true
-              },
-              {
-                "name": "IntegrationType",
-                "type": "string",
-                "value": "integration_type",
-                "required": false
-              },
-              {
-                "name": "Integration",
-                "type": "GetFlexFlowResponseIntegration",
-                "value": "integration",
-                "required": false
-              },
-              {
-                "name": "LongLived",
-                "type": "bool",
-                "value": "long_lived",
-                "required": false
-              },
-              {
-                "name": "JanitorEnabled",
-                "type": "bool",
-                "value": "janitor_enabled",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "FlexFlowResponse"
           }
         },
         {
@@ -1476,252 +106,11 @@
             ]
           },
           "input": {
-            "name": "UpdateFlexFlowInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "ChatServiceSid",
-                "required": false
-              },
-              {
-                "name": "ChannelType",
-                "type": "string",
-                "value": "ChannelType",
-                "required": false
-              },
-              {
-                "name": "ContactIdentity",
-                "type": "string",
-                "value": "ContactIdentity",
-                "required": false
-              },
-              {
-                "name": "Enabled",
-                "type": "bool",
-                "value": "Enabled",
-                "required": false
-              },
-              {
-                "name": "IntegrationType",
-                "type": "string",
-                "value": "IntegrationType",
-                "required": false
-              },
-              {
-                "name": "IntegrationFlowSid",
-                "type": "string",
-                "value": "Integration.FlowSid",
-                "required": false
-              },
-              {
-                "name": "IntegrationUrl",
-                "type": "string",
-                "value": "Integration.Url",
-                "required": false
-              },
-              {
-                "name": "IntegrationWorkspaceSid",
-                "type": "string",
-                "value": "Integration.WorkspaceSid",
-                "required": false
-              },
-              {
-                "name": "IntegrationChannel",
-                "type": "string",
-                "value": "Integration.Channel",
-                "required": false
-              },
-              {
-                "name": "IntegrationTimeout",
-                "type": "int",
-                "value": "Integration.Timeout",
-                "required": false
-              },
-              {
-                "name": "IntegrationPriority",
-                "type": "int",
-                "value": "Integration.Priority",
-                "required": false
-              },
-              {
-                "name": "IntegrationCreationOnMessage",
-                "type": "string",
-                "value": "Integration.CreationOnMessage",
-                "required": false
-              },
-              {
-                "name": "IntegrationRetryCount",
-                "type": "int",
-                "value": "Integration.RetryCount",
-                "required": false
-              },
-              {
-                "name": "LongLived",
-                "type": "bool",
-                "value": "LongLived",
-                "required": false
-              },
-              {
-                "name": "JanitorEnabled",
-                "type": "bool",
-                "value": "JanitorEnabled",
-                "required": false
-              }
-            ]
+            "structure": "UpdateFlexFlowInput"
           },
           "response": {
             "name": "UpdateFlexFlowResponse",
-            "type": "JSON",
-            "additionalStructs": [
-              {
-                "name": "UpdateFlexFlowResponseIntegration",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "FlowSid",
-                    "type": "string",
-                    "value": "flow_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "Url",
-                    "type": "string",
-                    "value": "url",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "Channel",
-                    "type": "string",
-                    "value": "channel",
-                    "required": false
-                  },
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "timeout",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "priority",
-                    "required": false
-                  },
-                  {
-                    "name": "CreationOnMessage",
-                    "type": "string",
-                    "value": "creation_on_message",
-                    "required": false
-                  },
-                  {
-                    "name": "RetryCount",
-                    "type": "int",
-                    "value": "retry_count",
-                    "required": false
-                  }
-                ]
-              }
-            ],
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "chat_service_sid",
-                "required": true
-              },
-              {
-                "name": "ChannelType",
-                "type": "string",
-                "value": "channel_type",
-                "required": true
-              },
-              {
-                "name": "ContactIdentity",
-                "type": "string",
-                "value": "contact_identity",
-                "required": false
-              },
-              {
-                "name": "Enabled",
-                "type": "bool",
-                "value": "enabled",
-                "required": true
-              },
-              {
-                "name": "IntegrationType",
-                "type": "string",
-                "value": "integration_type",
-                "required": false
-              },
-              {
-                "name": "Integration",
-                "type": "UpdateFlexFlowResponseIntegration",
-                "value": "integration",
-                "required": false
-              },
-              {
-                "name": "LongLived",
-                "type": "bool",
-                "value": "long_lived",
-                "required": false
-              },
-              {
-                "name": "JanitorEnabled",
-                "type": "bool",
-                "value": "janitor_enabled",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "FlexFlowResponse"
           }
         },
         {
@@ -1754,124 +143,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateChannelInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "FlexFlowSid",
-                "required": true
-              },
-              {
-                "name": "Identity",
-                "type": "string",
-                "value": "Identity",
-                "required": true
-              },
-              {
-                "name": "ChatUserFriendlyName",
-                "type": "string",
-                "value": "ChatUserFriendlyName",
-                "required": true
-              },
-              {
-                "name": "ChatFriendlyName",
-                "type": "string",
-                "value": "ChatFriendlyName",
-                "required": true
-              },
-              {
-                "name": "Target",
-                "type": "string",
-                "value": "Target",
-                "required": false
-              },
-              {
-                "name": "ChatUniqueName",
-                "type": "string",
-                "value": "ChatUniqueName",
-                "required": false
-              },
-              {
-                "name": "PreEngagementData",
-                "type": "string",
-                "value": "PreEngagementData",
-                "required": false
-              },
-              {
-                "name": "TaskSid",
-                "type": "string",
-                "value": "TaskSid",
-                "required": false
-              },
-              {
-                "name": "TaskAttributes",
-                "type": "string",
-                "value": "TaskAttributes",
-                "required": false
-              },
-              {
-                "name": "LongLived",
-                "type": "bool",
-                "value": "LongLived",
-                "required": false
-              }
-            ]
+            "structure": "CreateChannelInput"
           },
           "response": {
             "name": "CreateChannelResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "flex_flow_sid",
-                "required": true
-              },
-              {
-                "name": "TaskSid",
-                "type": "string",
-                "value": "task_sid",
-                "required": false
-              },
-              {
-                "name": "UserSid",
-                "type": "string",
-                "value": "user_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ChannelResponse"
           }
         }
       ]
@@ -1903,57 +179,7 @@
           },
           "response": {
             "name": "GetChannelResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "flex_flow_sid",
-                "required": true
-              },
-              {
-                "name": "TaskSid",
-                "type": "string",
-                "value": "task_sid",
-                "required": false
-              },
-              {
-                "name": "UserSid",
-                "type": "string",
-                "value": "user_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ChannelResponse"
           }
         },
         {
@@ -1986,88 +212,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateWebChannelInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "ChatFriendlyName",
-                "type": "string",
-                "value": "ChatFriendlyName",
-                "required": true
-              },
-              {
-                "name": "ChatUniqueName",
-                "type": "string",
-                "value": "ChatUniqueName",
-                "required": false
-              },
-              {
-                "name": "CustomerFriendlyName",
-                "type": "string",
-                "value": "CustomerFriendlyName",
-                "required": true
-              },
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "FlexFlowSid",
-                "required": true
-              },
-              {
-                "name": "Identity",
-                "type": "string",
-                "value": "Identity",
-                "required": true
-              },
-              {
-                "name": "PreEngagementData",
-                "type": "string",
-                "value": "PreEngagementData",
-                "required": false
-              }
-            ]
+            "structure": "CreateWebChannelInput"
           },
           "response": {
             "name": "CreateWebChannelResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "flex_flow_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "WebChannelResponse"
           }
         }
       ]
@@ -2099,45 +248,7 @@
           },
           "response": {
             "name": "GetWebChannelResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "flex_flow_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "WebChannelResponse"
           }
         },
         {
@@ -2157,64 +268,11 @@
             ]
           },
           "input": {
-            "name": "UpdateWebChannelInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "ChatStatus",
-                "type": "string",
-                "value": "ChatStatus",
-                "required": false
-              },
-              {
-                "name": "PreEngagementData",
-                "type": "string",
-                "value": "PreEngagementData",
-                "required": false
-              }
-            ]
+            "structure": "UpdateWebChannelInput"
           },
           "response": {
             "name": "UpdateWebChannelResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FlexFlowSid",
-                "type": "string",
-                "value": "flex_flow_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "WebChannelResponse"
           }
         },
         {
@@ -2236,5 +294,1125 @@
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "ConfigurationInputTaskQueue": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "Targettable",
+          "type": "bool",
+          "value": "targettable",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationInputSkill": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "MultiValue",
+          "type": "bool",
+          "value": "multivalue",
+          "required": true
+        },
+        {
+          "name": "Minimum",
+          "type": "int",
+          "value": "minimum",
+          "required": true
+        },
+        {
+          "name": "Maximum",
+          "type": "bool",
+          "value": "maximum",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationInputWorkerChannel": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Availability",
+          "type": "bool",
+          "value": "availability",
+          "required": true
+        },
+        {
+          "name": "Capacity",
+          "type": "int",
+          "value": "capacity",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationInputIntegration": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "Active",
+          "type": "bool",
+          "value": "active",
+          "required": true
+        },
+        {
+          "name": "Config",
+          "type": "string",
+          "value": "config",
+          "required": true
+        },
+        {
+          "name": "Logo",
+          "type": "string",
+          "value": "logo",
+          "required": false
+        },
+        {
+          "name": "Author",
+          "type": "string",
+          "value": "author",
+          "required": false
+        }
+      ]
+    },
+    "UpdateConfigurationInput": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ChatServiceInstanceSid",
+          "type": "string",
+          "value": "chat_service_instance_sid",
+          "required": false
+        },
+        {
+          "name": "MessagingServiceInstanceSid",
+          "type": "string",
+          "value": "messaging_service_instance_sid",
+          "required": false
+        },
+        {
+          "name": "CrmEnabled",
+          "type": "bool",
+          "value": "crm_type",
+          "required": false
+        },
+        {
+          "name": "CrmType",
+          "type": "string",
+          "value": "crm_type",
+          "required": false
+        },
+        {
+          "name": "CrmCallbackURL",
+          "type": "string",
+          "value": "crm_callback_url",
+          "required": false
+        },
+        {
+          "name": "CrmFallbackURL",
+          "type": "string",
+          "value": "crm_fallback_url",
+          "required": false
+        },
+        {
+          "name": "CrmAttributes",
+          "type": "interface{}",
+          "value": "crm_attributes",
+          "required": false
+        },
+        {
+          "name": "UiLanguage",
+          "type": "string",
+          "value": "ui_language",
+          "required": false
+        },
+        {
+          "name": "UiAttributes",
+          "type": "interface{}",
+          "value": "ui_attributes",
+          "required": false
+        },
+        {
+          "name": "UiDependencies",
+          "type": "interface{}",
+          "value": "ui_dependencies",
+          "required": false
+        },
+        {
+          "name": "UiVersion",
+          "type": "string",
+          "value": "ui_version",
+          "required": false
+        },
+        {
+          "name": "TaskRouterTargetWorkflowSid",
+          "type": "string",
+          "value": "taskrouter_target_workflow_sid",
+          "required": false
+        },
+        {
+          "name": "TaskRouterTargetTaskQueueSid",
+          "type": "string",
+          "value": "taskrouter_target_taskqueue_sid",
+          "required": false
+        },
+        {
+          "name": "TaskRouterTaskQueues",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationInputTaskQueue"
+          },
+          "value": "taskrouter_taskqueues",
+          "required": false
+        },
+        {
+          "name": "TaskRouterSkills",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationInputSkill"
+          },
+          "value": "taskrouter_skills",
+          "required": false
+        },
+        {
+          "name": "TaskRouterWorkerChannels",
+          "type": "map",
+          "items": {
+            "type": "array",
+            "items": {
+              "structure": "ConfigurationInputWorkerChannel"
+            }
+          },
+          "value": "taskrouter_worker_channels",
+          "required": false
+        },
+        {
+          "name": "TaskRouterWorkerAttributes",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "taskrouter_worker_attributes",
+          "required": false
+        },
+        {
+          "name": "CallRecordingEnabled",
+          "type": "bool",
+          "value": "call_recording_enabled",
+          "required": false
+        },
+        {
+          "name": "CallRecordingWebhookURL",
+          "type": "string",
+          "value": "call_recording_webhook_url",
+          "required": false
+        },
+        {
+          "name": "PublicAttributes",
+          "type": "interface{}",
+          "value": "public_attributes",
+          "required": false
+        },
+        {
+          "name": "Attributes",
+          "type": "interface{}",
+          "value": "attributes",
+          "required": false
+        },
+        {
+          "name": "PluginServiceEnabled",
+          "type": "bool",
+          "value": "plugin_service_enabled",
+          "required": false
+        },
+        {
+          "name": "PluginServiceAttributes",
+          "type": "interface{}",
+          "value": "plugin_service_attributes",
+          "required": false
+        },
+        {
+          "name": "Integrations",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationInputIntegration"
+          },
+          "value": "integrations",
+          "required": false
+        },
+        {
+          "name": "WfmIntegrations",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationInputIntegration"
+          },
+          "value": "wfm_integrations",
+          "required": false
+        },
+        {
+          "name": "OutboundCallFlows",
+          "type": "interface{}",
+          "value": "outbound_call_flows",
+          "required": false
+        },
+        {
+          "name": "QueueStatsConfiguration",
+          "type": "interface{}",
+          "value": "queue_stats_configuration",
+          "required": false
+        },
+        {
+          "name": "ServerlessServiceSids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "serverless_service_sids",
+          "required": false
+        }
+      ]
+    },
+    "ConfigurationResponseTaskQueue": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "Targettable",
+          "type": "bool",
+          "value": "targettable",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationResponseSkill": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "MultiValue",
+          "type": "bool",
+          "value": "multivalue",
+          "required": true
+        },
+        {
+          "name": "Minimum",
+          "type": "int",
+          "value": "minimum",
+          "required": true
+        },
+        {
+          "name": "Maximum",
+          "type": "bool",
+          "value": "maximum",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationResponseWorkerChannel": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Availability",
+          "type": "bool",
+          "value": "availability",
+          "required": true
+        },
+        {
+          "name": "Capacity",
+          "type": "int",
+          "value": "capacity",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationResponseIntegration": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "Active",
+          "type": "bool",
+          "value": "active",
+          "required": true
+        },
+        {
+          "name": "Config",
+          "type": "string",
+          "value": "config",
+          "required": true
+        },
+        {
+          "name": "Logo",
+          "type": "string",
+          "value": "logo",
+          "required": false
+        },
+        {
+          "name": "Author",
+          "type": "string",
+          "value": "author",
+          "required": false
+        }
+      ]
+    },
+    "ConfigurationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FlexServiceInstanceSid",
+          "type": "string",
+          "value": "flex_service_instance_sid",
+          "required": true
+        },
+        {
+          "name": "ChatServiceInstanceSid",
+          "type": "string",
+          "value": "chat_service_instance_sid",
+          "required": false
+        },
+        {
+          "name": "MessagingServiceInstanceSid",
+          "type": "string",
+          "value": "messaging_service_instance_sid",
+          "required": false
+        },
+        {
+          "name": "CrmEnabled",
+          "type": "bool",
+          "value": "crm_type",
+          "required": false
+        },
+        {
+          "name": "CrmType",
+          "type": "string",
+          "value": "crm_type",
+          "required": false
+        },
+        {
+          "name": "CrmCallbackURL",
+          "type": "string",
+          "value": "crm_callback_url",
+          "required": false
+        },
+        {
+          "name": "CrmFallbackURL",
+          "type": "string",
+          "value": "crm_fallback_url",
+          "required": false
+        },
+        {
+          "name": "CrmAttributes",
+          "type": "interface{}",
+          "value": "crm_attributes",
+          "required": false
+        },
+        {
+          "name": "UiLanguage",
+          "type": "string",
+          "value": "ui_language",
+          "required": false
+        },
+        {
+          "name": "UiAttributes",
+          "type": "interface{}",
+          "value": "ui_attributes",
+          "required": false
+        },
+        {
+          "name": "UiDependencies",
+          "type": "interface{}",
+          "value": "ui_dependencies",
+          "required": false
+        },
+        {
+          "name": "UiVersion",
+          "type": "string",
+          "value": "ui_version",
+          "required": true
+        },
+        {
+          "name": "TaskRouterWorkspaceSid",
+          "type": "string",
+          "value": "taskrouter_workspace_sid",
+          "required": true
+        },
+        {
+          "name": "TaskRouterTargetWorkflowSid",
+          "type": "string",
+          "value": "taskrouter_target_workflow_sid",
+          "required": true
+        },
+        {
+          "name": "TaskRouterTargetTaskQueueSid",
+          "type": "string",
+          "value": "taskrouter_target_taskqueue_sid",
+          "required": true
+        },
+        {
+          "name": "TaskRouterTaskQueues",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationResponseTaskQueue"
+          },
+          "value": "taskrouter_taskqueues",
+          "required": false
+        },
+        {
+          "name": "TaskRouterSkills",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationResponseSkill"
+          },
+          "value": "taskrouter_skills",
+          "required": false
+        },
+        {
+          "name": "TaskRouterWorkerChannels",
+          "type": "map",
+          "items": {
+            "type": "array",
+            "items": {
+              "structure": "ConfigurationResponseWorkerChannel"
+            }
+          },
+          "value": "taskrouter_worker_channels",
+          "required": false
+        },
+        {
+          "name": "TaskRouterWorkerAttributes",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "taskrouter_worker_attributes",
+          "required": false
+        },
+        {
+          "name": "TaskRouterOfflineActivitySid",
+          "type": "string",
+          "value": "taskrouter_offline_activity_sid",
+          "required": true
+        },
+        {
+          "name": "CallRecordingEnabled",
+          "type": "bool",
+          "value": "call_recording_enabled",
+          "required": false
+        },
+        {
+          "name": "CallRecordingWebhookURL",
+          "type": "string",
+          "value": "call_recording_webhook_url",
+          "required": false
+        },
+        {
+          "name": "PublicAttributes",
+          "type": "interface{}",
+          "value": "public_attributes",
+          "required": false
+        },
+        {
+          "name": "Attributes",
+          "type": "interface{}",
+          "value": "attributes",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "RuntimeDomain",
+          "type": "string",
+          "value": "runtime_domain",
+          "required": true
+        },
+        {
+          "name": "ServiceVersion",
+          "type": "string",
+          "value": "service_version",
+          "required": false
+        },
+        {
+          "name": "PluginServiceEnabled",
+          "type": "bool",
+          "value": "plugin_service_enabled",
+          "required": false
+        },
+        {
+          "name": "PluginServiceAttributes",
+          "type": "interface{}",
+          "value": "plugin_service_attributes",
+          "required": false
+        },
+        {
+          "name": "Integrations",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationResponseIntegration"
+          },
+          "value": "integrations",
+          "required": false
+        },
+        {
+          "name": "WfmIntegrations",
+          "type": "array",
+          "items": {
+            "structure": "ConfigurationResponseIntegration"
+          },
+          "value": "wfm_integrations",
+          "required": false
+        },
+        {
+          "name": "OutboundCallFlows",
+          "type": "interface{}",
+          "value": "outbound_call_flows",
+          "required": false
+        },
+        {
+          "name": "QueueStatsConfiguration",
+          "type": "interface{}",
+          "value": "queue_stats_configuration",
+          "required": false
+        },
+        {
+          "name": "ServerlessServiceSids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "serverless_service_sids",
+          "required": false
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateFlexFlowInput": {
+      "type": "URLEncoded",
+      "extends": "BaseFlexFlowInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "ChatServiceSid",
+          "required": true
+        },
+        {
+          "name": "ChannelType",
+          "type": "string",
+          "value": "ChannelType",
+          "required": true
+        }
+      ]
+    },
+    "UpdateFlexFlowInput": {
+      "type": "URLEncoded",
+      "extends": "BaseFlexFlowInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "ChatServiceSid",
+          "required": false
+        },
+        {
+          "name": "ChannelType",
+          "type": "string",
+          "value": "ChannelType",
+          "required": false
+        }
+      ]
+    },
+    "BaseFlexFlowInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ContactIdentity",
+          "type": "string",
+          "value": "ContactIdentity",
+          "required": false
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "IntegrationType",
+          "type": "string",
+          "value": "IntegrationType",
+          "required": false
+        },
+        {
+          "name": "IntegrationFlowSid",
+          "type": "string",
+          "value": "Integration.FlowSid",
+          "required": false
+        },
+        {
+          "name": "IntegrationUrl",
+          "type": "string",
+          "value": "Integration.Url",
+          "required": false
+        },
+        {
+          "name": "IntegrationWorkspaceSid",
+          "type": "string",
+          "value": "Integration.WorkspaceSid",
+          "required": false
+        },
+        {
+          "name": "IntegrationChannel",
+          "type": "string",
+          "value": "Integration.Channel",
+          "required": false
+        },
+        {
+          "name": "IntegrationTimeout",
+          "type": "int",
+          "value": "Integration.Timeout",
+          "required": false
+        },
+        {
+          "name": "IntegrationPriority",
+          "type": "int",
+          "value": "Integration.Priority",
+          "required": false
+        },
+        {
+          "name": "IntegrationCreationOnMessage",
+          "type": "string",
+          "value": "Integration.CreationOnMessage",
+          "required": false
+        },
+        {
+          "name": "IntegrationRetryCount",
+          "type": "int",
+          "value": "Integration.RetryCount",
+          "required": false
+        },
+        {
+          "name": "LongLived",
+          "type": "bool",
+          "value": "LongLived",
+          "required": false
+        },
+        {
+          "name": "JanitorEnabled",
+          "type": "bool",
+          "value": "JanitorEnabled",
+          "required": false
+        }
+      ]
+    },
+    "FlexFlowResponseIntegration": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "flow_sid",
+          "required": false
+        },
+        {
+          "name": "Url",
+          "type": "string",
+          "value": "url",
+          "required": false
+        },
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": false
+        },
+        {
+          "name": "Channel",
+          "type": "string",
+          "value": "channel",
+          "required": false
+        },
+        {
+          "name": "Timeout",
+          "type": "int",
+          "value": "timeout",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "priority",
+          "required": false
+        },
+        {
+          "name": "CreationOnMessage",
+          "type": "string",
+          "value": "creation_on_message",
+          "required": false
+        },
+        {
+          "name": "RetryCount",
+          "type": "int",
+          "value": "retry_count",
+          "required": false
+        }
+      ]
+    },
+    "FlexFlowResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
+          "required": true
+        },
+        {
+          "name": "ChannelType",
+          "type": "string",
+          "value": "channel_type",
+          "required": true
+        },
+        {
+          "name": "ContactIdentity",
+          "type": "string",
+          "value": "contact_identity",
+          "required": false
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "IntegrationType",
+          "type": "string",
+          "value": "integration_type",
+          "required": false
+        },
+        {
+          "name": "Integration",
+          "structure": "FlexFlowResponseIntegration",
+          "value": "integration",
+          "required": false
+        },
+        {
+          "name": "LongLived",
+          "type": "bool",
+          "value": "long_lived",
+          "required": false
+        },
+        {
+          "name": "JanitorEnabled",
+          "type": "bool",
+          "value": "janitor_enabled",
+          "required": false
+        }
+      ]
+    },
+    "CreateChannelInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FlexFlowSid",
+          "type": "string",
+          "value": "FlexFlowSid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "Identity",
+          "required": true
+        },
+        {
+          "name": "ChatUserFriendlyName",
+          "type": "string",
+          "value": "ChatUserFriendlyName",
+          "required": true
+        },
+        {
+          "name": "ChatFriendlyName",
+          "type": "string",
+          "value": "ChatFriendlyName",
+          "required": true
+        },
+        {
+          "name": "Target",
+          "type": "string",
+          "value": "Target",
+          "required": false
+        },
+        {
+          "name": "ChatUniqueName",
+          "type": "string",
+          "value": "ChatUniqueName",
+          "required": false
+        },
+        {
+          "name": "PreEngagementData",
+          "type": "string",
+          "value": "PreEngagementData",
+          "required": false
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "TaskSid",
+          "required": false
+        },
+        {
+          "name": "TaskAttributes",
+          "type": "string",
+          "value": "TaskAttributes",
+          "required": false
+        },
+        {
+          "name": "LongLived",
+          "type": "bool",
+          "value": "LongLived",
+          "required": false
+        }
+      ]
+    },
+    "ChannelResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FlexFlowSid",
+          "type": "string",
+          "value": "flex_flow_sid",
+          "required": true
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "task_sid",
+          "required": false
+        },
+        {
+          "name": "UserSid",
+          "type": "string",
+          "value": "user_sid",
+          "required": true
+        }
+      ]
+    },
+    "CreateWebChannelInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ChatFriendlyName",
+          "type": "string",
+          "value": "ChatFriendlyName",
+          "required": true
+        },
+        {
+          "name": "ChatUniqueName",
+          "type": "string",
+          "value": "ChatUniqueName",
+          "required": false
+        },
+        {
+          "name": "CustomerFriendlyName",
+          "type": "string",
+          "value": "CustomerFriendlyName",
+          "required": true
+        },
+        {
+          "name": "FlexFlowSid",
+          "type": "string",
+          "value": "FlexFlowSid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "Identity",
+          "required": true
+        },
+        {
+          "name": "PreEngagementData",
+          "type": "string",
+          "value": "PreEngagementData",
+          "required": false
+        }
+      ]
+    },
+    "UpdateWebChannelInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ChatStatus",
+          "type": "string",
+          "value": "ChatStatus",
+          "required": false
+        },
+        {
+          "name": "PreEngagementData",
+          "type": "string",
+          "value": "PreEngagementData",
+          "required": false
+        }
+      ]
+    },
+    "WebChannelResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FlexFlowSid",
+          "type": "string",
+          "value": "flex_flow_sid",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
 }

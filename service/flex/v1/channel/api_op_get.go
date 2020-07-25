@@ -10,14 +10,14 @@ import (
 )
 
 type GetChannelResponse struct {
-	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
-	FlexFlowSid string     `json:"flex_flow_sid"`
-	TaskSid     *string    `json:"task_sid,omitempty"`
-	UserSid     string     `json:"user_sid"`
 	DateCreated time.Time  `json:"date_created"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	FlexFlowSid string     `json:"flex_flow_sid"`
+	Sid         string     `json:"sid"`
+	TaskSid     *string    `json:"task_sid,omitempty"`
 	URL         string     `json:"url"`
+	UserSid     string     `json:"user_sid"`
 }
 
 func (c Client) Get() (*GetChannelResponse, error) {

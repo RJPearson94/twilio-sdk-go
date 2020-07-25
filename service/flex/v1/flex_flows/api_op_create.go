@@ -10,49 +10,49 @@ import (
 )
 
 type CreateFlexFlowInput struct {
-	FriendlyName                 string  `validate:"required" form:"FriendlyName"`
-	ChatServiceSid               string  `validate:"required" form:"ChatServiceSid"`
 	ChannelType                  string  `validate:"required" form:"ChannelType"`
+	ChatServiceSid               string  `validate:"required" form:"ChatServiceSid"`
 	ContactIdentity              *string `form:"ContactIdentity,omitempty"`
 	Enabled                      *bool   `form:"Enabled,omitempty"`
-	IntegrationType              *string `form:"IntegrationType,omitempty"`
+	FriendlyName                 string  `validate:"required" form:"FriendlyName"`
+	IntegrationChannel           *string `form:"Integration.Channel,omitempty"`
+	IntegrationCreationOnMessage *string `form:"Integration.CreationOnMessage,omitempty"`
 	IntegrationFlowSid           *string `form:"Integration.FlowSid,omitempty"`
+	IntegrationPriority          *int    `form:"Integration.Priority,omitempty"`
+	IntegrationRetryCount        *int    `form:"Integration.RetryCount,omitempty"`
+	IntegrationTimeout           *int    `form:"Integration.Timeout,omitempty"`
+	IntegrationType              *string `form:"IntegrationType,omitempty"`
 	IntegrationUrl               *string `form:"Integration.Url,omitempty"`
 	IntegrationWorkspaceSid      *string `form:"Integration.WorkspaceSid,omitempty"`
-	IntegrationChannel           *string `form:"Integration.Channel,omitempty"`
-	IntegrationTimeout           *int    `form:"Integration.Timeout,omitempty"`
-	IntegrationPriority          *int    `form:"Integration.Priority,omitempty"`
-	IntegrationCreationOnMessage *string `form:"Integration.CreationOnMessage,omitempty"`
-	IntegrationRetryCount        *int    `form:"Integration.RetryCount,omitempty"`
-	LongLived                    *bool   `form:"LongLived,omitempty"`
 	JanitorEnabled               *bool   `form:"JanitorEnabled,omitempty"`
+	LongLived                    *bool   `form:"LongLived,omitempty"`
 }
 
 type CreateFlexFlowResponseIntegration struct {
+	Channel           *string `json:"channel,omitempty"`
+	CreationOnMessage *string `json:"creation_on_message,omitempty"`
 	FlowSid           *string `json:"flow_sid,omitempty"`
+	Priority          *int    `json:"priority,omitempty"`
+	RetryCount        *int    `json:"retry_count,omitempty"`
+	Timeout           *int    `json:"timeout,omitempty"`
 	Url               *string `json:"url,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
-	Channel           *string `json:"channel,omitempty"`
-	Timeout           *int    `json:"timeout,omitempty"`
-	Priority          *int    `json:"priority,omitempty"`
-	CreationOnMessage *string `json:"creation_on_message,omitempty"`
-	RetryCount        *int    `json:"retry_count,omitempty"`
 }
 
 type CreateFlexFlowResponse struct {
-	Sid             string                             `json:"sid"`
 	AccountSid      string                             `json:"account_sid"`
-	FriendlyName    string                             `json:"friendly_name"`
-	ChatServiceSid  string                             `json:"chat_service_sid"`
 	ChannelType     string                             `json:"channel_type"`
+	ChatServiceSid  string                             `json:"chat_service_sid"`
 	ContactIdentity *string                            `json:"contact_identity,omitempty"`
-	Enabled         bool                               `json:"enabled"`
-	IntegrationType *string                            `json:"integration_type,omitempty"`
-	Integration     *CreateFlexFlowResponseIntegration `json:"integration,omitempty"`
-	LongLived       *bool                              `json:"long_lived,omitempty"`
-	JanitorEnabled  *bool                              `json:"janitor_enabled,omitempty"`
 	DateCreated     time.Time                          `json:"date_created"`
 	DateUpdated     *time.Time                         `json:"date_updated,omitempty"`
+	Enabled         bool                               `json:"enabled"`
+	FriendlyName    string                             `json:"friendly_name"`
+	Integration     *CreateFlexFlowResponseIntegration `json:"integration,omitempty"`
+	IntegrationType *string                            `json:"integration_type,omitempty"`
+	JanitorEnabled  *bool                              `json:"janitor_enabled,omitempty"`
+	LongLived       *bool                              `json:"long_lived,omitempty"`
+	Sid             string                             `json:"sid"`
 	URL             string                             `json:"url"`
 }
 

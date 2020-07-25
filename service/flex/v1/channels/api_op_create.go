@@ -10,27 +10,27 @@ import (
 )
 
 type CreateChannelInput struct {
+	ChatFriendlyName     string  `validate:"required" form:"ChatFriendlyName"`
+	ChatUniqueName       *string `form:"ChatUniqueName,omitempty"`
+	ChatUserFriendlyName string  `validate:"required" form:"ChatUserFriendlyName"`
 	FlexFlowSid          string  `validate:"required" form:"FlexFlowSid"`
 	Identity             string  `validate:"required" form:"Identity"`
-	ChatUserFriendlyName string  `validate:"required" form:"ChatUserFriendlyName"`
-	ChatFriendlyName     string  `validate:"required" form:"ChatFriendlyName"`
-	Target               *string `form:"Target,omitempty"`
-	ChatUniqueName       *string `form:"ChatUniqueName,omitempty"`
-	PreEngagementData    *string `form:"PreEngagementData,omitempty"`
-	TaskSid              *string `form:"TaskSid,omitempty"`
-	TaskAttributes       *string `form:"TaskAttributes,omitempty"`
 	LongLived            *bool   `form:"LongLived,omitempty"`
+	PreEngagementData    *string `form:"PreEngagementData,omitempty"`
+	Target               *string `form:"Target,omitempty"`
+	TaskAttributes       *string `form:"TaskAttributes,omitempty"`
+	TaskSid              *string `form:"TaskSid,omitempty"`
 }
 
 type CreateChannelResponse struct {
-	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
-	FlexFlowSid string     `json:"flex_flow_sid"`
-	TaskSid     *string    `json:"task_sid,omitempty"`
-	UserSid     string     `json:"user_sid"`
 	DateCreated time.Time  `json:"date_created"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	FlexFlowSid string     `json:"flex_flow_sid"`
+	Sid         string     `json:"sid"`
+	TaskSid     *string    `json:"task_sid,omitempty"`
 	URL         string     `json:"url"`
+	UserSid     string     `json:"user_sid"`
 }
 
 func (c Client) Create(input *CreateChannelInput) (*CreateChannelResponse, error) {
