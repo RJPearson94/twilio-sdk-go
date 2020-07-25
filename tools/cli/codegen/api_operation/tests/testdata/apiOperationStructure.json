@@ -134,12 +134,6 @@
       "extends": "BaseResponse",
       "properties": [
         {
-          "name": "Sid",
-          "type": "string",
-          "value": "sid",
-          "required": true
-        },
-        {
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
@@ -186,6 +180,17 @@
           "type": "int",
           "value": "in_use",
           "required": false
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
         },
         {
           "name": "DateCreated",

@@ -36,23 +36,29 @@ func Translate(content []byte) (*interface{}, error) {
 
 func mapStructure(structure *gabs.Container, structureName string, apiOperationName string, structures map[string]*gabs.Container) *gabs.Container {
 	structureResponse := gabs.New()
-	nestedStructure := structure.Path("structure").Data().(string)
+	nestedStructureName := structure.Path("structure").Data().(string)
 
-	responseStructure := structures[nestedStructure]
+	nestedStructure := structures[nestedStructureName]
 	var name string
 	if structure.Exists("name") {
 		name = structure.Path("name").Data().(string)
 	} else {
-		name = structureName + nestedStructure
+		name = structureName + nestedStructureName
 	}
 
 	structureResponse.Set(name, "name")
-	structureResponse.Set(responseStructure.Path("type").Data(), "type")
+	structureResponse.Set(nestedStructure.Path("type").Data(), "type")
 
-	dataType := responseStructure.Path("type").Data().(string)
+	dataType := nestedStructure.Path("type").Data().(string)
 	structureResponse.Set(dataType, "type")
 
-	properties, additionalStructs := mapProperties(responseStructure, dataType, apiOperationName, structures)
+	if nestedStructure.Exists("extends") {
+		parentStructure := structures[nestedStructure.Path("extends").Data().(string)]
+		properties := append(nestedStructure.Path("properties").Data().([]interface{}), parentStructure.Path("properties").Data().([]interface{})...)
+		nestedStructure.Set(properties, "properties")
+	}
+
+	properties, additionalStructs := mapProperties(nestedStructure, dataType, apiOperationName, structures)
 	structureResponse.Set(properties, "properties")
 
 	if len(additionalStructs) > 0 {

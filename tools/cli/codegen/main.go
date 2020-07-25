@@ -31,20 +31,20 @@ func main() {
 	var api map[string]interface{}
 	json.Unmarshal(fixture, &api)
 
-	if err := generateApiClients(api["subClients"].([]interface{}), outputPath); err != nil {
+	if err := generateApiClients(api["subClients"].([]interface{}), api["structures"].(map[string]interface{}), outputPath); err != nil {
 		fmt.Println(err)
 		return
 	}
 }
 
-func generateApiClients(apiClients []interface{}, path string) error {
+func generateApiClients(apiClients []interface{}, structures map[string]interface{}, path string) error {
 	for _, apiClient := range apiClients {
 		apiClientMap := apiClient.(map[string]interface{})
 
 		filePath := fmt.Sprintf("%s/%s", path, strcase.ToSnake(apiClientMap["name"].(string)))
 
 		if apiClientMap["subClients"] != nil {
-			if err := generateApiClients(apiClientMap["subClients"].([]interface{}), filePath); err != nil {
+			if err := generateApiClients(apiClientMap["subClients"].([]interface{}), structures, filePath); err != nil {
 				return err
 			}
 		}
@@ -56,8 +56,18 @@ func generateApiClients(apiClients []interface{}, path string) error {
 		for _, operation := range apiClientMap["operations"].([]interface{}) {
 			operationMap := operation.(map[string]interface{})
 			operationMap["packageName"] = apiClientMap["packageName"]
+			operationMap["structures"] = structures
 
-			contents, err := apioperation.Generate(operation, false)
+			bytes, err := json.Marshal(operation)
+			if err != nil {
+				return err
+			}
+			operationResp, err := apioperation.Translate(bytes)
+			if err != nil {
+				return err
+			}
+
+			contents, err := apioperation.Generate(operationResp, false)
 			if err != nil {
 				return err
 			}

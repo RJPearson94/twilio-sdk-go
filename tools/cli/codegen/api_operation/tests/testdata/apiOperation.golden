@@ -32,7 +32,6 @@ type CreatePhoneNumberResponseCapabilities struct {
 }
 
 type CreatePhoneNumberResponse struct {
-	Sid          string                                 `json:"sid"`
 	AccountSid   string                                 `json:"account_sid"`
 	ServiceSid   string                                 `json:"service_sid"`
 	PhoneNumber  *string                                `json:"phone_number,omitempty"`
@@ -41,6 +40,7 @@ type CreatePhoneNumberResponse struct {
 	Capabilities *CreatePhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
 	IsReserved   *bool                                  `json:"is_reserved,omitempty"`
 	InUse        *int                                   `json:"in_use,omitempty"`
+	Sid          string                                 `json:"sid"`
 	DateCreated  time.Time                              `json:"date_created"`
 	DateUpdated  *time.Time                             `json:"date_updated,omitempty"`
 	URL          string                                 `json:"url"`
