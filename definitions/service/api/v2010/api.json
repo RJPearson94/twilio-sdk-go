@@ -39,6 +39,42 @@
       },
       "subClients": [
         {
+          "name": "Balance",
+          "packageName": "balance",
+          "function": {
+            "parameters": {}
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Balance.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetBalanceResponse",
+                "structure": "BalanceResponse"
+              }
+            }
+          ]
+        },
+        {
           "name": "Keys",
           "packageName": "keys",
           "properties": {
@@ -885,6 +921,29 @@
           "name": "ContentType",
           "type": "string",
           "value": "content_type",
+          "required": true
+        }
+      ]
+    },
+    "BalanceResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "Currency",
+          "type": "string",
+          "value": "currency",
+          "required": true
+        },
+        {
+          "name": "Balance",
+          "type": "string",
+          "value": "balance",
           "required": true
         }
       ]

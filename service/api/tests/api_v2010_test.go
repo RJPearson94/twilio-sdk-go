@@ -762,6 +762,53 @@ var _ = Describe("API V2010", func() {
 				ExpectNotFoundError(err)
 			})
 		})
+
+		Describe("Given I have a balance client", func() {
+			balanceClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Balance()
+
+			Describe("When the balance is successfully retrieved", func() {
+				httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Balance.json",
+					func(req *http.Request) (*http.Response, error) {
+						fixture, _ := ioutil.ReadFile("testdata/balanceResponse.json")
+						resp := make(map[string]interface{})
+						json.Unmarshal(fixture, &resp)
+						return httpmock.NewJsonResponse(200, resp)
+					},
+				)
+
+				resp, err := balanceClient.Get()
+				It("Then no error should be returned", func() {
+					Expect(err).To(BeNil())
+				})
+
+				It("Then the get balance response should be returned", func() {
+					Expect(resp).ToNot(BeNil())
+					Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+					Expect(resp.Balance).To(Equal("1.00000"))
+					Expect(resp.Currency).To(Equal("GBP"))
+				})
+			})
+
+			Describe("When the balance api returns a 404", func() {
+				httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Balance.json",
+					func(req *http.Request) (*http.Response, error) {
+						fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+						resp := make(map[string]interface{})
+						json.Unmarshal(fixture, &resp)
+						return httpmock.NewJsonResponse(500, resp)
+					},
+				)
+
+				resp, err := balanceClient.Get()
+				It("Then an error should be returned", func() {
+					ExpectInternalServerError(err)
+				})
+
+				It("Then the get balance response should be nil", func() {
+					Expect(resp).To(BeNil())
+				})
+			})
+		})
 	})
 })
 

@@ -3,6 +3,7 @@ package account
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/balance"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
@@ -14,6 +15,7 @@ type Client struct {
 
 	sid string
 
+	Balance  func() *balance.Client
 	Key      func(string) *key.Client
 	Keys     *keys.Client
 	Message  func(string) *message.Client
@@ -30,6 +32,11 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
+		Balance: func() *balance.Client {
+			return balance.New(client, balance.ClientProperties{
+				AccountSid: properties.Sid,
+			})
+		},
 		Key: func(keySid string) *key.Client {
 			return key.New(client, key.ClientProperties{
 				AccountSid: properties.Sid,
