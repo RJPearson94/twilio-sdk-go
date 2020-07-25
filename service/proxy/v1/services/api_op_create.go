@@ -10,31 +10,31 @@ import (
 )
 
 type CreateServiceInput struct {
-	UniqueName              string  `validate:"required" form:"UniqueName"`
-	DefaultTtl              *int    `form:"DefaultTtl,omitempty"`
 	CallbackUrl             *string `form:"CallbackUrl,omitempty"`
-	GeoMatchLevel           *string `form:"GeoMatchLevel,omitempty"`
-	NumberSelectionBehavior *string `form:"NumberSelectionBehavior,omitempty"`
-	InterceptCallbackUrl    *string `form:"InterceptCallbackUrl,omitempty"`
-	OutOfSessionCallbackUrl *string `form:"OutOfSessionCallbackUrl,omitempty"`
 	ChatInstanceSid         *string `form:"ChatInstanceSid,omitempty"`
+	DefaultTtl              *int    `form:"DefaultTtl,omitempty"`
+	GeoMatchLevel           *string `form:"GeoMatchLevel,omitempty"`
+	InterceptCallbackUrl    *string `form:"InterceptCallbackUrl,omitempty"`
+	NumberSelectionBehavior *string `form:"NumberSelectionBehavior,omitempty"`
+	OutOfSessionCallbackUrl *string `form:"OutOfSessionCallbackUrl,omitempty"`
+	UniqueName              string  `validate:"required" form:"UniqueName"`
 }
 
 type CreateServiceResponse struct {
-	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
+	CallbackUrl             *string    `json:"callback_url,omitempty"`
 	ChatInstanceSid         *string    `json:"chat_instance_sid,omitempty"`
 	ChatServiceSid          string     `json:"chat_service_sid"`
-	UniqueName              string     `json:"unique_name"`
-	DefaultTtl              *int       `json:"default_ttl,omitempty"`
-	CallbackUrl             *string    `json:"callback_url,omitempty"`
-	GeoMatchLevel           *string    `json:"geo_match_level,omitempty"`
-	NumberSelectionBehavior *string    `json:"number_selection_behavior,omitempty"`
-	InterceptCallbackUrl    *string    `json:"intercept_callback_url,omitempty"`
-	OutOfSessionCallbackUrl *string    `json:"out_of_session_callback_url,omitempty"`
 	DateCreated             time.Time  `json:"date_created"`
 	DateUpdated             *time.Time `json:"date_updated,omitempty"`
+	DefaultTtl              *int       `json:"default_ttl,omitempty"`
+	GeoMatchLevel           *string    `json:"geo_match_level,omitempty"`
+	InterceptCallbackUrl    *string    `json:"intercept_callback_url,omitempty"`
+	NumberSelectionBehavior *string    `json:"number_selection_behavior,omitempty"`
+	OutOfSessionCallbackUrl *string    `json:"out_of_session_callback_url,omitempty"`
+	Sid                     string     `json:"sid"`
 	URL                     string     `json:"url"`
+	UniqueName              string     `json:"unique_name"`
 }
 
 func (c Client) Create(input *CreateServiceInput) (*CreateServiceResponse, error) {

@@ -16,12 +16,12 @@ type Client struct {
 
 	sid string
 
-	PhoneNumbers *phone_numbers.Client
 	PhoneNumber  func(string) *phone_number.Client
-	ShortCodes   *short_codes.Client
-	ShortCode    func(string) *short_code.Client
-	Sessions     *sessions.Client
+	PhoneNumbers *phone_numbers.Client
 	Session      func(string) *session.Client
+	Sessions     *sessions.Client
+	ShortCode    func(string) *short_code.Client
+	ShortCodes   *short_codes.Client
 }
 
 type ClientProperties struct {
@@ -34,16 +34,22 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
-		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
-			ServiceSid: properties.Sid,
-		}),
 		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
 			return phone_number.New(client, phone_number.ClientProperties{
 				ServiceSid: properties.Sid,
 				Sid:        phoneNumberSid,
 			})
 		},
-		ShortCodes: short_codes.New(client, short_codes.ClientProperties{
+		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Session: func(sessionSid string) *session.Client {
+			return session.New(client, session.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        sessionSid,
+			})
+		},
+		Sessions: sessions.New(client, sessions.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 		ShortCode: func(shortCodeSid string) *short_code.Client {
@@ -52,14 +58,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        shortCodeSid,
 			})
 		},
-		Sessions: sessions.New(client, sessions.ClientProperties{
+		ShortCodes: short_codes.New(client, short_codes.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
-		Session: func(sessionSid string) *session.Client {
-			return session.New(client, session.ClientProperties{
-				Sid:        sessionSid,
-				ServiceSid: properties.Sid,
-			})
-		},
 	}
 }

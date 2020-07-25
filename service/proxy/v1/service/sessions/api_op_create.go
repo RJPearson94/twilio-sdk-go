@@ -10,30 +10,30 @@ import (
 )
 
 type CreateSessionInput struct {
-	UniqueName   *string        `form:"UniqueName,omitempty"`
 	DateExpiry   *time.Time     `form:"DateExpiry,omitempty"`
-	Ttl          *int           `form:"Ttl,omitempty"`
 	Mode         *string        `form:"Mode,omitempty"`
-	Status       *string        `form:"Status,omitempty"`
 	Participants *[]interface{} `form:"Participants,omitempty"`
+	Status       *string        `form:"Status,omitempty"`
+	Ttl          *int           `form:"Ttl,omitempty"`
+	UniqueName   *string        `form:"UniqueName,omitempty"`
 }
 
 type CreateSessionResponse struct {
-	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
-	ServiceSid          string     `json:"service_sid"`
-	Status              *string    `json:"status,omitempty"`
-	UniqueName          string     `json:"unique_name"`
-	DateStarted         *time.Time `json:"date_started,omitempty"`
-	DateEnded           *time.Time `json:"date_ended,omitempty"`
-	DateLastInteraction *time.Time `json:"date_last_interaction,omitempty"`
-	DateExpiry          *time.Time `json:"date_expiry,omitempty"`
-	Ttl                 *int       `json:"ttl,omitempty"`
-	Mode                *string    `json:"mode,omitempty"`
 	ClosedReason        *string    `json:"closed_reason,omitempty"`
 	DateCreated         time.Time  `json:"date_created"`
+	DateEnded           *time.Time `json:"date_ended,omitempty"`
+	DateExpiry          *time.Time `json:"date_expiry,omitempty"`
+	DateLastInteraction *time.Time `json:"date_last_interaction,omitempty"`
+	DateStarted         *time.Time `json:"date_started,omitempty"`
 	DateUpdated         *time.Time `json:"date_updated,omitempty"`
+	Mode                *string    `json:"mode,omitempty"`
+	ServiceSid          string     `json:"service_sid"`
+	Sid                 string     `json:"sid"`
+	Status              *string    `json:"status,omitempty"`
+	Ttl                 *int       `json:"ttl,omitempty"`
 	URL                 string     `json:"url"`
+	UniqueName          string     `json:"unique_name"`
 }
 
 func (c Client) Create(input *CreateSessionInput) (*CreateSessionResponse, error) {

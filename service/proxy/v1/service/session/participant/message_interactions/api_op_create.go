@@ -15,12 +15,10 @@ type CreateMessageInteractionInput struct {
 }
 
 type CreateMessageInteractionResponse struct {
-	Sid                    string                  `json:"sid"`
 	AccountSid             string                  `json:"account_sid"`
-	ServiceSid             string                  `json:"service_sid"`
-	SessionSid             string                  `json:"session_sid"`
-	ParticipantSid         string                  `json:"participant_sid"`
 	Data                   *map[string]interface{} `json:"data,omitempty"`
+	DateCreated            time.Time               `json:"date_created"`
+	DateUpdated            *time.Time              `json:"date_updated,omitempty"`
 	InboundParticipantSid  *string                 `json:"inbound_participant_sid,omitempty"`
 	InboundResourceSid     *string                 `json:"inbound_resource_sid,omitempty"`
 	InboundResourceStatus  *string                 `json:"inbound_resource_status,omitempty"`
@@ -31,9 +29,11 @@ type CreateMessageInteractionResponse struct {
 	OutboundResourceStatus *string                 `json:"outbound_resource_status,omitempty"`
 	OutboundResourceType   *string                 `json:"outbound_resource_type,omitempty"`
 	OutboundResourceUrl    *string                 `json:"outbound_resource_url,omitempty"`
+	ParticipantSid         string                  `json:"participant_sid"`
+	ServiceSid             string                  `json:"service_sid"`
+	SessionSid             string                  `json:"session_sid"`
+	Sid                    string                  `json:"sid"`
 	Type                   *string                 `json:"type,omitempty"`
-	DateCreated            time.Time               `json:"date_created"`
-	DateUpdated            *time.Time              `json:"date_updated,omitempty"`
 	URL                    string                  `json:"url"`
 }
 

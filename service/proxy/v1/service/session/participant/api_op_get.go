@@ -10,17 +10,17 @@ import (
 )
 
 type GetParticipantResponse struct {
-	Sid                string     `json:"sid"`
 	AccountSid         string     `json:"account_sid"`
-	ServiceSid         string     `json:"service_sid"`
-	SessionSid         string     `json:"session_sid"`
+	DateCreated        time.Time  `json:"date_created"`
+	DateDeleted        *time.Time `json:"date_deleted,omitempty"`
+	DateUpdated        *time.Time `json:"date_updated,omitempty"`
+	FriendlyName       *string    `json:"friendly_name,omitempty"`
 	Identifier         string     `json:"identifier"`
 	ProxyIdentifier    *string    `json:"proxy_identifier,omitempty"`
 	ProxyIdentifierSid *string    `json:"proxy_identifier_sid,omitempty"`
-	FriendlyName       *string    `json:"friendly_name,omitempty"`
-	DateDeleted        *time.Time `json:"date_deleted,omitempty"`
-	DateCreated        time.Time  `json:"date_created"`
-	DateUpdated        *time.Time `json:"date_updated,omitempty"`
+	ServiceSid         string     `json:"service_sid"`
+	SessionSid         string     `json:"session_sid"`
+	Sid                string     `json:"sid"`
 	URL                string     `json:"url"`
 }
 

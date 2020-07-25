@@ -19,148 +19,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateServiceInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "UniqueName",
-                "required": true
-              },
-              {
-                "name": "DefaultTtl",
-                "type": "int",
-                "value": "DefaultTtl",
-                "required": false
-              },
-              {
-                "name": "CallbackUrl",
-                "type": "string",
-                "value": "CallbackUrl",
-                "required": false
-              },
-              {
-                "name": "GeoMatchLevel",
-                "type": "string",
-                "value": "GeoMatchLevel",
-                "required": false
-              },
-              {
-                "name": "NumberSelectionBehavior",
-                "type": "string",
-                "value": "NumberSelectionBehavior",
-                "required": false
-              },
-              {
-                "name": "InterceptCallbackUrl",
-                "type": "string",
-                "value": "InterceptCallbackUrl",
-                "required": false
-              },
-              {
-                "name": "OutOfSessionCallbackUrl",
-                "type": "string",
-                "value": "OutOfSessionCallbackUrl",
-                "required": false
-              },
-              {
-                "name": "ChatInstanceSid",
-                "type": "string",
-                "value": "ChatInstanceSid",
-                "required": false
-              }
-            ]
+            "structure": "CreateServiceInput"
           },
           "response": {
             "name": "CreateServiceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "ChatInstanceSid",
-                "type": "string",
-                "value": "chat_instance_sid",
-                "required": false
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "chat_service_sid",
-                "required": true
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "DefaultTtl",
-                "type": "int",
-                "value": "default_ttl",
-                "required": false
-              },
-              {
-                "name": "CallbackUrl",
-                "type": "string",
-                "value": "callback_url",
-                "required": false
-              },
-              {
-                "name": "GeoMatchLevel",
-                "type": "string",
-                "value": "geo_match_level",
-                "required": false
-              },
-              {
-                "name": "NumberSelectionBehavior",
-                "type": "string",
-                "value": "number_selection_behavior",
-                "required": false
-              },
-              {
-                "name": "InterceptCallbackUrl",
-                "type": "string",
-                "value": "intercept_callback_url",
-                "required": false
-              },
-              {
-                "name": "OutOfSessionCallbackUrl",
-                "type": "string",
-                "value": "out_of_session_callback_url",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ServiceResponse"
           }
         }
       ]
@@ -201,192 +64,11 @@
                 ]
               },
               "input": {
-                "name": "CreatePhoneNumberInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "Sid",
-                    "required": false
-                  },
-                  {
-                    "name": "PhoneNumber",
-                    "type": "string",
-                    "value": "PhoneNumber",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "IsReserved",
-                    "required": false
-                  }
-                ]
+                "structure": "CreatePhoneNumberInput"
               },
               "response": {
                 "name": "CreatePhoneNumberResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "CreatePhoneNumberResponseCapabilities",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "SmsInbound",
-                        "type": "bool",
-                        "value": "sms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SmsOutbound",
-                        "type": "bool",
-                        "value": "sms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionSmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_sms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionVoiceDomestic",
-                        "type": "bool",
-                        "value": "restriction_voice_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceOutbound",
-                        "type": "bool",
-                        "value": "voice_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceInbound",
-                        "type": "bool",
-                        "value": "voice_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxInbound",
-                        "type": "bool",
-                        "value": "fax_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxOutbound",
-                        "type": "bool",
-                        "value": "fax_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionFaxDomestic",
-                        "type": "bool",
-                        "value": "restriction_fax_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionMmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_mms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsOutbound",
-                        "type": "bool",
-                        "value": "mms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsInbound",
-                        "type": "bool",
-                        "value": "mms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SipTrunking",
-                        "type": "bool",
-                        "value": "sip_trunking",
-                        "required": false
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "PhoneNumber",
-                    "type": "string",
-                    "value": "phone_number",
-                    "required": false
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "IsoCountry",
-                    "type": "string",
-                    "value": "iso_country",
-                    "required": false
-                  },
-                  {
-                    "name": "Capabilities",
-                    "type": "CreatePhoneNumberResponseCapabilities",
-                    "value": "capabilities",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "is_reserved",
-                    "required": false
-                  },
-                  {
-                    "name": "InUse",
-                    "type": "int",
-                    "value": "in_use",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "PhoneNumberResponse"
               }
             }
           ]
@@ -438,167 +120,7 @@
               },
               "response": {
                 "name": "GetPhoneNumberResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "GetPhoneNumberResponseCapabilities",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "SmsInbound",
-                        "type": "bool",
-                        "value": "sms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SmsOutbound",
-                        "type": "bool",
-                        "value": "sms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionSmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_sms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionVoiceDomestic",
-                        "type": "bool",
-                        "value": "restriction_voice_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceOutbound",
-                        "type": "bool",
-                        "value": "voice_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceInbound",
-                        "type": "bool",
-                        "value": "voice_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxInbound",
-                        "type": "bool",
-                        "value": "fax_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxOutbound",
-                        "type": "bool",
-                        "value": "fax_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionFaxDomestic",
-                        "type": "bool",
-                        "value": "restriction_fax_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionMmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_mms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsOutbound",
-                        "type": "bool",
-                        "value": "mms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsInbound",
-                        "type": "bool",
-                        "value": "mms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SipTrunking",
-                        "type": "bool",
-                        "value": "sip_trunking",
-                        "required": false
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "PhoneNumber",
-                    "type": "string",
-                    "value": "phone_number",
-                    "required": false
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "IsoCountry",
-                    "type": "string",
-                    "value": "iso_country",
-                    "required": false
-                  },
-                  {
-                    "name": "Capabilities",
-                    "type": "GetPhoneNumberResponseCapabilities",
-                    "value": "capabilities",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "is_reserved",
-                    "required": false
-                  },
-                  {
-                    "name": "InUse",
-                    "type": "int",
-                    "value": "in_use",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "PhoneNumberResponse"
               }
             },
             {
@@ -626,180 +148,11 @@
                 ]
               },
               "input": {
-                "name": "UpdatePhoneNumberInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "IsReserved",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdatePhoneNumberInput"
               },
               "response": {
                 "name": "UpdatePhoneNumberResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "UpdatePhoneNumberResponseCapabilities",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "SmsInbound",
-                        "type": "bool",
-                        "value": "sms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SmsOutbound",
-                        "type": "bool",
-                        "value": "sms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionSmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_sms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionVoiceDomestic",
-                        "type": "bool",
-                        "value": "restriction_voice_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceOutbound",
-                        "type": "bool",
-                        "value": "voice_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceInbound",
-                        "type": "bool",
-                        "value": "voice_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxInbound",
-                        "type": "bool",
-                        "value": "fax_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxOutbound",
-                        "type": "bool",
-                        "value": "fax_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionFaxDomestic",
-                        "type": "bool",
-                        "value": "restriction_fax_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionMmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_mms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsOutbound",
-                        "type": "bool",
-                        "value": "mms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsInbound",
-                        "type": "bool",
-                        "value": "mms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SipTrunking",
-                        "type": "bool",
-                        "value": "sip_trunking",
-                        "required": false
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "PhoneNumber",
-                    "type": "string",
-                    "value": "phone_number",
-                    "required": false
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "IsoCountry",
-                    "type": "string",
-                    "value": "iso_country",
-                    "required": false
-                  },
-                  {
-                    "name": "Capabilities",
-                    "type": "UpdatePhoneNumberResponseCapabilities",
-                    "value": "capabilities",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "is_reserved",
-                    "required": false
-                  },
-                  {
-                    "name": "InUse",
-                    "type": "int",
-                    "value": "in_use",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "PhoneNumberResponse"
               }
             },
             {
@@ -856,168 +209,11 @@
                 ]
               },
               "input": {
-                "name": "CreateShortCodeInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "Sid",
-                    "required": true
-                  }
-                ]
+                "structure": "CreateShortCodeInput"
               },
               "response": {
                 "name": "CreateShortCodeResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "CreateShortCodeResponseCapabilities",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "SmsInbound",
-                        "type": "bool",
-                        "value": "sms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SmsOutbound",
-                        "type": "bool",
-                        "value": "sms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionSmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_sms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionVoiceDomestic",
-                        "type": "bool",
-                        "value": "restriction_voice_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceOutbound",
-                        "type": "bool",
-                        "value": "voice_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceInbound",
-                        "type": "bool",
-                        "value": "voice_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxInbound",
-                        "type": "bool",
-                        "value": "fax_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxOutbound",
-                        "type": "bool",
-                        "value": "fax_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionFaxDomestic",
-                        "type": "bool",
-                        "value": "restriction_fax_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionMmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_mms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsOutbound",
-                        "type": "bool",
-                        "value": "mms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsInbound",
-                        "type": "bool",
-                        "value": "mms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SipTrunking",
-                        "type": "bool",
-                        "value": "sip_trunking",
-                        "required": false
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ShortCode",
-                    "type": "string",
-                    "value": "short_code",
-                    "required": false
-                  },
-                  {
-                    "name": "IsoCountry",
-                    "type": "string",
-                    "value": "iso_country",
-                    "required": false
-                  },
-                  {
-                    "name": "Capabilities",
-                    "type": "CreateShortCodeResponseCapabilities",
-                    "value": "capabilities",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "is_reserved",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ShortCodeResponse"
               }
             }
           ]
@@ -1069,155 +265,7 @@
               },
               "response": {
                 "name": "GetShortCodeResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "GetShortCodeResponseCapabilities",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "SmsInbound",
-                        "type": "bool",
-                        "value": "sms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SmsOutbound",
-                        "type": "bool",
-                        "value": "sms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionSmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_sms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionVoiceDomestic",
-                        "type": "bool",
-                        "value": "restriction_voice_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceOutbound",
-                        "type": "bool",
-                        "value": "voice_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceInbound",
-                        "type": "bool",
-                        "value": "voice_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxInbound",
-                        "type": "bool",
-                        "value": "fax_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxOutbound",
-                        "type": "bool",
-                        "value": "fax_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionFaxDomestic",
-                        "type": "bool",
-                        "value": "restriction_fax_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionMmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_mms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsOutbound",
-                        "type": "bool",
-                        "value": "mms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsInbound",
-                        "type": "bool",
-                        "value": "mms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SipTrunking",
-                        "type": "bool",
-                        "value": "sip_trunking",
-                        "required": false
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ShortCode",
-                    "type": "string",
-                    "value": "short_code",
-                    "required": false
-                  },
-                  {
-                    "name": "IsoCountry",
-                    "type": "string",
-                    "value": "iso_country",
-                    "required": false
-                  },
-                  {
-                    "name": "Capabilities",
-                    "type": "GetShortCodeResponseCapabilities",
-                    "value": "capabilities",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "is_reserved",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ShortCodeResponse"
               }
             },
             {
@@ -1245,168 +293,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateShortCodeInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "IsReserved",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateShortCodeInput"
               },
               "response": {
                 "name": "UpdateShortCodeResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "UpdateShortCodeResponseCapabilities",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "SmsInbound",
-                        "type": "bool",
-                        "value": "sms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SmsOutbound",
-                        "type": "bool",
-                        "value": "sms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionSmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_sms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionVoiceDomestic",
-                        "type": "bool",
-                        "value": "restriction_voice_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceOutbound",
-                        "type": "bool",
-                        "value": "voice_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "VoiceInbound",
-                        "type": "bool",
-                        "value": "voice_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxInbound",
-                        "type": "bool",
-                        "value": "fax_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "FaxOutbound",
-                        "type": "bool",
-                        "value": "fax_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionFaxDomestic",
-                        "type": "bool",
-                        "value": "restriction_fax_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "RestrictionMmsDomestic",
-                        "type": "bool",
-                        "value": "restriction_mms_domestic",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsOutbound",
-                        "type": "bool",
-                        "value": "mms_outbound",
-                        "required": false
-                      },
-                      {
-                        "name": "MmsInbound",
-                        "type": "bool",
-                        "value": "mms_inbound",
-                        "required": false
-                      },
-                      {
-                        "name": "SipTrunking",
-                        "type": "bool",
-                        "value": "sip_trunking",
-                        "required": false
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ShortCode",
-                    "type": "string",
-                    "value": "short_code",
-                    "required": false
-                  },
-                  {
-                    "name": "IsoCountry",
-                    "type": "string",
-                    "value": "iso_country",
-                    "required": false
-                  },
-                  {
-                    "name": "Capabilities",
-                    "type": "UpdateShortCodeResponseCapabilities",
-                    "value": "capabilities",
-                    "required": false
-                  },
-                  {
-                    "name": "IsReserved",
-                    "type": "bool",
-                    "value": "is_reserved",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ShortCodeResponse"
               }
             },
             {
@@ -1463,142 +354,11 @@
                 ]
               },
               "input": {
-                "name": "CreateSessionInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": false
-                  },
-                  {
-                    "name": "DateExpiry",
-                    "type": "time.Time",
-                    "value": "DateExpiry",
-                    "required": false
-                  },
-                  {
-                    "name": "Ttl",
-                    "type": "int",
-                    "value": "Ttl",
-                    "required": false
-                  },
-                  {
-                    "name": "Mode",
-                    "type": "string",
-                    "value": "Mode",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "Status",
-                    "required": false
-                  },
-                  {
-                    "name": "Participants",
-                    "type": "[]interface{}",
-                    "value": "Participants",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateSessionInput"
               },
               "response": {
                 "name": "CreateSessionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": false
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateStarted",
-                    "type": "time.Time",
-                    "value": "date_started",
-                    "required": false
-                  },
-                  {
-                    "name": "DateEnded",
-                    "type": "time.Time",
-                    "value": "date_ended",
-                    "required": false
-                  },
-                  {
-                    "name": "DateLastInteraction",
-                    "type": "time.Time",
-                    "value": "date_last_interaction",
-                    "required": false
-                  },
-                  {
-                    "name": "DateExpiry",
-                    "type": "time.Time",
-                    "value": "date_expiry",
-                    "required": false
-                  },
-                  {
-                    "name": "Ttl",
-                    "type": "int",
-                    "value": "ttl",
-                    "required": false
-                  },
-                  {
-                    "name": "Mode",
-                    "type": "string",
-                    "value": "mode",
-                    "required": false
-                  },
-                  {
-                    "name": "ClosedReason",
-                    "type": "string",
-                    "value": "closed_reason",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "SessionResponse"
               }
             }
           ]
@@ -1663,112 +423,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateParticipantInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Identifier",
-                        "type": "string",
-                        "value": "Identifier",
-                        "required": true
-                      },
-                      {
-                        "name": "FriendlyName",
-                        "type": "string",
-                        "value": "FriendlyName",
-                        "required": false
-                      },
-                      {
-                        "name": "ProxyIdentifier",
-                        "type": "string",
-                        "value": "ProxyIdentifier",
-                        "required": false
-                      },
-                      {
-                        "name": "ProxyIdentifierSid",
-                        "type": "string",
-                        "value": "ProxyIdentifierSid",
-                        "required": false
-                      }
-                    ]
+                    "structure": "CreateParticipantInput"
                   },
                   "response": {
                     "name": "CreateParticipantResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "SessionSid",
-                        "type": "string",
-                        "value": "session_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Identifier",
-                        "type": "string",
-                        "value": "identifier",
-                        "required": true
-                      },
-                      {
-                        "name": "ProxyIdentifier",
-                        "type": "string",
-                        "value": "proxy_identifier",
-                        "required": false
-                      },
-                      {
-                        "name": "ProxyIdentifierSid",
-                        "type": "string",
-                        "value": "proxy_identifier_sid",
-                        "required": false
-                      },
-                      {
-                        "name": "FriendlyName",
-                        "type": "string",
-                        "value": "friendly_name",
-                        "required": false
-                      },
-                      {
-                        "name": "DateDeleted",
-                        "type": "time.Time",
-                        "value": "date_deleted",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "ParticipantResponse"
                   }
                 }
               ]
@@ -1849,148 +508,11 @@
                         ]
                       },
                       "input": {
-                        "name": "CreateMessageInteractionInput",
-                        "type": "URLEncoded",
-                        "properties": [
-                          {
-                            "name": "Body",
-                            "type": "string",
-                            "value": "Body",
-                            "required": false
-                          },
-                          {
-                            "name": "MediaUrl",
-                            "type": "string",
-                            "value": "MediaUrl",
-                            "required": false
-                          }
-                        ]
+                        "structure": "CreateMessageInteractionInput"
                       },
                       "response": {
                         "name": "CreateMessageInteractionResponse",
-                        "type": "JSON",
-                        "properties": [
-                          {
-                            "name": "Sid",
-                            "type": "string",
-                            "value": "sid",
-                            "required": true
-                          },
-                          {
-                            "name": "AccountSid",
-                            "type": "string",
-                            "value": "account_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "ServiceSid",
-                            "type": "string",
-                            "value": "service_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "SessionSid",
-                            "type": "string",
-                            "value": "session_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "ParticipantSid",
-                            "type": "string",
-                            "value": "participant_sid",
-                            "required": true
-                          },
-                          {
-                            "name": "Data",
-                            "type": "map[string]interface{}",
-                            "value": "data",
-                            "required": false
-                          },
-                          {
-                            "name": "InboundParticipantSid",
-                            "type": "string",
-                            "value": "inbound_participant_sid",
-                            "required": false
-                          },
-                          {
-                            "name": "InboundResourceSid",
-                            "type": "string",
-                            "value": "inbound_resource_sid",
-                            "required": false
-                          },
-                          {
-                            "name": "InboundResourceStatus",
-                            "type": "string",
-                            "value": "inbound_resource_status",
-                            "required": false
-                          },
-                          {
-                            "name": "InboundResourceType",
-                            "type": "string",
-                            "value": "inbound_resource_type",
-                            "required": false
-                          },
-                          {
-                            "name": "InboundResourceUrl",
-                            "type": "string",
-                            "value": "inbound_resource_url",
-                            "required": false
-                          },
-                          {
-                            "name": "OutboundParticipantSid",
-                            "type": "string",
-                            "value": "outbound_participant_sid",
-                            "required": false
-                          },
-                          {
-                            "name": "OutboundResourceSid",
-                            "type": "string",
-                            "value": "outbound_resource_sid",
-                            "required": false
-                          },
-                          {
-                            "name": "OutboundResourceStatus",
-                            "type": "string",
-                            "value": "outbound_resource_status",
-                            "required": false
-                          },
-                          {
-                            "name": "OutboundResourceType",
-                            "type": "string",
-                            "value": "outbound_resource_type",
-                            "required": false
-                          },
-                          {
-                            "name": "OutboundResourceUrl",
-                            "type": "string",
-                            "value": "outbound_resource_url",
-                            "required": false
-                          },
-                          {
-                            "name": "Type",
-                            "type": "string",
-                            "value": "type",
-                            "required": false
-                          },
-                          {
-                            "name": "DateCreated",
-                            "type": "time.Time",
-                            "value": "date_created",
-                            "required": true
-                          },
-                          {
-                            "name": "DateUpdated",
-                            "type": "time.Time",
-                            "value": "date_updated",
-                            "required": false
-                          },
-                          {
-                            "name": "URL",
-                            "type": "string",
-                            "value": "url",
-                            "required": true
-                          }
-                        ]
+                        "structure": "MessageInteractionResponse"
                       }
                     }
                   ]
@@ -2031,81 +553,7 @@
                   },
                   "response": {
                     "name": "GetParticipantResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "SessionSid",
-                        "type": "string",
-                        "value": "session_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Identifier",
-                        "type": "string",
-                        "value": "identifier",
-                        "required": true
-                      },
-                      {
-                        "name": "ProxyIdentifier",
-                        "type": "string",
-                        "value": "proxy_identifier",
-                        "required": false
-                      },
-                      {
-                        "name": "ProxyIdentifierSid",
-                        "type": "string",
-                        "value": "proxy_identifier_sid",
-                        "required": false
-                      },
-                      {
-                        "name": "FriendlyName",
-                        "type": "string",
-                        "value": "friendly_name",
-                        "required": false
-                      },
-                      {
-                        "name": "DateDeleted",
-                        "type": "time.Time",
-                        "value": "date_deleted",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "ParticipantResponse"
                   }
                 },
                 {
@@ -2202,123 +650,7 @@
                   },
                   "response": {
                     "name": "GetInteractionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ServiceSid",
-                        "type": "string",
-                        "value": "service_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "SessionSid",
-                        "type": "string",
-                        "value": "session_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Data",
-                        "type": "map[string]interface{}",
-                        "value": "data",
-                        "required": false
-                      },
-                      {
-                        "name": "InboundParticipantSid",
-                        "type": "string",
-                        "value": "inbound_participant_sid",
-                        "required": false
-                      },
-                      {
-                        "name": "InboundResourceSid",
-                        "type": "string",
-                        "value": "inbound_resource_sid",
-                        "required": false
-                      },
-                      {
-                        "name": "InboundResourceStatus",
-                        "type": "string",
-                        "value": "inbound_resource_status",
-                        "required": false
-                      },
-                      {
-                        "name": "InboundResourceType",
-                        "type": "string",
-                        "value": "inbound_resource_type",
-                        "required": false
-                      },
-                      {
-                        "name": "InboundResourceUrl",
-                        "type": "string",
-                        "value": "inbound_resource_url",
-                        "required": false
-                      },
-                      {
-                        "name": "OutboundParticipantSid",
-                        "type": "string",
-                        "value": "outbound_participant_sid",
-                        "required": false
-                      },
-                      {
-                        "name": "OutboundResourceSid",
-                        "type": "string",
-                        "value": "outbound_resource_sid",
-                        "required": false
-                      },
-                      {
-                        "name": "OutboundResourceStatus",
-                        "type": "string",
-                        "value": "outbound_resource_status",
-                        "required": false
-                      },
-                      {
-                        "name": "OutboundResourceType",
-                        "type": "string",
-                        "value": "outbound_resource_type",
-                        "required": false
-                      },
-                      {
-                        "name": "OutboundResourceUrl",
-                        "type": "string",
-                        "value": "outbound_resource_url",
-                        "required": false
-                      },
-                      {
-                        "name": "Type",
-                        "type": "string",
-                        "value": "type",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "InteractionResponse"
                   }
                 },
                 {
@@ -2384,99 +716,7 @@
               },
               "response": {
                 "name": "GetSessionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": false
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateStarted",
-                    "type": "time.Time",
-                    "value": "date_started",
-                    "required": false
-                  },
-                  {
-                    "name": "DateEnded",
-                    "type": "time.Time",
-                    "value": "date_ended",
-                    "required": false
-                  },
-                  {
-                    "name": "DateLastInteraction",
-                    "type": "time.Time",
-                    "value": "date_last_interaction",
-                    "required": false
-                  },
-                  {
-                    "name": "DateExpiry",
-                    "type": "time.Time",
-                    "value": "date_expiry",
-                    "required": false
-                  },
-                  {
-                    "name": "Ttl",
-                    "type": "int",
-                    "value": "ttl",
-                    "required": false
-                  },
-                  {
-                    "name": "Mode",
-                    "type": "string",
-                    "value": "mode",
-                    "required": false
-                  },
-                  {
-                    "name": "ClosedReason",
-                    "type": "string",
-                    "value": "closed_reason",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "SessionResponse"
               }
             },
             {
@@ -2505,123 +745,11 @@
               },
               "input": {
                 "name": "UpdateSessionInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "DateExpiry",
-                    "type": "time.Time",
-                    "value": "DateExpiry",
-                    "required": false
-                  },
-                  {
-                    "name": "Ttl",
-                    "type": "int",
-                    "value": "Ttl",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "Status",
-                    "required": false
-                  }
-                ]
+                "structure": "SessionInput"
               },
               "response": {
                 "name": "UpdateSessionResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ServiceSid",
-                    "type": "string",
-                    "value": "service_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": false
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateStarted",
-                    "type": "time.Time",
-                    "value": "date_started",
-                    "required": false
-                  },
-                  {
-                    "name": "DateEnded",
-                    "type": "time.Time",
-                    "value": "date_ended",
-                    "required": false
-                  },
-                  {
-                    "name": "DateLastInteraction",
-                    "type": "time.Time",
-                    "value": "date_last_interaction",
-                    "required": false
-                  },
-                  {
-                    "name": "DateExpiry",
-                    "type": "time.Time",
-                    "value": "date_expiry",
-                    "required": false
-                  },
-                  {
-                    "name": "Ttl",
-                    "type": "int",
-                    "value": "ttl",
-                    "required": false
-                  },
-                  {
-                    "name": "Mode",
-                    "type": "string",
-                    "value": "mode",
-                    "required": false
-                  },
-                  {
-                    "name": "ClosedReason",
-                    "type": "string",
-                    "value": "closed_reason",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "SessionResponse"
               }
             },
             {
@@ -2671,93 +799,7 @@
           },
           "response": {
             "name": "GetServiceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "ChatInstanceSid",
-                "type": "string",
-                "value": "chat_instance_sid",
-                "required": false
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "chat_service_sid",
-                "required": true
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "DefaultTtl",
-                "type": "int",
-                "value": "default_ttl",
-                "required": false
-              },
-              {
-                "name": "CallbackUrl",
-                "type": "string",
-                "value": "callback_url",
-                "required": false
-              },
-              {
-                "name": "GeoMatchLevel",
-                "type": "string",
-                "value": "geo_match_level",
-                "required": false
-              },
-              {
-                "name": "NumberSelectionBehavior",
-                "type": "string",
-                "value": "number_selection_behavior",
-                "required": false
-              },
-              {
-                "name": "InterceptCallbackUrl",
-                "type": "string",
-                "value": "intercept_callback_url",
-                "required": false
-              },
-              {
-                "name": "OutOfSessionCallbackUrl",
-                "type": "string",
-                "value": "out_of_session_callback_url",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ServiceResponse"
           }
         },
         {
@@ -2777,148 +819,11 @@
             ]
           },
           "input": {
-            "name": "UpdateServiceInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "UniqueName",
-                "required": false
-              },
-              {
-                "name": "DefaultTtl",
-                "type": "int",
-                "value": "DefaultTtl",
-                "required": false
-              },
-              {
-                "name": "CallbackUrl",
-                "type": "string",
-                "value": "CallbackUrl",
-                "required": false
-              },
-              {
-                "name": "GeoMatchLevel",
-                "type": "string",
-                "value": "GeoMatchLevel",
-                "required": false
-              },
-              {
-                "name": "NumberSelectionBehavior",
-                "type": "string",
-                "value": "NumberSelectionBehavior",
-                "required": false
-              },
-              {
-                "name": "InterceptCallbackUrl",
-                "type": "string",
-                "value": "InterceptCallbackUrl",
-                "required": false
-              },
-              {
-                "name": "OutOfSessionCallbackUrl",
-                "type": "string",
-                "value": "OutOfSessionCallbackUrl",
-                "required": false
-              },
-              {
-                "name": "ChatInstanceSid",
-                "type": "string",
-                "value": "ChatInstanceSid",
-                "required": false
-              }
-            ]
+            "structure": "UpdateServiceInput"
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "ChatInstanceSid",
-                "type": "string",
-                "value": "chat_instance_sid",
-                "required": false
-              },
-              {
-                "name": "ChatServiceSid",
-                "type": "string",
-                "value": "chat_service_sid",
-                "required": true
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "DefaultTtl",
-                "type": "int",
-                "value": "default_ttl",
-                "required": false
-              },
-              {
-                "name": "CallbackUrl",
-                "type": "string",
-                "value": "callback_url",
-                "required": false
-              },
-              {
-                "name": "GeoMatchLevel",
-                "type": "string",
-                "value": "geo_match_level",
-                "required": false
-              },
-              {
-                "name": "NumberSelectionBehavior",
-                "type": "string",
-                "value": "number_selection_behavior",
-                "required": false
-              },
-              {
-                "name": "InterceptCallbackUrl",
-                "type": "string",
-                "value": "intercept_callback_url",
-                "required": false
-              },
-              {
-                "name": "OutOfSessionCallbackUrl",
-                "type": "string",
-                "value": "out_of_session_callback_url",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "ServiceResponse"
           }
         },
         {
@@ -2940,5 +845,881 @@
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "CreateServiceInput": {
+      "type": "URLEncoded",
+      "extends": "BaseServiceInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateServiceInput": {
+      "type": "URLEncoded",
+      "extends": "BaseServiceInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "BaseServiceInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "DefaultTtl",
+          "type": "int",
+          "value": "DefaultTtl",
+          "required": false
+        },
+        {
+          "name": "CallbackUrl",
+          "type": "string",
+          "value": "CallbackUrl",
+          "required": false
+        },
+        {
+          "name": "GeoMatchLevel",
+          "type": "string",
+          "value": "GeoMatchLevel",
+          "required": false
+        },
+        {
+          "name": "NumberSelectionBehavior",
+          "type": "string",
+          "value": "NumberSelectionBehavior",
+          "required": false
+        },
+        {
+          "name": "InterceptCallbackUrl",
+          "type": "string",
+          "value": "InterceptCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "OutOfSessionCallbackUrl",
+          "type": "string",
+          "value": "OutOfSessionCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "ChatInstanceSid",
+          "type": "string",
+          "value": "ChatInstanceSid",
+          "required": false
+        }
+      ]
+    },
+    "ServiceResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ChatInstanceSid",
+          "type": "string",
+          "value": "chat_instance_sid",
+          "required": false
+        },
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "DefaultTtl",
+          "type": "int",
+          "value": "default_ttl",
+          "required": false
+        },
+        {
+          "name": "CallbackUrl",
+          "type": "string",
+          "value": "callback_url",
+          "required": false
+        },
+        {
+          "name": "GeoMatchLevel",
+          "type": "string",
+          "value": "geo_match_level",
+          "required": false
+        },
+        {
+          "name": "NumberSelectionBehavior",
+          "type": "string",
+          "value": "number_selection_behavior",
+          "required": false
+        },
+        {
+          "name": "InterceptCallbackUrl",
+          "type": "string",
+          "value": "intercept_callback_url",
+          "required": false
+        },
+        {
+          "name": "OutOfSessionCallbackUrl",
+          "type": "string",
+          "value": "out_of_session_callback_url",
+          "required": false
+        }
+      ]
+    },
+    "CreatePhoneNumberInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "Sid",
+          "required": false
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "PhoneNumber",
+          "required": false
+        },
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "IsReserved",
+          "required": false
+        }
+      ]
+    },
+    "UpdatePhoneNumberInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "IsReserved",
+          "required": false
+        }
+      ]
+    },
+    "PhoneNumberResponseCapabilities": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "SmsInbound",
+          "type": "bool",
+          "value": "sms_inbound",
+          "required": false
+        },
+        {
+          "name": "SmsOutbound",
+          "type": "bool",
+          "value": "sms_outbound",
+          "required": false
+        },
+        {
+          "name": "RestrictionSmsDomestic",
+          "type": "bool",
+          "value": "restriction_sms_domestic",
+          "required": false
+        },
+        {
+          "name": "RestrictionVoiceDomestic",
+          "type": "bool",
+          "value": "restriction_voice_domestic",
+          "required": false
+        },
+        {
+          "name": "VoiceOutbound",
+          "type": "bool",
+          "value": "voice_outbound",
+          "required": false
+        },
+        {
+          "name": "VoiceInbound",
+          "type": "bool",
+          "value": "voice_inbound",
+          "required": false
+        },
+        {
+          "name": "FaxInbound",
+          "type": "bool",
+          "value": "fax_inbound",
+          "required": false
+        },
+        {
+          "name": "FaxOutbound",
+          "type": "bool",
+          "value": "fax_outbound",
+          "required": false
+        },
+        {
+          "name": "RestrictionFaxDomestic",
+          "type": "bool",
+          "value": "restriction_fax_domestic",
+          "required": false
+        },
+        {
+          "name": "RestrictionMmsDomestic",
+          "type": "bool",
+          "value": "restriction_mms_domestic",
+          "required": false
+        },
+        {
+          "name": "MmsOutbound",
+          "type": "bool",
+          "value": "mms_outbound",
+          "required": false
+        },
+        {
+          "name": "MmsInbound",
+          "type": "bool",
+          "value": "mms_inbound",
+          "required": false
+        },
+        {
+          "name": "SipTrunking",
+          "type": "bool",
+          "value": "sip_trunking",
+          "required": false
+        }
+      ]
+    },
+    "PhoneNumberResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "phone_number",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "IsoCountry",
+          "type": "string",
+          "value": "iso_country",
+          "required": false
+        },
+        {
+          "name": "Capabilities",
+          "structure": "PhoneNumberResponseCapabilities",
+          "value": "capabilities",
+          "required": false
+        },
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "is_reserved",
+          "required": false
+        },
+        {
+          "name": "InUse",
+          "type": "int",
+          "value": "in_use",
+          "required": false
+        }
+      ]
+    },
+    "CreateShortCodeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "Sid",
+          "required": true
+        }
+      ]
+    },
+    "UpdateShortCodeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "IsReserved",
+          "required": false
+        }
+      ]
+    },
+    "ShortCodeResponseCapabilities": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "SmsInbound",
+          "type": "bool",
+          "value": "sms_inbound",
+          "required": false
+        },
+        {
+          "name": "SmsOutbound",
+          "type": "bool",
+          "value": "sms_outbound",
+          "required": false
+        },
+        {
+          "name": "RestrictionSmsDomestic",
+          "type": "bool",
+          "value": "restriction_sms_domestic",
+          "required": false
+        },
+        {
+          "name": "RestrictionVoiceDomestic",
+          "type": "bool",
+          "value": "restriction_voice_domestic",
+          "required": false
+        },
+        {
+          "name": "VoiceOutbound",
+          "type": "bool",
+          "value": "voice_outbound",
+          "required": false
+        },
+        {
+          "name": "VoiceInbound",
+          "type": "bool",
+          "value": "voice_inbound",
+          "required": false
+        },
+        {
+          "name": "FaxInbound",
+          "type": "bool",
+          "value": "fax_inbound",
+          "required": false
+        },
+        {
+          "name": "FaxOutbound",
+          "type": "bool",
+          "value": "fax_outbound",
+          "required": false
+        },
+        {
+          "name": "RestrictionFaxDomestic",
+          "type": "bool",
+          "value": "restriction_fax_domestic",
+          "required": false
+        },
+        {
+          "name": "RestrictionMmsDomestic",
+          "type": "bool",
+          "value": "restriction_mms_domestic",
+          "required": false
+        },
+        {
+          "name": "MmsOutbound",
+          "type": "bool",
+          "value": "mms_outbound",
+          "required": false
+        },
+        {
+          "name": "MmsInbound",
+          "type": "bool",
+          "value": "mms_inbound",
+          "required": false
+        },
+        {
+          "name": "SipTrunking",
+          "type": "bool",
+          "value": "sip_trunking",
+          "required": false
+        }
+      ]
+    },
+    "ShortCodeResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "ShortCode",
+          "type": "string",
+          "value": "short_code",
+          "required": false
+        },
+        {
+          "name": "IsoCountry",
+          "type": "string",
+          "value": "iso_country",
+          "required": false
+        },
+        {
+          "name": "Capabilities",
+          "structure": "ShortCodeResponseCapabilities",
+          "value": "capabilities",
+          "required": false
+        },
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "is_reserved",
+          "required": false
+        }
+      ]
+    },
+    "CreateSessionInput": {
+      "type": "URLEncoded",
+      "extends": "SessionInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
+          "name": "Mode",
+          "type": "string",
+          "value": "Mode",
+          "required": false
+        },
+        {
+          "name": "Participants",
+          "type": "array",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "Participants",
+          "required": false
+        }
+      ]
+    },
+    "SessionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "DateExpiry",
+          "type": "time.Time",
+          "value": "DateExpiry",
+          "required": false
+        },
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "SessionResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": false
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "DateStarted",
+          "type": "time.Time",
+          "value": "date_started",
+          "required": false
+        },
+        {
+          "name": "DateEnded",
+          "type": "time.Time",
+          "value": "date_ended",
+          "required": false
+        },
+        {
+          "name": "DateLastInteraction",
+          "type": "time.Time",
+          "value": "date_last_interaction",
+          "required": false
+        },
+        {
+          "name": "DateExpiry",
+          "type": "time.Time",
+          "value": "date_expiry",
+          "required": false
+        },
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "ttl",
+          "required": false
+        },
+        {
+          "name": "Mode",
+          "type": "string",
+          "value": "mode",
+          "required": false
+        },
+        {
+          "name": "ClosedReason",
+          "type": "string",
+          "value": "closed_reason",
+          "required": false
+        }
+      ]
+    },
+    "CreateParticipantInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Identifier",
+          "type": "string",
+          "value": "Identifier",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "ProxyIdentifier",
+          "type": "string",
+          "value": "ProxyIdentifier",
+          "required": false
+        },
+        {
+          "name": "ProxyIdentifierSid",
+          "type": "string",
+          "value": "ProxyIdentifierSid",
+          "required": false
+        }
+      ]
+    },
+    "ParticipantResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "SessionSid",
+          "type": "string",
+          "value": "session_sid",
+          "required": true
+        },
+        {
+          "name": "Identifier",
+          "type": "string",
+          "value": "identifier",
+          "required": true
+        },
+        {
+          "name": "ProxyIdentifier",
+          "type": "string",
+          "value": "proxy_identifier",
+          "required": false
+        },
+        {
+          "name": "ProxyIdentifierSid",
+          "type": "string",
+          "value": "proxy_identifier_sid",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "DateDeleted",
+          "type": "time.Time",
+          "value": "date_deleted",
+          "required": false
+        }
+      ]
+    },
+    "CreateMessageInteractionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Body",
+          "type": "string",
+          "value": "Body",
+          "required": false
+        },
+        {
+          "name": "MediaUrl",
+          "type": "string",
+          "value": "MediaUrl",
+          "required": false
+        }
+      ]
+    },
+    "MessageInteractionResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "SessionSid",
+          "type": "string",
+          "value": "session_sid",
+          "required": true
+        },
+        {
+          "name": "ParticipantSid",
+          "type": "string",
+          "value": "participant_sid",
+          "required": true
+        },
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": false
+        },
+        {
+          "name": "InboundParticipantSid",
+          "type": "string",
+          "value": "inbound_participant_sid",
+          "required": false
+        },
+        {
+          "name": "InboundResourceSid",
+          "type": "string",
+          "value": "inbound_resource_sid",
+          "required": false
+        },
+        {
+          "name": "InboundResourceStatus",
+          "type": "string",
+          "value": "inbound_resource_status",
+          "required": false
+        },
+        {
+          "name": "InboundResourceType",
+          "type": "string",
+          "value": "inbound_resource_type",
+          "required": false
+        },
+        {
+          "name": "InboundResourceUrl",
+          "type": "string",
+          "value": "inbound_resource_url",
+          "required": false
+        },
+        {
+          "name": "OutboundParticipantSid",
+          "type": "string",
+          "value": "outbound_participant_sid",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceSid",
+          "type": "string",
+          "value": "outbound_resource_sid",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceStatus",
+          "type": "string",
+          "value": "outbound_resource_status",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceType",
+          "type": "string",
+          "value": "outbound_resource_type",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceUrl",
+          "type": "string",
+          "value": "outbound_resource_url",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": false
+        }
+      ]
+    },
+    "InteractionResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "SessionSid",
+          "type": "string",
+          "value": "session_sid",
+          "required": true
+        },
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": false
+        },
+        {
+          "name": "InboundParticipantSid",
+          "type": "string",
+          "value": "inbound_participant_sid",
+          "required": false
+        },
+        {
+          "name": "InboundResourceSid",
+          "type": "string",
+          "value": "inbound_resource_sid",
+          "required": false
+        },
+        {
+          "name": "InboundResourceStatus",
+          "type": "string",
+          "value": "inbound_resource_status",
+          "required": false
+        },
+        {
+          "name": "InboundResourceType",
+          "type": "string",
+          "value": "inbound_resource_type",
+          "required": false
+        },
+        {
+          "name": "InboundResourceUrl",
+          "type": "string",
+          "value": "inbound_resource_url",
+          "required": false
+        },
+        {
+          "name": "OutboundParticipantSid",
+          "type": "string",
+          "value": "outbound_participant_sid",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceSid",
+          "type": "string",
+          "value": "outbound_resource_sid",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceStatus",
+          "type": "string",
+          "value": "outbound_resource_status",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceType",
+          "type": "string",
+          "value": "outbound_resource_type",
+          "required": false
+        },
+        {
+          "name": "OutboundResourceUrl",
+          "type": "string",
+          "value": "outbound_resource_url",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": false
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
 }

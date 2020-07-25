@@ -14,9 +14,9 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Participants *participants.Client
-	Participant  func(string) *participant.Client
 	Interaction  func(string) *interaction.Client
+	Participant  func(string) *participant.Client
+	Participants *participants.Client
 }
 
 type ClientProperties struct {
@@ -31,17 +31,6 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		serviceSid: properties.ServiceSid,
 		sid:        properties.Sid,
 
-		Participants: participants.New(client, participants.ClientProperties{
-			ServiceSid: properties.ServiceSid,
-			SessionSid: properties.Sid,
-		}),
-		Participant: func(participantSid string) *participant.Client {
-			return participant.New(client, participant.ClientProperties{
-				ServiceSid: properties.ServiceSid,
-				SessionSid: properties.Sid,
-				Sid:        participantSid,
-			})
-		},
 		Interaction: func(interactionSid string) *interaction.Client {
 			return interaction.New(client, interaction.ClientProperties{
 				ServiceSid: properties.ServiceSid,
@@ -49,5 +38,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        interactionSid,
 			})
 		},
+		Participant: func(participantSid string) *participant.Client {
+			return participant.New(client, participant.ClientProperties{
+				ServiceSid: properties.ServiceSid,
+				SessionSid: properties.Sid,
+				Sid:        participantSid,
+			})
+		},
+		Participants: participants.New(client, participants.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			SessionSid: properties.Sid,
+		}),
 	}
 }

@@ -31,9 +31,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		sid:        properties.Sid,
 
 		MessageInteractions: message_interactions.New(client, message_interactions.ClientProperties{
-			SessionSid:     properties.SessionSid,
 			ParticipantSid: properties.Sid,
 			ServiceSid:     properties.ServiceSid,
+			SessionSid:     properties.SessionSid,
 		}),
 	}
 }
