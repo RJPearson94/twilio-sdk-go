@@ -11,20 +11,20 @@ import (
 
 type CreateSampleInput struct {
 	Language      string  `validate:"required" form:"Language"`
-	TaggedText    string  `validate:"required" form:"TaggedText"`
 	SourceChannel *string `form:"SourceChannel,omitempty"`
+	TaggedText    string  `validate:"required" form:"TaggedText"`
 }
 
 type CreateSampleResponse struct {
-	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`
-	TaskSid       string     `json:"task_sid"`
-	Language      string     `json:"language"`
-	TaggedText    string     `json:"tagged_text"`
-	SourceChannel *string    `json:"source_channel,omitempty"`
 	DateCreated   time.Time  `json:"date_created"`
 	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	Language      string     `json:"language"`
+	Sid           string     `json:"sid"`
+	SourceChannel *string    `json:"source_channel,omitempty"`
+	TaggedText    string     `json:"tagged_text"`
+	TaskSid       string     `json:"task_sid"`
 	URL           string     `json:"url"`
 }
 

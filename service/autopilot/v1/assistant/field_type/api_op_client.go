@@ -10,35 +10,35 @@ import (
 type Client struct {
 	client *client.Client
 
-	sid          string
 	assistantSid string
+	sid          string
 
-	FieldValues *field_values.Client
 	FieldValue  func(string) *field_value.Client
+	FieldValues *field_values.Client
 }
 
 type ClientProperties struct {
-	Sid          string
 	AssistantSid string
+	Sid          string
 }
 
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		sid:          properties.Sid,
 		assistantSid: properties.AssistantSid,
+		sid:          properties.Sid,
 
-		FieldValues: field_values.New(client, field_values.ClientProperties{
-			FieldTypeSid: properties.Sid,
-			AssistantSid: properties.AssistantSid,
-		}),
 		FieldValue: func(fieldValueSid string) *field_value.Client {
 			return field_value.New(client, field_value.ClientProperties{
-				Sid:          fieldValueSid,
 				AssistantSid: properties.AssistantSid,
 				FieldTypeSid: properties.Sid,
+				Sid:          fieldValueSid,
 			})
 		},
+		FieldValues: field_values.New(client, field_values.ClientProperties{
+			AssistantSid: properties.AssistantSid,
+			FieldTypeSid: properties.Sid,
+		}),
 	}
 }

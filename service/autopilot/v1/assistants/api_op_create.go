@@ -10,29 +10,29 @@ import (
 )
 
 type CreateAssistantInput struct {
+	CallbackEvents *string `form:"CallbackEvents,omitempty"`
+	CallbackURL    *string `form:"CallbackUrl,omitempty"`
+	Defaults       *string `form:"Defaults,omitempty"`
 	FriendlyName   *string `form:"FriendlyName,omitempty"`
 	LogQueries     *bool   `form:"LogQueries,omitempty"`
-	UniqueName     *string `form:"UniqueName,omitempty"`
-	CallbackURL    *string `form:"CallbackUrl,omitempty"`
-	CallbackEvents *string `form:"CallbackEvents,omitempty"`
 	StyleSheet     *string `form:"StyleSheet,omitempty"`
-	Defaults       *string `form:"Defaults,omitempty"`
+	UniqueName     *string `form:"UniqueName,omitempty"`
 }
 
 type CreateAssistantResponse struct {
-	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
-	LatestModelBuildSid *string    `json:"latest_model_build_sid,omitempty"`
-	UniqueName          string     `json:"unique_name"`
-	FriendlyName        *string    `json:"friendly_name,omitempty"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`
 	CallbackURL         *string    `json:"callback_url,omitempty"`
-	LogQueries          bool       `json:"log_queries"`
-	DevelopmentStage    string     `json:"development_stage"`
-	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
 	DateCreated         time.Time  `json:"date_created"`
 	DateUpdated         *time.Time `json:"date_updated,omitempty"`
+	DevelopmentStage    string     `json:"development_stage"`
+	FriendlyName        *string    `json:"friendly_name,omitempty"`
+	LatestModelBuildSid *string    `json:"latest_model_build_sid,omitempty"`
+	LogQueries          bool       `json:"log_queries"`
+	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
+	Sid                 string     `json:"sid"`
 	URL                 string     `json:"url"`
+	UniqueName          string     `json:"unique_name"`
 }
 
 func (c Client) Create(input *CreateAssistantInput) (*CreateAssistantResponse, error) {

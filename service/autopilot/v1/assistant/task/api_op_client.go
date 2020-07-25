@@ -17,11 +17,11 @@ type Client struct {
 	assistantSid string
 	sid          string
 
-	Fields     *fields.Client
-	Field      func(string) *field.Client
-	Samples    *samples.Client
-	Sample     func(string) *sample.Client
 	Actions    func() *actions.Client
+	Field      func(string) *field.Client
+	Fields     *fields.Client
+	Sample     func(string) *sample.Client
+	Samples    *samples.Client
 	Statistics func() *statistics.Client
 }
 
@@ -37,10 +37,12 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		assistantSid: properties.AssistantSid,
 		sid:          properties.Sid,
 
-		Fields: fields.New(client, fields.ClientProperties{
-			AssistantSid: properties.AssistantSid,
-			TaskSid:      properties.Sid,
-		}),
+		Actions: func() *actions.Client {
+			return actions.New(client, actions.ClientProperties{
+				AssistantSid: properties.AssistantSid,
+				TaskSid:      properties.Sid,
+			})
+		},
 		Field: func(fieldSid string) *field.Client {
 			return field.New(client, field.ClientProperties{
 				AssistantSid: properties.AssistantSid,
@@ -48,27 +50,25 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				TaskSid:      properties.Sid,
 			})
 		},
-		Samples: samples.New(client, samples.ClientProperties{
+		Fields: fields.New(client, fields.ClientProperties{
 			AssistantSid: properties.AssistantSid,
 			TaskSid:      properties.Sid,
 		}),
 		Sample: func(sampleSid string) *sample.Client {
 			return sample.New(client, sample.ClientProperties{
-				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
 				Sid:          sampleSid,
-			})
-		},
-		Actions: func() *actions.Client {
-			return actions.New(client, actions.ClientProperties{
-				AssistantSid: properties.AssistantSid,
 				TaskSid:      properties.Sid,
 			})
 		},
+		Samples: samples.New(client, samples.ClientProperties{
+			AssistantSid: properties.AssistantSid,
+			TaskSid:      properties.Sid,
+		}),
 		Statistics: func() *statistics.Client {
 			return statistics.New(client, statistics.ClientProperties{
-				TaskSid:      properties.Sid,
 				AssistantSid: properties.AssistantSid,
+				TaskSid:      properties.Sid,
 			})
 		},
 	}

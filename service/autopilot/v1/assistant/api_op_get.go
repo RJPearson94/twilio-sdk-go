@@ -10,19 +10,19 @@ import (
 )
 
 type GetAssistantResponse struct {
-	Sid                 string     `json:"sid"`
 	AccountSid          string     `json:"account_sid"`
-	LatestModelBuildSid *string    `json:"latest_model_build_sid,omitempty"`
-	UniqueName          string     `json:"unique_name"`
-	FriendlyName        *string    `json:"friendly_name,omitempty"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`
 	CallbackURL         *string    `json:"callback_url,omitempty"`
-	LogQueries          bool       `json:"log_queries"`
-	DevelopmentStage    string     `json:"development_stage"`
-	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
 	DateCreated         time.Time  `json:"date_created"`
 	DateUpdated         *time.Time `json:"date_updated,omitempty"`
+	DevelopmentStage    string     `json:"development_stage"`
+	FriendlyName        *string    `json:"friendly_name,omitempty"`
+	LatestModelBuildSid *string    `json:"latest_model_build_sid,omitempty"`
+	LogQueries          bool       `json:"log_queries"`
+	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
+	Sid                 string     `json:"sid"`
 	URL                 string     `json:"url"`
+	UniqueName          string     `json:"unique_name"`
 }
 
 func (c Client) Get() (*GetAssistantResponse, error) {

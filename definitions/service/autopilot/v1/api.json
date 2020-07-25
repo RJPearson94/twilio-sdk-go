@@ -20,135 +20,11 @@
           },
           "input": {
             "name": "CreateAssistantInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "LogQueries",
-                "type": "bool",
-                "value": "LogQueries",
-                "required": false
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "UniqueName",
-                "required": false
-              },
-              {
-                "name": "CallbackURL",
-                "type": "string",
-                "value": "CallbackUrl",
-                "required": false
-              },
-              {
-                "name": "CallbackEvents",
-                "type": "string",
-                "value": "CallbackEvents",
-                "required": false
-              },
-              {
-                "name": "StyleSheet",
-                "type": "string",
-                "value": "StyleSheet",
-                "required": false
-              },
-              {
-                "name": "Defaults",
-                "type": "string",
-                "value": "Defaults",
-                "required": false
-              }
-            ]
+            "structure": "AssistantInput"
           },
           "response": {
             "name": "CreateAssistantResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "LatestModelBuildSid",
-                "type": "string",
-                "value": "latest_model_build_sid",
-                "required": false
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": false
-              },
-              {
-                "name": "CallbackEvents",
-                "type": "string",
-                "value": "callback_events",
-                "required": false
-              },
-              {
-                "name": "CallbackURL",
-                "type": "string",
-                "value": "callback_url",
-                "required": false
-              },
-              {
-                "name": "LogQueries",
-                "type": "bool",
-                "value": "log_queries",
-                "required": true
-              },
-              {
-                "name": "DevelopmentStage",
-                "type": "string",
-                "value": "development_stage",
-                "required": true
-              },
-              {
-                "name": "NeedsModelBuild",
-                "type": "bool",
-                "value": "needs_model_build",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "AssistantResponse"
           }
         }
       ]
@@ -193,33 +69,7 @@
               },
               "response": {
                 "name": "GetDefaultResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Data",
-                    "type": "interface{}",
-                    "value": "data",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "DefaultResponse"
               }
             },
             {
@@ -239,46 +89,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateDefaultInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Defaults",
-                    "type": "string",
-                    "value": "Defaults",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateDefaultInput"
               },
               "response": {
                 "name": "UpdateDefaultResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Data",
-                    "type": "interface{}",
-                    "value": "data",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "DefaultResponse"
               }
             }
           ]
@@ -314,33 +129,7 @@
               },
               "response": {
                 "name": "GetStyleSheetResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Data",
-                    "type": "interface{}",
-                    "value": "data",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "StyleSheetResponse"
               }
             },
             {
@@ -360,46 +149,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateStyleSheetInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "StyleSheet",
-                    "type": "string",
-                    "value": "StyleSheet",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateStyleSheetInput"
               },
               "response": {
                 "name": "UpdateStyleSheetResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Data",
-                    "type": "interface{}",
-                    "value": "data",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "StyleSheetResponse"
               }
             }
           ]
@@ -431,94 +185,11 @@
                 ]
               },
               "input": {
-                "name": "CreateTaskInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  },
-                  {
-                    "name": "Actions",
-                    "type": "string",
-                    "value": "Actions",
-                    "required": false
-                  },
-                  {
-                    "name": "ActionsURL",
-                    "type": "string",
-                    "value": "ActionsUrl",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateTaskInput"
               },
               "response": {
                 "name": "CreateTaskResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "ActionsURL",
-                    "type": "string",
-                    "value": "actions_url",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskResponse"
               }
             }
           ]
@@ -583,82 +254,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateFieldInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "UniqueName",
-                        "type": "string",
-                        "value": "UniqueName",
-                        "required": true
-                      },
-                      {
-                        "name": "FieldType",
-                        "type": "string",
-                        "value": "FieldType",
-                        "required": true
-                      }
-                    ]
+                    "structure": "CreateFieldInput"
                   },
                   "response": {
                     "name": "CreateFieldResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "UniqueName",
-                        "type": "string",
-                        "value": "unique_name",
-                        "required": true
-                      },
-                      {
-                        "name": "FieldType",
-                        "type": "string",
-                        "value": "field_type",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "FieldResponse"
                   }
                 }
               ]
@@ -722,63 +322,7 @@
                   },
                   "response": {
                     "name": "GetFieldResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "UniqueName",
-                        "type": "string",
-                        "value": "unique_name",
-                        "required": true
-                      },
-                      {
-                        "name": "FieldType",
-                        "type": "string",
-                        "value": "field_type",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "FieldResponse"
                   }
                 },
                 {
@@ -855,94 +399,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateSampleInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "Language",
-                        "required": true
-                      },
-                      {
-                        "name": "TaggedText",
-                        "type": "string",
-                        "value": "TaggedText",
-                        "required": true
-                      },
-                      {
-                        "name": "SourceChannel",
-                        "type": "string",
-                        "value": "SourceChannel",
-                        "required": false
-                      }
-                    ]
+                    "structure": "CreateSampleInput"
                   },
                   "response": {
                     "name": "CreateSampleResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "language",
-                        "required": true
-                      },
-                      {
-                        "name": "TaggedText",
-                        "type": "string",
-                        "value": "tagged_text",
-                        "required": true
-                      },
-                      {
-                        "name": "SourceChannel",
-                        "type": "string",
-                        "value": "source_channel",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "SampleResponse"
                   }
                 }
               ]
@@ -1006,69 +467,7 @@
                   },
                   "response": {
                     "name": "GetSampleResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "language",
-                        "required": true
-                      },
-                      {
-                        "name": "TaggedText",
-                        "type": "string",
-                        "value": "tagged_text",
-                        "required": true
-                      },
-                      {
-                        "name": "SourceChannel",
-                        "type": "string",
-                        "value": "source_channel",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "SampleResponse"
                   }
                 },
                 {
@@ -1104,94 +503,11 @@
                     ]
                   },
                   "input": {
-                    "name": "UpdateSampleInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "Language",
-                        "required": false
-                      },
-                      {
-                        "name": "TaggedText",
-                        "type": "string",
-                        "value": "TaggedText",
-                        "required": false
-                      },
-                      {
-                        "name": "SourceChannel",
-                        "type": "string",
-                        "value": "SourceChannel",
-                        "required": false
-                      }
-                    ]
+                    "structure": "UpdateSampleInput"
                   },
                   "response": {
                     "name": "UpdateSampleResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "language",
-                        "required": true
-                      },
-                      {
-                        "name": "TaggedText",
-                        "type": "string",
-                        "value": "tagged_text",
-                        "required": true
-                      },
-                      {
-                        "name": "SourceChannel",
-                        "type": "string",
-                        "value": "source_channel",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "SampleResponse"
                   }
                 },
                 {
@@ -1272,39 +588,7 @@
                   },
                   "response": {
                     "name": "GetActionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Data",
-                        "type": "interface{}",
-                        "value": "data",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "ActionResponse"
                   }
                 },
                 {
@@ -1332,52 +616,11 @@
                     ]
                   },
                   "input": {
-                    "name": "UpdateActionInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Actions",
-                        "type": "string",
-                        "value": "Actions",
-                        "required": false
-                      }
-                    ]
+                    "structure": "UpdateActionInput"
                   },
                   "response": {
                     "name": "UpdateActionResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Data",
-                        "type": "interface{}",
-                        "value": "data",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "ActionResponse"
                   }
                 }
               ]
@@ -1425,45 +668,7 @@
                   },
                   "response": {
                     "name": "GetStatisticsResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "TaskSid",
-                        "type": "string",
-                        "value": "task_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "SamplesCount",
-                        "type": "int",
-                        "value": "samples_count",
-                        "required": true
-                      },
-                      {
-                        "name": "FieldsCount",
-                        "type": "int",
-                        "value": "fields_count",
-                        "required": true
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "StatisticsResponse"
                   }
                 }
               ]
@@ -1495,64 +700,8 @@
                 ]
               },
               "response": {
-                "name": "GetAssistantResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "ActionsURL",
-                    "type": "string",
-                    "value": "actions_url",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "name": "GetTaskResponse",
+                "structure": "TaskResponse"
               }
             },
             {
@@ -1580,94 +729,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateTaskInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": false
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  },
-                  {
-                    "name": "Actions",
-                    "type": "string",
-                    "value": "Actions",
-                    "required": false
-                  },
-                  {
-                    "name": "ActionsURL",
-                    "type": "string",
-                    "value": "ActionsUrl",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateTaskInput"
               },
               "response": {
                 "name": "UpdateTaskResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "ActionsURL",
-                    "type": "string",
-                    "value": "actions_url",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskResponse"
               }
             },
             {
@@ -1724,76 +790,11 @@
                 ]
               },
               "input": {
-                "name": "CreateFieldTypeInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateFieldTypeInput"
               },
               "response": {
                 "name": "CreateFieldTypeResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FieldTypeResponse"
               }
             }
           ]
@@ -1858,94 +859,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateFieldValueInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "Language",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "Value",
-                        "required": true
-                      },
-                      {
-                        "name": "SynonymOf",
-                        "type": "string",
-                        "value": "SynonymOf",
-                        "required": false
-                      }
-                    ]
+                    "structure": "CreateFieldValueInput"
                   },
                   "response": {
                     "name": "CreateFieldValueResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FieldTypeSid",
-                        "type": "string",
-                        "value": "field_type_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "language",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "SynonymOf",
-                        "type": "string",
-                        "value": "synonym_of",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "FieldValueResponse"
                   }
                 }
               ]
@@ -2009,69 +927,7 @@
                   },
                   "response": {
                     "name": "GetFieldValueResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AssistantSid",
-                        "type": "string",
-                        "value": "assistant_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "FieldTypeSid",
-                        "type": "string",
-                        "value": "field_type_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Language",
-                        "type": "string",
-                        "value": "language",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "SynonymOf",
-                        "type": "string",
-                        "value": "synonym_of",
-                        "required": false
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "time.Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "time.Time",
-                        "value": "date_updated",
-                        "required": false
-                      },
-                      {
-                        "name": "URL",
-                        "type": "string",
-                        "value": "url",
-                        "required": true
-                      }
-                    ]
+                    "structure": "FieldValueResponse"
                   }
                 },
                 {
@@ -2137,57 +993,7 @@
               },
               "response": {
                 "name": "GetFieldTypeResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FieldTypeResponse"
               }
             },
             {
@@ -2215,76 +1021,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateFieldTypeInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": false
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateFieldTypeInput"
               },
               "response": {
                 "name": "UpdateFieldTypeResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "FieldTypeResponse"
               }
             },
             {
@@ -2341,88 +1082,11 @@
                 ]
               },
               "input": {
-                "name": "CreateModelBuildInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": false
-                  },
-                  {
-                    "name": "StatusCallback",
-                    "type": "string",
-                    "value": "StatusCallback",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateModelBuildInput"
               },
               "response": {
                 "name": "CreateModelBuildResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "BuildDuration",
-                    "type": "int",
-                    "value": "build_duration",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "ErrorCode",
-                    "type": "int",
-                    "value": "error_code",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ModelBuildResponse"
               }
             }
           ]
@@ -2474,69 +1138,7 @@
               },
               "response": {
                 "name": "GetModelBuildResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "BuildDuration",
-                    "type": "int",
-                    "value": "build_duration",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "ErrorCode",
-                    "type": "int",
-                    "value": "error_code",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ModelBuildResponse"
               }
             },
             {
@@ -2564,82 +1166,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateModelBuildInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateModelBuildInput"
               },
               "response": {
                 "name": "UpdateModelBuildResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "BuildDuration",
-                    "type": "int",
-                    "value": "build_duration",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "ErrorCode",
-                    "type": "int",
-                    "value": "error_code",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ModelBuildResponse"
               }
             },
             {
@@ -2696,168 +1227,11 @@
                 ]
               },
               "input": {
-                "name": "CreateQueryInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Language",
-                    "type": "string",
-                    "value": "Language",
-                    "required": true
-                  },
-                  {
-                    "name": "Query",
-                    "type": "string",
-                    "value": "Query",
-                    "required": true
-                  },
-                  {
-                    "name": "Tasks",
-                    "type": "string",
-                    "value": "Tasks",
-                    "required": false
-                  },
-                  {
-                    "name": "ModelBuild",
-                    "type": "string",
-                    "value": "ModelBuild",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateQueryInput"
               },
               "response": {
                 "name": "CreateQueryResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "CreateQueryResponseField",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Name",
-                        "type": "string",
-                        "value": "name",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "Type",
-                        "type": "string",
-                        "value": "type",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "CreateQueryResponseResult",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Task",
-                        "type": "string",
-                        "value": "task",
-                        "required": true
-                      },
-                      {
-                        "name": "Fields",
-                        "type": "[]CreateQueryResponseField",
-                        "value": "fields",
-                        "required": true
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ModelBuildSid",
-                    "type": "string",
-                    "value": "model_build_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "SampleSid",
-                    "type": "string",
-                    "value": "sample_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Language",
-                    "type": "string",
-                    "value": "language",
-                    "required": true
-                  },
-                  {
-                    "name": "Query",
-                    "type": "string",
-                    "value": "query",
-                    "required": true
-                  },
-                  {
-                    "name": "Results",
-                    "type": "CreateQueryResponseResult",
-                    "value": "results",
-                    "required": true
-                  },
-                  {
-                    "name": "SourceChannel",
-                    "type": "string",
-                    "value": "source_channel",
-                    "required": true
-                  },
-                  {
-                    "name": "DialogueSid",
-                    "type": "string",
-                    "value": "dialogue_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "QueryResponse"
               }
             }
           ]
@@ -2909,137 +1283,7 @@
               },
               "response": {
                 "name": "GetQueryResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "GetQueryResponseField",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Name",
-                        "type": "string",
-                        "value": "name",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "Type",
-                        "type": "string",
-                        "value": "type",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "GetQueryResponseResult",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Task",
-                        "type": "string",
-                        "value": "task",
-                        "required": true
-                      },
-                      {
-                        "name": "Fields",
-                        "type": "[]GetQueryResponseField",
-                        "value": "fields",
-                        "required": true
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ModelBuildSid",
-                    "type": "string",
-                    "value": "model_build_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "SampleSid",
-                    "type": "string",
-                    "value": "sample_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Language",
-                    "type": "string",
-                    "value": "language",
-                    "required": true
-                  },
-                  {
-                    "name": "Query",
-                    "type": "string",
-                    "value": "query",
-                    "required": true
-                  },
-                  {
-                    "name": "Results",
-                    "type": "GetQueryResponseResult",
-                    "value": "results",
-                    "required": true
-                  },
-                  {
-                    "name": "SourceChannel",
-                    "type": "string",
-                    "value": "source_channel",
-                    "required": true
-                  },
-                  {
-                    "name": "DialogueSid",
-                    "type": "string",
-                    "value": "dialogue_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "QueryResponse"
               }
             },
             {
@@ -3067,156 +1311,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateQueryInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "SampleSid",
-                    "type": "string",
-                    "value": "SampleSid",
-                    "required": false
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "Status",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateQueryInput"
               },
               "response": {
                 "name": "UpdateQueryResponse",
-                "type": "JSON",
-                "additionalStructs": [
-                  {
-                    "name": "UpdateQueryResponseField",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Name",
-                        "type": "string",
-                        "value": "name",
-                        "required": true
-                      },
-                      {
-                        "name": "Value",
-                        "type": "string",
-                        "value": "value",
-                        "required": true
-                      },
-                      {
-                        "name": "Type",
-                        "type": "string",
-                        "value": "type",
-                        "required": true
-                      }
-                    ]
-                  },
-                  {
-                    "name": "UpdateQueryResponseResult",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Task",
-                        "type": "string",
-                        "value": "task",
-                        "required": true
-                      },
-                      {
-                        "name": "Fields",
-                        "type": "[]UpdateQueryResponseField",
-                        "value": "fields",
-                        "required": true
-                      }
-                    ]
-                  }
-                ],
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ModelBuildSid",
-                    "type": "string",
-                    "value": "model_build_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "SampleSid",
-                    "type": "string",
-                    "value": "sample_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Language",
-                    "type": "string",
-                    "value": "language",
-                    "required": true
-                  },
-                  {
-                    "name": "Query",
-                    "type": "string",
-                    "value": "query",
-                    "required": true
-                  },
-                  {
-                    "name": "Results",
-                    "type": "UpdateQueryResponseResult",
-                    "value": "results",
-                    "required": true
-                  },
-                  {
-                    "name": "SourceChannel",
-                    "type": "string",
-                    "value": "source_channel",
-                    "required": true
-                  },
-                  {
-                    "name": "DialogueSid",
-                    "type": "string",
-                    "value": "dialogue_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "QueryResponse"
               }
             },
             {
@@ -3273,100 +1372,11 @@
                 ]
               },
               "input": {
-                "name": "CreateWebhookInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": true
-                  },
-                  {
-                    "name": "Events",
-                    "type": "string",
-                    "value": "Events",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookURL",
-                    "type": "string",
-                    "value": "WebhookUrl",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookMethod",
-                    "type": "string",
-                    "value": "WebhookMethod",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateWebhookInput"
               },
               "response": {
                 "name": "CreateWebhookResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Events",
-                    "type": "string",
-                    "value": "events",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookURL",
-                    "type": "string",
-                    "value": "webhook_url",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookMethod",
-                    "type": "string",
-                    "value": "webhook_method",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WebhookResponse"
               }
             }
           ]
@@ -3418,69 +1428,7 @@
               },
               "response": {
                 "name": "GetWebhookResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Events",
-                    "type": "string",
-                    "value": "events",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookURL",
-                    "type": "string",
-                    "value": "webhook_url",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookMethod",
-                    "type": "string",
-                    "value": "webhook_method",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WebhookResponse"
               }
             },
             {
@@ -3508,100 +1456,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateWebhookInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": false
-                  },
-                  {
-                    "name": "Events",
-                    "type": "string",
-                    "value": "Events",
-                    "required": false
-                  },
-                  {
-                    "name": "WebhookURL",
-                    "type": "string",
-                    "value": "WebhookUrl",
-                    "required": false
-                  },
-                  {
-                    "name": "WebhookMethod",
-                    "type": "string",
-                    "value": "WebhookMethod",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateWebhookInput"
               },
               "response": {
                 "name": "UpdateWebhookResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssistantSid",
-                    "type": "string",
-                    "value": "assistant_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Events",
-                    "type": "string",
-                    "value": "events",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookURL",
-                    "type": "string",
-                    "value": "webhook_url",
-                    "required": true
-                  },
-                  {
-                    "name": "WebhookMethod",
-                    "type": "string",
-                    "value": "webhook_method",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WebhookResponse"
               }
             },
             {
@@ -3651,87 +1510,7 @@
           },
           "response": {
             "name": "GetAssistantResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "LatestModelBuildSid",
-                "type": "string",
-                "value": "latest_model_build_sid",
-                "required": false
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": false
-              },
-              {
-                "name": "CallbackEvents",
-                "type": "string",
-                "value": "callback_events",
-                "required": false
-              },
-              {
-                "name": "CallbackURL",
-                "type": "string",
-                "value": "callback_url",
-                "required": false
-              },
-              {
-                "name": "LogQueries",
-                "type": "bool",
-                "value": "log_queries",
-                "required": true
-              },
-              {
-                "name": "DevelopmentStage",
-                "type": "string",
-                "value": "development_stage",
-                "required": true
-              },
-              {
-                "name": "NeedsModelBuild",
-                "type": "bool",
-                "value": "needs_model_build",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "AssistantResponse"
           }
         },
         {
@@ -3751,142 +1530,11 @@
             ]
           },
           "input": {
-            "name": "UpdateAssistantInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "LogQueries",
-                "type": "bool",
-                "value": "LogQueries",
-                "required": false
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "UniqueName",
-                "required": false
-              },
-              {
-                "name": "CallbackURL",
-                "type": "string",
-                "value": "CallbackUrl",
-                "required": false
-              },
-              {
-                "name": "CallbackEvents",
-                "type": "string",
-                "value": "CallbackEvents",
-                "required": false
-              },
-              {
-                "name": "StyleSheet",
-                "type": "string",
-                "value": "StyleSheet",
-                "required": false
-              },
-              {
-                "name": "Defaults",
-                "type": "string",
-                "value": "Defaults",
-                "required": false
-              },
-              {
-                "name": "DevelopmentStage",
-                "type": "string",
-                "value": "DevelopmentStage",
-                "required": false
-              }
-            ]
+            "structure": "UpdateAssistantInput"
           },
           "response": {
             "name": "UpdateAssistantResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "LatestModelBuildSid",
-                "type": "string",
-                "value": "latest_model_build_sid",
-                "required": false
-              },
-              {
-                "name": "UniqueName",
-                "type": "string",
-                "value": "unique_name",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": false
-              },
-              {
-                "name": "CallbackEvents",
-                "type": "string",
-                "value": "callback_events",
-                "required": false
-              },
-              {
-                "name": "CallbackURL",
-                "type": "string",
-                "value": "callback_url",
-                "required": false
-              },
-              {
-                "name": "LogQueries",
-                "type": "bool",
-                "value": "log_queries",
-                "required": true
-              },
-              {
-                "name": "DevelopmentStage",
-                "type": "string",
-                "value": "development_stage",
-                "required": true
-              },
-              {
-                "name": "NeedsModelBuild",
-                "type": "bool",
-                "value": "needs_model_build",
-                "required": false
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "AssistantResponse"
           }
         },
         {
@@ -3908,5 +1556,952 @@
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "AssistantInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "LogQueries",
+          "type": "bool",
+          "value": "LogQueries",
+          "required": false
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
+          "name": "CallbackURL",
+          "type": "string",
+          "value": "CallbackUrl",
+          "required": false
+        },
+        {
+          "name": "CallbackEvents",
+          "type": "string",
+          "value": "CallbackEvents",
+          "required": false
+        },
+        {
+          "name": "StyleSheet",
+          "type": "string",
+          "value": "StyleSheet",
+          "required": false
+        },
+        {
+          "name": "Defaults",
+          "type": "string",
+          "value": "Defaults",
+          "required": false
+        }
+      ]
+    },
+    "UpdateAssistantInput": {
+      "type": "URLEncoded",
+      "extends": "AssistantInput",
+      "properties": [
+        {
+          "name": "DevelopmentStage",
+          "type": "string",
+          "value": "DevelopmentStage",
+          "required": false
+        }
+      ]
+    },
+    "AssistantResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "LatestModelBuildSid",
+          "type": "string",
+          "value": "latest_model_build_sid",
+          "required": false
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "CallbackEvents",
+          "type": "string",
+          "value": "callback_events",
+          "required": false
+        },
+        {
+          "name": "CallbackURL",
+          "type": "string",
+          "value": "callback_url",
+          "required": false
+        },
+        {
+          "name": "LogQueries",
+          "type": "bool",
+          "value": "log_queries",
+          "required": true
+        },
+        {
+          "name": "DevelopmentStage",
+          "type": "string",
+          "value": "development_stage",
+          "required": true
+        },
+        {
+          "name": "NeedsModelBuild",
+          "type": "bool",
+          "value": "needs_model_build",
+          "required": false
+        }
+      ]
+    },
+    "UpdateDefaultInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Defaults",
+          "type": "string",
+          "value": "Defaults",
+          "required": false
+        }
+      ]
+    },
+    "DefaultResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "Data",
+          "type": "interface{}",
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "UpdateStyleSheetInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "StyleSheet",
+          "type": "string",
+          "value": "StyleSheet",
+          "required": false
+        }
+      ]
+    },
+    "StyleSheetResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "Data",
+          "type": "interface{}",
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateTaskInput": {
+      "type": "URLEncoded",
+      "extends": "BaseTaskInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateTaskInput": {
+      "type": "URLEncoded",
+      "extends": "BaseTaskInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "BaseTaskInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Actions",
+          "type": "string",
+          "value": "Actions",
+          "required": false
+        },
+        {
+          "name": "ActionsURL",
+          "type": "string",
+          "value": "ActionsUrl",
+          "required": false
+        }
+      ]
+    },
+    "TaskResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "ActionsURL",
+          "type": "string",
+          "value": "actions_url",
+          "required": true
+        }
+      ]
+    },
+    "CreateFieldInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "FieldType",
+          "type": "string",
+          "value": "FieldType",
+          "required": true
+        }
+      ]
+    },
+    "FieldResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "task_sid",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "FieldType",
+          "type": "string",
+          "value": "field_type",
+          "required": true
+        }
+      ]
+    },
+    "CreateSampleInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "Language",
+          "required": true
+        },
+        {
+          "name": "TaggedText",
+          "type": "string",
+          "value": "TaggedText",
+          "required": true
+        },
+        {
+          "name": "SourceChannel",
+          "type": "string",
+          "value": "SourceChannel",
+          "required": false
+        }
+      ]
+    },
+    "UpdateSampleInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "Language",
+          "required": false
+        },
+        {
+          "name": "TaggedText",
+          "type": "string",
+          "value": "TaggedText",
+          "required": false
+        },
+        {
+          "name": "SourceChannel",
+          "type": "string",
+          "value": "SourceChannel",
+          "required": false
+        }
+      ]
+    },
+    "SampleResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "task_sid",
+          "required": true
+        },
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "language",
+          "required": true
+        },
+        {
+          "name": "TaggedText",
+          "type": "string",
+          "value": "tagged_text",
+          "required": true
+        },
+        {
+          "name": "SourceChannel",
+          "type": "string",
+          "value": "source_channel",
+          "required": false
+        }
+      ]
+    },
+    "UpdateActionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Actions",
+          "type": "string",
+          "value": "Actions",
+          "required": false
+        }
+      ]
+    },
+    "ActionResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "task_sid",
+          "required": true
+        },
+        {
+          "name": "Data",
+          "type": "interface{}",
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "StatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "task_sid",
+          "required": true
+        },
+        {
+          "name": "SamplesCount",
+          "type": "int",
+          "value": "samples_count",
+          "required": true
+        },
+        {
+          "name": "FieldsCount",
+          "type": "int",
+          "value": "fields_count",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateFieldTypeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "UpdateFieldTypeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "FieldTypeResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        }
+      ]
+    },
+    "CreateFieldValueInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "Language",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "Value",
+          "required": true
+        },
+        {
+          "name": "SynonymOf",
+          "type": "string",
+          "value": "SynonymOf",
+          "required": false
+        }
+      ]
+    },
+    "FieldValueResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "FieldTypeSid",
+          "type": "string",
+          "value": "field_type_sid",
+          "required": true
+        },
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "language",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        },
+        {
+          "name": "SynonymOf",
+          "type": "string",
+          "value": "synonym_of",
+          "required": false
+        }
+      ]
+    },
+    "CreateModelBuildInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        }
+      ]
+    },
+    "UpdateModelBuildInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "ModelBuildResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "BuildDuration",
+          "type": "int",
+          "value": "build_duration",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "ErrorCode",
+          "type": "int",
+          "value": "error_code",
+          "required": false
+        }
+      ]
+    },
+    "CreateQueryInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "Language",
+          "required": true
+        },
+        {
+          "name": "Query",
+          "type": "string",
+          "value": "Query",
+          "required": true
+        },
+        {
+          "name": "Tasks",
+          "type": "string",
+          "value": "Tasks",
+          "required": false
+        },
+        {
+          "name": "ModelBuild",
+          "type": "string",
+          "value": "ModelBuild",
+          "required": false
+        }
+      ]
+    },
+    "UpdateQueryInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "SampleSid",
+          "type": "string",
+          "value": "SampleSid",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "QueryResponseField": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        }
+      ]
+    },
+    "QueryResponseResult": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "value": "task",
+          "required": true
+        },
+        {
+          "name": "Fields",
+          "type": "array",
+          "items": {
+            "structure": "QueryResponseField"
+          },
+          "value": "fields",
+          "required": true
+        }
+      ]
+    },
+    "QueryResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "ModelBuildSid",
+          "type": "string",
+          "value": "model_build_sid",
+          "required": true
+        },
+        {
+          "name": "SampleSid",
+          "type": "string",
+          "value": "sample_sid",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "Language",
+          "type": "string",
+          "value": "language",
+          "required": true
+        },
+        {
+          "name": "Query",
+          "type": "string",
+          "value": "query",
+          "required": true
+        },
+        {
+          "name": "Results",
+          "structure": "QueryResponseResult",
+          "value": "results",
+          "required": true
+        },
+        {
+          "name": "SourceChannel",
+          "type": "string",
+          "value": "source_channel",
+          "required": true
+        },
+        {
+          "name": "DialogueSid",
+          "type": "string",
+          "value": "dialogue_sid",
+          "required": false
+        }
+      ]
+    },
+    "CreateWebhookInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "Events",
+          "type": "string",
+          "value": "Events",
+          "required": true
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "WebhookUrl",
+          "required": true
+        },
+        {
+          "name": "WebhookMethod",
+          "type": "string",
+          "value": "WebhookMethod",
+          "required": false
+        }
+      ]
+    },
+    "UpdateWebhookInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
+          "name": "Events",
+          "type": "string",
+          "value": "Events",
+          "required": false
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "WebhookUrl",
+          "required": false
+        },
+        {
+          "name": "WebhookMethod",
+          "type": "string",
+          "value": "WebhookMethod",
+          "required": false
+        }
+      ]
+    },
+    "WebhookResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "Events",
+          "type": "string",
+          "value": "events",
+          "required": true
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "webhook_url",
+          "required": true
+        },
+        {
+          "name": "WebhookMethod",
+          "type": "string",
+          "value": "webhook_method",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
 }

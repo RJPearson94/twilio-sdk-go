@@ -11,21 +11,21 @@ import (
 
 type CreateFieldValueInput struct {
 	Language  string  `validate:"required" form:"Language"`
-	Value     string  `validate:"required" form:"Value"`
 	SynonymOf *string `form:"SynonymOf,omitempty"`
+	Value     string  `validate:"required" form:"Value"`
 }
 
 type CreateFieldValueResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	AssistantSid string     `json:"assistant_sid"`
-	FieldTypeSid string     `json:"field_type_sid"`
-	Language     string     `json:"language"`
-	Value        string     `json:"value"`
-	SynonymOf    *string    `json:"synonym_of,omitempty"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FieldTypeSid string     `json:"field_type_sid"`
+	Language     string     `json:"language"`
+	Sid          string     `json:"sid"`
+	SynonymOf    *string    `json:"synonym_of,omitempty"`
 	URL          string     `json:"url"`
+	Value        string     `json:"value"`
 }
 
 func (c Client) Create(input *CreateFieldValueInput) (*CreateFieldValueResponse, error) {

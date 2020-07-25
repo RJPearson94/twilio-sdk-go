@@ -11,36 +11,36 @@ import (
 
 type CreateQueryInput struct {
 	Language   string  `validate:"required" form:"Language"`
+	ModelBuild *string `form:"ModelBuild,omitempty"`
 	Query      string  `validate:"required" form:"Query"`
 	Tasks      *string `form:"Tasks,omitempty"`
-	ModelBuild *string `form:"ModelBuild,omitempty"`
 }
 
 type CreateQueryResponseField struct {
 	Name  string `json:"name"`
-	Value string `json:"value"`
 	Type  string `json:"type"`
+	Value string `json:"value"`
 }
 
 type CreateQueryResponseResult struct {
-	Task   string                     `json:"task"`
 	Fields []CreateQueryResponseField `json:"fields"`
+	Task   string                     `json:"task"`
 }
 
 type CreateQueryResponse struct {
-	Sid           string                    `json:"sid"`
 	AccountSid    string                    `json:"account_sid"`
 	AssistantSid  string                    `json:"assistant_sid"`
-	ModelBuildSid string                    `json:"model_build_sid"`
-	SampleSid     string                    `json:"sample_sid"`
-	Status        string                    `json:"status"`
-	Language      string                    `json:"language"`
-	Query         string                    `json:"query"`
-	Results       CreateQueryResponseResult `json:"results"`
-	SourceChannel string                    `json:"source_channel"`
-	DialogueSid   *string                   `json:"dialogue_sid,omitempty"`
 	DateCreated   time.Time                 `json:"date_created"`
 	DateUpdated   *time.Time                `json:"date_updated,omitempty"`
+	DialogueSid   *string                   `json:"dialogue_sid,omitempty"`
+	Language      string                    `json:"language"`
+	ModelBuildSid string                    `json:"model_build_sid"`
+	Query         string                    `json:"query"`
+	Results       CreateQueryResponseResult `json:"results"`
+	SampleSid     string                    `json:"sample_sid"`
+	Sid           string                    `json:"sid"`
+	SourceChannel string                    `json:"source_channel"`
+	Status        string                    `json:"status"`
 	URL           string                    `json:"url"`
 }
 

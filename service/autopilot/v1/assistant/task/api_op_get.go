@@ -9,23 +9,23 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetAssistantResponse struct {
-	Sid          string     `json:"sid"`
+type GetTaskResponse struct {
 	AccountSid   string     `json:"account_sid"`
-	AssistantSid string     `json:"assistant_sid"`
-	UniqueName   string     `json:"unique_name"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
 	ActionsURL   string     `json:"actions_url"`
+	AssistantSid string     `json:"assistant_sid"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName *string    `json:"friendly_name,omitempty"`
+	Sid          string     `json:"sid"`
 	URL          string     `json:"url"`
+	UniqueName   string     `json:"unique_name"`
 }
 
-func (c Client) Get() (*GetAssistantResponse, error) {
+func (c Client) Get() (*GetTaskResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetAssistantResponse, error) {
+func (c Client) GetWithContext(context context.Context) (*GetTaskResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Assistants/{assistantSid}/Tasks/{sid}",
@@ -35,7 +35,7 @@ func (c Client) GetWithContext(context context.Context) (*GetAssistantResponse, 
 		},
 	}
 
-	response := &GetAssistantResponse{}
+	response := &GetTaskResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

@@ -10,15 +10,15 @@ import (
 )
 
 type GetFieldResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
 	AssistantSid string     `json:"assistant_sid"`
-	TaskSid      string     `json:"task_sid"`
-	UniqueName   string     `json:"unique_name"`
-	FieldType    string     `json:"field_type"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FieldType    string     `json:"field_type"`
+	Sid          string     `json:"sid"`
+	TaskSid      string     `json:"task_sid"`
 	URL          string     `json:"url"`
+	UniqueName   string     `json:"unique_name"`
 }
 
 func (c Client) Get() (*GetFieldResponse, error) {

@@ -10,22 +10,22 @@ import (
 )
 
 type UpdateTaskInput struct {
-	UniqueName   *string `form:"UniqueName,omitempty"`
-	FriendlyName *string `form:"FriendlyName,omitempty"`
 	Actions      *string `form:"Actions,omitempty"`
 	ActionsURL   *string `form:"ActionsUrl,omitempty"`
+	FriendlyName *string `form:"FriendlyName,omitempty"`
+	UniqueName   *string `form:"UniqueName,omitempty"`
 }
 
 type UpdateTaskResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
-	AssistantSid string     `json:"assistant_sid"`
-	UniqueName   string     `json:"unique_name"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
 	ActionsURL   string     `json:"actions_url"`
+	AssistantSid string     `json:"assistant_sid"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName *string    `json:"friendly_name,omitempty"`
+	Sid          string     `json:"sid"`
 	URL          string     `json:"url"`
+	UniqueName   string     `json:"unique_name"`
 }
 
 func (c Client) Update(input *UpdateTaskInput) (*UpdateTaskResponse, error) {

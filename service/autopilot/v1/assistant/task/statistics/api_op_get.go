@@ -11,9 +11,9 @@ import (
 type GetStatisticsResponse struct {
 	AccountSid   string `json:"account_sid"`
 	AssistantSid string `json:"assistant_sid"`
-	TaskSid      string `json:"task_sid"`
-	SamplesCount int    `json:"samples_count"`
 	FieldsCount  int    `json:"fields_count"`
+	SamplesCount int    `json:"samples_count"`
+	TaskSid      string `json:"task_sid"`
 	URL          string `json:"url"`
 }
 

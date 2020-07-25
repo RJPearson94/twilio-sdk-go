@@ -23,17 +23,17 @@ type Client struct {
 	sid string
 
 	Defaults    func() *defaults.Client
-	StyleSheet  func() *style_sheet.Client
-	Tasks       *tasks.Client
-	Task        func(string) *task.Client
-	FieldTypes  *field_types.Client
 	FieldType   func(string) *field_type.Client
-	ModelBuilds *model_builds.Client
+	FieldTypes  *field_types.Client
 	ModelBuild  func(string) *model_build.Client
+	ModelBuilds *model_builds.Client
 	Queries     *queries.Client
 	Query       func(string) *query.Client
-	Webhooks    *webhooks.Client
+	StyleSheet  func() *style_sheet.Client
+	Task        func(string) *task.Client
+	Tasks       *tasks.Client
 	Webhook     func(string) *webhook.Client
+	Webhooks    *webhooks.Client
 }
 
 type ClientProperties struct {
@@ -51,30 +51,13 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				AssistantSid: properties.Sid,
 			})
 		},
-		StyleSheet: func() *style_sheet.Client {
-			return style_sheet.New(client, style_sheet.ClientProperties{
-				AssistantSid: properties.Sid,
-			})
-		},
-		Tasks: tasks.New(client, tasks.ClientProperties{
-			AssistantSid: properties.Sid,
-		}),
-		Task: func(taskSid string) *task.Client {
-			return task.New(client, task.ClientProperties{
-				Sid:          taskSid,
-				AssistantSid: properties.Sid,
-			})
-		},
-		FieldTypes: field_types.New(client, field_types.ClientProperties{
-			AssistantSid: properties.Sid,
-		}),
 		FieldType: func(fieldTypeSid string) *field_type.Client {
 			return field_type.New(client, field_type.ClientProperties{
 				AssistantSid: properties.Sid,
 				Sid:          fieldTypeSid,
 			})
 		},
-		ModelBuilds: model_builds.New(client, model_builds.ClientProperties{
+		FieldTypes: field_types.New(client, field_types.ClientProperties{
 			AssistantSid: properties.Sid,
 		}),
 		ModelBuild: func(modelBuildSid string) *model_build.Client {
@@ -83,6 +66,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:          modelBuildSid,
 			})
 		},
+		ModelBuilds: model_builds.New(client, model_builds.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
 		Queries: queries.New(client, queries.ClientProperties{
 			AssistantSid: properties.Sid,
 		}),
@@ -92,7 +78,18 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:          querySid,
 			})
 		},
-		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+		StyleSheet: func() *style_sheet.Client {
+			return style_sheet.New(client, style_sheet.ClientProperties{
+				AssistantSid: properties.Sid,
+			})
+		},
+		Task: func(taskSid string) *task.Client {
+			return task.New(client, task.ClientProperties{
+				AssistantSid: properties.Sid,
+				Sid:          taskSid,
+			})
+		},
+		Tasks: tasks.New(client, tasks.ClientProperties{
 			AssistantSid: properties.Sid,
 		}),
 		Webhook: func(webhookSid string) *webhook.Client {
@@ -101,5 +98,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:          webhookSid,
 			})
 		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
+			AssistantSid: properties.Sid,
+		}),
 	}
 }

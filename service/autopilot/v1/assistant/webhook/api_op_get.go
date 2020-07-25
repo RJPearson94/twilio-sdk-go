@@ -10,16 +10,16 @@ import (
 )
 
 type GetWebhookResponse struct {
-	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`
-	UniqueName    string     `json:"unique_name"`
-	Events        string     `json:"events"`
-	WebhookURL    string     `json:"webhook_url"`
-	WebhookMethod string     `json:"webhook_method"`
 	DateCreated   time.Time  `json:"date_created"`
 	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	Events        string     `json:"events"`
+	Sid           string     `json:"sid"`
 	URL           string     `json:"url"`
+	UniqueName    string     `json:"unique_name"`
+	WebhookMethod string     `json:"webhook_method"`
+	WebhookURL    string     `json:"webhook_url"`
 }
 
 func (c Client) Get() (*GetWebhookResponse, error) {

@@ -10,16 +10,16 @@ import (
 )
 
 type GetModelBuildResponse struct {
-	Sid           string     `json:"sid"`
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`
-	UniqueName    string     `json:"unique_name"`
 	BuildDuration *int       `json:"build_duration,omitempty"`
-	Status        string     `json:"status"`
-	ErrorCode     *int       `json:"error_code,omitempty"`
 	DateCreated   time.Time  `json:"date_created"`
 	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	ErrorCode     *int       `json:"error_code,omitempty"`
+	Sid           string     `json:"sid"`
+	Status        string     `json:"status"`
 	URL           string     `json:"url"`
+	UniqueName    string     `json:"unique_name"`
 }
 
 func (c Client) Get() (*GetModelBuildResponse, error) {
