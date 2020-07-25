@@ -95,7 +95,9 @@ func mapProperties(structure *gabs.Container, dataType string, apiOperationName 
 			typeName, nestedAdditionalStructs := mapType(property, dataType, apiOperationName, structures)
 			propertiesResponse.Set(typeName, "type")
 
-			additionalStructs = append(additionalStructs, nestedAdditionalStructs...)
+			for _, nestedAdditionalStruct := range nestedAdditionalStructs {
+				additionalStructs = appendIfMissing(additionalStructs, nestedAdditionalStruct)
+			}
 
 			properties = append(properties, propertiesResponse.Data())
 		}
@@ -112,12 +114,15 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 	additionalStructs := make([]interface{}, 0)
 
 	if property.Exists("type") {
-		if property.Path("type").Data().(string) == "array" {
+		typeName = property.Path("type").Data().(string)
+		if typeName == "array" {
 			mappedTypeName, typeAdditionalStructs := mapType(property.Path("items"), dataType, apiOperationName, structures)
 			return "[]" + mappedTypeName, typeAdditionalStructs
 		}
-
-		typeName = property.Path("type").Data().(string)
+		if typeName == "map" {
+			mappedTypeName, typeAdditionalStructs := mapType(property.Path("items"), dataType, apiOperationName, structures)
+			return "map[string]" + mappedTypeName, typeAdditionalStructs
+		}
 	} else if property.Exists("structure") {
 		structureName := property.Path("structure").Data().(string)
 		structName := apiOperationName + property.Path("structure").Data().(string)
@@ -140,6 +145,15 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 	}
 
 	return typeName, additionalStructs
+}
+
+func appendIfMissing(slice []interface{}, newValue interface{}) []interface{} {
+	for _, value := range slice {
+		if value.(map[string]interface{})["name"] == newValue.(map[string]interface{})["name"] {
+			return slice
+		}
+	}
+	return append(slice, newValue)
 }
 
 func sortArrayByName(array []interface{}) {

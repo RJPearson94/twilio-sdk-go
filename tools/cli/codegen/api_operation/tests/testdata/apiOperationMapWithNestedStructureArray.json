@@ -1,0 +1,349 @@
+{
+  "packageName": "configuration",
+  "imports": ["github.com/RJPearson94/twilio-sdk-go/client"],
+  "name": "Get",
+  "http": {
+    "uri": "/Configuration",
+    "method": "Get"
+  },
+  "response": {
+    "name": "GetConfigurationResponse",
+    "type": "JSON",
+    "properties": [
+      {
+        "required": true,
+        "type": "string",
+        "value": "account_sid",
+        "name": "AccountSid"
+      },
+      {
+        "value": "attributes",
+        "name": "Attributes",
+        "required": false,
+        "type": "interface{}"
+      },
+      {
+        "value": "call_recording_enabled",
+        "name": "CallRecordingEnabled",
+        "required": false,
+        "type": "bool"
+      },
+      {
+        "value": "call_recording_webhook_url",
+        "name": "CallRecordingWebhookURL",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "value": "chat_service_instance_sid",
+        "name": "ChatServiceInstanceSid",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "value": "crm_attributes",
+        "name": "CrmAttributes",
+        "required": false,
+        "type": "interface{}"
+      },
+      {
+        "required": false,
+        "type": "string",
+        "value": "crm_callback_url",
+        "name": "CrmCallbackURL"
+      },
+      {
+        "name": "CrmEnabled",
+        "required": false,
+        "type": "bool",
+        "value": "crm_type"
+      },
+      {
+        "type": "string",
+        "value": "crm_fallback_url",
+        "name": "CrmFallbackURL",
+        "required": false
+      },
+      {
+        "value": "crm_type",
+        "name": "CrmType",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "value": "date_created",
+        "name": "DateCreated",
+        "required": true,
+        "type": "time.Time"
+      },
+      {
+        "name": "DateUpdated",
+        "required": false,
+        "type": "time.Time",
+        "value": "date_updated"
+      },
+      {
+        "required": true,
+        "type": "string",
+        "value": "flex_service_instance_sid",
+        "name": "FlexServiceInstanceSid"
+      },
+      {
+        "name": "Integrations",
+        "required": false,
+        "type": "[]GetConfigurationResponseIntegration",
+        "value": "integrations"
+      },
+      {
+        "value": "messaging_service_instance_sid",
+        "name": "MessagingServiceInstanceSid",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "value": "outbound_call_flows",
+        "name": "OutboundCallFlows",
+        "required": false,
+        "type": "interface{}"
+      },
+      {
+        "value": "plugin_service_attributes",
+        "name": "PluginServiceAttributes",
+        "required": false,
+        "type": "interface{}"
+      },
+      {
+        "name": "PluginServiceEnabled",
+        "required": false,
+        "type": "bool",
+        "value": "plugin_service_enabled"
+      },
+      {
+        "value": "public_attributes",
+        "name": "PublicAttributes",
+        "required": false,
+        "type": "interface{}"
+      },
+      {
+        "required": false,
+        "type": "interface{}",
+        "value": "queue_stats_configuration",
+        "name": "QueueStatsConfiguration"
+      },
+      {
+        "required": true,
+        "type": "string",
+        "value": "runtime_domain",
+        "name": "RuntimeDomain"
+      },
+      {
+        "value": "serverless_service_sids",
+        "name": "ServerlessServiceSids",
+        "required": false,
+        "type": "[]string"
+      },
+      {
+        "value": "service_version",
+        "name": "ServiceVersion",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "value": "status",
+        "name": "Status",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "value": "taskrouter_offline_activity_sid",
+        "name": "TaskRouterOfflineActivitySid",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "value": "taskrouter_skills",
+        "name": "TaskRouterSkills",
+        "required": false,
+        "type": "[]GetConfigurationResponseSkill"
+      },
+      {
+        "value": "taskrouter_target_taskqueue_sid",
+        "name": "TaskRouterTargetTaskQueueSid",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "value": "taskrouter_target_workflow_sid",
+        "name": "TaskRouterTargetWorkflowSid",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "value": "taskrouter_taskqueues",
+        "name": "TaskRouterTaskQueues",
+        "required": false,
+        "type": "[]GetConfigurationResponseTaskQueue"
+      },
+      {
+        "value": "taskrouter_worker_attributes",
+        "name": "TaskRouterWorkerAttributes",
+        "required": false,
+        "type": "map[string]interface{}"
+      },
+      {
+        "value": "taskrouter_worker_channels",
+        "name": "TaskRouterWorkerChannels",
+        "required": false,
+        "type": "map[string][]GetConfigurationResponseWorkerChannel"
+      },
+      {
+        "value": "taskrouter_workspace_sid",
+        "name": "TaskRouterWorkspaceSid",
+        "required": true,
+        "type": "string"
+      },
+      { "required": true, "type": "string", "value": "url", "name": "URL" },
+      {
+        "value": "ui_attributes",
+        "name": "UiAttributes",
+        "required": false,
+        "type": "interface{}"
+      },
+      {
+        "type": "interface{}",
+        "value": "ui_dependencies",
+        "name": "UiDependencies",
+        "required": false
+      },
+      {
+        "value": "ui_language",
+        "name": "UiLanguage",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "value": "ui_version",
+        "name": "UiVersion",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "value": "wfm_integrations",
+        "name": "WfmIntegrations",
+        "required": false,
+        "type": "[]GetConfigurationResponseIntegration"
+      }
+    ],
+    "additionalStructs": [
+      {
+        "name": "GetConfigurationResponseIntegration",
+        "type": "JSON",
+        "properties": [
+          {
+            "value": "active",
+            "name": "Active",
+            "required": true,
+            "type": "bool"
+          },
+          {
+            "name": "Author",
+            "required": false,
+            "type": "string",
+            "value": "author"
+          },
+          {
+            "value": "config",
+            "name": "Config",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "value": "logo",
+            "name": "Logo",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "required": true,
+            "type": "string",
+            "value": "name",
+            "name": "Name"
+          },
+          {
+            "name": "Type",
+            "required": true,
+            "type": "string",
+            "value": "type"
+          }
+        ]
+      },
+      {
+        "name": "GetConfigurationResponseSkill",
+        "type": "JSON",
+        "properties": [
+          {
+            "value": "maximum",
+            "name": "Maximum",
+            "required": true,
+            "type": "bool"
+          },
+          {
+            "value": "minimum",
+            "name": "Minimum",
+            "required": true,
+            "type": "int"
+          },
+          {
+            "value": "multivalue",
+            "name": "MultiValue",
+            "required": true,
+            "type": "bool"
+          },
+          {
+            "value": "name",
+            "name": "Name",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "GetConfigurationResponseTaskQueue",
+        "type": "JSON",
+        "properties": [
+          { "type": "string", "value": "sid", "name": "Sid", "required": true },
+          {
+            "value": "targettable",
+            "name": "Targettable",
+            "required": true,
+            "type": "bool"
+          }
+        ]
+      },
+      {
+        "name": "GetConfigurationResponseWorkerChannel",
+        "type": "JSON",
+        "properties": [
+          {
+            "value": "availability",
+            "name": "Availability",
+            "required": true,
+            "type": "bool"
+          },
+          {
+            "value": "capacity",
+            "name": "Capacity",
+            "required": true,
+            "type": "int"
+          },
+          {
+            "value": "name",
+            "name": "Name",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+}

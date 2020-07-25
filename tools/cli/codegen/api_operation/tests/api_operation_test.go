@@ -65,5 +65,22 @@ var _ = Describe("API Operation CodeGen", func() {
 				Expect(*resp).To(Equal(apiOperationArraysData.Data()))
 			})
 		})
+
+		Describe("When the json with a map with nested structure array is translated", func() {
+			apiOperationStructureMapWithNestedStructureArrayJSON, _ := ioutil.ReadFile("testdata/apiOperationStructureMapWithNestedStructureArray.json")
+
+			apiOperationMapWithNestedStructureArrayJSON, _ := ioutil.ReadFile("testdata/apiOperationMapWithNestedStructureArray.json")
+			apiOperationMapWithNestedStructureArrayData, _ := gabs.ParseJSON(apiOperationMapWithNestedStructureArrayJSON)
+
+			resp, err := apioperation.Translate(apiOperationStructureMapWithNestedStructureArrayJSON)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the response should match the golden data", func() {
+				Expect(*resp).To(Equal(apiOperationMapWithNestedStructureArrayData.Data()))
+			})
+		})
 	})
 })
