@@ -17,10 +17,11 @@
     ]
   },
   "input": {
+    "name": "CreatePhoneNumberInput",
     "structure": "PhoneNumberInput"
   },
   "response": {
-    "structure": "PhoneNumberResponse"
+    "structure": "CreatePhoneNumberResponse"
   },
   "structures": {
     "PhoneNumberInput": {
@@ -129,7 +130,7 @@
         }
       ]
     },
-    "PhoneNumberResponse": {
+    "CreatePhoneNumberResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
       "properties": [

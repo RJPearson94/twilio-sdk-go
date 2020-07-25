@@ -43,7 +43,7 @@ func mapStructure(structure *gabs.Container, structureName string, apiOperationN
 	if structure.Exists("name") {
 		name = structure.Path("name").Data().(string)
 	} else {
-		name = structureName + nestedStructureName
+		name = nestedStructureName
 	}
 
 	structureResponse.Set(name, "name")
