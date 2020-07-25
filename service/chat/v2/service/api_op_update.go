@@ -33,9 +33,9 @@ type UpdateServiceInput struct {
 	NotificationsRemovedFromChannelSound     *string   `form:"Notifications.RemovedFromChannel.Sound,omitempty"`
 	NotificationsRemovedFromChannelTemplate  *string   `form:"Notifications.RemovedFromChannel.Template,omitempty"`
 	PostWebhookRetryCount                    *int      `form:"PostWebhookRetryCount,omitempty"`
-	PostWebhookUrl                           *string   `form:"PostWebhookUrl,omitempty"`
+	PostWebhookURL                           *string   `form:"PostWebhookUrl,omitempty"`
 	PreWebhookRetryCount                     *int      `form:"PreWebhookRetryCount,omitempty"`
-	PreWebhookUrl                            *string   `form:"PreWebhookUrl,omitempty"`
+	PreWebhookURL                            *string   `form:"PreWebhookUrl,omitempty"`
 	ReadStatusEnabled                        *bool     `form:"ReadStatusEnabled,omitempty"`
 	TypingIndicatorTimeout                   *int      `form:"TypingIndicatorTimeout,omitempty"`
 	WebhookFilters                           *[]string `form:"WebhookFilters,omitempty"`
@@ -55,9 +55,9 @@ type UpdateServiceResponse struct {
 	Media                        map[string]interface{} `json:"media"`
 	Notifications                map[string]interface{} `json:"notifications"`
 	PostWebhookRetryCount        *int                   `json:"post_webhook_retry_count,omitempty"`
-	PostWebhookUrl               *string                `json:"post_webhook_url,omitempty"`
+	PostWebhookURL               *string                `json:"post_webhook_url,omitempty"`
 	PreWebhookRetryCount         *int                   `json:"pre_webhook_retry_count,omitempty"`
-	PreWebhookUrl                *string                `json:"pre_webhook_url,omitempty"`
+	PreWebhookURL                *string                `json:"pre_webhook_url,omitempty"`
 	ReachabilityEnabled          bool                   `json:"reachability_enabled"`
 	ReadStatusEnabled            bool                   `json:"read_status_enabled"`
 	Sid                          string                 `json:"sid"`

@@ -15,7 +15,7 @@ type UpdateChannelWebhookInput struct {
 	ConfigurationMethod     *string   `form:"Configuration.Method,omitempty"`
 	ConfigurationRetryCount *int      `form:"Configuration.RetryCount,omitempty"`
 	ConfigurationTriggers   *[]string `form:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl        *string   `form:"Configuration.Url,omitempty"`
+	ConfigurationURL        *string   `form:"Configuration.Url,omitempty"`
 }
 
 type UpdateChannelWebhookResponseConfiguration struct {
@@ -24,7 +24,7 @@ type UpdateChannelWebhookResponseConfiguration struct {
 	Method     *string   `json:"method,omitempty"`
 	RetryCount *int      `json:"retry_count,omitempty"`
 	Triggers   *[]string `json:"triggers,omitempty"`
-	Url        *string   `json:"url,omitempty"`
+	URL        *string   `json:"url,omitempty"`
 }
 
 type UpdateChannelWebhookResponse struct {

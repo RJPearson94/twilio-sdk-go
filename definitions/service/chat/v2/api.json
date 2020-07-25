@@ -1757,7 +1757,7 @@
           "required": false
         },
         {
-          "name": "PreWebhookUrl",
+          "name": "PreWebhookURL",
           "type": "string",
           "value": "PreWebhookUrl",
           "required": false
@@ -1769,7 +1769,7 @@
           "required": false
         },
         {
-          "name": "PostWebhookUrl",
+          "name": "PostWebhookURL",
           "type": "string",
           "value": "PostWebhookUrl",
           "required": false
@@ -1857,19 +1857,28 @@
         },
         {
           "name": "Limits",
-          "type": "map[string]interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "limits",
           "required": true
         },
         {
           "name": "Media",
-          "type": "map[string]interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "media",
           "required": true
         },
         {
           "name": "Notifications",
-          "type": "map[string]interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "notifications",
           "required": true
         },
@@ -1880,7 +1889,7 @@
           "required": false
         },
         {
-          "name": "PostWebhookUrl",
+          "name": "PostWebhookURL",
           "type": "string",
           "value": "post_webhook_url",
           "required": false
@@ -1892,7 +1901,7 @@
           "required": false
         },
         {
-          "name": "PreWebhookUrl",
+          "name": "PreWebhookURL",
           "type": "string",
           "value": "pre_webhook_url",
           "required": false
@@ -2346,7 +2355,10 @@
         },
         {
           "name": "Media",
-          "type": "map[string]interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "media",
           "required": false
         }
@@ -2368,7 +2380,7 @@
       "type": "URLEncoded",
       "properties": [
         {
-          "name": "ConfigurationUrl",
+          "name": "ConfigurationURL",
           "type": "string",
           "value": "Configuration.Url",
           "required": false
@@ -2381,13 +2393,19 @@
         },
         {
           "name": "ConfigurationFilters",
-          "type": "[]string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "value": "Configuration.Filters",
           "required": false
         },
         {
           "name": "ConfigurationTriggers",
-          "type": "[]string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "value": "Configuration.Triggers",
           "required": false
         },
@@ -2409,7 +2427,7 @@
       "type": "JSON",
       "properties": [
         {
-          "name": "Url",
+          "name": "URL",
           "type": "string",
           "value": "url",
           "required": false

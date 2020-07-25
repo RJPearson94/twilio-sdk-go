@@ -22,9 +22,9 @@ type GetServiceResponse struct {
 	Media                        map[string]interface{} `json:"media"`
 	Notifications                map[string]interface{} `json:"notifications"`
 	PostWebhookRetryCount        *int                   `json:"post_webhook_retry_count,omitempty"`
-	PostWebhookUrl               *string                `json:"post_webhook_url,omitempty"`
+	PostWebhookURL               *string                `json:"post_webhook_url,omitempty"`
 	PreWebhookRetryCount         *int                   `json:"pre_webhook_retry_count,omitempty"`
-	PreWebhookUrl                *string                `json:"pre_webhook_url,omitempty"`
+	PreWebhookURL                *string                `json:"pre_webhook_url,omitempty"`
 	ReachabilityEnabled          bool                   `json:"reachability_enabled"`
 	ReadStatusEnabled            bool                   `json:"read_status_enabled"`
 	Sid                          string                 `json:"sid"`

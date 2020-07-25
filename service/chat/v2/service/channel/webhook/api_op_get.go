@@ -15,7 +15,7 @@ type GetChannelWebhookResponseConfiguration struct {
 	Method     *string   `json:"method,omitempty"`
 	RetryCount *int      `json:"retry_count,omitempty"`
 	Triggers   *[]string `json:"triggers,omitempty"`
-	Url        *string   `json:"url,omitempty"`
+	URL        *string   `json:"url,omitempty"`
 }
 
 type GetChannelWebhookResponse struct {
