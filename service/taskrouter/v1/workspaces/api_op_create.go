@@ -10,7 +10,7 @@ import (
 )
 
 type CreateWorkspaceInput struct {
-	EventCallbackUrl     *string `form:"EventCallbackUrl,omitempty"`
+	EventCallbackURL     *string `form:"EventCallbackUrl,omitempty"`
 	EventsFilter         *string `form:"EventsFilter,omitempty"`
 	FriendlyName         string  `validate:"required" form:"FriendlyName"`
 	MultiTaskEnabled     *bool   `form:"MultiTaskEnabled,omitempty"`

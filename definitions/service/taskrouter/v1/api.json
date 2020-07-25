@@ -1003,7 +1003,7 @@
       "type": "URLEncoded",
       "properties": [
         {
-          "name": "EventCallbackUrl",
+          "name": "EventCallbackURL",
           "type": "string",
           "value": "EventCallbackUrl",
           "required": false
