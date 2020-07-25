@@ -6,20 +6,20 @@ import "github.com/RJPearson94/twilio-sdk-go/client"
 type Client struct {
 	client *client.Client
 
-	messageSid string
 	accountSid string
+	messageSid string
 }
 
 type ClientProperties struct {
-	MessageSid string
 	AccountSid string
+	MessageSid string
 }
 
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
 
-		messageSid: properties.MessageSid,
 		accountSid: properties.AccountSid,
+		messageSid: properties.MessageSid,
 	}
 }

@@ -14,11 +14,11 @@ type CreateKeyInput struct {
 }
 
 type CreateKeyResponse struct {
-	Sid          string             `json:"sid"`
-	FriendlyName string             `json:"friendly_name"`
-	Secret       string             `json:"secret"`
 	DateCreated  utils.RFC2822Time  `json:"date_created"`
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
+	FriendlyName string             `json:"friendly_name"`
+	Secret       string             `json:"secret"`
+	Sid          string             `json:"sid"`
 }
 
 func (c Client) Create(input *CreateKeyInput) (*CreateKeyResponse, error) {

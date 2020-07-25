@@ -11,11 +11,11 @@ import (
 
 type GetMediaResponse struct {
 	AccountSid  string             `json:"account_sid"`
-	ParentSid   string             `json:"parent_sid"`
-	Sid         string             `json:"sid"`
 	ContentType string             `json:"content_type"`
 	DateCreated utils.RFC2822Time  `json:"date_created"`
 	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	ParentSid   string             `json:"parent_sid"`
+	Sid         string             `json:"sid"`
 }
 
 func (c Client) Get() (*GetMediaResponse, error) {

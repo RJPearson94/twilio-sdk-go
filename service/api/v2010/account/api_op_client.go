@@ -14,10 +14,10 @@ type Client struct {
 
 	sid string
 
-	Keys     *keys.Client
 	Key      func(string) *key.Client
-	Messages *messages.Client
+	Keys     *keys.Client
 	Message  func(string) *message.Client
+	Messages *messages.Client
 }
 
 type ClientProperties struct {
@@ -30,16 +30,13 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
-		Keys: keys.New(client, keys.ClientProperties{
-			AccountSid: properties.Sid,
-		}),
 		Key: func(keySid string) *key.Client {
 			return key.New(client, key.ClientProperties{
-				Sid:        keySid,
 				AccountSid: properties.Sid,
+				Sid:        keySid,
 			})
 		},
-		Messages: messages.New(client, messages.ClientProperties{
+		Keys: keys.New(client, keys.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Message: func(messageSid string) *message.Client {
@@ -48,5 +45,8 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        messageSid,
 			})
 		},
+		Messages: messages.New(client, messages.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
 	}
 }

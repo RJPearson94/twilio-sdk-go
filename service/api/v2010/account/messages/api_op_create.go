@@ -10,43 +10,43 @@ import (
 )
 
 type CreateMessageInput struct {
-	To                  string    `validate:"required" form:"To"`
-	StatusCallback      *string   `form:"StatusCallback,omitempty"`
-	ApplicationSid      *string   `form:"ApplicationSid,omitempty"`
-	MaxPrice            *string   `form:"MaxPrice,omitempty"`
-	ProvideFeedback     *bool     `form:"ProvideFeedback,omitempty"`
-	Attempt             *int      `form:"Attempt,omitempty"`
-	ValidityPeriod      *int      `form:"ValidityPeriod,omitempty"`
-	ForceDelivery       *bool     `form:"ForceDelivery,omitempty"`
-	ContentRetention    *string   `form:"ContentRetention,omitempty"`
 	AddressRetention    *string   `form:"AddressRetention,omitempty"`
-	SmartEncoded        *bool     `form:"SmartEncoded,omitempty"`
-	PersistentActions   *[]string `form:"PersistentAction,omitempty"`
-	From                *string   `form:"From,omitempty"`
-	MessagingServiceSid *string   `form:"MessagingServiceSid,omitempty"`
+	ApplicationSid      *string   `form:"ApplicationSid,omitempty"`
+	Attempt             *int      `form:"Attempt,omitempty"`
 	Body                *string   `form:"Body,omitempty"`
+	ContentRetention    *string   `form:"ContentRetention,omitempty"`
+	ForceDelivery       *bool     `form:"ForceDelivery,omitempty"`
+	From                *string   `form:"From,omitempty"`
+	MaxPrice            *string   `form:"MaxPrice,omitempty"`
 	MediaURLs           *[]string `form:"MediaUrl,omitempty"`
+	MessagingServiceSid *string   `form:"MessagingServiceSid,omitempty"`
+	PersistentActions   *[]string `form:"PersistentAction,omitempty"`
+	ProvideFeedback     *bool     `form:"ProvideFeedback,omitempty"`
+	SmartEncoded        *bool     `form:"SmartEncoded,omitempty"`
+	StatusCallback      *string   `form:"StatusCallback,omitempty"`
+	To                  string    `validate:"required" form:"To"`
+	ValidityPeriod      *int      `form:"ValidityPeriod,omitempty"`
 }
 
 type CreateMessageResponse struct {
-	Body                string             `json:"body"`
-	NumSegments         string             `json:"num_segments"`
-	Direction           string             `json:"direction"`
-	From                *string            `json:"from,omitempty"`
-	Price               *string            `json:"price,omitempty"`
-	ErrorMessage        *string            `json:"error_message,omitempty"`
-	AccountSid          string             `json:"account_sid"`
-	NumMedia            string             `json:"num_media"`
-	To                  string             `json:"to"`
-	Status              string             `json:"status"`
-	Sid                 string             `json:"sid"`
-	MessagingServiceSid *string            `json:"messaging_service_sid,omitempty"`
-	ErrorCode           *int               `json:"error_code,omitempty"`
-	PriceUnit           string             `json:"price_unit"`
 	APIVersion          string             `json:"api_version"`
-	DateSent            utils.RFC2822Time  `json:"date_sent"`
+	AccountSid          string             `json:"account_sid"`
+	Body                string             `json:"body"`
 	DateCreated         utils.RFC2822Time  `json:"date_created"`
+	DateSent            utils.RFC2822Time  `json:"date_sent"`
 	DateUpdated         *utils.RFC2822Time `json:"date_updated,omitempty"`
+	Direction           string             `json:"direction"`
+	ErrorCode           *int               `json:"error_code,omitempty"`
+	ErrorMessage        *string            `json:"error_message,omitempty"`
+	From                *string            `json:"from,omitempty"`
+	MessagingServiceSid *string            `json:"messaging_service_sid,omitempty"`
+	NumMedia            string             `json:"num_media"`
+	NumSegments         string             `json:"num_segments"`
+	Price               *string            `json:"price,omitempty"`
+	PriceUnit           string             `json:"price_unit"`
+	Sid                 string             `json:"sid"`
+	Status              string             `json:"status"`
+	To                  string             `json:"to"`
 }
 
 func (c Client) Create(input *CreateMessageInput) (*CreateMessageResponse, error) {

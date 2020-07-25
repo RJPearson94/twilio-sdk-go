@@ -14,12 +14,12 @@ type CreateFeedbackInput struct {
 }
 
 type CreateFeedbackResponse struct {
-	Sid         string             `json:"sid"`
 	AccountSid  string             `json:"account_sid"`
-	MessageSid  string             `json:"message_sid"`
-	Outcome     string             `json:"outcome"`
 	DateCreated utils.RFC2822Time  `json:"date_created"`
 	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	MessageSid  string             `json:"message_sid"`
+	Outcome     string             `json:"outcome"`
+	Sid         string             `json:"sid"`
 }
 
 func (c Client) Create(input *CreateFeedbackInput) (*CreateFeedbackResponse, error) {

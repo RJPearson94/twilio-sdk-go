@@ -10,24 +10,24 @@ import (
 )
 
 type GetMessageResponse struct {
-	Body                string             `json:"body"`
-	NumSegments         string             `json:"num_segments"`
-	Direction           string             `json:"direction"`
-	From                *string            `json:"from,omitempty"`
-	Price               *string            `json:"price,omitempty"`
-	ErrorMessage        *string            `json:"error_message,omitempty"`
-	AccountSid          string             `json:"account_sid"`
-	NumMedia            string             `json:"num_media"`
-	To                  string             `json:"to"`
-	Status              string             `json:"status"`
-	Sid                 string             `json:"sid"`
-	MessagingServiceSid *string            `json:"messaging_service_sid,omitempty"`
-	ErrorCode           *int               `json:"error_code,omitempty"`
-	PriceUnit           string             `json:"price_unit"`
 	APIVersion          string             `json:"api_version"`
-	DateSent            utils.RFC2822Time  `json:"date_sent"`
+	AccountSid          string             `json:"account_sid"`
+	Body                string             `json:"body"`
 	DateCreated         utils.RFC2822Time  `json:"date_created"`
+	DateSent            utils.RFC2822Time  `json:"date_sent"`
 	DateUpdated         *utils.RFC2822Time `json:"date_updated,omitempty"`
+	Direction           string             `json:"direction"`
+	ErrorCode           *int               `json:"error_code,omitempty"`
+	ErrorMessage        *string            `json:"error_message,omitempty"`
+	From                *string            `json:"from,omitempty"`
+	MessagingServiceSid *string            `json:"messaging_service_sid,omitempty"`
+	NumMedia            string             `json:"num_media"`
+	NumSegments         string             `json:"num_segments"`
+	Price               *string            `json:"price,omitempty"`
+	PriceUnit           string             `json:"price_unit"`
+	Sid                 string             `json:"sid"`
+	Status              string             `json:"status"`
+	To                  string             `json:"to"`
 }
 
 func (c Client) Get() (*GetMessageResponse, error) {

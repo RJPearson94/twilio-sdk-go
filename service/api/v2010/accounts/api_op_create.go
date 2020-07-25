@@ -15,14 +15,14 @@ type CreateAccountInput struct {
 }
 
 type CreateAccountResponse struct {
-	Sid             string             `json:"sid"`
-	OwnerAccountSid string             `json:"owner_account_sid"`
-	FriendlyName    string             `json:"friendly_name"`
-	Status          string             `json:"status"`
 	AuthToken       string             `json:"auth_token"`
-	Type            string             `json:"type"`
 	DateCreated     utils.RFC2822Time  `json:"date_created"`
 	DateUpdated     *utils.RFC2822Time `json:"date_updated,omitempty"`
+	FriendlyName    string             `json:"friendly_name"`
+	OwnerAccountSid string             `json:"owner_account_sid"`
+	Sid             string             `json:"sid"`
+	Status          string             `json:"status"`
+	Type            string             `json:"type"`
 }
 
 func (c Client) Create(input *CreateAccountInput) (*CreateAccountResponse, error) {

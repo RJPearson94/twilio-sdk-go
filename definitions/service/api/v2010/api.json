@@ -20,75 +20,11 @@
           },
           "input": {
             "name": "CreateAccountInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "Status",
-                "required": false
-              }
-            ]
+            "structure": "AccountInput"
           },
           "response": {
             "name": "CreateAccountResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "OwnerAccountSid",
-                "type": "string",
-                "value": "owner_account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "AuthToken",
-                "type": "string",
-                "value": "auth_token",
-                "required": true
-              },
-              {
-                "name": "Type",
-                "type": "string",
-                "value": "type",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "utils.RFC2822Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "utils.RFC2822Time",
-                "value": "date_updated",
-                "required": false
-              }
-            ]
+            "structure": "AccountResponse"
           }
         }
       ]
@@ -130,51 +66,10 @@
               },
               "input": {
                 "name": "CreateKeyInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  }
-                ]
+                "structure": "KeyInput"
               },
               "response": {
-                "name": "CreateKeyResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Secret",
-                    "type": "string",
-                    "value": "secret",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_updated",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateKeyResponse"
               }
             }
           ]
@@ -226,33 +121,7 @@
               },
               "response": {
                 "name": "GetKeyResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_updated",
-                    "required": false
-                  }
-                ]
+                "structure": "KeyResponse"
               }
             },
             {
@@ -281,45 +150,11 @@
               },
               "input": {
                 "name": "UpdateKeyInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  }
-                ]
+                "structure": "KeyInput"
               },
               "response": {
                 "name": "UpdateKeyResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_updated",
-                    "required": false
-                  }
-                ]
+                "structure": "KeyResponse"
               }
             },
             {
@@ -376,220 +211,11 @@
                 ]
               },
               "input": {
-                "name": "CreateMessageInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "To",
-                    "type": "string",
-                    "value": "To",
-                    "required": true
-                  },
-                  {
-                    "name": "StatusCallback",
-                    "type": "string",
-                    "value": "StatusCallback",
-                    "required": false
-                  },
-                  {
-                    "name": "ApplicationSid",
-                    "type": "string",
-                    "value": "ApplicationSid",
-                    "required": false
-                  },
-                  {
-                    "name": "MaxPrice",
-                    "type": "string",
-                    "value": "MaxPrice",
-                    "required": false
-                  },
-                  {
-                    "name": "ProvideFeedback",
-                    "type": "bool",
-                    "value": "ProvideFeedback",
-                    "required": false
-                  },
-                  {
-                    "name": "Attempt",
-                    "type": "int",
-                    "value": "Attempt",
-                    "required": false
-                  },
-                  {
-                    "name": "ValidityPeriod",
-                    "type": "int",
-                    "value": "ValidityPeriod",
-                    "required": false
-                  },
-                  {
-                    "name": "ForceDelivery",
-                    "type": "bool",
-                    "value": "ForceDelivery",
-                    "required": false
-                  },
-                  {
-                    "name": "ContentRetention",
-                    "type": "string",
-                    "value": "ContentRetention",
-                    "required": false
-                  },
-                  {
-                    "name": "AddressRetention",
-                    "type": "string",
-                    "value": "AddressRetention",
-                    "required": false
-                  },
-                  {
-                    "name": "SmartEncoded",
-                    "type": "bool",
-                    "value": "SmartEncoded",
-                    "required": false
-                  },
-                  {
-                    "name": "PersistentActions",
-                    "type": "[]string",
-                    "value": "PersistentAction",
-                    "required": false
-                  },
-                  {
-                    "name": "From",
-                    "type": "string",
-                    "value": "From",
-                    "required": false
-                  },
-                  {
-                    "name": "MessagingServiceSid",
-                    "type": "string",
-                    "value": "MessagingServiceSid",
-                    "required": false
-                  },
-                  {
-                    "name": "Body",
-                    "type": "string",
-                    "value": "Body",
-                    "required": false
-                  },
-                  {
-                    "name": "MediaURLs",
-                    "type": "[]string",
-                    "value": "MediaUrl",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateMessageInput"
               },
               "response": {
                 "name": "CreateMessageResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Body",
-                    "type": "string",
-                    "value": "body",
-                    "required": true
-                  },
-                  {
-                    "name": "NumSegments",
-                    "type": "string",
-                    "value": "num_segments",
-                    "required": true
-                  },
-                  {
-                    "name": "Direction",
-                    "type": "string",
-                    "value": "direction",
-                    "required": true
-                  },
-                  {
-                    "name": "From",
-                    "type": "string",
-                    "value": "from",
-                    "required": false
-                  },
-                  {
-                    "name": "Price",
-                    "type": "string",
-                    "value": "price",
-                    "required": false
-                  },
-                  {
-                    "name": "ErrorMessage",
-                    "type": "string",
-                    "value": "error_message",
-                    "required": false
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "NumMedia",
-                    "type": "string",
-                    "value": "num_media",
-                    "required": true
-                  },
-                  {
-                    "name": "To",
-                    "type": "string",
-                    "value": "to",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "MessagingServiceSid",
-                    "type": "string",
-                    "value": "messaging_service_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "ErrorCode",
-                    "type": "int",
-                    "value": "error_code",
-                    "required": false
-                  },
-                  {
-                    "name": "PriceUnit",
-                    "type": "string",
-                    "value": "price_unit",
-                    "required": true
-                  },
-                  {
-                    "name": "APIVersion",
-                    "type": "string",
-                    "value": "api_version",
-                    "required": true
-                  },
-                  {
-                    "name": "DateSent",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_sent",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_updated",
-                    "required": false
-                  }
-                ]
+                "structure": "MessageResponse"
               }
             }
           ]
@@ -654,58 +280,11 @@
                     ]
                   },
                   "input": {
-                    "name": "CreateFeedbackInput",
-                    "type": "URLEncoded",
-                    "properties": [
-                      {
-                        "name": "Outcome",
-                        "type": "string",
-                        "value": "Outcome",
-                        "required": false
-                      }
-                    ]
+                    "structure": "CreateFeedbackInput"
                   },
                   "response": {
                     "name": "CreateFeedbackResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "MessageSid",
-                        "type": "string",
-                        "value": "message_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Outcome",
-                        "type": "string",
-                        "value": "outcome",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "utils.RFC2822Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "utils.RFC2822Time",
-                        "value": "date_updated",
-                        "required": false
-                      }
-                    ]
+                    "structure": "FeedbackResponse"
                   }
                 }
               ]
@@ -769,45 +348,7 @@
                   },
                   "response": {
                     "name": "GetMediaResponse",
-                    "type": "JSON",
-                    "properties": [
-                      {
-                        "name": "AccountSid",
-                        "type": "string",
-                        "value": "account_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ParentSid",
-                        "type": "string",
-                        "value": "parent_sid",
-                        "required": true
-                      },
-                      {
-                        "name": "Sid",
-                        "type": "string",
-                        "value": "sid",
-                        "required": true
-                      },
-                      {
-                        "name": "ContentType",
-                        "type": "string",
-                        "value": "content_type",
-                        "required": true
-                      },
-                      {
-                        "name": "DateCreated",
-                        "type": "utils.RFC2822Time",
-                        "value": "date_created",
-                        "required": true
-                      },
-                      {
-                        "name": "DateUpdated",
-                        "type": "utils.RFC2822Time",
-                        "value": "date_updated",
-                        "required": false
-                      }
-                    ]
+                    "structure": "MediaResponse"
                   }
                 },
                 {
@@ -873,117 +414,7 @@
               },
               "response": {
                 "name": "GetMessageResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Body",
-                    "type": "string",
-                    "value": "body",
-                    "required": true
-                  },
-                  {
-                    "name": "NumSegments",
-                    "type": "string",
-                    "value": "num_segments",
-                    "required": true
-                  },
-                  {
-                    "name": "Direction",
-                    "type": "string",
-                    "value": "direction",
-                    "required": true
-                  },
-                  {
-                    "name": "From",
-                    "type": "string",
-                    "value": "from",
-                    "required": false
-                  },
-                  {
-                    "name": "Price",
-                    "type": "string",
-                    "value": "price",
-                    "required": false
-                  },
-                  {
-                    "name": "ErrorMessage",
-                    "type": "string",
-                    "value": "error_message",
-                    "required": false
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "NumMedia",
-                    "type": "string",
-                    "value": "num_media",
-                    "required": true
-                  },
-                  {
-                    "name": "To",
-                    "type": "string",
-                    "value": "to",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "MessagingServiceSid",
-                    "type": "string",
-                    "value": "messaging_service_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "ErrorCode",
-                    "type": "int",
-                    "value": "error_code",
-                    "required": false
-                  },
-                  {
-                    "name": "PriceUnit",
-                    "type": "string",
-                    "value": "price_unit",
-                    "required": true
-                  },
-                  {
-                    "name": "APIVersion",
-                    "type": "string",
-                    "value": "api_version",
-                    "required": true
-                  },
-                  {
-                    "name": "DateSent",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_sent",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_updated",
-                    "required": false
-                  }
-                ]
+                "structure": "MessageResponse"
               }
             },
             {
@@ -1011,131 +442,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateMessageInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Body",
-                    "type": "string",
-                    "value": "Body",
-                    "required": true
-                  }
-                ]
+                "structure": "UpdateMessageInput"
               },
               "response": {
                 "name": "UpdateMessageResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Body",
-                    "type": "string",
-                    "value": "body",
-                    "required": true
-                  },
-                  {
-                    "name": "NumSegments",
-                    "type": "string",
-                    "value": "num_segments",
-                    "required": true
-                  },
-                  {
-                    "name": "Direction",
-                    "type": "string",
-                    "value": "direction",
-                    "required": true
-                  },
-                  {
-                    "name": "From",
-                    "type": "string",
-                    "value": "from",
-                    "required": false
-                  },
-                  {
-                    "name": "Price",
-                    "type": "string",
-                    "value": "price",
-                    "required": false
-                  },
-                  {
-                    "name": "ErrorMessage",
-                    "type": "string",
-                    "value": "error_message",
-                    "required": false
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "NumMedia",
-                    "type": "string",
-                    "value": "num_media",
-                    "required": true
-                  },
-                  {
-                    "name": "To",
-                    "type": "string",
-                    "value": "to",
-                    "required": true
-                  },
-                  {
-                    "name": "Status",
-                    "type": "string",
-                    "value": "status",
-                    "required": true
-                  },
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-
-                  {
-                    "name": "MessagingServiceSid",
-                    "type": "string",
-                    "value": "messaging_service_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "ErrorCode",
-                    "type": "int",
-                    "value": "error_code",
-                    "required": false
-                  },
-                  {
-                    "name": "PriceUnit",
-                    "type": "string",
-                    "value": "price_unit",
-                    "required": true
-                  },
-                  {
-                    "name": "APIVersion",
-                    "type": "string",
-                    "value": "api_version",
-                    "required": true
-                  },
-                  {
-                    "name": "DateSent",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_sent",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "utils.RFC2822Time",
-                    "value": "date_updated",
-                    "required": false
-                  }
-                ]
+                "structure": "MessageResponse"
               }
             },
             {
@@ -1185,57 +496,7 @@
           },
           "response": {
             "name": "GetAccountResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "OwnerAccountSid",
-                "type": "string",
-                "value": "owner_account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "AuthToken",
-                "type": "string",
-                "value": "auth_token",
-                "required": true
-              },
-              {
-                "name": "Type",
-                "type": "string",
-                "value": "type",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "utils.RFC2822Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "utils.RFC2822Time",
-                "value": "date_updated",
-                "required": false
-              }
-            ]
+            "structure": "AccountResponse"
           }
         },
         {
@@ -1256,78 +517,397 @@
           },
           "input": {
             "name": "UpdateAccountInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "Status",
-                "required": false
-              }
-            ]
+            "structure": "AccountInput"
           },
           "response": {
             "name": "UpdateAccountResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "OwnerAccountSid",
-                "type": "string",
-                "value": "owner_account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "Status",
-                "type": "string",
-                "value": "status",
-                "required": true
-              },
-              {
-                "name": "AuthToken",
-                "type": "string",
-                "value": "auth_token",
-                "required": true
-              },
-              {
-                "name": "Type",
-                "type": "string",
-                "value": "type",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "utils.RFC2822Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "utils.RFC2822Time",
-                "value": "date_updated",
-                "required": false
-              }
-            ]
+            "structure": "AccountResponse"
           }
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "AccountInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "AccountResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "OwnerAccountSid",
+          "type": "string",
+          "value": "owner_account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "AuthToken",
+          "type": "string",
+          "value": "auth_token",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        }
+      ]
+    },
+    "KeyInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "CreateKeyResponse": {
+      "type": "JSON",
+      "extends": "KeyResponse",
+      "properties": [
+        {
+          "name": "Secret",
+          "type": "string",
+          "value": "secret",
+          "required": true
+        }
+      ]
+    },
+    "KeyResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "CreateMessageInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "To",
+          "type": "string",
+          "value": "To",
+          "required": true
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "ApplicationSid",
+          "type": "string",
+          "value": "ApplicationSid",
+          "required": false
+        },
+        {
+          "name": "MaxPrice",
+          "type": "string",
+          "value": "MaxPrice",
+          "required": false
+        },
+        {
+          "name": "ProvideFeedback",
+          "type": "bool",
+          "value": "ProvideFeedback",
+          "required": false
+        },
+        {
+          "name": "Attempt",
+          "type": "int",
+          "value": "Attempt",
+          "required": false
+        },
+        {
+          "name": "ValidityPeriod",
+          "type": "int",
+          "value": "ValidityPeriod",
+          "required": false
+        },
+        {
+          "name": "ForceDelivery",
+          "type": "bool",
+          "value": "ForceDelivery",
+          "required": false
+        },
+        {
+          "name": "ContentRetention",
+          "type": "string",
+          "value": "ContentRetention",
+          "required": false
+        },
+        {
+          "name": "AddressRetention",
+          "type": "string",
+          "value": "AddressRetention",
+          "required": false
+        },
+        {
+          "name": "SmartEncoded",
+          "type": "bool",
+          "value": "SmartEncoded",
+          "required": false
+        },
+        {
+          "name": "PersistentActions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "PersistentAction",
+          "required": false
+        },
+        {
+          "name": "From",
+          "type": "string",
+          "value": "From",
+          "required": false
+        },
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "MessagingServiceSid",
+          "required": false
+        },
+        {
+          "name": "Body",
+          "type": "string",
+          "value": "Body",
+          "required": false
+        },
+        {
+          "name": "MediaURLs",
+          "type": "[]string",
+          "value": "MediaUrl",
+          "required": false
+        }
+      ]
+    },
+    "UpdateMessageInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Body",
+          "type": "string",
+          "value": "Body",
+          "required": true
+        }
+      ]
+    },
+    "MessageResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Body",
+          "type": "string",
+          "value": "body",
+          "required": true
+        },
+        {
+          "name": "NumSegments",
+          "type": "string",
+          "value": "num_segments",
+          "required": true
+        },
+        {
+          "name": "Direction",
+          "type": "string",
+          "value": "direction",
+          "required": true
+        },
+        {
+          "name": "From",
+          "type": "string",
+          "value": "from",
+          "required": false
+        },
+        {
+          "name": "Price",
+          "type": "string",
+          "value": "price",
+          "required": false
+        },
+        {
+          "name": "ErrorMessage",
+          "type": "string",
+          "value": "error_message",
+          "required": false
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "NumMedia",
+          "type": "string",
+          "value": "num_media",
+          "required": true
+        },
+        {
+          "name": "To",
+          "type": "string",
+          "value": "to",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "messaging_service_sid",
+          "required": false
+        },
+        {
+          "name": "ErrorCode",
+          "type": "int",
+          "value": "error_code",
+          "required": false
+        },
+        {
+          "name": "PriceUnit",
+          "type": "string",
+          "value": "price_unit",
+          "required": true
+        },
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": true
+        },
+        {
+          "name": "DateSent",
+          "type": "utils.RFC2822Time",
+          "value": "date_sent",
+          "required": true
+        }
+      ]
+    },
+    "CreateFeedbackInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Outcome",
+          "type": "string",
+          "value": "Outcome",
+          "required": false
+        }
+      ]
+    },
+    "FeedbackResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "MessageSid",
+          "type": "string",
+          "value": "message_sid",
+          "required": true
+        },
+        {
+          "name": "Outcome",
+          "type": "string",
+          "value": "outcome",
+          "required": true
+        }
+      ]
+    },
+    "MediaResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ParentSid",
+          "type": "string",
+          "value": "parent_sid",
+          "required": true
+        },
+        {
+          "name": "ContentType",
+          "type": "string",
+          "value": "content_type",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "utils.RFC2822Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "utils.RFC2822Time",
+          "value": "date_updated",
+          "required": false
+        }
+      ]
+    }
+  }
 }

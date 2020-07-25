@@ -10,10 +10,10 @@ import (
 )
 
 type GetKeyResponse struct {
-	Sid          string             `json:"sid"`
-	FriendlyName string             `json:"friendly_name"`
 	DateCreated  utils.RFC2822Time  `json:"date_created"`
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
+	FriendlyName string             `json:"friendly_name"`
+	Sid          string             `json:"sid"`
 }
 
 func (c Client) Get() (*GetKeyResponse, error) {
