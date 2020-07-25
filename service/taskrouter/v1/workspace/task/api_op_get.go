@@ -10,25 +10,25 @@ import (
 )
 
 type GetTaskResponse struct {
-	Sid                   string      `json:"sid"`
 	AccountSid            string      `json:"account_sid"`
-	WorkspaceSid          string      `json:"workspace_sid"`
-	AssignmentStatus      string      `json:"assignment_status"`
 	Age                   int         `json:"age"`
+	AssignmentStatus      string      `json:"assignment_status"`
 	Attributes            interface{} `json:"attributes"`
 	DateCreated           time.Time   `json:"date_created"`
 	DateUpdated           *time.Time  `json:"date_updated,omitempty"`
-	TaskQueueEnteredDate  *time.Time  `json:"task_queue_entered_date,omitempty"`
 	Priority              *int        `json:"priority,omitempty"`
 	Reason                *string     `json:"reason,omitempty"`
-	TaskQueueSid          *string     `json:"task_queue_sid,omitempty"`
-	TaskQueueFriendlyName *string     `json:"task_queue_friendly_name,omitempty"`
-	WorkflowSid           *string     `json:"workflow_sid,omitempty"`
-	WorkflowFriendlyName  *string     `json:"workflow_friendly_name,omitempty"`
+	Sid                   string      `json:"sid"`
 	TaskChannelSid        *string     `json:"task_channel_sid,omitempty"`
 	TaskChannelUniqueName *string     `json:"task_channel_unique_name,omitempty"`
+	TaskQueueEnteredDate  *time.Time  `json:"task_queue_entered_date,omitempty"`
+	TaskQueueFriendlyName *string     `json:"task_queue_friendly_name,omitempty"`
+	TaskQueueSid          *string     `json:"task_queue_sid,omitempty"`
 	Timeout               int         `json:"timeout"`
 	URL                   string      `json:"url"`
+	WorkflowFriendlyName  *string     `json:"workflow_friendly_name,omitempty"`
+	WorkflowSid           *string     `json:"workflow_sid,omitempty"`
+	WorkspaceSid          string      `json:"workspace_sid"`
 }
 
 func (c Client) Get() (*GetTaskResponse, error) {

@@ -10,21 +10,21 @@ import (
 )
 
 type GetTaskQueueResponse struct {
-	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
-	WorkspaceSid            string     `json:"workspace_sid"`
-	FriendlyName            string     `json:"friendly_name"`
-	EventCallbackURL        *string    `json:"event_callback_url,omitempty"`
 	AssignmentActivityName  *string    `json:"assignment_activity_name,omitempty"`
 	AssignmentActivitySid   *string    `json:"assignment_activity_sid,omitempty"`
-	ReservationActivityName *string    `json:"reservation_activity_name,omitempty"`
-	ReservationActivitySid  *string    `json:"reservation_activity_sid,omitempty"`
-	TargetWorkers           *string    `json:"target_workers,omitempty"`
-	TaskOrder               string     `json:"task_order"`
-	MaxReservedWorkers      int        `json:"max_reserved_workers"`
 	DateCreated             time.Time  `json:"date_created"`
 	DateUpdated             *time.Time `json:"date_updated,omitempty"`
+	EventCallbackURL        *string    `json:"event_callback_url,omitempty"`
+	FriendlyName            string     `json:"friendly_name"`
+	MaxReservedWorkers      int        `json:"max_reserved_workers"`
+	ReservationActivityName *string    `json:"reservation_activity_name,omitempty"`
+	ReservationActivitySid  *string    `json:"reservation_activity_sid,omitempty"`
+	Sid                     string     `json:"sid"`
+	TargetWorkers           *string    `json:"target_workers,omitempty"`
+	TaskOrder               string     `json:"task_order"`
 	URL                     string     `json:"url"`
+	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
 func (c Client) Get() (*GetTaskQueueResponse, error) {

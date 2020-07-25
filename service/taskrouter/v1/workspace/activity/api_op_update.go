@@ -14,14 +14,14 @@ type UpdateActivityInput struct {
 }
 
 type UpdateActivityResponse struct {
-	Sid          string     `json:"sid"`
 	AccountSid   string     `json:"account_sid"`
-	WorkspaceSid string     `json:"workspace_sid"`
-	FriendlyName string     `json:"friendly_name"`
 	Available    bool       `json:"available"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName string     `json:"friendly_name"`
+	Sid          string     `json:"sid"`
 	URL          string     `json:"url"`
+	WorkspaceSid string     `json:"workspace_sid"`
 }
 
 func (c Client) Update(input *UpdateActivityInput) (*UpdateActivityResponse, error) {

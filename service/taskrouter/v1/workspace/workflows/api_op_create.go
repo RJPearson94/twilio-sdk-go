@@ -10,26 +10,26 @@ import (
 )
 
 type CreateWorkflowInput struct {
-	FriendlyName                  string  `validate:"required" form:"FriendlyName"`
-	Configuration                 string  `validate:"required" form:"Configuration"`
 	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
+	Configuration                 string  `validate:"required" form:"Configuration"`
 	FallbackAssignmentCallbackURL *string `form:"fallbackAssignmentCallbackUrl,omitempty"`
+	FriendlyName                  string  `validate:"required" form:"FriendlyName"`
 	TaskReservationTimeout        *int    `form:"TaskReservationTimeout,omitempty"`
 }
 
 type CreateWorkflowResponse struct {
-	Sid                           string      `json:"sid"`
 	AccountSid                    string      `json:"account_sid"`
-	WorkspaceSid                  string      `json:"workspace_sid"`
-	FriendlyName                  string      `json:"friendly_name"`
-	FallbackAssignmentCallbackURL *string     `json:"fallback_assignment_callback_url,omitempty"`
 	AssignmentCallbackURL         *string     `json:"assignment_callback_url,omitempty"`
-	TaskReservationTimeout        int         `json:"task_reservation_timeout"`
-	DocumentContentType           string      `json:"document_content_type"`
 	Configuration                 interface{} `json:"configuration"`
 	DateCreated                   time.Time   `json:"date_created"`
 	DateUpdated                   *time.Time  `json:"date_updated,omitempty"`
+	DocumentContentType           string      `json:"document_content_type"`
+	FallbackAssignmentCallbackURL *string     `json:"fallback_assignment_callback_url,omitempty"`
+	FriendlyName                  string      `json:"friendly_name"`
+	Sid                           string      `json:"sid"`
+	TaskReservationTimeout        int         `json:"task_reservation_timeout"`
 	URL                           string      `json:"url"`
+	WorkspaceSid                  string      `json:"workspace_sid"`
 }
 
 func (c Client) Create(input *CreateWorkflowInput) (*CreateWorkflowResponse, error) {

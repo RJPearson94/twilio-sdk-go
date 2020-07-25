@@ -10,21 +10,21 @@ import (
 )
 
 type CreateTaskChannelInput struct {
+	ChannelOptimizedRouting *bool  `form:"ChannelOptimizedRouting,omitempty"`
 	FriendlyName            string `validate:"required" form:"FriendlyName"`
 	UniqueName              string `validate:"required" form:"UniqueName"`
-	ChannelOptimizedRouting *bool  `form:"ChannelOptimizedRouting,omitempty"`
 }
 
 type CreateTaskChannelResponse struct {
-	Sid                     string     `json:"sid"`
 	AccountSid              string     `json:"account_sid"`
-	WorkspaceSid            string     `json:"workspace_sid"`
-	FriendlyName            string     `json:"friendly_name"`
-	UniqueName              string     `json:"unique_name"`
 	ChannelOptimizedRouting *bool      `json:"channel_optimized_routing,omitempty"`
 	DateCreated             time.Time  `json:"date_created"`
 	DateUpdated             *time.Time `json:"date_updated,omitempty"`
+	FriendlyName            string     `json:"friendly_name"`
+	Sid                     string     `json:"sid"`
 	URL                     string     `json:"url"`
+	UniqueName              string     `json:"unique_name"`
+	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
 func (c Client) Create(input *CreateTaskChannelInput) (*CreateTaskChannelResponse, error) {

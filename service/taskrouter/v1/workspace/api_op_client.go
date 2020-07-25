@@ -22,18 +22,18 @@ type Client struct {
 
 	sid string
 
-	TaskQueues   *task_queues.Client
-	TaskQueue    func(string) *task_queue.Client
-	Workflows    *workflows.Client
-	Workflow     func(string) *workflow.Client
-	Workers      *workers.Client
-	Worker       func(string) *worker.Client
 	Activities   *activities.Client
 	Activity     func(string) *activity.Client
-	TaskChannels *task_channels.Client
-	TaskChannel  func(string) *task_channel.Client
-	Tasks        *tasks.Client
 	Task         func(string) *task.Client
+	TaskChannel  func(string) *task_channel.Client
+	TaskChannels *task_channels.Client
+	TaskQueue    func(string) *task_queue.Client
+	TaskQueues   *task_queues.Client
+	Tasks        *tasks.Client
+	Worker       func(string) *worker.Client
+	Workers      *workers.Client
+	Workflow     func(string) *workflow.Client
+	Workflows    *workflows.Client
 }
 
 type ClientProperties struct {
@@ -46,33 +46,6 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
-		TaskQueues: task_queues.New(client, task_queues.ClientProperties{
-			WorkspaceSid: properties.Sid,
-		}),
-		TaskQueue: func(taskQueueSid string) *task_queue.Client {
-			return task_queue.New(client, task_queue.ClientProperties{
-				Sid:          taskQueueSid,
-				WorkspaceSid: properties.Sid,
-			})
-		},
-		Workflows: workflows.New(client, workflows.ClientProperties{
-			WorkspaceSid: properties.Sid,
-		}),
-		Workflow: func(workflowSid string) *workflow.Client {
-			return workflow.New(client, workflow.ClientProperties{
-				Sid:          workflowSid,
-				WorkspaceSid: properties.Sid,
-			})
-		},
-		Workers: workers.New(client, workers.ClientProperties{
-			WorkspaceSid: properties.Sid,
-		}),
-		Worker: func(workerSid string) *worker.Client {
-			return worker.New(client, worker.ClientProperties{
-				Sid:          workerSid,
-				WorkspaceSid: properties.Sid,
-			})
-		},
 		Activities: activities.New(client, activities.ClientProperties{
 			WorkspaceSid: properties.Sid,
 		}),
@@ -82,23 +55,50 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				WorkspaceSid: properties.Sid,
 			})
 		},
-		TaskChannels: task_channels.New(client, task_channels.ClientProperties{
-			WorkspaceSid: properties.Sid,
-		}),
-		TaskChannel: func(taskChannelSid string) *task_channel.Client {
-			return task_channel.New(client, task_channel.ClientProperties{
-				Sid:          taskChannelSid,
-				WorkspaceSid: properties.Sid,
-			})
-		},
-		Tasks: tasks.New(client, tasks.ClientProperties{
-			WorkspaceSid: properties.Sid,
-		}),
 		Task: func(taskSid string) *task.Client {
 			return task.New(client, task.ClientProperties{
 				Sid:          taskSid,
 				WorkspaceSid: properties.Sid,
 			})
 		},
+		TaskChannel: func(taskChannelSid string) *task_channel.Client {
+			return task_channel.New(client, task_channel.ClientProperties{
+				Sid:          taskChannelSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		TaskChannels: task_channels.New(client, task_channels.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		TaskQueue: func(taskQueueSid string) *task_queue.Client {
+			return task_queue.New(client, task_queue.ClientProperties{
+				Sid:          taskQueueSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		TaskQueues: task_queues.New(client, task_queues.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Tasks: tasks.New(client, tasks.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Worker: func(workerSid string) *worker.Client {
+			return worker.New(client, worker.ClientProperties{
+				Sid:          workerSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Workers: workers.New(client, workers.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
+		Workflow: func(workflowSid string) *workflow.Client {
+			return workflow.New(client, workflow.ClientProperties{
+				Sid:          workflowSid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Workflows: workflows.New(client, workflows.ClientProperties{
+			WorkspaceSid: properties.Sid,
+		}),
 	}
 }

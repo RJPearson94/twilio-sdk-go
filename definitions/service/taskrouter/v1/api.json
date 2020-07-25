@@ -19,136 +19,11 @@
             "method": "Post"
           },
           "input": {
-            "name": "CreateWorkspaceInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": true
-              },
-              {
-                "name": "EventCallbackUrl",
-                "type": "string",
-                "value": "EventCallbackUrl",
-                "required": false
-              },
-              {
-                "name": "EventsFilter",
-                "type": "string",
-                "value": "EventsFilter",
-                "required": false
-              },
-              {
-                "name": "MultiTaskEnabled",
-                "type": "bool",
-                "value": "MultiTaskEnabled",
-                "required": false
-              },
-              {
-                "name": "Template",
-                "type": "string",
-                "value": "Template",
-                "required": false
-              },
-              {
-                "name": "PrioritizeQueueOrder",
-                "type": "string",
-                "value": "PrioritizeQueueOrder",
-                "required": false
-              }
-            ]
+            "structure": "CreateWorkspaceInput"
           },
           "response": {
             "name": "CreateWorkspaceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "EventCallbackURL",
-                "type": "string",
-                "value": "event_callback_url",
-                "required": false
-              },
-              {
-                "name": "EventsFilter",
-                "type": "string",
-                "value": "events_filter",
-                "required": false
-              },
-              {
-                "name": "DefaultActivityName",
-                "type": "string",
-                "value": "default_activity_name",
-                "required": true
-              },
-              {
-                "name": "DefaultActivitySid",
-                "type": "string",
-                "value": "default_activity_sid",
-                "required": true
-              },
-              {
-                "name": "MultiTaskEnabled",
-                "type": "bool",
-                "value": "multi_task_enabled",
-                "required": true
-              },
-              {
-                "name": "PrioritizeQueueOrder",
-                "type": "string",
-                "value": "prioritize_queue_order",
-                "required": true
-              },
-              {
-                "name": "TimeoutActivityName",
-                "type": "string",
-                "value": "timeout_activity_name",
-                "required": true
-              },
-              {
-                "name": "TimeoutActivitySid",
-                "type": "string",
-                "value": "timeout_activity_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "WorkspaceResponse"
           }
         }
       ]
@@ -189,142 +64,11 @@
                 ]
               },
               "input": {
-                "name": "CreateTaskQueueInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  },
-                  {
-                    "name": "AssignmentActivitySid",
-                    "type": "string",
-                    "value": "AssignmentActivitySid",
-                    "required": false
-                  },
-                  {
-                    "name": "MaxReservedWorkers",
-                    "type": "int",
-                    "value": "MaxReservedWorkers",
-                    "required": false
-                  },
-                  {
-                    "name": "TargetWorkers",
-                    "type": "string",
-                    "value": "TargetWorkers",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskOrder",
-                    "type": "string",
-                    "value": "TaskOrder",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivitySid",
-                    "type": "string",
-                    "value": "ReservationActivitySid",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateTaskQueueInput"
               },
               "response": {
                 "name": "CreateTaskQueueResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "EventCallbackURL",
-                    "type": "string",
-                    "value": "event_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivityName",
-                    "type": "string",
-                    "value": "assignment_activity_name",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivitySid",
-                    "type": "string",
-                    "value": "assignment_activity_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivityName",
-                    "type": "string",
-                    "value": "reservation_activity_name",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivitySid",
-                    "type": "string",
-                    "value": "reservation_activity_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TargetWorkers",
-                    "type": "string",
-                    "value": "target_workers",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskOrder",
-                    "type": "string",
-                    "value": "task_order",
-                    "required": true
-                  },
-                  {
-                    "name": "MaxReservedWorkers",
-                    "type": "int",
-                    "value": "max_reserved_workers",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskQueueResponse"
               }
             }
           ]
@@ -376,99 +120,7 @@
               },
               "response": {
                 "name": "GetTaskQueueResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "EventCallbackURL",
-                    "type": "string",
-                    "value": "event_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivityName",
-                    "type": "string",
-                    "value": "assignment_activity_name",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivitySid",
-                    "type": "string",
-                    "value": "assignment_activity_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivityName",
-                    "type": "string",
-                    "value": "reservation_activity_name",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivitySid",
-                    "type": "string",
-                    "value": "reservation_activity_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TargetWorkers",
-                    "type": "string",
-                    "value": "target_workers",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskOrder",
-                    "type": "string",
-                    "value": "task_order",
-                    "required": true
-                  },
-                  {
-                    "name": "MaxReservedWorkers",
-                    "type": "int",
-                    "value": "max_reserved_workers",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskQueueResponse"
               }
             },
             {
@@ -496,142 +148,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateTaskQueueInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivitySid",
-                    "type": "string",
-                    "value": "AssignmentActivitySid",
-                    "required": false
-                  },
-                  {
-                    "name": "MaxReservedWorkers",
-                    "type": "int",
-                    "value": "MaxReservedWorkers",
-                    "required": false
-                  },
-                  {
-                    "name": "TargetWorkers",
-                    "type": "string",
-                    "value": "TargetWorkers",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskOrder",
-                    "type": "string",
-                    "value": "TaskOrder",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivitySid",
-                    "type": "string",
-                    "value": "ReservationActivitySid",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateTaskQueueInput"
               },
               "response": {
                 "name": "UpdateTaskQueueResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "EventCallbackURL",
-                    "type": "string",
-                    "value": "event_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivityName",
-                    "type": "string",
-                    "value": "assignment_activity_name",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentActivitySid",
-                    "type": "string",
-                    "value": "assignment_activity_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivityName",
-                    "type": "string",
-                    "value": "reservation_activity_name",
-                    "required": false
-                  },
-                  {
-                    "name": "ReservationActivitySid",
-                    "type": "string",
-                    "value": "reservation_activity_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TargetWorkers",
-                    "type": "string",
-                    "value": "target_workers",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskOrder",
-                    "type": "string",
-                    "value": "task_order",
-                    "required": true
-                  },
-                  {
-                    "name": "MaxReservedWorkers",
-                    "type": "int",
-                    "value": "max_reserved_workers",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskQueueResponse"
               }
             },
             {
@@ -688,118 +209,11 @@
                 ]
               },
               "input": {
-                "name": "CreateWorkflowInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  },
-                  {
-                    "name": "Configuration",
-                    "type": "string",
-                    "value": "Configuration",
-                    "required": true
-                  },
-                  {
-                    "name": "AssignmentCallbackURL",
-                    "type": "string",
-                    "value": "AssignmentCallbackUrl",
-                    "required": false
-                  },
-                  {
-                    "name": "FallbackAssignmentCallbackURL",
-                    "type": "string",
-                    "value": "fallbackAssignmentCallbackUrl",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskReservationTimeout",
-                    "type": "int",
-                    "value": "TaskReservationTimeout",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateWorkflowInput"
               },
               "response": {
                 "name": "CreateWorkflowResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FallbackAssignmentCallbackURL",
-                    "type": "string",
-                    "value": "fallback_assignment_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentCallbackURL",
-                    "type": "string",
-                    "value": "assignment_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskReservationTimeout",
-                    "type": "int",
-                    "value": "task_reservation_timeout",
-                    "required": true
-                  },
-                  {
-                    "name": "DocumentContentType",
-                    "type": "string",
-                    "value": "document_content_type",
-                    "required": true
-                  },
-                  {
-                    "name": "Configuration",
-                    "type": "interface{}",
-                    "value": "configuration",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WorkflowResponse"
               }
             }
           ]
@@ -851,81 +265,7 @@
               },
               "response": {
                 "name": "GetTaskQueueResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FallbackAssignmentCallbackURL",
-                    "type": "string",
-                    "value": "fallback_assignment_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentCallbackURL",
-                    "type": "string",
-                    "value": "assignment_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskReservationTimeout",
-                    "type": "int",
-                    "value": "task_reservation_timeout",
-                    "required": true
-                  },
-                  {
-                    "name": "DocumentContentType",
-                    "type": "string",
-                    "value": "document_content_type",
-                    "required": true
-                  },
-                  {
-                    "name": "Configuration",
-                    "type": "interface{}",
-                    "value": "configuration",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WorkflowResponse"
               }
             },
             {
@@ -953,124 +293,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateWorkflowInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  },
-                  {
-                    "name": "Configuration",
-                    "type": "string",
-                    "value": "Configuration",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentCallbackURL",
-                    "type": "string",
-                    "value": "AssignmentCallbackUrl",
-                    "required": false
-                  },
-                  {
-                    "name": "FallbackAssignmentCallbackURL",
-                    "type": "string",
-                    "value": "fallbackAssignmentCallbackUrl",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskReservationTimeout",
-                    "type": "int",
-                    "value": "TaskReservationTimeout",
-                    "required": false
-                  },
-                  {
-                    "name": "ReEvaluateTasks",
-                    "type": "bool",
-                    "value": "ReEvaluateTasks",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateWorkflowInput"
               },
               "response": {
                 "name": "UpdateWorkflowResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "FallbackAssignmentCallbackURL",
-                    "type": "string",
-                    "value": "fallback_assignment_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentCallbackURL",
-                    "type": "string",
-                    "value": "assignment_callback_url",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskReservationTimeout",
-                    "type": "int",
-                    "value": "task_reservation_timeout",
-                    "required": true
-                  },
-                  {
-                    "name": "DocumentContentType",
-                    "type": "string",
-                    "value": "document_content_type",
-                    "required": true
-                  },
-                  {
-                    "name": "Configuration",
-                    "type": "interface{}",
-                    "value": "configuration",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WorkflowResponse"
               }
             },
             {
@@ -1127,106 +354,11 @@
                 ]
               },
               "input": {
-                "name": "CreateWorkerInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivitySid",
-                    "type": "string",
-                    "value": "ActivitySid",
-                    "required": false
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "string",
-                    "value": "Attributes",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateWorkerInput"
               },
               "response": {
                 "name": "CreateWorkerResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivitySid",
-                    "type": "string",
-                    "value": "activity_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivityName",
-                    "type": "string",
-                    "value": "activity_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "interface{}",
-                    "value": "attributes",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "available",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "DateStatusChanged",
-                    "type": "time.Time",
-                    "value": "date_status_changed",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WorkerResponse"
               }
             }
           ]
@@ -1278,81 +410,7 @@
               },
               "response": {
                 "name": "GetWorkerResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivitySid",
-                    "type": "string",
-                    "value": "activity_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivityName",
-                    "type": "string",
-                    "value": "activity_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "interface{}",
-                    "value": "attributes",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "available",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "DateStatusChanged",
-                    "type": "time.Time",
-                    "value": "date_status_changed",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WorkerResponse"
               }
             },
             {
@@ -1380,112 +438,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateWorkerInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  },
-                  {
-                    "name": "ActivitySid",
-                    "type": "string",
-                    "value": "ActivitySid",
-                    "required": false
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "string",
-                    "value": "Attributes",
-                    "required": false
-                  },
-                  {
-                    "name": "RejectPendingReservations",
-                    "type": "bool",
-                    "value": "RejectPendingReservations",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateWorkerInput"
               },
               "response": {
                 "name": "UpdateWorkflowResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivitySid",
-                    "type": "string",
-                    "value": "activity_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "ActivityName",
-                    "type": "string",
-                    "value": "activity_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "interface{}",
-                    "value": "attributes",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "available",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "DateStatusChanged",
-                    "type": "time.Time",
-                    "value": "date_status_changed",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "WorkerResponse"
               }
             },
             {
@@ -1542,76 +499,11 @@
                 ]
               },
               "input": {
-                "name": "CreateActivityInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "Available",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateActivityInput"
               },
               "response": {
                 "name": "CreateActivityResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "available",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ActivityResponse"
               }
             }
           ]
@@ -1663,57 +555,7 @@
               },
               "response": {
                 "name": "GetActivityResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "available",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ActivityResponse"
               }
             },
             {
@@ -1741,70 +583,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateActivityInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateActivityInput"
               },
               "response": {
                 "name": "UpdateActivityResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "Available",
-                    "type": "bool",
-                    "value": "available",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "ActivityResponse"
               }
             },
             {
@@ -1861,88 +644,11 @@
                 ]
               },
               "input": {
-                "name": "CreateTaskChannelInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "UniqueName",
-                    "required": true
-                  },
-                  {
-                    "name": "ChannelOptimizedRouting",
-                    "type": "bool",
-                    "value": "ChannelOptimizedRouting",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateTaskChannelInput"
               },
               "response": {
                 "name": "CreateTaskChannelResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "ChannelOptimizedRouting",
-                    "type": "bool",
-                    "value": "channel_optimized_routing",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskChannelResponse"
               }
             }
           ]
@@ -1994,63 +700,7 @@
               },
               "response": {
                 "name": "GetTaskChannelResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "ChannelOptimizedRouting",
-                    "type": "bool",
-                    "value": "channel_optimized_routing",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskChannelResponse"
               }
             },
             {
@@ -2078,82 +728,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateTaskChannelInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "FriendlyName",
-                    "required": false
-                  },
-                  {
-                    "name": "ChannelOptimizedRouting",
-                    "type": "bool",
-                    "value": "ChannelOptimizedRouting",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateTaskChannelInput"
               },
               "response": {
                 "name": "UpdateTaskChannelResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "FriendlyName",
-                    "type": "string",
-                    "value": "friendly_name",
-                    "required": true
-                  },
-                  {
-                    "name": "UniqueName",
-                    "type": "string",
-                    "value": "unique_name",
-                    "required": true
-                  },
-                  {
-                    "name": "ChannelOptimizedRouting",
-                    "type": "bool",
-                    "value": "channel_optimized_routing",
-                    "required": false
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskChannelResponse"
               }
             },
             {
@@ -2210,160 +789,11 @@
                 ]
               },
               "input": {
-                "name": "CreateTaskInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "Timeout",
-                    "required": false
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "string",
-                    "value": "Attributes",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "Priority",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannel",
-                    "type": "string",
-                    "value": "TaskChannel",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowSid",
-                    "type": "string",
-                    "value": "WorkflowSid",
-                    "required": false
-                  }
-                ]
+                "structure": "CreateTaskInput"
               },
               "response": {
                 "name": "CreateTaskResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssignmentStatus",
-                    "type": "string",
-                    "value": "assignment_status",
-                    "required": true
-                  },
-                  {
-                    "name": "Age",
-                    "type": "int",
-                    "value": "age",
-                    "required": true
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "interface{}",
-                    "value": "attributes",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueEnteredDate",
-                    "type": "time.Time",
-                    "value": "task_queue_entered_date",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "priority",
-                    "required": false
-                  },
-                  {
-                    "name": "Reason",
-                    "type": "string",
-                    "value": "reason",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueSid",
-                    "type": "string",
-                    "value": "task_queue_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueFriendlyName",
-                    "type": "string",
-                    "value": "task_queue_friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowSid",
-                    "type": "string",
-                    "value": "workflow_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowFriendlyName",
-                    "type": "string",
-                    "value": "workflow_friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannelSid",
-                    "type": "string",
-                    "value": "task_channel_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannelUniqueName",
-                    "type": "string",
-                    "value": "task_channel_unique_name",
-                    "required": false
-                  },
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "timeout",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskResponse"
               }
             }
           ]
@@ -2415,123 +845,7 @@
               },
               "response": {
                 "name": "GetTaskResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssignmentStatus",
-                    "type": "string",
-                    "value": "assignment_status",
-                    "required": true
-                  },
-                  {
-                    "name": "Age",
-                    "type": "int",
-                    "value": "age",
-                    "required": true
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "interface{}",
-                    "value": "attributes",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueEnteredDate",
-                    "type": "time.Time",
-                    "value": "task_queue_entered_date",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "priority",
-                    "required": false
-                  },
-                  {
-                    "name": "Reason",
-                    "type": "string",
-                    "value": "reason",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueSid",
-                    "type": "string",
-                    "value": "task_queue_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueFriendlyName",
-                    "type": "string",
-                    "value": "task_queue_friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowSid",
-                    "type": "string",
-                    "value": "workflow_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowFriendlyName",
-                    "type": "string",
-                    "value": "workflow_friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannelSid",
-                    "type": "string",
-                    "value": "task_channel_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannelUniqueName",
-                    "type": "string",
-                    "value": "task_channel_unique_name",
-                    "required": false
-                  },
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "timeout",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskResponse"
               }
             },
             {
@@ -2559,160 +873,11 @@
                 ]
               },
               "input": {
-                "name": "UpdateTaskInput",
-                "type": "URLEncoded",
-                "properties": [
-                  {
-                    "name": "Attributes",
-                    "type": "string",
-                    "value": "Attributes",
-                    "required": false
-                  },
-                  {
-                    "name": "AssignmentStatus",
-                    "type": "string",
-                    "value": "AssignmentStatus",
-                    "required": false
-                  },
-                  {
-                    "name": "Reason",
-                    "type": "string",
-                    "value": "Reason",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "Priority",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannel",
-                    "type": "string",
-                    "value": "TaskChannel",
-                    "required": false
-                  }
-                ]
+                "structure": "UpdateTaskInput"
               },
               "response": {
                 "name": "UpdateTaskResponse",
-                "type": "JSON",
-                "properties": [
-                  {
-                    "name": "Sid",
-                    "type": "string",
-                    "value": "sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AccountSid",
-                    "type": "string",
-                    "value": "account_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "WorkspaceSid",
-                    "type": "string",
-                    "value": "workspace_sid",
-                    "required": true
-                  },
-                  {
-                    "name": "AssignmentStatus",
-                    "type": "string",
-                    "value": "assignment_status",
-                    "required": true
-                  },
-                  {
-                    "name": "Age",
-                    "type": "int",
-                    "value": "age",
-                    "required": true
-                  },
-                  {
-                    "name": "Attributes",
-                    "type": "interface{}",
-                    "value": "attributes",
-                    "required": true
-                  },
-                  {
-                    "name": "DateCreated",
-                    "type": "time.Time",
-                    "value": "date_created",
-                    "required": true
-                  },
-                  {
-                    "name": "DateUpdated",
-                    "type": "time.Time",
-                    "value": "date_updated",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueEnteredDate",
-                    "type": "time.Time",
-                    "value": "task_queue_entered_date",
-                    "required": false
-                  },
-                  {
-                    "name": "Priority",
-                    "type": "int",
-                    "value": "priority",
-                    "required": false
-                  },
-                  {
-                    "name": "Reason",
-                    "type": "string",
-                    "value": "reason",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueSid",
-                    "type": "string",
-                    "value": "task_queue_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskQueueFriendlyName",
-                    "type": "string",
-                    "value": "task_queue_friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowSid",
-                    "type": "string",
-                    "value": "workflow_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "WorkflowFriendlyName",
-                    "type": "string",
-                    "value": "workflow_friendly_name",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannelSid",
-                    "type": "string",
-                    "value": "task_channel_sid",
-                    "required": false
-                  },
-                  {
-                    "name": "TaskChannelUniqueName",
-                    "type": "string",
-                    "value": "task_channel_unique_name",
-                    "required": false
-                  },
-                  {
-                    "name": "Timeout",
-                    "type": "int",
-                    "value": "timeout",
-                    "required": true
-                  },
-                  {
-                    "name": "URL",
-                    "type": "string",
-                    "value": "url",
-                    "required": true
-                  }
-                ]
+                "structure": "TaskResponse"
               }
             },
             {
@@ -2762,94 +927,7 @@
           },
           "response": {
             "name": "GetWorkspaceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "EventCallbackURL",
-                "type": "string",
-                "value": "event_callback_url",
-                "required": false
-              },
-              {
-                "name": "EventsFilter",
-                "type": "string",
-                "value": "events_filter",
-                "required": false
-              },
-              {
-                "name": "DefaultActivityName",
-                "type": "string",
-                "value": "default_activity_name",
-                "required": true
-              },
-              {
-                "name": "DefaultActivitySid",
-                "type": "string",
-                "value": "default_activity_sid",
-                "required": true
-              },
-
-              {
-                "name": "MultiTaskEnabled",
-                "type": "bool",
-                "value": "multi_task_enabled",
-                "required": true
-              },
-              {
-                "name": "PrioritizeQueueOrder",
-                "type": "string",
-                "value": "prioritize_queue_order",
-                "required": true
-              },
-              {
-                "name": "TimeoutActivityName",
-                "type": "string",
-                "value": "timeout_activity_name",
-                "required": true
-              },
-              {
-                "name": "TimeoutActivitySid",
-                "type": "string",
-                "value": "timeout_activity_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "WorkspaceResponse"
           }
         },
         {
@@ -2869,136 +947,11 @@
             ]
           },
           "input": {
-            "name": "UpdateWorkspaceInput",
-            "type": "URLEncoded",
-            "properties": [
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "FriendlyName",
-                "required": false
-              },
-              {
-                "name": "EventCallbackUrl",
-                "type": "string",
-                "value": "EventCallbackUrl",
-                "required": false
-              },
-              {
-                "name": "EventsFilter",
-                "type": "string",
-                "value": "EventsFilter",
-                "required": false
-              },
-              {
-                "name": "MultiTaskEnabled",
-                "type": "bool",
-                "value": "MultiTaskEnabled",
-                "required": false
-              },
-              {
-                "name": "Template",
-                "type": "string",
-                "value": "Template",
-                "required": false
-              },
-              {
-                "name": "PrioritizeQueueOrder",
-                "type": "string",
-                "value": "PrioritizeQueueOrder",
-                "required": false
-              }
-            ]
+            "structure": "UpdateWorkspaceInput"
           },
           "response": {
             "name": "UpdateWorkspaceResponse",
-            "type": "JSON",
-            "properties": [
-              {
-                "name": "Sid",
-                "type": "string",
-                "value": "sid",
-                "required": true
-              },
-              {
-                "name": "AccountSid",
-                "type": "string",
-                "value": "account_sid",
-                "required": true
-              },
-              {
-                "name": "FriendlyName",
-                "type": "string",
-                "value": "friendly_name",
-                "required": true
-              },
-              {
-                "name": "EventCallbackURL",
-                "type": "string",
-                "value": "event_callback_url",
-                "required": false
-              },
-              {
-                "name": "EventsFilter",
-                "type": "string",
-                "value": "events_filter",
-                "required": false
-              },
-              {
-                "name": "DefaultActivityName",
-                "type": "string",
-                "value": "default_activity_name",
-                "required": true
-              },
-              {
-                "name": "DefaultActivitySid",
-                "type": "string",
-                "value": "default_activity_sid",
-                "required": true
-              },
-              {
-                "name": "MultiTaskEnabled",
-                "type": "bool",
-                "value": "multi_task_enabled",
-                "required": true
-              },
-              {
-                "name": "PrioritizeQueueOrder",
-                "type": "string",
-                "value": "prioritize_queue_order",
-                "required": true
-              },
-              {
-                "name": "TimeoutActivityName",
-                "type": "string",
-                "value": "timeout_activity_name",
-                "required": true
-              },
-              {
-                "name": "TimeoutActivitySid",
-                "type": "string",
-                "value": "timeout_activity_sid",
-                "required": true
-              },
-              {
-                "name": "DateCreated",
-                "type": "time.Time",
-                "value": "date_created",
-                "required": true
-              },
-              {
-                "name": "DateUpdated",
-                "type": "time.Time",
-                "value": "date_updated",
-                "required": false
-              },
-              {
-                "name": "URL",
-                "type": "string",
-                "value": "url",
-                "required": true
-              }
-            ]
+            "structure": "WorkspaceResponse"
           }
         },
         {
@@ -3020,5 +973,767 @@
         }
       ]
     }
-  ]
+  ],
+  "structures": {
+    "CreateWorkspaceInput": {
+      "type": "URLEncoded",
+      "extends": "BaseWorkspaceInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateWorkspaceInput": {
+      "type": "URLEncoded",
+      "extends": "BaseWorkspaceInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "BaseWorkspaceInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "EventCallbackUrl",
+          "type": "string",
+          "value": "EventCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "EventsFilter",
+          "type": "string",
+          "value": "EventsFilter",
+          "required": false
+        },
+        {
+          "name": "MultiTaskEnabled",
+          "type": "bool",
+          "value": "MultiTaskEnabled",
+          "required": false
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "Template",
+          "required": false
+        },
+        {
+          "name": "PrioritizeQueueOrder",
+          "type": "string",
+          "value": "PrioritizeQueueOrder",
+          "required": false
+        }
+      ]
+    },
+    "WorkspaceResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "EventCallbackURL",
+          "type": "string",
+          "value": "event_callback_url",
+          "required": false
+        },
+        {
+          "name": "EventsFilter",
+          "type": "string",
+          "value": "events_filter",
+          "required": false
+        },
+        {
+          "name": "DefaultActivityName",
+          "type": "string",
+          "value": "default_activity_name",
+          "required": true
+        },
+        {
+          "name": "DefaultActivitySid",
+          "type": "string",
+          "value": "default_activity_sid",
+          "required": true
+        },
+        {
+          "name": "MultiTaskEnabled",
+          "type": "bool",
+          "value": "multi_task_enabled",
+          "required": true
+        },
+        {
+          "name": "PrioritizeQueueOrder",
+          "type": "string",
+          "value": "prioritize_queue_order",
+          "required": true
+        },
+        {
+          "name": "TimeoutActivityName",
+          "type": "string",
+          "value": "timeout_activity_name",
+          "required": true
+        },
+        {
+          "name": "TimeoutActivitySid",
+          "type": "string",
+          "value": "timeout_activity_sid",
+          "required": true
+        }
+      ]
+    },
+    "CreateTaskQueueInput": {
+      "type": "URLEncoded",
+      "extends": "BaseTaskQueueInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateTaskQueueInput": {
+      "type": "URLEncoded",
+      "extends": "BaseTaskQueueInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "BaseTaskQueueInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AssignmentActivitySid",
+          "type": "string",
+          "value": "AssignmentActivitySid",
+          "required": false
+        },
+        {
+          "name": "MaxReservedWorkers",
+          "type": "int",
+          "value": "MaxReservedWorkers",
+          "required": false
+        },
+        {
+          "name": "TargetWorkers",
+          "type": "string",
+          "value": "TargetWorkers",
+          "required": false
+        },
+        {
+          "name": "TaskOrder",
+          "type": "string",
+          "value": "TaskOrder",
+          "required": false
+        },
+        {
+          "name": "ReservationActivitySid",
+          "type": "string",
+          "value": "ReservationActivitySid",
+          "required": false
+        }
+      ]
+    },
+    "TaskQueueResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "EventCallbackURL",
+          "type": "string",
+          "value": "event_callback_url",
+          "required": false
+        },
+        {
+          "name": "AssignmentActivityName",
+          "type": "string",
+          "value": "assignment_activity_name",
+          "required": false
+        },
+        {
+          "name": "AssignmentActivitySid",
+          "type": "string",
+          "value": "assignment_activity_sid",
+          "required": false
+        },
+        {
+          "name": "ReservationActivityName",
+          "type": "string",
+          "value": "reservation_activity_name",
+          "required": false
+        },
+        {
+          "name": "ReservationActivitySid",
+          "type": "string",
+          "value": "reservation_activity_sid",
+          "required": false
+        },
+        {
+          "name": "TargetWorkers",
+          "type": "string",
+          "value": "target_workers",
+          "required": false
+        },
+        {
+          "name": "TaskOrder",
+          "type": "string",
+          "value": "task_order",
+          "required": true
+        },
+        {
+          "name": "MaxReservedWorkers",
+          "type": "int",
+          "value": "max_reserved_workers",
+          "required": true
+        }
+      ]
+    },
+    "CreateWorkflowInput": {
+      "type": "URLEncoded",
+      "extends": "BaseWorkflowInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "Configuration",
+          "type": "string",
+          "value": "Configuration",
+          "required": true
+        }
+      ]
+    },
+    "UpdateWorkflowInput": {
+      "name": "UpdateWorkflowInput",
+      "type": "URLEncoded",
+      "extends": "BaseWorkflowInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Configuration",
+          "type": "string",
+          "value": "Configuration",
+          "required": false
+        },
+        {
+          "name": "ReEvaluateTasks",
+          "type": "bool",
+          "value": "ReEvaluateTasks",
+          "required": false
+        }
+      ]
+    },
+    "BaseWorkflowInput": {
+      "name": "UpdateWorkflowInput",
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AssignmentCallbackURL",
+          "type": "string",
+          "value": "AssignmentCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "FallbackAssignmentCallbackURL",
+          "type": "string",
+          "value": "fallbackAssignmentCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "TaskReservationTimeout",
+          "type": "int",
+          "value": "TaskReservationTimeout",
+          "required": false
+        }
+      ]
+    },
+    "WorkflowResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "FallbackAssignmentCallbackURL",
+          "type": "string",
+          "value": "fallback_assignment_callback_url",
+          "required": false
+        },
+        {
+          "name": "AssignmentCallbackURL",
+          "type": "string",
+          "value": "assignment_callback_url",
+          "required": false
+        },
+        {
+          "name": "TaskReservationTimeout",
+          "type": "int",
+          "value": "task_reservation_timeout",
+          "required": true
+        },
+        {
+          "name": "DocumentContentType",
+          "type": "string",
+          "value": "document_content_type",
+          "required": true
+        },
+        {
+          "name": "Configuration",
+          "type": "interface{}",
+          "value": "configuration",
+          "required": true
+        }
+      ]
+    },
+    "CreateWorkerInput": {
+      "type": "URLEncoded",
+      "extends": "BaseWorkerInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateWorkerInput": {
+      "type": "URLEncoded",
+      "extends": "BaseWorkerInput",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "RejectPendingReservations",
+          "type": "bool",
+          "value": "RejectPendingReservations",
+          "required": false
+        }
+      ]
+    },
+    "BaseWorkerInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ActivitySid",
+          "type": "string",
+          "value": "ActivitySid",
+          "required": false
+        },
+        {
+          "name": "Attributes",
+          "type": "string",
+          "value": "Attributes",
+          "required": false
+        }
+      ]
+    },
+    "WorkerResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "ActivitySid",
+          "type": "string",
+          "value": "activity_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "ActivityName",
+          "type": "string",
+          "value": "activity_name",
+          "required": true
+        },
+        {
+          "name": "Attributes",
+          "type": "interface{}",
+          "value": "attributes",
+          "required": true
+        },
+        {
+          "name": "Available",
+          "type": "bool",
+          "value": "available",
+          "required": true
+        },
+        {
+          "name": "DateStatusChanged",
+          "type": "time.Time",
+          "value": "date_status_changed",
+          "required": false
+        }
+      ]
+    },
+    "CreateActivityInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "Available",
+          "type": "bool",
+          "value": "Available",
+          "required": false
+        }
+      ]
+    },
+    "UpdateActivityInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "ActivityResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Available",
+          "type": "bool",
+          "value": "available",
+          "required": true
+        }
+      ]
+    },
+    "CreateTaskChannelInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "ChannelOptimizedRouting",
+          "type": "bool",
+          "value": "ChannelOptimizedRouting",
+          "required": false
+        }
+      ]
+    },
+    "UpdateTaskChannelInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "ChannelOptimizedRouting",
+          "type": "bool",
+          "value": "ChannelOptimizedRouting",
+          "required": false
+        }
+      ]
+    },
+    "TaskChannelResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "ChannelOptimizedRouting",
+          "type": "bool",
+          "value": "channel_optimized_routing",
+          "required": false
+        }
+      ]
+    },
+    "CreateTaskInput": {
+      "type": "URLEncoded",
+      "extends": "BaseTaskInput",
+      "properties": [
+        {
+          "name": "Timeout",
+          "type": "int",
+          "value": "Timeout",
+          "required": false
+        },
+        {
+          "name": "WorkflowSid",
+          "type": "string",
+          "value": "WorkflowSid",
+          "required": false
+        }
+      ]
+    },
+    "UpdateTaskInput": {
+      "type": "URLEncoded",
+      "extends": "BaseTaskInput",
+      "properties": [
+        {
+          "name": "AssignmentStatus",
+          "type": "string",
+          "value": "AssignmentStatus",
+          "required": false
+        },
+        {
+          "name": "Reason",
+          "type": "string",
+          "value": "Reason",
+          "required": false
+        }
+      ]
+    },
+    "BaseTaskInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "TaskChannel",
+          "type": "string",
+          "value": "TaskChannel",
+          "required": false
+        },
+        {
+          "name": "Attributes",
+          "type": "string",
+          "value": "Attributes",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "Priority",
+          "required": false
+        }
+      ]
+    },
+    "TaskResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "AssignmentStatus",
+          "type": "string",
+          "value": "assignment_status",
+          "required": true
+        },
+        {
+          "name": "Age",
+          "type": "int",
+          "value": "age",
+          "required": true
+        },
+        {
+          "name": "Attributes",
+          "type": "interface{}",
+          "value": "attributes",
+          "required": true
+        },
+        {
+          "name": "TaskQueueEnteredDate",
+          "type": "time.Time",
+          "value": "task_queue_entered_date",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "priority",
+          "required": false
+        },
+        {
+          "name": "Reason",
+          "type": "string",
+          "value": "reason",
+          "required": false
+        },
+        {
+          "name": "TaskQueueSid",
+          "type": "string",
+          "value": "task_queue_sid",
+          "required": false
+        },
+        {
+          "name": "TaskQueueFriendlyName",
+          "type": "string",
+          "value": "task_queue_friendly_name",
+          "required": false
+        },
+        {
+          "name": "WorkflowSid",
+          "type": "string",
+          "value": "workflow_sid",
+          "required": false
+        },
+        {
+          "name": "WorkflowFriendlyName",
+          "type": "string",
+          "value": "workflow_friendly_name",
+          "required": false
+        },
+        {
+          "name": "TaskChannelSid",
+          "type": "string",
+          "value": "task_channel_sid",
+          "required": false
+        },
+        {
+          "name": "TaskChannelUniqueName",
+          "type": "string",
+          "value": "task_channel_unique_name",
+          "required": false
+        },
+        {
+          "name": "Timeout",
+          "type": "int",
+          "value": "timeout",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
 }

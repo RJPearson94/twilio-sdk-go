@@ -10,28 +10,28 @@ import (
 )
 
 type UpdateWorkspaceInput struct {
-	FriendlyName         *string `form:"FriendlyName,omitempty"`
 	EventCallbackUrl     *string `form:"EventCallbackUrl,omitempty"`
 	EventsFilter         *string `form:"EventsFilter,omitempty"`
+	FriendlyName         *string `form:"FriendlyName,omitempty"`
 	MultiTaskEnabled     *bool   `form:"MultiTaskEnabled,omitempty"`
-	Template             *string `form:"Template,omitempty"`
 	PrioritizeQueueOrder *string `form:"PrioritizeQueueOrder,omitempty"`
+	Template             *string `form:"Template,omitempty"`
 }
 
 type UpdateWorkspaceResponse struct {
-	Sid                  string     `json:"sid"`
 	AccountSid           string     `json:"account_sid"`
-	FriendlyName         string     `json:"friendly_name"`
-	EventCallbackURL     *string    `json:"event_callback_url,omitempty"`
-	EventsFilter         *string    `json:"events_filter,omitempty"`
-	DefaultActivityName  string     `json:"default_activity_name"`
-	DefaultActivitySid   string     `json:"default_activity_sid"`
-	MultiTaskEnabled     bool       `json:"multi_task_enabled"`
-	PrioritizeQueueOrder string     `json:"prioritize_queue_order"`
-	TimeoutActivityName  string     `json:"timeout_activity_name"`
-	TimeoutActivitySid   string     `json:"timeout_activity_sid"`
 	DateCreated          time.Time  `json:"date_created"`
 	DateUpdated          *time.Time `json:"date_updated,omitempty"`
+	DefaultActivityName  string     `json:"default_activity_name"`
+	DefaultActivitySid   string     `json:"default_activity_sid"`
+	EventCallbackURL     *string    `json:"event_callback_url,omitempty"`
+	EventsFilter         *string    `json:"events_filter,omitempty"`
+	FriendlyName         string     `json:"friendly_name"`
+	MultiTaskEnabled     bool       `json:"multi_task_enabled"`
+	PrioritizeQueueOrder string     `json:"prioritize_queue_order"`
+	Sid                  string     `json:"sid"`
+	TimeoutActivityName  string     `json:"timeout_activity_name"`
+	TimeoutActivitySid   string     `json:"timeout_activity_sid"`
 	URL                  string     `json:"url"`
 }
 

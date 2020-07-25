@@ -10,18 +10,18 @@ import (
 )
 
 type GetTaskQueueResponse struct {
-	Sid                           string      `json:"sid"`
 	AccountSid                    string      `json:"account_sid"`
-	WorkspaceSid                  string      `json:"workspace_sid"`
-	FriendlyName                  string      `json:"friendly_name"`
-	FallbackAssignmentCallbackURL *string     `json:"fallback_assignment_callback_url,omitempty"`
 	AssignmentCallbackURL         *string     `json:"assignment_callback_url,omitempty"`
-	TaskReservationTimeout        int         `json:"task_reservation_timeout"`
-	DocumentContentType           string      `json:"document_content_type"`
 	Configuration                 interface{} `json:"configuration"`
 	DateCreated                   time.Time   `json:"date_created"`
 	DateUpdated                   *time.Time  `json:"date_updated,omitempty"`
+	DocumentContentType           string      `json:"document_content_type"`
+	FallbackAssignmentCallbackURL *string     `json:"fallback_assignment_callback_url,omitempty"`
+	FriendlyName                  string      `json:"friendly_name"`
+	Sid                           string      `json:"sid"`
+	TaskReservationTimeout        int         `json:"task_reservation_timeout"`
 	URL                           string      `json:"url"`
+	WorkspaceSid                  string      `json:"workspace_sid"`
 }
 
 func (c Client) Get() (*GetTaskQueueResponse, error) {
