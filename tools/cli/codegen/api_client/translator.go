@@ -1,6 +1,8 @@
 package apiclient
 
 import (
+	"sort"
+
 	"github.com/Jeffail/gabs/v2"
 )
 
@@ -17,9 +19,12 @@ func Translate(content []byte) (*interface{}, error) {
 	if jsonParsed.Exists("properties") {
 		response.Array("properties")
 
-		for key, property := range jsonParsed.S("properties").ChildrenMap() {
+		propertiesMap := jsonParsed.S("properties").ChildrenMap()
+		propertiesMapKeys := sortMapKeys(propertiesMap)
+
+		for _, key := range propertiesMapKeys {
 			functionParamsResponse := gabs.New()
-			functionParamsResponse.Set(property.Path("dataType").Data(), "type")
+			functionParamsResponse.Set(propertiesMap[key].Path("dataType").Data(), "type")
 			functionParamsResponse.Set(key, "name")
 
 			response.ArrayAppend(functionParamsResponse.Data(), "properties")
@@ -29,14 +34,21 @@ func Translate(content []byte) (*interface{}, error) {
 	if jsonParsed.Exists("subClients") {
 		response.Array("subClients")
 
-		for _, subClient := range jsonParsed.S("subClients").Children() {
+		subClients := jsonParsed.S("subClients").Children()
+		sortArrayByName(subClients)
+
+		for _, subClient := range subClients {
 			subClientResponse := gabs.New()
 			subClientResponse.Set(subClient.Path("name").Data(), "name")
 
 			if subClient.Exists("function") {
 				subClientResponse.Array("functionParams")
 
-				for key, parameter := range subClient.S("function", "parameters").ChildrenMap() {
+				parameterMap := subClient.S("function", "parameters").ChildrenMap()
+				parameterMapKeys := sortMapKeys(parameterMap)
+
+				for _, key := range parameterMapKeys {
+					parameter := parameterMap[key]
 					functionParamsResponse := gabs.New()
 					functionParamsResponse.Set(parameter.Path("dataType").Data(), "type")
 					functionParamsResponse.Set(key, "name")
@@ -48,7 +60,11 @@ func Translate(content []byte) (*interface{}, error) {
 			if subClient.Exists("properties") {
 				subClientResponse.Array("properties")
 
-				for key, property := range subClient.S("properties").ChildrenMap() {
+				propertiesMap := subClient.S("properties").ChildrenMap()
+				propertiesMapKeys := sortMapKeys(propertiesMap)
+
+				for _, key := range propertiesMapKeys {
+					property := propertiesMap[key]
 					propertiesResponse := gabs.New()
 					propertiesResponse.Set(property.Path("dataType").Data(), "type")
 					propertiesResponse.Set(key, "name")
@@ -71,4 +87,19 @@ func Translate(content []byte) (*interface{}, error) {
 
 	data := response.Data()
 	return &data, nil
+}
+
+func sortMapKeys(data map[string]*gabs.Container) []string {
+	keys := make([]string, 0, len(data))
+	for k := range data {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+func sortArrayByName(array []*gabs.Container) {
+	sort.Slice(array[:], func(i, j int) bool {
+		return array[i].Path("name").Data().(string) < array[j].Path("name").Data().(string)
+	})
 }
