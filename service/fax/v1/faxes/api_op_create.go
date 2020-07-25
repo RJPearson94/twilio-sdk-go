@@ -10,34 +10,34 @@ import (
 )
 
 type CreateFaxInput struct {
-	To              string  `validate:"required" form:"To"`
+	From            *string `form:"From,omitempty"`
 	MediaURL        string  `validate:"required" form:"MediaUrl"`
 	Quality         *string `form:"Quality,omitempty"`
-	StatusCallback  *string `form:"StatusCallback,omitempty"`
-	From            *string `form:"From,omitempty"`
-	SipAuthUsername *string `form:"SipAuthUsername,omitempty"`
 	SipAuthPassword *string `form:"SipAuthPassword,omitempty"`
+	SipAuthUsername *string `form:"SipAuthUsername,omitempty"`
+	StatusCallback  *string `form:"StatusCallback,omitempty"`
 	StoreMedia      *bool   `form:"StoreMedia,omitempty"`
+	To              string  `validate:"required" form:"To"`
 	Ttl             *int    `form:"Ttl,omitempty"`
 }
 
 type CreateFaxResponse struct {
-	Sid         string     `json:"sid"`
-	AccountSid  string     `json:"account_sid"`
 	APIVersion  string     `json:"api_version"`
+	AccountSid  string     `json:"account_sid"`
+	DateCreated time.Time  `json:"date_created"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	Direction   string     `json:"direction"`
-	From        string     `json:"from"`
-	To          string     `json:"to"`
-	Quality     string     `json:"quality"`
-	Status      string     `json:"status"`
-	MediaURL    *string    `json:"media_url,omitempty"`
-	MediaSid    *string    `json:"media_sid,omitempty"`
 	Duration    *int       `json:"duration,omitempty"`
+	From        string     `json:"from"`
+	MediaSid    *string    `json:"media_sid,omitempty"`
+	MediaURL    *string    `json:"media_url,omitempty"`
 	NumPages    *int       `json:"num_pages,omitempty"`
 	Price       *string    `json:"price,omitempty"`
 	PriceUnit   *string    `json:"price_unit,omitempty"`
-	DateCreated time.Time  `json:"date_created"`
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	Quality     string     `json:"quality"`
+	Sid         string     `json:"sid"`
+	Status      string     `json:"status"`
+	To          string     `json:"to"`
 	URL         string     `json:"url"`
 }
 

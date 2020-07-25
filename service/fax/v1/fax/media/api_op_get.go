@@ -10,12 +10,12 @@ import (
 )
 
 type GetMediaResponse struct {
-	Sid         string     `json:"sid"`
 	AccountSid  string     `json:"account_sid"`
-	FaxSid      string     `json:"fax_sid"`
 	ContentType string     `json:"content_type"`
 	DateCreated time.Time  `json:"date_created"`
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	FaxSid      string     `json:"fax_sid"`
+	Sid         string     `json:"sid"`
 	URL         string     `json:"url"`
 }
 
