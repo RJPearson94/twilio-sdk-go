@@ -1,0 +1,211 @@
+{
+  "packageName": "phone_numbers",
+  "name": "Create",
+  "imports": ["github.com/RJPearson94/twilio-sdk-go/client"],
+  "http": {
+    "uri": "/Services/{serviceSid}/PhoneNumbers",
+    "method": "Post",
+    "pathParams": [
+      {
+        "name": "serviceSid",
+        "value": {
+          "onService": true,
+          "property": "serviceSid",
+          "type": "string"
+        }
+      }
+    ]
+  },
+  "input": {
+    "structure": "PhoneNumberInput"
+  },
+  "response": {
+    "structure": "PhoneNumberResponse"
+  },
+  "structures": {
+    "PhoneNumberInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "Sid",
+          "required": false
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "PhoneNumber",
+          "required": false
+        },
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "IsReserved",
+          "required": false
+        }
+      ]
+    },
+    "PhoneNumberResponseCapabilities": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "SmsInbound",
+          "type": "bool",
+          "value": "sms_inbound",
+          "required": false
+        },
+        {
+          "name": "SmsOutbound",
+          "type": "bool",
+          "value": "sms_outbound",
+          "required": false
+        },
+        {
+          "name": "RestrictionSmsDomestic",
+          "type": "bool",
+          "value": "restriction_sms_domestic",
+          "required": false
+        },
+        {
+          "name": "RestrictionVoiceDomestic",
+          "type": "bool",
+          "value": "restriction_voice_domestic",
+          "required": false
+        },
+        {
+          "name": "VoiceOutbound",
+          "type": "bool",
+          "value": "voice_outbound",
+          "required": false
+        },
+        {
+          "name": "VoiceInbound",
+          "type": "bool",
+          "value": "voice_inbound",
+          "required": false
+        },
+        {
+          "name": "FaxInbound",
+          "type": "bool",
+          "value": "fax_inbound",
+          "required": false
+        },
+        {
+          "name": "FaxOutbound",
+          "type": "bool",
+          "value": "fax_outbound",
+          "required": false
+        },
+        {
+          "name": "RestrictionFaxDomestic",
+          "type": "bool",
+          "value": "restriction_fax_domestic",
+          "required": false
+        },
+        {
+          "name": "RestrictionMmsDomestic",
+          "type": "bool",
+          "value": "restriction_mms_domestic",
+          "required": false
+        },
+        {
+          "name": "MmsOutbound",
+          "type": "bool",
+          "value": "mms_outbound",
+          "required": false
+        },
+        {
+          "name": "MmsInbound",
+          "type": "bool",
+          "value": "mms_inbound",
+          "required": false
+        },
+        {
+          "name": "SipTrunking",
+          "type": "bool",
+          "value": "sip_trunking",
+          "required": false
+        }
+      ]
+    },
+    "PhoneNumberResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "phone_number",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "IsoCountry",
+          "type": "string",
+          "value": "iso_country",
+          "required": false
+        },
+        {
+          "name": "Capabilities",
+          "structure": "PhoneNumberResponseCapabilities",
+          "value": "capabilities",
+          "required": false
+        },
+        {
+          "name": "IsReserved",
+          "type": "bool",
+          "value": "is_reserved",
+          "required": false
+        },
+        {
+          "name": "InUse",
+          "type": "int",
+          "value": "in_use",
+          "required": false
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
+}
