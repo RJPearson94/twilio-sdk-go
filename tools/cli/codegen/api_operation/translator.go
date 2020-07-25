@@ -1,6 +1,8 @@
 package apioperation
 
 import (
+	"sort"
+
 	"github.com/Jeffail/gabs/v2"
 )
 
@@ -99,6 +101,9 @@ func mapProperties(structure *gabs.Container, dataType string, apiOperationName 
 		}
 	}
 
+	sortArrayByName(properties)
+	sortArrayByName(additionalStructs)
+
 	return properties, additionalStructs
 }
 
@@ -125,6 +130,7 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 		structureResponse.Set(dataType, "type")
 
 		nestedProperties, nestedAdditionalStructs := mapProperties(propertyStructure, dataType, apiOperationName, structures)
+
 		structureResponse.Set(nestedProperties, "properties")
 
 		if len(nestedAdditionalStructs) > 0 {
@@ -134,4 +140,10 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 	}
 
 	return typeName, additionalStructs
+}
+
+func sortArrayByName(array []interface{}) {
+	sort.Slice(array[:], func(i, j int) bool {
+		return array[i].(map[string]interface{})["name"].(string) < array[j].(map[string]interface{})["name"].(string)
+	})
 }

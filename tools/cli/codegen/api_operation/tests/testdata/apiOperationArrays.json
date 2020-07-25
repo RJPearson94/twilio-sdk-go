@@ -35,15 +35,15 @@
         "required": false
       },
       {
-        "name": "FunctionVersions",
-        "type": "[]string",
-        "value": "FunctionVersions",
-        "required": false
-      },
-      {
         "name": "Dependencies",
         "type": "string",
         "value": "Dependencies",
+        "required": false
+      },
+      {
+        "name": "FunctionVersions",
+        "type": "[]string",
+        "value": "FunctionVersions",
         "required": false
       }
     ]
@@ -57,21 +57,9 @@
         "type": "JSON",
         "properties": [
           {
-            "name": "Sid",
-            "type": "string",
-            "value": "sid",
-            "required": true
-          },
-          {
             "name": "AccountSid",
             "type": "string",
             "value": "account_sid",
-            "required": true
-          },
-          {
-            "name": "ServiceSid",
-            "type": "string",
-            "value": "service_sid",
             "required": true
           },
           {
@@ -93,51 +81,15 @@
             "required": true
           },
           {
-            "name": "Visibility",
-            "type": "string",
-            "value": "visibility",
-            "required": true
-          }
-        ]
-      },
-      {
-        "name": "CreateFunctionVersionResponse",
-        "type": "JSON",
-        "properties": [
-          {
-            "name": "Sid",
-            "type": "string",
-            "value": "sid",
-            "required": true
-          },
-          {
-            "name": "AccountSid",
-            "type": "string",
-            "value": "account_sid",
-            "required": true
-          },
-          {
             "name": "ServiceSid",
             "type": "string",
             "value": "service_sid",
             "required": true
           },
           {
-            "name": "FunctionSid",
+            "name": "Sid",
             "type": "string",
-            "value": "function_sid",
-            "required": true
-          },
-          {
-            "name": "DateCreated",
-            "type": "time.Time",
-            "value": "date_created",
-            "required": true
-          },
-          {
-            "name": "Path",
-            "type": "string",
-            "value": "path",
+            "value": "sid",
             "required": true
           },
           {
@@ -165,15 +117,57 @@
             "required": true
           }
         ]
+      },
+      {
+        "name": "CreateFunctionVersionResponse",
+        "type": "JSON",
+        "properties": [
+          {
+            "name": "AccountSid",
+            "type": "string",
+            "value": "account_sid",
+            "required": true
+          },
+          {
+            "name": "DateCreated",
+            "type": "time.Time",
+            "value": "date_created",
+            "required": true
+          },
+          {
+            "name": "FunctionSid",
+            "type": "string",
+            "value": "function_sid",
+            "required": true
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "value": "path",
+            "required": true
+          },
+          {
+            "name": "ServiceSid",
+            "type": "string",
+            "value": "service_sid",
+            "required": true
+          },
+          {
+            "name": "Sid",
+            "type": "string",
+            "value": "sid",
+            "required": true
+          },
+          {
+            "name": "Visibility",
+            "type": "string",
+            "value": "visibility",
+            "required": true
+          }
+        ]
       }
     ],
     "properties": [
-      {
-        "name": "Sid",
-        "type": "string",
-        "value": "sid",
-        "required": true
-      },
       {
         "name": "AccountSid",
         "type": "string",
@@ -181,34 +175,10 @@
         "required": true
       },
       {
-        "name": "ServiceSid",
-        "type": "string",
-        "value": "service_sid",
-        "required": true
-      },
-      {
         "name": "AssetVersions",
         "type": "[]CreateAssetVersionResponse",
         "value": "asset_versions",
         "required": false
-      },
-      {
-        "name": "FunctionVersions",
-        "type": "[]CreateFunctionVersionResponse",
-        "value": "function_versions",
-        "required": false
-      },
-      {
-        "name": "Dependencies",
-        "type": "[]CreateDependencyResponse",
-        "value": "dependencies",
-        "required": false
-      },
-      {
-        "name": "Status",
-        "type": "string",
-        "value": "status",
-        "required": true
       },
       {
         "name": "DateCreated",
@@ -221,6 +191,37 @@
         "type": "time.Time",
         "value": "date_updated",
         "required": false
+      },
+      {
+        "name": "Dependencies",
+        "type": "[]CreateDependencyResponse",
+        "value": "dependencies",
+        "required": false
+      },
+
+      {
+        "name": "FunctionVersions",
+        "type": "[]CreateFunctionVersionResponse",
+        "value": "function_versions",
+        "required": false
+      },
+      {
+        "name": "ServiceSid",
+        "type": "string",
+        "value": "service_sid",
+        "required": true
+      },
+      {
+        "name": "Sid",
+        "type": "string",
+        "value": "sid",
+        "required": true
+      },
+      {
+        "name": "Status",
+        "type": "string",
+        "value": "status",
+        "required": true
       },
       {
         "name": "URL",

@@ -21,9 +21,9 @@
     "type": "URLEncoded",
     "properties": [
       {
-        "name": "Sid",
-        "type": "string",
-        "value": "Sid",
+        "name": "IsReserved",
+        "type": "bool",
+        "value": "IsReserved",
         "required": false
       },
       {
@@ -33,9 +33,9 @@
         "required": false
       },
       {
-        "name": "IsReserved",
-        "type": "bool",
-        "value": "IsReserved",
+        "name": "Sid",
+        "type": "string",
+        "value": "Sid",
         "required": false
       }
     ]
@@ -49,42 +49,6 @@
         "type": "JSON",
         "properties": [
           {
-            "name": "SmsInbound",
-            "type": "bool",
-            "value": "sms_inbound",
-            "required": false
-          },
-          {
-            "name": "SmsOutbound",
-            "type": "bool",
-            "value": "sms_outbound",
-            "required": false
-          },
-          {
-            "name": "RestrictionSmsDomestic",
-            "type": "bool",
-            "value": "restriction_sms_domestic",
-            "required": false
-          },
-          {
-            "name": "RestrictionVoiceDomestic",
-            "type": "bool",
-            "value": "restriction_voice_domestic",
-            "required": false
-          },
-          {
-            "name": "VoiceOutbound",
-            "type": "bool",
-            "value": "voice_outbound",
-            "required": false
-          },
-          {
-            "name": "VoiceInbound",
-            "type": "bool",
-            "value": "voice_inbound",
-            "required": false
-          },
-          {
             "name": "FaxInbound",
             "type": "bool",
             "value": "fax_inbound",
@@ -94,6 +58,18 @@
             "name": "FaxOutbound",
             "type": "bool",
             "value": "fax_outbound",
+            "required": false
+          },
+          {
+            "name": "MmsInbound",
+            "type": "bool",
+            "value": "mms_inbound",
+            "required": false
+          },
+          {
+            "name": "MmsOutbound",
+            "type": "bool",
+            "value": "mms_outbound",
             "required": false
           },
           {
@@ -109,21 +85,45 @@
             "required": false
           },
           {
-            "name": "MmsOutbound",
+            "name": "RestrictionSmsDomestic",
             "type": "bool",
-            "value": "mms_outbound",
+            "value": "restriction_sms_domestic",
             "required": false
           },
           {
-            "name": "MmsInbound",
+            "name": "RestrictionVoiceDomestic",
             "type": "bool",
-            "value": "mms_inbound",
+            "value": "restriction_voice_domestic",
             "required": false
           },
           {
             "name": "SipTrunking",
             "type": "bool",
             "value": "sip_trunking",
+            "required": false
+          },
+          {
+            "name": "SmsInbound",
+            "type": "bool",
+            "value": "sms_inbound",
+            "required": false
+          },
+          {
+            "name": "SmsOutbound",
+            "type": "bool",
+            "value": "sms_outbound",
+            "required": false
+          },
+          {
+            "name": "VoiceInbound",
+            "type": "bool",
+            "value": "voice_inbound",
+            "required": false
+          },
+          {
+            "name": "VoiceOutbound",
+            "type": "bool",
+            "value": "voice_outbound",
             "required": false
           }
         ]
@@ -137,52 +137,10 @@
         "required": true
       },
       {
-        "name": "ServiceSid",
-        "type": "string",
-        "value": "service_sid",
-        "required": true
-      },
-      {
-        "name": "PhoneNumber",
-        "type": "string",
-        "value": "phone_number",
-        "required": false
-      },
-      {
-        "name": "FriendlyName",
-        "type": "string",
-        "value": "friendly_name",
-        "required": false
-      },
-      {
-        "name": "IsoCountry",
-        "type": "string",
-        "value": "iso_country",
-        "required": false
-      },
-      {
         "name": "Capabilities",
         "type": "CreatePhoneNumberResponseCapabilities",
         "value": "capabilities",
         "required": false
-      },
-      {
-        "name": "IsReserved",
-        "type": "bool",
-        "value": "is_reserved",
-        "required": false
-      },
-      {
-        "name": "InUse",
-        "type": "int",
-        "value": "in_use",
-        "required": false
-      },
-      {
-        "name": "Sid",
-        "type": "string",
-        "value": "sid",
-        "required": true
       },
       {
         "name": "DateCreated",
@@ -195,6 +153,48 @@
         "type": "time.Time",
         "value": "date_updated",
         "required": false
+      },
+      {
+        "name": "FriendlyName",
+        "type": "string",
+        "value": "friendly_name",
+        "required": false
+      },
+      {
+        "name": "InUse",
+        "type": "int",
+        "value": "in_use",
+        "required": false
+      },
+      {
+        "name": "IsReserved",
+        "type": "bool",
+        "value": "is_reserved",
+        "required": false
+      },
+      {
+        "name": "IsoCountry",
+        "type": "string",
+        "value": "iso_country",
+        "required": false
+      },
+      {
+        "name": "PhoneNumber",
+        "type": "string",
+        "value": "phone_number",
+        "required": false
+      },
+      {
+        "name": "ServiceSid",
+        "type": "string",
+        "value": "service_sid",
+        "required": true
+      },
+      {
+        "name": "Sid",
+        "type": "string",
+        "value": "sid",
+        "required": true
       },
       {
         "name": "URL",
