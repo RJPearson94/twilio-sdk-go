@@ -1992,7 +1992,7 @@
         {
           "name": "Type",
           "type": "string",
-          "value": "type",
+          "value": "Type",
           "required": false
         }
       ]
