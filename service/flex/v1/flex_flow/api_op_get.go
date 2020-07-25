@@ -16,7 +16,7 @@ type GetFlexFlowResponseIntegration struct {
 	Priority          *int    `json:"priority,omitempty"`
 	RetryCount        *int    `json:"retry_count,omitempty"`
 	Timeout           *int    `json:"timeout,omitempty"`
-	Url               *string `json:"url,omitempty"`
+	URL               *string `json:"url,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
 }
 

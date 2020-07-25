@@ -22,7 +22,7 @@ type CreateFlexFlowInput struct {
 	IntegrationRetryCount        *int    `form:"Integration.RetryCount,omitempty"`
 	IntegrationTimeout           *int    `form:"Integration.Timeout,omitempty"`
 	IntegrationType              *string `form:"IntegrationType,omitempty"`
-	IntegrationUrl               *string `form:"Integration.Url,omitempty"`
+	IntegrationURL               *string `form:"Integration.Url,omitempty"`
 	IntegrationWorkspaceSid      *string `form:"Integration.WorkspaceSid,omitempty"`
 	JanitorEnabled               *bool   `form:"JanitorEnabled,omitempty"`
 	LongLived                    *bool   `form:"LongLived,omitempty"`
@@ -35,7 +35,7 @@ type CreateFlexFlowResponseIntegration struct {
 	Priority          *int    `json:"priority,omitempty"`
 	RetryCount        *int    `json:"retry_count,omitempty"`
 	Timeout           *int    `json:"timeout,omitempty"`
-	Url               *string `json:"url,omitempty"`
+	URL               *string `json:"url,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
 }
 

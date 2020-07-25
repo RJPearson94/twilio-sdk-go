@@ -1052,7 +1052,7 @@
           "required": false
         },
         {
-          "name": "IntegrationUrl",
+          "name": "IntegrationURL",
           "type": "string",
           "value": "Integration.Url",
           "required": false
@@ -1117,7 +1117,7 @@
           "required": false
         },
         {
-          "name": "Url",
+          "name": "URL",
           "type": "string",
           "value": "url",
           "required": false
