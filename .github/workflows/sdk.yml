@@ -3,7 +3,7 @@ name: Twilio SDK
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     paths:
       - .github/workflows/sdk.yml
@@ -20,21 +20,21 @@ jobs:
   pipeline:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup Go with v${{ env.GO_VERSION }}
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ env.GO_VERSION }}
-    
-    - name: Install tools
-      run: make tools
-    
-    - name: Download Dependencies
-      run: make download
+      - name: Setup Go with v${{ env.GO_VERSION }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
-    - name: Build
-      run: make build
+      - name: Install tools
+        run: make tools
 
-    - name: Test
-      run: make test
+      - name: Download Dependencies
+        run: make download
+
+      - name: Build
+        run: make build
+
+      - name: Test
+        run: make test
