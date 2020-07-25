@@ -273,8 +273,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("webhook"))
 				Expect(resp.Method).To(Equal("POST"))
-				Expect(resp.PreWebhookUrl).To(BeNil())
-				Expect(resp.PostWebhookUrl).To(BeNil())
+				Expect(resp.PreWebhookURL).To(BeNil())
+				Expect(resp.PostWebhookURL).To(BeNil())
 				Expect(len(resp.Filters)).To(Equal(0))
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/Webhooks"))
 			})
@@ -312,7 +312,7 @@ var _ = Describe("Conversation V1", func() {
 
 			filters := []string{"onMessageAdded"}
 			updateInput := &webhook.UpdateWebhookInput{
-				PostWebhookUrl: utils.String("http://localhost/pre"),
+				PostWebhookURL: utils.String("http://localhost/pre"),
 				Filters:        &filters,
 			}
 
@@ -326,8 +326,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("webhook"))
 				Expect(resp.Method).To(Equal("POST"))
-				Expect(resp.PreWebhookUrl).To(Equal(utils.String("http://localhost/pre")))
-				Expect(resp.PostWebhookUrl).To(BeNil())
+				Expect(resp.PreWebhookURL).To(Equal(utils.String("http://localhost/pre")))
+				Expect(resp.PostWebhookURL).To(BeNil())
 				Expect(len(resp.Filters)).To(Equal(1))
 				Expect(resp.Filters[0]).To(Equal("onMessageAdded"))
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/Webhooks"))
@@ -346,7 +346,7 @@ var _ = Describe("Conversation V1", func() {
 
 			filters := []string{"onMessageAdded"}
 			updateInput := &webhook.UpdateWebhookInput{
-				PostWebhookUrl: utils.String("http://localhost/pre"),
+				PostWebhookURL: utils.String("http://localhost/pre"),
 				Filters:        &filters,
 			}
 

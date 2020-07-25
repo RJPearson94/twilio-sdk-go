@@ -11,8 +11,8 @@ import (
 type UpdateWebhookInput struct {
 	Filters        *[]string `form:"Filters,omitempty"`
 	Method         *string   `form:"Method,omitempty"`
-	PostWebhookUrl *string   `form:"PostWebhookUrl,omitempty"`
-	PreWebhookUrl  *string   `form:"PreWebhookUrl,omitempty"`
+	PostWebhookURL *string   `form:"PostWebhookUrl,omitempty"`
+	PreWebhookURL  *string   `form:"PreWebhookUrl,omitempty"`
 	Target         *string   `form:"Target,omitempty"`
 }
 
@@ -20,8 +20,8 @@ type UpdateWebhookResponse struct {
 	AccountSid     string   `json:"account_sid"`
 	Filters        []string `json:"filters"`
 	Method         string   `json:"method"`
-	PostWebhookUrl *string  `json:"post_webhook_url,omitempty"`
-	PreWebhookUrl  *string  `json:"pre_webhook_url,omitempty"`
+	PostWebhookURL *string  `json:"post_webhook_url,omitempty"`
+	PreWebhookURL  *string  `json:"pre_webhook_url,omitempty"`
 	Target         string   `json:"target"`
 	URL            string   `json:"url"`
 }

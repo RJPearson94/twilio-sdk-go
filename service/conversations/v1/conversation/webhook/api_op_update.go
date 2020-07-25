@@ -14,7 +14,7 @@ type UpdateConversationWebhookInput struct {
 	ConfigurationFlowSid  *string   `form:"Configuration.FlowSid,omitempty"`
 	ConfigurationMethod   *string   `form:"Configuration.Method,omitempty"`
 	ConfigurationTriggers *[]string `form:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl      *string   `form:"Configuration.Url,omitempty"`
+	ConfigurationURL      *string   `form:"Configuration.Url,omitempty"`
 }
 
 type UpdateConversationWebhookResponseConfiguration struct {

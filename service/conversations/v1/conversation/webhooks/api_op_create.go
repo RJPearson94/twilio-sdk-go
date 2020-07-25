@@ -15,7 +15,7 @@ type CreateConversationWebhookInput struct {
 	ConfigurationMethod      *string   `form:"Configuration.Method,omitempty"`
 	ConfigurationReplayAfter *int      `form:"Configuration.ReplayAfter,omitempty"`
 	ConfigurationTriggers    *[]string `form:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl         *string   `form:"Configuration.Url,omitempty"`
+	ConfigurationURL         *string   `form:"Configuration.Url,omitempty"`
 	Target                   string    `validate:"required" form:"target"`
 }
 

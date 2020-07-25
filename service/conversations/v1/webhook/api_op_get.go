@@ -12,8 +12,8 @@ type GetWebhookResponse struct {
 	AccountSid     string   `json:"account_sid"`
 	Filters        []string `json:"filters"`
 	Method         string   `json:"method"`
-	PostWebhookUrl *string  `json:"post_webhook_url,omitempty"`
-	PreWebhookUrl  *string  `json:"pre_webhook_url,omitempty"`
+	PostWebhookURL *string  `json:"post_webhook_url,omitempty"`
+	PreWebhookURL  *string  `json:"pre_webhook_url,omitempty"`
 	Target         string   `json:"target"`
 	URL            string   `json:"url"`
 }

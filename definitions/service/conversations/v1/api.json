@@ -962,7 +962,7 @@
       "type": "URLEncoded",
       "properties": [
         {
-          "name": "ConfigurationUrl",
+          "name": "ConfigurationURL",
           "type": "string",
           "value": "Configuration.Url",
           "required": false
@@ -1089,13 +1089,13 @@
           "required": false
         },
         {
-          "name": "PreWebhookUrl",
+          "name": "PreWebhookURL",
           "type": "string",
           "value": "PreWebhookUrl",
           "required": false
         },
         {
-          "name": "PostWebhookUrl",
+          "name": "PostWebhookURL",
           "type": "string",
           "value": "PostWebhookUrl",
           "required": false
@@ -1139,13 +1139,13 @@
           "required": true
         },
         {
-          "name": "PreWebhookUrl",
+          "name": "PreWebhookURL",
           "type": "string",
           "value": "pre_webhook_url",
           "required": false
         },
         {
-          "name": "PostWebhookUrl",
+          "name": "PostWebhookURL",
           "type": "string",
           "value": "post_webhook_url",
           "required": false
