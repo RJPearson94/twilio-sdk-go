@@ -37,6 +37,154 @@
           "dataType": "string"
         }
       },
+      "subClients": [
+        {
+          "name": "Documents",
+          "packageName": "documents",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Documents",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreateDocumentInput"
+              },
+              "response": {
+                "name": "CreateDocumentResponse",
+                "structure": "DocumentResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Document",
+          "packageName": "document",
+          "function": {
+            "parameters": {
+              "documentSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "documentSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Documents/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetDocumentResponse",
+                "structure": "DocumentResponse"
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Documents/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateDocumentInput",
+                "structure": "DocumentInput"
+              },
+              "response": {
+                "name": "UpdateDocumentResponse",
+                "structure": "DocumentResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Documents/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Get",
@@ -202,6 +350,80 @@
           "name": "WebhooksFromRestEnabled",
           "type": "bool",
           "value": "webhooks_from_rest_enabled",
+          "required": true
+        }
+      ]
+    },
+    "CreateDocumentInput": {
+      "type": "URLEncoded",
+      "extends": "DocumentInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "DocumentInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "string",
+          "value": "Data",
+          "required": false
+        },
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        }
+      ]
+    },
+    "DocumentResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": false
+        },
+        {
+          "name": "CreatedBy",
+          "type": "string",
+          "value": "created_by",
+          "required": true
+        },
+        {
+          "name": "DateExpires",
+          "type": "time.Time",
+          "value": "date_expires",
+          "required": false
+        },
+        {
+          "name": "Revision",
+          "type": "string",
+          "value": "revision",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_Sid",
           "required": true
         }
       ]
