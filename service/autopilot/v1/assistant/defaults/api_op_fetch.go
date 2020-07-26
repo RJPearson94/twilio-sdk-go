@@ -8,18 +8,18 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetDefaultResponse struct {
+type FetchDefaultResponse struct {
 	AccountSid   string      `json:"account_sid"`
 	AssistantSid string      `json:"assistant_sid"`
 	Data         interface{} `json:"data"`
 	URL          string      `json:"url"`
 }
 
-func (c Client) Get() (*GetDefaultResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchDefaultResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetDefaultResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchDefaultResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Assistants/{assistantSid}/Defaults",
@@ -28,7 +28,7 @@ func (c Client) GetWithContext(context context.Context) (*GetDefaultResponse, er
 		},
 	}
 
-	response := &GetDefaultResponse{}
+	response := &FetchDefaultResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

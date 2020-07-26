@@ -22,24 +22,38 @@ type Client struct {
 
 	sid string
 
-	Defaults    func() *defaults.Client
-	FieldType   func(string) *field_type.Client
-	FieldTypes  *field_types.Client
-	ModelBuild  func(string) *model_build.Client
+	// Sub client to manage defaults resources
+	Defaults func() *defaults.Client
+	// Sub client to manage field type resources
+	FieldType func(string) *field_type.Client
+	// Sub client to manage field types resources
+	FieldTypes *field_types.Client
+	// Sub client to manage model build resources
+	ModelBuild func(string) *model_build.Client
+	// Sub client to manage model builds resources
 	ModelBuilds *model_builds.Client
-	Queries     *queries.Client
-	Query       func(string) *query.Client
-	StyleSheet  func() *style_sheet.Client
-	Task        func(string) *task.Client
-	Tasks       *tasks.Client
-	Webhook     func(string) *webhook.Client
-	Webhooks    *webhooks.Client
+	// Sub client to manage queries resources
+	Queries *queries.Client
+	// Sub client to manage query resources
+	Query func(string) *query.Client
+	// Sub client to manage stylesheet resources
+	StyleSheet func() *style_sheet.Client
+	// Sub client to manage task resources
+	Task func(string) *task.Client
+	// Sub client to manage tasks resources
+	Tasks *tasks.Client
+	// Sub client to manage webhook resources
+	Webhook func(string) *webhook.Client
+	// Sub client to manage webhooks resources
+	Webhooks *webhooks.Client
 }
 
+// The properties required to manage the assistant resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

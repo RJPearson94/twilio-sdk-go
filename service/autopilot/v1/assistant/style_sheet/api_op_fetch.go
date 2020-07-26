@@ -8,18 +8,18 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetStyleSheetResponse struct {
+type FetchStyleSheetResponse struct {
 	AccountSid   string      `json:"account_sid"`
 	AssistantSid string      `json:"assistant_sid"`
 	Data         interface{} `json:"data"`
 	URL          string      `json:"url"`
 }
 
-func (c Client) Get() (*GetStyleSheetResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchStyleSheetResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetStyleSheetResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchStyleSheetResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Assistants/{assistantSid}/StyleSheet",
@@ -28,7 +28,7 @@ func (c Client) GetWithContext(context context.Context) (*GetStyleSheetResponse,
 		},
 	}
 
-	response := &GetStyleSheetResponse{}
+	response := &FetchStyleSheetResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

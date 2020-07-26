@@ -11,12 +11,14 @@ type Client struct {
 	taskSid      string
 }
 
+// The properties required to manage the field resources
 type ClientProperties struct {
 	AssistantSid string
 	Sid          string
 	TaskSid      string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetAssistantResponse struct {
+type FetchAssistantResponse struct {
 	AccountSid          string     `json:"account_sid"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`
 	CallbackURL         *string    `json:"callback_url,omitempty"`
@@ -25,11 +25,11 @@ type GetAssistantResponse struct {
 	UniqueName          string     `json:"unique_name"`
 }
 
-func (c Client) Get() (*GetAssistantResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchAssistantResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetAssistantResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchAssistantResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Assistants/{sid}",
@@ -38,7 +38,7 @@ func (c Client) GetWithContext(context context.Context) (*GetAssistantResponse, 
 		},
 	}
 
-	response := &GetAssistantResponse{}
+	response := &FetchAssistantResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

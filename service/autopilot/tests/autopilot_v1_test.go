@@ -123,7 +123,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := assistantClient.Get()
+			resp, err := assistantClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -156,7 +156,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UA71").Get()
+			resp, err := autopilotSession.Assistant("UA71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -266,7 +266,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := defaultsClient.Get()
+			resp, err := defaultsClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -292,7 +292,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := defaultsClient.Get()
+			resp, err := defaultsClient.Fetch()
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
@@ -373,7 +373,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := stylesheetClient.Get()
+			resp, err := stylesheetClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -399,7 +399,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := stylesheetClient.Get()
+			resp, err := stylesheetClient.Fetch()
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
@@ -554,7 +554,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := taskClient.Get()
+			resp, err := taskClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -583,7 +583,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UD71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UD71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -689,7 +689,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := actionsClient.Get()
+			resp, err := actionsClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -716,7 +716,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := actionsClient.Get()
+			resp, err := actionsClient.Fetch()
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
@@ -798,7 +798,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := statisticsClient.Get()
+			resp, err := statisticsClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -824,7 +824,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := statisticsClient.Get()
+			resp, err := statisticsClient.Fetch()
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
@@ -942,7 +942,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := sampleClient.Get()
+			resp, err := sampleClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -972,7 +972,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sample("UF71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sample("UF71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1172,7 +1172,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := fieldClient.Get()
+			resp, err := fieldClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1201,7 +1201,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Field("UE71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Field("UE71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1323,7 +1323,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := fieldTypeClient.Get()
+			resp, err := fieldTypeClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1351,7 +1351,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UB71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UB71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1550,7 +1550,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := fieldValueClient.Get()
+			resp, err := fieldValueClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1580,7 +1580,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldValue("UC71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldType("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").FieldValue("UC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1691,7 +1691,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := modelBuildClient.Get()
+			resp, err := modelBuildClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1721,7 +1721,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ModelBuild("UG71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ModelBuild("UG71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1940,7 +1940,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := queryClient.Get()
+			resp, err := queryClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1957,15 +1957,15 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.SampleSid).To(Equal("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.SourceChannel).To(Equal("voice"))
 				Expect(resp.DialogueSid).To(BeNil())
-				Expect(resp.Results).To(Equal(query.GetQueryResponseResult{
+				Expect(resp.Results).To(Equal(query.FetchQueryResponseResult{
 					Task: "test",
-					Fields: []query.GetQueryResponseField{
-						query.GetQueryResponseField{
+					Fields: []query.FetchQueryResponseField{
+						query.FetchQueryResponseField{
 							Name:  "intro",
 							Value: "hello",
 							Type:  "hello",
 						},
-						query.GetQueryResponseField{
+						query.FetchQueryResponseField{
 							Name:  "outro",
 							Value: "world",
 							Type:  "world",
@@ -1988,7 +1988,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Query("UH71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Query("UH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2227,7 +2227,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := webhookClient.Get()
+			resp, err := webhookClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -2257,7 +2257,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("UM71").Get()
+			resp, err := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("UM71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

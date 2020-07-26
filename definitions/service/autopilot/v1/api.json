@@ -52,7 +52,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/Defaults",
                 "method": "Get",
@@ -68,7 +68,7 @@
                 ]
               },
               "response": {
-                "name": "GetDefaultResponse",
+                "name": "FetchDefaultResponse",
                 "structure": "DefaultResponse"
               }
             },
@@ -112,7 +112,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/StyleSheet",
                 "method": "Get",
@@ -128,7 +128,7 @@
                 ]
               },
               "response": {
-                "name": "GetStyleSheetResponse",
+                "name": "FetchStyleSheetResponse",
                 "structure": "StyleSheetResponse"
               }
             },
@@ -289,7 +289,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Fields/{sid}",
                     "method": "Get",
@@ -321,7 +321,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetFieldResponse",
+                    "name": "FetchFieldResponse",
                     "structure": "FieldResponse"
                   }
                 },
@@ -434,7 +434,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Samples/{sid}",
                     "method": "Get",
@@ -466,7 +466,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetSampleResponse",
+                    "name": "FetchSampleResponse",
                     "structure": "SampleResponse"
                   }
                 },
@@ -563,7 +563,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Actions",
                     "method": "Get",
@@ -587,7 +587,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetActionResponse",
+                    "name": "FetchActionResponse",
                     "structure": "ActionResponse"
                   }
                 },
@@ -643,7 +643,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Statistics",
                     "method": "Get",
@@ -667,7 +667,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetStatisticsResponse",
+                    "name": "FetchStatisticsResponse",
                     "structure": "StatisticsResponse"
                   }
                 }
@@ -676,7 +676,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/Tasks/{sid}",
                 "method": "Get",
@@ -700,7 +700,7 @@
                 ]
               },
               "response": {
-                "name": "GetTaskResponse",
+                "name": "FetchTaskResponse",
                 "structure": "TaskResponse"
               }
             },
@@ -894,7 +894,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Assistants/{assistantSid}/FieldTypes/{fieldTypeSid}/FieldValues/{sid}",
                     "method": "Get",
@@ -926,7 +926,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetFieldValueResponse",
+                    "name": "FetchFieldValueResponse",
                     "structure": "FieldValueResponse"
                   }
                 },
@@ -968,7 +968,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/FieldTypes/{sid}",
                 "method": "Get",
@@ -992,7 +992,7 @@
                 ]
               },
               "response": {
-                "name": "GetFieldTypeResponse",
+                "name": "FetchFieldTypeResponse",
                 "structure": "FieldTypeResponse"
               }
             },
@@ -1113,7 +1113,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/ModelBuilds/{sid}",
                 "method": "Get",
@@ -1137,7 +1137,7 @@
                 ]
               },
               "response": {
-                "name": "GetModelBuildResponse",
+                "name": "FetchModelBuildResponse",
                 "structure": "ModelBuildResponse"
               }
             },
@@ -1258,7 +1258,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/Queries/{sid}",
                 "method": "Get",
@@ -1282,7 +1282,7 @@
                 ]
               },
               "response": {
-                "name": "GetQueryResponse",
+                "name": "FetchQueryResponse",
                 "structure": "QueryResponse"
               }
             },
@@ -1403,7 +1403,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Assistants/{assistantSid}/Webhooks/{sid}",
                 "method": "Get",
@@ -1427,7 +1427,7 @@
                 ]
               },
               "response": {
-                "name": "GetWebhookResponse",
+                "name": "FetchWebhookResponse",
                 "structure": "WebhookResponse"
               }
             },
@@ -1493,7 +1493,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Assistants/{sid}",
             "method": "Get",
@@ -1509,7 +1509,7 @@
             ]
           },
           "response": {
-            "name": "GetAssistantResponse",
+            "name": "FetchAssistantResponse",
             "structure": "AssistantResponse"
           }
         },

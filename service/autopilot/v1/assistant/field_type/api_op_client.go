@@ -13,15 +13,19 @@ type Client struct {
 	assistantSid string
 	sid          string
 
-	FieldValue  func(string) *field_value.Client
+	// Sub client to manage field value resources
+	FieldValue func(string) *field_value.Client
+	// Sub client to manage field values resources
 	FieldValues *field_values.Client
 }
 
+// The properties required to manage the field type resources
 type ClientProperties struct {
 	AssistantSid string
 	Sid          string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
