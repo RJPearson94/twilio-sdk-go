@@ -27,6 +27,7 @@ import (
 	syncMapPermissions "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/permissions"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_maps"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_stream"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_stream/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_streams"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -1895,6 +1896,75 @@ var _ = Describe("Sync V1", func() {
 			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncStream("TO71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the sync streams messages client", func() {
+		syncStreamMessagesClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncStream("TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Messages
+
+		Describe("When the sync stream message is successfully created", func() {
+			createInput := &messages.CreateSyncStreamMessageInput{
+				Data: "{}",
+			}
+
+			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/syncStreamMessageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := syncStreamMessagesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create sync stream message response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("TZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				data := make(map[string]interface{}, 0)
+				Expect(resp.Data).To(Equal(data))
+			})
+		})
+
+		Describe("When the sync stream message does not contain data", func() {
+			createInput := &messages.CreateSyncStreamMessageInput{}
+
+			resp, err := syncStreamMessagesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create sync stream message response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create sync stream message api returns a 500 response", func() {
+			createInput := &messages.CreateSyncStreamMessageInput{
+				Data: "{}",
+			}
+
+			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := syncStreamMessagesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create sync stream message response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

@@ -1322,6 +1322,56 @@
               "functionParameter": "syncStreamSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Messages",
+              "packageName": "messages",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "syncStreamSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Streams/{syncStreamSid}/Messages",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncStreamSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncStreamSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "structure": "CreateSyncStreamMessageInput"
+                  },
+                  "response": {
+                    "name": "CreateSyncStreamMessageResponse",
+                    "structure": "SyncStreamMessageResponse"
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Get",
@@ -2305,6 +2355,37 @@
           "name": "ServiceSid",
           "type": "string",
           "value": "service_Sid",
+          "required": true
+        }
+      ]
+    },
+    "CreateSyncStreamMessageInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "string",
+          "value": "Data",
+          "required": true
+        }
+      ]
+    },
+    "SyncStreamMessageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
           "required": true
         }
       ]
