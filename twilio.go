@@ -1,6 +1,7 @@
 package twilio
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/service/api"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/fax"
@@ -16,36 +17,53 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/twiml"
 )
 
+// Twilio manage Twilio services & resources
 type Twilio struct {
-	Chat          *chat.Chat
+	// Sub client to manage api rest api resources
+	API *api.API
+	// Sub client to manage chat rest api resources
+	Chat *chat.Chat
+	// Sub client to manage conversations rest api resources
 	Conversations *conversations.Conversations
-	Fax           *fax.Fax
-	Flex          *flex.Flex
-	Messaging     *messaging.Messaging
-	Proxy         *proxy.Proxy
-	Serverless    *serverless.Serverless
-	Studio        *studio.Studio
-	Sync          *sync.Sync
-	TaskRouter    *taskrouter.TaskRouter
-	TwiML         *twiml.TwiML
+	// Sub client to manage fax rest api resources
+	Fax *fax.Fax
+	// Sub client to manage flex rest api resources
+	Flex *flex.Flex
+	// Sub client to manage messaging rest api resources
+	Messaging *messaging.Messaging
+	// Sub client to manage proxy rest api resources
+	Proxy *proxy.Proxy
+	// Sub client to manage serverless rest api resources
+	Serverless *serverless.Serverless
+	// Sub client to manage studio rest api resources
+	Studio *studio.Studio
+	// Sub client to manage sync rest api resources
+	Sync *sync.Sync
+	// Sub client to manage task router rest api resources
+	TaskRouter *taskrouter.TaskRouter
+	// Sub client to manage TwiML resources
+	TwiML *twiml.TwiML
 }
 
+// New create a new instance of the client using session data
 func New(sess *session.Session) *Twilio {
-	c := &Twilio{}
-	c.Chat = chat.New(sess)
-	c.Conversations = conversations.New(sess)
-	c.Fax = fax.New(sess)
-	c.Flex = flex.New(sess)
-	c.Messaging = messaging.New(sess)
-	c.Proxy = proxy.New(sess)
-	c.Serverless = serverless.New(sess)
-	c.Studio = studio.New(sess)
-	c.Sync = sync.New(sess)
-	c.TaskRouter = taskrouter.New(sess)
-	c.TwiML = twiml.New()
-	return c
+	return &Twilio{
+		API:           api.New(sess),
+		Chat:          chat.New(sess),
+		Conversations: conversations.New(sess),
+		Fax:           fax.New(sess),
+		Flex:          flex.New(sess),
+		Messaging:     messaging.New(sess),
+		Proxy:         proxy.New(sess),
+		Serverless:    serverless.New(sess),
+		Studio:        studio.New(sess),
+		Sync:          sync.New(sess),
+		TaskRouter:    taskrouter.New(sess),
+		TwiML:         twiml.New(),
+	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Twilio {
 	return New(session.New(creds))
 }
