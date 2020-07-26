@@ -11,12 +11,14 @@ type Client struct {
 	sid        string
 }
 
+// The properties required to manage the invite resources
 type ClientProperties struct {
 	ChannelSid string
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

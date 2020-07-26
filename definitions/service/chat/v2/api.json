@@ -59,7 +59,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Bindings/{sid}",
                 "method": "Get",
@@ -83,7 +83,7 @@
                 ]
               },
               "response": {
-                "name": "GetBindingResponse",
+                "name": "FetchBindingResponse",
                 "structure": "BindingResponse"
               }
             },
@@ -245,7 +245,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Channels/{channelSid}/Invites/{sid}",
                     "method": "Get",
@@ -277,7 +277,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetChannelInviteResponse",
+                    "name": "FetchChannelInviteResponse",
                     "structure": "ChannelInviteResponse"
                   }
                 },
@@ -390,7 +390,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Channels/{channelSid}/Members/{sid}",
                     "method": "Get",
@@ -422,7 +422,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetChannelMemberResponse",
+                    "name": "FetchChannelMemberResponse",
                     "structure": "ChannelMemberResponse"
                   }
                 },
@@ -576,7 +576,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Channels/{channelSid}/Messages/{sid}",
                     "method": "Get",
@@ -608,7 +608,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetChannelMessageResponse",
+                    "name": "FetchChannelMessageResponse",
                     "structure": "ChannelMessageResponse"
                   }
                 },
@@ -762,7 +762,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Channels/{channelSid}/Webhooks/{sid}",
                     "method": "Get",
@@ -794,7 +794,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetChannelWebhookResponse",
+                    "name": "FetchChannelWebhookResponse",
                     "structure": "ChannelWebhookResponse"
                   }
                 },
@@ -877,7 +877,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Channels/{sid}",
                 "method": "Get",
@@ -901,7 +901,7 @@
                 ]
               },
               "response": {
-                "name": "GetChannelResponse",
+                "name": "FetchChannelResponse",
                 "structure": "ChannelResponse"
               }
             },
@@ -1023,7 +1023,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Roles/{sid}",
                 "method": "Get",
@@ -1047,7 +1047,7 @@
                 ]
               },
               "response": {
-                "name": "GetRoleResponse",
+                "name": "FetchRoleResponse",
                 "structure": "RoleResponse"
               }
             },
@@ -1193,7 +1193,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Users/{userSid}/Bindings/{sid}",
                     "method": "Get",
@@ -1225,7 +1225,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetUserBindingResponse",
+                    "name": "FetchUserBindingResponse",
                     "structure": "UserBindingResponse"
                   }
                 },
@@ -1290,7 +1290,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Users/{userSid}/Channels/{sid}",
                     "method": "Get",
@@ -1322,7 +1322,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetUserChannelResponse",
+                    "name": "FetchUserChannelResponse",
                     "structure": "UserChannelResponse"
                   }
                 },
@@ -1371,7 +1371,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Users/{sid}",
                 "method": "Get",
@@ -1395,7 +1395,7 @@
                 ]
               },
               "response": {
-                "name": "GetUserResponse",
+                "name": "FetchUserResponse",
                 "structure": "UserResponse"
               }
             },
@@ -1462,7 +1462,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Services/{sid}",
             "method": "Get",
@@ -1478,7 +1478,7 @@
             ]
           },
           "response": {
-            "name": "GetServiceResponse",
+            "name": "FetchServiceResponse",
             "structure": "ServiceResponse"
           }
         },
@@ -1555,7 +1555,7 @@
       },
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Credentials/{sid}",
             "method": "Get",
@@ -1571,7 +1571,7 @@
             ]
           },
           "response": {
-            "name": "GetCredentialResponse",
+            "name": "FetchCredentialResponse",
             "structure": "CredentialResponse"
           }
         },

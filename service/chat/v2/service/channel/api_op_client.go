@@ -19,21 +19,31 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Invite   func(string) *invite.Client
-	Invites  *invites.Client
-	Member   func(string) *member.Client
-	Members  *members.Client
-	Message  func(string) *message.Client
+	// Sub client to manage invite resources
+	Invite func(string) *invite.Client
+	// Sub client to manage invites resources
+	Invites *invites.Client
+	// Sub client to manage member resources
+	Member func(string) *member.Client
+	// Sub client to manage members resources
+	Members *members.Client
+	// Sub client to manage message resources
+	Message func(string) *message.Client
+	// Sub client to manage messages resources
 	Messages *messages.Client
-	Webhook  func(string) *webhook.Client
+	// Sub client to manage webhook resources
+	Webhook func(string) *webhook.Client
+	// Sub client to manage webhooks resources
 	Webhooks *webhooks.Client
 }
 
+// The properties required to manage the channel resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -9,10 +9,10 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetUserBindingResponse struct {
+type FetchBindingResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	BindingType   *string    `json:"binding_type,omitempty"`
-	CredentialSid string     `json:"credential_sid"`
+	CredentialSid *string    `json:"credential_sid,omitempty"`
 	DateCreated   time.Time  `json:"date_created"`
 	DateUpdated   *time.Time `json:"date_updated,omitempty"`
 	Endpoint      *string    `json:"endpoint,omitempty"`
@@ -21,25 +21,23 @@ type GetUserBindingResponse struct {
 	ServiceSid    string     `json:"service_sid"`
 	Sid           string     `json:"sid"`
 	URL           string     `json:"url"`
-	UserSid       string     `json:"user_sid"`
 }
 
-func (c Client) Get() (*GetUserBindingResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchBindingResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetUserBindingResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchBindingResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
-		URI:    "/Services/{serviceSid}/Users/{userSid}/Bindings/{sid}",
+		URI:    "/Services/{serviceSid}/Bindings/{sid}",
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
-			"userSid":    c.userSid,
 			"sid":        c.sid,
 		},
 	}
 
-	response := &GetUserBindingResponse{}
+	response := &FetchBindingResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

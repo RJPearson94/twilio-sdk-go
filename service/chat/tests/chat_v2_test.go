@@ -167,7 +167,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := serviceClient.Get()
+			resp, err := serviceClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -222,7 +222,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("IS71").Get()
+			resp, err := chatSession.Service("IS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -433,7 +433,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := credentialClient.Get()
+			resp, err := credentialClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -461,7 +461,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Credential("CR71").Get()
+			resp, err := chatSession.Credential("CR71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -566,7 +566,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := bindingClient.Get()
+			resp, err := bindingClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -597,7 +597,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Binding("BS71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Binding("BS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -717,7 +717,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := channelClient.Get()
+			resp, err := channelClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -750,7 +750,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CH71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -979,7 +979,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := roleClient.Get()
+			resp, err := roleClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1008,7 +1008,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Role("RL71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Role("RL71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1198,7 +1198,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := userClient.Get()
+			resp, err := userClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1231,7 +1231,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").User("US71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").User("US71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1339,7 +1339,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := userBindingClient.Get()
+			resp, err := userBindingClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1370,7 +1370,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").User("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Binding("BS71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").User("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Binding("BS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1419,7 +1419,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := userChannelClient.Get()
+			resp, err := userChannelClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1449,7 +1449,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").User("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CH71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").User("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1612,7 +1612,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := channelInviteClient.Get()
+			resp, err := channelInviteClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1642,7 +1642,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Invite("IN71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Invite("IN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1774,7 +1774,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := channelMemberClient.Get()
+			resp, err := channelMemberClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1806,7 +1806,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("MB71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("MB71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1985,7 +1985,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := channelMessageClient.Get()
+			resp, err := channelMessageClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -2021,7 +2021,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2216,7 +2216,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := channelWebhookClient.Get()
+			resp, err := channelWebhookClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -2228,7 +2228,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Type).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(webhook.GetChannelWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(webhook.FetchChannelWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -2247,7 +2247,7 @@ var _ = Describe("Chat V2", func() {
 				},
 			)
 
-			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Get()
+			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetChannelMemberResponse struct {
+type FetchChannelMemberResponse struct {
 	AccountSid               string     `json:"account_sid"`
 	Attributes               *string    `json:"attributes,omitempty"`
 	ChannelSid               string     `json:"channel_sid"`
@@ -24,11 +24,11 @@ type GetChannelMemberResponse struct {
 	URL                      string     `json:"url"`
 }
 
-func (c Client) Get() (*GetChannelMemberResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchChannelMemberResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetChannelMemberResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchChannelMemberResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Channels/{channelSid}/Members/{sid}",
@@ -39,7 +39,7 @@ func (c Client) GetWithContext(context context.Context) (*GetChannelMemberRespon
 		},
 	}
 
-	response := &GetChannelMemberResponse{}
+	response := &FetchChannelMemberResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

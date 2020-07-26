@@ -13,15 +13,19 @@ type Client struct {
 	serviceSid string
 	sid        string
 
+	// Sub client to manage binding resources
 	Binding func(string) *binding.Client
+	// Sub client to manage channel resources
 	Channel func(string) *channel.Client
 }
 
+// The properties required to manage the user resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

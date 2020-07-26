@@ -10,11 +10,13 @@ type Client struct {
 	serviceSid string
 }
 
+// The properties required to manage the messages resources
 type ClientProperties struct {
 	ChannelSid string
 	ServiceSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
