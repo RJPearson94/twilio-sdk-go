@@ -21,13 +21,13 @@ type Client struct {
 	Media func(string) *media.Client
 }
 
-// The properties required to manage the message resources
+// ClientProperties are the properties required to manage the message resources
 type ClientProperties struct {
 	AccountSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the message client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

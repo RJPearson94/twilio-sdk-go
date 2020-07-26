@@ -12,13 +12,13 @@ type Client struct {
 	messageSid string
 }
 
-// The properties required to manage the feedback resources
+// ClientProperties are the properties required to manage the feedback resources
 type ClientProperties struct {
 	AccountSid string
 	MessageSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the feedback client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -23,20 +23,20 @@
             "method": "Post"
           },
           "documentation": {
-            "description": "Provision a new Twilio sub account under the current account",
+            "description": "provisions a new Twilio sub account under the current account",
             "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#create-an-account-resource"
           },
           "input": {
             "structure": "CreateAccountInput",
             "documentation": {
-              "description": "Input parameters/ properties for creating a new Twilio sub account resource"
+              "description": "defines the input parameters/ properties for creating a new Twilio sub account resource"
             }
           },
           "response": {
             "name": "CreateAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
-              "description": "Resource/ response properties for the created sub account"
+              "description": "resource/ response properties for the created sub account"
             }
           }
         }
@@ -88,13 +88,13 @@
                 ]
               },
               "documentation": {
-                "description": "Retrieve the balance resource for the account"
+                "description": "retrieves the balance resource for the account"
               },
               "response": {
                 "name": "FetchBalanceResponse",
                 "structure": "BalanceResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for retrieving an account balance"
+                  "description": "resource/ response properties for retrieving an account balance"
                 }
               }
             }
@@ -131,20 +131,20 @@
                 ]
               },
               "documentation": {
-                "description": "Create a new key resource",
+                "description": "creates a new key resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#create-a-new-api-key"
               },
               "input": {
                 "name": "CreateKeyInput",
                 "structure": "KeyInput",
                 "documentation": {
-                  "description": "Input parameters/ properties for creating a new API Key"
+                  "description": "defines input parameters/ properties for creating a new API Key"
                 }
               },
               "response": {
                 "structure": "CreateKeyResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for creating a new API Key"
+                  "description": "resource/ response properties for creating a new API Key"
                 }
               }
             }
@@ -200,14 +200,14 @@
                 ]
               },
               "documentation": {
-                "description": "Retrieve the api key resource. The secret is not returned for security reasons",
+                "description": "retrieves the api key resource. The secret is not returned for security reasons",
                 "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource"
               },
               "response": {
                 "name": "FetchKeyResponse",
                 "structure": "KeyResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for retrieving a API Key"
+                  "description": "resource/ response properties for retrieving a API Key"
                 }
               }
             },
@@ -236,21 +236,21 @@
                 ]
               },
               "documentation": {
-                "description": "Update a key resource. The secret is not returned for security reasons",
+                "description": "modifies a key resource. The secret is not returned for security reasons",
                 "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#update-a-key-resource"
               },
               "input": {
                 "name": "UpdateKeyInput",
                 "structure": "KeyInput",
                 "documentation": {
-                  "description": "Input parameters/ properties for updating a API Key"
+                  "description": "defines input parameters/ properties for updating a API Key"
                 }
               },
               "response": {
                 "name": "UpdateKeyResponse",
                 "structure": "KeyResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for the updated API Key"
+                  "description": "resource/ response properties for the updated API Key"
                 }
               }
             },
@@ -279,7 +279,7 @@
                 ]
               },
               "documentation": {
-                "description": "Delete a key resource from the account",
+                "description": "removes a key resource from the account",
                 "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#delete-a-key-resource"
               }
             }
@@ -316,20 +316,20 @@
                 ]
               },
               "documentation": {
-                "description": "Create a new message resource",
+                "description": "creates a new message resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource"
               },
               "input": {
                 "structure": "CreateMessageInput",
                 "documentation": {
-                  "description": "Input parameters/ properties for creating a new message resource"
+                  "description": "defines input parameters/ properties for creating a new message resource"
                 }
               },
               "response": {
                 "name": "CreateMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for the created message"
+                  "description": "resource/ response properties for the created message"
                 }
               }
             }
@@ -403,20 +403,20 @@
                     ]
                   },
                   "documentation": {
-                    "description": "Create a new feedback resource",
+                    "description": "creates a new feedback resource",
                     "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-feedback-resource#create-a-messagefeedback-resource"
                   },
                   "input": {
                     "structure": "CreateFeedbackInput",
                     "documentation": {
-                      "description": "Input parameters/ properties for creating a new feedback resource"
+                      "description": "defines input parameters/ properties for creating a new feedback resource"
                     }
                   },
                   "response": {
                     "name": "CreateFeedbackResponse",
                     "structure": "FeedbackResponse",
                     "documentation": {
-                      "description": "Resource/ response properties for the created feedback"
+                      "description": "resource/ response properties for the created feedback"
                     }
                   }
                 }
@@ -484,14 +484,14 @@
                     ]
                   },
                   "documentation": {
-                    "description": "Retrieve a media resource",
+                    "description": "retrieves a media resource",
                     "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource"
                   },
                   "response": {
                     "name": "FetchMediaResponse",
                     "structure": "MediaResponse",
                     "documentation": {
-                      "description": "Resource/ response properties for the retrieved media"
+                      "description": "resource/ response properties for the retrieved media"
                     }
                   }
                 },
@@ -528,7 +528,7 @@
                     ]
                   },
                   "documentation": {
-                    "description": "Delete a media resource from the account",
+                    "description": "removes a media resource from the account",
                     "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#delete-a-media-resource"
                   }
                 }
@@ -561,14 +561,14 @@
                 ]
               },
               "documentation": {
-                "description": "Retrieve a message resource",
+                "description": "retrieves a message resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource"
               },
               "response": {
                 "name": "FetchMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for the retrieved message"
+                  "description": "resource/ response properties for the retrieved message"
                 }
               }
             },
@@ -597,20 +597,20 @@
                 ]
               },
               "documentation": {
-                "description": "Update a message resource",
+                "description": "modifies a message resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#update-a-message-resource"
               },
               "input": {
                 "structure": "UpdateMessageInput",
                 "documentation": {
-                  "description": "Input parameters/ properties for updating a message resource"
+                  "description": "defines input parameters/ properties for updating a message resource"
                 }
               },
               "response": {
                 "name": "UpdateMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
-                  "description": "Resource/ response properties for the updated message"
+                  "description": "resource/ response properties for the updated message"
                 }
               }
             },
@@ -639,7 +639,7 @@
                 ]
               },
               "documentation": {
-                "description": "Delete a message resource from the account",
+                "description": "removes a message resource from the account",
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#delete-a-message-resource"
               }
             }
@@ -664,14 +664,14 @@
             ]
           },
           "documentation": {
-            "description": "Retrieve a Twilio account (parent or sub account) resource",
+            "description": "retrieves a Twilio account (parent or sub account) resource",
             "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource"
           },
           "response": {
             "name": "FetchAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
-              "description": "Resource/ response properties for the retrieved account"
+              "description": "resource/ response properties for the retrieved account"
             }
           }
         },
@@ -692,20 +692,20 @@
             ]
           },
           "documentation": {
-            "description": "Update a Twilio Account (parent or sub account) resource",
+            "description": "modifies a Twilio Account (parent or sub account) resource",
             "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#update-an-account-resource"
           },
           "input": {
             "structure": "UpdateAccountInput",
             "documentation": {
-              "description": "Input parameters/ properties for updating an account resource"
+              "description": "defines input parameters/ properties for updating an account resource"
             }
           },
           "response": {
             "name": "UpdateAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
-              "description": "Resource/ response properties for the updated account"
+              "description": "resource/ response properties for the updated account"
             }
           }
         }

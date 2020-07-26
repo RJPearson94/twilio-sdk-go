@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Resource/ response properties for the retrieved account
+// FetchAccountResponse resource/ response properties for the retrieved account
 type FetchAccountResponse struct {
 	// The generated authorization token for the account
 	AuthToken string `json:"auth_token"`
@@ -29,14 +29,14 @@ type FetchAccountResponse struct {
 	Type string `json:"type"`
 }
 
-// Retrieve a Twilio account (parent or sub account) resource
+// Fetch retrieves a Twilio account (parent or sub account) resource
 // See https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchAccountResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
-// Retrieve a Twilio account (parent or sub account) resource
+// FetchWithContext retrieves a Twilio account (parent or sub account) resource
 // See https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchAccountResponse, error) {
 	op := client.Operation{

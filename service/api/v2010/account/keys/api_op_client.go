@@ -11,12 +11,12 @@ type Client struct {
 	accountSid string
 }
 
-// The properties required to manage the keys resources
+// ClientProperties are the properties required to manage the keys resources
 type ClientProperties struct {
 	AccountSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the keys client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

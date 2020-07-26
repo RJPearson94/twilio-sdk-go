@@ -23,14 +23,14 @@ import "{{ $import }}" {{ end }} {{ end }}
 {{ template "responseStructTemplate" .response }}
 {{ end }}
 
-{{ if .documentation }} // {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
+{{ if .documentation }} // {{ .name }} {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
 // See {{ .documentation.twilioDocsLink }} for more details {{ end }} 
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information {{ end }}
 func (c Client) {{ .name }} ({{ if .input }}input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
 	return c.{{.name}}WithContext(context.Background() {{ if .input }}, input {{ end }})
 }
 
-{{ if .documentation }} // {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
+{{ if .documentation }} // {{ .name }}WithContext {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
 // See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }}
 func (c Client) {{ .name }}WithContext(context context.Context {{ if .input }}, input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
 	op := client.Operation{ ${overrideBaseURL}
@@ -74,7 +74,7 @@ func structTemplate(templateName string, tags string) string {
 	return strings.NewReplacer(
 		"{templateName}", templateName,
 		"{tags}", tags,
-	).Replace(`{{ define "{templateName}" }} {{ if .documentation }} // {{ .documentation.description }}
+	).Replace(`{{ define "{templateName}" }} {{ if .documentation }} // {{ .name }} {{ .documentation.description }}
 {{ end }} type {{ .name }} struct { {{range $index, $property := .properties }}
 	{{ if $property.documentation }} // {{ $property.documentation.description }}	
 	{{ end }} {{ $property.name }} {{ if eq $property.required false }}*{{ end }}{{ $property.type }} {tags} {{end}}

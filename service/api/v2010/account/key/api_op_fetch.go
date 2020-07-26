@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Resource/ response properties for retrieving a API Key
+// FetchKeyResponse resource/ response properties for retrieving a API Key
 type FetchKeyResponse struct {
 	// The date and time (in RFC2822 format) when the resource was created
 	DateCreated utils.RFC2822Time `json:"date_created"`
@@ -21,14 +21,14 @@ type FetchKeyResponse struct {
 	Sid string `json:"sid"`
 }
 
-// Retrieve the api key resource. The secret is not returned for security reasons
+// Fetch retrieves the api key resource. The secret is not returned for security reasons
 // See https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchKeyResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
-// Retrieve the api key resource. The secret is not returned for security reasons
+// FetchWithContext retrieves the api key resource. The secret is not returned for security reasons
 // See https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchKeyResponse, error) {
 	op := client.Operation{

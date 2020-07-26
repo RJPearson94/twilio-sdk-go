@@ -29,12 +29,12 @@ type Client struct {
 	Messages *messages.Client
 }
 
-// The properties required to manage the account resources
+// ClientProperties are the properties required to manage the account resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the account client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

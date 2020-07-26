@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Input parameters/ properties for updating an account resource
+// UpdateAccountInput defines input parameters/ properties for updating an account resource
 type UpdateAccountInput struct {
 	// The human readable name of the account
 	FriendlyName *string `form:"FriendlyName,omitempty"`
@@ -17,7 +17,7 @@ type UpdateAccountInput struct {
 	Status *string `form:"Status,omitempty"`
 }
 
-// Resource/ response properties for the updated account
+// UpdateAccountResponse resource/ response properties for the updated account
 type UpdateAccountResponse struct {
 	// The generated authorization token for the account
 	AuthToken string `json:"auth_token"`
@@ -37,14 +37,14 @@ type UpdateAccountResponse struct {
 	Type string `json:"type"`
 }
 
-// Update a Twilio Account (parent or sub account) resource
+// Update modifies a Twilio Account (parent or sub account) resource
 // See https://www.twilio.com/docs/iam/api/account#update-an-account-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateAccountInput) (*UpdateAccountResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-// Update a Twilio Account (parent or sub account) resource
+// UpdateWithContext modifies a Twilio Account (parent or sub account) resource
 // See https://www.twilio.com/docs/iam/api/account#update-an-account-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateAccountInput) (*UpdateAccountResponse, error) {
 	op := client.Operation{

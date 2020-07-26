@@ -19,7 +19,7 @@ type ClientProperties struct { {{ range $key, $value := $Properties}}
 	{{ $value.name | ToCamelCase }} {{ $value.type }} {{ end }}
 }{{ end }}
 
-// New creates a new instance of the client
+// New creates a new instance of the {{ .name | ToLowerCase }} client
 func New(client *client.Client, {{ if $Properties }}properties ClientProperties{{ end }}) *Client {
 	return &Client{
 		client: client,

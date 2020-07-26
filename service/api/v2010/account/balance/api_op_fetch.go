@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// Resource/ response properties for retrieving an account balance
+// FetchBalanceResponse resource/ response properties for retrieving an account balance
 type FetchBalanceResponse struct {
 	// The SID of account the balance was retrieved for
 	AccountSid string `json:"account_sid"`
@@ -18,13 +18,13 @@ type FetchBalanceResponse struct {
 	Currency string `json:"currency"`
 }
 
-// Retrieve the balance resource for the account
+// Fetch retrieves the balance resource for the account
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchBalanceResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
-// Retrieve the balance resource for the account
+// FetchWithContext retrieves the balance resource for the account
 func (c Client) FetchWithContext(context context.Context) (*FetchBalanceResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

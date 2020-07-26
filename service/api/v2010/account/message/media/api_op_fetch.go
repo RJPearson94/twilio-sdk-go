@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Resource/ response properties for the retrieved media
+// FetchMediaResponse resource/ response properties for the retrieved media
 type FetchMediaResponse struct {
 	// The SID of account the media resource is associated with
 	AccountSid string `json:"account_sid"`
@@ -25,14 +25,14 @@ type FetchMediaResponse struct {
 	Sid string `json:"sid"`
 }
 
-// Retrieve a media resource
+// Fetch retrieves a media resource
 // See https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchMediaResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
-// Retrieve a media resource
+// FetchWithContext retrieves a media resource
 // See https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchMediaResponse, error) {
 	op := client.Operation{

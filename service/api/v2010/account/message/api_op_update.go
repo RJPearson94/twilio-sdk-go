@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Input parameters/ properties for updating a message resource
+// UpdateMessageInput defines input parameters/ properties for updating a message resource
 type UpdateMessageInput struct {
 	// The updated message contents. Can be plain text or twiML
 	Body string `validate:"required" form:"Body"`
 }
 
-// Resource/ response properties for the updated message
+// UpdateMessageResponse resource/ response properties for the updated message
 type UpdateMessageResponse struct {
 	// The api version which was responsible for dealing with the message
 	APIVersion string `json:"api_version"`
@@ -55,14 +55,14 @@ type UpdateMessageResponse struct {
 	To string `json:"to"`
 }
 
-// Update a message resource
+// Update modifies a message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#update-a-message-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateMessageInput) (*UpdateMessageResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-// Update a message resource
+// UpdateWithContext modifies a message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#update-a-message-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateMessageInput) (*UpdateMessageResponse, error) {
 	op := client.Operation{

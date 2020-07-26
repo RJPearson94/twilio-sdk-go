@@ -8,14 +8,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// Delete a media resource from the account
+// Delete removes a media resource from the account
 // See https://www.twilio.com/docs/sms/api/media-resource#delete-a-media-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Delete() error {
 	return c.DeleteWithContext(context.Background())
 }
 
-// Delete a media resource from the account
+// DeleteWithContext removes a media resource from the account
 // See https://www.twilio.com/docs/sms/api/media-resource#delete-a-media-resource for more details
 func (c Client) DeleteWithContext(context context.Context) error {
 	op := client.Operation{

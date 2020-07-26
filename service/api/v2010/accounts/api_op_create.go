@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Input parameters/ properties for creating a new Twilio sub account resource
+// CreateAccountInput defines the input parameters/ properties for creating a new Twilio sub account resource
 type CreateAccountInput struct {
 	// The human readable name of the account
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-// Resource/ response properties for the created sub account
+// CreateAccountResponse resource/ response properties for the created sub account
 type CreateAccountResponse struct {
 	// The generated authorization token for the account
 	AuthToken string `json:"auth_token"`
@@ -35,14 +35,14 @@ type CreateAccountResponse struct {
 	Type string `json:"type"`
 }
 
-// Provision a new Twilio sub account under the current account
+// Create provisions a new Twilio sub account under the current account
 // See https://www.twilio.com/docs/iam/api/account#create-an-account-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateAccountInput) (*CreateAccountResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-// Provision a new Twilio sub account under the current account
+// CreateWithContext provisions a new Twilio sub account under the current account
 // See https://www.twilio.com/docs/iam/api/account#create-an-account-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateAccountInput) (*CreateAccountResponse, error) {
 	op := client.Operation{

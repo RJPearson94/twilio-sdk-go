@@ -21,7 +21,7 @@ type ClientProperties struct {
 	Sid string
 }
 
-// New creates a new instance of the client
+// New creates a new instance of the service client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

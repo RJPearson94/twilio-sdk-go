@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Input parameters/ properties for creating a new API Key
+// CreateKeyInput defines input parameters/ properties for creating a new API Key
 type CreateKeyInput struct {
 	// The human readable name of the API key
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-// Resource/ response properties for creating a new API Key
+// CreateKeyResponse resource/ response properties for creating a new API Key
 type CreateKeyResponse struct {
 	// The date and time (in RFC2822 format) when the resource was created
 	DateCreated utils.RFC2822Time `json:"date_created"`
@@ -29,14 +29,14 @@ type CreateKeyResponse struct {
 	Sid string `json:"sid"`
 }
 
-// Create a new key resource
+// Create creates a new key resource
 // See https://www.twilio.com/docs/iam/keys/api-key-resource#create-a-new-api-key for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateKeyInput) (*CreateKeyResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-// Create a new key resource
+// CreateWithContext creates a new key resource
 // See https://www.twilio.com/docs/iam/keys/api-key-resource#create-a-new-api-key for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput) (*CreateKeyResponse, error) {
 	op := client.Operation{

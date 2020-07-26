@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Input parameters/ properties for creating a new message resource
+// CreateMessageInput defines input parameters/ properties for creating a new message resource
 type CreateMessageInput struct {
 	// Whether the address can be stored or must be redacted
 	AddressRetention *string `form:"AddressRetention,omitempty"`
@@ -45,7 +45,7 @@ type CreateMessageInput struct {
 	ValidityPeriod *int `form:"ValidityPeriod,omitempty"`
 }
 
-// Resource/ response properties for the created message
+// CreateMessageResponse resource/ response properties for the created message
 type CreateMessageResponse struct {
 	// The api version which was responsible for dealing with the message
 	APIVersion string `json:"api_version"`
@@ -85,14 +85,14 @@ type CreateMessageResponse struct {
 	To string `json:"to"`
 }
 
-// Create a new message resource
+// Create creates a new message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateMessageInput) (*CreateMessageResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-// Create a new message resource
+// CreateWithContext creates a new message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateMessageInput) (*CreateMessageResponse, error) {
 	op := client.Operation{

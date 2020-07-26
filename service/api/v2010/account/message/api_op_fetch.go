@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// Resource/ response properties for the retrieved message
+// FetchMessageResponse resource/ response properties for the retrieved message
 type FetchMessageResponse struct {
 	// The api version which was responsible for dealing with the message
 	APIVersion string `json:"api_version"`
@@ -49,14 +49,14 @@ type FetchMessageResponse struct {
 	To string `json:"to"`
 }
 
-// Retrieve a message resource
+// Fetch retrieves a message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchMessageResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
-// Retrieve a message resource
+// FetchWithContext retrieves a message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchMessageResponse, error) {
 	op := client.Operation{

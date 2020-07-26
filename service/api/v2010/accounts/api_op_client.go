@@ -9,7 +9,7 @@ type Client struct {
 	client *client.Client
 }
 
-// Create a new instance of the client
+// New creates a new instance of the accounts client
 func New(client *client.Client) *Client {
 	return &Client{
 		client: client,
