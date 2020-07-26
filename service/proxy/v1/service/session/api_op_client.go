@@ -14,16 +14,21 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Interaction  func(string) *interaction.Client
-	Participant  func(string) *participant.Client
+	// Sub client to manage interaction resources
+	Interaction func(string) *interaction.Client
+	// Sub client to manage participant resources
+	Participant func(string) *participant.Client
+	// Sub client to manage participants resources
 	Participants *participants.Client
 }
 
+// The properties required to manage the session resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

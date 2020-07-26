@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetShortCodeResponseCapabilities struct {
+type FetchShortCodeResponseCapabilities struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -25,24 +25,24 @@ type GetShortCodeResponseCapabilities struct {
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
 }
 
-type GetShortCodeResponse struct {
-	AccountSid   string                            `json:"account_sid"`
-	Capabilities *GetShortCodeResponseCapabilities `json:"capabilities,omitempty"`
-	DateCreated  time.Time                         `json:"date_created"`
-	DateUpdated  *time.Time                        `json:"date_updated,omitempty"`
-	IsReserved   *bool                             `json:"is_reserved,omitempty"`
-	IsoCountry   *string                           `json:"iso_country,omitempty"`
-	ServiceSid   string                            `json:"service_sid"`
-	ShortCode    *string                           `json:"short_code,omitempty"`
-	Sid          string                            `json:"sid"`
-	URL          string                            `json:"url"`
+type FetchShortCodeResponse struct {
+	AccountSid   string                              `json:"account_sid"`
+	Capabilities *FetchShortCodeResponseCapabilities `json:"capabilities,omitempty"`
+	DateCreated  time.Time                           `json:"date_created"`
+	DateUpdated  *time.Time                          `json:"date_updated,omitempty"`
+	IsReserved   *bool                               `json:"is_reserved,omitempty"`
+	IsoCountry   *string                             `json:"iso_country,omitempty"`
+	ServiceSid   string                              `json:"service_sid"`
+	ShortCode    *string                             `json:"short_code,omitempty"`
+	Sid          string                              `json:"sid"`
+	URL          string                              `json:"url"`
 }
 
-func (c Client) Get() (*GetShortCodeResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchShortCodeResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetShortCodeResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchShortCodeResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/ShortCodes/{sid}",
@@ -52,7 +52,7 @@ func (c Client) GetWithContext(context context.Context) (*GetShortCodeResponse, 
 		},
 	}
 
-	response := &GetShortCodeResponse{}
+	response := &FetchShortCodeResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

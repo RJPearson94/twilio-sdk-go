@@ -13,15 +13,18 @@ type Client struct {
 	sessionSid string
 	sid        string
 
+	// Sub client to manage message interactions resources
 	MessageInteractions *message_interactions.Client
 }
 
+// The properties required to manage the participant resources
 type ClientProperties struct {
 	ServiceSid string
 	SessionSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

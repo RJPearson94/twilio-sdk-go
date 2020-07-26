@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetPhoneNumberResponseCapabilities struct {
+type FetchPhoneNumberResponseCapabilities struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -25,26 +25,26 @@ type GetPhoneNumberResponseCapabilities struct {
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
 }
 
-type GetPhoneNumberResponse struct {
-	AccountSid   string                              `json:"account_sid"`
-	Capabilities *GetPhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
-	DateCreated  time.Time                           `json:"date_created"`
-	DateUpdated  *time.Time                          `json:"date_updated,omitempty"`
-	FriendlyName *string                             `json:"friendly_name,omitempty"`
-	InUse        *int                                `json:"in_use,omitempty"`
-	IsReserved   *bool                               `json:"is_reserved,omitempty"`
-	IsoCountry   *string                             `json:"iso_country,omitempty"`
-	PhoneNumber  *string                             `json:"phone_number,omitempty"`
-	ServiceSid   string                              `json:"service_sid"`
-	Sid          string                              `json:"sid"`
-	URL          string                              `json:"url"`
+type FetchPhoneNumberResponse struct {
+	AccountSid   string                                `json:"account_sid"`
+	Capabilities *FetchPhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
+	DateCreated  time.Time                             `json:"date_created"`
+	DateUpdated  *time.Time                            `json:"date_updated,omitempty"`
+	FriendlyName *string                               `json:"friendly_name,omitempty"`
+	InUse        *int                                  `json:"in_use,omitempty"`
+	IsReserved   *bool                                 `json:"is_reserved,omitempty"`
+	IsoCountry   *string                               `json:"iso_country,omitempty"`
+	PhoneNumber  *string                               `json:"phone_number,omitempty"`
+	ServiceSid   string                                `json:"service_sid"`
+	Sid          string                                `json:"sid"`
+	URL          string                                `json:"url"`
 }
 
-func (c Client) Get() (*GetPhoneNumberResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchPhoneNumberResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetPhoneNumberResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchPhoneNumberResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/PhoneNumbers/{sid}",
@@ -54,7 +54,7 @@ func (c Client) GetWithContext(context context.Context) (*GetPhoneNumberResponse
 		},
 	}
 
-	response := &GetPhoneNumberResponse{}
+	response := &FetchPhoneNumberResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

@@ -95,7 +95,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/PhoneNumbers/{sid}",
                 "method": "Get",
@@ -119,7 +119,7 @@
                 ]
               },
               "response": {
-                "name": "GetPhoneNumberResponse",
+                "name": "FetchPhoneNumberResponse",
                 "structure": "PhoneNumberResponse"
               }
             },
@@ -240,7 +240,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/ShortCodes/{sid}",
                 "method": "Get",
@@ -264,7 +264,7 @@
                 ]
               },
               "response": {
-                "name": "GetShortCodeResponse",
+                "name": "FetchShortCodeResponse",
                 "structure": "ShortCodeResponse"
               }
             },
@@ -520,7 +520,7 @@
               ],
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Sessions/{sessionSid}/Participants/{sid}",
                     "method": "Get",
@@ -552,7 +552,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetParticipantResponse",
+                    "name": "FetchParticipantResponse",
                     "structure": "ParticipantResponse"
                   }
                 },
@@ -617,7 +617,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Sessions/{sessionSid}/Interactions/{sid}",
                     "method": "Get",
@@ -649,7 +649,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetInteractionResponse",
+                    "name": "FetchInteractionResponse",
                     "structure": "InteractionResponse"
                   }
                 },
@@ -691,7 +691,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Sessions/{sid}",
                 "method": "Get",
@@ -715,7 +715,7 @@
                 ]
               },
               "response": {
-                "name": "GetSessionResponse",
+                "name": "FetchSessionResponse",
                 "structure": "SessionResponse"
               }
             },
@@ -782,7 +782,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Services/{sid}",
             "method": "Get",
@@ -798,7 +798,7 @@
             ]
           },
           "response": {
-            "name": "GetServiceResponse",
+            "name": "FetchServiceResponse",
             "structure": "ServiceResponse"
           }
         },

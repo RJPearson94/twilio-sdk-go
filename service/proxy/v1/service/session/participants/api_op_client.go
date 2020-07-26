@@ -10,11 +10,13 @@ type Client struct {
 	sessionSid string
 }
 
+// The properties required to manage the participants resources
 type ClientProperties struct {
 	ServiceSid string
 	SessionSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -137,7 +137,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := serviceClient.Get()
+			resp, err := serviceClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -170,7 +170,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := proxySession.Service("KS71").Get()
+			resp, err := proxySession.Service("KS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -364,7 +364,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := phoneNumberClient.Get()
+			resp, err := phoneNumberClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -376,7 +376,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.PhoneNumber).To(Equal(utils.String("+123456789")))
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
-				Expect(resp.Capabilities).To(Equal(&phone_number.GetPhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&phone_number.FetchPhoneNumberResponseCapabilities{
 					VoiceInbound:             utils.Bool(true),
 					SmsInbound:               utils.Bool(true),
 					RestrictionVoiceDomestic: utils.Bool(false),
@@ -410,7 +410,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Get()
+			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -617,7 +617,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := shortCodeClient.Get()
+			resp, err := shortCodeClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -628,7 +628,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ShortCode).To(Equal(utils.String("12345")))
-				Expect(resp.Capabilities).To(Equal(&short_code.GetShortCodeResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&short_code.FetchShortCodeResponseCapabilities{
 					VoiceInbound: utils.Bool(false),
 					SmsOutbound:  utils.Bool(true),
 				}))
@@ -650,7 +650,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ShortCode("SC71").Get()
+			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ShortCode("SC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -833,7 +833,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := sessionClient.Get()
+			resp, err := sessionClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -868,7 +868,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KC71").Get()
+			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -980,7 +980,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := interactionClient.Get()
+			resp, err := interactionClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1024,7 +1024,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Interaction("KI71").Get()
+			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Interaction("KI71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1156,7 +1156,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := participantClient.Get()
+			resp, err := participantClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1188,7 +1188,7 @@ var _ = Describe("Proxy V1", func() {
 				},
 			)
 
-			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("KP71").Get()
+			resp, err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("KP71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
