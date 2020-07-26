@@ -149,6 +149,119 @@
               }
             }
           ]
+        },
+        {
+          "name": "ShortCodes",
+          "packageName": "short_codes",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/ShortCodes",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreateShortCodeInput"
+              },
+              "response": {
+                "name": "CreateShortCodeResponse",
+                "structure": "ShortCodeResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ShortCode",
+          "packageName": "short_code",
+          "function": {
+            "parameters": {
+              "shortCodeSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "shortCodeSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/ShortCodes/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetShortCodeResponse",
+                "structure": "ShortCodeResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/ShortCodes/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -440,6 +553,50 @@
           "name": "PhoneNumber",
           "type": "string",
           "value": "phone_number",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "type": "string",
+          "value": "country_code",
+          "required": true
+        },
+        {
+          "name": "Capabilities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "capabilities",
+          "required": true
+        }
+      ]
+    },
+    "CreateShortCodeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ShortCodeSid",
+          "type": "string",
+          "value": "ShortCodeSid",
+          "required": true
+        }
+      ]
+    },
+    "ShortCodeResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "ShortCode",
+          "type": "string",
+          "value": "short_code",
           "required": true
         },
         {

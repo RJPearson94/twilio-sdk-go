@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/phone_numbers"
+	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_code"
+	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_codes"
 )
 
 type Client struct {
@@ -14,6 +16,8 @@ type Client struct {
 
 	PhoneNumber  func(string) *phone_number.Client
 	PhoneNumbers *phone_numbers.Client
+	ShortCode    func(string) *short_code.Client
+	ShortCodes   *short_codes.Client
 }
 
 type ClientProperties struct {
@@ -33,6 +37,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		ShortCode: func(shortCodeSid string) *short_code.Client {
+			return short_code.New(client, short_code.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        shortCodeSid,
+			})
+		},
+		ShortCodes: short_codes.New(client, short_codes.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 	}
