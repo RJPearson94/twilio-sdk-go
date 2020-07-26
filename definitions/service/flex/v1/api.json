@@ -27,13 +27,13 @@
           }
         },
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Configuration",
             "method": "Get"
           },
           "response": {
-            "name": "GetConfigurationResponse",
+            "name": "FetchConfigurationResponse",
             "structure": "ConfigurationResponse"
           }
         }
@@ -69,7 +69,7 @@
       },
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/FlexFlows/{sid}",
             "method": "Get",
@@ -85,7 +85,7 @@
             ]
           },
           "response": {
-            "name": "GetFlexFlowResponse",
+            "name": "FetchFlexFlowResponse",
             "structure": "FlexFlowResponse"
           }
         },
@@ -162,7 +162,7 @@
       },
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Channels/{sid}",
             "method": "Get",
@@ -178,7 +178,7 @@
             ]
           },
           "response": {
-            "name": "GetChannelResponse",
+            "name": "FetchChannelResponse",
             "structure": "ChannelResponse"
           }
         },
@@ -231,7 +231,7 @@
       },
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/WebChannels/{sid}",
             "method": "Get",
@@ -247,7 +247,7 @@
             ]
           },
           "response": {
-            "name": "GetWebChannelResponse",
+            "name": "FetchWebChannelResponse",
             "structure": "WebChannelResponse"
           }
         },

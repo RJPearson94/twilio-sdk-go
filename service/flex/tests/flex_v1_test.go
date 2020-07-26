@@ -49,7 +49,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := configurationClient.Get()
+			resp, err := configurationClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -124,7 +124,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := configurationClient.Get()
+			resp, err := configurationClient.Fetch()
 			It("Then an error should be returned", func() {
 				Expect(err).ToNot(BeNil())
 				twilioErr, ok := err.(*utils.TwilioError)
@@ -369,7 +369,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := flexFlowClient.Get()
+			resp, err := flexFlowClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -384,7 +384,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flow.GetFlexFlowResponseIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flow.FetchFlexFlowResponseIntegration{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -406,7 +406,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := flexSession.FlexFlow("FO71").Get()
+			resp, err := flexSession.FlexFlow("FO71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -658,7 +658,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := channelClient.Get()
+			resp, err := channelClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -686,7 +686,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := flexSession.Channel("CH71").Get()
+			resp, err := flexSession.Channel("CH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -873,7 +873,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := webChannelClient.Get()
+			resp, err := webChannelClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -899,7 +899,7 @@ var _ = Describe("Flex V1", func() {
 				},
 			)
 
-			resp, err := flexSession.WebChannel("CH71").Get()
+			resp, err := flexSession.WebChannel("CH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

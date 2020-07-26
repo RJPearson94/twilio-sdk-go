@@ -10,7 +10,7 @@ import (
 )
 
 type UpdateConfigurationInputIntegration struct {
-	Active bool    `validate:"required" json:"active"`
+	Active bool    `json:"active"`
 	Author *string `json:"author,omitempty"`
 	Config string  `validate:"required" json:"config"`
 	Logo   *string `json:"logo,omitempty"`
@@ -19,19 +19,19 @@ type UpdateConfigurationInputIntegration struct {
 }
 
 type UpdateConfigurationInputSkill struct {
-	Maximum    bool   `validate:"required" json:"maximum"`
+	Maximum    bool   `json:"maximum"`
 	Minimum    int    `validate:"required" json:"minimum"`
-	MultiValue bool   `validate:"required" json:"multivalue"`
+	MultiValue bool   `json:"multivalue"`
 	Name       string `validate:"required" json:"name"`
 }
 
 type UpdateConfigurationInputTaskQueue struct {
 	Sid         string `validate:"required" json:"sid"`
-	Targettable bool   `validate:"required" json:"targettable"`
+	Targettable bool   `json:"targettable"`
 }
 
 type UpdateConfigurationInputWorkerChannel struct {
-	Availability bool   `validate:"required" json:"availability"`
+	Availability bool   `json:"availability"`
 	Capacity     int    `validate:"required" json:"capacity"`
 	Name         string `validate:"required" json:"name"`
 }
