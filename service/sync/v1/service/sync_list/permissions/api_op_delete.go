@@ -15,11 +15,11 @@ func (c Client) Delete() error {
 func (c Client) DeleteWithContext(context context.Context) error {
 	op := client.Operation{
 		Method: http.MethodDelete,
-		URI:    "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+		URI:    "/Services/{serviceSid}/Lists/{syncListSid}/Permissions/{identity}",
 		PathParams: map[string]string{
-			"serviceSid": c.serviceSid,
-			"listSid":    c.listSid,
-			"identity":   c.identity,
+			"serviceSid":  c.serviceSid,
+			"syncListSid": c.syncListSid,
+			"identity":    c.identity,
 		},
 	}
 

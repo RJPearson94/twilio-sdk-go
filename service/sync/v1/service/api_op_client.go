@@ -5,8 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/documents"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_maps"
 )
@@ -18,8 +18,8 @@ type Client struct {
 
 	Document  func(string) *document.Client
 	Documents *documents.Client
-	List      func(string) *list.Client
-	Lists     *lists.Client
+	SyncList  func(string) *sync_list.Client
+	SyncLists *sync_lists.Client
 	SyncMap   func(string) *sync_map.Client
 	SyncMaps  *sync_maps.Client
 }
@@ -43,13 +43,13 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		Documents: documents.New(client, documents.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
-		List: func(listSid string) *list.Client {
-			return list.New(client, list.ClientProperties{
+		SyncList: func(syncListSid string) *sync_list.Client {
+			return sync_list.New(client, sync_list.ClientProperties{
 				ServiceSid: properties.Sid,
-				Sid:        listSid,
+				Sid:        syncListSid,
 			})
 		},
-		Lists: lists.New(client, lists.ClientProperties{
+		SyncLists: sync_lists.New(client, sync_lists.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 		SyncMap: func(syncMapSid string) *sync_map.Client {

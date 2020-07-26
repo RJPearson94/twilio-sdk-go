@@ -8,13 +8,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type UpdateListPermissionsInput struct {
+type UpdateSyncListPermissionsInput struct {
 	Manage bool `form:"Manage"`
 	Read   bool `form:"Read"`
 	Write  bool `form:"Write"`
 }
 
-type UpdateListPermissionsResponse struct {
+type UpdateSyncListPermissionsResponse struct {
 	AccountSid string `json:"account_sid"`
 	Identity   string `json:"identity"`
 	ListSid    string `json:"list_sid"`
@@ -25,23 +25,23 @@ type UpdateListPermissionsResponse struct {
 	Write      bool   `json:"write"`
 }
 
-func (c Client) Update(input *UpdateListPermissionsInput) (*UpdateListPermissionsResponse, error) {
+func (c Client) Update(input *UpdateSyncListPermissionsInput) (*UpdateSyncListPermissionsResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
-func (c Client) UpdateWithContext(context context.Context, input *UpdateListPermissionsInput) (*UpdateListPermissionsResponse, error) {
+func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncListPermissionsInput) (*UpdateSyncListPermissionsResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
-		URI:         "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+		URI:         "/Services/{serviceSid}/Lists/{syncListSid}/Permissions/{identity}",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
-			"serviceSid": c.serviceSid,
-			"listSid":    c.listSid,
-			"identity":   c.identity,
+			"serviceSid":  c.serviceSid,
+			"syncListSid": c.syncListSid,
+			"identity":    c.identity,
 		},
 	}
 
-	response := &UpdateListPermissionsResponse{}
+	response := &UpdateSyncListPermissionsResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}

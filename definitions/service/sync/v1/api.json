@@ -325,8 +325,8 @@
           ]
         },
         {
-          "name": "Lists",
-          "packageName": "lists",
+          "name": "SyncLists",
+          "packageName": "sync_lists",
           "properties": {
             "serviceSid": {
               "dataType": "string",
@@ -351,21 +351,21 @@
                 ]
               },
               "input": {
-                "structure": "CreateListInput"
+                "structure": "CreateSyncListInput"
               },
               "response": {
-                "name": "CreateListResponse",
-                "structure": "ListResponse"
+                "name": "CreateSyncListResponse",
+                "structure": "SyncListResponse"
               }
             }
           ]
         },
         {
-          "name": "List",
-          "packageName": "list",
+          "name": "SyncList",
+          "packageName": "sync_list",
           "function": {
             "parameters": {
-              "listSid": {
+              "syncListSid": {
                 "dataType": "string"
               }
             }
@@ -377,7 +377,7 @@
             },
             "sid": {
               "dataType": "string",
-              "functionParameter": "listSid"
+              "functionParameter": "syncListSid"
             }
           },
           "subClients": [
@@ -389,7 +389,7 @@
                   "dataType": "string",
                   "parentProperty": "serviceSid"
                 },
-                "listSid": {
+                "syncListSid": {
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
@@ -398,7 +398,7 @@
                 {
                   "name": "Create",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Items",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Items",
                     "method": "Post",
                     "pathParams": [
                       {
@@ -410,21 +410,21 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       }
                     ]
                   },
                   "input": {
-                    "structure": "CreateListItemInput"
+                    "structure": "CreateSyncListItemInput"
                   },
                   "response": {
-                    "name": "CreateListItemResponse",
-                    "structure": "ListItemResponse"
+                    "name": "CreateSyncListItemResponse",
+                    "structure": "SyncListItemResponse"
                   }
                 }
               ]
@@ -444,7 +444,7 @@
                   "dataType": "string",
                   "parentProperty": "serviceSid"
                 },
-                "listSid": {
+                "syncListSid": {
                   "dataType": "string",
                   "parentProperty": "sid"
                 },
@@ -457,7 +457,7 @@
                 {
                   "name": "Get",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Items/{index}",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Items/{index}",
                     "method": "Get",
                     "pathParams": [
                       {
@@ -469,10 +469,10 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       },
@@ -487,14 +487,14 @@
                     ]
                   },
                   "response": {
-                    "name": "GetListItemResponse",
-                    "structure": "ListItemResponse"
+                    "name": "GetSyncListItemResponse",
+                    "structure": "SyncListItemResponse"
                   }
                 },
                 {
                   "name": "Update",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Items/{index}",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Items/{index}",
                     "method": "Post",
                     "pathParams": [
                       {
@@ -506,10 +506,10 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       },
@@ -524,17 +524,17 @@
                     ]
                   },
                   "input": {
-                    "structure": "UpdateListItemInput"
+                    "structure": "UpdateSyncListItemInput"
                   },
                   "response": {
-                    "name": "UpdateListItemResponse",
-                    "structure": "ListItemResponse"
+                    "name": "UpdateSyncListItemResponse",
+                    "structure": "SyncListItemResponse"
                   }
                 },
                 {
                   "name": "Delete",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Items/{index}",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Items/{index}",
                     "method": "Delete",
                     "pathParams": [
                       {
@@ -546,10 +546,10 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       },
@@ -581,7 +581,7 @@
                   "dataType": "string",
                   "parentProperty": "serviceSid"
                 },
-                "listSid": {
+                "syncListSid": {
                   "dataType": "string",
                   "parentProperty": "sid"
                 },
@@ -594,7 +594,7 @@
                 {
                   "name": "Get",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Permissions/{identity}",
                     "method": "Get",
                     "pathParams": [
                       {
@@ -606,10 +606,10 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       },
@@ -624,14 +624,14 @@
                     ]
                   },
                   "response": {
-                    "name": "GetListPermissionsResponse",
-                    "structure": "ListPermissionsResponse"
+                    "name": "GetSyncListPermissionsResponse",
+                    "structure": "SyncListPermissionsResponse"
                   }
                 },
                 {
                   "name": "Update",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Permissions/{identity}",
                     "method": "Post",
                     "pathParams": [
                       {
@@ -643,10 +643,10 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       },
@@ -661,18 +661,18 @@
                     ]
                   },
                   "input": {
-                    "name": "UpdateListPermissionsInput",
-                    "structure": "ListPermissionsInput"
+                    "name": "UpdateSyncListPermissionsInput",
+                    "structure": "SyncListPermissionsInput"
                   },
                   "response": {
-                    "name": "UpdateListPermissionsResponse",
-                    "structure": "ListPermissionsResponse"
+                    "name": "UpdateSyncListPermissionsResponse",
+                    "structure": "SyncListPermissionsResponse"
                   }
                 },
                 {
                   "name": "Delete",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Permissions/{identity}",
                     "method": "Delete",
                     "pathParams": [
                       {
@@ -684,10 +684,10 @@
                         }
                       },
                       {
-                        "name": "listSid",
+                        "name": "syncListSid",
                         "value": {
                           "onService": true,
-                          "property": "listSid",
+                          "property": "syncListSid",
                           "type": "string"
                         }
                       },
@@ -731,8 +731,8 @@
                 ]
               },
               "response": {
-                "name": "GetListResponse",
-                "structure": "ListResponse"
+                "name": "GetSyncListResponse",
+                "structure": "SyncListResponse"
               }
             },
             {
@@ -760,12 +760,12 @@
                 ]
               },
               "input": {
-                "name": "UpdateListInput",
-                "structure": "ListInput"
+                "name": "UpdateSyncListInput",
+                "structure": "SyncListInput"
               },
               "response": {
-                "name": "UpdateListResponse",
-                "structure": "ListResponse"
+                "name": "UpdateSyncListResponse",
+                "structure": "SyncListResponse"
               }
             },
             {
@@ -1586,9 +1586,9 @@
         }
       ]
     },
-    "CreateListInput": {
+    "CreateSyncListInput": {
       "type": "URLEncoded",
-      "extends": "ListInput",
+      "extends": "SyncListInput",
       "properties": [
         {
           "name": "UniqueName",
@@ -1598,7 +1598,7 @@
         }
       ]
     },
-    "ListInput": {
+    "SyncListInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -1615,7 +1615,7 @@
         }
       ]
     },
-    "ListResponse": {
+    "SyncListResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
       "properties": [
@@ -1651,9 +1651,9 @@
         }
       ]
     },
-    "CreateListItemInput": {
+    "CreateSyncListItemInput": {
       "type": "URLEncoded",
-      "extends": "BaseListInput",
+      "extends": "BaseSyncListInput",
       "properties": [
         {
           "name": "Data",
@@ -1663,9 +1663,9 @@
         }
       ]
     },
-    "UpdateListItemInput": {
+    "UpdateSyncListItemInput": {
       "type": "URLEncoded",
-      "extends": "BaseListInput",
+      "extends": "BaseSyncListInput",
       "properties": [
         {
           "name": "Data",
@@ -1675,7 +1675,7 @@
         }
       ]
     },
-    "BaseListInput": {
+    "BaseSyncListInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -1698,7 +1698,7 @@
         }
       ]
     },
-    "ListItemResponse": {
+    "SyncListItemResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -1772,7 +1772,7 @@
         }
       ]
     },
-    "ListPermissionsInput": {
+    "SyncListPermissionsInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -1795,7 +1795,7 @@
         }
       ]
     },
-    "ListPermissionsResponse": {
+    "SyncListPermissionsResponse": {
       "type": "JSON",
       "properties": [
         {

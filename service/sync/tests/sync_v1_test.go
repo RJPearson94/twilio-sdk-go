@@ -16,11 +16,11 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document/permissions"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/documents"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list/item"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list/items"
-	listPermissions "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list/permissions"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list"
+	syncListItem "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/item"
+	syncListItems "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/items"
+	syncListPermissions "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/permissions"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map"
 	syncMapItem "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/item"
 	syncMapItems "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/items"
@@ -591,27 +591,27 @@ var _ = Describe("Sync V1", func() {
 		})
 	})
 
-	Describe("Given the lists client", func() {
-		listsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Lists
+	Describe("Given the sync lists client", func() {
+		syncListsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncLists
 
-		Describe("When the list is successfully created", func() {
-			createInput := &lists.CreateListInput{}
+		Describe("When the sync list is successfully created", func() {
+			createInput := &sync_lists.CreateSyncListInput{}
 
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/listResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/syncListResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(201, resp)
 				},
 			)
 
-			resp, err := listsClient.Create(createInput)
+			resp, err := syncListsClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the create list response should be returned", func() {
+			It("Then the create sync list response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Sid).To(Equal("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -626,8 +626,8 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the create list api returns a 500 response", func() {
-			createInput := &lists.CreateListInput{}
+		Describe("When the create sync list api returns a 500 response", func() {
+			createInput := &sync_lists.CreateSyncListInput{}
 
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists",
 				func(req *http.Request) (*http.Response, error) {
@@ -638,36 +638,36 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := listsClient.Create(createInput)
+			resp, err := syncListsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
 
-			It("Then the create list response should be nil", func() {
+			It("Then the create sync list response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 	})
 
-	Describe("Given I have a list sid", func() {
-		listClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+	Describe("Given I have a sync list sid", func() {
+		syncListClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the list is successfully retrieved", func() {
+		Describe("When the sync list is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/listResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/syncListResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			resp, err := listClient.Get()
+			resp, err := syncListClient.Get()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the get list response should be returned", func() {
+			It("Then the get sync list response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Sid).To(Equal("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -682,7 +682,7 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the list api returns a 404", func() {
+		Describe("When the sync list api returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ES71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -692,36 +692,36 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ES71").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ES71").Get()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the get list response should be nil", func() {
+			It("Then the get sync list response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the list is successfully updated", func() {
+		Describe("When the sync list is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/updateListResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/updateSyncListResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			updateInput := &list.UpdateListInput{
+			updateInput := &sync_list.UpdateSyncListInput{
 				CollectionTtl: utils.Int(31536000),
 			}
 
-			resp, err := listClient.Update(updateInput)
+			resp, err := syncListClient.Update(updateInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the update list response should be returned", func() {
+			It("Then the update sync list response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Sid).To(Equal("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -736,7 +736,7 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the update list api returns a 404", func() {
+		Describe("When the update sync list api returns a 404", func() {
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ES71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -746,30 +746,30 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &list.UpdateListInput{
+			updateInput := &sync_list.UpdateSyncListInput{
 				CollectionTtl: utils.Int(31536000),
 			}
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ES71").Update(updateInput)
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ES71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the update list response should be nil", func() {
+			It("Then the update sync list response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the list is successfully deleted", func() {
+		Describe("When the sync list is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
 
-			err := listClient.Delete()
+			err := syncListClient.Delete()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 		})
 
-		Describe("When the list api returns a 404", func() {
+		Describe("When the sync list api returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ES71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -779,36 +779,36 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ES71").Delete()
+			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ES71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 		})
 	})
 
-	Describe("Given the list items client", func() {
-		listItemsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Items
+	Describe("Given the sync list items client", func() {
+		syncListItemsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Items
 
-		Describe("When the list item is successfully created", func() {
-			createInput := &items.CreateListItemInput{
+		Describe("When the sync list item is successfully created", func() {
+			createInput := &syncListItems.CreateSyncListItemInput{
 				Data: "{}",
 			}
 
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/listItemResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/syncListItemResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(201, resp)
 				},
 			)
 
-			resp, err := listItemsClient.Create(createInput)
+			resp, err := syncListItemsClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the create list item response should be returned", func() {
+			It("Then the create sync list item response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Index).To(Equal(0))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -827,21 +827,21 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the list item does not contain data", func() {
-			createInput := &items.CreateListItemInput{}
+		Describe("When the sync list item does not contain data", func() {
+			createInput := &syncListItems.CreateSyncListItemInput{}
 
-			resp, err := listItemsClient.Create(createInput)
+			resp, err := syncListItemsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
 
-			It("Then the create list item response should be nil", func() {
+			It("Then the create sync list item response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the create list item api returns a 500 response", func() {
-			createInput := &items.CreateListItemInput{
+		Describe("When the create sync list item api returns a 500 response", func() {
+			createInput := &syncListItems.CreateSyncListItemInput{
 				Data: "{}",
 			}
 
@@ -854,36 +854,36 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := listItemsClient.Create(createInput)
+			resp, err := syncListItemsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
 
-			It("Then the create list item response should be nil", func() {
+			It("Then the create sync list item response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 	})
 
-	Describe("Given I have a list item index", func() {
-		listItemClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(0)
+	Describe("Given I have a sync list item index", func() {
+		syncListItemClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(0)
 
-		Describe("When the list item is successfully retrieved", func() {
+		Describe("When the sync list item is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/listItemResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/synclistItemResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			resp, err := listItemClient.Get()
+			resp, err := syncListItemClient.Get()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the get list item response should be returned", func() {
+			It("Then the get sync list item response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Index).To(Equal(0))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -902,7 +902,7 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the list item api returns a 404", func() {
+		Describe("When the sync list item api returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1000",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -912,36 +912,36 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Get()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the get list item response should be nil", func() {
+			It("Then the get sync list item response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the list item is successfully updated", func() {
+		Describe("When the sync list item is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/updateListItemResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/updateSyncListItemResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			updateInput := &item.UpdateListItemInput{
+			updateInput := &syncListItem.UpdateSyncListItemInput{
 				Data: utils.String("{\"message\":\"Hello World\"}"),
 			}
 
-			resp, err := listItemClient.Update(updateInput)
+			resp, err := syncListItemClient.Update(updateInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the update list item response should be returned", func() {
+			It("Then the update sync list item response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Index).To(Equal(0))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -961,7 +961,7 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the update list item api returns a 404", func() {
+		Describe("When the update sync list item api returns a 404", func() {
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1000",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -971,30 +971,30 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &item.UpdateListItemInput{
+			updateInput := &syncListItem.UpdateSyncListItemInput{
 				Data: utils.String("{\"message\":\"Hello World\"}"),
 			}
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Update(updateInput)
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the update list item response should be nil", func() {
+			It("Then the update sync list item response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the list item is successfully deleted", func() {
+		Describe("When the sync list item is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0", httpmock.NewStringResponder(204, ""))
 
-			err := listItemClient.Delete()
+			err := syncListItemClient.Delete()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 		})
 
-		Describe("When the list item api returns a 404", func() {
+		Describe("When the sync list item api returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1000",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -1004,32 +1004,32 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Delete()
+			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 		})
 	})
 
-	Describe("Given I have a list permissions identity", func() {
-		listPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("test")
+	Describe("Given I have a sync list permissions identity", func() {
+		syncListPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("test")
 
 		Describe("When the list permissions are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/test",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/listPermissionsResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/syncListPermissionsResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			resp, err := listPermissionsClient.Get()
+			resp, err := syncListPermissionsClient.Get()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the get list permissions response should be returned", func() {
+			It("Then the get sync list permissions response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -1042,7 +1042,7 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the list permissions api returns a 404", func() {
+		Describe("When the sync list permissions api returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/unknownIdentity",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -1052,38 +1052,38 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Get()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the get list permissions response should be nil", func() {
+			It("Then the get sync list permissions response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the list permissions are successfully updated", func() {
+		Describe("When the sync list permissions are successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/test",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/updateListPermissionsResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/updateSyncListPermissionsResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			updateInput := &listPermissions.UpdateListPermissionsInput{
+			updateInput := &syncListPermissions.UpdateSyncListPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
 			}
 
-			resp, err := listPermissionsClient.Update(updateInput)
+			resp, err := syncListPermissionsClient.Update(updateInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the update list permissions response should be returned", func() {
+			It("Then the update sync list permissions response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -1096,7 +1096,7 @@ var _ = Describe("Sync V1", func() {
 			})
 		})
 
-		Describe("When the update list permissions api returns a 404", func() {
+		Describe("When the update sync list permissions api returns a 404", func() {
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/unknownIdentity",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -1106,32 +1106,32 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &listPermissions.UpdateListPermissionsInput{
+			updateInput := &syncListPermissions.UpdateSyncListPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
 			}
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Update(updateInput)
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the update list permissions response should be nil", func() {
+			It("Then the update sync list permissions response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the list permissions are successfully deleted", func() {
+		Describe("When the sync list permissions are successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/test", httpmock.NewStringResponder(204, ""))
 
-			err := listPermissionsClient.Delete()
+			err := syncListPermissionsClient.Delete()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
 		})
 
-		Describe("When the list permissions api returns a 404", func() {
+		Describe("When the sync list permissions api returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/unknownIdentity",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -1141,7 +1141,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").List("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Delete()
+			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
