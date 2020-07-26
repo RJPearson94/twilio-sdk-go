@@ -36,6 +36,121 @@
           "dataType": "string"
         }
       },
+      "subClients": [
+        {
+          "name": "PhoneNumbers",
+          "packageName": "phone_numbers",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/PhoneNumbers",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreatePhoneNumberInput"
+              },
+              "response": {
+                "name": "CreatePhoneNumberResponse",
+                "structure": "PhoneNumberResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "PhoneNumber",
+          "packageName": "phone_number",
+          "function": {
+            "parameters": {
+              "phoneNumberSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "phoneNumberSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/PhoneNumbers/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetPhoneNumberResponse",
+                "structure": "PhoneNumberResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/PhoneNumbers/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Get",
@@ -296,6 +411,50 @@
           "name": "SynchronousValidation",
           "type": "bool",
           "value": "synchronous_validation",
+          "required": true
+        }
+      ]
+    },
+    "CreatePhoneNumberInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "PhoneNumberSid",
+          "type": "string",
+          "value": "PhoneNumberSid",
+          "required": true
+        }
+      ]
+    },
+    "PhoneNumberResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "phone_number",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "type": "string",
+          "value": "country_code",
+          "required": true
+        },
+        {
+          "name": "Capabilities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "capabilities",
           "required": true
         }
       ]

@@ -1,0 +1,11 @@
+{
+  "phone_number": "+123456789",
+  "date_updated": null,
+  "capabilities": ["SMS", "Voice"],
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "country_code": "GB",
+  "sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
