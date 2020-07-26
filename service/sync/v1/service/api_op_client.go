@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/documents"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/lists"
 )
 
 type Client struct {
@@ -14,6 +16,8 @@ type Client struct {
 
 	Document  func(string) *document.Client
 	Documents *documents.Client
+	List      func(string) *list.Client
+	Lists     *lists.Client
 }
 
 type ClientProperties struct {
@@ -33,6 +37,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Documents: documents.New(client, documents.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		List: func(listSid string) *list.Client {
+			return list.New(client, list.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        listSid,
+			})
+		},
+		Lists: lists.New(client, lists.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 	}

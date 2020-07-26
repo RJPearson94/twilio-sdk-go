@@ -323,6 +323,152 @@
               }
             }
           ]
+        },
+        {
+          "name": "Lists",
+          "packageName": "lists",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Lists",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreateListInput"
+              },
+              "response": {
+                "name": "CreateListResponse",
+                "structure": "ListResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "List",
+          "packageName": "list",
+          "function": {
+            "parameters": {
+              "listSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "listSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Lists/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetListResponse",
+                "structure": "ListResponse"
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Lists/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateListInput",
+                "structure": "ListInput"
+              },
+              "response": {
+                "name": "UpdateListResponse",
+                "structure": "ListResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Lists/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -640,6 +786,71 @@
           "name": "URL",
           "type": "string",
           "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateListInput": {
+      "type": "URLEncoded",
+      "extends": "ListInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "ListInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        },
+        {
+          "name": "CollectionTtl",
+          "type": "int",
+          "value": "CollectionTtl",
+          "required": false
+        }
+      ]
+    },
+    "ListResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": false
+        },
+        {
+          "name": "CreatedBy",
+          "type": "string",
+          "value": "created_by",
+          "required": true
+        },
+        {
+          "name": "DateExpires",
+          "type": "time.Time",
+          "value": "date_expires",
+          "required": false
+        },
+        {
+          "name": "Revision",
+          "type": "string",
+          "value": "revision",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_Sid",
           "required": true
         }
       ]
