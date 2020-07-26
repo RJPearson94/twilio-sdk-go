@@ -1,0 +1,21 @@
+{
+  "unique_name": null,
+  "acl_enabled": false,
+  "reachability_debouncing_window": 5000,
+  "date_updated": "2020-06-20T21:00:24Z",
+  "reachability_debouncing_enabled": false,
+  "friendly_name": "test",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "reachability_webhooks_enabled": false,
+  "sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "webhook_url": null,
+  "webhooks_from_rest_enabled": false,
+  "links": {
+    "maps": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps",
+    "documents": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents",
+    "streams": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams",
+    "lists": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists"
+  }
+}
