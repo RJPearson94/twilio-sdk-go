@@ -186,7 +186,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := flowClient.Get()
+			resp, err := flowClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -223,7 +223,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := studioSession.Flow("FW71").Get()
+			resp, err := studioSession.Flow("FW71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -460,7 +460,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := executionClient.Get()
+			resp, err := executionClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -489,7 +489,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FN71").Get()
+			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -608,7 +608,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := executionContextClient.Get()
+			resp, err := executionContextClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -633,7 +633,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FN71").Context().Get()
+			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FN71").Context().Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -657,7 +657,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := stepClient.Get()
+			resp, err := stepClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -688,7 +688,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Step("FT71").Get()
+			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Step("FT71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -712,7 +712,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := stepContextClient.Get()
+			resp, err := stepContextClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -738,7 +738,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Step("FT71").Context().Get()
+			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Step("FT71").Context().Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -762,7 +762,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := flowRevision.Get()
+			resp, err := flowRevision.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -799,7 +799,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Revision(100).Get()
+			resp, err := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Revision(100).Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

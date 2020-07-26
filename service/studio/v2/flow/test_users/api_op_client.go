@@ -9,10 +9,12 @@ type Client struct {
 	flowSid string
 }
 
+// The properties required to manage the test users resources
 type ClientProperties struct {
 	FlowSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

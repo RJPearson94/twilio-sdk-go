@@ -59,7 +59,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Flows/{flowSid}/Revisions/{revisionNumber}",
                 "method": "Get",
@@ -83,7 +83,7 @@
                 ]
               },
               "response": {
-                "name": "GetRevisionResponse",
+                "name": "FetchRevisionResponse",
                 "structure": "FlowResponse"
               }
             }
@@ -203,7 +203,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Flows/{flowSid}/Executions/{executionSid}/Context",
                     "method": "Get",
@@ -227,7 +227,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetContextResponse",
+                    "name": "FetchContextResponse",
                     "structure": "ContextResponse"
                   }
                 }
@@ -280,7 +280,7 @@
                   },
                   "operations": [
                     {
-                      "name": "Get",
+                      "name": "Fetch",
                       "http": {
                         "uri": "/Flows/{flowSid}/Executions/{executionSid}/Steps/{stepSid}/Context",
                         "method": "Get",
@@ -312,7 +312,7 @@
                         ]
                       },
                       "response": {
-                        "name": "GetContextResponse",
+                        "name": "FetchContextResponse",
                         "structure": "StepContextResponse"
                       }
                     }
@@ -321,7 +321,7 @@
               ],
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Flows/{flowSid}/Executions/{executionSid}/Steps/{sid}",
                     "method": "Get",
@@ -353,7 +353,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetStepResponse",
+                    "name": "FetchStepResponse",
                     "structure": "StepResponse"
                   }
                 }
@@ -362,7 +362,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Flows/{flowSid}/Executions/{sid}",
                 "method": "Get",
@@ -386,7 +386,7 @@
                 ]
               },
               "response": {
-                "name": "GetExecutionResponse",
+                "name": "FetchExecutionResponse",
                 "structure": "ExecutionResponse"
               }
             },
@@ -452,7 +452,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Flows/{sid}",
             "method": "Get",
@@ -468,7 +468,7 @@
             ]
           },
           "response": {
-            "name": "GetFlowResponse",
+            "name": "FetchFlowResponse",
             "structure": "FlowResponse"
           }
         },

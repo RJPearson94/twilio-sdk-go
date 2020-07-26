@@ -11,12 +11,14 @@ type Client struct {
 	stepSid      string
 }
 
+// The properties required to manage the context resources
 type ClientProperties struct {
 	ExecutionSid string
 	FlowSid      string
 	StepSid      string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

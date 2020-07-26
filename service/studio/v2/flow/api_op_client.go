@@ -14,16 +14,22 @@ type Client struct {
 
 	sid string
 
-	Execution  func(string) *execution.Client
+	// Sub client to manage execution resources
+	Execution func(string) *execution.Client
+	// Sub client to manage executions resources
 	Executions *executions.Client
-	Revision   func(int) *revision.Client
-	TestUsers  func() *test_users.Client
+	// Sub client to manage revision resources
+	Revision func(int) *revision.Client
+	// Sub client to manage test users resources
+	TestUsers func() *test_users.Client
 }
 
+// The properties required to manage the flow resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

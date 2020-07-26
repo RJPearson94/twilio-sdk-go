@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetExecutionResponse struct {
+type FetchExecutionResponse struct {
 	AccountSid            string      `json:"account_sid"`
 	ContactChannelAddress string      `json:"contact_channel_address"`
 	Context               interface{} `json:"context"`
@@ -21,11 +21,11 @@ type GetExecutionResponse struct {
 	URL                   string      `json:"url"`
 }
 
-func (c Client) Get() (*GetExecutionResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchExecutionResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetExecutionResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchExecutionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Flows/{flowSid}/Executions/{sid}",
@@ -35,7 +35,7 @@ func (c Client) GetWithContext(context context.Context) (*GetExecutionResponse, 
 		},
 	}
 
-	response := &GetExecutionResponse{}
+	response := &FetchExecutionResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

@@ -10,11 +10,13 @@ type Client struct {
 	flowSid      string
 }
 
+// The properties required to manage the context resources
 type ClientProperties struct {
 	ExecutionSid string
 	FlowSid      string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

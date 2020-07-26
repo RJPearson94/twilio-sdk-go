@@ -13,15 +13,18 @@ type Client struct {
 	flowSid      string
 	sid          string
 
+	// Sub client to manage context resources
 	Context func() *context.Client
 }
 
+// The properties required to manage the step resources
 type ClientProperties struct {
 	ExecutionSid string
 	FlowSid      string
 	Sid          string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

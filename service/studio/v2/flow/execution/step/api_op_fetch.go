@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetStepResponse struct {
+type FetchStepResponse struct {
 	AccountSid       string      `json:"account_sid"`
 	Context          interface{} `json:"context"`
 	DateCreated      time.Time   `json:"date_created"`
@@ -23,11 +23,11 @@ type GetStepResponse struct {
 	URL              string      `json:"url"`
 }
 
-func (c Client) Get() (*GetStepResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchStepResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetStepResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchStepResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Flows/{flowSid}/Executions/{executionSid}/Steps/{sid}",
@@ -38,7 +38,7 @@ func (c Client) GetWithContext(context context.Context) (*GetStepResponse, error
 		},
 	}
 
-	response := &GetStepResponse{}
+	response := &FetchStepResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
