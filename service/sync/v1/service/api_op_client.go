@@ -7,6 +7,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/documents"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_maps"
 )
 
 type Client struct {
@@ -18,6 +20,8 @@ type Client struct {
 	Documents *documents.Client
 	List      func(string) *list.Client
 	Lists     *lists.Client
+	SyncMap   func(string) *sync_map.Client
+	SyncMaps  *sync_maps.Client
 }
 
 type ClientProperties struct {
@@ -46,6 +50,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Lists: lists.New(client, lists.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		SyncMap: func(syncMapSid string) *sync_map.Client {
+			return sync_map.New(client, sync_map.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        syncMapSid,
+			})
+		},
+		SyncMaps: sync_maps.New(client, sync_maps.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 	}

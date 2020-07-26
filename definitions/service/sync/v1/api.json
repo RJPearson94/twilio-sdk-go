@@ -487,7 +487,7 @@
                     ]
                   },
                   "response": {
-                    "name": "ListItemResponse",
+                    "name": "GetListItemResponse",
                     "structure": "ListItemResponse"
                   }
                 },
@@ -772,6 +772,477 @@
               "name": "Delete",
               "http": {
                 "uri": "/Services/{serviceSid}/Lists/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "SyncMaps",
+          "packageName": "sync_maps",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Maps",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreateSyncMapInput"
+              },
+              "response": {
+                "name": "CreateSyncMapResponse",
+                "structure": "SyncMapResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "SyncMap",
+          "packageName": "sync_map",
+          "function": {
+            "parameters": {
+              "syncMapSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "syncMapSid"
+            }
+          },
+          "subClients": [
+            {
+              "name": "Items",
+              "packageName": "items",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "syncMapSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Items",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "structure": "CreateSyncMapItemInput"
+                  },
+                  "response": {
+                    "name": "CreateSyncMapItemResponse",
+                    "structure": "SyncMapItemResponse"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Item",
+              "packageName": "item",
+              "function": {
+                "parameters": {
+                  "key": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "syncMapSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "key": {
+                  "dataType": "string",
+                  "functionParameter": "key"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Items/{key}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "onService": true,
+                          "property": "key",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetSyncMapItemResponse",
+                    "structure": "SyncMapItemResponse"
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Items/{key}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "onService": true,
+                          "property": "key",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "structure": "UpdateSyncMapItemInput"
+                  },
+                  "response": {
+                    "name": "UpdateSyncMapItemResponse",
+                    "structure": "SyncMapItemResponse"
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Items/{key}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "onService": true,
+                          "property": "key",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Permissions",
+              "packageName": "permissions",
+              "function": {
+                "parameters": {
+                  "identity": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "syncMapSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "functionParameter": "identity"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Permissions/{identity}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetSyncMapPermissionsResponse",
+                    "structure": "SyncMapPermissionsResponse"
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Permissions/{identity}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "UpdateSyncMapPermissionsInput",
+                    "structure": "SyncMapPermissionsInput"
+                  },
+                  "response": {
+                    "name": "UpdateSyncMapPermissionsResponse",
+                    "structure": "SyncMapPermissionsResponse"
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Permissions/{identity}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Maps/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetSyncMapResponse",
+                "structure": "SyncMapResponse"
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Maps/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateSyncMapInput",
+                "structure": "SyncMapInput"
+              },
+              "response": {
+                "name": "UpdateSyncMapResponse",
+                "structure": "SyncMapResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Maps/{sid}",
                 "method": "Delete",
                 "pathParams": [
                   {
@@ -1343,6 +1814,268 @@
           "name": "ListSid",
           "type": "string",
           "value": "list_sid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "Read",
+          "type": "bool",
+          "value": "read",
+          "required": true
+        },
+        {
+          "name": "Write",
+          "type": "bool",
+          "value": "write",
+          "required": true
+        },
+        {
+          "name": "Manage",
+          "type": "bool",
+          "value": "manage",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateSyncMapInput": {
+      "type": "URLEncoded",
+      "extends": "SyncMapInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "SyncMapInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        },
+        {
+          "name": "CollectionTtl",
+          "type": "int",
+          "value": "CollectionTtl",
+          "required": false
+        }
+      ]
+    },
+    "SyncMapResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": false
+        },
+        {
+          "name": "CreatedBy",
+          "type": "string",
+          "value": "created_by",
+          "required": true
+        },
+        {
+          "name": "DateExpires",
+          "type": "time.Time",
+          "value": "date_expires",
+          "required": false
+        },
+        {
+          "name": "Revision",
+          "type": "string",
+          "value": "revision",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_Sid",
+          "required": true
+        }
+      ]
+    },
+    "CreateSyncMapItemInput": {
+      "type": "URLEncoded",
+      "extends": "BaseSyncMapItemInput",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "string",
+          "value": "Data",
+          "required": true
+        }
+      ]
+    },
+    "UpdateSyncMapItemInput": {
+      "type": "URLEncoded",
+      "extends": "BaseSyncMapItemInput",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "string",
+          "value": "Data",
+          "required": false
+        }
+      ]
+    },
+    "BaseSyncMapItemInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        },
+        {
+          "name": "ItemTtl",
+          "type": "int",
+          "value": "ItemTtl",
+          "required": false
+        },
+        {
+          "name": "CollectionTtl",
+          "type": "int",
+          "value": "CollectionTtl",
+          "required": false
+        }
+      ]
+    },
+    "SyncMapItemResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "CreatedBy",
+          "type": "string",
+          "value": "created_by",
+          "required": true
+        },
+        {
+          "name": "DateExpires",
+          "type": "time.Time",
+          "value": "date_expires",
+          "required": false
+        },
+        {
+          "name": "Revision",
+          "type": "string",
+          "value": "revision",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_Sid",
+          "required": true
+        },
+        {
+          "name": "MapSid",
+          "type": "string",
+          "value": "map_sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "SyncMapPermissionsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Read",
+          "type": "bool",
+          "value": "Read",
+          "required": true
+        },
+        {
+          "name": "Write",
+          "type": "bool",
+          "value": "Write",
+          "required": true
+        },
+        {
+          "name": "Manage",
+          "type": "bool",
+          "value": "Manage",
+          "required": true
+        }
+      ]
+    },
+    "SyncMapPermissionsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "MapSid",
+          "type": "string",
+          "value": "map_sid",
           "required": true
         },
         {
