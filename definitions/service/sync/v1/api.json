@@ -565,6 +565,144 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Permissions",
+              "packageName": "permissions",
+              "function": {
+                "parameters": {
+                  "identity": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "listSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "functionParameter": "identity"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "listSid",
+                        "value": {
+                          "onService": true,
+                          "property": "listSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetListPermissionsResponse",
+                    "structure": "ListPermissionsResponse"
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "listSid",
+                        "value": {
+                          "onService": true,
+                          "property": "listSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "UpdateListPermissionsInput",
+                    "structure": "ListPermissionsInput"
+                  },
+                  "response": {
+                    "name": "UpdateListPermissionsResponse",
+                    "structure": "ListPermissionsResponse"
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Lists/{listSid}/Permissions/{identity}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "listSid",
+                        "value": {
+                          "onService": true,
+                          "property": "listSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ],
           "operations": [
@@ -1154,6 +1292,82 @@
           "type": "time.Time",
           "value": "date_updated",
           "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "ListPermissionsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Read",
+          "type": "bool",
+          "value": "Read",
+          "required": true
+        },
+        {
+          "name": "Write",
+          "type": "bool",
+          "value": "Write",
+          "required": true
+        },
+        {
+          "name": "Manage",
+          "type": "bool",
+          "value": "Manage",
+          "required": true
+        }
+      ]
+    },
+    "ListPermissionsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "ListSid",
+          "type": "string",
+          "value": "list_sid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "Read",
+          "type": "bool",
+          "value": "read",
+          "required": true
+        },
+        {
+          "name": "Write",
+          "type": "bool",
+          "value": "write",
+          "required": true
+        },
+        {
+          "name": "Manage",
+          "type": "bool",
+          "value": "manage",
+          "required": true
         },
         {
           "name": "URL",

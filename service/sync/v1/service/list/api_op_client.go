@@ -5,6 +5,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list/item"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list/items"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/list/permissions"
 )
 
 type Client struct {
@@ -13,8 +14,9 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Item  func(int) *item.Client
-	Items *items.Client
+	Item        func(int) *item.Client
+	Items       *items.Client
+	Permissions func(string) *permissions.Client
 }
 
 type ClientProperties struct {
@@ -40,5 +42,12 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			ListSid:    properties.Sid,
 			ServiceSid: properties.ServiceSid,
 		}),
+		Permissions: func(identity string) *permissions.Client {
+			return permissions.New(client, permissions.ClientProperties{
+				Identity:   identity,
+				ListSid:    properties.Sid,
+				ServiceSid: properties.ServiceSid,
+			})
+		},
 	}
 }
