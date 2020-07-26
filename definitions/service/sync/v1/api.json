@@ -1265,6 +1265,152 @@
               }
             }
           ]
+        },
+        {
+          "name": "SyncStreams",
+          "packageName": "sync_streams",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Streams",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreateSyncStreamInput"
+              },
+              "response": {
+                "name": "CreateSyncStreamResponse",
+                "structure": "SyncStreamResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "SyncStream",
+          "packageName": "sync_stream",
+          "function": {
+            "parameters": {
+              "syncStreamSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "syncStreamSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/Streams/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetSyncStreamResponse",
+                "structure": "SyncStreamResponse"
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Streams/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "name": "UpdateSyncStreamInput",
+                "structure": "SyncStreamInput"
+              },
+              "response": {
+                "name": "UpdateSyncStreamResponse",
+                "structure": "SyncStreamResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Streams/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -2106,6 +2252,59 @@
           "name": "URL",
           "type": "string",
           "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateSyncStreamInput": {
+      "type": "URLEncoded",
+      "extends": "SyncStreamInput",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        }
+      ]
+    },
+    "SyncStreamInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        }
+      ]
+    },
+    "SyncStreamResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": false
+        },
+        {
+          "name": "CreatedBy",
+          "type": "string",
+          "value": "created_by",
+          "required": true
+        },
+        {
+          "name": "DateExpires",
+          "type": "time.Time",
+          "value": "date_expires",
+          "required": false
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_Sid",
           "required": true
         }
       ]
