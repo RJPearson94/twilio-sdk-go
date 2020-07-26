@@ -9,22 +9,35 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Input parameters/ properties for creating a new API Key
 type CreateKeyInput struct {
+	// The human readable name of the API key
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
+// Resource/ response properties for creating a new API Key
 type CreateKeyResponse struct {
-	DateCreated  utils.RFC2822Time  `json:"date_created"`
-	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
-	FriendlyName string             `json:"friendly_name"`
-	Secret       string             `json:"secret"`
-	Sid          string             `json:"sid"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
+	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	// The human readable name of the API key
+	FriendlyName string `json:"friendly_name"`
+	// The secret value for the API key. This is only visible at point of creation
+	Secret string `json:"secret"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
 }
 
+// Create a new key resource
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#create-a-new-api-key for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateKeyInput) (*CreateKeyResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// Create a new key resource
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#create-a-new-api-key for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput) (*CreateKeyResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

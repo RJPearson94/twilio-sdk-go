@@ -9,26 +9,43 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Input parameters/ properties for updating an account resource
 type UpdateAccountInput struct {
+	// The human readable name of the account
 	FriendlyName *string `form:"FriendlyName,omitempty"`
-	Status       *string `form:"Status,omitempty"`
+	// The new status of the account
+	Status *string `form:"Status,omitempty"`
 }
 
+// Resource/ response properties for the updated account
 type UpdateAccountResponse struct {
-	AuthToken       string             `json:"auth_token"`
-	DateCreated     utils.RFC2822Time  `json:"date_created"`
-	DateUpdated     *utils.RFC2822Time `json:"date_updated,omitempty"`
-	FriendlyName    string             `json:"friendly_name"`
-	OwnerAccountSid string             `json:"owner_account_sid"`
-	Sid             string             `json:"sid"`
-	Status          string             `json:"status"`
-	Type            string             `json:"type"`
+	// The generated authorization token for the account
+	AuthToken string `json:"auth_token"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
+	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	// The human readable name of the account
+	FriendlyName string `json:"friendly_name"`
+	// The SID of the parent account. Can be the same as the SID of the account
+	OwnerAccountSid string `json:"owner_account_sid"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The current status of the account
+	Status string `json:"status"`
+	// The current account type
+	Type string `json:"type"`
 }
 
+// Update a Twilio Account (parent or sub account) resource
+// See https://www.twilio.com/docs/iam/api/account#update-an-account-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateAccountInput) (*UpdateAccountResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// Update a Twilio Account (parent or sub account) resource
+// See https://www.twilio.com/docs/iam/api/account#update-an-account-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateAccountInput) (*UpdateAccountResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

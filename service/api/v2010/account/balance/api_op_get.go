@@ -8,16 +8,23 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// Resource/ response properties for retrieving an account balance
 type GetBalanceResponse struct {
+	// The SID of account the balance was retrieved for
 	AccountSid string `json:"account_sid"`
-	Balance    string `json:"balance"`
-	Currency   string `json:"currency"`
+	// The currency format for the balance
+	Balance string `json:"balance"`
+	// The account currency format
+	Currency string `json:"currency"`
 }
 
+// Retrieve the balance resource for the account
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Get() (*GetBalanceResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
+// Retrieve the balance resource for the account
 func (c Client) GetWithContext(context context.Context) (*GetBalanceResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

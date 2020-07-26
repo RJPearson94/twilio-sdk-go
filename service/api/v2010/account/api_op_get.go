@@ -9,21 +9,35 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Resource/ response properties for the retrieved account
 type GetAccountResponse struct {
-	AuthToken       string             `json:"auth_token"`
-	DateCreated     utils.RFC2822Time  `json:"date_created"`
-	DateUpdated     *utils.RFC2822Time `json:"date_updated,omitempty"`
-	FriendlyName    string             `json:"friendly_name"`
-	OwnerAccountSid string             `json:"owner_account_sid"`
-	Sid             string             `json:"sid"`
-	Status          string             `json:"status"`
-	Type            string             `json:"type"`
+	// The generated authorization token for the account
+	AuthToken string `json:"auth_token"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
+	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	// The human readable name of the account
+	FriendlyName string `json:"friendly_name"`
+	// The SID of the parent account. Can be the same as the SID of the account
+	OwnerAccountSid string `json:"owner_account_sid"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The current status of the account
+	Status string `json:"status"`
+	// The current account type
+	Type string `json:"type"`
 }
 
+// Retrieve a Twilio account (parent or sub account) resource
+// See https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Get() (*GetAccountResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
+// Retrieve a Twilio account (parent or sub account) resource
+// See https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource for more details
 func (c Client) GetWithContext(context context.Context) (*GetAccountResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

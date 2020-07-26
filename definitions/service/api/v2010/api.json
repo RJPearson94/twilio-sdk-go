@@ -11,6 +11,10 @@
     {
       "name": "Accounts",
       "packageName": "accounts",
+      "documentation": {
+        "description": "Client for managing account resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,13 +22,22 @@
             "uri": "/Accounts.json",
             "method": "Post"
           },
+          "documentation": {
+            "description": "Provision a new Twilio sub account under the current account",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#create-an-account-resource"
+          },
           "input": {
-            "name": "CreateAccountInput",
-            "structure": "AccountInput"
+            "structure": "CreateAccountInput",
+            "documentation": {
+              "description": "Input parameters/ properties for creating a new Twilio sub account resource"
+            }
           },
           "response": {
             "name": "CreateAccountResponse",
-            "structure": "AccountResponse"
+            "structure": "AccountResponse",
+            "documentation": {
+              "description": "Resource/ response properties for the created sub account"
+            }
           }
         }
       ]
@@ -32,6 +45,10 @@
     {
       "name": "Account",
       "packageName": "account",
+      "documentation": {
+        "description": "Client for managing a specific account resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account"
+      },
       "properties": {
         "sid": {
           "dataType": "string"
@@ -41,6 +58,9 @@
         {
           "name": "Balance",
           "packageName": "balance",
+          "documentation": {
+            "description": "Client for managing a specific account balance resource"
+          },
           "function": {
             "parameters": {}
           },
@@ -67,9 +87,15 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Retrieve the balance resource for the account"
+              },
               "response": {
                 "name": "GetBalanceResponse",
-                "structure": "BalanceResponse"
+                "structure": "BalanceResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for retrieving an account balance"
+                }
               }
             }
           ]
@@ -77,6 +103,10 @@
         {
           "name": "Keys",
           "packageName": "keys",
+          "documentation": {
+            "description": "Client for managing account key resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource"
+          },
           "properties": {
             "accountSid": {
               "dataType": "string",
@@ -100,12 +130,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Create a new key resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#create-a-new-api-key"
+              },
               "input": {
                 "name": "CreateKeyInput",
-                "structure": "KeyInput"
+                "structure": "KeyInput",
+                "documentation": {
+                  "description": "Input parameters/ properties for creating a new API Key"
+                }
               },
               "response": {
-                "structure": "CreateKeyResponse"
+                "structure": "CreateKeyResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for creating a new API Key"
+                }
               }
             }
           ]
@@ -113,6 +153,10 @@
         {
           "name": "Key",
           "packageName": "key",
+          "documentation": {
+            "description": "Client for managing a specific account key resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource"
+          },
           "function": {
             "parameters": {
               "keySid": {
@@ -155,9 +199,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Retrieve the api key resource. The secret is not returned for security reasons",
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource"
+              },
               "response": {
                 "name": "GetKeyResponse",
-                "structure": "KeyResponse"
+                "structure": "KeyResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for retrieving a API Key"
+                }
               }
             },
             {
@@ -184,13 +235,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Update a key resource. The secret is not returned for security reasons",
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#update-a-key-resource"
+              },
               "input": {
                 "name": "UpdateKeyInput",
-                "structure": "KeyInput"
+                "structure": "KeyInput",
+                "documentation": {
+                  "description": "Input parameters/ properties for updating a API Key"
+                }
               },
               "response": {
                 "name": "UpdateKeyResponse",
-                "structure": "KeyResponse"
+                "structure": "KeyResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for the updated API Key"
+                }
               }
             },
             {
@@ -216,6 +277,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "Delete a key resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#delete-a-key-resource"
               }
             }
           ]
@@ -223,6 +288,10 @@
         {
           "name": "Messages",
           "packageName": "messages",
+          "documentation": {
+            "description": "Client for managing message resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource"
+          },
           "properties": {
             "accountSid": {
               "dataType": "string",
@@ -246,12 +315,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Create a new message resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource"
+              },
               "input": {
-                "structure": "CreateMessageInput"
+                "structure": "CreateMessageInput",
+                "documentation": {
+                  "description": "Input parameters/ properties for creating a new message resource"
+                }
               },
               "response": {
                 "name": "CreateMessageResponse",
-                "structure": "MessageResponse"
+                "structure": "MessageResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for the created message"
+                }
               }
             }
           ]
@@ -259,6 +338,10 @@
         {
           "name": "Message",
           "packageName": "message",
+          "documentation": {
+            "description": "Client for managing a specific message resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource"
+          },
           "function": {
             "parameters": {
               "messageSid": {
@@ -280,6 +363,10 @@
             {
               "name": "Feedback",
               "packageName": "feedback",
+              "documentation": {
+                "description": "Client for managing message feedback resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-feedback-resource"
+              },
               "properties": {
                 "accountSid": {
                   "dataType": "string",
@@ -315,12 +402,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "Create a new feedback resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-feedback-resource#create-a-messagefeedback-resource"
+                  },
                   "input": {
-                    "structure": "CreateFeedbackInput"
+                    "structure": "CreateFeedbackInput",
+                    "documentation": {
+                      "description": "Input parameters/ properties for creating a new feedback resource"
+                    }
                   },
                   "response": {
                     "name": "CreateFeedbackResponse",
-                    "structure": "FeedbackResponse"
+                    "structure": "FeedbackResponse",
+                    "documentation": {
+                      "description": "Resource/ response properties for the created feedback"
+                    }
                   }
                 }
               ]
@@ -328,6 +425,10 @@
             {
               "name": "Media",
               "packageName": "media",
+              "documentation": {
+                "description": "Client for managing a specific message media resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource"
+              },
               "function": {
                 "parameters": {
                   "mediaSid": {
@@ -382,9 +483,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "Retrieve a media resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource"
+                  },
                   "response": {
                     "name": "GetMediaResponse",
-                    "structure": "MediaResponse"
+                    "structure": "MediaResponse",
+                    "documentation": {
+                      "description": "Resource/ response properties for the retrieved media"
+                    }
                   }
                 },
                 {
@@ -418,6 +526,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "Delete a media resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#delete-a-media-resource"
                   }
                 }
               ]
@@ -448,9 +560,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Retrieve a message resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource"
+              },
               "response": {
                 "name": "GetMessageResponse",
-                "structure": "MessageResponse"
+                "structure": "MessageResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for the retrieved message"
+                }
               }
             },
             {
@@ -477,12 +596,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "Update a message resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#update-a-message-resource"
+              },
               "input": {
-                "structure": "UpdateMessageInput"
+                "structure": "UpdateMessageInput",
+                "documentation": {
+                  "description": "Input parameters/ properties for updating a message resource"
+                }
               },
               "response": {
                 "name": "UpdateMessageResponse",
-                "structure": "MessageResponse"
+                "structure": "MessageResponse",
+                "documentation": {
+                  "description": "Resource/ response properties for the updated message"
+                }
               }
             },
             {
@@ -508,6 +637,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "Delete a message resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#delete-a-message-resource"
               }
             }
           ]
@@ -530,9 +663,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "Retrieve a Twilio account (parent or sub account) resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource"
+          },
           "response": {
             "name": "GetAccountResponse",
-            "structure": "AccountResponse"
+            "structure": "AccountResponse",
+            "documentation": {
+              "description": "Resource/ response properties for the retrieved account"
+            }
           }
         },
         {
@@ -551,33 +691,62 @@
               }
             ]
           },
+          "documentation": {
+            "description": "Update a Twilio Account (parent or sub account) resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#update-an-account-resource"
+          },
           "input": {
-            "name": "UpdateAccountInput",
-            "structure": "AccountInput"
+            "structure": "UpdateAccountInput",
+            "documentation": {
+              "description": "Input parameters/ properties for updating an account resource"
+            }
           },
           "response": {
             "name": "UpdateAccountResponse",
-            "structure": "AccountResponse"
+            "structure": "AccountResponse",
+            "documentation": {
+              "description": "Resource/ response properties for the updated account"
+            }
           }
         }
       ]
     }
   ],
   "structures": {
-    "AccountInput": {
+    "CreateAccountInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "documentation": {
+            "description": "The human readable name of the account"
+          },
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "UpdateAccountInput": {
       "type": "URLEncoded",
       "properties": [
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the account"
+          }
         },
         {
           "name": "Status",
           "type": "string",
           "value": "Status",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The new status of the account"
+          }
         }
       ]
     },
@@ -589,31 +758,46 @@
           "name": "OwnerAccountSid",
           "type": "string",
           "value": "owner_account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the parent account. Can be the same as the SID of the account"
+          }
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The human readable name of the account"
+          }
         },
         {
           "name": "Status",
           "type": "string",
           "value": "status",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The current status of the account"
+          }
         },
         {
           "name": "AuthToken",
           "type": "string",
           "value": "auth_token",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The generated authorization token for the account"
+          }
         },
         {
           "name": "Type",
           "type": "string",
           "value": "type",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The current account type"
+          }
         }
       ]
     },
@@ -624,7 +808,10 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the API key"
+          }
         }
       ]
     },
@@ -636,7 +823,10 @@
           "name": "Secret",
           "type": "string",
           "value": "secret",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The secret value for the API key. This is only visible at point of creation"
+          }
         }
       ]
     },
@@ -648,7 +838,10 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The human readable name of the API key"
+          }
         }
       ]
     },
@@ -659,67 +852,100 @@
           "name": "To",
           "type": "string",
           "value": "To",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The intended recipient of the message"
+          }
         },
         {
           "name": "StatusCallback",
           "type": "string",
           "value": "StatusCallback",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The callback URL which is triggered on a message status change"
+          }
         },
         {
           "name": "ApplicationSid",
           "type": "string",
           "value": "ApplicationSid",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the application which should receive message status events"
+          }
         },
         {
           "name": "MaxPrice",
           "type": "string",
           "value": "MaxPrice",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The max price (in USD) that you are willing to pay to send the message"
+          }
         },
         {
           "name": "ProvideFeedback",
           "type": "bool",
           "value": "ProvideFeedback",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Whether a message delivery receipt is required"
+          }
         },
         {
           "name": "Attempt",
           "type": "int",
           "value": "Attempt",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The total number of attempts to send a message"
+          }
         },
         {
           "name": "ValidityPeriod",
           "type": "int",
           "value": "ValidityPeriod",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The maximum time a message can be queued for delivery"
+          }
         },
         {
           "name": "ForceDelivery",
           "type": "bool",
           "value": "ForceDelivery",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Whether to force deliver the message"
+          }
         },
         {
           "name": "ContentRetention",
           "type": "string",
           "value": "ContentRetention",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Whether the message contents can be stored or must be redacted"
+          }
         },
         {
           "name": "AddressRetention",
           "type": "string",
           "value": "AddressRetention",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Whether the address can be stored or must be redacted"
+          }
         },
         {
           "name": "SmartEncoded",
           "type": "bool",
           "value": "SmartEncoded",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Whether to detect and replace Unicode characters with GSM-7 equivalents"
+          }
         },
         {
           "name": "PersistentActions",
@@ -728,25 +954,37 @@
             "type": "string"
           },
           "value": "PersistentAction",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Channel message actions"
+          }
         },
         {
           "name": "From",
           "type": "string",
           "value": "From",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The sender of the message"
+          }
         },
         {
           "name": "MessagingServiceSid",
           "type": "string",
           "value": "MessagingServiceSid",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The messaging service to associate the message with"
+          }
         },
         {
           "name": "Body",
           "type": "string",
           "value": "Body",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The message contents. Can be plain text or twiML"
+          }
         },
         {
           "name": "MediaURLs",
@@ -755,7 +993,10 @@
             "type": "string"
           },
           "value": "MediaUrl",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Media URLs which are sent as part of the message"
+          }
         }
       ]
     },
@@ -766,7 +1007,10 @@
           "name": "Body",
           "type": "string",
           "value": "Body",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The updated message contents. Can be plain text or twiML"
+          }
         }
       ]
     },
@@ -778,91 +1022,136 @@
           "name": "Body",
           "type": "string",
           "value": "body",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The message contents. Can be plain text or twiML"
+          }
         },
         {
           "name": "NumSegments",
           "type": "string",
           "value": "num_segments",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The number of segments the message was split into"
+          }
         },
         {
           "name": "Direction",
           "type": "string",
           "value": "direction",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The message direction"
+          }
         },
         {
           "name": "From",
           "type": "string",
           "value": "from",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The sender of the message"
+          }
         },
         {
           "name": "Price",
           "type": "string",
           "value": "price",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The cost of the message"
+          }
         },
         {
           "name": "ErrorMessage",
           "type": "string",
           "value": "error_message",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The description of the error that occurred"
+          }
         },
         {
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the account which sent the message"
+          }
         },
         {
           "name": "NumMedia",
           "type": "string",
           "value": "num_media",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The number of media attachments"
+          }
         },
         {
           "name": "To",
           "type": "string",
           "value": "to",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The intended recipient of the message"
+          }
         },
         {
           "name": "Status",
           "type": "string",
           "value": "status",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The current status of the message"
+          }
         },
         {
           "name": "MessagingServiceSid",
           "type": "string",
           "value": "messaging_service_sid",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The messaging service that is associate with the message"
+          }
         },
         {
           "name": "ErrorCode",
           "type": "int",
           "value": "error_code",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The Twilio error code for the issue that occurred"
+          }
         },
         {
           "name": "PriceUnit",
           "type": "string",
           "value": "price_unit",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The currency format for the message price"
+          }
         },
         {
           "name": "APIVersion",
           "type": "string",
           "value": "api_version",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The api version which was responsible for dealing with the message"
+          }
         },
         {
           "name": "DateSent",
           "type": "utils.RFC2822Time",
           "value": "date_sent",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The date and time (in RFC2822 format) the message was sent"
+          }
         }
       ]
     },
@@ -873,7 +1162,10 @@
           "name": "Outcome",
           "type": "string",
           "value": "Outcome",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The outcome of whether the message feedback has arrived"
+          }
         }
       ]
     },
@@ -885,19 +1177,28 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of account the feedback resource is associated with"
+          }
         },
         {
           "name": "MessageSid",
           "type": "string",
           "value": "message_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of message resource associated with the feedback"
+          }
         },
         {
           "name": "Outcome",
           "type": "string",
           "value": "outcome",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The outcome of whether the message feedback has arrived"
+          }
         }
       ]
     },
@@ -909,19 +1210,28 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of account the media resource is associated with"
+          }
         },
         {
           "name": "ParentSid",
           "type": "string",
           "value": "parent_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the resource which created the media resource"
+          }
         },
         {
           "name": "ContentType",
           "type": "string",
           "value": "content_type",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The MIME type of the media"
+          }
         }
       ]
     },
@@ -932,19 +1242,28 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of account the balance was retrieved for"
+          }
         },
         {
           "name": "Currency",
           "type": "string",
           "value": "currency",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The account currency format"
+          }
         },
         {
           "name": "Balance",
           "type": "string",
           "value": "balance",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The currency format for the balance"
+          }
         }
       ]
     },
@@ -955,19 +1274,28 @@
           "name": "Sid",
           "type": "string",
           "value": "sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique alphanumeric string for the resource"
+          }
         },
         {
           "name": "DateCreated",
           "type": "utils.RFC2822Time",
           "value": "date_created",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The date and time (in RFC2822 format) when the resource was created"
+          }
         },
         {
           "name": "DateUpdated",
           "type": "utils.RFC2822Time",
           "value": "date_updated",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The date and time (in RFC2822 format) when the resource was last updated"
+          }
         }
       ]
     }

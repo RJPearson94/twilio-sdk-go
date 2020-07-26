@@ -9,21 +9,33 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Input parameters/ properties for updating a API Key
 type UpdateKeyInput struct {
+	// The human readable name of the API key
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
+// Resource/ response properties for the updated API Key
 type UpdateKeyResponse struct {
-	DateCreated  utils.RFC2822Time  `json:"date_created"`
-	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
-	FriendlyName string             `json:"friendly_name"`
-	Sid          string             `json:"sid"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
+	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	// The human readable name of the API key
+	FriendlyName string `json:"friendly_name"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
 }
 
+// Update a key resource. The secret is not returned for security reasons
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#update-a-key-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateKeyInput) (*UpdateKeyResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// Update a key resource. The secret is not returned for security reasons
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#update-a-key-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateKeyInput) (*UpdateKeyResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

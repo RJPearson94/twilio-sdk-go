@@ -9,23 +9,37 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Input parameters/ properties for creating a new feedback resource
 type CreateFeedbackInput struct {
+	// The outcome of whether the message feedback has arrived
 	Outcome *string `form:"Outcome,omitempty"`
 }
 
+// Resource/ response properties for the created feedback
 type CreateFeedbackResponse struct {
-	AccountSid  string             `json:"account_sid"`
-	DateCreated utils.RFC2822Time  `json:"date_created"`
+	// The SID of account the feedback resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
 	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	MessageSid  string             `json:"message_sid"`
-	Outcome     string             `json:"outcome"`
-	Sid         string             `json:"sid"`
+	// The SID of message resource associated with the feedback
+	MessageSid string `json:"message_sid"`
+	// The outcome of whether the message feedback has arrived
+	Outcome string `json:"outcome"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
 }
 
+// Create a new feedback resource
+// See https://www.twilio.com/docs/sms/api/message-feedback-resource#create-a-messagefeedback-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFeedbackInput) (*CreateFeedbackResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// Create a new feedback resource
+// See https://www.twilio.com/docs/sms/api/message-feedback-resource#create-a-messagefeedback-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFeedbackInput) (*CreateFeedbackResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

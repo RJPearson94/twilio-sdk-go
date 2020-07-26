@@ -9,50 +9,91 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Input parameters/ properties for creating a new message resource
 type CreateMessageInput struct {
-	AddressRetention    *string   `form:"AddressRetention,omitempty"`
-	ApplicationSid      *string   `form:"ApplicationSid,omitempty"`
-	Attempt             *int      `form:"Attempt,omitempty"`
-	Body                *string   `form:"Body,omitempty"`
-	ContentRetention    *string   `form:"ContentRetention,omitempty"`
-	ForceDelivery       *bool     `form:"ForceDelivery,omitempty"`
-	From                *string   `form:"From,omitempty"`
-	MaxPrice            *string   `form:"MaxPrice,omitempty"`
-	MediaURLs           *[]string `form:"MediaUrl,omitempty"`
-	MessagingServiceSid *string   `form:"MessagingServiceSid,omitempty"`
-	PersistentActions   *[]string `form:"PersistentAction,omitempty"`
-	ProvideFeedback     *bool     `form:"ProvideFeedback,omitempty"`
-	SmartEncoded        *bool     `form:"SmartEncoded,omitempty"`
-	StatusCallback      *string   `form:"StatusCallback,omitempty"`
-	To                  string    `validate:"required" form:"To"`
-	ValidityPeriod      *int      `form:"ValidityPeriod,omitempty"`
+	// Whether the address can be stored or must be redacted
+	AddressRetention *string `form:"AddressRetention,omitempty"`
+	// The SID of the application which should receive message status events
+	ApplicationSid *string `form:"ApplicationSid,omitempty"`
+	// The total number of attempts to send a message
+	Attempt *int `form:"Attempt,omitempty"`
+	// The message contents. Can be plain text or twiML
+	Body *string `form:"Body,omitempty"`
+	// Whether the message contents can be stored or must be redacted
+	ContentRetention *string `form:"ContentRetention,omitempty"`
+	// Whether to force deliver the message
+	ForceDelivery *bool `form:"ForceDelivery,omitempty"`
+	// The sender of the message
+	From *string `form:"From,omitempty"`
+	// The max price (in USD) that you are willing to pay to send the message
+	MaxPrice *string `form:"MaxPrice,omitempty"`
+	// Media URLs which are sent as part of the message
+	MediaURLs *[]string `form:"MediaUrl,omitempty"`
+	// The messaging service to associate the message with
+	MessagingServiceSid *string `form:"MessagingServiceSid,omitempty"`
+	// Channel message actions
+	PersistentActions *[]string `form:"PersistentAction,omitempty"`
+	// Whether a message delivery receipt is required
+	ProvideFeedback *bool `form:"ProvideFeedback,omitempty"`
+	// Whether to detect and replace Unicode characters with GSM-7 equivalents
+	SmartEncoded *bool `form:"SmartEncoded,omitempty"`
+	// The callback URL which is triggered on a message status change
+	StatusCallback *string `form:"StatusCallback,omitempty"`
+	// The intended recipient of the message
+	To string `validate:"required" form:"To"`
+	// The maximum time a message can be queued for delivery
+	ValidityPeriod *int `form:"ValidityPeriod,omitempty"`
 }
 
+// Resource/ response properties for the created message
 type CreateMessageResponse struct {
-	APIVersion          string             `json:"api_version"`
-	AccountSid          string             `json:"account_sid"`
-	Body                string             `json:"body"`
-	DateCreated         utils.RFC2822Time  `json:"date_created"`
-	DateSent            utils.RFC2822Time  `json:"date_sent"`
-	DateUpdated         *utils.RFC2822Time `json:"date_updated,omitempty"`
-	Direction           string             `json:"direction"`
-	ErrorCode           *int               `json:"error_code,omitempty"`
-	ErrorMessage        *string            `json:"error_message,omitempty"`
-	From                *string            `json:"from,omitempty"`
-	MessagingServiceSid *string            `json:"messaging_service_sid,omitempty"`
-	NumMedia            string             `json:"num_media"`
-	NumSegments         string             `json:"num_segments"`
-	Price               *string            `json:"price,omitempty"`
-	PriceUnit           string             `json:"price_unit"`
-	Sid                 string             `json:"sid"`
-	Status              string             `json:"status"`
-	To                  string             `json:"to"`
+	// The api version which was responsible for dealing with the message
+	APIVersion string `json:"api_version"`
+	// The SID of the account which sent the message
+	AccountSid string `json:"account_sid"`
+	// The message contents. Can be plain text or twiML
+	Body string `json:"body"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) the message was sent
+	DateSent utils.RFC2822Time `json:"date_sent"`
+	// The date and time (in RFC2822 format) when the resource was last updated
+	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	// The message direction
+	Direction string `json:"direction"`
+	// The Twilio error code for the issue that occurred
+	ErrorCode *int `json:"error_code,omitempty"`
+	// The description of the error that occurred
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// The sender of the message
+	From *string `json:"from,omitempty"`
+	// The messaging service that is associate with the message
+	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	// The number of media attachments
+	NumMedia string `json:"num_media"`
+	// The number of segments the message was split into
+	NumSegments string `json:"num_segments"`
+	// The cost of the message
+	Price *string `json:"price,omitempty"`
+	// The currency format for the message price
+	PriceUnit string `json:"price_unit"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The current status of the message
+	Status string `json:"status"`
+	// The intended recipient of the message
+	To string `json:"to"`
 }
 
+// Create a new message resource
+// See https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateMessageInput) (*CreateMessageResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// Create a new message resource
+// See https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateMessageInput) (*CreateMessageResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -9,17 +9,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Resource/ response properties for retrieving a API Key
 type GetKeyResponse struct {
-	DateCreated  utils.RFC2822Time  `json:"date_created"`
-	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
-	FriendlyName string             `json:"friendly_name"`
-	Sid          string             `json:"sid"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
+	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
+	// The human readable name of the API key
+	FriendlyName string `json:"friendly_name"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
 }
 
+// Retrieve the api key resource. The secret is not returned for security reasons
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Get() (*GetKeyResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
+// Retrieve the api key resource. The secret is not returned for security reasons
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource for more details
 func (c Client) GetWithContext(context context.Context) (*GetKeyResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

@@ -10,22 +10,31 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
 )
 
+// Client for managing a specific account resource
+// See https://www.twilio.com/docs/iam/api/account for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	Balance  func() *balance.Client
-	Key      func(string) *key.Client
-	Keys     *keys.Client
-	Message  func(string) *message.Client
+	// Sub client to manage balance resources
+	Balance func() *balance.Client
+	// Sub client to manage key resources
+	Key func(string) *key.Client
+	// Sub client to manage keys resources
+	Keys *keys.Client
+	// Sub client to manage message resources
+	Message func(string) *message.Client
+	// Sub client to manage messages resources
 	Messages *messages.Client
 }
 
+// The properties required to manage the account resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

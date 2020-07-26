@@ -3,16 +3,20 @@ package messages
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing message resources
+// See https://www.twilio.com/docs/sms/api/message-resource for more details
 type Client struct {
 	client *client.Client
 
 	accountSid string
 }
 
+// The properties required to manage the messages resources
 type ClientProperties struct {
 	AccountSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

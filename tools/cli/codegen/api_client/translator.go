@@ -14,6 +14,7 @@ func Translate(content []byte) (*interface{}, error) {
 
 	response := gabs.New()
 	response.Set(jsonParsed.Path("packageName").Data(), "packageName")
+	response.Set(jsonParsed.Path("documentation").Data(), "documentation")
 	response.Set(jsonParsed.Path("name").Data(), "name")
 
 	if jsonParsed.Exists("properties") {

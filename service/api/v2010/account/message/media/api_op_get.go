@@ -9,19 +9,31 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// Resource/ response properties for the retrieved media
 type GetMediaResponse struct {
-	AccountSid  string             `json:"account_sid"`
-	ContentType string             `json:"content_type"`
-	DateCreated utils.RFC2822Time  `json:"date_created"`
+	// The SID of account the media resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The MIME type of the media
+	ContentType string `json:"content_type"`
+	// The date and time (in RFC2822 format) when the resource was created
+	DateCreated utils.RFC2822Time `json:"date_created"`
+	// The date and time (in RFC2822 format) when the resource was last updated
 	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	ParentSid   string             `json:"parent_sid"`
-	Sid         string             `json:"sid"`
+	// The SID of the resource which created the media resource
+	ParentSid string `json:"parent_sid"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
 }
 
+// Retrieve a media resource
+// See https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Get() (*GetMediaResponse, error) {
 	return c.GetWithContext(context.Background())
 }
 
+// Retrieve a media resource
+// See https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource for more details
 func (c Client) GetWithContext(context context.Context) (*GetMediaResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

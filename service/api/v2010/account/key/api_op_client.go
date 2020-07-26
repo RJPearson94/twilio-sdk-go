@@ -3,6 +3,8 @@ package key
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific account key resource
+// See https://www.twilio.com/docs/iam/keys/api-key-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -10,11 +12,13 @@ type Client struct {
 	sid        string
 }
 
+// The properties required to manage the key resources
 type ClientProperties struct {
 	AccountSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

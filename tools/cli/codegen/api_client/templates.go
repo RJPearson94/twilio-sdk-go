@@ -6,16 +6,20 @@ package {{ .packageName | ToLowerCase }} ${defineConstants}
 {{ if .imports }} {{ range $index, $import := .imports }}
 import "{{ $import }}" {{ end }} {{ end }}
 
+{{ if .documentation }} // {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
+// See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }}
 type Client struct {
 	client *client.Client 
 	${addPropertiesToStruct}
 	${addSubClientsToStruct}
 }
 {{ if $Properties }}
+// The properties required to manage the {{ .name | ToLowerCase }} resources
 type ClientProperties struct { {{ range $key, $value := $Properties}} 
 	{{ $value.name | ToCamelCase }} {{ $value.type }} {{ end }}
 }{{ end }}
 
+// Create a new instance of the client
 func New(client *client.Client, {{ if $Properties }}properties ClientProperties{{ end }}) *Client {
 	return &Client{
 		client: client,
@@ -36,6 +40,7 @@ const addPropertiesToClientInitialisation = `{{if $Properties}} {{range $key, $v
 `
 
 const addSubClientsToStruct = `{{ if .subClients }} {{ range $index, $subClient := .subClients }}
+	// Sub client to manage {{ $subClient.name | ToLowerCase }} resources
 	{{ $subClient.name | ToCamelCase }} {{ if .functionParams | IsDefined }} func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.type }}, {{ end }}) {{ end }} *{{ $subClient.name | ToSnakeCase }}.Client {{ end }} {{ end }}
 `
 

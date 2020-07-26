@@ -3,16 +3,19 @@ package balance
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific account balance resource
 type Client struct {
 	client *client.Client
 
 	accountSid string
 }
 
+// The properties required to manage the balance resources
 type ClientProperties struct {
 	AccountSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
