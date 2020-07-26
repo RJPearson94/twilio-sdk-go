@@ -7,13 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhook"
-	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhooks"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/member"
-	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/message"
-	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/messages"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -24,7 +17,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/invites"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/member"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/members"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/message"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/messages"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/roles"

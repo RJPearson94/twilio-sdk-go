@@ -3,7 +3,7 @@
   "name": "Fax",
   "config": {
     "includeDefaults": true,
-    "beta": true,
+    "beta": false,
     "subDomain": "fax",
     "apiVersion": "v1"
   },
