@@ -874,7 +874,7 @@ var _ = Describe("Sync V1", func() {
 		Describe("When the sync list item is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/synclistItemResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/syncListItemResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
