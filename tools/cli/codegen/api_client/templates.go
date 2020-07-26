@@ -14,12 +14,12 @@ type Client struct {
 	${addSubClientsToStruct}
 }
 {{ if $Properties }}
-// The properties required to manage the {{ .name | ToLowerCase }} resources
+// ClientProperties are the properties required to manage the {{ .name | ToLowerCase }} resources
 type ClientProperties struct { {{ range $key, $value := $Properties}} 
 	{{ $value.name | ToCamelCase }} {{ $value.type }} {{ end }}
 }{{ end }}
 
-// Create a new instance of the client
+// New creates a new instance of the client
 func New(client *client.Client, {{ if $Properties }}properties ClientProperties{{ end }}) *Client {
 	return &Client{
 		client: client,
