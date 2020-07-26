@@ -1,0 +1,13 @@
+{
+  "index": 0,
+  "url": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0",
+  "created_by": "system",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_expires": null,
+  "date_updated": null,
+  "date_created": "2020-06-20T20:50:24Z",
+  "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "data": {},
+  "list_sid": "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "revision": "0"
+}
