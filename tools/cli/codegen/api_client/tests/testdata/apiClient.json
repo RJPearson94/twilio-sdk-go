@@ -1,5 +1,6 @@
 {
-  "packageName": "Service",
+  "name": "Service",
+  "packageName": "service",
   "imports": [
     "github.com/RJPearson94/twilio-sdk-go/client",
     "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_number",

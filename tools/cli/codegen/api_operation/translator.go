@@ -17,7 +17,9 @@ func Translate(content []byte) (*interface{}, error) {
 	response := gabs.New()
 	response.Set(jsonParsed.Path("packageName").Data(), "packageName")
 	response.Set(jsonParsed.Path("imports").Data(), "imports")
-	response.Set(jsonParsed.Path("documentation").Data(), "documentation")
+	if jsonParsed.Exists("documentation") {
+		response.Set(jsonParsed.Path("documentation").Data(), "documentation")
+	}
 	response.Set(apiOperationName, "name")
 	response.Set(jsonParsed.Path("http").Data(), "http")
 
@@ -51,7 +53,9 @@ func mapStructure(structure *gabs.Container, apiOperationName string, structures
 
 	structureResponse.Set(name, "name")
 	structureResponse.Set(nestedStructure.Path("type").Data(), "type")
-	structureResponse.Set(structure.Path("documentation").Data(), "documentation")
+	if structure.Exists("documentation") {
+		structureResponse.Set(structure.Path("documentation").Data(), "documentation")
+	}
 
 	dataType := nestedStructure.Path("type").Data().(string)
 	structureResponse.Set(dataType, "type")
@@ -91,7 +95,9 @@ func mapProperties(structure *gabs.Container, dataType string, apiOperationName 
 		if property != nil {
 			propertiesResponse := gabs.New()
 			propertiesResponse.Set(property.Path("value").Data(), "value")
-			propertiesResponse.Set(property.Path("documentation").Data(), "documentation")
+			if property.Exists("documentation") {
+				propertiesResponse.Set(property.Path("documentation").Data(), "documentation")
+			}
 			propertiesResponse.Set(property.Path("name").Data(), "name")
 			propertiesResponse.Set(property.Path("required").Data(), "required")
 
