@@ -94,6 +94,146 @@
               "functionParameter": "documentSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Permissions",
+              "packageName": "permissions",
+              "function": {
+                "parameters": {
+                  "identity": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "documentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "functionParameter": "identity"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Get",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Documents/{documentSid}/Permissions/{identity}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "documentSid",
+                        "value": {
+                          "onService": true,
+                          "property": "documentSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "response": {
+                    "name": "GetDocumentPermissionsResponse",
+                    "structure": "DocumentPermissionsResponse"
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Documents/{documentSid}/Permissions/{identity}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "documentSid",
+                        "value": {
+                          "onService": true,
+                          "property": "documentSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "input": {
+                    "name": "UpdateDocumentPermissionsInput",
+                    "structure": "DocumentPermissionsInput"
+                  },
+                  "response": {
+                    "name": "UpdateDocumentPermissionsResponse",
+                    "structure": "DocumentPermissionsResponse"
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Documents/{documentSid}/Permissions/{identity}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "documentSid",
+                        "value": {
+                          "onService": true,
+                          "property": "documentSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "property": "identity",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Get",
@@ -424,6 +564,82 @@
           "name": "ServiceSid",
           "type": "string",
           "value": "service_Sid",
+          "required": true
+        }
+      ]
+    },
+    "DocumentPermissionsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Read",
+          "type": "bool",
+          "value": "Read",
+          "required": true
+        },
+        {
+          "name": "Write",
+          "type": "bool",
+          "value": "Write",
+          "required": true
+        },
+        {
+          "name": "Manage",
+          "type": "bool",
+          "value": "Manage",
+          "required": true
+        }
+      ]
+    },
+    "DocumentPermissionsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "DocumentSid",
+          "type": "string",
+          "value": "document_sid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "Read",
+          "type": "bool",
+          "value": "read",
+          "required": true
+        },
+        {
+          "name": "Write",
+          "type": "bool",
+          "value": "write",
+          "required": true
+        },
+        {
+          "name": "Manage",
+          "type": "bool",
+          "value": "manage",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
           "required": true
         }
       ]
