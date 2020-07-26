@@ -10,7 +10,7 @@ import (
 )
 
 type CreatePhoneNumberInput struct {
-	IsReserved  *bool   `form:"IsReserved,omitempty"`
+	IsReserved  bool    `form:"IsReserved"`
 	PhoneNumber *string `form:"PhoneNumber,omitempty"`
 	Sid         *string `form:"Sid,omitempty"`
 }

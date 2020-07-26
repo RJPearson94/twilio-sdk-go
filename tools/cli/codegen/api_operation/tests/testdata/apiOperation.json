@@ -24,7 +24,7 @@
         "name": "IsReserved",
         "type": "bool",
         "value": "IsReserved",
-        "required": false
+        "required": true
       },
       {
         "name": "PhoneNumber",
