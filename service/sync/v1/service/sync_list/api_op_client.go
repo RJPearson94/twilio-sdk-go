@@ -14,16 +14,21 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Item        func(int) *item.Client
-	Items       *items.Client
+	// Sub client to manage item resources
+	Item func(int) *item.Client
+	// Sub client to manage items resources
+	Items *items.Client
+	// Sub client to manage permissions resources
 	Permissions func(string) *permissions.Client
 }
 
+// The properties required to manage the synclist resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

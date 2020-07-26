@@ -10,11 +10,13 @@ type Client struct {
 	syncStreamSid string
 }
 
+// The properties required to manage the messages resources
 type ClientProperties struct {
 	ServiceSid    string
 	SyncStreamSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

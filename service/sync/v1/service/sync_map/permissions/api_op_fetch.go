@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetSyncMapPermissionsResponse struct {
+type FetchSyncMapPermissionsResponse struct {
 	AccountSid string `json:"account_sid"`
 	Identity   string `json:"identity"`
 	Manage     bool   `json:"manage"`
@@ -19,11 +19,11 @@ type GetSyncMapPermissionsResponse struct {
 	Write      bool   `json:"write"`
 }
 
-func (c Client) Get() (*GetSyncMapPermissionsResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchSyncMapPermissionsResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetSyncMapPermissionsResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchSyncMapPermissionsResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Maps/{syncMapSid}/Permissions/{identity}",
@@ -34,7 +34,7 @@ func (c Client) GetWithContext(context context.Context) (*GetSyncMapPermissionsR
 		},
 	}
 
-	response := &GetSyncMapPermissionsResponse{}
+	response := &FetchSyncMapPermissionsResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

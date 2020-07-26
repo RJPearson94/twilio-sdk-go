@@ -18,20 +18,30 @@ type Client struct {
 
 	sid string
 
-	Document    func(string) *document.Client
-	Documents   *documents.Client
-	SyncList    func(string) *sync_list.Client
-	SyncLists   *sync_lists.Client
-	SyncMap     func(string) *sync_map.Client
-	SyncMaps    *sync_maps.Client
-	SyncStream  func(string) *sync_stream.Client
+	// Sub client to manage document resources
+	Document func(string) *document.Client
+	// Sub client to manage documents resources
+	Documents *documents.Client
+	// Sub client to manage synclist resources
+	SyncList func(string) *sync_list.Client
+	// Sub client to manage synclists resources
+	SyncLists *sync_lists.Client
+	// Sub client to manage syncmap resources
+	SyncMap func(string) *sync_map.Client
+	// Sub client to manage syncmaps resources
+	SyncMaps *sync_maps.Client
+	// Sub client to manage syncstream resources
+	SyncStream func(string) *sync_stream.Client
+	// Sub client to manage syncstreams resources
 	SyncStreams *sync_streams.Client
 }
 
+// The properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

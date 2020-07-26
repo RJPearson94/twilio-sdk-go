@@ -121,7 +121,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := serviceClient.Get()
+			resp, err := serviceClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -153,7 +153,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("IS71").Get()
+			resp, err := syncSession.Service("IS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -324,7 +324,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := documentClient.Get()
+			resp, err := documentClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -358,7 +358,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ET71").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ET71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -470,7 +470,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := documentPermissionsClient.Get()
+			resp, err := documentPermissionsClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -498,7 +498,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -665,7 +665,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncListClient.Get()
+			resp, err := syncListClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -695,7 +695,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ES71").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ES71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -881,7 +881,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncListItemClient.Get()
+			resp, err := syncListItemClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -915,7 +915,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item(1000).Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1027,7 +1027,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncListPermissionsClient.Get()
+			resp, err := syncListPermissionsClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1055,7 +1055,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1222,7 +1222,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncMapClient.Get()
+			resp, err := syncMapClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1252,7 +1252,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MP71").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MP71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1438,7 +1438,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncMapItemClient.Get()
+			resp, err := syncMapItemClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1472,7 +1472,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item("unknownKey").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Item("unknownKey").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1584,7 +1584,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncMapPermissionsClient.Get()
+			resp, err := syncMapPermissionsClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1612,7 +1612,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1778,7 +1778,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncStreamClient.Get()
+			resp, err := syncStreamClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1807,7 +1807,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncStream("TO71").Get()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncStream("TO71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

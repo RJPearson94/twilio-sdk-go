@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetDocumentResponse struct {
+type FetchDocumentResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
 	Data        map[string]interface{} `json:"data"`
@@ -23,11 +23,11 @@ type GetDocumentResponse struct {
 	UniqueName  *string                `json:"unique_name,omitempty"`
 }
 
-func (c Client) Get() (*GetDocumentResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchDocumentResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetDocumentResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchDocumentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Documents/{sid}",
@@ -37,7 +37,7 @@ func (c Client) GetWithContext(context context.Context) (*GetDocumentResponse, e
 		},
 	}
 
-	response := &GetDocumentResponse{}
+	response := &FetchDocumentResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

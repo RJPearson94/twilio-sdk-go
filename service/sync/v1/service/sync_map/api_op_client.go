@@ -14,16 +14,21 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Item        func(string) *item.Client
-	Items       *items.Client
+	// Sub client to manage item resources
+	Item func(string) *item.Client
+	// Sub client to manage items resources
+	Items *items.Client
+	// Sub client to manage permissions resources
 	Permissions func(string) *permissions.Client
 }
 
+// The properties required to manage the syncmap resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

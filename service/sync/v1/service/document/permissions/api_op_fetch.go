@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetDocumentPermissionsResponse struct {
+type FetchDocumentPermissionsResponse struct {
 	AccountSid  string `json:"account_sid"`
 	DocumentSid string `json:"document_sid"`
 	Identity    string `json:"identity"`
@@ -19,11 +19,11 @@ type GetDocumentPermissionsResponse struct {
 	Write       bool   `json:"write"`
 }
 
-func (c Client) Get() (*GetDocumentPermissionsResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchDocumentPermissionsResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetDocumentPermissionsResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchDocumentPermissionsResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Documents/{documentSid}/Permissions/{identity}",
@@ -34,7 +34,7 @@ func (c Client) GetWithContext(context context.Context) (*GetDocumentPermissions
 		},
 	}
 
-	response := &GetDocumentPermissionsResponse{}
+	response := &FetchDocumentPermissionsResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

@@ -11,12 +11,14 @@ type Client struct {
 	serviceSid  string
 }
 
+// The properties required to manage the permissions resources
 type ClientProperties struct {
 	DocumentSid string
 	Identity    string
 	ServiceSid  string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

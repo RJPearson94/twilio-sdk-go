@@ -10,11 +10,13 @@ type Client struct {
 	syncMapSid string
 }
 
+// The properties required to manage the items resources
 type ClientProperties struct {
 	ServiceSid string
 	SyncMapSid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

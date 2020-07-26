@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetSyncListItemResponse struct {
+type FetchSyncListItemResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
 	Data        map[string]interface{} `json:"data"`
@@ -24,11 +24,11 @@ type GetSyncListItemResponse struct {
 	URL         string                 `json:"url"`
 }
 
-func (c Client) Get() (*GetSyncListItemResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchSyncListItemResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetSyncListItemResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchSyncListItemResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Lists/{syncListSid}/Items/{index}",
@@ -39,7 +39,7 @@ func (c Client) GetWithContext(context context.Context) (*GetSyncListItemRespons
 		},
 	}
 
-	response := &GetSyncListItemResponse{}
+	response := &FetchSyncListItemResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}
