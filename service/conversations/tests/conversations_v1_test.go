@@ -116,7 +116,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationClient.Get()
+			resp, err := conversationClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -130,7 +130,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.State).To(Equal("active"))
-				Expect(resp.Timers).To(Equal(conversationResource.GetConversationResponseTimers{}))
+				Expect(resp.Timers).To(Equal(conversationResource.FetchConversationResponseTimers{}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -147,7 +147,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationsSession.Conversation("CH71").Get()
+			resp, err := conversationsSession.Conversation("CH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -263,7 +263,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := webhookClient.Get()
+			resp, err := webhookClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -290,7 +290,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := webhookClient.Get()
+			resp, err := webhookClient.Fetch()
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})
@@ -438,7 +438,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := messageClient.Get()
+			resp, err := messageClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -470,7 +470,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Get()
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("IM71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -682,7 +682,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := participantClient.Get()
+			resp, err := participantClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -712,7 +712,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("MB71").Get()
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("MB71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -936,7 +936,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationWebhookClient.Get()
+			resp, err := conversationWebhookClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -947,7 +947,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhook.GetConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhook.FetchConversationWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -966,7 +966,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Get()
+			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

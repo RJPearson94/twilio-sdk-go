@@ -96,7 +96,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Conversations/{conversationSid}/Messages/{sid}",
                 "method": "Get",
@@ -120,7 +120,7 @@
                 ]
               },
               "response": {
-                "name": "GetMessageResponse",
+                "name": "FetchMessageResponse",
                 "structure": "MessageResponse"
               }
             },
@@ -242,7 +242,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Conversations/{conversationSid}/Participants/{sid}",
                 "method": "Get",
@@ -266,7 +266,7 @@
                 ]
               },
               "response": {
-                "name": "GetParticipantResponse",
+                "name": "FetchParticipantResponse",
                 "structure": "ParticipantResponse"
               }
             },
@@ -388,7 +388,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Conversations/{conversationSid}/Webhooks/{sid}",
                 "method": "Get",
@@ -412,7 +412,7 @@
                 ]
               },
               "response": {
-                "name": "GetConversationWebhookResponse",
+                "name": "FetchConversationWebhookResponse",
                 "structure": "ConversationWebhookResponse"
               }
             },
@@ -479,7 +479,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Conversations/{sid}",
             "method": "Get",
@@ -495,7 +495,7 @@
             ]
           },
           "response": {
-            "name": "GetConversationResponse",
+            "name": "FetchConversationResponse",
             "structure": "ConversationResponse"
           }
         },
@@ -549,13 +549,13 @@
       "properties": {},
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Conversations/Webhooks",
             "method": "Get"
           },
           "response": {
-            "name": "GetWebhookResponse",
+            "name": "FetchWebhookResponse",
             "structure": "WebhookResponse"
           }
         },

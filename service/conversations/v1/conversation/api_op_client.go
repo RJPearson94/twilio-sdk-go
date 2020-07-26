@@ -16,18 +16,26 @@ type Client struct {
 
 	sid string
 
-	Message      func(string) *message.Client
-	Messages     *messages.Client
-	Participant  func(string) *participant.Client
+	// Sub client to manage message resources
+	Message func(string) *message.Client
+	// Sub client to manage messages resources
+	Messages *messages.Client
+	// Sub client to manage participant resources
+	Participant func(string) *participant.Client
+	// Sub client to manage participants resources
 	Participants *participants.Client
-	Webhook      func(string) *webhook.Client
-	Webhooks     *webhooks.Client
+	// Sub client to manage webhook resources
+	Webhook func(string) *webhook.Client
+	// Sub client to manage webhooks resources
+	Webhooks *webhooks.Client
 }
 
+// The properties required to manage the conversation resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
