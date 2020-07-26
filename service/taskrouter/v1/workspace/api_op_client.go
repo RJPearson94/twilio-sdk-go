@@ -22,24 +22,38 @@ type Client struct {
 
 	sid string
 
-	Activities   *activities.Client
-	Activity     func(string) *activity.Client
-	Task         func(string) *task.Client
-	TaskChannel  func(string) *task_channel.Client
+	// Sub client to manage activities resources
+	Activities *activities.Client
+	// Sub client to manage activity resources
+	Activity func(string) *activity.Client
+	// Sub client to manage task resources
+	Task func(string) *task.Client
+	// Sub client to manage task channel resources
+	TaskChannel func(string) *task_channel.Client
+	// Sub client to manage task channels resources
 	TaskChannels *task_channels.Client
-	TaskQueue    func(string) *task_queue.Client
-	TaskQueues   *task_queues.Client
-	Tasks        *tasks.Client
-	Worker       func(string) *worker.Client
-	Workers      *workers.Client
-	Workflow     func(string) *workflow.Client
-	Workflows    *workflows.Client
+	// Sub client to manage task queue resources
+	TaskQueue func(string) *task_queue.Client
+	// Sub client to manage task queues resources
+	TaskQueues *task_queues.Client
+	// Sub client to manage tasks resources
+	Tasks *tasks.Client
+	// Sub client to manage worker resources
+	Worker func(string) *worker.Client
+	// Sub client to manage workers resources
+	Workers *workers.Client
+	// Sub client to manage workflow resources
+	Workflow func(string) *workflow.Client
+	// Sub client to manage workflows resources
+	Workflows *workflows.Client
 }
 
+// The properties required to manage the workspace resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

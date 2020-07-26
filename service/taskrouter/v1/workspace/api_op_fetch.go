@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetWorkspaceResponse struct {
+type FetchWorkspaceResponse struct {
 	AccountSid           string     `json:"account_sid"`
 	DateCreated          time.Time  `json:"date_created"`
 	DateUpdated          *time.Time `json:"date_updated,omitempty"`
@@ -26,11 +26,11 @@ type GetWorkspaceResponse struct {
 	URL                  string     `json:"url"`
 }
 
-func (c Client) Get() (*GetWorkspaceResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchWorkspaceResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetWorkspaceResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchWorkspaceResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Workspaces/{sid}",
@@ -39,7 +39,7 @@ func (c Client) GetWithContext(context context.Context) (*GetWorkspaceResponse, 
 		},
 	}
 
-	response := &GetWorkspaceResponse{}
+	response := &FetchWorkspaceResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

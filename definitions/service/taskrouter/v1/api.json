@@ -95,7 +95,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Workspaces/{workspaceSid}/TaskQueues/{sid}",
                 "method": "Get",
@@ -119,7 +119,7 @@
                 ]
               },
               "response": {
-                "name": "GetTaskQueueResponse",
+                "name": "FetchTaskQueueResponse",
                 "structure": "TaskQueueResponse"
               }
             },
@@ -240,7 +240,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Workspaces/{workspaceSid}/Workflows/{sid}",
                 "method": "Get",
@@ -264,7 +264,7 @@
                 ]
               },
               "response": {
-                "name": "GetTaskQueueResponse",
+                "name": "FetchTaskQueueResponse",
                 "structure": "WorkflowResponse"
               }
             },
@@ -385,7 +385,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Workspaces/{workspaceSid}/Workers/{sid}",
                 "method": "Get",
@@ -409,7 +409,7 @@
                 ]
               },
               "response": {
-                "name": "GetWorkerResponse",
+                "name": "FetchWorkerResponse",
                 "structure": "WorkerResponse"
               }
             },
@@ -530,7 +530,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Workspaces/{workspaceSid}/Activities/{sid}",
                 "method": "Get",
@@ -554,7 +554,7 @@
                 ]
               },
               "response": {
-                "name": "GetActivityResponse",
+                "name": "FetchActivityResponse",
                 "structure": "ActivityResponse"
               }
             },
@@ -675,7 +675,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Workspaces/{workspaceSid}/TaskChannels/{sid}",
                 "method": "Get",
@@ -699,7 +699,7 @@
                 ]
               },
               "response": {
-                "name": "GetTaskChannelResponse",
+                "name": "FetchTaskChannelResponse",
                 "structure": "TaskChannelResponse"
               }
             },
@@ -820,7 +820,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Workspaces/{workspaceSid}/Tasks/{sid}",
                 "method": "Get",
@@ -844,7 +844,7 @@
                 ]
               },
               "response": {
-                "name": "GetTaskResponse",
+                "name": "FetchTaskResponse",
                 "structure": "TaskResponse"
               }
             },
@@ -910,7 +910,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Workspaces/{sid}",
             "method": "Get",
@@ -926,7 +926,7 @@
             ]
           },
           "response": {
-            "name": "GetWorkspaceResponse",
+            "name": "FetchWorkspaceResponse",
             "structure": "WorkspaceResponse"
           }
         },

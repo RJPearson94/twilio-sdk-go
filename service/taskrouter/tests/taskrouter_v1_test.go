@@ -143,7 +143,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := workspaceClient.Get()
+			resp, err := workspaceClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -177,7 +177,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WS71").Get()
+			resp, err := taskrouterSession.Workspace("WS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -371,7 +371,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskQueueClient.Get()
+			resp, err := taskQueueClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -405,7 +405,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Get()
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -628,7 +628,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := workflowClient.Get()
+			resp, err := workflowClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -664,7 +664,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Get()
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -862,7 +862,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := workerClient.Get()
+			resp, err := workerClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -896,7 +896,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Get()
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1086,7 +1086,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := activityClient.Get()
+			resp, err := activityClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1114,7 +1114,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WA71").Get()
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Activity("WA71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1316,7 +1316,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskChannelClient.Get()
+			resp, err := taskChannelClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1345,7 +1345,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskChannel("TC71").Get()
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskChannel("TC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1528,7 +1528,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskClient.Get()
+			resp, err := taskClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1569,7 +1569,7 @@ var _ = Describe("Taskrouter V1", func() {
 				},
 			)
 
-			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("WT71").Get()
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("WT71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
