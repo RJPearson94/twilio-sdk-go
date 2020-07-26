@@ -13,15 +13,18 @@ type Client struct {
 	serviceSid  string
 	sid         string
 
+	// Sub client to manage content resources
 	Content *content.Client
 }
 
+// The properties required to manage the version resources
 type ClientProperties struct {
 	FunctionSid string
 	ServiceSid  string
 	Sid         string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

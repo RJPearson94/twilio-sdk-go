@@ -156,7 +156,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serviceClient.Get()
+			resp, err := serviceClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -185,7 +185,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZS71").Get()
+			resp, err := serverlessSession.Service("ZS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -369,7 +369,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := environmentClient.Get()
+			resp, err := environmentClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -398,7 +398,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZE71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZE71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -546,7 +546,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := variableClient.Get()
+			resp, err := variableClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -575,7 +575,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Variable("ZV71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Variable("ZV71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -745,7 +745,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := deploymentClient.Get()
+			resp, err := deploymentClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -773,7 +773,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Deployment("ZD71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Environment("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Deployment("ZD71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -875,7 +875,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := functionClient.Get()
+			resp, err := functionClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -902,7 +902,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZH71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1200,7 +1200,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := functionVersionClient.Get()
+			resp, err := functionVersionClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1228,7 +1228,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1252,7 +1252,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := functionVersionContentClient.Get()
+			resp, err := functionVersionContentClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1278,7 +1278,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Content.Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Content.Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1380,7 +1380,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := assetClient.Get()
+			resp, err := assetClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1407,7 +1407,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Asset("ZH71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Asset("ZH71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1705,7 +1705,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := assetVersionClient.Get()
+			resp, err := assetVersionClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1733,7 +1733,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Asset("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Asset("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1850,7 +1850,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := buildClient.Get()
+			resp, err := buildClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1909,7 +1909,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Build("ZB71").Get()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Build("ZB71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

@@ -15,17 +15,23 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Deployment  func(string) *deployment.Client
+	// Sub client to manage deployment resources
+	Deployment func(string) *deployment.Client
+	// Sub client to manage deployments resources
 	Deployments *deployments.Client
-	Variable    func(string) *variable.Client
-	Variables   *variables.Client
+	// Sub client to manage variable resources
+	Variable func(string) *variable.Client
+	// Sub client to manage variables resources
+	Variables *variables.Client
 }
 
+// The properties required to manage the environment resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

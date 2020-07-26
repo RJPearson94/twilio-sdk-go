@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetServiceResponse struct {
+type FetchServiceResponse struct {
 	AccountSid         string     `json:"account_sid"`
 	DateCreated        time.Time  `json:"date_created"`
 	DateUpdated        *time.Time `json:"date_updated,omitempty"`
@@ -21,11 +21,11 @@ type GetServiceResponse struct {
 	UniqueName         string     `json:"unique_name"`
 }
 
-func (c Client) Get() (*GetServiceResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchServiceResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetServiceResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchServiceResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{sid}",
@@ -34,7 +34,7 @@ func (c Client) GetWithContext(context context.Context) (*GetServiceResponse, er
 		},
 	}
 
-	response := &GetServiceResponse{}
+	response := &FetchServiceResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

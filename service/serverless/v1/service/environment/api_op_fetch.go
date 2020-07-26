@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetEnvironmentResponse struct {
+type FetchEnvironmentResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	BuildSid     *string    `json:"build_sid,omitempty"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -22,11 +22,11 @@ type GetEnvironmentResponse struct {
 	UniqueName   string     `json:"unique_name"`
 }
 
-func (c Client) Get() (*GetEnvironmentResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchEnvironmentResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetEnvironmentResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchEnvironmentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Environments/{sid}",
@@ -36,7 +36,7 @@ func (c Client) GetWithContext(context context.Context) (*GetEnvironmentResponse
 		},
 	}
 
-	response := &GetEnvironmentResponse{}
+	response := &FetchEnvironmentResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

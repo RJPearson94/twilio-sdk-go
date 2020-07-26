@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetAssetVersion struct {
+type FetchAssetVersion struct {
 	AccountSid  string    `json:"account_sid"`
 	AssetSid    string    `json:"asset_sid"`
 	DateCreated time.Time `json:"date_created"`
@@ -20,12 +20,12 @@ type GetAssetVersion struct {
 	Visibility  string    `json:"visibility"`
 }
 
-type GetDependency struct {
+type FetchDependency struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 }
 
-type GetFunctionVersion struct {
+type FetchFunctionVersion struct {
 	AccountSid  string    `json:"account_sid"`
 	DateCreated time.Time `json:"date_created"`
 	FunctionSid string    `json:"function_sid"`
@@ -36,24 +36,24 @@ type GetFunctionVersion struct {
 	Visibility  string    `json:"visibility"`
 }
 
-type GetBuildResponse struct {
-	AccountSid       string                `json:"account_sid"`
-	AssetVersions    *[]GetAssetVersion    `json:"asset_versions,omitempty"`
-	DateCreated      time.Time             `json:"date_created"`
-	DateUpdated      *time.Time            `json:"date_updated,omitempty"`
-	Dependencies     *[]GetDependency      `json:"dependencies,omitempty"`
-	FunctionVersions *[]GetFunctionVersion `json:"function_versions,omitempty"`
-	ServiceSid       string                `json:"service_sid"`
-	Sid              string                `json:"sid"`
-	Status           string                `json:"status"`
-	URL              string                `json:"url"`
+type FetchBuildResponse struct {
+	AccountSid       string                  `json:"account_sid"`
+	AssetVersions    *[]FetchAssetVersion    `json:"asset_versions,omitempty"`
+	DateCreated      time.Time               `json:"date_created"`
+	DateUpdated      *time.Time              `json:"date_updated,omitempty"`
+	Dependencies     *[]FetchDependency      `json:"dependencies,omitempty"`
+	FunctionVersions *[]FetchFunctionVersion `json:"function_versions,omitempty"`
+	ServiceSid       string                  `json:"service_sid"`
+	Sid              string                  `json:"sid"`
+	Status           string                  `json:"status"`
+	URL              string                  `json:"url"`
 }
 
-func (c Client) Get() (*GetBuildResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchBuildResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetBuildResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchBuildResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/Builds/{sid}",
@@ -63,7 +63,7 @@ func (c Client) GetWithContext(context context.Context) (*GetBuildResponse, erro
 		},
 	}
 
-	response := &GetBuildResponse{}
+	response := &FetchBuildResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

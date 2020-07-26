@@ -168,7 +168,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Variables/{sid}",
                     "method": "Get",
@@ -200,7 +200,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetVariableResponse",
+                    "name": "FetchVariableResponse",
                     "structure": "VariableResponse"
                   }
                 },
@@ -353,7 +353,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments/{sid}",
                     "method": "Get",
@@ -385,7 +385,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetDeploymentResponse",
+                    "name": "FetchDeploymentResponse",
                     "structure": "DeploymentResponse"
                   }
                 }
@@ -394,7 +394,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Environments/{sid}",
                 "method": "Get",
@@ -418,7 +418,7 @@
                 ]
               },
               "response": {
-                "name": "GetEnvironmentResponse",
+                "name": "FetchEnvironmentResponse",
                 "structure": "EnvironmentResponse"
               }
             },
@@ -603,7 +603,7 @@
                   },
                   "operations": [
                     {
-                      "name": "Get",
+                      "name": "Fetch",
                       "http": {
                         "uri": "/Services/{serviceSid}/Functions/{functionSid}/Versions/{versionSid}/Content",
                         "method": "Get",
@@ -635,7 +635,7 @@
                         ]
                       },
                       "response": {
-                        "name": "GetContentResponse",
+                        "name": "FetchContentResponse",
                         "structure": "FunctionContentResponse"
                       }
                     }
@@ -644,7 +644,7 @@
               ],
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Functions/{functionSid}/Versions/{sid}",
                     "method": "Get",
@@ -676,7 +676,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetVersionResponse",
+                    "name": "FetchVersionResponse",
                     "structure": "FunctionVersionResponse"
                   }
                 }
@@ -685,7 +685,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Functions/{sid}",
                 "method": "Get",
@@ -709,7 +709,7 @@
                 ]
               },
               "response": {
-                "name": "GetFunctionResponse",
+                "name": "FetchFunctionResponse",
                 "structure": "FunctionResponse"
               }
             },
@@ -909,7 +909,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Services/{serviceSid}/Assets/{assetSid}/Versions/{sid}",
                     "method": "Get",
@@ -941,7 +941,7 @@
                     ]
                   },
                   "response": {
-                    "name": "GetVersionResponse",
+                    "name": "FetchVersionResponse",
                     "structure": "AssetVersionResponse"
                   }
                 }
@@ -950,7 +950,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Assets/{sid}",
                 "method": "Get",
@@ -974,7 +974,7 @@
                 ]
               },
               "response": {
-                "name": "GetAssetResponse",
+                "name": "FetchAssetResponse",
                 "structure": "AssetResponse"
               }
             },
@@ -1096,7 +1096,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/Builds/{sid}",
                 "method": "Get",
@@ -1120,7 +1120,7 @@
                 ]
               },
               "response": {
-                "name": "GetBuildResponse",
+                "name": "FetchBuildResponse",
                 "structure": "BuildResponse"
               }
             },
@@ -1154,7 +1154,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Services/{sid}",
             "method": "Get",
@@ -1170,7 +1170,7 @@
             ]
           },
           "response": {
-            "name": "GetServiceResponse",
+            "name": "FetchServiceResponse",
             "structure": "ServiceResponse"
           }
         },

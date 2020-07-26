@@ -13,15 +13,19 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Version  func(string) *version.Client
+	// Sub client to manage version resources
+	Version func(string) *version.Client
+	// Sub client to manage versions resources
 	Versions *versions.Client
 }
 
+// The properties required to manage the asset resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

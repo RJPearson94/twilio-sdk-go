@@ -9,10 +9,10 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetVersionResponse struct {
+type FetchVersionResponse struct {
 	AccountSid  string    `json:"account_sid"`
+	AssetSid    string    `json:"asset_sid"`
 	DateCreated time.Time `json:"date_created"`
-	FunctionSid string    `json:"function_sid"`
 	Path        string    `json:"path"`
 	ServiceSid  string    `json:"service_sid"`
 	Sid         string    `json:"sid"`
@@ -20,22 +20,22 @@ type GetVersionResponse struct {
 	Visibility  string    `json:"visibility"`
 }
 
-func (c Client) Get() (*GetVersionResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchVersionResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetVersionResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchVersionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
-		URI:    "/Services/{serviceSid}/Functions/{functionSid}/Versions/{sid}",
+		URI:    "/Services/{serviceSid}/Assets/{assetSid}/Versions/{sid}",
 		PathParams: map[string]string{
-			"serviceSid":  c.serviceSid,
-			"functionSid": c.functionSid,
-			"sid":         c.sid,
+			"serviceSid": c.serviceSid,
+			"assetSid":   c.assetSid,
+			"sid":        c.sid,
 		},
 	}
 
-	response := &GetVersionResponse{}
+	response := &FetchVersionResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

@@ -18,20 +18,30 @@ type Client struct {
 
 	sid string
 
-	Asset        func(string) *asset.Client
-	Assets       *assets.Client
-	Build        func(string) *build.Client
-	Builds       *builds.Client
-	Environment  func(string) *environment.Client
+	// Sub client to manage asset resources
+	Asset func(string) *asset.Client
+	// Sub client to manage assets resources
+	Assets *assets.Client
+	// Sub client to manage build resources
+	Build func(string) *build.Client
+	// Sub client to manage builds resources
+	Builds *builds.Client
+	// Sub client to manage environment resources
+	Environment func(string) *environment.Client
+	// Sub client to manage environments resources
 	Environments *environments.Client
-	Function     func(string) *function.Client
-	Functions    *functions.Client
+	// Sub client to manage function resources
+	Function func(string) *function.Client
+	// Sub client to manage functions resources
+	Functions *functions.Client
 }
 
+// The properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
