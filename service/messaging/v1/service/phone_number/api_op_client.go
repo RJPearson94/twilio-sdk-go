@@ -10,11 +10,13 @@ type Client struct {
 	sid        string
 }
 
+// The properties required to manage the phonenumber resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

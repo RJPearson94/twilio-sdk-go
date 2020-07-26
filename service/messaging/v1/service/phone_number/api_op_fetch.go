@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetPhoneNumberResponse struct {
+type FetchPhoneNumberResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	Capabilities []string   `json:"capabilities"`
 	CountryCode  string     `json:"country_code"`
@@ -21,11 +21,11 @@ type GetPhoneNumberResponse struct {
 	URL          string     `json:"url"`
 }
 
-func (c Client) Get() (*GetPhoneNumberResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchPhoneNumberResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetPhoneNumberResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchPhoneNumberResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Services/{serviceSid}/PhoneNumbers/{sid}",
@@ -35,7 +35,7 @@ func (c Client) GetWithContext(context context.Context) (*GetPhoneNumberResponse
 		},
 	}
 
-	response := &GetPhoneNumberResponse{}
+	response := &FetchPhoneNumberResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

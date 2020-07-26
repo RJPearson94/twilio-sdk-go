@@ -95,7 +95,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/PhoneNumbers/{sid}",
                 "method": "Get",
@@ -119,7 +119,7 @@
                 ]
               },
               "response": {
-                "name": "GetPhoneNumberResponse",
+                "name": "FetchPhoneNumberResponse",
                 "structure": "PhoneNumberResponse"
               }
             },
@@ -208,7 +208,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/ShortCodes/{sid}",
                 "method": "Get",
@@ -232,7 +232,7 @@
                 ]
               },
               "response": {
-                "name": "GetShortCodeResponse",
+                "name": "FetchShortCodeResponse",
                 "structure": "ShortCodeResponse"
               }
             },
@@ -321,7 +321,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Services/{serviceSid}/AlphaSenders/{sid}",
                 "method": "Get",
@@ -345,7 +345,7 @@
                 ]
               },
               "response": {
-                "name": "GetAlphaSenderResponse",
+                "name": "FetchAlphaSenderResponse",
                 "structure": "AlphaSenderResponse"
               }
             },
@@ -379,7 +379,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Services/{sid}",
             "method": "Get",
@@ -395,7 +395,7 @@
             ]
           },
           "response": {
-            "name": "GetServiceResponse",
+            "name": "FetchServiceResponse",
             "structure": "ServiceResponse"
           }
         },

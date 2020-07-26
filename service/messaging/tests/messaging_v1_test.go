@@ -132,7 +132,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := serviceClient.Get()
+			resp, err := serviceClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -171,7 +171,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := messagingSession.Service("MG71").Get()
+			resp, err := messagingSession.Service("MG71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -361,7 +361,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := phoneNumberClient.Get()
+			resp, err := phoneNumberClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -390,7 +390,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Get()
+			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -513,7 +513,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := shortCodeClient.Get()
+			resp, err := shortCodeClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -542,7 +542,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ShortCode("SC71").Get()
+			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ShortCode("SC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -664,7 +664,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := alphaSenderClient.Get()
+			resp, err := alphaSenderClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -692,7 +692,7 @@ var _ = Describe("Messaging V1", func() {
 				},
 			)
 
-			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AlphaSender("AI71").Get()
+			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AlphaSender("AI71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

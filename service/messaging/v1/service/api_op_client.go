@@ -16,18 +16,26 @@ type Client struct {
 
 	sid string
 
-	AlphaSender  func(string) *alpha_sender.Client
+	// Sub client to manage alphasender resources
+	AlphaSender func(string) *alpha_sender.Client
+	// Sub client to manage alphasenders resources
 	AlphaSenders *alpha_senders.Client
-	PhoneNumber  func(string) *phone_number.Client
+	// Sub client to manage phonenumber resources
+	PhoneNumber func(string) *phone_number.Client
+	// Sub client to manage phonenumbers resources
 	PhoneNumbers *phone_numbers.Client
-	ShortCode    func(string) *short_code.Client
-	ShortCodes   *short_codes.Client
+	// Sub client to manage shortcode resources
+	ShortCode func(string) *short_code.Client
+	// Sub client to manage shortcodes resources
+	ShortCodes *short_codes.Client
 }
 
+// The properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
