@@ -1,0 +1,28 @@
+{
+  "fallback_method": "POST",
+  "fallback_to_long_code": true,
+  "date_updated": null,
+  "synchronous_validation": false,
+  "sticky_sender": true,
+  "inbound_method": "POST",
+  "friendly_name": "test",
+  "mms_converter": true,
+  "validity_period": 14400,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "fallback_url": null,
+  "inbound_request_url": null,
+  "url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "smart_encoding": true,
+  "scan_message_content": "inherit",
+  "area_code_geomatch": true,
+  "status_callback": null,
+  "links": {
+    "broadcasts": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Broadcasts",
+    "messages": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages",
+    "phone_numbers": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
+    "alpha_senders": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders",
+    "short_codes": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes"
+  }
+}
