@@ -749,7 +749,7 @@ func ExpectNotFoundError(err error) {
 	twilioErr, ok := err.(*utils.TwilioError)
 	Expect(ok).To(Equal(true))
 	Expect(twilioErr.Code).To(Equal(utils.Int(20404)))
-	Expect(twilioErr.Message).To(Equal("The requested resource /FlexFlows/FO71 was not found"))
+	Expect(twilioErr.Message).To(Equal("The requested resource /Services/MG71 was not found"))
 	Expect(twilioErr.MoreInfo).To(Equal(utils.String("https://www.twilio.com/docs/errors/20404")))
 	Expect(twilioErr.Status).To(Equal(404))
 }
