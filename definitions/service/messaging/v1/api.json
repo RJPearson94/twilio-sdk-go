@@ -262,6 +262,119 @@
               }
             }
           ]
+        },
+        {
+          "name": "AlphaSenders",
+          "packageName": "alpha_senders",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/AlphaSenders",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "input": {
+                "structure": "CreateAlphaSenderInput"
+              },
+              "response": {
+                "name": "CreateAlphaSenderResponse",
+                "structure": "AlphaSenderResponse"
+              }
+            }
+          ]
+        },
+        {
+          "name": "AlphaSender",
+          "packageName": "alpha_sender",
+          "function": {
+            "parameters": {
+              "alphaSenderSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "alphaSenderSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Get",
+              "http": {
+                "uri": "/Services/{serviceSid}/AlphaSenders/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "response": {
+                "name": "GetAlphaSenderResponse",
+                "structure": "AlphaSenderResponse"
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/AlphaSenders/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -603,6 +716,44 @@
           "name": "CountryCode",
           "type": "string",
           "value": "country_code",
+          "required": true
+        },
+        {
+          "name": "Capabilities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "capabilities",
+          "required": true
+        }
+      ]
+    },
+    "CreateAlphaSenderInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AlphaSender",
+          "type": "string",
+          "value": "AlphaSender",
+          "required": true
+        }
+      ]
+    },
+    "AlphaSenderResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "AlphaSender",
+          "type": "string",
+          "value": "alpha_sender",
           "required": true
         },
         {

@@ -1,0 +1,10 @@
+{
+  "alpha_sender": "Test Company",
+  "date_updated": null,
+  "capabilities": ["SMS"],
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

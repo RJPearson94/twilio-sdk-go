@@ -13,6 +13,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service"
+	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/alpha_senders"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_codes"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/services"
@@ -571,6 +572,156 @@ var _ = Describe("Messaging V1", func() {
 			)
 
 			err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").ShortCode("SC71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the alpha sender client", func() {
+		alphaSendersClient := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AlphaSenders
+
+		Describe("When the alpha sender is successfully created", func() {
+			createInput := &alpha_senders.CreateAlphaSenderInput{
+				AlphaSender: "Test Company",
+			}
+
+			httpmock.RegisterResponder("POST", "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/alphaSenderResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := alphaSendersClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create alpha sender response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AlphaSender).To(Equal("Test Company"))
+				Expect(resp.Capabilities).To(Equal([]string{"SMS"}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the alpha sender does not contain a alpha sender", func() {
+			createInput := &alpha_senders.CreateAlphaSenderInput{}
+
+			resp, err := alphaSendersClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create alpha sender response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create alpha sender api returns a 500 response", func() {
+			createInput := &alpha_senders.CreateAlphaSenderInput{
+				AlphaSender: "Test Company",
+			}
+
+			httpmock.RegisterResponder("POST", "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := alphaSendersClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create alpha sender response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have an alpha sender sid", func() {
+		alphaSenderClient := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AlphaSender("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the alpha sender is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/alphaSenderResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := alphaSenderClient.Get()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get alpha sender response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AlphaSender).To(Equal("Test Company"))
+				Expect(resp.Capabilities).To(Equal([]string{"SMS"}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the alpha sender api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AI71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AlphaSender("AI71").Get()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get alpha sender response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the alpha sender is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := alphaSenderClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the alpha sender api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AI71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := messagingSession.Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AlphaSender("AI71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

@@ -3,6 +3,8 @@ package service
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/alpha_sender"
+	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/alpha_senders"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_code"
@@ -14,6 +16,8 @@ type Client struct {
 
 	sid string
 
+	AlphaSender  func(string) *alpha_sender.Client
+	AlphaSenders *alpha_senders.Client
 	PhoneNumber  func(string) *phone_number.Client
 	PhoneNumbers *phone_numbers.Client
 	ShortCode    func(string) *short_code.Client
@@ -30,6 +34,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
+		AlphaSender: func(alphaSenderSid string) *alpha_sender.Client {
+			return alpha_sender.New(client, alpha_sender.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        alphaSenderSid,
+			})
+		},
+		AlphaSenders: alpha_senders.New(client, alpha_senders.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
 		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
 			return phone_number.New(client, phone_number.ClientProperties{
 				ServiceSid: properties.Sid,
