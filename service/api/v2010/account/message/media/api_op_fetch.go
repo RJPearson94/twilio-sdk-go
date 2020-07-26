@@ -10,7 +10,7 @@ import (
 )
 
 // Resource/ response properties for the retrieved media
-type GetMediaResponse struct {
+type FetchMediaResponse struct {
 	// The SID of account the media resource is associated with
 	AccountSid string `json:"account_sid"`
 	// The MIME type of the media
@@ -28,13 +28,13 @@ type GetMediaResponse struct {
 // Retrieve a media resource
 // See https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
-func (c Client) Get() (*GetMediaResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchMediaResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
 // Retrieve a media resource
 // See https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource for more details
-func (c Client) GetWithContext(context context.Context) (*GetMediaResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchMediaResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Accounts/{accountSid}/Messages/{messageSid}/Media/{sid}.json",
@@ -45,7 +45,7 @@ func (c Client) GetWithContext(context context.Context) (*GetMediaResponse, erro
 		},
 	}
 
-	response := &GetMediaResponse{}
+	response := &FetchMediaResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

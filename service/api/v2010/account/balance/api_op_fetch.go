@@ -9,7 +9,7 @@ import (
 )
 
 // Resource/ response properties for retrieving an account balance
-type GetBalanceResponse struct {
+type FetchBalanceResponse struct {
 	// The SID of account the balance was retrieved for
 	AccountSid string `json:"account_sid"`
 	// The currency format for the balance
@@ -20,12 +20,12 @@ type GetBalanceResponse struct {
 
 // Retrieve the balance resource for the account
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
-func (c Client) Get() (*GetBalanceResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchBalanceResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
 // Retrieve the balance resource for the account
-func (c Client) GetWithContext(context context.Context) (*GetBalanceResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchBalanceResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Accounts/{accountSid}/Balance.json",
@@ -34,7 +34,7 @@ func (c Client) GetWithContext(context context.Context) (*GetBalanceResponse, er
 		},
 	}
 
-	response := &GetBalanceResponse{}
+	response := &FetchBalanceResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

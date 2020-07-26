@@ -10,7 +10,7 @@ import (
 )
 
 // Resource/ response properties for retrieving a API Key
-type GetKeyResponse struct {
+type FetchKeyResponse struct {
 	// The date and time (in RFC2822 format) when the resource was created
 	DateCreated utils.RFC2822Time `json:"date_created"`
 	// The date and time (in RFC2822 format) when the resource was last updated
@@ -24,13 +24,13 @@ type GetKeyResponse struct {
 // Retrieve the api key resource. The secret is not returned for security reasons
 // See https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
-func (c Client) Get() (*GetKeyResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchKeyResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
 // Retrieve the api key resource. The secret is not returned for security reasons
 // See https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource for more details
-func (c Client) GetWithContext(context context.Context) (*GetKeyResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchKeyResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Accounts/{accountSid}/Keys/{sid}.json",
@@ -40,7 +40,7 @@ func (c Client) GetWithContext(context context.Context) (*GetKeyResponse, error)
 		},
 	}
 
-	response := &GetKeyResponse{}
+	response := &FetchKeyResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

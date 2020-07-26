@@ -72,7 +72,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Accounts/{accountSid}/Balance.json",
                 "method": "Get",
@@ -91,7 +91,7 @@
                 "description": "Retrieve the balance resource for the account"
               },
               "response": {
-                "name": "GetBalanceResponse",
+                "name": "FetchBalanceResponse",
                 "structure": "BalanceResponse",
                 "documentation": {
                   "description": "Resource/ response properties for retrieving an account balance"
@@ -176,7 +176,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Accounts/{accountSid}/Keys/{sid}.json",
                 "method": "Get",
@@ -204,7 +204,7 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#fetch-a-key-resource"
               },
               "response": {
-                "name": "GetKeyResponse",
+                "name": "FetchKeyResponse",
                 "structure": "KeyResponse",
                 "documentation": {
                   "description": "Resource/ response properties for retrieving a API Key"
@@ -452,7 +452,7 @@
               },
               "operations": [
                 {
-                  "name": "Get",
+                  "name": "Fetch",
                   "http": {
                     "uri": "/Accounts/{accountSid}/Messages/{messageSid}/Media/{sid}.json",
                     "method": "Get",
@@ -488,7 +488,7 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource"
                   },
                   "response": {
-                    "name": "GetMediaResponse",
+                    "name": "FetchMediaResponse",
                     "structure": "MediaResponse",
                     "documentation": {
                       "description": "Resource/ response properties for the retrieved media"
@@ -537,7 +537,7 @@
           ],
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Accounts/{accountSid}/Messages/{sid}.json",
                 "method": "Get",
@@ -565,7 +565,7 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource"
               },
               "response": {
-                "name": "GetMessageResponse",
+                "name": "FetchMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
                   "description": "Resource/ response properties for the retrieved message"
@@ -648,7 +648,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Accounts/{sid}.json",
             "method": "Get",
@@ -668,7 +668,7 @@
             "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#fetch-an-account-resource"
           },
           "response": {
-            "name": "GetAccountResponse",
+            "name": "FetchAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
               "description": "Resource/ response properties for the retrieved account"

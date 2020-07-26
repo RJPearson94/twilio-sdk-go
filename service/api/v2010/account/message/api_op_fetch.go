@@ -10,7 +10,7 @@ import (
 )
 
 // Resource/ response properties for the retrieved message
-type GetMessageResponse struct {
+type FetchMessageResponse struct {
 	// The api version which was responsible for dealing with the message
 	APIVersion string `json:"api_version"`
 	// The SID of the account which sent the message
@@ -52,13 +52,13 @@ type GetMessageResponse struct {
 // Retrieve a message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
-func (c Client) Get() (*GetMessageResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchMessageResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
 // Retrieve a message resource
 // See https://www.twilio.com/docs/sms/api/message-resource#fetch-a-message-resource for more details
-func (c Client) GetWithContext(context context.Context) (*GetMessageResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchMessageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Accounts/{accountSid}/Messages/{sid}.json",
@@ -68,7 +68,7 @@ func (c Client) GetWithContext(context context.Context) (*GetMessageResponse, er
 		},
 	}
 
-	response := &GetMessageResponse{}
+	response := &FetchMessageResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

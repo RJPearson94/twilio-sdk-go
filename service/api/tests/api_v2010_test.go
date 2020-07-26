@@ -106,7 +106,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := accountClient.Get()
+			resp, err := accountClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -134,7 +134,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("AC71").Get()
+			resp, err := apiSession.Account("AC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -277,7 +277,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := keyClient.Get()
+			resp, err := keyClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -301,7 +301,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Get()
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -492,7 +492,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := messageClient.Get()
+			resp, err := messageClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -530,7 +530,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Get()
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -702,7 +702,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := mediaClient.Get()
+			resp, err := mediaClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -728,7 +728,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("ME71").Get()
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("ME71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -776,7 +776,7 @@ var _ = Describe("API V2010", func() {
 					},
 				)
 
-				resp, err := balanceClient.Get()
+				resp, err := balanceClient.Fetch()
 				It("Then no error should be returned", func() {
 					Expect(err).To(BeNil())
 				})
@@ -799,7 +799,7 @@ var _ = Describe("API V2010", func() {
 					},
 				)
 
-				resp, err := balanceClient.Get()
+				resp, err := balanceClient.Fetch()
 				It("Then an error should be returned", func() {
 					ExpectInternalServerError(err)
 				})
