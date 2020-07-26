@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type GetFaxResponse struct {
+type FetchFaxResponse struct {
 	APIVersion  string     `json:"api_version"`
 	AccountSid  string     `json:"account_sid"`
 	DateCreated time.Time  `json:"date_created"`
@@ -29,11 +29,11 @@ type GetFaxResponse struct {
 	URL         string     `json:"url"`
 }
 
-func (c Client) Get() (*GetFaxResponse, error) {
-	return c.GetWithContext(context.Background())
+func (c Client) Fetch() (*FetchFaxResponse, error) {
+	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) GetWithContext(context context.Context) (*GetFaxResponse, error) {
+func (c Client) FetchWithContext(context context.Context) (*FetchFaxResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Faxes/{sid}",
@@ -42,7 +42,7 @@ func (c Client) GetWithContext(context context.Context) (*GetFaxResponse, error)
 		},
 	}
 
-	response := &GetFaxResponse{}
+	response := &FetchFaxResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

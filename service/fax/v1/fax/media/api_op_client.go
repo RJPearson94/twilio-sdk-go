@@ -10,11 +10,13 @@ type Client struct {
 	sid    string
 }
 
+// The properties required to manage the media resources
 type ClientProperties struct {
 	FaxSid string
 	Sid    string
 }
 
+// Create a new instance of the client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -59,7 +59,7 @@
           },
           "operations": [
             {
-              "name": "Get",
+              "name": "Fetch",
               "http": {
                 "uri": "/Faxes/{faxSid}/Media/{sid}",
                 "method": "Get",
@@ -83,7 +83,7 @@
                 ]
               },
               "response": {
-                "name": "GetMediaResponse",
+                "name": "FetchMediaResponse",
                 "structure": "MediaResponse"
               }
             },
@@ -117,7 +117,7 @@
       ],
       "operations": [
         {
-          "name": "Get",
+          "name": "Fetch",
           "http": {
             "uri": "/Faxes/{sid}",
             "method": "Get",
@@ -133,7 +133,7 @@
             ]
           },
           "response": {
-            "name": "GetFaxResponse",
+            "name": "FetchFaxResponse",
             "structure": "FaxResponse"
           }
         },

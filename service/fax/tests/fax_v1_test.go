@@ -146,7 +146,7 @@ var _ = Describe("Fax V1", func() {
 				},
 			)
 
-			resp, err := faxClient.Get()
+			resp, err := faxClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -183,7 +183,7 @@ var _ = Describe("Fax V1", func() {
 				},
 			)
 
-			resp, err := faxSession.Fax("FX71").Get()
+			resp, err := faxSession.Fax("FX71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -297,7 +297,7 @@ var _ = Describe("Fax V1", func() {
 				},
 			)
 
-			resp, err := mediaClient.Get()
+			resp, err := mediaClient.Fetch()
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -324,7 +324,7 @@ var _ = Describe("Fax V1", func() {
 				},
 			)
 
-			resp, err := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("ME71").Get()
+			resp, err := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("ME71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
