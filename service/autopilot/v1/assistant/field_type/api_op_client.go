@@ -7,6 +7,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_type/field_values"
 )
 
+// Client for managing a specific field type resource
+// See https://www.twilio.com/docs/autopilot/api/field-type for more details
 type Client struct {
 	client *client.Client
 
@@ -19,13 +21,13 @@ type Client struct {
 	FieldValues *field_values.Client
 }
 
-// The properties required to manage the field type resources
+// ClientProperties are the properties required to manage the field type resources
 type ClientProperties struct {
 	AssistantSid string
 	Sid          string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the field type client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

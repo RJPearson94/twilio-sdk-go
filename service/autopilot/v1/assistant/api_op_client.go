@@ -17,6 +17,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/webhooks"
 )
 
+// Client for managing a specific assistant resource
+// See https://www.twilio.com/docs/autopilot/api/assistant for more details
 type Client struct {
 	client *client.Client
 
@@ -48,12 +50,12 @@ type Client struct {
 	Webhooks *webhooks.Client
 }
 
-// The properties required to manage the assistant resources
+// ClientProperties are the properties required to manage the assistant resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the assistant client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

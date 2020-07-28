@@ -9,29 +9,49 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFieldValueInput defines the input parameters/ properties for creating a new field value resource
 type CreateFieldValueInput struct {
-	Language  string  `validate:"required" form:"Language"`
+	// The ISO language country code for the field value
+	Language string `validate:"required" form:"Language"`
+	// The SID of the field value which this field value is a synonym of
 	SynonymOf *string `form:"SynonymOf,omitempty"`
-	Value     string  `validate:"required" form:"Value"`
+	// The field value
+	Value string `validate:"required" form:"Value"`
 }
 
+// CreateFieldValueResponse resource/ response properties for the created field value
 type CreateFieldValueResponse struct {
-	AccountSid   string     `json:"account_sid"`
-	AssistantSid string     `json:"assistant_sid"`
-	DateCreated  time.Time  `json:"date_created"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	FieldTypeSid string     `json:"field_type_sid"`
-	Language     string     `json:"language"`
-	Sid          string     `json:"sid"`
-	SynonymOf    *string    `json:"synonym_of,omitempty"`
-	URL          string     `json:"url"`
-	Value        string     `json:"value"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the field value is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The SID of the field type which the field value is associated with
+	FieldTypeSid string `json:"field_type_sid"`
+	// The ISO language country code for the field value
+	Language string `json:"language"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The SID of the field value which this field value is a synonym of
+	SynonymOf *string `json:"synonym_of,omitempty"`
+	// The URL for the resource
+	URL string `json:"url"`
+	// The field value
+	Value string `json:"value"`
 }
 
+// Create creates a new field value
+// See https://www.twilio.com/docs/autopilot/api/field-value#create-a-fieldvalue-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFieldValueInput) (*CreateFieldValueResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new field value
+// See https://www.twilio.com/docs/autopilot/api/field-value#create-a-fieldvalue-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFieldValueInput) (*CreateFieldValueResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

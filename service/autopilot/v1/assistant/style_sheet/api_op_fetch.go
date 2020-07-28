@@ -8,17 +8,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchStyleSheetResponse resource/ response properties for the retrieved style sheet
 type FetchStyleSheetResponse struct {
-	AccountSid   string      `json:"account_sid"`
-	AssistantSid string      `json:"assistant_sid"`
-	Data         interface{} `json:"data"`
-	URL          string      `json:"url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the style sheet is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The style sheet JSON
+	Data map[string]interface{} `json:"data"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Fetch retrieves a style sheet resource
+// See https://www.twilio.com/docs/autopilot/api/assistant/stylesheet#fetch-a-stylesheet-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchStyleSheetResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a style sheet resource
+// See https://www.twilio.com/docs/autopilot/api/assistant/stylesheet#fetch-a-stylesheet-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchStyleSheetResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

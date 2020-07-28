@@ -9,43 +9,71 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateQueryInput defines input parameters/ properties for updating a query
 type UpdateQueryInput struct {
+	// The SID of the sample which the query is associated with
 	SampleSid *string `form:"SampleSid,omitempty"`
-	Status    *string `form:"Status,omitempty"`
+	// The current status of the query
+	Status *string `form:"Status,omitempty"`
 }
 
 type UpdateQueryResponseField struct {
-	Name  string `json:"name"`
-	Type  string `json:"type"`
+	// The name of the query
+	Name string `json:"name"`
+	// The field type
+	Type string `json:"type"`
+	// The value of the query
 	Value string `json:"value"`
 }
 
 type UpdateQueryResponseResult struct {
+	// The fields that were extracted from the query
 	Fields []UpdateQueryResponseField `json:"fields"`
-	Task   string                     `json:"task"`
+	// The name of the recognised task
+	Task string `json:"task"`
 }
 
+// UpdateQueryResponse resource/ response properties for the updated query
 type UpdateQueryResponse struct {
-	AccountSid    string                    `json:"account_sid"`
-	AssistantSid  string                    `json:"assistant_sid"`
-	DateCreated   time.Time                 `json:"date_created"`
-	DateUpdated   *time.Time                `json:"date_updated,omitempty"`
-	DialogueSid   *string                   `json:"dialogue_sid,omitempty"`
-	Language      string                    `json:"language"`
-	ModelBuildSid string                    `json:"model_build_sid"`
-	Query         string                    `json:"query"`
-	Results       UpdateQueryResponseResult `json:"results"`
-	SampleSid     string                    `json:"sample_sid"`
-	Sid           string                    `json:"sid"`
-	SourceChannel string                    `json:"source_channel"`
-	Status        string                    `json:"status"`
-	URL           string                    `json:"url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the query is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The SID of the dialogue which the query is associated with
+	DialogueSid *string `json:"dialogue_sid,omitempty"`
+	// The ISO language country code for the query
+	Language string `json:"language"`
+	// The SID of the model build which the query is associated with
+	ModelBuildSid string `json:"model_build_sid"`
+	// The query text
+	Query string `json:"query"`
+	// An object containing the recognised task and extracted field
+	Results UpdateQueryResponseResult `json:"results"`
+	// The SID of the sample which the query is associated with
+	SampleSid string `json:"sample_sid"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The channel the query was sent to
+	SourceChannel string `json:"source_channel"`
+	// The current status of the query
+	Status string `json:"status"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Update modifies a query resource
+// See https://www.twilio.com/docs/autopilot/api/query#update-a-query-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateQueryInput) (*UpdateQueryResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a query resource
+// See https://www.twilio.com/docs/autopilot/api/query#update-a-query-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateQueryInput) (*UpdateQueryResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

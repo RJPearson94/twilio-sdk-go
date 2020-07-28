@@ -8,22 +8,35 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateActionInput defines input parameters/ properties for updating a task action
 type UpdateActionInput struct {
+	// Actions object as a JSON string
 	Actions *string `form:"Actions,omitempty"`
 }
 
+// UpdateActionResponse resource/ response properties for the updated task action
 type UpdateActionResponse struct {
-	AccountSid   string      `json:"account_sid"`
-	AssistantSid string      `json:"assistant_sid"`
-	Data         interface{} `json:"data"`
-	TaskSid      string      `json:"task_sid"`
-	URL          string      `json:"url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the action is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The actions JSON
+	Data map[string]interface{} `json:"data"`
+	// The SID of the task which the action is associated with
+	TaskSid string `json:"task_sid"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Update modifies a task action resource
+// See https://www.twilio.com/docs/autopilot/api/task-action#update-a-taskactions-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateActionInput) (*UpdateActionResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a task action resource
+// See https://www.twilio.com/docs/autopilot/api/task-action#update-a-taskactions-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateActionInput) (*UpdateActionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

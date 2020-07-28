@@ -9,30 +9,51 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateWebhookInput defines input parameters/ properties for updating a webhook
 type UpdateWebhookInput struct {
-	Events        *string `form:"Events,omitempty"`
-	UniqueName    *string `form:"UniqueName,omitempty"`
+	// Space separated string of event which triggers the webhook
+	Events *string `form:"Events,omitempty"`
+	// The unique human readable name of the webhook
+	UniqueName *string `form:"UniqueName,omitempty"`
+	// The HTTP method used to call the webhook URL
 	WebhookMethod *string `form:"WebhookMethod,omitempty"`
-	WebhookURL    *string `form:"WebhookUrl,omitempty"`
+	// The URL of the webhook
+	WebhookURL *string `form:"WebhookUrl,omitempty"`
 }
 
+// UpdateWebhookResponse resource/ response properties for the updated webhook
 type UpdateWebhookResponse struct {
-	AccountSid    string     `json:"account_sid"`
-	AssistantSid  string     `json:"assistant_sid"`
-	DateCreated   time.Time  `json:"date_created"`
-	DateUpdated   *time.Time `json:"date_updated,omitempty"`
-	Events        string     `json:"events"`
-	Sid           string     `json:"sid"`
-	URL           string     `json:"url"`
-	UniqueName    string     `json:"unique_name"`
-	WebhookMethod string     `json:"webhook_method"`
-	WebhookURL    string     `json:"webhook_url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the webhook is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// Space separated string of event which triggers the webhook
+	Events string `json:"events"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The URL for the resource
+	URL string `json:"url"`
+	// The unique human readable name of the webhook
+	UniqueName string `json:"unique_name"`
+	// The HTTP method used to call the webhook URL
+	WebhookMethod string `json:"webhook_method"`
+	// The URL of the webhook
+	WebhookURL string `json:"webhook_url"`
 }
 
+// Update modifies an webhook resource
+// See https://www.twilio.com/docs/autopilot/api/event-webhooks#update-a-webhook-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateWebhookInput) (*UpdateWebhookResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies an webhook resource
+// See https://www.twilio.com/docs/autopilot/api/event-webhooks#update-a-webhook-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWebhookInput) (*UpdateWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

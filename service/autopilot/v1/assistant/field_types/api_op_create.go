@@ -9,26 +9,43 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFieldTypeInput defines the input parameters/ properties for creating a new field type resource
 type CreateFieldTypeInput struct {
+	// The human readable name of the field type
 	FriendlyName *string `form:"FriendlyName,omitempty"`
-	UniqueName   string  `validate:"required" form:"UniqueName"`
+	// The unique human readable name of the field type
+	UniqueName string `validate:"required" form:"UniqueName"`
 }
 
+// CreateFieldTypeResponse resource/ response properties for the created field type
 type CreateFieldTypeResponse struct {
-	AccountSid   string     `json:"account_sid"`
-	AssistantSid string     `json:"assistant_sid"`
-	DateCreated  time.Time  `json:"date_created"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
-	Sid          string     `json:"sid"`
-	URL          string     `json:"url"`
-	UniqueName   string     `json:"unique_name"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the field type is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The human readable name of the field type
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The URL for the resource
+	URL string `json:"url"`
+	// The unique human readable name of the field type
+	UniqueName string `json:"unique_name"`
 }
 
+// Create creates a new field type
+// See https://www.twilio.com/docs/autopilot/api/field-type#create-a-fieldtype-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFieldTypeInput) (*CreateFieldTypeResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new field type
+// See https://www.twilio.com/docs/autopilot/api/field-type#create-a-fieldtype-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFieldTypeInput) (*CreateFieldTypeResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

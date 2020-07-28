@@ -3,6 +3,8 @@ package samples
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a task sample resource
+// See https://www.twilio.com/docs/autopilot/api/task-sample for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	taskSid      string
 }
 
-// The properties required to manage the samples resources
+// ClientProperties are the properties required to manage the samples resources
 type ClientProperties struct {
 	AssistantSid string
 	TaskSid      string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the samples client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

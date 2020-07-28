@@ -9,36 +9,59 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateAssistantInput defines the input parameters/ properties for creating a new assistant resource
 type CreateAssistantInput struct {
 	CallbackEvents *string `form:"CallbackEvents,omitempty"`
 	CallbackURL    *string `form:"CallbackUrl,omitempty"`
-	Defaults       *string `form:"Defaults,omitempty"`
-	FriendlyName   *string `form:"FriendlyName,omitempty"`
-	LogQueries     *bool   `form:"LogQueries,omitempty"`
-	StyleSheet     *string `form:"StyleSheet,omitempty"`
-	UniqueName     *string `form:"UniqueName,omitempty"`
+	// Defaults object as a JSON string
+	Defaults *string `form:"Defaults,omitempty"`
+	// The human readable name of the assistant
+	FriendlyName *string `form:"FriendlyName,omitempty"`
+	// Determine if queries are logged and stored
+	LogQueries *bool `form:"LogQueries,omitempty"`
+	// Style sheet object as a JSON string
+	StyleSheet *string `form:"StyleSheet,omitempty"`
+	// The unique human readable name of the assistant
+	UniqueName *string `form:"UniqueName,omitempty"`
 }
 
+// CreateAssistantResponse resource/ response properties for the created assistant
 type CreateAssistantResponse struct {
-	AccountSid          string     `json:"account_sid"`
-	CallbackEvents      *string    `json:"callback_events,omitempty"`
-	CallbackURL         *string    `json:"callback_url,omitempty"`
-	DateCreated         time.Time  `json:"date_created"`
-	DateUpdated         *time.Time `json:"date_updated,omitempty"`
-	DevelopmentStage    string     `json:"development_stage"`
-	FriendlyName        *string    `json:"friendly_name,omitempty"`
-	LatestModelBuildSid *string    `json:"latest_model_build_sid,omitempty"`
-	LogQueries          bool       `json:"log_queries"`
-	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
-	Sid                 string     `json:"sid"`
-	URL                 string     `json:"url"`
-	UniqueName          string     `json:"unique_name"`
+	// The SID of the account which the resource is associated with
+	AccountSid     string  `json:"account_sid"`
+	CallbackEvents *string `json:"callback_events,omitempty"`
+	CallbackURL    *string `json:"callback_url,omitempty"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// String representation of the assistant stage/ state
+	DevelopmentStage string `json:"development_stage"`
+	// The human readable name of the assistant
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The SID of the latest model build
+	LatestModelBuildSid *string `json:"latest_model_build_sid,omitempty"`
+	// Determine if queries are logged and stored
+	LogQueries bool `json:"log_queries"`
+	// Determine if the model needs rebuilding
+	NeedsModelBuild *bool `json:"needs_model_build,omitempty"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The URL for the resource
+	URL string `json:"url"`
+	// The unique human readable name of the assistant
+	UniqueName string `json:"unique_name"`
 }
 
+// Create creates a new assistant
+// See https://www.twilio.com/docs/autopilot/api/assistant#create-an-assistant-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateAssistantInput) (*CreateAssistantResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new assistant
+// See https://www.twilio.com/docs/autopilot/api/assistant#create-an-assistant-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateAssistantInput) (*CreateAssistantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

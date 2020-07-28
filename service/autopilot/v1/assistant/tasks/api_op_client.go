@@ -3,18 +3,20 @@ package tasks
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a task resource
+// See https://www.twilio.com/docs/autopilot/api/task for more details
 type Client struct {
 	client *client.Client
 
 	assistantSid string
 }
 
-// The properties required to manage the tasks resources
+// ClientProperties are the properties required to manage the tasks resources
 type ClientProperties struct {
 	AssistantSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the tasks client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

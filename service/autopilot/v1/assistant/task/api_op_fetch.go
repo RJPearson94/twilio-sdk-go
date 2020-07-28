@@ -9,22 +9,37 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchTaskResponse resource/ response properties for the retrieved task
 type FetchTaskResponse struct {
-	AccountSid   string     `json:"account_sid"`
-	ActionsURL   string     `json:"actions_url"`
-	AssistantSid string     `json:"assistant_sid"`
-	DateCreated  time.Time  `json:"date_created"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
-	Sid          string     `json:"sid"`
-	URL          string     `json:"url"`
-	UniqueName   string     `json:"unique_name"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The URL where the assistant can retrieve actions from
+	ActionsURL string `json:"actions_url"`
+	// The SID of the assistant which the task is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The human readable name of the task
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The URL for the resource
+	URL string `json:"url"`
+	// The unique human readable name of the task
+	UniqueName string `json:"unique_name"`
 }
 
+// Fetch retrieves a task resource
+// See https://www.twilio.com/docs/autopilot/api/task#fetch-a-task-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchTaskResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a task resource
+// See https://www.twilio.com/docs/autopilot/api/task#fetch-a-task-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchTaskResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

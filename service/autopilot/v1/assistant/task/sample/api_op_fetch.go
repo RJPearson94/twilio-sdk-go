@@ -9,23 +9,39 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchSampleResponse resource/ response properties for the retrieved task sample
 type FetchSampleResponse struct {
-	AccountSid    string     `json:"account_sid"`
-	AssistantSid  string     `json:"assistant_sid"`
-	DateCreated   time.Time  `json:"date_created"`
-	DateUpdated   *time.Time `json:"date_updated,omitempty"`
-	Language      string     `json:"language"`
-	Sid           string     `json:"sid"`
-	SourceChannel *string    `json:"source_channel,omitempty"`
-	TaggedText    string     `json:"tagged_text"`
-	TaskSid       string     `json:"task_sid"`
-	URL           string     `json:"url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the sample is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The ISO language country code for the sample
+	Language string `json:"language"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The channel the sample is from
+	SourceChannel *string `json:"source_channel,omitempty"`
+	// The marked up sample text
+	TaggedText string `json:"tagged_text"`
+	// The SID of the task which the sample is associated with
+	TaskSid string `json:"task_sid"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Fetch retrieves a task sample resource
+// See https://www.twilio.com/docs/autopilot/api/task-sample#fetch-a-sample-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchSampleResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a task sample resource
+// See https://www.twilio.com/docs/autopilot/api/task-sample#fetch-a-sample-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchSampleResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

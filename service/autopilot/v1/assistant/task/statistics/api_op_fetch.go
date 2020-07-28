@@ -8,19 +8,31 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchStatisticsResponse resource/ response properties for the retrieved task statistics
 type FetchStatisticsResponse struct {
-	AccountSid   string `json:"account_sid"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the statistics are associated with
 	AssistantSid string `json:"assistant_sid"`
-	FieldsCount  int    `json:"fields_count"`
-	SamplesCount int    `json:"samples_count"`
-	TaskSid      string `json:"task_sid"`
-	URL          string `json:"url"`
+	// The number of fields associated with the task
+	FieldsCount int `json:"fields_count"`
+	// The number of samples associated with the task
+	SamplesCount int `json:"samples_count"`
+	// The SID of the task which the statistics are associated with
+	TaskSid string `json:"task_sid"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Fetch retrieves a task statistic resource
+// See https://www.twilio.com/docs/autopilot/api/task-statistics#fetch-a-taskstatistics-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchStatisticsResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a task statistic resource
+// See https://www.twilio.com/docs/autopilot/api/task-statistics#fetch-a-taskstatistics-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchStatisticsResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

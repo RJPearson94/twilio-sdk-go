@@ -3,6 +3,8 @@ package field
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific task field resource
+// See https://www.twilio.com/docs/autopilot/api/task-field for more details
 type Client struct {
 	client *client.Client
 
@@ -11,14 +13,14 @@ type Client struct {
 	taskSid      string
 }
 
-// The properties required to manage the field resources
+// ClientProperties are the properties required to manage the field resources
 type ClientProperties struct {
 	AssistantSid string
 	Sid          string
 	TaskSid      string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the field client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

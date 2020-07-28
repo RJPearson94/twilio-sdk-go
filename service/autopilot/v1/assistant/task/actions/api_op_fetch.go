@@ -8,18 +8,29 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchActionResponse resource/ response properties for the retrieved task action>
 type FetchActionResponse struct {
-	AccountSid   string      `json:"account_sid"`
-	AssistantSid string      `json:"assistant_sid"`
-	Data         interface{} `json:"data"`
-	TaskSid      string      `json:"task_sid"`
-	URL          string      `json:"url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the action is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The actions JSON
+	Data map[string]interface{} `json:"data"`
+	// The SID of the task which the action is associated with
+	TaskSid string `json:"task_sid"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Fetch retrieves a task action resource
+// See https://www.twilio.com/docs/autopilot/api/task-action#fetch-a-taskactions-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchActionResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a task action resource
+// See https://www.twilio.com/docs/autopilot/api/task-action#fetch-a-taskactions-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchActionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

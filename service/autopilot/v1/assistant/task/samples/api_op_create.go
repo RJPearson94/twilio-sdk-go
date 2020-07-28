@@ -9,29 +9,49 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateSampleInput defines the input parameters/ properties for creating a new task sample resource
 type CreateSampleInput struct {
-	Language      string  `validate:"required" form:"Language"`
+	// The ISO language country code for the sample
+	Language string `validate:"required" form:"Language"`
+	// The channel the sample is from
 	SourceChannel *string `form:"SourceChannel,omitempty"`
-	TaggedText    string  `validate:"required" form:"TaggedText"`
+	// The marked up sample text
+	TaggedText string `validate:"required" form:"TaggedText"`
 }
 
+// CreateSampleResponse resource/ response properties for the created task sample
 type CreateSampleResponse struct {
-	AccountSid    string     `json:"account_sid"`
-	AssistantSid  string     `json:"assistant_sid"`
-	DateCreated   time.Time  `json:"date_created"`
-	DateUpdated   *time.Time `json:"date_updated,omitempty"`
-	Language      string     `json:"language"`
-	Sid           string     `json:"sid"`
-	SourceChannel *string    `json:"source_channel,omitempty"`
-	TaggedText    string     `json:"tagged_text"`
-	TaskSid       string     `json:"task_sid"`
-	URL           string     `json:"url"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the sample is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The ISO language country code for the sample
+	Language string `json:"language"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The channel the sample is from
+	SourceChannel *string `json:"source_channel,omitempty"`
+	// The marked up sample text
+	TaggedText string `json:"tagged_text"`
+	// The SID of the task which the sample is associated with
+	TaskSid string `json:"task_sid"`
+	// The URL for the resource
+	URL string `json:"url"`
 }
 
+// Create creates a new task sample
+// See https://www.twilio.com/docs/autopilot/api/task-sample#create-a-sample-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateSampleInput) (*CreateSampleResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new task sample
+// See https://www.twilio.com/docs/autopilot/api/task-sample#create-a-sample-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateSampleInput) (*CreateSampleResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

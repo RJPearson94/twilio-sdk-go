@@ -9,27 +9,45 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFieldInput defines the input parameters/ properties for creating a new task field resource
 type CreateFieldInput struct {
-	FieldType  string `validate:"required" form:"FieldType"`
+	// The type of field
+	FieldType string `validate:"required" form:"FieldType"`
+	// The unique human readable name of the field
 	UniqueName string `validate:"required" form:"UniqueName"`
 }
 
+// CreateFieldResponse resource/ response properties for the created task field
 type CreateFieldResponse struct {
-	AccountSid   string     `json:"account_sid"`
-	AssistantSid string     `json:"assistant_sid"`
-	DateCreated  time.Time  `json:"date_created"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	FieldType    string     `json:"field_type"`
-	Sid          string     `json:"sid"`
-	TaskSid      string     `json:"task_sid"`
-	URL          string     `json:"url"`
-	UniqueName   string     `json:"unique_name"`
+	// The SID of the account which the resource is associated with
+	AccountSid string `json:"account_sid"`
+	// The SID of the assistant which the field is associated with
+	AssistantSid string `json:"assistant_sid"`
+	// The date and time (in RFC3339 format) when the resource was created
+	DateCreated time.Time `json:"date_created"`
+	// The date and time (in RFC3339 format) when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The type of field
+	FieldType string `json:"field_type"`
+	// The unique alphanumeric string for the resource
+	Sid string `json:"sid"`
+	// The SID of the task which the field is associated with
+	TaskSid string `json:"task_sid"`
+	// The URL for the resource
+	URL string `json:"url"`
+	// The unique human readable name of the field
+	UniqueName string `json:"unique_name"`
 }
 
+// Create creates a new task field
+// See https://www.twilio.com/docs/autopilot/api/task-field#create-a-field-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFieldInput) (*CreateFieldResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new task field
+// See https://www.twilio.com/docs/autopilot/api/task-field#create-a-field-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFieldInput) (*CreateFieldResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

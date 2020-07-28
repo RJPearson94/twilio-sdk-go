@@ -11,6 +11,10 @@
     {
       "name": "Assistants",
       "packageName": "assistants",
+      "documentation": {
+        "description": "Client for managing an Autopilot assistant resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,13 +22,23 @@
             "uri": "/Assistants",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new assistant",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant#create-an-assistant-resource"
+          },
           "input": {
             "name": "CreateAssistantInput",
-            "structure": "AssistantInput"
+            "structure": "AssistantInput",
+            "documentation": {
+              "description": "defines the input parameters/ properties for creating a new assistant resource"
+            }
           },
           "response": {
             "name": "CreateAssistantResponse",
-            "structure": "AssistantResponse"
+            "structure": "AssistantResponse",
+            "documentation": {
+              "description": "resource/ response properties for the created assistant"
+            }
           }
         }
       ]
@@ -36,6 +50,10 @@
         "sid": {
           "dataType": "string"
         }
+      },
+      "documentation": {
+        "description": "Client for managing a specific assistant resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant"
       },
       "subClients": [
         {
@@ -49,6 +67,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a defaults resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/defaults"
           },
           "operations": [
             {
@@ -67,9 +89,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a defaults resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/defaults#fetch-a-defaults-resource"
+              },
               "response": {
                 "name": "FetchDefaultResponse",
-                "structure": "DefaultResponse"
+                "structure": "DefaultResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved defaults"
+                }
               }
             },
             {
@@ -88,12 +117,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a defaults resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/defaults#update-a-defaults-resource"
+              },
               "input": {
-                "structure": "UpdateDefaultInput"
+                "structure": "UpdateDefaultInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating defaults"
+                }
               },
               "response": {
                 "name": "UpdateDefaultResponse",
-                "structure": "DefaultResponse"
+                "structure": "DefaultResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated defaults"
+                }
               }
             }
           ]
@@ -110,6 +149,10 @@
               "parentProperty": "sid"
             }
           },
+          "documentation": {
+            "description": "Client for managing an style sheet resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/stylesheet"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -127,9 +170,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a style sheet resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/stylesheet#fetch-a-stylesheet-resource"
+              },
               "response": {
                 "name": "FetchStyleSheetResponse",
-                "structure": "StyleSheetResponse"
+                "structure": "StyleSheetResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved style sheet"
+                }
               }
             },
             {
@@ -148,12 +198,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a style sheet resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/stylesheet#update-a-stylesheet-resource"
+              },
               "input": {
-                "structure": "UpdateStyleSheetInput"
+                "structure": "UpdateStyleSheetInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating a stylesheet"
+                }
               },
               "response": {
                 "name": "UpdateStyleSheetResponse",
-                "structure": "StyleSheetResponse"
+                "structure": "StyleSheetResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated style sheet"
+                }
               }
             }
           ]
@@ -166,6 +226,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a task resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task"
           },
           "operations": [
             {
@@ -184,12 +248,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new task",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task#create-a-task-resource"
+              },
               "input": {
-                "structure": "CreateTaskInput"
+                "structure": "CreateTaskInput",
+                "documentation": {
+                  "description": "defines the input parameters/ properties for creating a new task resource"
+                }
               },
               "response": {
                 "name": "CreateTaskResponse",
-                "structure": "TaskResponse"
+                "structure": "TaskResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the created task"
+                }
               }
             }
           ]
@@ -214,6 +288,11 @@
               "functionParameter": "taskSid"
             }
           },
+
+          "documentation": {
+            "description": "Client for managing a specific task resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task"
+          },
           "subClients": [
             {
               "name": "Fields",
@@ -227,6 +306,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a task field resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field"
               },
               "operations": [
                 {
@@ -253,12 +336,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new task field",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field#create-a-field-resource"
+                  },
                   "input": {
-                    "structure": "CreateFieldInput"
+                    "structure": "CreateFieldInput",
+                    "documentation": {
+                      "description": "defines the input parameters/ properties for creating a new task field resource"
+                    }
                   },
                   "response": {
                     "name": "CreateFieldResponse",
-                    "structure": "FieldResponse"
+                    "structure": "FieldResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the created task field"
+                    }
                   }
                 }
               ]
@@ -287,6 +380,10 @@
                   "functionParameter": "fieldSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific task field resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -320,9 +417,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a task field resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field#fetch-a-field-resource"
+                  },
                   "response": {
                     "name": "FetchFieldResponse",
-                    "structure": "FieldResponse"
+                    "structure": "FieldResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the retrieved task field"
+                    }
                   }
                 },
                 {
@@ -356,6 +460,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a task field resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field#delete-a-field-resource"
                   }
                 }
               ]
@@ -372,6 +480,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a task sample resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample"
               },
               "operations": [
                 {
@@ -398,12 +510,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new task sample",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample#create-a-sample-resource"
+                  },
                   "input": {
-                    "structure": "CreateSampleInput"
+                    "structure": "CreateSampleInput",
+                    "documentation": {
+                      "description": "defines the input parameters/ properties for creating a new task sample resource"
+                    }
                   },
                   "response": {
                     "name": "CreateSampleResponse",
-                    "structure": "SampleResponse"
+                    "structure": "SampleResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the created task sample"
+                    }
                   }
                 }
               ]
@@ -432,6 +554,10 @@
                   "functionParameter": "sampleSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific task sample resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -465,9 +591,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a task sample resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample#fetch-a-sample-resource"
+                  },
                   "response": {
                     "name": "FetchSampleResponse",
-                    "structure": "SampleResponse"
+                    "structure": "SampleResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the retrieved task sample"
+                    }
                   }
                 },
                 {
@@ -502,12 +635,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a task sample resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample#update-a-sample-resource"
+                  },
                   "input": {
-                    "structure": "UpdateSampleInput"
+                    "structure": "UpdateSampleInput",
+                    "documentation": {
+                      "description": "defines input parameters/ properties for updating a task sample"
+                    }
                   },
                   "response": {
                     "name": "UpdateSampleResponse",
-                    "structure": "SampleResponse"
+                    "structure": "SampleResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the updated task sample"
+                    }
                   }
                 },
                 {
@@ -541,6 +684,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a task sample resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample#delete-a-sample-resource"
                   }
                 }
               ]
@@ -560,6 +707,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a task action resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-action"
               },
               "operations": [
                 {
@@ -586,9 +737,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a task action resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-action#fetch-a-taskactions-resource"
+                  },
                   "response": {
                     "name": "FetchActionResponse",
-                    "structure": "ActionResponse"
+                    "structure": "ActionResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the retrieved task action>"
+                    }
                   }
                 },
                 {
@@ -615,12 +773,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a task action resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-action#update-a-taskactions-resource"
+                  },
                   "input": {
-                    "structure": "UpdateActionInput"
+                    "structure": "UpdateActionInput",
+                    "documentation": {
+                      "description": "defines input parameters/ properties for updating a task action"
+                    }
                   },
                   "response": {
                     "name": "UpdateActionResponse",
-                    "structure": "ActionResponse"
+                    "structure": "ActionResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the updated task action"
+                    }
                   }
                 }
               ]
@@ -640,6 +808,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a task statistics resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-statistics"
               },
               "operations": [
                 {
@@ -666,9 +838,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a task statistic resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-statistics#fetch-a-taskstatistics-resource"
+                  },
                   "response": {
                     "name": "FetchStatisticsResponse",
-                    "structure": "StatisticsResponse"
+                    "structure": "StatisticsResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the retrieved task statistics"
+                    }
                   }
                 }
               ]
@@ -699,9 +878,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a task resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task#fetch-a-task-resource"
+              },
               "response": {
                 "name": "FetchTaskResponse",
-                "structure": "TaskResponse"
+                "structure": "TaskResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved task"
+                }
               }
             },
             {
@@ -728,12 +914,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a task resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task#update-a-task-resource"
+              },
               "input": {
-                "structure": "UpdateTaskInput"
+                "structure": "UpdateTaskInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating a task"
+                }
               },
               "response": {
                 "name": "UpdateTaskResponse",
-                "structure": "TaskResponse"
+                "structure": "TaskResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated task"
+                }
               }
             },
             {
@@ -759,6 +955,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a task resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task#delete-a-task-resource"
               }
             }
           ]
@@ -771,6 +971,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a field type resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type"
           },
           "operations": [
             {
@@ -789,12 +993,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new field type",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type#create-a-fieldtype-resource"
+              },
               "input": {
-                "structure": "CreateFieldTypeInput"
+                "structure": "CreateFieldTypeInput",
+                "documentation": {
+                  "description": "defines the input parameters/ properties for creating a new field type resource"
+                }
               },
               "response": {
                 "name": "CreateFieldTypeResponse",
-                "structure": "FieldTypeResponse"
+                "structure": "FieldTypeResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the created field type"
+                }
               }
             }
           ]
@@ -819,6 +1033,10 @@
               "functionParameter": "fieldTypeSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific field type resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type"
+          },
           "subClients": [
             {
               "name": "Field Values",
@@ -832,6 +1050,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing an Autopilot Field Value resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value"
               },
               "operations": [
                 {
@@ -858,12 +1080,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new field value",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value#create-a-fieldvalue-resource"
+                  },
                   "input": {
-                    "structure": "CreateFieldValueInput"
+                    "structure": "CreateFieldValueInput",
+                    "documentation": {
+                      "description": "defines the input parameters/ properties for creating a new field value resource"
+                    }
                   },
                   "response": {
                     "name": "CreateFieldValueResponse",
-                    "structure": "FieldValueResponse"
+                    "structure": "FieldValueResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the created field value"
+                    }
                   }
                 }
               ]
@@ -892,6 +1124,10 @@
                   "functionParameter": "fieldValueSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific field value resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -925,9 +1161,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a field value resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value#fetch-a-fieldvalue-resource"
+                  },
                   "response": {
                     "name": "FetchFieldValueResponse",
-                    "structure": "FieldValueResponse"
+                    "structure": "FieldValueResponse",
+                    "documentation": {
+                      "description": "resource/ response properties for the retrieved field value"
+                    }
                   }
                 },
                 {
@@ -961,6 +1204,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a field type resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value#delete-a-fieldvalue-resource"
                   }
                 }
               ]
@@ -991,9 +1238,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a field type resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type#fetch-a-fieldtype-resource"
+              },
               "response": {
                 "name": "FetchFieldTypeResponse",
-                "structure": "FieldTypeResponse"
+                "structure": "FieldTypeResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved field type"
+                }
               }
             },
             {
@@ -1020,12 +1274,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a field type resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type#update-a-fieldtype-resource"
+              },
               "input": {
-                "structure": "UpdateFieldTypeInput"
+                "structure": "UpdateFieldTypeInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating a field type"
+                }
               },
               "response": {
                 "name": "UpdateFieldTypeResponse",
-                "structure": "FieldTypeResponse"
+                "structure": "FieldTypeResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated field type"
+                }
               }
             },
             {
@@ -1051,6 +1315,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a field type resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type#delete-a-fieldtype-resource"
               }
             }
           ]
@@ -1063,6 +1331,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing an Autopilot Model Build resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build"
           },
           "operations": [
             {
@@ -1081,12 +1353,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new model build",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build#create-a-modelbuild-resource"
+              },
               "input": {
-                "structure": "CreateModelBuildInput"
+                "structure": "CreateModelBuildInput",
+                "documentation": {
+                  "description": "defines the input parameters/ properties for creating a new model build resource"
+                }
               },
               "response": {
                 "name": "CreateModelBuildResponse",
-                "structure": "ModelBuildResponse"
+                "structure": "ModelBuildResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the created model build"
+                }
               }
             }
           ]
@@ -1111,6 +1393,10 @@
               "functionParameter": "modelBuildSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific model build resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -1136,9 +1422,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a model build resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build#fetch-a-modelbuild-resource"
+              },
               "response": {
                 "name": "FetchModelBuildResponse",
-                "structure": "ModelBuildResponse"
+                "structure": "ModelBuildResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved model build"
+                }
               }
             },
             {
@@ -1165,12 +1458,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies an model build resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build#update-a-modelbuild-resource"
+              },
               "input": {
-                "structure": "UpdateModelBuildInput"
+                "structure": "UpdateModelBuildInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating a model build"
+                }
               },
               "response": {
                 "name": "UpdateModelBuildResponse",
-                "structure": "ModelBuildResponse"
+                "structure": "ModelBuildResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated model build"
+                }
               }
             },
             {
@@ -1196,6 +1499,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a model build resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build#delete-a-modelbuild-resource"
               }
             }
           ]
@@ -1208,6 +1515,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing an Autopilot Query resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query"
           },
           "operations": [
             {
@@ -1226,12 +1537,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new query resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query#create-a-query-resource"
+              },
               "input": {
-                "structure": "CreateQueryInput"
+                "structure": "CreateQueryInput",
+                "documentation": {
+                  "description": "defines the input parameters/ properties for creating a new query resource"
+                }
               },
               "response": {
                 "name": "CreateQueryResponse",
-                "structure": "QueryResponse"
+                "structure": "QueryResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the created query"
+                }
               }
             }
           ]
@@ -1256,6 +1577,11 @@
               "functionParameter": "querySid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific query resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query"
+          },
+
           "operations": [
             {
               "name": "Fetch",
@@ -1281,9 +1607,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a query resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query#fetch-a-query-resource"
+              },
               "response": {
                 "name": "FetchQueryResponse",
-                "structure": "QueryResponse"
+                "structure": "QueryResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved query"
+                }
               }
             },
             {
@@ -1310,12 +1643,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a query resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query#update-a-query-resource"
+              },
               "input": {
-                "structure": "UpdateQueryInput"
+                "structure": "UpdateQueryInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating a query"
+                }
               },
               "response": {
                 "name": "UpdateQueryResponse",
-                "structure": "QueryResponse"
+                "structure": "QueryResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated query"
+                }
               }
             },
             {
@@ -1341,6 +1684,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a query resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query#delete-a-query-resource"
               }
             }
           ]
@@ -1353,6 +1700,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing an Autopilot webhook resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks"
           },
           "operations": [
             {
@@ -1371,12 +1722,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new webhook",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks#create-a-webhook-resource"
+              },
               "input": {
-                "structure": "CreateWebhookInput"
+                "structure": "CreateWebhookInput",
+                "documentation": {
+                  "description": "defines the input parameters/ properties for creating a new webhook resource"
+                }
               },
               "response": {
                 "name": "CreateWebhookResponse",
-                "structure": "WebhookResponse"
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the created webhook"
+                }
               }
             }
           ]
@@ -1401,6 +1762,10 @@
               "functionParameter": "webhookSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific webhook resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -1426,9 +1791,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks#fetch-a-webhook-resource"
+              },
               "response": {
                 "name": "FetchWebhookResponse",
-                "structure": "WebhookResponse"
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the retrieved webhook"
+                }
               }
             },
             {
@@ -1455,12 +1827,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies an webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks#update-a-webhook-resource"
+              },
               "input": {
-                "structure": "UpdateWebhookInput"
+                "structure": "UpdateWebhookInput",
+                "documentation": {
+                  "description": "defines input parameters/ properties for updating a webhook"
+                }
               },
               "response": {
                 "name": "UpdateWebhookResponse",
-                "structure": "WebhookResponse"
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "resource/ response properties for the updated webhook"
+                }
               }
             },
             {
@@ -1486,6 +1868,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a webhook resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks#delete-a-webhook-resource"
               }
             }
           ]
@@ -1508,9 +1894,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves an assistant resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant#fetch-an-assistant-resource"
+          },
           "response": {
             "name": "FetchAssistantResponse",
-            "structure": "AssistantResponse"
+            "structure": "AssistantResponse",
+            "documentation": {
+              "description": "resource/ response properties for the retrieved assistant"
+            }
           }
         },
         {
@@ -1529,12 +1922,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies an assistant resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant#update-an-assistant-resource"
+          },
           "input": {
-            "structure": "UpdateAssistantInput"
+            "structure": "UpdateAssistantInput",
+            "documentation": {
+              "description": "defines input parameters/ properties for updating an assistant resource"
+            }
           },
           "response": {
             "name": "UpdateAssistantResponse",
-            "structure": "AssistantResponse"
+            "structure": "AssistantResponse",
+            "documentation": {
+              "description": "resource/ response properties for the updated assistant"
+            }
           }
         },
         {
@@ -1552,6 +1955,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a assistant resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant#delete-an-assistant-resource"
           }
         }
       ]
@@ -1565,19 +1972,28 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the assistant"
+          }
         },
         {
           "name": "LogQueries",
           "type": "bool",
           "value": "LogQueries",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Determine if queries are logged and stored"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The unique human readable name of the assistant"
+          }
         },
         {
           "name": "CallbackURL",
@@ -1595,13 +2011,19 @@
           "name": "StyleSheet",
           "type": "string",
           "value": "StyleSheet",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Style sheet object as a JSON string"
+          }
         },
         {
           "name": "Defaults",
           "type": "string",
           "value": "Defaults",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Defaults object as a JSON string"
+          }
         }
       ]
     },
@@ -1613,7 +2035,10 @@
           "name": "DevelopmentStage",
           "type": "string",
           "value": "DevelopmentStage",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "String representation of the assistant stage/ state"
+          }
         }
       ]
     },
@@ -1625,19 +2050,28 @@
           "name": "LatestModelBuildSid",
           "type": "string",
           "value": "latest_model_build_sid",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the latest model build"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the assistant"
+          }
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the assistant"
+          }
         },
         {
           "name": "CallbackEvents",
@@ -1655,19 +2089,28 @@
           "name": "LogQueries",
           "type": "bool",
           "value": "log_queries",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "Determine if queries are logged and stored"
+          }
         },
         {
           "name": "DevelopmentStage",
           "type": "string",
           "value": "development_stage",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "String representation of the assistant stage/ state"
+          }
         },
         {
           "name": "NeedsModelBuild",
           "type": "bool",
           "value": "needs_model_build",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Determine if the model needs rebuilding"
+          }
         }
       ]
     },
@@ -1678,7 +2121,10 @@
           "name": "Defaults",
           "type": "string",
           "value": "Defaults",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Default object as a JSON string"
+          }
         }
       ]
     },
@@ -1689,25 +2135,40 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the account which the resource is associated with"
+          }
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the default is associated with"
+          }
         },
         {
           "name": "Data",
-          "type": "interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "data",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The default JSON"
+          }
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL for the resource"
+          }
         }
       ]
     },
@@ -1718,7 +2179,10 @@
           "name": "StyleSheet",
           "type": "string",
           "value": "StyleSheet",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Style sheet object as a JSON string"
+          }
         }
       ]
     },
@@ -1729,25 +2193,40 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the account which the resource is associated with"
+          }
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the style sheet is associated with"
+          }
         },
         {
           "name": "Data",
-          "type": "interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "data",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The style sheet JSON"
+          }
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL for the resource"
+          }
         }
       ]
     },
@@ -1759,7 +2238,10 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the task"
+          }
         }
       ]
     },
@@ -1771,7 +2253,10 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The unique human readable name of the task"
+          }
         }
       ]
     },
@@ -1782,19 +2267,28 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the task"
+          }
         },
         {
           "name": "Actions",
           "type": "string",
           "value": "Actions",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Actions object as a JSON string"
+          }
         },
         {
           "name": "ActionsURL",
           "type": "string",
           "value": "ActionsUrl",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The URL where the assistant can retrieve actions from"
+          }
         }
       ]
     },
@@ -1806,25 +2300,37 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the task is associated with"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the task"
+          }
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the task"
+          }
         },
         {
           "name": "ActionsURL",
           "type": "string",
           "value": "actions_url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL where the assistant can retrieve actions from"
+          }
         }
       ]
     },
@@ -1835,13 +2341,19 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the field"
+          }
         },
         {
           "name": "FieldType",
           "type": "string",
           "value": "FieldType",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The type of field"
+          }
         }
       ]
     },
@@ -1853,25 +2365,37 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the field is associated with"
+          }
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the task which the field is associated with"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the field"
+          }
         },
         {
           "name": "FieldType",
           "type": "string",
           "value": "field_type",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The type of field"
+          }
         }
       ]
     },
@@ -1882,19 +2406,28 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The ISO language country code for the sample"
+          }
         },
         {
           "name": "TaggedText",
           "type": "string",
           "value": "TaggedText",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The marked up sample text"
+          }
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "SourceChannel",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The channel the sample is from"
+          }
         }
       ]
     },
@@ -1905,19 +2438,28 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The ISO language country code for the sample"
+          }
         },
         {
           "name": "TaggedText",
           "type": "string",
           "value": "TaggedText",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The marked up sample text"
+          }
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "SourceChannel",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The channel the sample is from"
+          }
         }
       ]
     },
@@ -1929,31 +2471,46 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the sample is associated with"
+          }
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the task which the sample is associated with"
+          }
         },
         {
           "name": "Language",
           "type": "string",
           "value": "language",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The ISO language country code for the sample"
+          }
         },
         {
           "name": "TaggedText",
           "type": "string",
           "value": "tagged_text",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The marked up sample text"
+          }
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "source_channel",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The channel the sample is from"
+          }
         }
       ]
     },
@@ -1964,7 +2521,10 @@
           "name": "Actions",
           "type": "string",
           "value": "Actions",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Actions object as a JSON string"
+          }
         }
       ]
     },
@@ -1975,31 +2535,49 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the account which the resource is associated with"
+          }
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the action is associated with"
+          }
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the task which the action is associated with"
+          }
         },
         {
           "name": "Data",
-          "type": "interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "data",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The actions JSON"
+          }
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL for the resource"
+          }
         }
       ]
     },
@@ -2010,37 +2588,55 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the account which the resource is associated with"
+          }
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the statistics are associated with"
+          }
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the task which the statistics are associated with"
+          }
         },
         {
           "name": "SamplesCount",
           "type": "int",
           "value": "samples_count",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The number of samples associated with the task"
+          }
         },
         {
           "name": "FieldsCount",
           "type": "int",
           "value": "fields_count",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The number of fields associated with the task"
+          }
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL for the resource"
+          }
         }
       ]
     },
@@ -2051,13 +2647,19 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the field type"
+          }
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the field type"
+          }
         }
       ]
     },
@@ -2068,13 +2670,19 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The unique human readable name of the field type"
+          }
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the field type"
+          }
         }
       ]
     },
@@ -2086,19 +2694,28 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the field type is associated with"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the field type"
+          }
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The human readable name of the field type"
+          }
         }
       ]
     },
@@ -2109,19 +2726,28 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The ISO language country code for the field value"
+          }
         },
         {
           "name": "Value",
           "type": "string",
           "value": "Value",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The field value"
+          }
         },
         {
           "name": "SynonymOf",
           "type": "string",
           "value": "SynonymOf",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the field value which this field value is a synonym of"
+          }
         }
       ]
     },
@@ -2133,31 +2759,46 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the field value is associated with"
+          }
         },
         {
           "name": "FieldTypeSid",
           "type": "string",
           "value": "field_type_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the field type which the field value is associated with"
+          }
         },
         {
           "name": "Language",
           "type": "string",
           "value": "language",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The ISO language country code for the field value"
+          }
         },
         {
           "name": "Value",
           "type": "string",
           "value": "value",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The field value"
+          }
         },
         {
           "name": "SynonymOf",
           "type": "string",
           "value": "synonym_of",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the field value which this field value is a synonym of"
+          }
         }
       ]
     },
@@ -2168,13 +2809,19 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The unique human readable name of the model build"
+          }
         },
         {
           "name": "StatusCallback",
           "type": "string",
           "value": "StatusCallback",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The URL to POST status changes to"
+          }
         }
       ]
     },
@@ -2185,7 +2832,10 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The unique human readable name of the model build"
+          }
         }
       ]
     },
@@ -2197,31 +2847,46 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the model build is associated with"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the model build"
+          }
         },
         {
           "name": "BuildDuration",
           "type": "int",
           "value": "build_duration",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The time (in seconds) taken for the model to finish building"
+          }
         },
         {
           "name": "Status",
           "type": "string",
           "value": "status",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The current status of the build"
+          }
         },
         {
           "name": "ErrorCode",
           "type": "int",
           "value": "error_code",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The Twilio error code for the issue that occurred"
+          }
         }
       ]
     },
@@ -2232,25 +2897,37 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The ISO language country code for the query"
+          }
         },
         {
           "name": "Query",
           "type": "string",
           "value": "Query",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The query text"
+          }
         },
         {
           "name": "Tasks",
           "type": "string",
           "value": "Tasks",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The comma separated string of tasks which the query can search"
+          }
         },
         {
           "name": "ModelBuild",
           "type": "string",
           "value": "ModelBuild",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the model build to query"
+          }
         }
       ]
     },
@@ -2261,13 +2938,19 @@
           "name": "SampleSid",
           "type": "string",
           "value": "SampleSid",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the sample which the query is associated with"
+          }
         },
         {
           "name": "Status",
           "type": "string",
           "value": "Status",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The current status of the query"
+          }
         }
       ]
     },
@@ -2278,19 +2961,28 @@
           "name": "Name",
           "type": "string",
           "value": "name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The name of the query"
+          }
         },
         {
           "name": "Value",
           "type": "string",
           "value": "value",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The value of the query"
+          }
         },
         {
           "name": "Type",
           "type": "string",
           "value": "type",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The field type"
+          }
         }
       ]
     },
@@ -2301,7 +2993,10 @@
           "name": "Task",
           "type": "string",
           "value": "task",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The name of the recognised task"
+          }
         },
         {
           "name": "Fields",
@@ -2310,7 +3005,10 @@
             "structure": "QueryResponseField"
           },
           "value": "fields",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The fields that were extracted from the query"
+          }
         }
       ]
     },
@@ -2322,55 +3020,82 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the query is associated with"
+          }
         },
         {
           "name": "ModelBuildSid",
           "type": "string",
           "value": "model_build_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the model build which the query is associated with"
+          }
         },
         {
           "name": "SampleSid",
           "type": "string",
           "value": "sample_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the sample which the query is associated with"
+          }
         },
         {
           "name": "Status",
           "type": "string",
           "value": "status",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The current status of the query"
+          }
         },
         {
           "name": "Language",
           "type": "string",
           "value": "language",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The ISO language country code for the query"
+          }
         },
         {
           "name": "Query",
           "type": "string",
           "value": "query",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The query text"
+          }
         },
         {
           "name": "Results",
           "structure": "QueryResponseResult",
           "value": "results",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "An object containing the recognised task and extracted field"
+          }
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "source_channel",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The channel the query was sent to"
+          }
         },
         {
           "name": "DialogueSid",
           "type": "string",
           "value": "dialogue_sid",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The SID of the dialogue which the query is associated with"
+          }
         }
       ]
     },
@@ -2381,25 +3106,37 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the webhook"
+          }
         },
         {
           "name": "Events",
           "type": "string",
           "value": "Events",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "Space separated string of event which triggers the webhook"
+          }
         },
         {
           "name": "WebhookURL",
           "type": "string",
           "value": "WebhookUrl",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL of the webhook"
+          }
         },
         {
           "name": "WebhookMethod",
           "type": "string",
           "value": "WebhookMethod",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The HTTP method used to call the webhook URL"
+          }
         }
       ]
     },
@@ -2410,25 +3147,37 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The unique human readable name of the webhook"
+          }
         },
         {
           "name": "Events",
           "type": "string",
           "value": "Events",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "Space separated string of event which triggers the webhook"
+          }
         },
         {
           "name": "WebhookURL",
           "type": "string",
           "value": "WebhookUrl",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The URL of the webhook"
+          }
         },
         {
           "name": "WebhookMethod",
           "type": "string",
           "value": "WebhookMethod",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The HTTP method used to call the webhook URL"
+          }
         }
       ]
     },
@@ -2440,31 +3189,46 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the assistant which the webhook is associated with"
+          }
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique human readable name of the webhook"
+          }
         },
         {
           "name": "Events",
           "type": "string",
           "value": "events",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "Space separated string of event which triggers the webhook"
+          }
         },
         {
           "name": "WebhookURL",
           "type": "string",
           "value": "webhook_url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL of the webhook"
+          }
         },
         {
           "name": "WebhookMethod",
           "type": "string",
           "value": "webhook_method",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The HTTP method used to call the webhook URL"
+          }
         }
       ]
     },
@@ -2475,31 +3239,46 @@
           "name": "Sid",
           "type": "string",
           "value": "sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The unique alphanumeric string for the resource"
+          }
         },
         {
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The SID of the account which the resource is associated with"
+          }
         },
         {
           "name": "DateCreated",
           "type": "time.Time",
           "value": "date_created",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The date and time (in RFC3339 format) when the resource was created"
+          }
         },
         {
           "name": "DateUpdated",
           "type": "time.Time",
           "value": "date_updated",
-          "required": false
+          "required": false,
+          "documentation": {
+            "description": "The date and time (in RFC3339 format) when the resource was last updated"
+          }
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true
+          "required": true,
+          "documentation": {
+            "description": "The URL for the resource"
+          }
         }
       ]
     }

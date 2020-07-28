@@ -3,6 +3,8 @@ package statistics
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a task statistics resource
+// See https://www.twilio.com/docs/autopilot/api/task-statistics for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	taskSid      string
 }
 
-// The properties required to manage the statistics resources
+// ClientProperties are the properties required to manage the statistics resources
 type ClientProperties struct {
 	AssistantSid string
 	TaskSid      string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the statistics client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

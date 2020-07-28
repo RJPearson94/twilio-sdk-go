@@ -3,18 +3,20 @@ package model_builds
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing an Autopilot Model Build resource
+// See https://www.twilio.com/docs/autopilot/api/model-build for more details
 type Client struct {
 	client *client.Client
 
 	assistantSid string
 }
 
-// The properties required to manage the model builds resources
+// ClientProperties are the properties required to manage the model builds resources
 type ClientProperties struct {
 	AssistantSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the model builds client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -3,18 +3,20 @@ package style_sheet
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing an style sheet resource
+// See https://www.twilio.com/docs/autopilot/api/assistant/stylesheet for more details
 type Client struct {
 	client *client.Client
 
 	assistantSid string
 }
 
-// The properties required to manage the stylesheet resources
+// ClientProperties are the properties required to manage the stylesheet resources
 type ClientProperties struct {
 	AssistantSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the stylesheet client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

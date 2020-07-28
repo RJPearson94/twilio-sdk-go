@@ -11,6 +11,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/task/statistics"
 )
 
+// Client for managing a specific task resource
+// See https://www.twilio.com/docs/autopilot/api/task for more details
 type Client struct {
 	client *client.Client
 
@@ -31,13 +33,13 @@ type Client struct {
 	Statistics func() *statistics.Client
 }
 
-// The properties required to manage the task resources
+// ClientProperties are the properties required to manage the task resources
 type ClientProperties struct {
 	AssistantSid string
 	Sid          string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the task client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,
