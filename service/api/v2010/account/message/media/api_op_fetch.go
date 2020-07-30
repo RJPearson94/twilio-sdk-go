@@ -11,18 +11,12 @@ import (
 
 // FetchMediaResponse resource/ response properties for the retrieved media
 type FetchMediaResponse struct {
-	// The SID of account the media resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The MIME type of the media
-	ContentType string `json:"content_type"`
-	// The date and time (in RFC2822 format) when the resource was created
-	DateCreated utils.RFC2822Time `json:"date_created"`
-	// The date and time (in RFC2822 format) when the resource was last updated
+	AccountSid  string             `json:"account_sid"`
+	ContentType string             `json:"content_type"`
+	DateCreated utils.RFC2822Time  `json:"date_created"`
 	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	// The SID of the resource which created the media resource
-	ParentSid string `json:"parent_sid"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
+	ParentSid   string             `json:"parent_sid"`
+	Sid         string             `json:"sid"`
 }
 
 // Fetch retrieves a media resource

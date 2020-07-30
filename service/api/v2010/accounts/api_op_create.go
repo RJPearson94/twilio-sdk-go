@@ -11,28 +11,19 @@ import (
 
 // CreateAccountInput defines the input parameters/ properties for creating a new Twilio sub account resource
 type CreateAccountInput struct {
-	// The human readable name of the account
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
 // CreateAccountResponse resource/ response properties for the created sub account
 type CreateAccountResponse struct {
-	// The generated authorization token for the account
-	AuthToken string `json:"auth_token"`
-	// The date and time (in RFC2822 format) when the resource was created
-	DateCreated utils.RFC2822Time `json:"date_created"`
-	// The date and time (in RFC2822 format) when the resource was last updated
-	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	// The human readable name of the account
-	FriendlyName string `json:"friendly_name"`
-	// The SID of the parent account. Can be the same as the SID of the account
-	OwnerAccountSid string `json:"owner_account_sid"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
-	// The current status of the account
-	Status string `json:"status"`
-	// The current account type
-	Type string `json:"type"`
+	AuthToken       string             `json:"auth_token"`
+	DateCreated     utils.RFC2822Time  `json:"date_created"`
+	DateUpdated     *utils.RFC2822Time `json:"date_updated,omitempty"`
+	FriendlyName    string             `json:"friendly_name"`
+	OwnerAccountSid string             `json:"owner_account_sid"`
+	Sid             string             `json:"sid"`
+	Status          string             `json:"status"`
+	Type            string             `json:"type"`
 }
 
 // Create provisions a new Twilio sub account under the current account

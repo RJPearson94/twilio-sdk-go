@@ -11,22 +11,16 @@ import (
 
 // CreateKeyInput defines input parameters/ properties for creating a new API Key
 type CreateKeyInput struct {
-	// The human readable name of the API key
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
 // CreateKeyResponse resource/ response properties for creating a new API Key
 type CreateKeyResponse struct {
-	// The date and time (in RFC2822 format) when the resource was created
-	DateCreated utils.RFC2822Time `json:"date_created"`
-	// The date and time (in RFC2822 format) when the resource was last updated
-	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	// The human readable name of the API key
-	FriendlyName string `json:"friendly_name"`
-	// The secret value for the API key. This is only visible at point of creation
-	Secret string `json:"secret"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
+	DateCreated  utils.RFC2822Time  `json:"date_created"`
+	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
+	FriendlyName string             `json:"friendly_name"`
+	Secret       string             `json:"secret"`
+	Sid          string             `json:"sid"`
 }
 
 // Create creates a new key resource

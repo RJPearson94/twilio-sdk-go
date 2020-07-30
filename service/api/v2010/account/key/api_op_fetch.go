@@ -11,14 +11,10 @@ import (
 
 // FetchKeyResponse resource/ response properties for retrieving a API Key
 type FetchKeyResponse struct {
-	// The date and time (in RFC2822 format) when the resource was created
-	DateCreated utils.RFC2822Time `json:"date_created"`
-	// The date and time (in RFC2822 format) when the resource was last updated
-	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	// The human readable name of the API key
-	FriendlyName string `json:"friendly_name"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
+	DateCreated  utils.RFC2822Time  `json:"date_created"`
+	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`
+	FriendlyName string             `json:"friendly_name"`
+	Sid          string             `json:"sid"`
 }
 
 // Fetch retrieves the api key resource. The secret is not returned for security reasons

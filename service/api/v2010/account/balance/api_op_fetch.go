@@ -10,12 +10,9 @@ import (
 
 // FetchBalanceResponse resource/ response properties for retrieving an account balance
 type FetchBalanceResponse struct {
-	// The SID of account the balance was retrieved for
 	AccountSid string `json:"account_sid"`
-	// The currency format for the balance
-	Balance string `json:"balance"`
-	// The account currency format
-	Currency string `json:"currency"`
+	Balance    string `json:"balance"`
+	Currency   string `json:"currency"`
 }
 
 // Fetch retrieves the balance resource for the account

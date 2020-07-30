@@ -11,24 +11,17 @@ import (
 
 // CreateFeedbackInput defines input parameters/ properties for creating a new feedback resource
 type CreateFeedbackInput struct {
-	// The outcome of whether the message feedback has arrived
 	Outcome *string `form:"Outcome,omitempty"`
 }
 
 // CreateFeedbackResponse resource/ response properties for the created feedback
 type CreateFeedbackResponse struct {
-	// The SID of account the feedback resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The date and time (in RFC2822 format) when the resource was created
-	DateCreated utils.RFC2822Time `json:"date_created"`
-	// The date and time (in RFC2822 format) when the resource was last updated
+	AccountSid  string             `json:"account_sid"`
+	DateCreated utils.RFC2822Time  `json:"date_created"`
 	DateUpdated *utils.RFC2822Time `json:"date_updated,omitempty"`
-	// The SID of message resource associated with the feedback
-	MessageSid string `json:"message_sid"`
-	// The outcome of whether the message feedback has arrived
-	Outcome string `json:"outcome"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
+	MessageSid  string             `json:"message_sid"`
+	Outcome     string             `json:"outcome"`
+	Sid         string             `json:"sid"`
 }
 
 // Create creates a new feedback resource

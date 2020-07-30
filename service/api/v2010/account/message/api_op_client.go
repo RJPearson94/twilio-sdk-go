@@ -15,10 +15,8 @@ type Client struct {
 	accountSid string
 	sid        string
 
-	// Sub client to manage feedback resources
 	Feedback *feedback.Client
-	// Sub client to manage media resources
-	Media func(string) *media.Client
+	Media    func(string) *media.Client
 }
 
 // ClientProperties are the properties required to manage the message resources

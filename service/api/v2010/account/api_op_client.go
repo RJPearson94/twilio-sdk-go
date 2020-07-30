@@ -17,15 +17,10 @@ type Client struct {
 
 	sid string
 
-	// Sub client to manage balance resources
-	Balance func() *balance.Client
-	// Sub client to manage key resources
-	Key func(string) *key.Client
-	// Sub client to manage keys resources
-	Keys *keys.Client
-	// Sub client to manage message resources
-	Message func(string) *message.Client
-	// Sub client to manage messages resources
+	Balance  func() *balance.Client
+	Key      func(string) *key.Client
+	Keys     *keys.Client
+	Message  func(string) *message.Client
 	Messages *messages.Client
 }
 
