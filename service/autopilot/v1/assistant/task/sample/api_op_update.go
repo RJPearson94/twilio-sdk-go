@@ -11,36 +11,23 @@ import (
 
 // UpdateSampleInput defines input parameters/ properties for updating a task sample
 type UpdateSampleInput struct {
-	// The ISO language country code for the sample
-	Language *string `form:"Language,omitempty"`
-	// The channel the sample is from
+	Language      *string `form:"Language,omitempty"`
 	SourceChannel *string `form:"SourceChannel,omitempty"`
-	// The marked up sample text
-	TaggedText *string `form:"TaggedText,omitempty"`
+	TaggedText    *string `form:"TaggedText,omitempty"`
 }
 
 // UpdateSampleResponse resource/ response properties for the updated task sample
 type UpdateSampleResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the sample is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The date and time (in RFC3339 format) when the resource was created
-	DateCreated time.Time `json:"date_created"`
-	// The date and time (in RFC3339 format) when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The ISO language country code for the sample
-	Language string `json:"language"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
-	// The channel the sample is from
-	SourceChannel *string `json:"source_channel,omitempty"`
-	// The marked up sample text
-	TaggedText string `json:"tagged_text"`
-	// The SID of the task which the sample is associated with
-	TaskSid string `json:"task_sid"`
-	// The URL for the resource
-	URL string `json:"url"`
+	AccountSid    string     `json:"account_sid"`
+	AssistantSid  string     `json:"assistant_sid"`
+	DateCreated   time.Time  `json:"date_created"`
+	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	Language      string     `json:"language"`
+	Sid           string     `json:"sid"`
+	SourceChannel *string    `json:"source_channel,omitempty"`
+	TaggedText    string     `json:"tagged_text"`
+	TaskSid       string     `json:"task_sid"`
+	URL           string     `json:"url"`
 }
 
 // Update modifies a task sample resource

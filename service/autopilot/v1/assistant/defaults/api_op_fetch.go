@@ -10,14 +10,10 @@ import (
 
 // FetchDefaultResponse resource/ response properties for the retrieved defaults
 type FetchDefaultResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the default is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The default JSON
-	Data map[string]interface{} `json:"data"`
-	// The URL for the resource
-	URL string `json:"url"`
+	AccountSid   string                 `json:"account_sid"`
+	AssistantSid string                 `json:"assistant_sid"`
+	Data         map[string]interface{} `json:"data"`
+	URL          string                 `json:"url"`
 }
 
 // Fetch retrieves a defaults resource

@@ -10,20 +10,15 @@ import (
 
 // UpdateStyleSheetInput defines input parameters/ properties for updating a stylesheet
 type UpdateStyleSheetInput struct {
-	// Style sheet object as a JSON string
 	StyleSheet *string `form:"StyleSheet,omitempty"`
 }
 
 // UpdateStyleSheetResponse resource/ response properties for the updated style sheet
 type UpdateStyleSheetResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the style sheet is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The style sheet JSON
-	Data map[string]interface{} `json:"data"`
-	// The URL for the resource
-	URL string `json:"url"`
+	AccountSid   string                 `json:"account_sid"`
+	AssistantSid string                 `json:"assistant_sid"`
+	Data         map[string]interface{} `json:"data"`
+	URL          string                 `json:"url"`
 }
 
 // Update modifies a style sheet resource

@@ -11,34 +11,22 @@ import (
 
 // CreateModelBuildInput defines the input parameters/ properties for creating a new model build resource
 type CreateModelBuildInput struct {
-	// The URL to POST status changes to
 	StatusCallback *string `form:"StatusCallback,omitempty"`
-	// The unique human readable name of the model build
-	UniqueName *string `form:"UniqueName,omitempty"`
+	UniqueName     *string `form:"UniqueName,omitempty"`
 }
 
 // CreateModelBuildResponse resource/ response properties for the created model build
 type CreateModelBuildResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the model build is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The time (in seconds) taken for the model to finish building
-	BuildDuration *int `json:"build_duration,omitempty"`
-	// The date and time (in RFC3339 format) when the resource was created
-	DateCreated time.Time `json:"date_created"`
-	// The date and time (in RFC3339 format) when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The Twilio error code for the issue that occurred
-	ErrorCode *int `json:"error_code,omitempty"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
-	// The current status of the build
-	Status string `json:"status"`
-	// The URL for the resource
-	URL string `json:"url"`
-	// The unique human readable name of the model build
-	UniqueName string `json:"unique_name"`
+	AccountSid    string     `json:"account_sid"`
+	AssistantSid  string     `json:"assistant_sid"`
+	BuildDuration *int       `json:"build_duration,omitempty"`
+	DateCreated   time.Time  `json:"date_created"`
+	DateUpdated   *time.Time `json:"date_updated,omitempty"`
+	ErrorCode     *int       `json:"error_code,omitempty"`
+	Sid           string     `json:"sid"`
+	Status        string     `json:"status"`
+	URL           string     `json:"url"`
+	UniqueName    string     `json:"unique_name"`
 }
 
 // Create creates a new model build

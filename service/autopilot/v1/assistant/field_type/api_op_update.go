@@ -11,30 +11,20 @@ import (
 
 // UpdateFieldTypeInput defines input parameters/ properties for updating a field type
 type UpdateFieldTypeInput struct {
-	// The human readable name of the field type
 	FriendlyName *string `form:"FriendlyName,omitempty"`
-	// The unique human readable name of the field type
-	UniqueName *string `form:"UniqueName,omitempty"`
+	UniqueName   *string `form:"UniqueName,omitempty"`
 }
 
 // UpdateFieldTypeResponse resource/ response properties for the updated field type
 type UpdateFieldTypeResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the field type is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The date and time (in RFC3339 format) when the resource was created
-	DateCreated time.Time `json:"date_created"`
-	// The date and time (in RFC3339 format) when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The human readable name of the field type
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
-	// The URL for the resource
-	URL string `json:"url"`
-	// The unique human readable name of the field type
-	UniqueName string `json:"unique_name"`
+	AccountSid   string     `json:"account_sid"`
+	AssistantSid string     `json:"assistant_sid"`
+	DateCreated  time.Time  `json:"date_created"`
+	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	FriendlyName *string    `json:"friendly_name,omitempty"`
+	Sid          string     `json:"sid"`
+	URL          string     `json:"url"`
+	UniqueName   string     `json:"unique_name"`
 }
 
 // Update modifies a field type resource

@@ -19,17 +19,11 @@ type Client struct {
 	assistantSid string
 	sid          string
 
-	// Sub client to manage actions resources
-	Actions func() *actions.Client
-	// Sub client to manage field resources
-	Field func(string) *field.Client
-	// Sub client to manage fields resources
-	Fields *fields.Client
-	// Sub client to manage sample resources
-	Sample func(string) *sample.Client
-	// Sub client to manage samples resources
-	Samples *samples.Client
-	// Sub client to manage statistics resources
+	Actions    func() *actions.Client
+	Field      func(string) *field.Client
+	Fields     *fields.Client
+	Sample     func(string) *sample.Client
+	Samples    *samples.Client
 	Statistics func() *statistics.Client
 }
 

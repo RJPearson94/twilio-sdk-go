@@ -76,7 +76,6 @@ func structTemplate(templateName string, tags string) string {
 		"{tags}", tags,
 	).Replace(`{{ define "{templateName}" }} {{ if .documentation }} // {{ .name }} {{ .documentation.description }}
 {{ end }} type {{ .name }} struct { {{range $index, $property := .properties }}
-	{{ if $property.documentation }} // {{ $property.documentation.description }}	
-	{{ end }} {{ $property.name }} {{ if eq $property.required false }}*{{ end }}{{ $property.type }} {tags} {{end}}
+	{{ $property.name }} {{ if eq $property.required false }}*{{ end }}{{ $property.type }} {tags} {{end}}
 } {{ end }}`)
 }

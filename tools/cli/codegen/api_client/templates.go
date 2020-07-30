@@ -40,7 +40,6 @@ const addPropertiesToClientInitialisation = `{{if $Properties}} {{range $key, $v
 `
 
 const addSubClientsToStruct = `{{ if .subClients }} {{ range $index, $subClient := .subClients }}
-	// Sub client to manage {{ $subClient.name | ToLowerCase }} resources
 	{{ $subClient.name | ToCamelCase }} {{ if .functionParams | IsDefined }} func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.type }}, {{ end }}) {{ end }} *{{ $subClient.name | ToSnakeCase }}.Client {{ end }} {{ end }}
 `
 

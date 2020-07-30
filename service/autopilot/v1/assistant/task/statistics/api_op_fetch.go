@@ -10,18 +10,12 @@ import (
 
 // FetchStatisticsResponse resource/ response properties for the retrieved task statistics
 type FetchStatisticsResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the statistics are associated with
+	AccountSid   string `json:"account_sid"`
 	AssistantSid string `json:"assistant_sid"`
-	// The number of fields associated with the task
-	FieldsCount int `json:"fields_count"`
-	// The number of samples associated with the task
-	SamplesCount int `json:"samples_count"`
-	// The SID of the task which the statistics are associated with
-	TaskSid string `json:"task_sid"`
-	// The URL for the resource
-	URL string `json:"url"`
+	FieldsCount  int    `json:"fields_count"`
+	SamplesCount int    `json:"samples_count"`
+	TaskSid      string `json:"task_sid"`
+	URL          string `json:"url"`
 }
 
 // Fetch retrieves a task statistic resource

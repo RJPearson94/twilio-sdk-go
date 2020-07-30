@@ -1972,28 +1972,19 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the assistant"
-          }
+          "required": false
         },
         {
           "name": "LogQueries",
           "type": "bool",
           "value": "LogQueries",
-          "required": false,
-          "documentation": {
-            "description": "Determine if queries are logged and stored"
-          }
+          "required": false
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false,
-          "documentation": {
-            "description": "The unique human readable name of the assistant"
-          }
+          "required": false
         },
         {
           "name": "CallbackURL",
@@ -2011,19 +2002,13 @@
           "name": "StyleSheet",
           "type": "string",
           "value": "StyleSheet",
-          "required": false,
-          "documentation": {
-            "description": "Style sheet object as a JSON string"
-          }
+          "required": false
         },
         {
           "name": "Defaults",
           "type": "string",
           "value": "Defaults",
-          "required": false,
-          "documentation": {
-            "description": "Defaults object as a JSON string"
-          }
+          "required": false
         }
       ]
     },
@@ -2035,10 +2020,7 @@
           "name": "DevelopmentStage",
           "type": "string",
           "value": "DevelopmentStage",
-          "required": false,
-          "documentation": {
-            "description": "String representation of the assistant stage/ state"
-          }
+          "required": false
         }
       ]
     },
@@ -2050,28 +2032,19 @@
           "name": "LatestModelBuildSid",
           "type": "string",
           "value": "latest_model_build_sid",
-          "required": false,
-          "documentation": {
-            "description": "The SID of the latest model build"
-          }
+          "required": false
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the assistant"
-          }
+          "required": true
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the assistant"
-          }
+          "required": false
         },
         {
           "name": "CallbackEvents",
@@ -2089,28 +2062,19 @@
           "name": "LogQueries",
           "type": "bool",
           "value": "log_queries",
-          "required": true,
-          "documentation": {
-            "description": "Determine if queries are logged and stored"
-          }
+          "required": true
         },
         {
           "name": "DevelopmentStage",
           "type": "string",
           "value": "development_stage",
-          "required": true,
-          "documentation": {
-            "description": "String representation of the assistant stage/ state"
-          }
+          "required": true
         },
         {
           "name": "NeedsModelBuild",
           "type": "bool",
           "value": "needs_model_build",
-          "required": false,
-          "documentation": {
-            "description": "Determine if the model needs rebuilding"
-          }
+          "required": false
         }
       ]
     },
@@ -2121,10 +2085,7 @@
           "name": "Defaults",
           "type": "string",
           "value": "Defaults",
-          "required": false,
-          "documentation": {
-            "description": "Default object as a JSON string"
-          }
+          "required": false
         }
       ]
     },
@@ -2135,19 +2096,13 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the account which the resource is associated with"
-          }
+          "required": true
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the default is associated with"
-          }
+          "required": true
         },
         {
           "name": "Data",
@@ -2156,19 +2111,13 @@
             "type": "interface{}"
           },
           "value": "data",
-          "required": true,
-          "documentation": {
-            "description": "The default JSON"
-          }
+          "required": true
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true,
-          "documentation": {
-            "description": "The URL for the resource"
-          }
+          "required": true
         }
       ]
     },
@@ -2179,10 +2128,7 @@
           "name": "StyleSheet",
           "type": "string",
           "value": "StyleSheet",
-          "required": false,
-          "documentation": {
-            "description": "Style sheet object as a JSON string"
-          }
+          "required": false
         }
       ]
     },
@@ -2193,19 +2139,13 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the account which the resource is associated with"
-          }
+          "required": true
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the style sheet is associated with"
-          }
+          "required": true
         },
         {
           "name": "Data",
@@ -2214,19 +2154,13 @@
             "type": "interface{}"
           },
           "value": "data",
-          "required": true,
-          "documentation": {
-            "description": "The style sheet JSON"
-          }
+          "required": true
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true,
-          "documentation": {
-            "description": "The URL for the resource"
-          }
+          "required": true
         }
       ]
     },
@@ -2238,10 +2172,7 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the task"
-          }
+          "required": true
         }
       ]
     },
@@ -2253,10 +2184,7 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false,
-          "documentation": {
-            "description": "The unique human readable name of the task"
-          }
+          "required": false
         }
       ]
     },
@@ -2267,28 +2195,19 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the task"
-          }
+          "required": false
         },
         {
           "name": "Actions",
           "type": "string",
           "value": "Actions",
-          "required": false,
-          "documentation": {
-            "description": "Actions object as a JSON string"
-          }
+          "required": false
         },
         {
           "name": "ActionsURL",
           "type": "string",
           "value": "ActionsUrl",
-          "required": false,
-          "documentation": {
-            "description": "The URL where the assistant can retrieve actions from"
-          }
+          "required": false
         }
       ]
     },
@@ -2300,37 +2219,25 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the task is associated with"
-          }
+          "required": true
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the task"
-          }
+          "required": true
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the task"
-          }
+          "required": false
         },
         {
           "name": "ActionsURL",
           "type": "string",
           "value": "actions_url",
-          "required": true,
-          "documentation": {
-            "description": "The URL where the assistant can retrieve actions from"
-          }
+          "required": true
         }
       ]
     },
@@ -2341,19 +2248,13 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the field"
-          }
+          "required": true
         },
         {
           "name": "FieldType",
           "type": "string",
           "value": "FieldType",
-          "required": true,
-          "documentation": {
-            "description": "The type of field"
-          }
+          "required": true
         }
       ]
     },
@@ -2365,37 +2266,25 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the field is associated with"
-          }
+          "required": true
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the task which the field is associated with"
-          }
+          "required": true
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the field"
-          }
+          "required": true
         },
         {
           "name": "FieldType",
           "type": "string",
           "value": "field_type",
-          "required": true,
-          "documentation": {
-            "description": "The type of field"
-          }
+          "required": true
         }
       ]
     },
@@ -2406,28 +2295,19 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": true,
-          "documentation": {
-            "description": "The ISO language country code for the sample"
-          }
+          "required": true
         },
         {
           "name": "TaggedText",
           "type": "string",
           "value": "TaggedText",
-          "required": true,
-          "documentation": {
-            "description": "The marked up sample text"
-          }
+          "required": true
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "SourceChannel",
-          "required": false,
-          "documentation": {
-            "description": "The channel the sample is from"
-          }
+          "required": false
         }
       ]
     },
@@ -2438,28 +2318,19 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": false,
-          "documentation": {
-            "description": "The ISO language country code for the sample"
-          }
+          "required": false
         },
         {
           "name": "TaggedText",
           "type": "string",
           "value": "TaggedText",
-          "required": false,
-          "documentation": {
-            "description": "The marked up sample text"
-          }
+          "required": false
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "SourceChannel",
-          "required": false,
-          "documentation": {
-            "description": "The channel the sample is from"
-          }
+          "required": false
         }
       ]
     },
@@ -2471,46 +2342,31 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the sample is associated with"
-          }
+          "required": true
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the task which the sample is associated with"
-          }
+          "required": true
         },
         {
           "name": "Language",
           "type": "string",
           "value": "language",
-          "required": true,
-          "documentation": {
-            "description": "The ISO language country code for the sample"
-          }
+          "required": true
         },
         {
           "name": "TaggedText",
           "type": "string",
           "value": "tagged_text",
-          "required": true,
-          "documentation": {
-            "description": "The marked up sample text"
-          }
+          "required": true
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "source_channel",
-          "required": false,
-          "documentation": {
-            "description": "The channel the sample is from"
-          }
+          "required": false
         }
       ]
     },
@@ -2521,10 +2377,7 @@
           "name": "Actions",
           "type": "string",
           "value": "Actions",
-          "required": false,
-          "documentation": {
-            "description": "Actions object as a JSON string"
-          }
+          "required": false
         }
       ]
     },
@@ -2535,28 +2388,19 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the account which the resource is associated with"
-          }
+          "required": true
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the action is associated with"
-          }
+          "required": true
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the task which the action is associated with"
-          }
+          "required": true
         },
         {
           "name": "Data",
@@ -2565,19 +2409,13 @@
             "type": "interface{}"
           },
           "value": "data",
-          "required": true,
-          "documentation": {
-            "description": "The actions JSON"
-          }
+          "required": true
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true,
-          "documentation": {
-            "description": "The URL for the resource"
-          }
+          "required": true
         }
       ]
     },
@@ -2588,55 +2426,37 @@
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the account which the resource is associated with"
-          }
+          "required": true
         },
         {
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the statistics are associated with"
-          }
+          "required": true
         },
         {
           "name": "TaskSid",
           "type": "string",
           "value": "task_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the task which the statistics are associated with"
-          }
+          "required": true
         },
         {
           "name": "SamplesCount",
           "type": "int",
           "value": "samples_count",
-          "required": true,
-          "documentation": {
-            "description": "The number of samples associated with the task"
-          }
+          "required": true
         },
         {
           "name": "FieldsCount",
           "type": "int",
           "value": "fields_count",
-          "required": true,
-          "documentation": {
-            "description": "The number of fields associated with the task"
-          }
+          "required": true
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true,
-          "documentation": {
-            "description": "The URL for the resource"
-          }
+          "required": true
         }
       ]
     },
@@ -2647,19 +2467,13 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the field type"
-          }
+          "required": true
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the field type"
-          }
+          "required": false
         }
       ]
     },
@@ -2670,19 +2484,13 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false,
-          "documentation": {
-            "description": "The unique human readable name of the field type"
-          }
+          "required": false
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the field type"
-          }
+          "required": false
         }
       ]
     },
@@ -2694,28 +2502,19 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the field type is associated with"
-          }
+          "required": true
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the field type"
-          }
+          "required": true
         },
         {
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
-          "required": false,
-          "documentation": {
-            "description": "The human readable name of the field type"
-          }
+          "required": false
         }
       ]
     },
@@ -2726,28 +2525,19 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": true,
-          "documentation": {
-            "description": "The ISO language country code for the field value"
-          }
+          "required": true
         },
         {
           "name": "Value",
           "type": "string",
           "value": "Value",
-          "required": true,
-          "documentation": {
-            "description": "The field value"
-          }
+          "required": true
         },
         {
           "name": "SynonymOf",
           "type": "string",
           "value": "SynonymOf",
-          "required": false,
-          "documentation": {
-            "description": "The SID of the field value which this field value is a synonym of"
-          }
+          "required": false
         }
       ]
     },
@@ -2759,46 +2549,31 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the field value is associated with"
-          }
+          "required": true
         },
         {
           "name": "FieldTypeSid",
           "type": "string",
           "value": "field_type_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the field type which the field value is associated with"
-          }
+          "required": true
         },
         {
           "name": "Language",
           "type": "string",
           "value": "language",
-          "required": true,
-          "documentation": {
-            "description": "The ISO language country code for the field value"
-          }
+          "required": true
         },
         {
           "name": "Value",
           "type": "string",
           "value": "value",
-          "required": true,
-          "documentation": {
-            "description": "The field value"
-          }
+          "required": true
         },
         {
           "name": "SynonymOf",
           "type": "string",
           "value": "synonym_of",
-          "required": false,
-          "documentation": {
-            "description": "The SID of the field value which this field value is a synonym of"
-          }
+          "required": false
         }
       ]
     },
@@ -2809,19 +2584,13 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false,
-          "documentation": {
-            "description": "The unique human readable name of the model build"
-          }
+          "required": false
         },
         {
           "name": "StatusCallback",
           "type": "string",
           "value": "StatusCallback",
-          "required": false,
-          "documentation": {
-            "description": "The URL to POST status changes to"
-          }
+          "required": false
         }
       ]
     },
@@ -2832,10 +2601,7 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false,
-          "documentation": {
-            "description": "The unique human readable name of the model build"
-          }
+          "required": false
         }
       ]
     },
@@ -2847,46 +2613,31 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the model build is associated with"
-          }
+          "required": true
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the model build"
-          }
+          "required": true
         },
         {
           "name": "BuildDuration",
           "type": "int",
           "value": "build_duration",
-          "required": false,
-          "documentation": {
-            "description": "The time (in seconds) taken for the model to finish building"
-          }
+          "required": false
         },
         {
           "name": "Status",
           "type": "string",
           "value": "status",
-          "required": true,
-          "documentation": {
-            "description": "The current status of the build"
-          }
+          "required": true
         },
         {
           "name": "ErrorCode",
           "type": "int",
           "value": "error_code",
-          "required": false,
-          "documentation": {
-            "description": "The Twilio error code for the issue that occurred"
-          }
+          "required": false
         }
       ]
     },
@@ -2897,37 +2648,25 @@
           "name": "Language",
           "type": "string",
           "value": "Language",
-          "required": true,
-          "documentation": {
-            "description": "The ISO language country code for the query"
-          }
+          "required": true
         },
         {
           "name": "Query",
           "type": "string",
           "value": "Query",
-          "required": true,
-          "documentation": {
-            "description": "The query text"
-          }
+          "required": true
         },
         {
           "name": "Tasks",
           "type": "string",
           "value": "Tasks",
-          "required": false,
-          "documentation": {
-            "description": "The comma separated string of tasks which the query can search"
-          }
+          "required": false
         },
         {
           "name": "ModelBuild",
           "type": "string",
           "value": "ModelBuild",
-          "required": false,
-          "documentation": {
-            "description": "The SID of the model build to query"
-          }
+          "required": false
         }
       ]
     },
@@ -2938,19 +2677,13 @@
           "name": "SampleSid",
           "type": "string",
           "value": "SampleSid",
-          "required": false,
-          "documentation": {
-            "description": "The SID of the sample which the query is associated with"
-          }
+          "required": false
         },
         {
           "name": "Status",
           "type": "string",
           "value": "Status",
-          "required": false,
-          "documentation": {
-            "description": "The current status of the query"
-          }
+          "required": false
         }
       ]
     },
@@ -2961,28 +2694,19 @@
           "name": "Name",
           "type": "string",
           "value": "name",
-          "required": true,
-          "documentation": {
-            "description": "The name of the query"
-          }
+          "required": true
         },
         {
           "name": "Value",
           "type": "string",
           "value": "value",
-          "required": true,
-          "documentation": {
-            "description": "The value of the query"
-          }
+          "required": true
         },
         {
           "name": "Type",
           "type": "string",
           "value": "type",
-          "required": true,
-          "documentation": {
-            "description": "The field type"
-          }
+          "required": true
         }
       ]
     },
@@ -2993,10 +2717,7 @@
           "name": "Task",
           "type": "string",
           "value": "task",
-          "required": true,
-          "documentation": {
-            "description": "The name of the recognised task"
-          }
+          "required": true
         },
         {
           "name": "Fields",
@@ -3005,10 +2726,7 @@
             "structure": "QueryResponseField"
           },
           "value": "fields",
-          "required": true,
-          "documentation": {
-            "description": "The fields that were extracted from the query"
-          }
+          "required": true
         }
       ]
     },
@@ -3020,82 +2738,55 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the query is associated with"
-          }
+          "required": true
         },
         {
           "name": "ModelBuildSid",
           "type": "string",
           "value": "model_build_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the model build which the query is associated with"
-          }
+          "required": true
         },
         {
           "name": "SampleSid",
           "type": "string",
           "value": "sample_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the sample which the query is associated with"
-          }
+          "required": true
         },
         {
           "name": "Status",
           "type": "string",
           "value": "status",
-          "required": true,
-          "documentation": {
-            "description": "The current status of the query"
-          }
+          "required": true
         },
         {
           "name": "Language",
           "type": "string",
           "value": "language",
-          "required": true,
-          "documentation": {
-            "description": "The ISO language country code for the query"
-          }
+          "required": true
         },
         {
           "name": "Query",
           "type": "string",
           "value": "query",
-          "required": true,
-          "documentation": {
-            "description": "The query text"
-          }
+          "required": true
         },
         {
           "name": "Results",
           "structure": "QueryResponseResult",
           "value": "results",
-          "required": true,
-          "documentation": {
-            "description": "An object containing the recognised task and extracted field"
-          }
+          "required": true
         },
         {
           "name": "SourceChannel",
           "type": "string",
           "value": "source_channel",
-          "required": true,
-          "documentation": {
-            "description": "The channel the query was sent to"
-          }
+          "required": true
         },
         {
           "name": "DialogueSid",
           "type": "string",
           "value": "dialogue_sid",
-          "required": false,
-          "documentation": {
-            "description": "The SID of the dialogue which the query is associated with"
-          }
+          "required": false
         }
       ]
     },
@@ -3106,37 +2797,25 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the webhook"
-          }
+          "required": true
         },
         {
           "name": "Events",
           "type": "string",
           "value": "Events",
-          "required": true,
-          "documentation": {
-            "description": "Space separated string of event which triggers the webhook"
-          }
+          "required": true
         },
         {
           "name": "WebhookURL",
           "type": "string",
           "value": "WebhookUrl",
-          "required": true,
-          "documentation": {
-            "description": "The URL of the webhook"
-          }
+          "required": true
         },
         {
           "name": "WebhookMethod",
           "type": "string",
           "value": "WebhookMethod",
-          "required": false,
-          "documentation": {
-            "description": "The HTTP method used to call the webhook URL"
-          }
+          "required": false
         }
       ]
     },
@@ -3147,37 +2826,25 @@
           "name": "UniqueName",
           "type": "string",
           "value": "UniqueName",
-          "required": false,
-          "documentation": {
-            "description": "The unique human readable name of the webhook"
-          }
+          "required": false
         },
         {
           "name": "Events",
           "type": "string",
           "value": "Events",
-          "required": false,
-          "documentation": {
-            "description": "Space separated string of event which triggers the webhook"
-          }
+          "required": false
         },
         {
           "name": "WebhookURL",
           "type": "string",
           "value": "WebhookUrl",
-          "required": false,
-          "documentation": {
-            "description": "The URL of the webhook"
-          }
+          "required": false
         },
         {
           "name": "WebhookMethod",
           "type": "string",
           "value": "WebhookMethod",
-          "required": false,
-          "documentation": {
-            "description": "The HTTP method used to call the webhook URL"
-          }
+          "required": false
         }
       ]
     },
@@ -3189,46 +2856,31 @@
           "name": "AssistantSid",
           "type": "string",
           "value": "assistant_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the assistant which the webhook is associated with"
-          }
+          "required": true
         },
         {
           "name": "UniqueName",
           "type": "string",
           "value": "unique_name",
-          "required": true,
-          "documentation": {
-            "description": "The unique human readable name of the webhook"
-          }
+          "required": true
         },
         {
           "name": "Events",
           "type": "string",
           "value": "events",
-          "required": true,
-          "documentation": {
-            "description": "Space separated string of event which triggers the webhook"
-          }
+          "required": true
         },
         {
           "name": "WebhookURL",
           "type": "string",
           "value": "webhook_url",
-          "required": true,
-          "documentation": {
-            "description": "The URL of the webhook"
-          }
+          "required": true
         },
         {
           "name": "WebhookMethod",
           "type": "string",
           "value": "webhook_method",
-          "required": true,
-          "documentation": {
-            "description": "The HTTP method used to call the webhook URL"
-          }
+          "required": true
         }
       ]
     },
@@ -3239,46 +2891,31 @@
           "name": "Sid",
           "type": "string",
           "value": "sid",
-          "required": true,
-          "documentation": {
-            "description": "The unique alphanumeric string for the resource"
-          }
+          "required": true
         },
         {
           "name": "AccountSid",
           "type": "string",
           "value": "account_sid",
-          "required": true,
-          "documentation": {
-            "description": "The SID of the account which the resource is associated with"
-          }
+          "required": true
         },
         {
           "name": "DateCreated",
           "type": "time.Time",
           "value": "date_created",
-          "required": true,
-          "documentation": {
-            "description": "The date and time (in RFC3339 format) when the resource was created"
-          }
+          "required": true
         },
         {
           "name": "DateUpdated",
           "type": "time.Time",
           "value": "date_updated",
-          "required": false,
-          "documentation": {
-            "description": "The date and time (in RFC3339 format) when the resource was last updated"
-          }
+          "required": false
         },
         {
           "name": "URL",
           "type": "string",
           "value": "url",
-          "required": true,
-          "documentation": {
-            "description": "The URL for the resource"
-          }
+          "required": true
         }
       ]
     }

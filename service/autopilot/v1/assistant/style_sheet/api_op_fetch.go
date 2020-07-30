@@ -10,14 +10,10 @@ import (
 
 // FetchStyleSheetResponse resource/ response properties for the retrieved style sheet
 type FetchStyleSheetResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the style sheet is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The style sheet JSON
-	Data map[string]interface{} `json:"data"`
-	// The URL for the resource
-	URL string `json:"url"`
+	AccountSid   string                 `json:"account_sid"`
+	AssistantSid string                 `json:"assistant_sid"`
+	Data         map[string]interface{} `json:"data"`
+	URL          string                 `json:"url"`
 }
 
 // Fetch retrieves a style sheet resource

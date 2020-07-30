@@ -10,22 +10,16 @@ import (
 
 // UpdateActionInput defines input parameters/ properties for updating a task action
 type UpdateActionInput struct {
-	// Actions object as a JSON string
 	Actions *string `form:"Actions,omitempty"`
 }
 
 // UpdateActionResponse resource/ response properties for the updated task action
 type UpdateActionResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the action is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The actions JSON
-	Data map[string]interface{} `json:"data"`
-	// The SID of the task which the action is associated with
-	TaskSid string `json:"task_sid"`
-	// The URL for the resource
-	URL string `json:"url"`
+	AccountSid   string                 `json:"account_sid"`
+	AssistantSid string                 `json:"assistant_sid"`
+	Data         map[string]interface{} `json:"data"`
+	TaskSid      string                 `json:"task_sid"`
+	URL          string                 `json:"url"`
 }
 
 // Update modifies a task action resource

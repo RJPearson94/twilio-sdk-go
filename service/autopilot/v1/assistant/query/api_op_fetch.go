@@ -10,51 +10,32 @@ import (
 )
 
 type FetchQueryResponseField struct {
-	// The name of the query
-	Name string `json:"name"`
-	// The field type
-	Type string `json:"type"`
-	// The value of the query
+	Name  string `json:"name"`
+	Type  string `json:"type"`
 	Value string `json:"value"`
 }
 
 type FetchQueryResponseResult struct {
-	// The fields that were extracted from the query
 	Fields []FetchQueryResponseField `json:"fields"`
-	// The name of the recognised task
-	Task string `json:"task"`
+	Task   string                    `json:"task"`
 }
 
 // FetchQueryResponse resource/ response properties for the retrieved query
 type FetchQueryResponse struct {
-	// The SID of the account which the resource is associated with
-	AccountSid string `json:"account_sid"`
-	// The SID of the assistant which the query is associated with
-	AssistantSid string `json:"assistant_sid"`
-	// The date and time (in RFC3339 format) when the resource was created
-	DateCreated time.Time `json:"date_created"`
-	// The date and time (in RFC3339 format) when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the dialogue which the query is associated with
-	DialogueSid *string `json:"dialogue_sid,omitempty"`
-	// The ISO language country code for the query
-	Language string `json:"language"`
-	// The SID of the model build which the query is associated with
-	ModelBuildSid string `json:"model_build_sid"`
-	// The query text
-	Query string `json:"query"`
-	// An object containing the recognised task and extracted field
-	Results FetchQueryResponseResult `json:"results"`
-	// The SID of the sample which the query is associated with
-	SampleSid string `json:"sample_sid"`
-	// The unique alphanumeric string for the resource
-	Sid string `json:"sid"`
-	// The channel the query was sent to
-	SourceChannel string `json:"source_channel"`
-	// The current status of the query
-	Status string `json:"status"`
-	// The URL for the resource
-	URL string `json:"url"`
+	AccountSid    string                   `json:"account_sid"`
+	AssistantSid  string                   `json:"assistant_sid"`
+	DateCreated   time.Time                `json:"date_created"`
+	DateUpdated   *time.Time               `json:"date_updated,omitempty"`
+	DialogueSid   *string                  `json:"dialogue_sid,omitempty"`
+	Language      string                   `json:"language"`
+	ModelBuildSid string                   `json:"model_build_sid"`
+	Query         string                   `json:"query"`
+	Results       FetchQueryResponseResult `json:"results"`
+	SampleSid     string                   `json:"sample_sid"`
+	Sid           string                   `json:"sid"`
+	SourceChannel string                   `json:"source_channel"`
+	Status        string                   `json:"status"`
+	URL           string                   `json:"url"`
 }
 
 // Fetch retrieves a query resource

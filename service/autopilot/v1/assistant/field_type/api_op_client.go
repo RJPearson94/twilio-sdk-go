@@ -15,9 +15,7 @@ type Client struct {
 	assistantSid string
 	sid          string
 
-	// Sub client to manage field value resources
-	FieldValue func(string) *field_value.Client
-	// Sub client to manage field values resources
+	FieldValue  func(string) *field_value.Client
 	FieldValues *field_values.Client
 }
 
