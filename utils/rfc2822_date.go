@@ -5,10 +5,12 @@ import (
 	"time"
 )
 
+// RFC2822Time allows RFC2822 returned by the Twilio APIs to marshalled/ unmarshalled
 type RFC2822Time struct {
 	*time.Time
 }
 
+// RFC2822 is the time format used by Twilio's unified API
 const RFC2822 = "Mon, 2 Jan 2006 15:04:05 -0700"
 
 func (value *RFC2822Time) UnmarshalJSON(b []byte) error {

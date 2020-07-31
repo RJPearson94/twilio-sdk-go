@@ -13,9 +13,9 @@ type API struct {
 
 // New creates a new instance of the client using session data
 func New(sess *session.Session) *API {
-	c := &API{}
-	c.V2010 = v2010.New(sess)
-	return c
+	return &API{
+		V2010: v2010.New(sess),
+	}
 }
 
 // NewWithCredentials creates a new instance of the client with credentials

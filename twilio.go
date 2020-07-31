@@ -17,7 +17,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/twiml"
 )
 
-// Twilio manage Twilio services & resources
+// Twilio clients manage all the available Twilio services & resources within the SDK
 type Twilio struct {
 	API           *api.API
 	Chat          *chat.Chat

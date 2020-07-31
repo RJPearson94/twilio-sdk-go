@@ -6,7 +6,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-// Autopilot client is used to manage resources for Twilio Autopilot
+// Autopilot client is used to manage versioned resources for Twilio Autopilot
 // See https://www.twilio.com/docs/autopilot for more details on the API
 // See https://www.twilio.com/autopilot for more details on the product
 type Autopilot struct {
@@ -15,9 +15,9 @@ type Autopilot struct {
 
 // New creates a new instance of the client using session data
 func New(sess *session.Session) *Autopilot {
-	c := &Autopilot{}
-	c.V1 = v1.New(sess)
-	return c
+	return &Autopilot{
+		V1: v1.New(sess),
+	}
 }
 
 // NewWithCredentials creates a new instance of the client with credentials
