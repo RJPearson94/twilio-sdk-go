@@ -19,30 +19,18 @@ import (
 
 // Twilio manage Twilio services & resources
 type Twilio struct {
-	// Sub client to manage api rest api resources
-	API *api.API
-	// Sub client to manage chat rest api resources
-	Chat *chat.Chat
-	// Sub client to manage conversations rest api resources
+	API           *api.API
+	Chat          *chat.Chat
 	Conversations *conversations.Conversations
-	// Sub client to manage fax rest api resources
-	Fax *fax.Fax
-	// Sub client to manage flex rest api resources
-	Flex *flex.Flex
-	// Sub client to manage messaging rest api resources
-	Messaging *messaging.Messaging
-	// Sub client to manage proxy rest api resources
-	Proxy *proxy.Proxy
-	// Sub client to manage serverless rest api resources
-	Serverless *serverless.Serverless
-	// Sub client to manage studio rest api resources
-	Studio *studio.Studio
-	// Sub client to manage sync rest api resources
-	Sync *sync.Sync
-	// Sub client to manage task router rest api resources
-	TaskRouter *taskrouter.TaskRouter
-	// Sub client to manage TwiML resources
-	TwiML *twiml.TwiML
+	Fax           *fax.Fax
+	Flex          *flex.Flex
+	Messaging     *messaging.Messaging
+	Proxy         *proxy.Proxy
+	Serverless    *serverless.Serverless
+	Studio        *studio.Studio
+	Sync          *sync.Sync
+	TaskRouter    *taskrouter.TaskRouter
+	TwiML         *twiml.TwiML
 }
 
 // New create a new instance of the client using session data
