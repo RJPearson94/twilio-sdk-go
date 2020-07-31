@@ -7,11 +7,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs/nouns"
 )
 
+// VoiceResponse provides the structure and functions for generation TwiML that can be used
+// on Programmable Voice. See https://www.twilio.com/docs/voice/twimlfor more details
 type VoiceResponse struct {
 	XMLName  xml.Name `xml:"Response"`
 	Children []interface{}
 }
 
+// New create a new instance of VoiceResponse
 func New() *VoiceResponse {
 	return &VoiceResponse{
 		Children: make([]interface{}, 0),
@@ -280,6 +283,7 @@ func (m *VoiceResponse) StopWithAttributes(attributes verbs.StopAttributes) *ver
 	return stop
 }
 
+// ToTwiML generates the TwiML string or returns an error if the response cannot be marshalled
 func (m *VoiceResponse) ToTwiML() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {
