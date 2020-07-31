@@ -10,10 +10,8 @@ type Client struct {
 
 	sid string
 
-	// Sub client to manage phone numbers resources
 	PhoneNumbers *phone_numbers.Client
-	// Sub client to manage phone number resources
-	PhoneNumber func(string) *phone_number.Client
+	PhoneNumber  func(string) *phone_number.Client
 }
 
 // ClientProperties are the properties required to manage the service resources
