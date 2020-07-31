@@ -11,10 +11,9 @@ import (
 // Client to manage resources that are part of the Twilio API
 type V2010 struct {
 	client *client.Client
-	// Sub client to manage accounts resources
+
 	Accounts *accounts.Client
-	// Sub client to manage account resources
-	Account func(string) *account.Client
+	Account  func(string) *account.Client
 }
 
 // Used for testing purposes only
@@ -22,7 +21,7 @@ func (s V2010) GetClient() *client.Client {
 	return s.client
 }
 
-// Create a new instance of the client using session data
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *V2010 {
 	config := client.GetDefaultConfig()
 	config.Beta = false
@@ -32,7 +31,7 @@ func New(sess *session.Session) *V2010 {
 	return NewWithClient(client.New(sess, config))
 }
 
-// Create a new instance of the client with a HTTP client
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *V2010 {
 	return &V2010{
 		client:   client,
@@ -45,7 +44,7 @@ func NewWithClient(client *client.Client) *V2010 {
 	}
 }
 
-// Create a new instance of the client with credentials
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *V2010 {
 	return New(session.New(creds))
 }
