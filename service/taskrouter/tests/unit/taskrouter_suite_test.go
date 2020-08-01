@@ -1,4 +1,6 @@
-package tests
+// +build unit
+
+package unit
 
 import (
 	"testing"
@@ -7,7 +9,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestV2(t *testing.T) {
+func TestV1(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Taskrouter Test Suite")
 }

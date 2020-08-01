@@ -1,7 +1,7 @@
 {
   "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "date_created": "2016-08-01T22:10:40Z",
-  "date_updated": "2016-08-01T23:10:40Z",
+  "date_created": "2020-06-27T23:00:00Z",
+  "date_updated": null,
   "default_activity_name": "Offline",
   "default_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "event_callback_url": "https://ngrok.com",

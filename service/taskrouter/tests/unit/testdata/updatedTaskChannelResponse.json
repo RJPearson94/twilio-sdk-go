@@ -4,8 +4,8 @@
   "sid": "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "friendly_name": "Test 2",
   "unique_name": "Unique Test 2",
-  "date_created": "2016-04-14T17:35:54Z",
-  "date_updated": "2016-04-15T17:35:54Z",
+  "date_created": "2020-06-27T23:00:00Z",
+  "date_updated": "2020-06-27T23:10:00Z",
   "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskChannels/TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "channel_optimized_routing": true,
   "links": {

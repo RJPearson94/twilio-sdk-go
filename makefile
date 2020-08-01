@@ -10,7 +10,10 @@ build: fmt generate
 	go install
 
 test: fmt generate
-	go test $(TESTARGS) -timeout=30s -parallel=4 $(TEST)
+	go test $(TESTARGS) -timeout=30s -parallel=4 $(TEST) -tags=unit
+
+testacc: fmt generate
+	go test $(TESTARGS) -timeout=30s -parallel=4 $(TEST) -tags=acceptance
 
 fmt:
 	@echo "==> Fixing source code with goimports (uses gofmt under the hood)..."

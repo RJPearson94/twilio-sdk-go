@@ -34,8 +34,8 @@
       ]
     }
   },
-  "date_created": "2014-05-14T10:50:02Z",
-  "date_updated": null,
+  "date_created": "2020-06-27T23:00:00Z",
+  "date_updated": "2020-06-27T23:10:00Z",
   "document_content_type": "application/json",
   "fallback_assignment_callback_url": "https://example2.com/",
   "friendly_name": "Sales, Marketing, Support Workflow",
