@@ -14,6 +14,7 @@ type CreateSyncMapItemInput struct {
 	CollectionTtl *int   `form:"CollectionTtl,omitempty"`
 	Data          string `validate:"required" form:"Data"`
 	ItemTtl       *int   `form:"ItemTtl,omitempty"`
+	Key           string `validate:"required" form:"Key"`
 	Ttl           *int   `form:"Ttl,omitempty"`
 }
 

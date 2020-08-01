@@ -2480,6 +2480,12 @@
           "type": "string",
           "value": "Data",
           "required": true
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "Key",
+          "required": true
         }
       ]
     },

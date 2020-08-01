@@ -1352,6 +1352,7 @@ var _ = Describe("Sync V1", func() {
 		Describe("When the sync map item is successfully created", func() {
 			createInput := &syncMapItems.CreateSyncMapItemInput{
 				Data: "{}",
+				Key:  "test",
 			}
 
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items",
@@ -1388,7 +1389,24 @@ var _ = Describe("Sync V1", func() {
 		})
 
 		Describe("When the sync map item does not contain data", func() {
-			createInput := &syncMapItems.CreateSyncMapItemInput{}
+			createInput := &syncMapItems.CreateSyncMapItemInput{
+				Key: "test",
+			}
+
+			resp, err := syncMapItemsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create sync map item response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the sync map item does not contain key", func() {
+			createInput := &syncMapItems.CreateSyncMapItemInput{
+				Data: "{}",
+			}
 
 			resp, err := syncMapItemsClient.Create(createInput)
 			It("Then an error should be returned", func() {
@@ -1403,6 +1421,7 @@ var _ = Describe("Sync V1", func() {
 		Describe("When the create sync map item api returns a 500 response", func() {
 			createInput := &syncMapItems.CreateSyncMapItemInput{
 				Data: "{}",
+				Key:  "test",
 			}
 
 			httpmock.RegisterResponder("POST", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items",

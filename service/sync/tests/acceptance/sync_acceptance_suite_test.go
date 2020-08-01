@@ -1,4 +1,4 @@
-// +build acceptance taskrouter_acceptance
+// +build acceptance sync_acceptance
 
 package acceptance
 
@@ -11,5 +11,5 @@ import (
 
 func TestAcceptance(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Task Router Acceptance Test Suite")
+	RunSpecs(t, "Sync Acceptance Test Suite")
 }
