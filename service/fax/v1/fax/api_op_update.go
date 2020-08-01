@@ -54,6 +54,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateFaxInput
 		},
 	}
 
+	if input == nil {
+		input = &UpdateFaxInput{}
+	}
+
 	response := &UpdateFaxResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

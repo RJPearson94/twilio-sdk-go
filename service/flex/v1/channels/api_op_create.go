@@ -49,6 +49,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateChannelI
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateChannelInput{}
+	}
+
 	response := &CreateChannelResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

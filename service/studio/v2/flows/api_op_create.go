@@ -51,6 +51,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateFlowInpu
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateFlowInput{}
+	}
+
 	response := &CreateFlowResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

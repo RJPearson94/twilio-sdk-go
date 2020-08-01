@@ -42,6 +42,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateKeyInput
 		},
 	}
 
+	if input == nil {
+		input = &CreateKeyInput{}
+	}
+
 	response := &CreateKeyResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

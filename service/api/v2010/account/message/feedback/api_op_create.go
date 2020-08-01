@@ -44,6 +44,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateFeedback
 		},
 	}
 
+	if input == nil {
+		input = &CreateFeedbackInput{}
+	}
+
 	response := &CreateFeedbackResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

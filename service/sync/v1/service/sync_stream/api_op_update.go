@@ -47,6 +47,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncStre
 		},
 	}
 
+	if input == nil {
+		input = &UpdateSyncStreamInput{}
+	}
+
 	response := &UpdateSyncStreamResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

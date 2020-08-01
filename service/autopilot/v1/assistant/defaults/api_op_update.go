@@ -40,6 +40,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateDefaultI
 		},
 	}
 
+	if input == nil {
+		input = &UpdateDefaultInput{}
+	}
+
 	response := &UpdateDefaultResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

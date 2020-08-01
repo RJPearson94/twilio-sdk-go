@@ -56,6 +56,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelI
 		},
 	}
 
+	if input == nil {
+		input = &UpdateChannelInput{}
+	}
+
 	response := &UpdateChannelResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

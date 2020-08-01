@@ -50,6 +50,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateWebhookI
 		},
 	}
 
+	if input == nil {
+		input = &CreateWebhookInput{}
+	}
+
 	response := &CreateWebhookResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

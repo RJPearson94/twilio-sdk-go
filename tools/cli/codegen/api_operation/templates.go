@@ -38,6 +38,10 @@ func (c Client) {{ .name }}WithContext(context context.Context {{ if .input }}, 
 		URI: "{{ .http.uri }}", ${addContentType} ${addPathParams}
 	}
 
+	{{ if .input }} if input == nil {
+		input = &{{ .input.name }}{}
+	} {{ end }}
+
 	{{ if .response }} response := & {{ .response.name }} {} {{ end }}
 	if err := c.client.Send(context, op, {{ if .input }} input {{ else }} nil {{ end }}, {{ if .response }} response {{ else }} nil {{ end }}); err != nil {
 		return {{ if .response }} nil, {{ end }} err

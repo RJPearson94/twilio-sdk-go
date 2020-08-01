@@ -57,6 +57,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateTaskQueu
 		},
 	}
 
+	if input == nil {
+		input = &CreateTaskQueueInput{}
+	}
+
 	response := &CreateTaskQueueResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

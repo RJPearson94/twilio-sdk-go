@@ -53,6 +53,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkerIn
 		},
 	}
 
+	if input == nil {
+		input = &UpdateWorkerInput{}
+	}
+
 	response := &UpdateWorkflowResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

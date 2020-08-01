@@ -40,6 +40,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateStyleShe
 		},
 	}
 
+	if input == nil {
+		input = &UpdateStyleSheetInput{}
+	}
+
 	response := &UpdateStyleSheetResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

@@ -53,6 +53,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateAssistan
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateAssistantInput{}
+	}
+
 	response := &CreateAssistantResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

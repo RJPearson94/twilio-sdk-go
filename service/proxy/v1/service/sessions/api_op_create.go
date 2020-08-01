@@ -57,6 +57,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateSessionI
 		},
 	}
 
+	if input == nil {
+		input = &CreateSessionInput{}
+	}
+
 	response := &CreateSessionResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

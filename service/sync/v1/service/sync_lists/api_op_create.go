@@ -49,6 +49,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateSyncList
 		},
 	}
 
+	if input == nil {
+		input = &CreateSyncListInput{}
+	}
+
 	response := &CreateSyncListResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

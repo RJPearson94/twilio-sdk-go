@@ -48,6 +48,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateExecutio
 		},
 	}
 
+	if input == nil {
+		input = &CreateExecutionInput{}
+	}
+
 	response := &CreateExecutionResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

@@ -46,6 +46,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateActivity
 		},
 	}
 
+	if input == nil {
+		input = &UpdateActivityInput{}
+	}
+
 	response := &UpdateActivityResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

@@ -60,6 +60,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreatePhoneNum
 		},
 	}
 
+	if input == nil {
+		input = &CreatePhoneNumberInput{}
+	}
+
 	response := &CreatePhoneNumberResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

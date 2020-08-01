@@ -44,6 +44,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateAssetInp
 		},
 	}
 
+	if input == nil {
+		input = &CreateAssetInput{}
+	}
+
 	response := &CreateAssetResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

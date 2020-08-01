@@ -70,6 +70,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateMessageI
 		},
 	}
 
+	if input == nil {
+		input = &CreateMessageInput{}
+	}
+
 	response := &CreateMessageResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

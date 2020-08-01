@@ -48,6 +48,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateCredenti
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateCredentialInput{}
+	}
+
 	response := &CreateCredentialResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

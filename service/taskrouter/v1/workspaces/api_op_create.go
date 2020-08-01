@@ -53,6 +53,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateWorkspac
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateWorkspaceInput{}
+	}
+
 	response := &CreateWorkspaceResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

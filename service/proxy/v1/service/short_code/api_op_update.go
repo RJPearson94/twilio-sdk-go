@@ -64,6 +64,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateShortCod
 		},
 	}
 
+	if input == nil {
+		input = &UpdateShortCodeInput{}
+	}
+
 	response := &UpdateShortCodeResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

@@ -48,6 +48,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateEnvironm
 		},
 	}
 
+	if input == nil {
+		input = &CreateEnvironmentInput{}
+	}
+
 	response := &CreateEnvironmentResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

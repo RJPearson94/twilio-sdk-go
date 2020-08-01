@@ -51,6 +51,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateSampleIn
 		},
 	}
 
+	if input == nil {
+		input = &UpdateSampleInput{}
+	}
+
 	response := &UpdateSampleResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

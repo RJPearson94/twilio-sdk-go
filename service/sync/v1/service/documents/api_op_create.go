@@ -50,6 +50,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateDocument
 		},
 	}
 
+	if input == nil {
+		input = &CreateDocumentInput{}
+	}
+
 	response := &CreateDocumentResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

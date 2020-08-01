@@ -59,6 +59,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateFaxInput
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateFaxInput{}
+	}
+
 	response := &CreateFaxResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

@@ -57,6 +57,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateVersionI
 		},
 	}
 
+	if input == nil {
+		input = &CreateVersionInput{}
+	}
+
 	response := &CreateVersionResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

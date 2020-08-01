@@ -37,6 +37,10 @@ func (c Client) ValidateWithContext(context context.Context, input *ValidateFlow
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &ValidateFlowInput{}
+	}
+
 	response := &ValidateFlowResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

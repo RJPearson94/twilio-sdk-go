@@ -46,6 +46,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateFieldTyp
 		},
 	}
 
+	if input == nil {
+		input = &CreateFieldTypeInput{}
+	}
+
 	response := &CreateFieldTypeResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

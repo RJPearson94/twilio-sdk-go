@@ -56,6 +56,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkspac
 		},
 	}
 
+	if input == nil {
+		input = &UpdateWorkspaceInput{}
+	}
+
 	response := &UpdateWorkspaceResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

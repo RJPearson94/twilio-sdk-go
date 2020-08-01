@@ -57,6 +57,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateAssistan
 		},
 	}
 
+	if input == nil {
+		input = &UpdateAssistantInput{}
+	}
+
 	response := &UpdateAssistantResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

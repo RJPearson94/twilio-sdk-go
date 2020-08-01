@@ -48,6 +48,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateModelBui
 		},
 	}
 
+	if input == nil {
+		input = &CreateModelBuildInput{}
+	}
+
 	response := &CreateModelBuildResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

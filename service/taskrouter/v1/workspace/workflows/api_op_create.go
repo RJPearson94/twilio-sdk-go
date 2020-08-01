@@ -53,6 +53,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateWorkflow
 		},
 	}
 
+	if input == nil {
+		input = &CreateWorkflowInput{}
+	}
+
 	response := &CreateWorkflowResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

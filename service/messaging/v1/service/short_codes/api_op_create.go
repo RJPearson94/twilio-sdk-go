@@ -46,6 +46,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateShortCod
 		},
 	}
 
+	if input == nil {
+		input = &CreateShortCodeInput{}
+	}
+
 	response := &CreateShortCodeResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

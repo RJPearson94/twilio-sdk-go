@@ -47,6 +47,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateSyncStre
 		},
 	}
 
+	if input == nil {
+		input = &CreateSyncStreamInput{}
+	}
+
 	response := &CreateSyncStreamResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

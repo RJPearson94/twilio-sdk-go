@@ -49,6 +49,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncMapI
 		},
 	}
 
+	if input == nil {
+		input = &UpdateSyncMapInput{}
+	}
+
 	response := &UpdateSyncMapResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

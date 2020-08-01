@@ -50,6 +50,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateSampleIn
 		},
 	}
 
+	if input == nil {
+		input = &CreateSampleInput{}
+	}
+
 	response := &CreateSampleResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

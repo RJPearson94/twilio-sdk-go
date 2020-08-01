@@ -65,6 +65,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateQueryInp
 		},
 	}
 
+	if input == nil {
+		input = &CreateQueryInput{}
+	}
+
 	response := &CreateQueryResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

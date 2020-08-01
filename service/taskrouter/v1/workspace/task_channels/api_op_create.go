@@ -48,6 +48,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateTaskChan
 		},
 	}
 
+	if input == nil {
+		input = &CreateTaskChannelInput{}
+	}
+
 	response := &CreateTaskChannelResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

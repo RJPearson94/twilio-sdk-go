@@ -54,6 +54,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateFlowInpu
 		},
 	}
 
+	if input == nil {
+		input = &UpdateFlowInput{}
+	}
+
 	response := &UpdateFlowResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

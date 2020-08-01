@@ -49,6 +49,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateSyncMapI
 		},
 	}
 
+	if input == nil {
+		input = &CreateSyncMapInput{}
+	}
+
 	response := &CreateSyncMapResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

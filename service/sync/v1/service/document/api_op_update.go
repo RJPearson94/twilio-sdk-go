@@ -50,6 +50,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateDocument
 		},
 	}
 
+	if input == nil {
+		input = &UpdateDocumentInput{}
+	}
+
 	response := &UpdateDocumentResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

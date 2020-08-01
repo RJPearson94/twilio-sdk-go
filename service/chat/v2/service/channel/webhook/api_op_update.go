@@ -62,6 +62,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelW
 		},
 	}
 
+	if input == nil {
+		input = &UpdateChannelWebhookInput{}
+	}
+
 	response := &UpdateChannelWebhookResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

@@ -56,6 +56,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateChannelM
 		},
 	}
 
+	if input == nil {
+		input = &CreateChannelMemberInput{}
+	}
+
 	response := &CreateChannelMemberResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

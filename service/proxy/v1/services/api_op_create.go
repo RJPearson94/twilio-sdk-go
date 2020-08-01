@@ -55,6 +55,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateServiceI
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &CreateServiceInput{}
+	}
+
 	response := &CreateServiceResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

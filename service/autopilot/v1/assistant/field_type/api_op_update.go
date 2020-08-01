@@ -47,6 +47,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateFieldTyp
 		},
 	}
 
+	if input == nil {
+		input = &UpdateFieldTypeInput{}
+	}
+
 	response := &UpdateFieldTypeResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
