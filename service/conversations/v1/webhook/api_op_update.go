@@ -44,6 +44,10 @@ func (c Client) UpdateWithContext(context context.Context, input *UpdateWebhookI
 		ContentType: client.URLEncoded,
 	}
 
+	if input == nil {
+		input = &UpdateWebhookInput{}
+	}
+
 	response := &UpdateWebhookResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err

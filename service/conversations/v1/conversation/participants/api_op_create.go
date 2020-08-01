@@ -62,6 +62,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateParticip
 		},
 	}
 
+	if input == nil {
+		input = &CreateParticipantInput{}
+	}
+
 	response := &CreateParticipantResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
