@@ -136,6 +136,34 @@
           },
           "operations": [
             {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Flows/{flowSid}/TestUsers",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "flowSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a test users resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/test-user#fetch-a-testuser-resource"
+              },
+              "response": {
+                "name": "FetchTestUsersResponse",
+                "structure": "TestUsersResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved test users"
+                }
+              }
+            },
+            {
               "name": "Update",
               "http": {
                 "uri": "/Flows/{flowSid}/TestUsers",

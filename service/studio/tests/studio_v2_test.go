@@ -813,6 +813,31 @@ var _ = Describe("Studio V2", func() {
 	Describe("Given the Test User Client", func() {
 		testUsersClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TestUsers()
 
+		Describe("When the test users are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowTestUsersResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := testUsersClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get test users response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TestUsers).ToNot(BeEmpty())
+				Expect(resp.TestUsers[0]).To(Equal("+14155551212"))
+				Expect(resp.TestUsers[1]).To(Equal("+14155551213"))
+				Expect(resp.URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers"))
+			})
+		})
+
 		Describe("When the test users are successfully updated", func() {
 			testUsers := make([]string, 2)
 			testUsers[0] = "+14155551212"
