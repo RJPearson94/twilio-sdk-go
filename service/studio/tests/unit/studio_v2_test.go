@@ -883,7 +883,7 @@ var _ = Describe("Studio V2", func() {
 			})
 		})
 
-		Describe("When the Create Flow API returns a 500 response", func() {
+		Describe("When the Update Test Users API returns a 500 response", func() {
 			testUsers := make([]string, 2)
 			testUsers[0] = "+14155551212"
 			testUsers[1] = "*14155551213"
