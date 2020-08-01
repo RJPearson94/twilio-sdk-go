@@ -3,11 +3,13 @@ package services
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing service resources
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/service for more details
 type Client struct {
 	client *client.Client
 }
 
-// Create a new instance of the client
+// New creates a new instance of the services client
 func New(client *client.Client) *Client {
 	return &Client{
 		client: client,

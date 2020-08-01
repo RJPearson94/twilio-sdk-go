@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFlowInput defines the input fields for creating a new flow resource
 type CreateFlowInput struct {
 	CommitMessage *string `form:"CommitMessage,omitempty"`
 	Definition    string  `validate:"required" form:"Definition"`
@@ -16,6 +17,7 @@ type CreateFlowInput struct {
 	Status        string  `validate:"required" form:"Status"`
 }
 
+// CreateFlowResponse defines the response fields for the created flow
 type CreateFlowResponse struct {
 	AccountSid    string         `json:"account_sid"`
 	CommitMessage *string        `json:"commit_message,omitempty"`
@@ -33,10 +35,15 @@ type CreateFlowResponse struct {
 	WebhookURL    string         `json:"webhook_url"`
 }
 
+// Create creates a new flow
+// See https://www.twilio.com/docs/studio/rest-api/v2/flow#create-a-flow-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFlowInput) (*CreateFlowResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new flow
+// See https://www.twilio.com/docs/studio/rest-api/v2/flow#create-a-flow-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFlowInput) (*CreateFlowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

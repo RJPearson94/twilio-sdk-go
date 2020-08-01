@@ -13,6 +13,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// Flex client is used to manage resources for Twilio Flex
+// See https://www.twilio.com/docs/flex for more details
 type Flex struct {
 	client        *client.Client
 	Configuration func() *configuration.Client
@@ -29,6 +31,7 @@ func (s Flex) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *Flex {
 	config := client.GetDefaultConfig()
 	config.Beta = false
@@ -38,6 +41,7 @@ func New(sess *session.Session) *Flex {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Flex {
 	return &Flex{
 		client:        client,
@@ -63,6 +67,7 @@ func NewWithClient(client *client.Client) *Flex {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Flex {
 	return New(session.New(creds))
 }

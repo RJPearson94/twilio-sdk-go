@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateServiceInput defines the input fields for updating a service resource
 type UpdateServiceInput struct {
 	ConsumptionReportInterval                *int      `form:"ConsumptionReportInterval,omitempty"`
 	DefaultChannelCreatorRoleSid             *string   `form:"DefaultChannelCreatorRoleSid,omitempty"`
@@ -42,6 +43,7 @@ type UpdateServiceInput struct {
 	WebhookMethod                            *string   `form:"WebhookMethod,omitempty"`
 }
 
+// UpdateServiceResponse defines the response fields for the updated service
 type UpdateServiceResponse struct {
 	AccountSid                   string                 `json:"account_sid"`
 	ConsumptionReportInterval    int                    `json:"consumption_report_interval"`
@@ -67,10 +69,15 @@ type UpdateServiceResponse struct {
 	WebhookMethod                *string                `json:"webhook_method,omitempty"`
 }
 
+// Update modifies a service resource
+// See https://www.twilio.com/docs/chat/rest/service-resource#update-a-service-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a service resource
+// See https://www.twilio.com/docs/chat/rest/service-resource#update-a-service-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

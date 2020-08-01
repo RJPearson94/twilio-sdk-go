@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateTaskQueueInput defines input fields for updating a task queue resource
 type UpdateTaskQueueInput struct {
 	AssignmentActivitySid  *string `form:"AssignmentActivitySid,omitempty"`
 	FriendlyName           *string `form:"FriendlyName,omitempty"`
@@ -18,6 +19,7 @@ type UpdateTaskQueueInput struct {
 	TaskOrder              *string `form:"TaskOrder,omitempty"`
 }
 
+// UpdateTaskQueueResponse defines the response fields for the updated task queue
 type UpdateTaskQueueResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	AssignmentActivityName  *string    `json:"assignment_activity_name,omitempty"`
@@ -36,10 +38,15 @@ type UpdateTaskQueueResponse struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
+// Update modifies a task queue resource
+// See https://www.twilio.com/docs/taskrouter/api/task-queue#action-update for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateTaskQueueInput) (*UpdateTaskQueueResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a task queue resource
+// See https://www.twilio.com/docs/taskrouter/api/task-queue#action-update for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskQueueInput) (*UpdateTaskQueueResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

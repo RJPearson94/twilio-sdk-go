@@ -3,7 +3,7 @@ package actions
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing a task action resources
+// Client for managing task action resources
 // See https://www.twilio.com/docs/autopilot/api/task-action for more details
 type Client struct {
 	client *client.Client

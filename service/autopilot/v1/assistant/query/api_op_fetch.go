@@ -20,7 +20,7 @@ type FetchQueryResponseResult struct {
 	Task   string                    `json:"task"`
 }
 
-// FetchQueryResponse resource/ response properties for the retrieved query
+// FetchQueryResponse defines the response fields for the retrieved query
 type FetchQueryResponse struct {
 	AccountSid    string                   `json:"account_sid"`
 	AssistantSid  string                   `json:"assistant_sid"`

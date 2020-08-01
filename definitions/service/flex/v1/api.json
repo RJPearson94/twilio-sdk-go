@@ -11,6 +11,10 @@
     {
       "name": "Configuration",
       "packageName": "configuration",
+      "documentation": {
+        "description": "Client for managing a specific configuration resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/ui/configuration"
+      },
       "operations": [
         {
           "name": "Update",
@@ -18,12 +22,21 @@
             "uri": "/Configuration",
             "method": "Post"
           },
+          "documentation": {
+            "description": "modifies a configuration resource"
+          },
           "input": {
-            "structure": "UpdateConfigurationInput"
+            "structure": "UpdateConfigurationInput",
+            "documentation": {
+              "description": "defines input fields for updating a configuration resource"
+            }
           },
           "response": {
             "name": "UpdateConfigurationResponse",
-            "structure": "ConfigurationResponse"
+            "structure": "ConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated configuration"
+            }
           }
         },
         {
@@ -32,9 +45,15 @@
             "uri": "/Configuration",
             "method": "Get"
           },
+          "documentation": {
+            "description": "retrieves a configuration resource"
+          },
           "response": {
             "name": "FetchConfigurationResponse",
-            "structure": "ConfigurationResponse"
+            "structure": "ConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved configuration"
+            }
           }
         }
       ]
@@ -42,6 +61,9 @@
     {
       "name": "Flex Flows",
       "packageName": "flex_flows",
+      "documentation": {
+        "description": "Client for managing flex flow resources"
+      },
       "operations": [
         {
           "name": "Create",
@@ -49,12 +71,21 @@
             "uri": "/FlexFlows",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new flex flow"
+          },
           "input": {
-            "structure": "CreateFlexFlowInput"
+            "structure": "CreateFlexFlowInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new flex flow resource"
+            }
           },
           "response": {
             "name": "CreateFlexFlowResponse",
-            "structure": "FlexFlowResponse"
+            "structure": "FlexFlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the created flex flow"
+            }
           }
         }
       ]
@@ -67,6 +98,9 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific flex flow resource"
+      },
       "operations": [
         {
           "name": "Fetch",
@@ -84,9 +118,15 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves an flex flow resource"
+          },
           "response": {
             "name": "FetchFlexFlowResponse",
-            "structure": "FlexFlowResponse"
+            "structure": "FlexFlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved flex flow"
+            }
           }
         },
         {
@@ -105,12 +145,21 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a flex flow resource"
+          },
           "input": {
-            "structure": "UpdateFlexFlowInput"
+            "structure": "UpdateFlexFlowInput",
+            "documentation": {
+              "description": "defines input fields for updating a flex flow resource"
+            }
           },
           "response": {
             "name": "UpdateFlexFlowResponse",
-            "structure": "FlexFlowResponse"
+            "structure": "FlexFlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated flex flow"
+            }
           }
         },
         {
@@ -128,6 +177,9 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a flex flow resource from the account"
           }
         }
       ]
@@ -135,6 +187,9 @@
     {
       "name": "Channels",
       "packageName": "channels",
+      "documentation": {
+        "description": "Client for managing channel resources"
+      },
       "operations": [
         {
           "name": "Create",
@@ -142,12 +197,22 @@
             "uri": "/Channels",
             "method": "Post"
           },
+
+          "documentation": {
+            "description": "creates a new channel"
+          },
           "input": {
-            "structure": "CreateChannelInput"
+            "structure": "CreateChannelInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new channel resource"
+            }
           },
           "response": {
             "name": "CreateChannelResponse",
-            "structure": "ChannelResponse"
+            "structure": "ChannelResponse",
+            "documentation": {
+              "description": "defines the response fields for the created channel"
+            }
           }
         }
       ]
@@ -160,6 +225,9 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific channel resource"
+      },
       "operations": [
         {
           "name": "Fetch",
@@ -177,9 +245,15 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a channel resource"
+          },
           "response": {
             "name": "FetchChannelResponse",
-            "structure": "ChannelResponse"
+            "structure": "ChannelResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved channel"
+            }
           }
         },
         {
@@ -197,6 +271,9 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a channel resource from the account"
           }
         }
       ]
@@ -204,6 +281,9 @@
     {
       "name": "Web Channels",
       "packageName": "web_channels",
+      "documentation": {
+        "description": "Client for managing web channel resources"
+      },
       "operations": [
         {
           "name": "Create",
@@ -211,12 +291,21 @@
             "uri": "/WebChannels",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new web channel"
+          },
           "input": {
-            "structure": "CreateWebChannelInput"
+            "structure": "CreateWebChannelInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new web channel resource"
+            }
           },
           "response": {
             "name": "CreateWebChannelResponse",
-            "structure": "WebChannelResponse"
+            "structure": "WebChannelResponse",
+            "documentation": {
+              "description": "defines the response fields for the created web channel"
+            }
           }
         }
       ]
@@ -228,6 +317,9 @@
         "sid": {
           "dataType": "string"
         }
+      },
+      "documentation": {
+        "description": "Client for managing a specific web channel resource"
       },
       "operations": [
         {
@@ -246,9 +338,15 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a web channel resource"
+          },
           "response": {
             "name": "FetchWebChannelResponse",
-            "structure": "WebChannelResponse"
+            "structure": "WebChannelResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved web channel"
+            }
           }
         },
         {
@@ -267,12 +365,21 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a web channel resource"
+          },
           "input": {
-            "structure": "UpdateWebChannelInput"
+            "structure": "UpdateWebChannelInput",
+            "documentation": {
+              "description": "defines input fields for updating a web channel resource"
+            }
           },
           "response": {
             "name": "UpdateWebChannelResponse",
-            "structure": "WebChannelResponse"
+            "structure": "WebChannelResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated web channel"
+            }
           }
         },
         {
@@ -290,6 +397,9 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a web channel resource from the account"
           }
         }
       ]

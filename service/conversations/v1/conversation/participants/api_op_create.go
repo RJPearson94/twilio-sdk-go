@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// CreateParticipantInput defines the input fields for creating a new participant resource
 type CreateParticipantInput struct {
 	Attributes                       *string            `form:"Attributes,omitempty"`
 	DateCreated                      *utils.RFC2822Time `form:"DateCreated,omitempty"`
@@ -28,6 +29,7 @@ type CreateParticipantResponseMessageBinding struct {
 	Type             string  `json:"type"`
 }
 
+// CreateParticipantResponse defines the response fields for the created participant
 type CreateParticipantResponse struct {
 	AccountSid       string                                   `json:"account_sid"`
 	Attributes       string                                   `json:"attributes"`
@@ -41,10 +43,15 @@ type CreateParticipantResponse struct {
 	URL              string                                   `json:"url"`
 }
 
+// Create creates a new participant
+// See https://www.twilio.com/docs/conversations/api/conversation-participant-resource#add-a-conversation-participant-sms for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new participant
+// See https://www.twilio.com/docs/conversations/api/conversation-participant-resource#add-a-conversation-participant-sms for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

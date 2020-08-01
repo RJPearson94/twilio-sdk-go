@@ -3,7 +3,7 @@ package model_builds
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing an Autopilot Model Build resource
+// Client for managing model build resources
 // See https://www.twilio.com/docs/autopilot/api/model-build for more details
 type Client struct {
 	client *client.Client

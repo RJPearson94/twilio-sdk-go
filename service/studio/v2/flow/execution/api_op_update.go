@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateExecutionInput defines input fields for updating a execution resource
 type UpdateExecutionInput struct {
 	Status string `validate:"required" form:"Status"`
 }
 
+// UpdateExecutionResponse defines the response fields for the updated execution
 type UpdateExecutionResponse struct {
 	AccountSid            string      `json:"account_sid"`
 	ContactChannelAddress string      `json:"contact_channel_address"`
@@ -25,10 +27,15 @@ type UpdateExecutionResponse struct {
 	URL                   string      `json:"url"`
 }
 
+// Update modifies a execution resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/execution#update-an-execution for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateExecutionInput) (*UpdateExecutionResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a execution resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/execution#update-an-execution for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateExecutionInput) (*UpdateExecutionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

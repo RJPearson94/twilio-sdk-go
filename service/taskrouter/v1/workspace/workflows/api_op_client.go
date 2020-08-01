@@ -3,18 +3,20 @@ package workflows
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing workflow resources
+// See https://www.twilio.com/docs/taskrouter/api/workflow for more details
 type Client struct {
 	client *client.Client
 
 	workspaceSid string
 }
 
-// The properties required to manage the workflows resources
+// ClientProperties are the properties required to manage the workflows resources
 type ClientProperties struct {
 	WorkspaceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the workflows client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

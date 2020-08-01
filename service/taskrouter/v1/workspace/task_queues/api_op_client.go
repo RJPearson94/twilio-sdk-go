@@ -3,18 +3,20 @@ package task_queues
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing task queue resources
+// See https://www.twilio.com/docs/taskrouter/api/task-queue for more details
 type Client struct {
 	client *client.Client
 
 	workspaceSid string
 }
 
-// The properties required to manage the task queues resources
+// ClientProperties are the properties required to manage the task queues resources
 type ClientProperties struct {
 	WorkspaceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the task queues client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

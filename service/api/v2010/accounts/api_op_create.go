@@ -9,12 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// CreateAccountInput defines the input parameters/ properties for creating a new Twilio sub account resource
+// CreateAccountInput defines the input fields for creating a new Twilio sub account resource
 type CreateAccountInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-// CreateAccountResponse resource/ response properties for the created sub account
+// CreateAccountResponse defines the response fields for the created sub account
 type CreateAccountResponse struct {
 	AuthToken       string             `json:"auth_token"`
 	DateCreated     utils.RFC2822Time  `json:"date_created"`

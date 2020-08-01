@@ -9,6 +9,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// Conversations client is used to manage resources for Twilio Conversations
+// See https://www.twilio.com/docs/conversations for more details
 type Conversations struct {
 	client        *client.Client
 	Conversations *conversations.Client
@@ -21,6 +23,7 @@ func (s Conversations) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *Conversations {
 	config := client.GetDefaultConfig()
 	config.Beta = true
@@ -30,6 +33,7 @@ func New(sess *session.Session) *Conversations {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Conversations {
 	return &Conversations{
 		client:        client,
@@ -43,6 +47,7 @@ func NewWithClient(client *client.Client) *Conversations {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Conversations {
 	return New(session.New(creds))
 }

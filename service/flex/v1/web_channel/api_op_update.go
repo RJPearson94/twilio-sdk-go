@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateWebChannelInput defines input fields for updating a web channel resource
 type UpdateWebChannelInput struct {
 	ChatStatus        *string `form:"ChatStatus,omitempty"`
 	PreEngagementData *string `form:"PreEngagementData,omitempty"`
 }
 
+// UpdateWebChannelResponse defines the response fields for the updated web channel
 type UpdateWebChannelResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	DateCreated time.Time  `json:"date_created"`
@@ -23,10 +25,13 @@ type UpdateWebChannelResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Update modifies a web channel resource
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateWebChannelInput) (*UpdateWebChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a web channel resource
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWebChannelInput) (*UpdateWebChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

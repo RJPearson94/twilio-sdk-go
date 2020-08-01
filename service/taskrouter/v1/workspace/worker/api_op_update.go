@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateWorkerInput defines input fields for updating a worker resource
 type UpdateWorkerInput struct {
 	ActivitySid               *string `form:"ActivitySid,omitempty"`
 	Attributes                *string `form:"Attributes,omitempty"`
@@ -16,6 +17,7 @@ type UpdateWorkerInput struct {
 	RejectPendingReservations *bool   `form:"RejectPendingReservations,omitempty"`
 }
 
+// UpdateWorkflowResponse defines the response fields for the updated worker
 type UpdateWorkflowResponse struct {
 	AccountSid        string      `json:"account_sid"`
 	ActivityName      string      `json:"activity_name"`
@@ -31,10 +33,15 @@ type UpdateWorkflowResponse struct {
 	WorkspaceSid      string      `json:"workspace_sid"`
 }
 
+// Update modifies a worker resource
+// See https://www.twilio.com/docs/taskrouter/api/worker#update-a-worker-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateWorkerInput) (*UpdateWorkflowResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a worker resource
+// See https://www.twilio.com/docs/taskrouter/api/worker#update-a-worker-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkerInput) (*UpdateWorkflowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

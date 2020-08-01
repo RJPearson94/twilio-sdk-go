@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// Sync client is used to manage resources for Twilio Sync
+// See https://www.twilio.com/docs/sync for more details
 type Sync struct {
 	client *client.Client
 
@@ -20,6 +22,7 @@ func (s Sync) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *Sync {
 	config := client.GetDefaultConfig()
 	config.Beta = false
@@ -29,6 +32,7 @@ func New(sess *session.Session) *Sync {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Sync {
 	return &Sync{
 		client: client,
@@ -41,6 +45,7 @@ func NewWithClient(client *client.Client) *Sync {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Sync {
 	return New(session.New(creds))
 }

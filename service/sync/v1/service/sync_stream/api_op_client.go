@@ -6,23 +6,24 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_stream/messages"
 )
 
+// Client for managing a specific stream resource
+// See https://www.twilio.com/docs/sync/api/stream-resource for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 	sid        string
 
-	// Sub client to manage messages resources
 	Messages *messages.Client
 }
 
-// The properties required to manage the syncstream resources
+// ClientProperties are the properties required to manage the syncstream resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the syncstream client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

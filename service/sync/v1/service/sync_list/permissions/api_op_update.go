@@ -8,12 +8,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateSyncListPermissionsInput defines input fields for updating a list permission resource
 type UpdateSyncListPermissionsInput struct {
 	Manage bool `form:"Manage"`
 	Read   bool `form:"Read"`
 	Write  bool `form:"Write"`
 }
 
+// UpdateSyncListPermissionsResponse defines the response fields for the updated list permission
 type UpdateSyncListPermissionsResponse struct {
 	AccountSid string `json:"account_sid"`
 	Identity   string `json:"identity"`
@@ -25,10 +27,15 @@ type UpdateSyncListPermissionsResponse struct {
 	Write      bool   `json:"write"`
 }
 
+// Update modifies a list permission resource
+// See https://www.twilio.com/docs/sync/api/sync-list-permission-resource#update-a-sync-list-permission-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateSyncListPermissionsInput) (*UpdateSyncListPermissionsResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a list permission resource
+// See https://www.twilio.com/docs/sync/api/sync-list-permission-resource#update-a-sync-list-permission-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncListPermissionsInput) (*UpdateSyncListPermissionsResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

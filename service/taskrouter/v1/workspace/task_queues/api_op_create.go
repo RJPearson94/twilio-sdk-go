@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateTaskQueueInput defines the input fields for creating a new task queue resource
 type CreateTaskQueueInput struct {
 	AssignmentActivitySid  *string `form:"AssignmentActivitySid,omitempty"`
 	FriendlyName           string  `validate:"required" form:"FriendlyName"`
@@ -18,6 +19,7 @@ type CreateTaskQueueInput struct {
 	TaskOrder              *string `form:"TaskOrder,omitempty"`
 }
 
+// CreateTaskQueueResponse defines the response fields for the created task queue
 type CreateTaskQueueResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	AssignmentActivityName  *string    `json:"assignment_activity_name,omitempty"`
@@ -36,10 +38,15 @@ type CreateTaskQueueResponse struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
+// Create creates a new task queue
+// See https://www.twilio.com/docs/taskrouter/api/task-queue#action-create for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateTaskQueueInput) (*CreateTaskQueueResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new task queue
+// See https://www.twilio.com/docs/taskrouter/api/task-queue#action-create for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateTaskQueueInput) (*CreateTaskQueueResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchStyleSheetResponse resource/ response properties for the retrieved style sheet
+// FetchStyleSheetResponse defines the response fields for the retrieved style sheet
 type FetchStyleSheetResponse struct {
 	AccountSid   string                 `json:"account_sid"`
 	AssistantSid string                 `json:"assistant_sid"`

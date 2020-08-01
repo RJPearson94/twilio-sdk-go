@@ -12,7 +12,7 @@
       "name": "Assistants",
       "packageName": "assistants",
       "documentation": {
-        "description": "Client for managing an Autopilot assistant resource",
+        "description": "Client for managing assistant resources",
         "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant"
       },
       "operations": [
@@ -30,14 +30,14 @@
             "name": "CreateAssistantInput",
             "structure": "AssistantInput",
             "documentation": {
-              "description": "defines the input parameters/ properties for creating a new assistant resource"
+              "description": "defines the input fields for creating a new assistant resource"
             }
           },
           "response": {
             "name": "CreateAssistantResponse",
             "structure": "AssistantResponse",
             "documentation": {
-              "description": "resource/ response properties for the created assistant"
+              "description": "defines the response fields for the created assistant"
             }
           }
         }
@@ -69,7 +69,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing a defaults resource",
+            "description": "Client for managing default resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/defaults"
           },
           "operations": [
@@ -97,7 +97,7 @@
                 "name": "FetchDefaultResponse",
                 "structure": "DefaultResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved defaults"
+                  "description": "defines the response fields for the retrieved defaults"
                 }
               }
             },
@@ -124,14 +124,14 @@
               "input": {
                 "structure": "UpdateDefaultInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating defaults"
+                  "description": "defines the input fields for updating defaults"
                 }
               },
               "response": {
                 "name": "UpdateDefaultResponse",
                 "structure": "DefaultResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated defaults"
+                  "description": "defines the response fields for the updated defaults"
                 }
               }
             }
@@ -150,7 +150,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing an style sheet resource",
+            "description": "Client for managing style sheet resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant/stylesheet"
           },
           "operations": [
@@ -178,7 +178,7 @@
                 "name": "FetchStyleSheetResponse",
                 "structure": "StyleSheetResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved style sheet"
+                  "description": "defines the response fields for the retrieved style sheet"
                 }
               }
             },
@@ -205,14 +205,14 @@
               "input": {
                 "structure": "UpdateStyleSheetInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a stylesheet"
+                  "description": "defines the input fields for updating a stylesheet"
                 }
               },
               "response": {
                 "name": "UpdateStyleSheetResponse",
                 "structure": "StyleSheetResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated style sheet"
+                  "description": "defines the response fields for the updated style sheet"
                 }
               }
             }
@@ -228,7 +228,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing a task resource",
+            "description": "Client for managing task resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task"
           },
           "operations": [
@@ -255,14 +255,14 @@
               "input": {
                 "structure": "CreateTaskInput",
                 "documentation": {
-                  "description": "defines the input parameters/ properties for creating a new task resource"
+                  "description": "defines the input fields for creating a new task resource"
                 }
               },
               "response": {
                 "name": "CreateTaskResponse",
                 "structure": "TaskResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the created task"
+                  "description": "defines the response fields for the created task"
                 }
               }
             }
@@ -308,7 +308,7 @@
                 }
               },
               "documentation": {
-                "description": "Client for managing a task field resource",
+                "description": "Client for managing task field resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field"
               },
               "operations": [
@@ -343,14 +343,14 @@
                   "input": {
                     "structure": "CreateFieldInput",
                     "documentation": {
-                      "description": "defines the input parameters/ properties for creating a new task field resource"
+                      "description": "defines the input fields for creating a new task field resource"
                     }
                   },
                   "response": {
                     "name": "CreateFieldResponse",
                     "structure": "FieldResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the created task field"
+                      "description": "defines the response fields for the created task field"
                     }
                   }
                 }
@@ -425,7 +425,7 @@
                     "name": "FetchFieldResponse",
                     "structure": "FieldResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the retrieved task field"
+                      "description": "defines the response fields for the retrieved task field"
                     }
                   }
                 },
@@ -482,7 +482,7 @@
                 }
               },
               "documentation": {
-                "description": "Client for managing a task sample resource",
+                "description": "Client for managing task sample resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample"
               },
               "operations": [
@@ -517,14 +517,14 @@
                   "input": {
                     "structure": "CreateSampleInput",
                     "documentation": {
-                      "description": "defines the input parameters/ properties for creating a new task sample resource"
+                      "description": "defines the input fields for creating a new task sample resource"
                     }
                   },
                   "response": {
                     "name": "CreateSampleResponse",
                     "structure": "SampleResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the created task sample"
+                      "description": "defines the response fields for the created task sample"
                     }
                   }
                 }
@@ -599,7 +599,7 @@
                     "name": "FetchSampleResponse",
                     "structure": "SampleResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the retrieved task sample"
+                      "description": "defines the response fields for the retrieved task sample"
                     }
                   }
                 },
@@ -642,14 +642,14 @@
                   "input": {
                     "structure": "UpdateSampleInput",
                     "documentation": {
-                      "description": "defines input parameters/ properties for updating a task sample"
+                      "description": "defines the input fields for updating a task sample"
                     }
                   },
                   "response": {
                     "name": "UpdateSampleResponse",
                     "structure": "SampleResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the updated task sample"
+                      "description": "defines the response fields for the updated task sample"
                     }
                   }
                 },
@@ -709,7 +709,7 @@
                 }
               },
               "documentation": {
-                "description": "Client for managing a task action resources",
+                "description": "Client for managing task action resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-action"
               },
               "operations": [
@@ -745,7 +745,7 @@
                     "name": "FetchActionResponse",
                     "structure": "ActionResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the retrieved task action>"
+                      "description": "defines the response fields for the retrieved task action>"
                     }
                   }
                 },
@@ -780,14 +780,14 @@
                   "input": {
                     "structure": "UpdateActionInput",
                     "documentation": {
-                      "description": "defines input parameters/ properties for updating a task action"
+                      "description": "defines the input fields for updating a task action"
                     }
                   },
                   "response": {
                     "name": "UpdateActionResponse",
                     "structure": "ActionResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the updated task action"
+                      "description": "defines the response fields for the updated task action"
                     }
                   }
                 }
@@ -810,7 +810,7 @@
                 }
               },
               "documentation": {
-                "description": "Client for managing a task statistics resource",
+                "description": "Client for managing task statistics resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-statistics"
               },
               "operations": [
@@ -846,7 +846,7 @@
                     "name": "FetchStatisticsResponse",
                     "structure": "StatisticsResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the retrieved task statistics"
+                      "description": "defines the response fields for the retrieved task statistics"
                     }
                   }
                 }
@@ -886,7 +886,7 @@
                 "name": "FetchTaskResponse",
                 "structure": "TaskResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved task"
+                  "description": "defines the response fields for the retrieved task"
                 }
               }
             },
@@ -921,14 +921,14 @@
               "input": {
                 "structure": "UpdateTaskInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a task"
+                  "description": "defines the input fields for updating a task"
                 }
               },
               "response": {
                 "name": "UpdateTaskResponse",
                 "structure": "TaskResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated task"
+                  "description": "defines the response fields for the updated task"
                 }
               }
             },
@@ -973,7 +973,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing a field type resource",
+            "description": "Client for managing field type resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type"
           },
           "operations": [
@@ -1000,14 +1000,14 @@
               "input": {
                 "structure": "CreateFieldTypeInput",
                 "documentation": {
-                  "description": "defines the input parameters/ properties for creating a new field type resource"
+                  "description": "defines the input fields for creating a new field type resource"
                 }
               },
               "response": {
                 "name": "CreateFieldTypeResponse",
                 "structure": "FieldTypeResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the created field type"
+                  "description": "defines the response fields for the created field type"
                 }
               }
             }
@@ -1052,7 +1052,7 @@
                 }
               },
               "documentation": {
-                "description": "Client for managing an Autopilot Field Value resource",
+                "description": "Client for managing field value resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value"
               },
               "operations": [
@@ -1087,14 +1087,14 @@
                   "input": {
                     "structure": "CreateFieldValueInput",
                     "documentation": {
-                      "description": "defines the input parameters/ properties for creating a new field value resource"
+                      "description": "defines the input fields for creating a new field value resource"
                     }
                   },
                   "response": {
                     "name": "CreateFieldValueResponse",
                     "structure": "FieldValueResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the created field value"
+                      "description": "defines the response fields for the created field value"
                     }
                   }
                 }
@@ -1169,7 +1169,7 @@
                     "name": "FetchFieldValueResponse",
                     "structure": "FieldValueResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the retrieved field value"
+                      "description": "defines the response fields for the retrieved field value"
                     }
                   }
                 },
@@ -1246,7 +1246,7 @@
                 "name": "FetchFieldTypeResponse",
                 "structure": "FieldTypeResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved field type"
+                  "description": "defines the response fields for the retrieved field type"
                 }
               }
             },
@@ -1281,14 +1281,14 @@
               "input": {
                 "structure": "UpdateFieldTypeInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a field type"
+                  "description": "defines the input fields for updating a field type"
                 }
               },
               "response": {
                 "name": "UpdateFieldTypeResponse",
                 "structure": "FieldTypeResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated field type"
+                  "description": "defines the response fields for the updated field type"
                 }
               }
             },
@@ -1333,7 +1333,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing an Autopilot Model Build resource",
+            "description": "Client for managing model build resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build"
           },
           "operations": [
@@ -1360,14 +1360,14 @@
               "input": {
                 "structure": "CreateModelBuildInput",
                 "documentation": {
-                  "description": "defines the input parameters/ properties for creating a new model build resource"
+                  "description": "defines the input fields for creating a new model build resource"
                 }
               },
               "response": {
                 "name": "CreateModelBuildResponse",
                 "structure": "ModelBuildResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the created model build"
+                  "description": "defines the response fields for the created model build"
                 }
               }
             }
@@ -1430,7 +1430,7 @@
                 "name": "FetchModelBuildResponse",
                 "structure": "ModelBuildResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved model build"
+                  "description": "defines the response fields for the retrieved model build"
                 }
               }
             },
@@ -1465,14 +1465,14 @@
               "input": {
                 "structure": "UpdateModelBuildInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a model build"
+                  "description": "defines the input fields for updating a model build"
                 }
               },
               "response": {
                 "name": "UpdateModelBuildResponse",
                 "structure": "ModelBuildResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated model build"
+                  "description": "defines the response fields for the updated model build"
                 }
               }
             },
@@ -1517,7 +1517,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing an Autopilot Query resource",
+            "description": "Client for managing query resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query"
           },
           "operations": [
@@ -1544,14 +1544,14 @@
               "input": {
                 "structure": "CreateQueryInput",
                 "documentation": {
-                  "description": "defines the input parameters/ properties for creating a new query resource"
+                  "description": "defines the input fields for creating a new query resource"
                 }
               },
               "response": {
                 "name": "CreateQueryResponse",
                 "structure": "QueryResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the created query"
+                  "description": "defines the response fields for the created query"
                 }
               }
             }
@@ -1615,7 +1615,7 @@
                 "name": "FetchQueryResponse",
                 "structure": "QueryResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved query"
+                  "description": "defines the response fields for the retrieved query"
                 }
               }
             },
@@ -1650,14 +1650,14 @@
               "input": {
                 "structure": "UpdateQueryInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a query"
+                  "description": "defines the input fields for updating a query"
                 }
               },
               "response": {
                 "name": "UpdateQueryResponse",
                 "structure": "QueryResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated query"
+                  "description": "defines the response fields for the updated query"
                 }
               }
             },
@@ -1702,7 +1702,7 @@
             }
           },
           "documentation": {
-            "description": "Client for managing an Autopilot webhook resource",
+            "description": "Client for managing webhook resources",
             "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks"
           },
           "operations": [
@@ -1729,14 +1729,14 @@
               "input": {
                 "structure": "CreateWebhookInput",
                 "documentation": {
-                  "description": "defines the input parameters/ properties for creating a new webhook resource"
+                  "description": "defines the input fields for creating a new webhook resource"
                 }
               },
               "response": {
                 "name": "CreateWebhookResponse",
                 "structure": "WebhookResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the created webhook"
+                  "description": "defines the response fields for the created webhook"
                 }
               }
             }
@@ -1799,7 +1799,7 @@
                 "name": "FetchWebhookResponse",
                 "structure": "WebhookResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved webhook"
+                  "description": "defines the response fields for the retrieved webhook"
                 }
               }
             },
@@ -1834,14 +1834,14 @@
               "input": {
                 "structure": "UpdateWebhookInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a webhook"
+                  "description": "defines the input fields for updating a webhook"
                 }
               },
               "response": {
                 "name": "UpdateWebhookResponse",
                 "structure": "WebhookResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated webhook"
+                  "description": "defines the response fields for the updated webhook"
                 }
               }
             },
@@ -1902,7 +1902,7 @@
             "name": "FetchAssistantResponse",
             "structure": "AssistantResponse",
             "documentation": {
-              "description": "resource/ response properties for the retrieved assistant"
+              "description": "defines the response fields for the retrieved assistant"
             }
           }
         },
@@ -1929,14 +1929,14 @@
           "input": {
             "structure": "UpdateAssistantInput",
             "documentation": {
-              "description": "defines input parameters/ properties for updating an assistant resource"
+              "description": "defines the input fields for updating an assistant resource"
             }
           },
           "response": {
             "name": "UpdateAssistantResponse",
             "structure": "AssistantResponse",
             "documentation": {
-              "description": "resource/ response properties for the updated assistant"
+              "description": "defines the response fields for the updated assistant"
             }
           }
         },

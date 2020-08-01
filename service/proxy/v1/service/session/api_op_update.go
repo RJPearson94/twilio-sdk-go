@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateSessionInput defines input fields for updating a session resource
 type UpdateSessionInput struct {
 	DateExpiry *time.Time `form:"DateExpiry,omitempty"`
 	Status     *string    `form:"Status,omitempty"`
 	Ttl        *int       `form:"Ttl,omitempty"`
 }
 
+// UpdateSessionResponse defines the response fields for the updated session
 type UpdateSessionResponse struct {
 	AccountSid          string     `json:"account_sid"`
 	ClosedReason        *string    `json:"closed_reason,omitempty"`
@@ -33,10 +35,15 @@ type UpdateSessionResponse struct {
 	UniqueName          string     `json:"unique_name"`
 }
 
+// Update modifies a session resource
+// See https://www.twilio.com/docs/proxy/api/session#update-a-session-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateSessionInput) (*UpdateSessionResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a session resource
+// See https://www.twilio.com/docs/proxy/api/session#update-a-session-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateSessionInput) (*UpdateSessionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -11,6 +11,10 @@
     {
       "name": "Services",
       "packageName": "services",
+      "documentation": {
+        "description": "Client for managing service resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,22 @@
             "uri": "/Services",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new service",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service#create-a-service-resource"
+          },
           "input": {
-            "structure": "CreateServiceInput"
+            "structure": "CreateServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new service resource"
+            }
           },
           "response": {
             "name": "CreateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created service"
+            }
           }
         }
       ]
@@ -36,6 +50,10 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific service resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service"
+      },
       "subClients": [
         {
           "name": "Environments",
@@ -45,6 +63,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing environment resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/environment"
           },
           "operations": [
             {
@@ -63,12 +85,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new environment",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#create-an-environment-resource"
+              },
               "input": {
-                "structure": "CreateEnvironmentInput"
+                "structure": "CreateEnvironmentInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new environment resource"
+                }
               },
               "response": {
                 "name": "CreateEnvironmentResponse",
-                "structure": "EnvironmentResponse"
+                "structure": "EnvironmentResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created environment"
+                }
               }
             }
           ]
@@ -93,6 +125,10 @@
               "functionParameter": "environmentSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific environment resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/environment"
+          },
           "subClients": [
             {
               "name": "Variables",
@@ -106,6 +142,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing environment variable resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable"
               },
               "operations": [
                 {
@@ -132,12 +172,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new environment variable",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#create-a-variable-resource"
+                  },
                   "input": {
-                    "structure": "CreateVariableInput"
+                    "structure": "CreateVariableInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new environment variable resource"
+                    }
                   },
                   "response": {
                     "name": "CreateVariableResponse",
-                    "structure": "VariableResponse"
+                    "structure": "VariableResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created environment variable"
+                    }
                   }
                 }
               ]
@@ -165,6 +215,10 @@
                   "dataType": "string",
                   "functionParameter": "variableSid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a specific environment variable resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable"
               },
               "operations": [
                 {
@@ -199,9 +253,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a environment variable resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#fetch-a-variable-resource"
+                  },
                   "response": {
                     "name": "FetchVariableResponse",
-                    "structure": "VariableResponse"
+                    "structure": "VariableResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved environment variable"
+                    }
                   }
                 },
                 {
@@ -236,12 +297,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a environment variable resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#update-a-variable-resource"
+                  },
                   "input": {
-                    "structure": "UpdateVariableInput"
+                    "structure": "UpdateVariableInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a environment variable resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateVariableResponse",
-                    "structure": "VariableResponse"
+                    "structure": "VariableResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated environment variable"
+                    }
                   }
                 },
                 {
@@ -275,6 +346,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a environment variable resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#delete-a-variable-resource"
                   }
                 }
               ]
@@ -291,6 +366,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing deployment resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment"
               },
               "operations": [
                 {
@@ -317,12 +396,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new deployment",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment#create-a-deployment-resource"
+                  },
                   "input": {
-                    "structure": "CreateDeploymentInput"
+                    "structure": "CreateDeploymentInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new deployment resource"
+                    }
                   },
                   "response": {
                     "name": "CreateDeploymentResponse",
-                    "structure": "DeploymentResponse"
+                    "structure": "DeploymentResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created deployment"
+                    }
                   }
                 }
               ]
@@ -350,6 +439,10 @@
                   "dataType": "string",
                   "functionParameter": "deploymentSid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a specific deployment resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment"
               },
               "operations": [
                 {
@@ -384,9 +477,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a deployment resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment#fetch-a-deployment-resource"
+                  },
                   "response": {
                     "name": "FetchDeploymentResponse",
-                    "structure": "DeploymentResponse"
+                    "structure": "DeploymentResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved deployment"
+                    }
                   }
                 }
               ]
@@ -417,9 +517,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a environment resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#fetch-an-environment-resource"
+              },
               "response": {
                 "name": "FetchEnvironmentResponse",
-                "structure": "EnvironmentResponse"
+                "structure": "EnvironmentResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved environment"
+                }
               }
             },
             {
@@ -445,6 +552,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a environment resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#delete-an-environment-resource"
               }
             }
           ]
@@ -457,6 +568,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing function resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function"
           },
           "operations": [
             {
@@ -475,13 +590,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new function",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function#create-a-function-resource"
+              },
               "input": {
                 "name": "CreateFunctionInput",
-                "structure": "FunctionInput"
+                "structure": "FunctionInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new function resource"
+                }
               },
               "response": {
                 "name": "CreateFunctionResponse",
-                "structure": "FunctionResponse"
+                "structure": "FunctionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created function"
+                }
               }
             }
           ]
@@ -506,6 +631,10 @@
               "functionParameter": "functionSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific function resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function"
+          },
           "subClients": [
             {
               "name": "Versions",
@@ -519,6 +648,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing function version resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version"
               },
               "operations": [
                 {
@@ -549,12 +682,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new function version",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#create-a-function-version-resource"
+                  },
                   "input": {
-                    "structure": "CreateVersionInput"
+                    "structure": "CreateVersionInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new function version resource"
+                    }
                   },
                   "response": {
                     "name": "CreateVersionResponse",
-                    "structure": "FunctionVersionResponse"
+                    "structure": "FunctionVersionResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created function version"
+                    }
                   }
                 }
               ]
@@ -583,6 +726,10 @@
                   "functionParameter": "versionSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific function version resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version"
+              },
               "subClients": [
                 {
                   "name": "Content",
@@ -600,6 +747,10 @@
                       "dataType": "string",
                       "parentProperty": "sid"
                     }
+                  },
+                  "documentation": {
+                    "description": "Client for managing function version content resources",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version/function-version-content"
                   },
                   "operations": [
                     {
@@ -634,9 +785,16 @@
                           }
                         ]
                       },
+                      "documentation": {
+                        "description": "retrieves a function version content resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version/function-version-content#fetch-a-functionversioncontent-resource"
+                      },
                       "response": {
                         "name": "FetchContentResponse",
-                        "structure": "FunctionContentResponse"
+                        "structure": "FunctionContentResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the retrieved function version content"
+                        }
                       }
                     }
                   ]
@@ -675,9 +833,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a function version resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#fetch-a-functionversion-resource"
+                  },
                   "response": {
                     "name": "FetchVersionResponse",
-                    "structure": "FunctionVersionResponse"
+                    "structure": "FunctionVersionResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved function version"
+                    }
                   }
                 }
               ]
@@ -708,9 +873,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a function resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function#fetch-a-function-resource"
+              },
               "response": {
                 "name": "FetchFunctionResponse",
-                "structure": "FunctionResponse"
+                "structure": "FunctionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved function"
+                }
               }
             },
             {
@@ -737,13 +909,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a function resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function#update-a-function-resource"
+              },
               "input": {
                 "name": "UpdateFunctionInput",
-                "structure": "FunctionInput"
+                "structure": "FunctionInput",
+                "documentation": {
+                  "description": "defines input fields for updating a function resource"
+                }
               },
               "response": {
                 "name": "UpdateFunctionResponse",
-                "structure": "FunctionResponse"
+                "structure": "FunctionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated function"
+                }
               }
             },
             {
@@ -769,6 +951,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a function resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function#delete-a-function-resource"
               }
             }
           ]
@@ -781,6 +967,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing asset resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset"
           },
           "operations": [
             {
@@ -799,13 +989,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new asset",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource"
+              },
               "input": {
                 "name": "CreateAssetInput",
-                "structure": "AssetInput"
+                "structure": "AssetInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new asset resource"
+                }
               },
               "response": {
                 "name": "CreateAssetResponse",
-                "structure": "AssetResponse"
+                "structure": "AssetResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created asset"
+                }
               }
             }
           ]
@@ -830,6 +1030,10 @@
               "functionParameter": "assetSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific asset resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset"
+          },
           "subClients": [
             {
               "name": "Versions",
@@ -843,6 +1047,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing asset version resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset"
               },
               "operations": [
                 {
@@ -873,12 +1081,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new asset version",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource"
+                  },
                   "input": {
-                    "structure": "CreateVersionInput"
+                    "structure": "CreateVersionInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new asset version resource"
+                    }
                   },
                   "response": {
                     "name": "CreateVersionResponse",
-                    "structure": "AssetVersionResponse"
+                    "structure": "AssetVersionResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created asset version"
+                    }
                   }
                 }
               ]
@@ -906,6 +1124,10 @@
                   "dataType": "string",
                   "functionParameter": "versionSid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a specific asset version resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset"
               },
               "operations": [
                 {
@@ -940,9 +1162,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a asset version resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#fetch-an-asset-resource"
+                  },
                   "response": {
                     "name": "FetchVersionResponse",
-                    "structure": "AssetVersionResponse"
+                    "structure": "AssetVersionResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved asset version"
+                    }
                   }
                 }
               ]
@@ -973,9 +1202,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a asset resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#fetch-an-asset-resource"
+              },
               "response": {
                 "name": "FetchAssetResponse",
-                "structure": "AssetResponse"
+                "structure": "AssetResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved asset"
+                }
               }
             },
             {
@@ -1002,13 +1238,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a asset resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#update-an-asset-resource"
+              },
               "input": {
                 "name": "UpdateAssetInput",
-                "structure": "AssetInput"
+                "structure": "AssetInput",
+                "documentation": {
+                  "description": "defines input fields for updating a asset resource"
+                }
               },
               "response": {
                 "name": "UpdateAssetResponse",
-                "structure": "AssetResponse"
+                "structure": "AssetResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated asset"
+                }
               }
             },
             {
@@ -1034,6 +1280,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a asset resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#delete-an-asset-resource"
               }
             }
           ]
@@ -1046,6 +1296,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing build resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build"
           },
           "operations": [
             {
@@ -1064,12 +1318,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new build",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build#create-a-build-resource"
+              },
               "input": {
-                "structure": "CreateBuildInput"
+                "structure": "CreateBuildInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new build resource"
+                }
               },
               "response": {
                 "name": "CreateBuildResponse",
-                "structure": "BuildResponse"
+                "structure": "BuildResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created build"
+                }
               }
             }
           ]
@@ -1093,6 +1357,10 @@
               "dataType": "string",
               "functionParameter": "buildSid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific build resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build"
           },
           "operations": [
             {
@@ -1119,9 +1387,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a build resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build#fetch-a-build-resource"
+              },
               "response": {
                 "name": "FetchBuildResponse",
-                "structure": "BuildResponse"
+                "structure": "BuildResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved build"
+                }
               }
             },
             {
@@ -1147,6 +1422,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a build resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build#delete-a-build-resource"
               }
             }
           ]
@@ -1169,9 +1448,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service#fetch-a-service-resource"
+          },
           "response": {
             "name": "FetchServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved service"
+            }
           }
         },
         {
@@ -1190,12 +1476,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service#update-a-service-resource"
+          },
           "input": {
-            "structure": "UpdateServiceInput"
+            "structure": "UpdateServiceInput",
+            "documentation": {
+              "description": "defines input fields for updating a service resource"
+            }
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated service"
+            }
           }
         },
         {
@@ -1213,6 +1509,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a service resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service#delete-a-service-resource"
           }
         }
       ]

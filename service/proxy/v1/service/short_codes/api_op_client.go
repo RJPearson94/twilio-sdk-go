@@ -3,18 +3,20 @@ package short_codes
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing short code resources
+// See https://www.twilio.com/docs/proxy/api/short-code for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 }
 
-// The properties required to manage the short codes resources
+// ClientProperties are the properties required to manage the short codes resources
 type ClientProperties struct {
 	ServiceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the short codes client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

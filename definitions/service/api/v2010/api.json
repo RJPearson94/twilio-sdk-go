@@ -29,14 +29,14 @@
           "input": {
             "structure": "CreateAccountInput",
             "documentation": {
-              "description": "defines the input parameters/ properties for creating a new Twilio sub account resource"
+              "description": "defines the input fields for creating a new Twilio sub account resource"
             }
           },
           "response": {
             "name": "CreateAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
-              "description": "resource/ response properties for the created sub account"
+              "description": "defines the response fields for the created sub account"
             }
           }
         }
@@ -94,7 +94,7 @@
                 "name": "FetchBalanceResponse",
                 "structure": "BalanceResponse",
                 "documentation": {
-                  "description": "resource/ response properties for retrieving an account balance"
+                  "description": "defines the response fields for retrieving an account balance"
                 }
               }
             }
@@ -104,7 +104,7 @@
           "name": "Keys",
           "packageName": "keys",
           "documentation": {
-            "description": "Client for managing account key resources",
+            "description": "Client for managing api key resources",
             "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource"
           },
           "properties": {
@@ -138,13 +138,13 @@
                 "name": "CreateKeyInput",
                 "structure": "KeyInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for creating a new API Key"
+                  "description": "defines input fields for creating a new API Key"
                 }
               },
               "response": {
                 "structure": "CreateKeyResponse",
                 "documentation": {
-                  "description": "resource/ response properties for creating a new API Key"
+                  "description": "defines the response fields for creating a new API Key"
                 }
               }
             }
@@ -154,7 +154,7 @@
           "name": "Key",
           "packageName": "key",
           "documentation": {
-            "description": "Client for managing a specific account key resource",
+            "description": "Client for managing a specific api key resource",
             "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource"
           },
           "function": {
@@ -207,7 +207,7 @@
                 "name": "FetchKeyResponse",
                 "structure": "KeyResponse",
                 "documentation": {
-                  "description": "resource/ response properties for retrieving a API Key"
+                  "description": "defines the response fields for retrieving a API Key"
                 }
               }
             },
@@ -243,14 +243,14 @@
                 "name": "UpdateKeyInput",
                 "structure": "KeyInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a API Key"
+                  "description": "defines input fields for updating a API Key"
                 }
               },
               "response": {
                 "name": "UpdateKeyResponse",
                 "structure": "KeyResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated API Key"
+                  "description": "defines the response fields for the updated API Key"
                 }
               }
             },
@@ -322,14 +322,14 @@
               "input": {
                 "structure": "CreateMessageInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for creating a new message resource"
+                  "description": "defines input fields for creating a new message resource"
                 }
               },
               "response": {
                 "name": "CreateMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the created message"
+                  "description": "defines the response fields for the created message"
                 }
               }
             }
@@ -409,14 +409,14 @@
                   "input": {
                     "structure": "CreateFeedbackInput",
                     "documentation": {
-                      "description": "defines input parameters/ properties for creating a new feedback resource"
+                      "description": "defines input fields for creating a new feedback resource"
                     }
                   },
                   "response": {
                     "name": "CreateFeedbackResponse",
                     "structure": "FeedbackResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the created feedback"
+                      "description": "defines the response fields for the created feedback"
                     }
                   }
                 }
@@ -491,7 +491,7 @@
                     "name": "FetchMediaResponse",
                     "structure": "MediaResponse",
                     "documentation": {
-                      "description": "resource/ response properties for the retrieved media"
+                      "description": "defines the response fields for the retrieved media"
                     }
                   }
                 },
@@ -568,7 +568,7 @@
                 "name": "FetchMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the retrieved message"
+                  "description": "defines the response fields for the retrieved message"
                 }
               }
             },
@@ -603,14 +603,14 @@
               "input": {
                 "structure": "UpdateMessageInput",
                 "documentation": {
-                  "description": "defines input parameters/ properties for updating a message resource"
+                  "description": "defines input fields for updating a message resource"
                 }
               },
               "response": {
                 "name": "UpdateMessageResponse",
                 "structure": "MessageResponse",
                 "documentation": {
-                  "description": "resource/ response properties for the updated message"
+                  "description": "defines the response fields for the updated message"
                 }
               }
             },
@@ -671,7 +671,7 @@
             "name": "FetchAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
-              "description": "resource/ response properties for the retrieved account"
+              "description": "defines the response fields for the retrieved account"
             }
           }
         },
@@ -698,14 +698,14 @@
           "input": {
             "structure": "UpdateAccountInput",
             "documentation": {
-              "description": "defines input parameters/ properties for updating an account resource"
+              "description": "defines input fields for updating an account resource"
             }
           },
           "response": {
             "name": "UpdateAccountResponse",
             "structure": "AccountResponse",
             "documentation": {
-              "description": "resource/ response properties for the updated account"
+              "description": "defines the response fields for the updated account"
             }
           }
         }

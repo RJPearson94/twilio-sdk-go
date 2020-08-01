@@ -8,6 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchContextResponse defines the response fields for the retrieved step context
 type FetchContextResponse struct {
 	AccountSid   string      `json:"account_sid"`
 	Context      interface{} `json:"context"`
@@ -18,10 +19,15 @@ type FetchContextResponse struct {
 	URL          string      `json:"url"`
 }
 
+// Fetch retrieves a step context resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/step-context#fetch-a-single-step-context for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchContextResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a step context resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/step-context#fetch-a-single-step-context for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchContextResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

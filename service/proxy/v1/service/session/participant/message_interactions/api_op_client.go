@@ -3,6 +3,8 @@ package message_interactions
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing message interaction resources
+// See https://www.twilio.com/docs/proxy/api/sending-messages for more details
 type Client struct {
 	client *client.Client
 
@@ -11,14 +13,14 @@ type Client struct {
 	sessionSid     string
 }
 
-// The properties required to manage the message interactions resources
+// ClientProperties are the properties required to manage the message interactions resources
 type ClientProperties struct {
 	ParticipantSid string
 	ServiceSid     string
 	SessionSid     string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the message interactions client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

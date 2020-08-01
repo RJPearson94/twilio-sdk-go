@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// UpdateConversationInput defines input fields for updating a conversation resource
 type UpdateConversationInput struct {
 	Attributes          *string            `form:"Attributes,omitempty"`
 	DateCreated         *utils.RFC2822Time `form:"DateCreated,omitempty"`
@@ -26,6 +27,7 @@ type UpdateConversationResponseTimers struct {
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 }
 
+// UpdateConversationResponse defines the response fields for the updated conversation
 type UpdateConversationResponse struct {
 	AccountSid          string                           `json:"account_sid"`
 	Attributes          string                           `json:"attributes"`
@@ -40,10 +42,15 @@ type UpdateConversationResponse struct {
 	URL                 string                           `json:"url"`
 }
 
+// Update modifies a conversation resource
+// See https://www.twilio.com/docs/conversations/api/conversation-resource#update-conversation for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateConversationInput) (*UpdateConversationResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a conversation resource
+// See https://www.twilio.com/docs/conversations/api/conversation-resource#update-conversation for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateConversationInput) (*UpdateConversationResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

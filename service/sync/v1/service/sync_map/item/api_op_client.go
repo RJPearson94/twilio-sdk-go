@@ -3,6 +3,8 @@ package item
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific map item resource
+// See https://www.twilio.com/docs/sync/api/map-item-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -11,14 +13,14 @@ type Client struct {
 	syncMapSid string
 }
 
-// The properties required to manage the item resources
+// ClientProperties are the properties required to manage the item resources
 type ClientProperties struct {
 	Key        string
 	ServiceSid string
 	SyncMapSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the item client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

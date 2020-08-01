@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateAssetInput defines the input fields for creating a new asset resource
 type CreateAssetInput struct {
 	FriendlyName string `validate:"required" form:"FriendlyName"`
 }
 
+// CreateAssetResponse defines the response fields for the created asset
 type CreateAssetResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -23,10 +25,15 @@ type CreateAssetResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Create creates a new asset
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateAssetInput) (*CreateAssetResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new asset
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateAssetInput) (*CreateAssetResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

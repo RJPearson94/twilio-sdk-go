@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateAssistantInput defines input parameters/ properties for updating an assistant resource
+// UpdateAssistantInput defines the input fields for updating an assistant resource
 type UpdateAssistantInput struct {
 	CallbackEvents   *string `form:"CallbackEvents,omitempty"`
 	CallbackURL      *string `form:"CallbackUrl,omitempty"`
@@ -21,7 +21,7 @@ type UpdateAssistantInput struct {
 	UniqueName       *string `form:"UniqueName,omitempty"`
 }
 
-// UpdateAssistantResponse resource/ response properties for the updated assistant
+// UpdateAssistantResponse defines the response fields for the updated assistant
 type UpdateAssistantResponse struct {
 	AccountSid          string     `json:"account_sid"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`

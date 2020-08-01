@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// CreateMessageInput defines input parameters/ properties for creating a new message resource
+// CreateMessageInput defines input fields for creating a new message resource
 type CreateMessageInput struct {
 	AddressRetention    *string   `form:"AddressRetention,omitempty"`
 	ApplicationSid      *string   `form:"ApplicationSid,omitempty"`
@@ -29,7 +29,7 @@ type CreateMessageInput struct {
 	ValidityPeriod      *int      `form:"ValidityPeriod,omitempty"`
 }
 
-// CreateMessageResponse resource/ response properties for the created message
+// CreateMessageResponse defines the response fields for the created message
 type CreateMessageResponse struct {
 	APIVersion          string             `json:"api_version"`
 	AccountSid          string             `json:"account_sid"`

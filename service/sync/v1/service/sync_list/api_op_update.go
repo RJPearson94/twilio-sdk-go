@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateSyncListInput defines input fields for updating a list resource
 type UpdateSyncListInput struct {
 	CollectionTtl *int `form:"CollectionTtl,omitempty"`
 	Ttl           *int `form:"Ttl,omitempty"`
 }
 
+// UpdateSyncListResponse defines the response fields for the updated list
 type UpdateSyncListResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	CreatedBy   string     `json:"created_by"`
@@ -27,10 +29,15 @@ type UpdateSyncListResponse struct {
 	UniqueName  *string    `json:"unique_name,omitempty"`
 }
 
+// Update modifies a list resource
+// See https://www.twilio.com/docs/sync/api/list-resource#update-a-list-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateSyncListInput) (*UpdateSyncListResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a list resource
+// See https://www.twilio.com/docs/sync/api/list-resource#update-a-list-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncListInput) (*UpdateSyncListResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

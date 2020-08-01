@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateSyncMapInput defines the input fields for creating a new map resource
 type CreateSyncMapInput struct {
 	CollectionTtl *int    `form:"CollectionTtl,omitempty"`
 	Ttl           *int    `form:"Ttl,omitempty"`
 	UniqueName    *string `form:"UniqueName,omitempty"`
 }
 
+// CreateSyncMapResponse defines the response fields for the created map
 type CreateSyncMapResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	CreatedBy   string     `json:"created_by"`
@@ -28,10 +30,15 @@ type CreateSyncMapResponse struct {
 	UniqueName  *string    `json:"unique_name,omitempty"`
 }
 
+// Create creates a new map
+// See https://www.twilio.com/docs/sync/api/map-resource#create-a-syncmap-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateSyncMapInput) (*CreateSyncMapResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new map
+// See https://www.twilio.com/docs/sync/api/map-resource#create-a-syncmap-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateSyncMapInput) (*CreateSyncMapResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

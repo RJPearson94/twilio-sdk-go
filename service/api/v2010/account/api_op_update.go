@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// UpdateAccountInput defines input parameters/ properties for updating an account resource
+// UpdateAccountInput defines input fields for updating an account resource
 type UpdateAccountInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 	Status       *string `form:"Status,omitempty"`
 }
 
-// UpdateAccountResponse resource/ response properties for the updated account
+// UpdateAccountResponse defines the response fields for the updated account
 type UpdateAccountResponse struct {
 	AuthToken       string             `json:"auth_token"`
 	DateCreated     utils.RFC2822Time  `json:"date_created"`

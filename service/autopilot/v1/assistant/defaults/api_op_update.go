@@ -8,12 +8,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateDefaultInput defines input parameters/ properties for updating defaults
+// UpdateDefaultInput defines the input fields for updating defaults
 type UpdateDefaultInput struct {
 	Defaults *string `form:"Defaults,omitempty"`
 }
 
-// UpdateDefaultResponse resource/ response properties for the updated defaults
+// UpdateDefaultResponse defines the response fields for the updated defaults
 type UpdateDefaultResponse struct {
 	AccountSid   string                 `json:"account_sid"`
 	AssistantSid string                 `json:"assistant_sid"`

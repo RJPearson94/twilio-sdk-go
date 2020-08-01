@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchTaskChannelResponse defines the response fields for the retrieved task channel
 type FetchTaskChannelResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	ChannelOptimizedRouting *bool      `json:"channel_optimized_routing,omitempty"`
@@ -21,10 +22,15 @@ type FetchTaskChannelResponse struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
+// Fetch retrieves an task channel resource
+// See twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchTaskChannelResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an task channel resource
+// See twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchTaskChannelResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchTaskQueueResponse defines the response fields for the retrieved task queue
 type FetchTaskQueueResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	AssignmentActivityName  *string    `json:"assignment_activity_name,omitempty"`
@@ -27,10 +28,15 @@ type FetchTaskQueueResponse struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
+// Fetch retrieves a task queue resource
+// See https://www.twilio.com/docs/taskrouter/api/task-queue#action-get for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchTaskQueueResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a task queue resource
+// See https://www.twilio.com/docs/taskrouter/api/task-queue#action-get for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchTaskQueueResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

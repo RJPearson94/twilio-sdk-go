@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateWorkflowInput defines the input fields for creating a new workflow resource
 type CreateWorkflowInput struct {
 	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
 	Configuration                 string  `validate:"required" form:"Configuration"`
@@ -17,6 +18,7 @@ type CreateWorkflowInput struct {
 	TaskReservationTimeout        *int    `form:"TaskReservationTimeout,omitempty"`
 }
 
+// CreateWorkflowResponse defines the response fields for the created workflow
 type CreateWorkflowResponse struct {
 	AccountSid                    string      `json:"account_sid"`
 	AssignmentCallbackURL         *string     `json:"assignment_callback_url,omitempty"`
@@ -32,10 +34,15 @@ type CreateWorkflowResponse struct {
 	WorkspaceSid                  string      `json:"workspace_sid"`
 }
 
+// Create creates a new workflow
+// See https://www.twilio.com/docs/taskrouter/api/workflow#create-a-workflow-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateWorkflowInput) (*CreateWorkflowResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new workflow
+// See https://www.twilio.com/docs/taskrouter/api/workflow#create-a-workflow-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateWorkflowInput) (*CreateWorkflowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

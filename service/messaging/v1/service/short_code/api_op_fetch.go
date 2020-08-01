@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchShortCodeResponse defines the response fields for the retrieved short code
 type FetchShortCodeResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	Capabilities []string   `json:"capabilities"`
@@ -21,10 +22,15 @@ type FetchShortCodeResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Fetch retrieves a short code resource
+// See https://www.twilio.com/docs/sms/services/api/shortcode-resource#fetch-a-shortcode-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchShortCodeResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a short code resource
+// See https://www.twilio.com/docs/sms/services/api/shortcode-resource#fetch-a-shortcode-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchShortCodeResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

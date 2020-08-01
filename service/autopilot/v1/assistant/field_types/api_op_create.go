@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateFieldTypeInput defines the input parameters/ properties for creating a new field type resource
+// CreateFieldTypeInput defines the input fields for creating a new field type resource
 type CreateFieldTypeInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 	UniqueName   string  `validate:"required" form:"UniqueName"`
 }
 
-// CreateFieldTypeResponse resource/ response properties for the created field type
+// CreateFieldTypeResponse defines the response fields for the created field type
 type CreateFieldTypeResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	AssistantSid string     `json:"assistant_sid"`

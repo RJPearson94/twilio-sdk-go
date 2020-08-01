@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchSyncStreamResponse defines the response fields for the retrieved stream
 type FetchSyncStreamResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	CreatedBy   string     `json:"created_by"`
@@ -21,10 +22,15 @@ type FetchSyncStreamResponse struct {
 	UniqueName  *string    `json:"unique_name,omitempty"`
 }
 
+// Fetch retrieves an stream resource
+// See https://www.twilio.com/docs/sync/api/stream-resource#fetch-a-sync-stream-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchSyncStreamResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an stream resource
+// See https://www.twilio.com/docs/sync/api/stream-resource#fetch-a-sync-stream-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchSyncStreamResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

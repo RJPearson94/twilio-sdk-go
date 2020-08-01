@@ -9,12 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// UpdateKeyInput defines input parameters/ properties for updating a API Key
+// UpdateKeyInput defines input fields for updating a API Key
 type UpdateKeyInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-// UpdateKeyResponse resource/ response properties for the updated API Key
+// UpdateKeyResponse defines the response fields for the updated API Key
 type UpdateKeyResponse struct {
 	DateCreated  utils.RFC2822Time  `json:"date_created"`
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`

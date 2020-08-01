@@ -9,7 +9,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchTaskQueueResponse struct {
+// FetchWorkflowResponse defines the response fields for the retrieved workflow
+type FetchWorkflowResponse struct {
 	AccountSid                    string      `json:"account_sid"`
 	AssignmentCallbackURL         *string     `json:"assignment_callback_url,omitempty"`
 	Configuration                 interface{} `json:"configuration"`
@@ -24,11 +25,16 @@ type FetchTaskQueueResponse struct {
 	WorkspaceSid                  string      `json:"workspace_sid"`
 }
 
-func (c Client) Fetch() (*FetchTaskQueueResponse, error) {
+// Fetch retrieves an workflow resource
+// See https://www.twilio.com/docs/taskrouter/api/workflow#fetch-a-workflow-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+func (c Client) Fetch() (*FetchWorkflowResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
-func (c Client) FetchWithContext(context context.Context) (*FetchTaskQueueResponse, error) {
+// FetchWithContext retrieves an workflow resource
+// See https://www.twilio.com/docs/taskrouter/api/workflow#fetch-a-workflow-resource for more details
+func (c Client) FetchWithContext(context context.Context) (*FetchWorkflowResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
 		URI:    "/Workspaces/{workspaceSid}/Workflows/{sid}",
@@ -38,7 +44,7 @@ func (c Client) FetchWithContext(context context.Context) (*FetchTaskQueueRespon
 		},
 	}
 
-	response := &FetchTaskQueueResponse{}
+	response := &FetchWorkflowResponse{}
 	if err := c.client.Send(context, op, nil, response); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@ package fields
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing a task field resource
+// Client for managing task field resources
 // See https://www.twilio.com/docs/autopilot/api/task-field for more details
 type Client struct {
 	client *client.Client

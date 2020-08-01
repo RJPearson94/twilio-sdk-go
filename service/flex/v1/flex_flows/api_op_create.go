@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFlexFlowInput defines the input fields for creating a new flex flow resource
 type CreateFlexFlowInput struct {
 	ChannelType                  string  `validate:"required" form:"ChannelType"`
 	ChatServiceSid               string  `validate:"required" form:"ChatServiceSid"`
@@ -39,6 +40,7 @@ type CreateFlexFlowResponseIntegration struct {
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
 }
 
+// CreateFlexFlowResponse defines the response fields for the created flex flow
 type CreateFlexFlowResponse struct {
 	AccountSid      string                             `json:"account_sid"`
 	ChannelType     string                             `json:"channel_type"`
@@ -56,10 +58,13 @@ type CreateFlexFlowResponse struct {
 	URL             string                             `json:"url"`
 }
 
+// Create creates a new flex flow
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFlexFlowInput) (*CreateFlexFlowResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new flex flow
 func (c Client) CreateWithContext(context context.Context, input *CreateFlexFlowInput) (*CreateFlexFlowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

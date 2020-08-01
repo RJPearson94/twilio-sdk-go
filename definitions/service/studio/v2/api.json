@@ -11,6 +11,10 @@
     {
       "name": "Flows",
       "packageName": "flows",
+      "documentation": {
+        "description": "Client for managing flow resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,22 @@
             "uri": "/Flows",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new flow",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow#create-a-flow-resource"
+          },
           "input": {
-            "structure": "CreateFlowInput"
+            "structure": "CreateFlowInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new flow resource"
+            }
           },
           "response": {
             "name": "CreateFlowResponse",
-            "structure": "FlowResponse"
+            "structure": "FlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the created flow"
+            }
           }
         }
       ]
@@ -35,6 +49,10 @@
         "sid": {
           "dataType": "string"
         }
+      },
+      "documentation": {
+        "description": "Client for managing a specific flow resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow"
       },
       "subClients": [
         {
@@ -56,6 +74,10 @@
               "dataType": "int",
               "functionParameter": "revisionNumber"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific flow revision resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow-revision"
           },
           "operations": [
             {
@@ -82,9 +104,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a flow revision resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow-revision#fetch-a-flowrevision-resource"
+              },
               "response": {
                 "name": "FetchRevisionResponse",
-                "structure": "FlowResponse"
+                "structure": "FlowResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved flow revision"
+                }
               }
             }
           ]
@@ -100,6 +129,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing test users resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/test-user"
           },
           "operations": [
             {
@@ -118,12 +151,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a test users resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/test-user#update-a-testuser-resource"
+              },
               "input": {
-                "structure": "UpdateTestUsersInput"
+                "structure": "UpdateTestUsersInput",
+                "documentation": {
+                  "description": "defines input fields for updating a test users resource"
+                }
               },
               "response": {
                 "name": "UpdateTestUsersResponse",
-                "structure": "TestUsersResponse"
+                "structure": "TestUsersResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated test users"
+                }
               }
             }
           ]
@@ -136,6 +179,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing execution resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution"
           },
           "operations": [
             {
@@ -154,12 +201,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new execution",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution#create-a-new-execution"
+              },
               "input": {
-                "structure": "CreateExecutionInput"
+                "structure": "CreateExecutionInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new execution resource"
+                }
               },
               "response": {
                 "name": "CreateExecutionResponse",
-                "structure": "ExecutionResponse"
+                "structure": "ExecutionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created execution"
+                }
               }
             }
           ]
@@ -184,6 +241,10 @@
               "functionParameter": "executionSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific execution resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution"
+          },
           "subClients": [
             {
               "name": "Context",
@@ -200,6 +261,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing execution context resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution-context"
               },
               "operations": [
                 {
@@ -226,9 +291,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a execution context resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution-context#fetch-a-single-execution-context"
+                  },
                   "response": {
                     "name": "FetchContextResponse",
-                    "structure": "ContextResponse"
+                    "structure": "ContextResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved execution context"
+                    }
                   }
                 }
               ]
@@ -257,6 +329,10 @@
                   "functionParameter": "stepSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific step resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/step"
+              },
               "subClients": [
                 {
                   "name": "Context",
@@ -277,6 +353,10 @@
                       "dataType": "string",
                       "parentProperty": "sid"
                     }
+                  },
+                  "documentation": {
+                    "description": "Client for managing step context resources",
+                    "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/step-context"
                   },
                   "operations": [
                     {
@@ -311,9 +391,16 @@
                           }
                         ]
                       },
+                      "documentation": {
+                        "description": "retrieves a step context resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/step-context#fetch-a-single-step-context"
+                      },
                       "response": {
                         "name": "FetchContextResponse",
-                        "structure": "StepContextResponse"
+                        "structure": "StepContextResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the retrieved step context"
+                        }
                       }
                     }
                   ]
@@ -352,9 +439,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a step resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/step#fetch-a-step-resource"
+                  },
                   "response": {
                     "name": "FetchStepResponse",
-                    "structure": "StepResponse"
+                    "structure": "StepResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved step"
+                    }
                   }
                 }
               ]
@@ -385,9 +479,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a execution resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution#fetch-a-single-execution"
+              },
               "response": {
                 "name": "FetchExecutionResponse",
-                "structure": "ExecutionResponse"
+                "structure": "ExecutionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved execution"
+                }
               }
             },
             {
@@ -414,12 +515,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a execution resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution#update-an-execution"
+              },
               "input": {
-                "structure": "UpdateExecutionInput"
+                "structure": "UpdateExecutionInput",
+                "documentation": {
+                  "description": "defines input fields for updating a execution resource"
+                }
               },
               "response": {
                 "name": "UpdateExecutionResponse",
-                "structure": "ExecutionResponse"
+                "structure": "ExecutionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated execution"
+                }
               }
             },
             {
@@ -445,6 +556,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a execution resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution#delete-an-execution"
               }
             }
           ]
@@ -467,9 +582,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a flow resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow#fetch-a-flow-resource"
+          },
           "response": {
             "name": "FetchFlowResponse",
-            "structure": "FlowResponse"
+            "structure": "FlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved flow"
+            }
           }
         },
         {
@@ -488,12 +610,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a flow resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow#update-a-flow-resource"
+          },
           "input": {
-            "structure": "UpdateFlowInput"
+            "structure": "UpdateFlowInput",
+            "documentation": {
+              "description": "defines input fields for updating a flow resource"
+            }
           },
           "response": {
             "name": "UpdateFlowResponse",
-            "structure": "FlowResponse"
+            "structure": "FlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated flow"
+            }
           }
         },
         {
@@ -511,6 +643,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a flow resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow#delete-a-flow-resource"
           }
         }
       ]
@@ -518,6 +654,10 @@
     {
       "name": "Flow Validation",
       "packageName": "flow_validation",
+      "documentation": {
+        "description": "Client for managing flow validation resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow-validate"
+      },
       "operations": [
         {
           "name": "Validate",
@@ -525,11 +665,21 @@
             "uri": "/Flows/Validate",
             "method": "Post"
           },
+          "documentation": {
+            "description": "validate a flow",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow-validate#validate-flow"
+          },
           "input": {
-            "structure": "ValidateFlowInput"
+            "structure": "ValidateFlowInput",
+            "documentation": {
+              "description": "defines the input fields for validating a flow"
+            }
           },
           "response": {
-            "structure": "ValidateFlowResponse"
+            "structure": "ValidateFlowResponse",
+            "documentation": {
+              "description": "defines the response fields for the validating a flow"
+            }
           }
         }
       ]

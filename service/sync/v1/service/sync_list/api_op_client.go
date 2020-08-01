@@ -8,27 +8,26 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/permissions"
 )
 
+// Client for managing a specific list resource
+// See https://www.twilio.com/docs/sync/api/list-resource for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 	sid        string
 
-	// Sub client to manage item resources
-	Item func(int) *item.Client
-	// Sub client to manage items resources
-	Items *items.Client
-	// Sub client to manage permissions resources
+	Item        func(int) *item.Client
+	Items       *items.Client
 	Permissions func(string) *permissions.Client
 }
 
-// The properties required to manage the synclist resources
+// ClientProperties are the properties required to manage the synclist resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the synclist client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -3,7 +3,7 @@ package field_types
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing a field type resource
+// Client for managing field type resources
 // See https://www.twilio.com/docs/autopilot/api/field-type for more details
 type Client struct {
 	client *client.Client

@@ -11,6 +11,10 @@
     {
       "name": "Workspaces",
       "packageName": "workspaces",
+      "documentation": {
+        "description": "Client for managing workspace resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,22 @@
             "uri": "/Workspaces",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new workspace",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace#create-a-workspace-resource"
+          },
           "input": {
-            "structure": "CreateWorkspaceInput"
+            "structure": "CreateWorkspaceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new workspace resource"
+            }
           },
           "response": {
             "name": "CreateWorkspaceResponse",
-            "structure": "WorkspaceResponse"
+            "structure": "WorkspaceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created workspace"
+            }
           }
         }
       ]
@@ -36,6 +50,10 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific workspace resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace"
+      },
       "subClients": [
         {
           "name": "Task Queues",
@@ -45,6 +63,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing task queue resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue"
           },
           "operations": [
             {
@@ -63,12 +85,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new task queue",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue#action-create"
+              },
               "input": {
-                "structure": "CreateTaskQueueInput"
+                "structure": "CreateTaskQueueInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new task queue resource"
+                }
               },
               "response": {
                 "name": "CreateTaskQueueResponse",
-                "structure": "TaskQueueResponse"
+                "structure": "TaskQueueResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created task queue"
+                }
               }
             }
           ]
@@ -93,6 +125,10 @@
               "functionParameter": "taskQueueSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific task queue resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -118,9 +154,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a task queue resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue#action-get"
+              },
               "response": {
                 "name": "FetchTaskQueueResponse",
-                "structure": "TaskQueueResponse"
+                "structure": "TaskQueueResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved task queue"
+                }
               }
             },
             {
@@ -147,12 +190,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a task queue resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue#action-update"
+              },
               "input": {
-                "structure": "UpdateTaskQueueInput"
+                "structure": "UpdateTaskQueueInput",
+                "documentation": {
+                  "description": "defines input fields for updating a task queue resource"
+                }
               },
               "response": {
                 "name": "UpdateTaskQueueResponse",
-                "structure": "TaskQueueResponse"
+                "structure": "TaskQueueResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated task queue"
+                }
               }
             },
             {
@@ -178,6 +231,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a task queue resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue#action-delete"
               }
             }
           ]
@@ -190,6 +247,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing workflow resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow"
           },
           "operations": [
             {
@@ -208,12 +269,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new workflow",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow#create-a-workflow-resource"
+              },
               "input": {
-                "structure": "CreateWorkflowInput"
+                "structure": "CreateWorkflowInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new workflow resource"
+                }
               },
               "response": {
                 "name": "CreateWorkflowResponse",
-                "structure": "WorkflowResponse"
+                "structure": "WorkflowResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created workflow"
+                }
               }
             }
           ]
@@ -238,6 +309,10 @@
               "functionParameter": "workflowSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific workflow resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -263,9 +338,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an workflow resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow#fetch-a-workflow-resource"
+              },
               "response": {
-                "name": "FetchTaskQueueResponse",
-                "structure": "WorkflowResponse"
+                "name": "FetchWorkflowResponse",
+                "structure": "WorkflowResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved workflow"
+                }
               }
             },
             {
@@ -292,12 +374,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a workflow resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow#update-a-workflow-resource"
+              },
               "input": {
-                "structure": "UpdateWorkflowInput"
+                "structure": "UpdateWorkflowInput",
+                "documentation": {
+                  "description": "defines input fields for updating a workflow resource"
+                }
               },
               "response": {
                 "name": "UpdateWorkflowResponse",
-                "structure": "WorkflowResponse"
+                "structure": "WorkflowResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated workflow"
+                }
               }
             },
             {
@@ -323,6 +415,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a workflow resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow#delete-a-workflow-resource"
               }
             }
           ]
@@ -335,6 +431,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing worker resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker"
           },
           "operations": [
             {
@@ -353,12 +453,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new worker",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker#create-a-worker-resource"
+              },
               "input": {
-                "structure": "CreateWorkerInput"
+                "structure": "CreateWorkerInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new worker resource"
+                }
               },
               "response": {
                 "name": "CreateWorkerResponse",
-                "structure": "WorkerResponse"
+                "structure": "WorkerResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created worker"
+                }
               }
             }
           ]
@@ -383,6 +493,10 @@
               "functionParameter": "workerSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific worker resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -408,9 +522,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an worker resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker#fetch-a-worker-resource"
+              },
               "response": {
                 "name": "FetchWorkerResponse",
-                "structure": "WorkerResponse"
+                "structure": "WorkerResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved worker"
+                }
               }
             },
             {
@@ -437,12 +558,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a worker resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker#update-a-worker-resource"
+              },
               "input": {
-                "structure": "UpdateWorkerInput"
+                "structure": "UpdateWorkerInput",
+                "documentation": {
+                  "description": "defines input fields for updating a worker resource"
+                }
               },
               "response": {
                 "name": "UpdateWorkflowResponse",
-                "structure": "WorkerResponse"
+                "structure": "WorkerResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated worker"
+                }
               }
             },
             {
@@ -468,6 +599,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a worker resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker#delete-a-worker-resource"
               }
             }
           ]
@@ -480,6 +615,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing activity resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity"
           },
           "operations": [
             {
@@ -498,12 +637,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new activity",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity#create-an-activity-resource"
+              },
               "input": {
-                "structure": "CreateActivityInput"
+                "structure": "CreateActivityInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new activity resource"
+                }
               },
               "response": {
                 "name": "CreateActivityResponse",
-                "structure": "ActivityResponse"
+                "structure": "ActivityResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created activity"
+                }
               }
             }
           ]
@@ -528,6 +677,10 @@
               "functionParameter": "activitySid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific activity resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -553,9 +706,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an activity resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity#fetch-an-activity-resource"
+              },
               "response": {
                 "name": "FetchActivityResponse",
-                "structure": "ActivityResponse"
+                "structure": "ActivityResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved activity"
+                }
               }
             },
             {
@@ -582,12 +742,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a activity resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity#update-an-activity-resource"
+              },
               "input": {
-                "structure": "UpdateActivityInput"
+                "structure": "UpdateActivityInput",
+                "documentation": {
+                  "description": "defines input fields for updating a activity resource"
+                }
               },
               "response": {
                 "name": "UpdateActivityResponse",
-                "structure": "ActivityResponse"
+                "structure": "ActivityResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated activity"
+                }
               }
             },
             {
@@ -613,6 +783,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a activity resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity#delete-an-activity-resource"
               }
             }
           ]
@@ -625,6 +799,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing task channel resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel"
           },
           "operations": [
             {
@@ -643,12 +821,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new task channel",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel#create-a-taskchannel-resource"
+              },
               "input": {
-                "structure": "CreateTaskChannelInput"
+                "structure": "CreateTaskChannelInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new task channel resource"
+                }
               },
               "response": {
                 "name": "CreateTaskChannelResponse",
-                "structure": "TaskChannelResponse"
+                "structure": "TaskChannelResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created task channel"
+                }
               }
             }
           ]
@@ -673,6 +861,10 @@
               "functionParameter": "taskChannelSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific task channel resource",
+            "twilioDocsLink": "twilio.com/docs/taskrouter/api/task-channel"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -698,9 +890,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an task channel resource",
+                "twilioDocsLink": "twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource"
+              },
               "response": {
                 "name": "FetchTaskChannelResponse",
-                "structure": "TaskChannelResponse"
+                "structure": "TaskChannelResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved task channel"
+                }
               }
             },
             {
@@ -727,12 +926,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a task channel resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel#update-a-taskchannel-resource"
+              },
+
               "input": {
-                "structure": "UpdateTaskChannelInput"
+                "structure": "UpdateTaskChannelInput",
+                "documentation": {
+                  "description": "defines input fields for updating a task channel resource"
+                }
               },
               "response": {
                 "name": "UpdateTaskChannelResponse",
-                "structure": "TaskChannelResponse"
+                "structure": "TaskChannelResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated task channel"
+                }
               }
             },
             {
@@ -758,6 +968,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a task channel resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel#delete-a-taskchannel-resource"
               }
             }
           ]
@@ -770,6 +984,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing task resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task"
           },
           "operations": [
             {
@@ -788,12 +1006,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new task",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task#create-a-task-resource"
+              },
               "input": {
-                "structure": "CreateTaskInput"
+                "structure": "CreateTaskInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new task resource"
+                }
               },
               "response": {
                 "name": "CreateTaskResponse",
-                "structure": "TaskResponse"
+                "structure": "TaskResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created task"
+                }
               }
             }
           ]
@@ -818,6 +1046,10 @@
               "functionParameter": "taskSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific task resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -843,9 +1075,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an task resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task#fetch-a-task-resource"
+              },
               "response": {
                 "name": "FetchTaskResponse",
-                "structure": "TaskResponse"
+                "structure": "TaskResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved task"
+                }
               }
             },
             {
@@ -872,12 +1111,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a task resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task#update-a-task-resource"
+              },
+
               "input": {
-                "structure": "UpdateTaskInput"
+                "structure": "UpdateTaskInput",
+                "documentation": {
+                  "description": "defines input fields for updating a task resource"
+                }
               },
               "response": {
                 "name": "UpdateTaskResponse",
-                "structure": "TaskResponse"
+                "structure": "TaskResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated task"
+                }
               }
             },
             {
@@ -903,6 +1153,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a task resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task#delete-a-task-resource"
               }
             }
           ]
@@ -925,9 +1179,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a workspace resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace#fetch-a-workspace-resource"
+          },
           "response": {
             "name": "FetchWorkspaceResponse",
-            "structure": "WorkspaceResponse"
+            "structure": "WorkspaceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved workspace"
+            }
           }
         },
         {
@@ -946,12 +1207,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a workspace resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace#update-a-workspace-resource"
+          },
           "input": {
-            "structure": "UpdateWorkspaceInput"
+            "structure": "UpdateWorkspaceInput",
+            "documentation": {
+              "description": "defines input fields for updating a workspace resource"
+            }
           },
           "response": {
             "name": "UpdateWorkspaceResponse",
-            "structure": "WorkspaceResponse"
+            "structure": "WorkspaceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated workspace"
+            }
           }
         },
         {
@@ -969,6 +1240,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a workspace resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace#delete-a-workspace-resource"
           }
         }
       ]

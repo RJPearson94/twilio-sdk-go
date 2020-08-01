@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// CreateMessageInput defines the input fields for creating a new message resource
 type CreateMessageInput struct {
 	Attributes  *string            `form:"Attributes.Filters,omitempty"`
 	Author      *string            `form:"Author,omitempty"`
@@ -26,6 +27,7 @@ type CreateMessageResponseMedia struct {
 	Size        int    `json:"size"`
 }
 
+// CreateMessageResponse defines the response fields for the created message
 type CreateMessageResponse struct {
 	AccountSid      string                        `json:"account_sid"`
 	Attributes      string                        `json:"attributes"`
@@ -41,10 +43,15 @@ type CreateMessageResponse struct {
 	URL             string                        `json:"url"`
 }
 
+// Create creates a new message
+// See https://www.twilio.com/docs/conversations/api/conversation-message-resource#create-a-conversationmessage-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateMessageInput) (*CreateMessageResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new message
+// See https://www.twilio.com/docs/conversations/api/conversation-message-resource#create-a-conversationmessage-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateMessageInput) (*CreateMessageResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

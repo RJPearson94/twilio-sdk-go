@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// FetchMessageResponse resource/ response properties for the retrieved message
+// FetchMessageResponse defines the response fields for the retrieved message
 type FetchMessageResponse struct {
 	APIVersion          string             `json:"api_version"`
 	AccountSid          string             `json:"account_sid"`

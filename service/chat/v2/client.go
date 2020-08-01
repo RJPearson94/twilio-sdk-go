@@ -10,6 +10,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// Chat client is used to manage resources for Programmable Chat
+// See https://www.twilio.com/docs/chat for more details
 type Chat struct {
 	client      *client.Client
 	Services    *services.Client
@@ -23,6 +25,7 @@ func (s Chat) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *Chat {
 	config := client.GetDefaultConfig()
 	config.Beta = false
@@ -32,6 +35,7 @@ func New(sess *session.Session) *Chat {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Chat {
 	return &Chat{
 		client:   client,
@@ -50,6 +54,7 @@ func NewWithClient(client *client.Client) *Chat {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Chat {
 	return New(session.New(creds))
 }

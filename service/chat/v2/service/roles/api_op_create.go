@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateRoleInput defines the input fields for creating a new role resource
 type CreateRoleInput struct {
 	FriendlyName string   `validate:"required" form:"FriendlyName"`
 	Permission   []string `validate:"required" form:"Permission"`
 	Type         string   `validate:"required" form:"Type"`
 }
 
+// CreateRoleResponse defines the response fields for the created role
 type CreateRoleResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -27,10 +29,15 @@ type CreateRoleResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Create creates a new role
+// See https://www.twilio.com/docs/chat/rest/role-resource#create-a-role-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateRoleInput) (*CreateRoleResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new role
+// See https://www.twilio.com/docs/chat/rest/role-resource#create-a-role-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateRoleInput) (*CreateRoleResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

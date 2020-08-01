@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateFieldInput defines the input parameters/ properties for creating a new task field resource
+// CreateFieldInput defines the input fields for creating a new task field resource
 type CreateFieldInput struct {
 	FieldType  string `validate:"required" form:"FieldType"`
 	UniqueName string `validate:"required" form:"UniqueName"`
 }
 
-// CreateFieldResponse resource/ response properties for the created task field
+// CreateFieldResponse defines the response fields for the created task field
 type CreateFieldResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	AssistantSid string     `json:"assistant_sid"`

@@ -3,7 +3,7 @@ package webhooks
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing an Autopilot webhook resource
+// Client for managing webhook resources
 // See https://www.twilio.com/docs/autopilot/api/event-webhooks for more details
 type Client struct {
 	client *client.Client

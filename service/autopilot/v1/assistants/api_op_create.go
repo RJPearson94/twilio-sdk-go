@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateAssistantInput defines the input parameters/ properties for creating a new assistant resource
+// CreateAssistantInput defines the input fields for creating a new assistant resource
 type CreateAssistantInput struct {
 	CallbackEvents *string `form:"CallbackEvents,omitempty"`
 	CallbackURL    *string `form:"CallbackUrl,omitempty"`
@@ -20,7 +20,7 @@ type CreateAssistantInput struct {
 	UniqueName     *string `form:"UniqueName,omitempty"`
 }
 
-// CreateAssistantResponse resource/ response properties for the created assistant
+// CreateAssistantResponse defines the response fields for the created assistant
 type CreateAssistantResponse struct {
 	AccountSid          string     `json:"account_sid"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`

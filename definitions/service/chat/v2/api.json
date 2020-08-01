@@ -11,6 +11,10 @@
     {
       "name": "Services",
       "packageName": "services",
+      "documentation": {
+        "description": "Client for managing service resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,22 @@
             "uri": "/Services",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new service",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource#create-a-service-resource"
+          },
           "input": {
-            "structure": "CreateServiceInput"
+            "structure": "CreateServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new service resource"
+            }
           },
           "response": {
             "name": "CreateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created service"
+            }
           }
         }
       ]
@@ -35,6 +49,10 @@
         "sid": {
           "dataType": "string"
         }
+      },
+      "documentation": {
+        "description": "Client for managing a specific service resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource"
       },
       "subClients": [
         {
@@ -56,6 +74,10 @@
               "dataType": "string",
               "functionParameter": "bindingSid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific service binding resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/binding-resource"
           },
           "operations": [
             {
@@ -82,9 +104,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an service binding resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/binding-resource#fetch-a-binding-resource"
+              },
               "response": {
                 "name": "FetchBindingResponse",
-                "structure": "BindingResponse"
+                "structure": "BindingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved service binding"
+                }
               }
             },
             {
@@ -110,6 +139,9 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a service binding resource from the account"
               }
             }
           ]
@@ -122,6 +154,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing channel resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource"
           },
           "operations": [
             {
@@ -140,12 +176,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new channel",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource#create-a-channel-resource"
+              },
               "input": {
-                "structure": "CreateChannelInput"
+                "structure": "CreateChannelInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new channel resource"
+                }
               },
               "response": {
                 "name": "CreateChannelResponse",
-                "structure": "ChannelResponse"
+                "structure": "ChannelResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created channel"
+                }
               }
             }
           ]
@@ -170,6 +216,10 @@
               "functionParameter": "channelSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific channel resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource"
+          },
           "subClients": [
             {
               "name": "Invites",
@@ -183,6 +233,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing invite resources",
+                "twilioDocsLink": "twilio.com/docs/chat/rest/invite-resource"
               },
               "operations": [
                 {
@@ -209,12 +263,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new invite",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/invite-resource#create-an-invite-resource"
+                  },
                   "input": {
-                    "structure": "CreateChannelInviteInput"
+                    "structure": "CreateChannelInviteInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new invite resource"
+                    }
                   },
                   "response": {
                     "name": "CreateChannelInviteResponse",
-                    "structure": "ChannelInviteResponse"
+                    "structure": "ChannelInviteResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created invite"
+                    }
                   }
                 }
               ]
@@ -243,6 +307,10 @@
                   "functionParameter": "inviteSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/invite-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -276,9 +344,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a invite resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/invite-resource#fetch-an-invite-resource"
+                  },
                   "response": {
                     "name": "FetchChannelInviteResponse",
-                    "structure": "ChannelInviteResponse"
+                    "structure": "ChannelInviteResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved invite"
+                    }
                   }
                 },
                 {
@@ -312,6 +387,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a invite resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/invite-resource#delete-an-invite-resource"
                   }
                 }
               ]
@@ -328,6 +407,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing member resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource"
               },
               "operations": [
                 {
@@ -354,12 +437,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new member",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource#create-a-member-resource"
+                  },
                   "input": {
-                    "structure": "CreateChannelMemberInput"
+                    "structure": "CreateChannelMemberInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new member resource"
+                    }
                   },
                   "response": {
                     "name": "CreateChannelMemberResponse",
-                    "structure": "ChannelMemberResponse"
+                    "structure": "ChannelMemberResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created member"
+                    }
                   }
                 }
               ]
@@ -388,6 +481,10 @@
                   "functionParameter": "memberSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific member resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -421,9 +518,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a member resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource#fetch-a-member-resource"
+                  },
                   "response": {
                     "name": "FetchChannelMemberResponse",
-                    "structure": "ChannelMemberResponse"
+                    "structure": "ChannelMemberResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved member"
+                    }
                   }
                 },
                 {
@@ -458,13 +562,23 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a member resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource#update-a-member-resource"
+                  },
                   "input": {
                     "name": "UpdateChannelMemberInput",
-                    "structure": "ChannelMemberInput"
+                    "structure": "ChannelMemberInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a member resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateChannelMemberResponse",
-                    "structure": "ChannelMemberResponse"
+                    "structure": "ChannelMemberResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated member"
+                    }
                   }
                 },
                 {
@@ -498,6 +612,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a member resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource#delete-a-member-resource"
                   }
                 }
               ]
@@ -514,6 +632,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing message resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource"
               },
               "operations": [
                 {
@@ -540,12 +662,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new message",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource#create-a-message-resource"
+                  },
                   "input": {
-                    "structure": "CreateChannelMessageInput"
+                    "structure": "CreateChannelMessageInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new message resource"
+                    }
                   },
                   "response": {
                     "name": "CreateChannelMessageResponse",
-                    "structure": "ChannelMessageResponse"
+                    "structure": "ChannelMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created message"
+                    }
                   }
                 }
               ]
@@ -574,6 +706,10 @@
                   "functionParameter": "messageSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific message resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -607,9 +743,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a message resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource#fetch-a-message-resource"
+                  },
                   "response": {
                     "name": "FetchChannelMessageResponse",
-                    "structure": "ChannelMessageResponse"
+                    "structure": "ChannelMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved message"
+                    }
                   }
                 },
                 {
@@ -644,13 +787,23 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a message resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource#update-a-message-resource"
+                  },
                   "input": {
                     "name": "UpdateChannelMessageInput",
-                    "structure": "ChannelMessageInput"
+                    "structure": "ChannelMessageInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a message resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateChannelMessageResponse",
-                    "structure": "ChannelMessageResponse"
+                    "structure": "ChannelMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated message"
+                    }
                   }
                 },
                 {
@@ -684,6 +837,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a message resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource#delete-a-message-resource"
                   }
                 }
               ]
@@ -700,6 +857,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing webhook resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource"
               },
               "operations": [
                 {
@@ -726,12 +887,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new webhook",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource#create-a-channelwebhook-resource"
+                  },
                   "input": {
-                    "structure": "CreateChannelWebhookInput"
+                    "structure": "CreateChannelWebhookInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new webhook resource"
+                    }
                   },
                   "response": {
                     "name": "CreateChannelWebhookResponse",
-                    "structure": "ChannelWebhookResponse"
+                    "structure": "ChannelWebhookResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created webhook"
+                    }
                   }
                 }
               ]
@@ -760,6 +931,10 @@
                   "functionParameter": "webhookSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -793,9 +968,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a webhook resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource#fetch-a-channelwebhook-resource"
+                  },
                   "response": {
                     "name": "FetchChannelWebhookResponse",
-                    "structure": "ChannelWebhookResponse"
+                    "structure": "ChannelWebhookResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved webhook"
+                    }
                   }
                 },
                 {
@@ -830,13 +1012,23 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a webhook resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource#update-a-channelwebhook-resource"
+                  },
                   "input": {
                     "name": "UpdateChannelWebhookInput",
-                    "structure": "ChannelWebhookInput"
+                    "structure": "ChannelWebhookInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a webhook resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateChannelWebhookResponse",
-                    "structure": "ChannelWebhookResponse"
+                    "structure": "ChannelWebhookResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated webhook"
+                    }
                   }
                 },
                 {
@@ -870,6 +1062,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a webhook resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource#delete-a-channelwebhook-resource"
                   }
                 }
               ]
@@ -900,9 +1096,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a channel resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource#fetch-a-channel-resource"
+              },
               "response": {
                 "name": "FetchChannelResponse",
-                "structure": "ChannelResponse"
+                "structure": "ChannelResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved channel"
+                }
               }
             },
             {
@@ -929,13 +1132,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a channel resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource#update-a-channel-resource"
+              },
               "input": {
                 "name": "UpdateChannelInput",
-                "structure": "ChannelInput"
+                "structure": "ChannelInput",
+                "documentation": {
+                  "description": "defines input fields for updating a channel resource"
+                }
               },
               "response": {
                 "name": "UpdateChannelResponse",
-                "structure": "ChannelResponse"
+                "structure": "ChannelResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated channel"
+                }
               }
             },
             {
@@ -961,6 +1174,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a channel resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource#delete-a-channel-resource"
               }
             }
           ]
@@ -973,6 +1190,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing role resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource"
           },
           "operations": [
             {
@@ -991,12 +1212,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new role",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource#create-a-role-resource"
+              },
               "input": {
-                "structure": "CreateRoleInput"
+                "structure": "CreateRoleInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new role resource"
+                }
               },
               "response": {
                 "name": "CreateRoleResponse",
-                "structure": "RoleResponse"
+                "structure": "RoleResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created role"
+                }
               }
             }
           ]
@@ -1020,6 +1251,10 @@
               "dataType": "string",
               "functionParameter": "roleSid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific role resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource"
           },
           "operations": [
             {
@@ -1046,9 +1281,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a role resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource#fetch-a-role-resource"
+              },
               "response": {
                 "name": "FetchRoleResponse",
-                "structure": "RoleResponse"
+                "structure": "RoleResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved role"
+                }
               }
             },
             {
@@ -1075,12 +1317,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a role resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource#update-a-role-resource"
+              },
               "input": {
-                "structure": "UpdateRoleInput"
+                "structure": "UpdateRoleInput",
+                "documentation": {
+                  "description": "defines input fields for updating a role resource"
+                }
               },
               "response": {
                 "name": "UpdateRoleResponse",
-                "structure": "RoleResponse"
+                "structure": "RoleResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated role"
+                }
               }
             },
             {
@@ -1106,6 +1358,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a role resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource#delete-a-role-resource"
               }
             }
           ]
@@ -1118,6 +1374,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing user resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource"
           },
           "operations": [
             {
@@ -1136,12 +1396,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new user",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource#create-a-user-resource"
+              },
               "input": {
-                "structure": "CreateUserInput"
+                "structure": "CreateUserInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new user resource"
+                }
               },
               "response": {
                 "name": "CreateUserResponse",
-                "structure": "UserResponse"
+                "structure": "UserResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created user"
+                }
               }
             }
           ]
@@ -1165,6 +1435,10 @@
               "dataType": "string",
               "functionParameter": "userSid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific user resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource"
           },
           "subClients": [
             {
@@ -1190,6 +1464,10 @@
                   "dataType": "string",
                   "functionParameter": "bindingSid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a specific user binding resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-binding-resource"
               },
               "operations": [
                 {
@@ -1224,9 +1502,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a user binding resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-binding-resource#fetch-a-user-binding-resource"
+                  },
                   "response": {
                     "name": "FetchUserBindingResponse",
-                    "structure": "UserBindingResponse"
+                    "structure": "UserBindingResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved user binding"
+                    }
                   }
                 },
                 {
@@ -1260,6 +1545,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a user binding resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-binding-resource#delete-a-user-binding-resource"
                   }
                 }
               ]
@@ -1288,6 +1577,10 @@
                   "functionParameter": "channelSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific user channel resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-channel-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -1321,9 +1614,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a user channel resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-channel-resource#fetch-a-userchannel-resource"
+                  },
                   "response": {
                     "name": "FetchUserChannelResponse",
-                    "structure": "UserChannelResponse"
+                    "structure": "UserChannelResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved user channel"
+                    }
                   }
                 },
                 {
@@ -1358,12 +1658,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a user channel resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-channel-resource#set-the-notificationlevel"
+                  },
                   "input": {
-                    "structure": "UpdateUserChannelInput"
+                    "structure": "UpdateUserChannelInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a user channel resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateUserChannelResponse",
-                    "structure": "UserChannelResponse"
+                    "structure": "UserChannelResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated user channel"
+                    }
                   }
                 }
               ]
@@ -1394,9 +1704,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a user resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource#fetch-a-user-resource"
+              },
               "response": {
                 "name": "FetchUserResponse",
-                "structure": "UserResponse"
+                "structure": "UserResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved user"
+                }
               }
             },
             {
@@ -1423,13 +1740,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a user resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource#update-a-user-resource"
+              },
               "input": {
                 "name": "UpdateUserInput",
-                "structure": "UserInput"
+                "structure": "UserInput",
+                "documentation": {
+                  "description": "defines input fields for updating a user resource"
+                }
               },
               "response": {
                 "name": "UpdateUserResponse",
-                "structure": "UserResponse"
+                "structure": "UserResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated user"
+                }
               }
             },
             {
@@ -1455,6 +1782,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a user resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource#delete-a-user-resource"
               }
             }
           ]
@@ -1477,9 +1808,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource#fetch-a-service-resource"
+          },
           "response": {
             "name": "FetchServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved service"
+            }
           }
         },
         {
@@ -1498,12 +1836,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource#update-a-service-resource"
+          },
           "input": {
-            "structure": "UpdateServiceInput"
+            "structure": "UpdateServiceInput",
+            "documentation": {
+              "description": "defines the input fields for updating a service resource"
+            }
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated service"
+            }
           }
         },
         {
@@ -1521,6 +1869,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a service resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource#delete-a-service-resource"
           }
         }
       ]
@@ -1528,6 +1880,10 @@
     {
       "name": "Credentials",
       "packageName": "credentials",
+      "documentation": {
+        "description": "Client for managing credentials resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource"
+      },
       "operations": [
         {
           "name": "Create",
@@ -1535,12 +1891,22 @@
             "uri": "/Credentials",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new credentials",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource#create-a-credential-resource"
+          },
           "input": {
-            "structure": "CreateCredentialInput"
+            "structure": "CreateCredentialInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new credentials resource"
+            }
           },
           "response": {
             "name": "CreateCredentialResponse",
-            "structure": "CredentialResponse"
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the created credentials"
+            }
           }
         }
       ]
@@ -1552,6 +1918,10 @@
         "sid": {
           "dataType": "string"
         }
+      },
+      "documentation": {
+        "description": "Client for managing a specific credential resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource"
       },
       "operations": [
         {
@@ -1570,9 +1940,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a credential resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource#fetch-a-credential-resource"
+          },
           "response": {
             "name": "FetchCredentialResponse",
-            "structure": "CredentialResponse"
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved credential"
+            }
           }
         },
         {
@@ -1591,13 +1968,23 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a credential resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource#update-a-credential-resource"
+          },
           "input": {
             "name": "UpdateCredentialInput",
-            "structure": "CredentialInput"
+            "structure": "CredentialInput",
+            "documentation": {
+              "description": "defines the input fields for updating a credential resource"
+            }
           },
           "response": {
             "name": "UpdateCredentialResponse",
-            "structure": "CredentialResponse"
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated credential"
+            }
           }
         },
         {
@@ -1615,6 +2002,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a credential resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource#delete-a-credential-resource"
           }
         }
       ]

@@ -11,31 +11,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/short_codes"
 )
 
+// Client for managing a specific service resource
+// See https://www.twilio.com/docs/proxy/api/service for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage phone number resources
-	PhoneNumber func(string) *phone_number.Client
-	// Sub client to manage phone numbers resources
+	PhoneNumber  func(string) *phone_number.Client
 	PhoneNumbers *phone_numbers.Client
-	// Sub client to manage session resources
-	Session func(string) *session.Client
-	// Sub client to manage sessions resources
-	Sessions *sessions.Client
-	// Sub client to manage short code resources
-	ShortCode func(string) *short_code.Client
-	// Sub client to manage short codes resources
-	ShortCodes *short_codes.Client
+	Session      func(string) *session.Client
+	Sessions     *sessions.Client
+	ShortCode    func(string) *short_code.Client
+	ShortCodes   *short_codes.Client
 }
 
-// The properties required to manage the service resources
+// ClientProperties are the properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the service client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

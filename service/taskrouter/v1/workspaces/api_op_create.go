@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateWorkspaceInput defines the input fields for creating a new workspace resource
 type CreateWorkspaceInput struct {
 	EventCallbackURL     *string `form:"EventCallbackUrl,omitempty"`
 	EventsFilter         *string `form:"EventsFilter,omitempty"`
@@ -18,6 +19,7 @@ type CreateWorkspaceInput struct {
 	Template             *string `form:"Template,omitempty"`
 }
 
+// CreateWorkspaceResponse defines the response fields for the created workspace
 type CreateWorkspaceResponse struct {
 	AccountSid           string     `json:"account_sid"`
 	DateCreated          time.Time  `json:"date_created"`
@@ -35,10 +37,15 @@ type CreateWorkspaceResponse struct {
 	URL                  string     `json:"url"`
 }
 
+// Create creates a new workspace
+// See https://www.twilio.com/docs/taskrouter/api/workspace#create-a-workspace-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateWorkspaceInput) (*CreateWorkspaceResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new workspace
+// See https://www.twilio.com/docs/taskrouter/api/workspace#create-a-workspace-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateWorkspaceInput) (*CreateWorkspaceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

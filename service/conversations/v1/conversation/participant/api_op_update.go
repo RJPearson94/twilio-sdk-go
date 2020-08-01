@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// UpdateParticipantInput defines input fields for updating an participant resource
 type UpdateParticipantInput struct {
 	Attributes                       *string            `form:"Attributes,omitempty"`
 	DateCreated                      *utils.RFC2822Time `form:"DateCreated,omitempty"`
@@ -26,6 +27,7 @@ type UpdateParticipantResponseMessageBinding struct {
 	Type             string  `json:"type"`
 }
 
+// UpdateParticipantResponse defines the response fields for the updated participant
 type UpdateParticipantResponse struct {
 	AccountSid       string                                   `json:"account_sid"`
 	Attributes       string                                   `json:"attributes"`
@@ -39,10 +41,15 @@ type UpdateParticipantResponse struct {
 	URL              string                                   `json:"url"`
 }
 
+// Update modifies a participant resource
+// See https://www.twilio.com/docs/conversations/api/conversation-participant-resource#update-a-conversationparticipant-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateParticipantInput) (*UpdateParticipantResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a participant resource
+// See https://www.twilio.com/docs/conversations/api/conversation-participant-resource#update-a-conversationparticipant-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateParticipantInput) (*UpdateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

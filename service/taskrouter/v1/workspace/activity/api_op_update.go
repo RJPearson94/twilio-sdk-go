@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateActivityInput defines input fields for updating a activity resource
 type UpdateActivityInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
+// UpdateActivityResponse defines the response fields for the updated activity
 type UpdateActivityResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	Available    bool       `json:"available"`
@@ -24,10 +26,15 @@ type UpdateActivityResponse struct {
 	WorkspaceSid string     `json:"workspace_sid"`
 }
 
+// Update modifies a activity resource
+// See https://www.twilio.com/docs/taskrouter/api/activity#update-an-activity-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateActivityInput) (*UpdateActivityResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a activity resource
+// See https://www.twilio.com/docs/taskrouter/api/activity#update-an-activity-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateActivityInput) (*UpdateActivityResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

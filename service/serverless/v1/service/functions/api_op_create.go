@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFunctionInput defines the input fields for creating a new function resource
 type CreateFunctionInput struct {
 	FriendlyName string `validate:"required" form:"FriendlyName"`
 }
 
+// CreateFunctionResponse defines the response fields for the created function
 type CreateFunctionResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -23,10 +25,15 @@ type CreateFunctionResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Create creates a new function
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function#create-a-function-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFunctionInput) (*CreateFunctionResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new function
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function#create-a-function-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFunctionInput) (*CreateFunctionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

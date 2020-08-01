@@ -1,14 +1,15 @@
 package v1
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspaces"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
-
-	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/session"
+	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// TaskRouter client is used to manage resources for Twilio TaskRouter
+// See https://www.twilio.com/docs/taskrouter for more details
 type TaskRouter struct {
 	client     *client.Client
 	Workspace  func(string) *workspace.Client
@@ -20,6 +21,7 @@ func (s TaskRouter) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *TaskRouter {
 	config := client.GetDefaultConfig()
 	config.Beta = false
@@ -29,6 +31,7 @@ func New(sess *session.Session) *TaskRouter {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *TaskRouter {
 	return &TaskRouter{
 		client: client,
@@ -41,6 +44,7 @@ func NewWithClient(client *client.Client) *TaskRouter {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *TaskRouter {
 	return New(session.New(creds))
 }

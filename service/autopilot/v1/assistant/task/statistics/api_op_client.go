@@ -3,7 +3,7 @@ package statistics
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing a task statistics resource
+// Client for managing task statistics resources
 // See https://www.twilio.com/docs/autopilot/api/task-statistics for more details
 type Client struct {
 	client *client.Client

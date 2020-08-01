@@ -3,6 +3,8 @@ package variables
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing environment variable resources
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/variable for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	serviceSid     string
 }
 
-// The properties required to manage the variables resources
+// ClientProperties are the properties required to manage the variables resources
 type ClientProperties struct {
 	EnvironmentSid string
 	ServiceSid     string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the variables client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -9,12 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateModelBuildInput defines input parameters/ properties for updating a model build
+// UpdateModelBuildInput defines the input fields for updating a model build
 type UpdateModelBuildInput struct {
 	UniqueName *string `form:"UniqueName,omitempty"`
 }
 
-// UpdateModelBuildResponse resource/ response properties for the updated model build
+// UpdateModelBuildResponse defines the response fields for the updated model build
 type UpdateModelBuildResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

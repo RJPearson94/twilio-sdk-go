@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchFlowResponse defines the response fields for the retrieved flow
 type FetchFlowResponse struct {
 	AccountSid    string         `json:"account_sid"`
 	CommitMessage *string        `json:"commit_message,omitempty"`
@@ -26,10 +27,15 @@ type FetchFlowResponse struct {
 	WebhookURL    string         `json:"webhook_url"`
 }
 
+// Fetch retrieves a flow resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/flow#fetch-a-flow-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchFlowResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a flow resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/flow#fetch-a-flow-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchFlowResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

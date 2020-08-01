@@ -9,12 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// CreateKeyInput defines input parameters/ properties for creating a new API Key
+// CreateKeyInput defines input fields for creating a new API Key
 type CreateKeyInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 }
 
-// CreateKeyResponse resource/ response properties for creating a new API Key
+// CreateKeyResponse defines the response fields for creating a new API Key
 type CreateKeyResponse struct {
 	DateCreated  utils.RFC2822Time  `json:"date_created"`
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`

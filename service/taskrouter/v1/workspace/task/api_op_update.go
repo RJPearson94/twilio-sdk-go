@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateTaskInput defines input fields for updating a task resource
 type UpdateTaskInput struct {
 	AssignmentStatus *string `form:"AssignmentStatus,omitempty"`
 	Attributes       *string `form:"Attributes,omitempty"`
@@ -17,6 +18,7 @@ type UpdateTaskInput struct {
 	TaskChannel      *string `form:"TaskChannel,omitempty"`
 }
 
+// UpdateTaskResponse defines the response fields for the updated task
 type UpdateTaskResponse struct {
 	AccountSid            string      `json:"account_sid"`
 	Age                   int         `json:"age"`
@@ -39,10 +41,15 @@ type UpdateTaskResponse struct {
 	WorkspaceSid          string      `json:"workspace_sid"`
 }
 
+// Update modifies a task resource
+// See https://www.twilio.com/docs/taskrouter/api/task#update-a-task-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateTaskInput) (*UpdateTaskResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a task resource
+// See https://www.twilio.com/docs/taskrouter/api/task#update-a-task-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskInput) (*UpdateTaskResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

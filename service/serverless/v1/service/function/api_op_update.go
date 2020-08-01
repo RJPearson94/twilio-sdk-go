@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateFunctionInput defines input fields for updating a function resource
 type UpdateFunctionInput struct {
 	FriendlyName string `validate:"required" form:"FriendlyName"`
 }
 
+// UpdateFunctionResponse defines the response fields for the updated function
 type UpdateFunctionResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -23,10 +25,15 @@ type UpdateFunctionResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Update modifies a function resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function#update-a-function-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateFunctionInput) (*UpdateFunctionResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a function resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function#update-a-function-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateFunctionInput) (*UpdateFunctionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

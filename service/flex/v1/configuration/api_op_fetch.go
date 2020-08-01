@@ -36,6 +36,7 @@ type FetchConfigurationResponseWorkerChannel struct {
 	Name         string `json:"name"`
 }
 
+// FetchConfigurationResponse defines the response fields for the retrieved configuration
 type FetchConfigurationResponse struct {
 	AccountSid                   string                                                `json:"account_sid"`
 	Attributes                   *interface{}                                          `json:"attributes,omitempty"`
@@ -77,10 +78,13 @@ type FetchConfigurationResponse struct {
 	WfmIntegrations              *[]FetchConfigurationResponseIntegration              `json:"wfm_integrations,omitempty"`
 }
 
+// Fetch retrieves a configuration resource
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchConfigurationResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a configuration resource
 func (c Client) FetchWithContext(context context.Context) (*FetchConfigurationResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

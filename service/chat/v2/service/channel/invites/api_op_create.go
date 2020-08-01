@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateChannelInviteInput defines the input fields for creating a new invite resource
 type CreateChannelInviteInput struct {
 	Identity string  `validate:"required" form:"Identity"`
 	RoleSid  *string `form:"RoleSid,omitempty"`
 }
 
+// CreateChannelInviteResponse defines the response fields for the created invite
 type CreateChannelInviteResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	ChannelSid  string     `json:"channel_sid"`
@@ -27,10 +29,15 @@ type CreateChannelInviteResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Create creates a new invite
+// See https://www.twilio.com/docs/chat/rest/invite-resource#create-an-invite-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateChannelInviteInput) (*CreateChannelInviteResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new invite
+// See https://www.twilio.com/docs/chat/rest/invite-resource#create-an-invite-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelInviteInput) (*CreateChannelInviteResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

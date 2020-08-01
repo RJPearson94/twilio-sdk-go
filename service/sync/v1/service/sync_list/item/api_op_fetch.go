@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchSyncListItemResponse defines the response fields for the retrieved list item
 type FetchSyncListItemResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
@@ -24,10 +25,15 @@ type FetchSyncListItemResponse struct {
 	URL         string                 `json:"url"`
 }
 
+// Fetch retrieves an list item resource
+// See https://www.twilio.com/docs/sync/api/listitem-resource#fetch-a-listitem-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchSyncListItemResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an list item resource
+// See https://www.twilio.com/docs/sync/api/listitem-resource#fetch-a-listitem-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchSyncListItemResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

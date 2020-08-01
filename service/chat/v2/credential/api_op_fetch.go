@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchCredentialResponse defines the response fields for the retrieved credential
 type FetchCredentialResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -20,10 +21,15 @@ type FetchCredentialResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Fetch retrieves a credential resource
+// See https://www.twilio.com/docs/chat/rest/credential-resource#fetch-a-credential-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchCredentialResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a credential resource
+// See https://www.twilio.com/docs/chat/rest/credential-resource#fetch-a-credential-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchCredentialResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

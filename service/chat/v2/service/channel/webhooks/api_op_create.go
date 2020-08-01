@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateChannelWebhookInput defines the input fields for creating a new webhook resource
 type CreateChannelWebhookInput struct {
 	ConfigurationFilters    *[]string `form:"Configuration.Filters,omitempty"`
 	ConfigurationFlowSid    *string   `form:"Configuration.FlowSid,omitempty"`
@@ -28,6 +29,7 @@ type CreateChannelWebhookResponseConfiguration struct {
 	URL        *string   `json:"url,omitempty"`
 }
 
+// CreateChannelWebhookResponse defines the response fields for the created webhook
 type CreateChannelWebhookResponse struct {
 	AccountSid    string                                    `json:"account_sid"`
 	ChannelSid    string                                    `json:"channel_sid"`
@@ -40,10 +42,15 @@ type CreateChannelWebhookResponse struct {
 	URL           string                                    `json:"url"`
 }
 
+// Create creates a new webhook
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource#create-a-channelwebhook-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateChannelWebhookInput) (*CreateChannelWebhookResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new webhook
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource#create-a-channelwebhook-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelWebhookInput) (*CreateChannelWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

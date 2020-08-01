@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// Messaging client is used to manage resources for Twilio Messaging
+// See https://www.twilio.com/docs/messaging for more details
 type Messaging struct {
 	client *client.Client
 
@@ -20,6 +22,7 @@ func (s Messaging) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *Messaging {
 	config := client.GetDefaultConfig()
 	config.Beta = true
@@ -29,6 +32,7 @@ func New(sess *session.Session) *Messaging {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Messaging {
 	return &Messaging{
 		client: client,
@@ -41,6 +45,7 @@ func NewWithClient(client *client.Client) *Messaging {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Messaging {
 	return New(session.New(creds))
 }

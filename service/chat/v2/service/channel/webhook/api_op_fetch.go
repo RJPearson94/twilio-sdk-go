@@ -18,6 +18,7 @@ type FetchChannelWebhookResponseConfiguration struct {
 	URL        *string   `json:"url,omitempty"`
 }
 
+// FetchChannelWebhookResponse defines the response fields for the retrieved webhook
 type FetchChannelWebhookResponse struct {
 	AccountSid    string                                   `json:"account_sid"`
 	ChannelSid    string                                   `json:"channel_sid"`
@@ -30,10 +31,15 @@ type FetchChannelWebhookResponse struct {
 	URL           string                                   `json:"url"`
 }
 
+// Fetch retrieves a webhook resource
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource#fetch-a-channelwebhook-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchChannelWebhookResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a webhook resource
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource#fetch-a-channelwebhook-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchChannelWebhookResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

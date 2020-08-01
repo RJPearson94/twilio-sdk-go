@@ -8,6 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchDocumentPermissionsResponse defines the response fields for the retrieved document permission
 type FetchDocumentPermissionsResponse struct {
 	AccountSid  string `json:"account_sid"`
 	DocumentSid string `json:"document_sid"`
@@ -19,10 +20,15 @@ type FetchDocumentPermissionsResponse struct {
 	Write       bool   `json:"write"`
 }
 
+// Fetch retrieves an document permission resource
+// See https://www.twilio.com/docs/sync/api/document-permission-resource#fetch-a-document-permission-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchDocumentPermissionsResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an document permission resource
+// See https://www.twilio.com/docs/sync/api/document-permission-resource#fetch-a-document-permission-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchDocumentPermissionsResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

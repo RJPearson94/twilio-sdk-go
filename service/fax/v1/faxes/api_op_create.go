@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateFaxInput defines the input fields for creating a new fax resource
 type CreateFaxInput struct {
 	From            *string `form:"From,omitempty"`
 	MediaURL        string  `validate:"required" form:"MediaUrl"`
@@ -21,6 +22,7 @@ type CreateFaxInput struct {
 	Ttl             *int    `form:"Ttl,omitempty"`
 }
 
+// CreateFaxResponse defines the response fields for the created fax
 type CreateFaxResponse struct {
 	APIVersion  string     `json:"api_version"`
 	AccountSid  string     `json:"account_sid"`
@@ -41,10 +43,15 @@ type CreateFaxResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Create creates a new fax
+// See https://www.twilio.com/docs/fax/api/fax-resource#create-a-fax-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateFaxInput) (*CreateFaxResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new fax
+// See https://www.twilio.com/docs/fax/api/fax-resource#create-a-fax-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateFaxInput) (*CreateFaxResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

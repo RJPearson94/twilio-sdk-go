@@ -3,18 +3,19 @@ package channel
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific channel resource
 type Client struct {
 	client *client.Client
 
 	sid string
 }
 
-// The properties required to manage the channel resources
+// ClientProperties are the properties required to manage the channel resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the channel client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

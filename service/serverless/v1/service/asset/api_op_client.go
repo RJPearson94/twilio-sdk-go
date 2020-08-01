@@ -7,25 +7,25 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/asset/versions"
 )
 
+// Client for managing a specific asset resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 	sid        string
 
-	// Sub client to manage version resources
-	Version func(string) *version.Client
-	// Sub client to manage versions resources
+	Version  func(string) *version.Client
 	Versions *versions.Client
 }
 
-// The properties required to manage the asset resources
+// ClientProperties are the properties required to manage the asset resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the asset client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

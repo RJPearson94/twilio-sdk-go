@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchFaxResponse defines the response fields for the retrieved fax
 type FetchFaxResponse struct {
 	APIVersion  string     `json:"api_version"`
 	AccountSid  string     `json:"account_sid"`
@@ -29,10 +30,15 @@ type FetchFaxResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Fetch retrieves a fax resource
+// See https://www.twilio.com/docs/fax/api/fax-resource#fetch-a-fax-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchFaxResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a fax resource
+// See https://www.twilio.com/docs/fax/api/fax-resource#fetch-a-fax-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchFaxResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

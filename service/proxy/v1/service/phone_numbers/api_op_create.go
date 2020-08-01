@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreatePhoneNumberInput defines the input fields for creating a new phone number resource
 type CreatePhoneNumberInput struct {
 	IsReserved  *bool   `form:"IsReserved,omitempty"`
 	PhoneNumber *string `form:"PhoneNumber,omitempty"`
@@ -31,6 +32,7 @@ type CreatePhoneNumberResponseCapabilities struct {
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
 }
 
+// CreatePhoneNumberResponse defines the response fields for the created phone number
 type CreatePhoneNumberResponse struct {
 	AccountSid   string                                 `json:"account_sid"`
 	Capabilities *CreatePhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
@@ -46,10 +48,15 @@ type CreatePhoneNumberResponse struct {
 	URL          string                                 `json:"url"`
 }
 
+// Create adds a new phone number resource to the proxy service
+// See https://www.twilio.com/docs/proxy/api/phone-number#add-a-phone-number-to-a-proxy-service for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreatePhoneNumberInput) (*CreatePhoneNumberResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext adds a new phone number resource to the proxy service
+// See https://www.twilio.com/docs/proxy/api/phone-number#add-a-phone-number-to-a-proxy-service for more details
 func (c Client) CreateWithContext(context context.Context, input *CreatePhoneNumberInput) (*CreatePhoneNumberResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

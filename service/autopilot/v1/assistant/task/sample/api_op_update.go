@@ -9,14 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateSampleInput defines input parameters/ properties for updating a task sample
+// UpdateSampleInput defines the input fields for updating a task sample
 type UpdateSampleInput struct {
 	Language      *string `form:"Language,omitempty"`
 	SourceChannel *string `form:"SourceChannel,omitempty"`
 	TaggedText    *string `form:"TaggedText,omitempty"`
 }
 
-// UpdateSampleResponse resource/ response properties for the updated task sample
+// UpdateSampleResponse defines the response fields for the updated task sample
 type UpdateSampleResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

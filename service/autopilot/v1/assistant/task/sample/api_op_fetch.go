@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchSampleResponse resource/ response properties for the retrieved task sample
+// FetchSampleResponse defines the response fields for the retrieved task sample
 type FetchSampleResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

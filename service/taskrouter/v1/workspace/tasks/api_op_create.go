@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateTaskInput defines the input fields for creating a new task resource
 type CreateTaskInput struct {
 	Attributes  *string `form:"Attributes,omitempty"`
 	Priority    *int    `form:"Priority,omitempty"`
@@ -17,6 +18,7 @@ type CreateTaskInput struct {
 	WorkflowSid *string `form:"WorkflowSid,omitempty"`
 }
 
+// CreateTaskResponse defines the response fields for the created task
 type CreateTaskResponse struct {
 	AccountSid            string      `json:"account_sid"`
 	Age                   int         `json:"age"`
@@ -39,10 +41,15 @@ type CreateTaskResponse struct {
 	WorkspaceSid          string      `json:"workspace_sid"`
 }
 
+// Create creates a new task
+// See https://www.twilio.com/docs/taskrouter/api/task#create-a-task-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateTaskInput) (*CreateTaskResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new task
+// See https://www.twilio.com/docs/taskrouter/api/task#create-a-task-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateTaskInput) (*CreateTaskResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

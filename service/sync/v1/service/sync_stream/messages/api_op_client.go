@@ -3,6 +3,8 @@ package messages
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing stream message resources
+// See https://www.twilio.com/docs/sync/api/stream-message-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	syncStreamSid string
 }
 
-// The properties required to manage the messages resources
+// ClientProperties are the properties required to manage the messages resources
 type ClientProperties struct {
 	ServiceSid    string
 	SyncStreamSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the messages client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

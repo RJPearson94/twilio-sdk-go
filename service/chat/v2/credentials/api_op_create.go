@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateCredentialInput defines the input fields for creating a new credentials resource
 type CreateCredentialInput struct {
 	ApiKey       *string `form:"ApiKey,omitempty"`
 	Certificate  *string `form:"Certificate,omitempty"`
@@ -19,6 +20,7 @@ type CreateCredentialInput struct {
 	Type         string  `validate:"required" form:"Type"`
 }
 
+// CreateCredentialResponse defines the response fields for the created credentials
 type CreateCredentialResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -30,10 +32,15 @@ type CreateCredentialResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Create creates a new credentials
+// See https://www.twilio.com/docs/chat/rest/credential-resource#create-a-credential-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateCredentialInput) (*CreateCredentialResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new credentials
+// See https://www.twilio.com/docs/chat/rest/credential-resource#create-a-credential-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateCredentialInput) (*CreateCredentialResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

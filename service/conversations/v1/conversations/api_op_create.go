@@ -10,6 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// CreateConversationInput defines the input fields for creating a new conversation resource
 type CreateConversationInput struct {
 	Attributes          *string            `form:"Attributes,omitempty"`
 	DateCreated         *utils.RFC2822Time `form:"DateCreated,omitempty"`
@@ -26,6 +27,7 @@ type CreateConversationResponseTimers struct {
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 }
 
+// CreateConversationResponse defines the response fields for the created conversation
 type CreateConversationResponse struct {
 	AccountSid          string                           `json:"account_sid"`
 	Attributes          string                           `json:"attributes"`
@@ -40,10 +42,15 @@ type CreateConversationResponse struct {
 	URL                 string                           `json:"url"`
 }
 
+// Create creates a new conversation
+// See https://www.twilio.com/docs/conversations/api/conversation-resource#create-a-conversation-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateConversationInput) (*CreateConversationResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new conversation
+// See https://www.twilio.com/docs/conversations/api/conversation-resource#create-a-conversation-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateConversationInput) (*CreateConversationResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateSyncListInput defines the input fields for creating a new list resource
 type CreateSyncListInput struct {
 	CollectionTtl *int    `form:"CollectionTtl,omitempty"`
 	Ttl           *int    `form:"Ttl,omitempty"`
 	UniqueName    *string `form:"UniqueName,omitempty"`
 }
 
+// CreateSyncListResponse defines the response fields for the created list
 type CreateSyncListResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	CreatedBy   string     `json:"created_by"`
@@ -28,10 +30,15 @@ type CreateSyncListResponse struct {
 	UniqueName  *string    `json:"unique_name,omitempty"`
 }
 
+// Create creates a new list
+// See https://www.twilio.com/docs/sync/api/list-resource#create-a-list-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateSyncListInput) (*CreateSyncListResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new list
+// See https://www.twilio.com/docs/sync/api/list-resource#create-a-list-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateSyncListInput) (*CreateSyncListResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

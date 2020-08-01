@@ -36,6 +36,7 @@ type FetchFunctionVersion struct {
 	Visibility  string    `json:"visibility"`
 }
 
+// FetchBuildResponse defines the response fields for the retrieved build
 type FetchBuildResponse struct {
 	AccountSid       string                  `json:"account_sid"`
 	AssetVersions    *[]FetchAssetVersion    `json:"asset_versions,omitempty"`
@@ -49,10 +50,15 @@ type FetchBuildResponse struct {
 	URL              string                  `json:"url"`
 }
 
+// Fetch retrieves a build resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/build#fetch-a-build-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchBuildResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a build resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/build#fetch-a-build-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchBuildResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

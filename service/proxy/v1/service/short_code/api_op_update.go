@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateShortCodeInput defines input fields for updating a short code resource
 type UpdateShortCodeInput struct {
 	IsReserved *bool `form:"IsReserved,omitempty"`
 }
@@ -29,6 +30,7 @@ type UpdateShortCodeResponseCapabilities struct {
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
 }
 
+// UpdateShortCodeResponse defines the response fields for the updated short code
 type UpdateShortCodeResponse struct {
 	AccountSid   string                               `json:"account_sid"`
 	Capabilities *UpdateShortCodeResponseCapabilities `json:"capabilities,omitempty"`
@@ -42,10 +44,15 @@ type UpdateShortCodeResponse struct {
 	URL          string                               `json:"url"`
 }
 
+// Update modifies a short code resource
+// See https://www.twilio.com/docs/proxy/api/short-code#update-a-shortcode-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateShortCodeInput) (*UpdateShortCodeResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a short code resource
+// See https://www.twilio.com/docs/proxy/api/short-code#update-a-shortcode-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateShortCodeInput) (*UpdateShortCodeResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

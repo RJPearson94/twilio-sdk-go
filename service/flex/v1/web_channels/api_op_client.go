@@ -3,11 +3,12 @@ package web_channels
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing web channel resources
 type Client struct {
 	client *client.Client
 }
 
-// Create a new instance of the client
+// New creates a new instance of the web channels client
 func New(client *client.Client) *Client {
 	return &Client{
 		client: client,

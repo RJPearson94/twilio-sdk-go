@@ -3,7 +3,7 @@ package style_sheet
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing an style sheet resource
+// Client for managing style sheet resources
 // See https://www.twilio.com/docs/autopilot/api/assistant/stylesheet for more details
 type Client struct {
 	client *client.Client

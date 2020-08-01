@@ -7,25 +7,25 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution/step"
 )
 
+// Client for managing a specific execution resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/execution for more details
 type Client struct {
 	client *client.Client
 
 	flowSid string
 	sid     string
 
-	// Sub client to manage context resources
 	Context func() *context.Client
-	// Sub client to manage step resources
-	Step func(string) *step.Client
+	Step    func(string) *step.Client
 }
 
-// The properties required to manage the execution resources
+// ClientProperties are the properties required to manage the execution resources
 type ClientProperties struct {
 	FlowSid string
 	Sid     string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the execution client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -18,6 +18,7 @@ type FetchConversationWebhookResponseConfiguration struct {
 	URL         *string   `json:"url,omitempty"`
 }
 
+// FetchConversationWebhookResponse defines the response fields for the retrieved webhook
 type FetchConversationWebhookResponse struct {
 	AccountSid      string                                        `json:"account_sid"`
 	Configuration   FetchConversationWebhookResponseConfiguration `json:"configuration"`
@@ -29,10 +30,15 @@ type FetchConversationWebhookResponse struct {
 	URL             string                                        `json:"url"`
 }
 
+// Fetch retrieves an webhook resource
+// See https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#fetch-a-conversationscopedwebhook-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchConversationWebhookResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an webhook resource
+// See https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#fetch-a-conversationscopedwebhook-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchConversationWebhookResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

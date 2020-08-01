@@ -3,18 +3,20 @@ package sync_maps
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing map resources
+// See https://www.twilio.com/docs/sync/api/map-resource for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 }
 
-// The properties required to manage the syncmaps resources
+// ClientProperties are the properties required to manage the syncmaps resources
 type ClientProperties struct {
 	ServiceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the syncmaps client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

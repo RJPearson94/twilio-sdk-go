@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchBindingResponse defines the response fields for the retrieved service binding
 type FetchBindingResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	BindingType   *string    `json:"binding_type,omitempty"`
@@ -23,10 +24,15 @@ type FetchBindingResponse struct {
 	URL           string     `json:"url"`
 }
 
+// Fetch retrieves an service binding resource
+// See https://www.twilio.com/docs/chat/rest/binding-resource#fetch-a-binding-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchBindingResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an service binding resource
+// See https://www.twilio.com/docs/chat/rest/binding-resource#fetch-a-binding-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchBindingResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

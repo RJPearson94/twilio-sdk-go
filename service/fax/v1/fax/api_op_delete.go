@@ -8,10 +8,15 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// Delete removes a fax resource from the account
+// See https://www.twilio.com/docs/fax/api/fax-resource#delete-a-fax-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Delete() error {
 	return c.DeleteWithContext(context.Background())
 }
 
+// DeleteWithContext removes a fax resource from the account
+// See https://www.twilio.com/docs/fax/api/fax-resource#delete-a-fax-resource for more details
 func (c Client) DeleteWithContext(context context.Context) error {
 	op := client.Operation{
 		Method: http.MethodDelete,

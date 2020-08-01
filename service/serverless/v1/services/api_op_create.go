@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateServiceInput defines the input fields for creating a new service resource
 type CreateServiceInput struct {
 	FriendlyName       string `validate:"required" form:"FriendlyName"`
 	IncludeCredentials *bool  `form:"IncludeCredentials,omitempty"`
@@ -16,6 +17,7 @@ type CreateServiceInput struct {
 	UniqueName         string `validate:"required" form:"UniqueName"`
 }
 
+// CreateServiceResponse defines the response fields for the created service
 type CreateServiceResponse struct {
 	AccountSid         string     `json:"account_sid"`
 	DateCreated        time.Time  `json:"date_created"`
@@ -28,10 +30,15 @@ type CreateServiceResponse struct {
 	UniqueName         string     `json:"unique_name"`
 }
 
+// Create creates a new service
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/service#create-a-service-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateServiceInput) (*CreateServiceResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new service
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/service#create-a-service-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateServiceInput) (*CreateServiceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

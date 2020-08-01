@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateSyncStreamInput defines input fields for updating a stream resource
 type UpdateSyncStreamInput struct {
 	Ttl *int `form:"Ttl,omitempty"`
 }
 
+// UpdateSyncStreamResponse defines the response fields for the updated stream
 type UpdateSyncStreamResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	CreatedBy   string     `json:"created_by"`
@@ -25,10 +27,15 @@ type UpdateSyncStreamResponse struct {
 	UniqueName  *string    `json:"unique_name,omitempty"`
 }
 
+// Update modifies an stream resource
+// See https://www.twilio.com/docs/sync/api/stream-resource#update-a-sync-stream-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateSyncStreamInput) (*UpdateSyncStreamResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies an stream resource
+// See https://www.twilio.com/docs/sync/api/stream-resource#update-a-sync-stream-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncStreamInput) (*UpdateSyncStreamResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -9,12 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// CreateFeedbackInput defines input parameters/ properties for creating a new feedback resource
+// CreateFeedbackInput defines input fields for creating a new feedback resource
 type CreateFeedbackInput struct {
 	Outcome *string `form:"Outcome,omitempty"`
 }
 
-// CreateFeedbackResponse resource/ response properties for the created feedback
+// CreateFeedbackResponse defines the response fields for the created feedback
 type CreateFeedbackResponse struct {
 	AccountSid  string             `json:"account_sid"`
 	DateCreated utils.RFC2822Time  `json:"date_created"`

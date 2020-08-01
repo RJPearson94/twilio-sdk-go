@@ -12,33 +12,28 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/users"
 )
 
+// Client for managing a specific service resource
+// See https://www.twilio.com/docs/chat/rest/service-resource for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage binding resources
-	Binding func(string) *binding.Client
-	// Sub client to manage channel resources
-	Channel func(string) *channel.Client
-	// Sub client to manage channels resources
+	Binding  func(string) *binding.Client
+	Channel  func(string) *channel.Client
 	Channels *channels.Client
-	// Sub client to manage role resources
-	Role func(string) *role.Client
-	// Sub client to manage roles resources
-	Roles *roles.Client
-	// Sub client to manage user resources
-	User func(string) *user.Client
-	// Sub client to manage users resources
-	Users *users.Client
+	Role     func(string) *role.Client
+	Roles    *roles.Client
+	User     func(string) *user.Client
+	Users    *users.Client
 }
 
-// The properties required to manage the service resources
+// ClientProperties are the properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the service client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

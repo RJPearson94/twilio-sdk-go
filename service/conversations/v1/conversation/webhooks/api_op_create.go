@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateConversationWebhookInput defines the input fields for creating a new webhook resource
 type CreateConversationWebhookInput struct {
 	ConfigurationFilters     *[]string `form:"Configuration.Filters,omitempty"`
 	ConfigurationFlowSid     *string   `form:"Configuration.FlowSid,omitempty"`
@@ -28,6 +29,7 @@ type CreateConversationWebhookResponseConfiguration struct {
 	URL         *string   `json:"url,omitempty"`
 }
 
+// CreateConversationWebhookResponse defines the response fields for the created webhook
 type CreateConversationWebhookResponse struct {
 	AccountSid      string                                         `json:"account_sid"`
 	Configuration   CreateConversationWebhookResponseConfiguration `json:"configuration"`
@@ -39,10 +41,15 @@ type CreateConversationWebhookResponse struct {
 	URL             string                                         `json:"url"`
 }
 
+// Create creates a new webhook
+// See https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateConversationWebhookInput) (*CreateConversationWebhookResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new webhook
+// See https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateConversationWebhookInput) (*CreateConversationWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

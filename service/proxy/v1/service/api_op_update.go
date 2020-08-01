@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateServiceInput defines input fields for updating a service resource
 type UpdateServiceInput struct {
 	CallbackURL             *string `form:"CallbackUrl,omitempty"`
 	ChatInstanceSid         *string `form:"ChatInstanceSid,omitempty"`
@@ -20,6 +21,7 @@ type UpdateServiceInput struct {
 	UniqueName              *string `form:"UniqueName,omitempty"`
 }
 
+// UpdateServiceResponse defines the response fields for the updated service
 type UpdateServiceResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	CallbackURL             *string    `json:"callback_url,omitempty"`
@@ -37,10 +39,15 @@ type UpdateServiceResponse struct {
 	UniqueName              string     `json:"unique_name"`
 }
 
+// Update modifies a service resource
+// See https://www.twilio.com/docs/proxy/api/service#update-a-service-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a service resource
+// See https://www.twilio.com/docs/proxy/api/service#update-a-service-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchDocumentResponse defines the response fields for the retrieved document
 type FetchDocumentResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
@@ -23,10 +24,15 @@ type FetchDocumentResponse struct {
 	UniqueName  *string                `json:"unique_name,omitempty"`
 }
 
+// Fetch retrieves an document resource
+// See https://www.twilio.com/docs/sync/api/document-resource#fetch-a-document-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchDocumentResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an document resource
+// See https://www.twilio.com/docs/sync/api/document-resource#fetch-a-document-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchDocumentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

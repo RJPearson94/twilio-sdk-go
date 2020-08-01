@@ -11,6 +11,10 @@
     {
       "name": "Faxes",
       "packageName": "faxes",
+      "documentation": {
+        "description": "Client for managing fax resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,23 @@
             "uri": "/Faxes",
             "method": "Post"
           },
+
+          "documentation": {
+            "description": "creates a new fax",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource#create-a-fax-resource"
+          },
           "input": {
-            "structure": "CreateFaxInput"
+            "structure": "CreateFaxInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new fax resource"
+            }
           },
           "response": {
             "name": "CreateFaxResponse",
-            "structure": "FaxResponse"
+            "structure": "FaxResponse",
+            "documentation": {
+              "description": "defines the response fields for the created fax"
+            }
           }
         }
       ]
@@ -35,6 +50,10 @@
         "sid": {
           "dataType": "string"
         }
+      },
+      "documentation": {
+        "description": "Client for managing a specific fax resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource"
       },
       "subClients": [
         {
@@ -56,6 +75,10 @@
               "dataType": "string",
               "functionParameter": "mediaSid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific media resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-media-resource"
           },
           "operations": [
             {
@@ -82,9 +105,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a media resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-media-resource#fetch-a-fax-media-resource"
+              },
               "response": {
                 "name": "FetchMediaResponse",
-                "structure": "MediaResponse"
+                "structure": "MediaResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved media"
+                }
               }
             },
             {
@@ -110,6 +140,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a media resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-media-resource#delete-a-fax-media-resource"
               }
             }
           ]
@@ -132,9 +166,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a fax resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource#fetch-a-fax-resource"
+          },
           "response": {
             "name": "FetchFaxResponse",
-            "structure": "FaxResponse"
+            "structure": "FaxResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved fax"
+            }
           }
         },
         {
@@ -153,12 +194,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a fax resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource#update-a-fax-resource"
+          },
           "input": {
-            "structure": "UpdateFaxInput"
+            "structure": "UpdateFaxInput",
+            "documentation": {
+              "description": "defines input fields for updating an fax resource"
+            }
           },
           "response": {
             "name": "UpdateFaxResponse",
-            "structure": "FaxResponse"
+            "structure": "FaxResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated fax"
+            }
           }
         },
         {
@@ -176,6 +227,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a fax resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource#delete-a-fax-resource"
           }
         }
       ]

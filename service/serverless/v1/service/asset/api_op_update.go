@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateAssetInput defines input fields for updating a asset resource
 type UpdateAssetInput struct {
 	FriendlyName string `validate:"required" form:"FriendlyName"`
 }
 
+// UpdateAssetResponse defines the response fields for the updated asset
 type UpdateAssetResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -23,10 +25,15 @@ type UpdateAssetResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Update modifies a asset resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#update-an-asset-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateAssetInput) (*UpdateAssetResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a asset resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#update-an-asset-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateAssetInput) (*UpdateAssetResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

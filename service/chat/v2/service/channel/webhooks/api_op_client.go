@@ -3,6 +3,8 @@ package webhooks
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing webhook resources
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	serviceSid string
 }
 
-// The properties required to manage the webhooks resources
+// ClientProperties are the properties required to manage the webhooks resources
 type ClientProperties struct {
 	ChannelSid string
 	ServiceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the webhooks client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

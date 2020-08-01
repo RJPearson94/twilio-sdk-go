@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// FetchMediaResponse resource/ response properties for the retrieved media
+// FetchMediaResponse defines the response fields for the retrieved media
 type FetchMediaResponse struct {
 	AccountSid  string             `json:"account_sid"`
 	ContentType string             `json:"content_type"`

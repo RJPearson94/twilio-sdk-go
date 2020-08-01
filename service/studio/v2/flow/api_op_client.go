@@ -9,27 +9,25 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
 )
 
+// Client for managing a specific flow resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/flow for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage execution resources
-	Execution func(string) *execution.Client
-	// Sub client to manage executions resources
+	Execution  func(string) *execution.Client
 	Executions *executions.Client
-	// Sub client to manage revision resources
-	Revision func(int) *revision.Client
-	// Sub client to manage test users resources
-	TestUsers func() *test_users.Client
+	Revision   func(int) *revision.Client
+	TestUsers  func() *test_users.Client
 }
 
-// The properties required to manage the flow resources
+// ClientProperties are the properties required to manage the flow resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the flow client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

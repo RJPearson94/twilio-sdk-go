@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateWebChannelInput defines the input fields for creating a new web channel resource
 type CreateWebChannelInput struct {
 	ChatFriendlyName     string  `validate:"required" form:"ChatFriendlyName"`
 	ChatUniqueName       *string `form:"ChatUniqueName,omitempty"`
@@ -18,6 +19,7 @@ type CreateWebChannelInput struct {
 	PreEngagementData    *string `form:"PreEngagementData,omitempty"`
 }
 
+// CreateWebChannelResponse defines the response fields for the created web channel
 type CreateWebChannelResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	DateCreated time.Time  `json:"date_created"`
@@ -27,10 +29,13 @@ type CreateWebChannelResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Create creates a new web channel
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateWebChannelInput) (*CreateWebChannelResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new web channel
 func (c Client) CreateWithContext(context context.Context, input *CreateWebChannelInput) (*CreateWebChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

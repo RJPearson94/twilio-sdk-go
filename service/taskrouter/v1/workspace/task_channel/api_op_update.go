@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateTaskChannelInput defines input fields for updating a task channel resource
 type UpdateTaskChannelInput struct {
 	ChannelOptimizedRouting *bool   `form:"ChannelOptimizedRouting,omitempty"`
 	FriendlyName            *string `form:"FriendlyName,omitempty"`
 }
 
+// UpdateTaskChannelResponse defines the response fields for the updated task channel
 type UpdateTaskChannelResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	ChannelOptimizedRouting *bool      `json:"channel_optimized_routing,omitempty"`
@@ -26,10 +28,15 @@ type UpdateTaskChannelResponse struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
+// Update modifies a task channel resource
+// See https://www.twilio.com/docs/taskrouter/api/task-channel#update-a-taskchannel-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateTaskChannelInput) (*UpdateTaskChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a task channel resource
+// See https://www.twilio.com/docs/taskrouter/api/task-channel#update-a-taskchannel-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateTaskChannelInput) (*UpdateTaskChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

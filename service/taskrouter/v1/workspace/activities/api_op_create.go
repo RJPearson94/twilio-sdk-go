@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateActivityInput defines the input fields for creating a new activity resource
 type CreateActivityInput struct {
 	Available    *bool  `form:"Available,omitempty"`
 	FriendlyName string `validate:"required" form:"FriendlyName"`
 }
 
+// CreateActivityResponse defines the response fields for the created activity
 type CreateActivityResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	Available    bool       `json:"available"`
@@ -25,10 +27,15 @@ type CreateActivityResponse struct {
 	WorkspaceSid string     `json:"workspace_sid"`
 }
 
+// Create creates a new activity
+// See https://www.twilio.com/docs/taskrouter/api/activity#create-an-activity-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateActivityInput) (*CreateActivityResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new activity
+// See https://www.twilio.com/docs/taskrouter/api/activity#create-an-activity-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateActivityInput) (*CreateActivityResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

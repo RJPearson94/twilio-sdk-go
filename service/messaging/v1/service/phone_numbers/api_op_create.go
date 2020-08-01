@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreatePhoneNumberInput defines the input fields for creating a new phone number resource
 type CreatePhoneNumberInput struct {
 	PhoneNumberSid string `validate:"required" form:"PhoneNumberSid"`
 }
 
+// CreatePhoneNumberResponse defines the response fields for the created phone number
 type CreatePhoneNumberResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	Capabilities []string   `json:"capabilities"`
@@ -25,10 +27,15 @@ type CreatePhoneNumberResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Create creates a new phone number
+// See https://www.twilio.com/docs/sms/services/api/phonenumber-resource#create-a-phonenumber-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreatePhoneNumberInput) (*CreatePhoneNumberResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new phone number
+// See https://www.twilio.com/docs/sms/services/api/phonenumber-resource#create-a-phonenumber-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreatePhoneNumberInput) (*CreatePhoneNumberResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

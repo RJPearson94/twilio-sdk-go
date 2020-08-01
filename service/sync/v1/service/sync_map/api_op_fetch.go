@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchSyncMapResponse defines the response fields for the retrieved map
 type FetchSyncMapResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	CreatedBy   string     `json:"created_by"`
@@ -22,10 +23,15 @@ type FetchSyncMapResponse struct {
 	UniqueName  *string    `json:"unique_name,omitempty"`
 }
 
+// Fetch retrieves an map resource
+// See https://www.twilio.com/docs/sync/api/map-resource#fetch-a-syncmap-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchSyncMapResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an map resource
+// See https://www.twilio.com/docs/sync/api/map-resource#fetch-a-syncmap-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchSyncMapResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

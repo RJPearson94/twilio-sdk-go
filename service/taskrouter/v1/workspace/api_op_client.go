@@ -17,43 +17,33 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
 )
 
+// Client for managing a specific workspace resource
+// See https://www.twilio.com/docs/taskrouter/api/workspace for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage activities resources
-	Activities *activities.Client
-	// Sub client to manage activity resources
-	Activity func(string) *activity.Client
-	// Sub client to manage task resources
-	Task func(string) *task.Client
-	// Sub client to manage task channel resources
-	TaskChannel func(string) *task_channel.Client
-	// Sub client to manage task channels resources
+	Activities   *activities.Client
+	Activity     func(string) *activity.Client
+	Task         func(string) *task.Client
+	TaskChannel  func(string) *task_channel.Client
 	TaskChannels *task_channels.Client
-	// Sub client to manage task queue resources
-	TaskQueue func(string) *task_queue.Client
-	// Sub client to manage task queues resources
-	TaskQueues *task_queues.Client
-	// Sub client to manage tasks resources
-	Tasks *tasks.Client
-	// Sub client to manage worker resources
-	Worker func(string) *worker.Client
-	// Sub client to manage workers resources
-	Workers *workers.Client
-	// Sub client to manage workflow resources
-	Workflow func(string) *workflow.Client
-	// Sub client to manage workflows resources
-	Workflows *workflows.Client
+	TaskQueue    func(string) *task_queue.Client
+	TaskQueues   *task_queues.Client
+	Tasks        *tasks.Client
+	Worker       func(string) *worker.Client
+	Workers      *workers.Client
+	Workflow     func(string) *workflow.Client
+	Workflows    *workflows.Client
 }
 
-// The properties required to manage the workspace resources
+// ClientProperties are the properties required to manage the workspace resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the workspace client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

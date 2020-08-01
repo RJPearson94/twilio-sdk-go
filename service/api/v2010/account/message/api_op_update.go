@@ -9,12 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// UpdateMessageInput defines input parameters/ properties for updating a message resource
+// UpdateMessageInput defines input fields for updating a message resource
 type UpdateMessageInput struct {
 	Body string `validate:"required" form:"Body"`
 }
 
-// UpdateMessageResponse resource/ response properties for the updated message
+// UpdateMessageResponse defines the response fields for the updated message
 type UpdateMessageResponse struct {
 	APIVersion          string             `json:"api_version"`
 	AccountSid          string             `json:"account_sid"`

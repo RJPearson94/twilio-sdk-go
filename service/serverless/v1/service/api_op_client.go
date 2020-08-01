@@ -13,35 +13,29 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/functions"
 )
 
+// Client for managing a specific service resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/service for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage asset resources
-	Asset func(string) *asset.Client
-	// Sub client to manage assets resources
-	Assets *assets.Client
-	// Sub client to manage build resources
-	Build func(string) *build.Client
-	// Sub client to manage builds resources
-	Builds *builds.Client
-	// Sub client to manage environment resources
-	Environment func(string) *environment.Client
-	// Sub client to manage environments resources
+	Asset        func(string) *asset.Client
+	Assets       *assets.Client
+	Build        func(string) *build.Client
+	Builds       *builds.Client
+	Environment  func(string) *environment.Client
 	Environments *environments.Client
-	// Sub client to manage function resources
-	Function func(string) *function.Client
-	// Sub client to manage functions resources
-	Functions *functions.Client
+	Function     func(string) *function.Client
+	Functions    *functions.Client
 }
 
-// The properties required to manage the service resources
+// ClientProperties are the properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the service client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

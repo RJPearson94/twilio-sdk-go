@@ -3,6 +3,8 @@ package permissions
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing list permission resources
+// See https://www.twilio.com/docs/sync/api/sync-list-permission-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -11,14 +13,14 @@ type Client struct {
 	syncListSid string
 }
 
-// The properties required to manage the permissions resources
+// ClientProperties are the properties required to manage the permissions resources
 type ClientProperties struct {
 	Identity    string
 	ServiceSid  string
 	SyncListSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the permissions client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

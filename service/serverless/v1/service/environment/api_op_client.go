@@ -9,29 +9,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/variables"
 )
 
+// Client for managing a specific environment resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/environment for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 	sid        string
 
-	// Sub client to manage deployment resources
-	Deployment func(string) *deployment.Client
-	// Sub client to manage deployments resources
+	Deployment  func(string) *deployment.Client
 	Deployments *deployments.Client
-	// Sub client to manage variable resources
-	Variable func(string) *variable.Client
-	// Sub client to manage variables resources
-	Variables *variables.Client
+	Variable    func(string) *variable.Client
+	Variables   *variables.Client
 }
 
-// The properties required to manage the environment resources
+// ClientProperties are the properties required to manage the environment resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the environment client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

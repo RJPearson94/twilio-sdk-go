@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchParticipantResponse defines the response fields for the retrieved participant
 type FetchParticipantResponse struct {
 	AccountSid         string     `json:"account_sid"`
 	DateCreated        time.Time  `json:"date_created"`
@@ -24,10 +25,15 @@ type FetchParticipantResponse struct {
 	URL                string     `json:"url"`
 }
 
+// Fetch retrieves a participant resource
+// See https://www.twilio.com/docs/proxy/api/participant#fetch-a-participant-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchParticipantResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a participant resource
+// See https://www.twilio.com/docs/proxy/api/participant#fetch-a-participant-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchParticipantResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

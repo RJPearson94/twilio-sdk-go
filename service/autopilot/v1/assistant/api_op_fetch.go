@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchAssistantResponse resource/ response properties for the retrieved assistant
+// FetchAssistantResponse defines the response fields for the retrieved assistant
 type FetchAssistantResponse struct {
 	AccountSid          string     `json:"account_sid"`
 	CallbackEvents      *string    `json:"callback_events,omitempty"`

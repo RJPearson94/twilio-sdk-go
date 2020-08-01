@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchMediaResponse defines the response fields for the retrieved media
 type FetchMediaResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	ContentType string     `json:"content_type"`
@@ -19,10 +20,15 @@ type FetchMediaResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Fetch retrieves a media resource
+// See https://www.twilio.com/docs/fax/api/fax-media-resource#fetch-a-fax-media-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchMediaResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a media resource
+// See https://www.twilio.com/docs/fax/api/fax-media-resource#fetch-a-fax-media-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchMediaResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

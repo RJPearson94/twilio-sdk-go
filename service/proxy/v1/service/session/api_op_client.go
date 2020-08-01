@@ -8,27 +8,26 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participants"
 )
 
+// Client for managing a specific session resource
+// See https://www.twilio.com/docs/proxy/api/session for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 	sid        string
 
-	// Sub client to manage interaction resources
-	Interaction func(string) *interaction.Client
-	// Sub client to manage participant resources
-	Participant func(string) *participant.Client
-	// Sub client to manage participants resources
+	Interaction  func(string) *interaction.Client
+	Participant  func(string) *participant.Client
 	Participants *participants.Client
 }
 
-// The properties required to manage the session resources
+// ClientProperties are the properties required to manage the session resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the session client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

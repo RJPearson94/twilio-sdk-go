@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateUserInput defines the input fields for creating a new user resource
 type CreateUserInput struct {
 	Attributes   *string `form:"Attributes,omitempty"`
 	FriendlyName *string `form:"FriendlyName,omitempty"`
@@ -16,6 +17,7 @@ type CreateUserInput struct {
 	RoleSid      *string `form:"RoleSid,omitempty"`
 }
 
+// CreateUserResponse defines the response fields for the created user
 type CreateUserResponse struct {
 	AccountSid          string     `json:"account_sid"`
 	Attributes          *string    `json:"attributes,omitempty"`
@@ -32,10 +34,15 @@ type CreateUserResponse struct {
 	URL                 string     `json:"url"`
 }
 
+// Create creates a new user
+// See https://www.twilio.com/docs/chat/rest/user-resource#create-a-user-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateUserInput) (*CreateUserResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new user
+// See https://www.twilio.com/docs/chat/rest/user-resource#create-a-user-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateUserInput) (*CreateUserResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

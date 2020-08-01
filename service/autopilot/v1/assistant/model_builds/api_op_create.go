@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateModelBuildInput defines the input parameters/ properties for creating a new model build resource
+// CreateModelBuildInput defines the input fields for creating a new model build resource
 type CreateModelBuildInput struct {
 	StatusCallback *string `form:"StatusCallback,omitempty"`
 	UniqueName     *string `form:"UniqueName,omitempty"`
 }
 
-// CreateModelBuildResponse resource/ response properties for the created model build
+// CreateModelBuildResponse defines the response fields for the created model build
 type CreateModelBuildResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

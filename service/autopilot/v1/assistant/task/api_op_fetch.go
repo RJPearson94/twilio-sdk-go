@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchTaskResponse resource/ response properties for the retrieved task
+// FetchTaskResponse defines the response fields for the retrieved task
 type FetchTaskResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	ActionsURL   string     `json:"actions_url"`

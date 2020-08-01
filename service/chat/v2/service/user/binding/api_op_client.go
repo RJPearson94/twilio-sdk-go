@@ -3,6 +3,8 @@ package binding
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific user binding resource
+// See https://www.twilio.com/docs/chat/rest/user-binding-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -11,14 +13,14 @@ type Client struct {
 	userSid    string
 }
 
-// The properties required to manage the binding resources
+// ClientProperties are the properties required to manage the binding resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 	UserSid    string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the binding client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

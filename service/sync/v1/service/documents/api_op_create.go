@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateDocumentInput defines the input fields for creating a new document resource
 type CreateDocumentInput struct {
 	Data       *string `form:"Data,omitempty"`
 	Ttl        *int    `form:"Ttl,omitempty"`
 	UniqueName *string `form:"UniqueName,omitempty"`
 }
 
+// CreateDocumentResponse defines the response fields for the created document
 type CreateDocumentResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
@@ -29,10 +31,15 @@ type CreateDocumentResponse struct {
 	UniqueName  *string                `json:"unique_name,omitempty"`
 }
 
+// Create creates a new document
+// See https://www.twilio.com/docs/sync/api/document-resource#create-a-document-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateDocumentInput) (*CreateDocumentResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new document
+// See https://www.twilio.com/docs/sync/api/document-resource#create-a-document-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateDocumentInput) (*CreateDocumentResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

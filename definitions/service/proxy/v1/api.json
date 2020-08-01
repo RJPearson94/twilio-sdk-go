@@ -11,6 +11,10 @@
     {
       "name": "Services",
       "packageName": "services",
+      "documentation": {
+        "description": "Client for managing service resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,22 @@
             "uri": "/Services",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new service",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service#create-a-service-resource"
+          },
           "input": {
-            "structure": "CreateServiceInput"
+            "structure": "CreateServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new service resource"
+            }
           },
           "response": {
             "name": "CreateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created service"
+            }
           }
         }
       ]
@@ -36,6 +50,10 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific service resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service"
+      },
       "subClients": [
         {
           "name": "Phone Numbers",
@@ -45,6 +63,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing phone number resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number"
           },
           "operations": [
             {
@@ -63,12 +85,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "adds a new phone number resource to the proxy service",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number#add-a-phone-number-to-a-proxy-service"
+              },
               "input": {
-                "structure": "CreatePhoneNumberInput"
+                "structure": "CreatePhoneNumberInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new phone number resource"
+                }
               },
               "response": {
                 "name": "CreatePhoneNumberResponse",
-                "structure": "PhoneNumberResponse"
+                "structure": "PhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created phone number"
+                }
               }
             }
           ]
@@ -93,6 +125,10 @@
               "functionParameter": "phoneNumberSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific phone number resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -118,9 +154,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a phone number resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number#fetch-a-phonenumber-resource"
+              },
               "response": {
                 "name": "FetchPhoneNumberResponse",
-                "structure": "PhoneNumberResponse"
+                "structure": "PhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved phone number"
+                }
               }
             },
             {
@@ -147,12 +190,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a phone number resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number#update-a-phonenumber-resource"
+              },
               "input": {
-                "structure": "UpdatePhoneNumberInput"
+                "structure": "UpdatePhoneNumberInput",
+                "documentation": {
+                  "description": "defines input fields for updating a phone number resource"
+                }
               },
               "response": {
                 "name": "UpdatePhoneNumberResponse",
-                "structure": "PhoneNumberResponse"
+                "structure": "PhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated phone number"
+                }
               }
             },
             {
@@ -178,6 +231,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a phone number resource from the proxy service",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number#remove-a-phone-number-from-a-proxy-service"
               }
             }
           ]
@@ -190,6 +247,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing short code resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code"
           },
           "operations": [
             {
@@ -208,12 +269,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "add a new short code to the proxy service",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code#add-a-short-code-to-a-proxy-service"
+              },
               "input": {
-                "structure": "CreateShortCodeInput"
+                "structure": "CreateShortCodeInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new short code resource"
+                }
               },
               "response": {
                 "name": "CreateShortCodeResponse",
-                "structure": "ShortCodeResponse"
+                "structure": "ShortCodeResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created short code"
+                }
               }
             }
           ]
@@ -238,6 +309,10 @@
               "functionParameter": "shortCodeSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific short code resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -263,9 +338,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a short code resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code#fetch-a-shortcode-resource"
+              },
               "response": {
                 "name": "FetchShortCodeResponse",
-                "structure": "ShortCodeResponse"
+                "structure": "ShortCodeResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved short code"
+                }
               }
             },
             {
@@ -292,12 +374,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a short code resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code#update-a-shortcode-resource"
+              },
               "input": {
-                "structure": "UpdateShortCodeInput"
+                "structure": "UpdateShortCodeInput",
+                "documentation": {
+                  "description": "defines input fields for updating a short code resource"
+                }
               },
               "response": {
                 "name": "UpdateShortCodeResponse",
-                "structure": "ShortCodeResponse"
+                "structure": "ShortCodeResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated short code"
+                }
               }
             },
             {
@@ -323,6 +415,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a short code resource from the the proxy service",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code#remove-a-short-code-from-a-proxy-service"
               }
             }
           ]
@@ -335,6 +431,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing session resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session"
           },
           "operations": [
             {
@@ -353,12 +453,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new session",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session#create-a-session-resource"
+              },
               "input": {
-                "structure": "CreateSessionInput"
+                "structure": "CreateSessionInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new session resource"
+                }
               },
               "response": {
                 "name": "CreateSessionResponse",
-                "structure": "SessionResponse"
+                "structure": "SessionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created session"
+                }
               }
             }
           ]
@@ -383,6 +493,10 @@
               "functionParameter": "sessionSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific session resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session"
+          },
           "subClients": [
             {
               "name": "Participants",
@@ -396,6 +510,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing participant resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant"
               },
               "operations": [
                 {
@@ -422,12 +540,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new participant",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant#create-a-participant-resource"
+                  },
                   "input": {
-                    "structure": "CreateParticipantInput"
+                    "structure": "CreateParticipantInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new participant resource"
+                    }
                   },
                   "response": {
                     "name": "CreateParticipantResponse",
-                    "structure": "ParticipantResponse"
+                    "structure": "ParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created participant"
+                    }
                   }
                 }
               ]
@@ -456,6 +584,10 @@
                   "functionParameter": "participantSid"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific participant resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant"
+              },
               "subClients": [
                 {
                   "name": "Message Interactions",
@@ -473,6 +605,10 @@
                       "dataType": "string",
                       "parentProperty": "sid"
                     }
+                  },
+                  "documentation": {
+                    "description": "Client for managing message interaction resources",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/sending-messages"
                   },
                   "operations": [
                     {
@@ -507,12 +643,22 @@
                           }
                         ]
                       },
+                      "documentation": {
+                        "description": "creates a new message interaction",
+                        "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/sending-messages#create-a-messageinteraction-resource"
+                      },
                       "input": {
-                        "structure": "CreateMessageInteractionInput"
+                        "structure": "CreateMessageInteractionInput",
+                        "documentation": {
+                          "description": "defines the input fields for creating a new message interaction resource"
+                        }
                       },
                       "response": {
                         "name": "CreateMessageInteractionResponse",
-                        "structure": "MessageInteractionResponse"
+                        "structure": "MessageInteractionResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the created message interaction"
+                        }
                       }
                     }
                   ]
@@ -551,9 +697,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a participant resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant#fetch-a-participant-resource"
+                  },
                   "response": {
                     "name": "FetchParticipantResponse",
-                    "structure": "ParticipantResponse"
+                    "structure": "ParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved participant"
+                    }
                   }
                 },
                 {
@@ -587,6 +740,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a participant resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant#delete-a-participant-resource"
                   }
                 }
               ]
@@ -614,6 +771,10 @@
                   "dataType": "string",
                   "functionParameter": "interactionSid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing a specific interaction resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/interaction"
               },
               "operations": [
                 {
@@ -648,9 +809,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves a interaction resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/interaction#fetch-an-interaction-resource"
+                  },
                   "response": {
                     "name": "FetchInteractionResponse",
-                    "structure": "InteractionResponse"
+                    "structure": "InteractionResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved interaction"
+                    }
                   }
                 },
                 {
@@ -684,6 +852,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a interaction resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/interaction#delete-an-interaction-resource"
                   }
                 }
               ]
@@ -714,9 +886,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a session resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session#fetch-a-session-resource"
+              },
               "response": {
                 "name": "FetchSessionResponse",
-                "structure": "SessionResponse"
+                "structure": "SessionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved session"
+                }
               }
             },
             {
@@ -743,13 +922,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a session resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session#update-a-session-resource"
+              },
               "input": {
                 "name": "UpdateSessionInput",
-                "structure": "SessionInput"
+                "structure": "SessionInput",
+                "documentation": {
+                  "description": "defines input fields for updating a session resource"
+                }
               },
               "response": {
                 "name": "UpdateSessionResponse",
-                "structure": "SessionResponse"
+                "structure": "SessionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated session"
+                }
               }
             },
             {
@@ -775,6 +964,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a session resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session#delete-a-session-resource"
               }
             }
           ]
@@ -797,9 +990,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service#fetch-a-service-resource"
+          },
           "response": {
             "name": "FetchServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved service"
+            }
           }
         },
         {
@@ -818,12 +1018,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service#update-a-service-resource"
+          },
           "input": {
-            "structure": "UpdateServiceInput"
+            "structure": "UpdateServiceInput",
+            "documentation": {
+              "description": "defines input fields for updating a service resource"
+            }
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated service"
+            }
           }
         },
         {
@@ -841,6 +1051,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a service resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service#delete-a-service-resource"
           }
         }
       ]

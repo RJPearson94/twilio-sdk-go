@@ -14,6 +14,7 @@ type FetchConversationResponseTimers struct {
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 }
 
+// FetchConversationResponse defines the response fields for the retrieved conversation
 type FetchConversationResponse struct {
 	AccountSid          string                          `json:"account_sid"`
 	Attributes          string                          `json:"attributes"`
@@ -28,10 +29,15 @@ type FetchConversationResponse struct {
 	URL                 string                          `json:"url"`
 }
 
+// Fetch retrieves a conversation resource
+// See https://www.twilio.com/docs/conversations/api/conversation-resource#fetch-a-conversation-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchConversationResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a conversation resource
+// See https://www.twilio.com/docs/conversations/api/conversation-resource#fetch-a-conversation-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchConversationResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

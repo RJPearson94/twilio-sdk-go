@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateWebhookInput defines input parameters/ properties for updating a webhook
+// UpdateWebhookInput defines the input fields for updating a webhook
 type UpdateWebhookInput struct {
 	Events        *string `form:"Events,omitempty"`
 	UniqueName    *string `form:"UniqueName,omitempty"`
@@ -17,7 +17,7 @@ type UpdateWebhookInput struct {
 	WebhookURL    *string `form:"WebhookUrl,omitempty"`
 }
 
-// UpdateWebhookResponse resource/ response properties for the updated webhook
+// UpdateWebhookResponse defines the response fields for the updated webhook
 type UpdateWebhookResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

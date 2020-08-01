@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateChannelMemberInput defines the input fields for creating a new member resource
 type CreateChannelMemberInput struct {
 	Attributes               *string    `form:"Attributes,omitempty"`
 	DateCreated              *time.Time `form:"DateCreated,omitempty"`
@@ -19,6 +20,7 @@ type CreateChannelMemberInput struct {
 	RoleSid                  *string    `form:"RoleSid,omitempty"`
 }
 
+// CreateChannelMemberResponse defines the response fields for the created member
 type CreateChannelMemberResponse struct {
 	AccountSid               string     `json:"account_sid"`
 	Attributes               *string    `json:"attributes,omitempty"`
@@ -34,10 +36,15 @@ type CreateChannelMemberResponse struct {
 	URL                      string     `json:"url"`
 }
 
+// Create creates a new member
+// See https://www.twilio.com/docs/chat/rest/member-resource#create-a-member-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateChannelMemberInput) (*CreateChannelMemberResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new member
+// See https://www.twilio.com/docs/chat/rest/member-resource#create-a-member-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelMemberInput) (*CreateChannelMemberResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

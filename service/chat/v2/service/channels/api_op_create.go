@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateChannelInput defines the input fields for creating a new channel resource
 type CreateChannelInput struct {
 	Attributes   *string    `form:"Attributes,omitempty"`
 	CreatedBy    *string    `form:"CreatedBy,omitempty"`
@@ -19,6 +20,7 @@ type CreateChannelInput struct {
 	UniqueName   *string    `form:"UniqueName,omitempty"`
 }
 
+// CreateChannelResponse defines the response fields for the created channel
 type CreateChannelResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	Attributes    *string    `json:"attributes,omitempty"`
@@ -35,10 +37,15 @@ type CreateChannelResponse struct {
 	UniqueName    *string    `json:"unique_name,omitempty"`
 }
 
+// Create creates a new channel
+// See https://www.twilio.com/docs/chat/rest/channel-resource#create-a-channel-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateChannelInput) (*CreateChannelResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new channel
+// See https://www.twilio.com/docs/chat/rest/channel-resource#create-a-channel-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateChannelInput) (*CreateChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

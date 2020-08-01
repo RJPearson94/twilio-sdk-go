@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateTaskChannelInput defines the input fields for creating a new task channel resource
 type CreateTaskChannelInput struct {
 	ChannelOptimizedRouting *bool  `form:"ChannelOptimizedRouting,omitempty"`
 	FriendlyName            string `validate:"required" form:"FriendlyName"`
 	UniqueName              string `validate:"required" form:"UniqueName"`
 }
 
+// CreateTaskChannelResponse defines the response fields for the created task channel
 type CreateTaskChannelResponse struct {
 	AccountSid              string     `json:"account_sid"`
 	ChannelOptimizedRouting *bool      `json:"channel_optimized_routing,omitempty"`
@@ -27,10 +29,15 @@ type CreateTaskChannelResponse struct {
 	WorkspaceSid            string     `json:"workspace_sid"`
 }
 
+// Create creates a new task channel
+// See https://www.twilio.com/docs/taskrouter/api/task-channel#create-a-taskchannel-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateTaskChannelInput) (*CreateTaskChannelResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new task channel
+// See https://www.twilio.com/docs/taskrouter/api/task-channel#create-a-taskchannel-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateTaskChannelInput) (*CreateTaskChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

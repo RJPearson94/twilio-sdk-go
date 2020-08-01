@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateTaskInput defines input parameters/ properties for updating a task
+// UpdateTaskInput defines the input fields for updating a task
 type UpdateTaskInput struct {
 	Actions      *string `form:"Actions,omitempty"`
 	ActionsURL   *string `form:"ActionsUrl,omitempty"`
@@ -17,7 +17,7 @@ type UpdateTaskInput struct {
 	UniqueName   *string `form:"UniqueName,omitempty"`
 }
 
-// UpdateTaskResponse resource/ response properties for the updated task
+// UpdateTaskResponse defines the response fields for the updated task
 type UpdateTaskResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	ActionsURL   string     `json:"actions_url"`

@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateShortCodeInput defines the input fields for creating a new short code resource
 type CreateShortCodeInput struct {
 	Sid string `validate:"required" form:"Sid"`
 }
@@ -29,6 +30,7 @@ type CreateShortCodeResponseCapabilities struct {
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
 }
 
+// CreateShortCodeResponse defines the response fields for the created short code
 type CreateShortCodeResponse struct {
 	AccountSid   string                               `json:"account_sid"`
 	Capabilities *CreateShortCodeResponseCapabilities `json:"capabilities,omitempty"`
@@ -42,10 +44,15 @@ type CreateShortCodeResponse struct {
 	URL          string                               `json:"url"`
 }
 
+// Create add a new short code to the proxy service
+// See https://www.twilio.com/docs/proxy/api/short-code#add-a-short-code-to-a-proxy-service for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateShortCodeInput) (*CreateShortCodeResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext add a new short code to the proxy service
+// See https://www.twilio.com/docs/proxy/api/short-code#add-a-short-code-to-a-proxy-service for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateShortCodeInput) (*CreateShortCodeResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

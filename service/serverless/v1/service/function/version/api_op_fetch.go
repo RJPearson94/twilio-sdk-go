@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchVersionResponse defines the response fields for the retrieved function version
 type FetchVersionResponse struct {
 	AccountSid  string    `json:"account_sid"`
 	DateCreated time.Time `json:"date_created"`
@@ -20,10 +21,15 @@ type FetchVersionResponse struct {
 	Visibility  string    `json:"visibility"`
 }
 
+// Fetch retrieves a function version resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#fetch-a-functionversion-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchVersionResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a function version resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#fetch-a-functionversion-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchVersionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

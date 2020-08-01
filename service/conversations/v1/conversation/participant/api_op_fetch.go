@@ -16,6 +16,7 @@ type FetchParticipantResponseMessageBinding struct {
 	Type             string  `json:"type"`
 }
 
+// FetchParticipantResponse defines the response fields for the retrieved participant
 type FetchParticipantResponse struct {
 	AccountSid       string                                  `json:"account_sid"`
 	Attributes       string                                  `json:"attributes"`
@@ -29,10 +30,15 @@ type FetchParticipantResponse struct {
 	URL              string                                  `json:"url"`
 }
 
+// Fetch retrieves an participant resource
+// See https://www.twilio.com/docs/conversations/api/conversation-participant-resource#fetch-a-conversationparticipant-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchParticipantResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an participant resource
+// See https://www.twilio.com/docs/conversations/api/conversation-participant-resource#fetch-a-conversationparticipant-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchParticipantResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

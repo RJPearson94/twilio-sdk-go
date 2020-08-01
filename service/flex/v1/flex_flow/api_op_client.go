@@ -3,18 +3,19 @@ package flex_flow
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific flex flow resource
 type Client struct {
 	client *client.Client
 
 	sid string
 }
 
-// The properties required to manage the flex flow resources
+// ClientProperties are the properties required to manage the flex flow resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the flex flow client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchStatisticsResponse resource/ response properties for the retrieved task statistics
+// FetchStatisticsResponse defines the response fields for the retrieved task statistics
 type FetchStatisticsResponse struct {
 	AccountSid   string `json:"account_sid"`
 	AssistantSid string `json:"assistant_sid"`

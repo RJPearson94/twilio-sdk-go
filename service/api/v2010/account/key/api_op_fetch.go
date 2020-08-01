@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// FetchKeyResponse resource/ response properties for retrieving a API Key
+// FetchKeyResponse defines the response fields for retrieving a API Key
 type FetchKeyResponse struct {
 	DateCreated  utils.RFC2822Time  `json:"date_created"`
 	DateUpdated  *utils.RFC2822Time `json:"date_updated,omitempty"`

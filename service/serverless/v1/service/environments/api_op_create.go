@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateEnvironmentInput defines the input fields for creating a new environment resource
 type CreateEnvironmentInput struct {
 	DomainSuffix *string `form:"DomainSuffix,omitempty"`
 	UniqueName   string  `validate:"required" form:"UniqueName"`
 }
 
+// CreateEnvironmentResponse defines the response fields for the created environment
 type CreateEnvironmentResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	BuildSid     *string    `json:"build_sid,omitempty"`
@@ -27,10 +29,15 @@ type CreateEnvironmentResponse struct {
 	UniqueName   string     `json:"unique_name"`
 }
 
+// Create creates a new environment
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#create-an-environment-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateEnvironmentInput) (*CreateEnvironmentResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new environment
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#create-an-environment-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateEnvironmentInput) (*CreateEnvironmentResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

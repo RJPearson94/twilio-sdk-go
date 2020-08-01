@@ -17,12 +17,14 @@ type CreateContentDetails struct {
 	FileName    string        `validate:"required" mapstructure:"FileName"`
 }
 
+// CreateVersionInput defines the input fields for creating a new asset version resource
 type CreateVersionInput struct {
 	Content    CreateContentDetails `validate:"required" mapstructure:"Content"`
 	Path       string               `validate:"required" mapstructure:"Path"`
 	Visibility string               `validate:"required" mapstructure:"Visibility"`
 }
 
+// CreateVersionResponse defines the response fields for the created asset version
 type CreateVersionResponse struct {
 	AccountSid  string    `json:"account_sid"`
 	AssetSid    string    `json:"asset_sid"`
@@ -34,10 +36,15 @@ type CreateVersionResponse struct {
 	Visibility  string    `json:"visibility"`
 }
 
+// Create creates a new asset version
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateVersionInput) (*CreateVersionResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new asset version
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateVersionInput) (*CreateVersionResponse, error) {
 	op := client.Operation{
 		OverrideBaseURL: utils.String(client.CreateBaseURL("serverless-upload", "v1")),

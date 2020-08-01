@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchChannelInviteResponse defines the response fields for the retrieved invite
 type FetchChannelInviteResponse struct {
 	AccountSid  string     `json:"account_sid"`
 	ChannelSid  string     `json:"channel_sid"`
@@ -22,10 +23,15 @@ type FetchChannelInviteResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Fetch retrieves a invite resource
+// See https://www.twilio.com/docs/chat/rest/invite-resource#fetch-an-invite-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchChannelInviteResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a invite resource
+// See https://www.twilio.com/docs/chat/rest/invite-resource#fetch-an-invite-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchChannelInviteResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

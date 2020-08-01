@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateMessageInteractionInput defines the input fields for creating a new message interaction resource
 type CreateMessageInteractionInput struct {
 	Body     *string `form:"Body,omitempty"`
 	MediaURL *string `form:"MediaUrl,omitempty"`
 }
 
+// CreateMessageInteractionResponse defines the response fields for the created message interaction
 type CreateMessageInteractionResponse struct {
 	AccountSid             string                  `json:"account_sid"`
 	Data                   *map[string]interface{} `json:"data,omitempty"`
@@ -37,10 +39,15 @@ type CreateMessageInteractionResponse struct {
 	URL                    string                  `json:"url"`
 }
 
+// Create creates a new message interaction
+// See https://www.twilio.com/docs/proxy/api/sending-messages#create-a-messageinteraction-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateMessageInteractionInput) (*CreateMessageInteractionResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new message interaction
+// See https://www.twilio.com/docs/proxy/api/sending-messages#create-a-messageinteraction-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateMessageInteractionInput) (*CreateMessageInteractionResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

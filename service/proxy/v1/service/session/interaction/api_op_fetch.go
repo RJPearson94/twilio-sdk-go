@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchInteractionResponse defines the response fields for the retrieved interaction
 type FetchInteractionResponse struct {
 	AccountSid             string                  `json:"account_sid"`
 	Data                   *map[string]interface{} `json:"data,omitempty"`
@@ -31,10 +32,15 @@ type FetchInteractionResponse struct {
 	URL                    string                  `json:"url"`
 }
 
+// Fetch retrieves a interaction resource
+// See https://www.twilio.com/docs/proxy/api/interaction#fetch-an-interaction-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchInteractionResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a interaction resource
+// See https://www.twilio.com/docs/proxy/api/interaction#fetch-an-interaction-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchInteractionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

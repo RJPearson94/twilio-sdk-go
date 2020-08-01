@@ -11,31 +11,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 )
 
+// Client for managing a specific conversation resource
+// See https://www.twilio.com/docs/conversations/api/conversation-resource for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage message resources
-	Message func(string) *message.Client
-	// Sub client to manage messages resources
-	Messages *messages.Client
-	// Sub client to manage participant resources
-	Participant func(string) *participant.Client
-	// Sub client to manage participants resources
+	Message      func(string) *message.Client
+	Messages     *messages.Client
+	Participant  func(string) *participant.Client
 	Participants *participants.Client
-	// Sub client to manage webhook resources
-	Webhook func(string) *webhook.Client
-	// Sub client to manage webhooks resources
-	Webhooks *webhooks.Client
+	Webhook      func(string) *webhook.Client
+	Webhooks     *webhooks.Client
 }
 
-// The properties required to manage the conversation resources
+// ClientProperties are the properties required to manage the conversation resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the conversation client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

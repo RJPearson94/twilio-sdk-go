@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-// FetchAccountResponse resource/ response properties for the retrieved account
+// FetchAccountResponse defines the response fields for the retrieved account
 type FetchAccountResponse struct {
 	AuthToken       string             `json:"auth_token"`
 	DateCreated     utils.RFC2822Time  `json:"date_created"`

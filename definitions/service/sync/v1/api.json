@@ -11,6 +11,10 @@
     {
       "name": "Services",
       "packageName": "services",
+      "documentation": {
+        "description": "Client for managing service resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,13 +22,23 @@
             "uri": "/Services",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new service",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service#create-a-service-resource"
+          },
           "input": {
             "name": "CreateServiceInput",
-            "structure": "ServiceInput"
+            "structure": "ServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new service resource"
+            }
           },
           "response": {
             "name": "CreateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created service"
+            }
           }
         }
       ]
@@ -37,6 +51,10 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific service resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service"
+      },
       "subClients": [
         {
           "name": "Documents",
@@ -46,6 +64,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing document resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource"
           },
           "operations": [
             {
@@ -64,12 +86,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new document",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource#create-a-document-resource"
+              },
               "input": {
-                "structure": "CreateDocumentInput"
+                "structure": "CreateDocumentInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new document resource"
+                }
               },
               "response": {
                 "name": "CreateDocumentResponse",
-                "structure": "DocumentResponse"
+                "structure": "DocumentResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created document"
+                }
               }
             }
           ]
@@ -93,6 +125,10 @@
               "dataType": "string",
               "functionParameter": "documentSid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing a specific document resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource"
           },
           "subClients": [
             {
@@ -118,6 +154,10 @@
                   "dataType": "string",
                   "functionParameter": "identity"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing document permission resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource"
               },
               "operations": [
                 {
@@ -152,9 +192,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves an document permission resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource#fetch-a-document-permission-resource"
+                  },
                   "response": {
                     "name": "FetchDocumentPermissionsResponse",
-                    "structure": "DocumentPermissionsResponse"
+                    "structure": "DocumentPermissionsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved document permission"
+                    }
                   }
                 },
                 {
@@ -189,13 +236,23 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a document permission resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource#update-a-document-permission-resource"
+                  },
                   "input": {
                     "name": "UpdateDocumentPermissionsInput",
-                    "structure": "DocumentPermissionsInput"
+                    "structure": "DocumentPermissionsInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a document permission resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateDocumentPermissionsResponse",
-                    "structure": "DocumentPermissionsResponse"
+                    "structure": "DocumentPermissionsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated document permission"
+                    }
                   }
                 },
                 {
@@ -229,6 +286,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a document permission resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource#delete-a-document-permission-resource"
                   }
                 }
               ]
@@ -259,9 +320,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an document resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource#fetch-a-document-resource"
+              },
               "response": {
                 "name": "FetchDocumentResponse",
-                "structure": "DocumentResponse"
+                "structure": "DocumentResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved document"
+                }
               }
             },
             {
@@ -288,13 +356,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a document resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource#update-a-document-resource"
+              },
               "input": {
                 "name": "UpdateDocumentInput",
-                "structure": "DocumentInput"
+                "structure": "DocumentInput",
+                "documentation": {
+                  "description": "defines input fields for updating a document resource"
+                }
               },
               "response": {
                 "name": "UpdateDocumentResponse",
-                "structure": "DocumentResponse"
+                "structure": "DocumentResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated document"
+                }
               }
             },
             {
@@ -320,6 +398,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a document resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource#delete-a-document-resource"
               }
             }
           ]
@@ -332,6 +414,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing list resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource"
           },
           "operations": [
             {
@@ -350,12 +436,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new list",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource#create-a-list-resource"
+              },
               "input": {
-                "structure": "CreateSyncListInput"
+                "structure": "CreateSyncListInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new list resource"
+                }
               },
               "response": {
                 "name": "CreateSyncListResponse",
-                "structure": "SyncListResponse"
+                "structure": "SyncListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created list"
+                }
               }
             }
           ]
@@ -380,6 +476,10 @@
               "functionParameter": "syncListSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific list resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource"
+          },
           "subClients": [
             {
               "name": "Items",
@@ -393,6 +493,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing list item resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource"
               },
               "operations": [
                 {
@@ -419,12 +523,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new list item",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource#create-a-listitem-resource"
+                  },
                   "input": {
-                    "structure": "CreateSyncListItemInput"
+                    "structure": "CreateSyncListItemInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new list item resource"
+                    }
                   },
                   "response": {
                     "name": "CreateSyncListItemResponse",
-                    "structure": "SyncListItemResponse"
+                    "structure": "SyncListItemResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created list item"
+                    }
                   }
                 }
               ]
@@ -453,6 +567,10 @@
                   "functionParameter": "index"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific list item resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -486,9 +604,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves an list item resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource#fetch-a-listitem-resource"
+                  },
                   "response": {
                     "name": "FetchSyncListItemResponse",
-                    "structure": "SyncListItemResponse"
+                    "structure": "SyncListItemResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved list item"
+                    }
                   }
                 },
                 {
@@ -523,12 +648,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a list item resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource#update-a-listitem-resource"
+                  },
                   "input": {
-                    "structure": "UpdateSyncListItemInput"
+                    "structure": "UpdateSyncListItemInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a list item resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateSyncListItemResponse",
-                    "structure": "SyncListItemResponse"
+                    "structure": "SyncListItemResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated list item"
+                    }
                   }
                 },
                 {
@@ -562,6 +697,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a list item resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource#delete-a-listitem-resource"
                   }
                 }
               ]
@@ -590,6 +729,10 @@
                   "functionParameter": "identity"
                 }
               },
+              "documentation": {
+                "description": "Client for managing list permission resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-list-permission-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -623,9 +766,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves an list permission resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-list-permission-resource#fetch-a-sync-list-permission-resource"
+                  },
                   "response": {
                     "name": "FetchSyncListPermissionsResponse",
-                    "structure": "SyncListPermissionsResponse"
+                    "structure": "SyncListPermissionsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved list permission"
+                    }
                   }
                 },
                 {
@@ -660,13 +810,23 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies a list permission resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-list-permission-resource#update-a-sync-list-permission-resource"
+                  },
                   "input": {
                     "name": "UpdateSyncListPermissionsInput",
-                    "structure": "SyncListPermissionsInput"
+                    "structure": "SyncListPermissionsInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a list permission resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateSyncListPermissionsResponse",
-                    "structure": "SyncListPermissionsResponse"
+                    "structure": "SyncListPermissionsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated list permission"
+                    }
                   }
                 },
                 {
@@ -700,6 +860,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a list permission resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-list-permission-resource#delete-a-sync-list-permission-resource"
                   }
                 }
               ]
@@ -730,9 +894,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an list resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource#fetch-a-list-resource"
+              },
               "response": {
                 "name": "FetchSyncListResponse",
-                "structure": "SyncListResponse"
+                "structure": "SyncListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved list"
+                }
               }
             },
             {
@@ -759,13 +930,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies a list resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource#update-a-list-resource"
+              },
               "input": {
                 "name": "UpdateSyncListInput",
-                "structure": "SyncListInput"
+                "structure": "SyncListInput",
+                "documentation": {
+                  "description": "defines input fields for updating a list resource"
+                }
               },
               "response": {
                 "name": "UpdateSyncListResponse",
-                "structure": "SyncListResponse"
+                "structure": "SyncListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated list"
+                }
               }
             },
             {
@@ -791,6 +972,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a list resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource#delete-a-list-resource"
               }
             }
           ]
@@ -803,6 +988,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing map resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource"
           },
           "operations": [
             {
@@ -821,12 +1010,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new map",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource#create-a-syncmap-resource"
+              },
               "input": {
-                "structure": "CreateSyncMapInput"
+                "structure": "CreateSyncMapInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new map resource"
+                }
               },
               "response": {
                 "name": "CreateSyncMapResponse",
-                "structure": "SyncMapResponse"
+                "structure": "SyncMapResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created map"
+                }
               }
             }
           ]
@@ -851,6 +1050,10 @@
               "functionParameter": "syncMapSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific map resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource"
+          },
           "subClients": [
             {
               "name": "Items",
@@ -864,6 +1067,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing map item resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource"
               },
               "operations": [
                 {
@@ -890,12 +1097,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new map item",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource#create-a-mapitem-resource"
+                  },
                   "input": {
-                    "structure": "CreateSyncMapItemInput"
+                    "structure": "CreateSyncMapItemInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new map item resource"
+                    }
                   },
                   "response": {
                     "name": "CreateSyncMapItemResponse",
-                    "structure": "SyncMapItemResponse"
+                    "structure": "SyncMapItemResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created map item"
+                    }
                   }
                 }
               ]
@@ -924,6 +1141,10 @@
                   "functionParameter": "key"
                 }
               },
+              "documentation": {
+                "description": "Client for managing a specific map item resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -957,9 +1178,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves an map item resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource#fetch-a-mapitem-resource"
+                  },
                   "response": {
                     "name": "FetchSyncMapItemResponse",
-                    "structure": "SyncMapItemResponse"
+                    "structure": "SyncMapItemResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved map item"
+                    }
                   }
                 },
                 {
@@ -994,12 +1222,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies an map item resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource#update-a-mapitem-resource"
+                  },
                   "input": {
-                    "structure": "UpdateSyncMapItemInput"
+                    "structure": "UpdateSyncMapItemInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a map item resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateSyncMapItemResponse",
-                    "structure": "SyncMapItemResponse"
+                    "structure": "SyncMapItemResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated map item"
+                    }
                   }
                 },
                 {
@@ -1033,6 +1271,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a map item resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource#delete-a-mapitem-resource"
                   }
                 }
               ]
@@ -1061,6 +1303,10 @@
                   "functionParameter": "identity"
                 }
               },
+              "documentation": {
+                "description": "Client for managing map item permission resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-map-permission-resource"
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -1094,9 +1340,16 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "retrieves an map item permission resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-map-permission-resource#fetch-a-sync-map-permission-resource"
+                  },
                   "response": {
                     "name": "FetchSyncMapPermissionsResponse",
-                    "structure": "SyncMapPermissionsResponse"
+                    "structure": "SyncMapPermissionsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved map item permission"
+                    }
                   }
                 },
                 {
@@ -1131,13 +1384,23 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "modifies an map item permission resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-map-permission-resource#update-a-sync-map-permission-resource"
+                  },
                   "input": {
                     "name": "UpdateSyncMapPermissionsInput",
-                    "structure": "SyncMapPermissionsInput"
+                    "structure": "SyncMapPermissionsInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a map item permission resource"
+                    }
                   },
                   "response": {
                     "name": "UpdateSyncMapPermissionsResponse",
-                    "structure": "SyncMapPermissionsResponse"
+                    "structure": "SyncMapPermissionsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated map item permission"
+                    }
                   }
                 },
                 {
@@ -1171,6 +1434,10 @@
                         }
                       }
                     ]
+                  },
+                  "documentation": {
+                    "description": "removes a map item permission resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-map-permission-resource#delete-a-sync-map-permission-resource"
                   }
                 }
               ]
@@ -1201,9 +1468,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an map resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource#fetch-a-syncmap-resource"
+              },
               "response": {
                 "name": "FetchSyncMapResponse",
-                "structure": "SyncMapResponse"
+                "structure": "SyncMapResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved map"
+                }
               }
             },
             {
@@ -1230,13 +1504,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies an map resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource#update-a-syncmap-resource"
+              },
               "input": {
                 "name": "UpdateSyncMapInput",
-                "structure": "SyncMapInput"
+                "structure": "SyncMapInput",
+                "documentation": {
+                  "description": "defines input fields for updating a map resource"
+                }
               },
               "response": {
                 "name": "UpdateSyncMapResponse",
-                "structure": "SyncMapResponse"
+                "structure": "SyncMapResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated map"
+                }
               }
             },
             {
@@ -1262,6 +1546,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a map resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource#delete-a-map-resource"
               }
             }
           ]
@@ -1274,6 +1562,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing stream resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource"
           },
           "operations": [
             {
@@ -1292,12 +1584,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new stream",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource#create-a-sync-stream-resource"
+              },
               "input": {
-                "structure": "CreateSyncStreamInput"
+                "structure": "CreateSyncStreamInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new stream resource"
+                }
               },
               "response": {
                 "name": "CreateSyncStreamResponse",
-                "structure": "SyncStreamResponse"
+                "structure": "SyncStreamResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created stream"
+                }
               }
             }
           ]
@@ -1322,6 +1624,10 @@
               "functionParameter": "syncStreamSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific stream resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource"
+          },
           "subClients": [
             {
               "name": "Messages",
@@ -1335,6 +1641,10 @@
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
+              },
+              "documentation": {
+                "description": "Client for managing stream message resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-message-resource"
               },
               "operations": [
                 {
@@ -1361,12 +1671,22 @@
                       }
                     ]
                   },
+                  "documentation": {
+                    "description": "creates a new stream message",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-message-resource#create-a-stream-message-resource"
+                  },
                   "input": {
-                    "structure": "CreateSyncStreamMessageInput"
+                    "structure": "CreateSyncStreamMessageInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new stream message resource"
+                    }
                   },
                   "response": {
                     "name": "CreateSyncStreamMessageResponse",
-                    "structure": "SyncStreamMessageResponse"
+                    "structure": "SyncStreamMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created stream message"
+                    }
                   }
                 }
               ]
@@ -1397,9 +1717,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves an stream resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource#fetch-a-sync-stream-resource"
+              },
               "response": {
                 "name": "FetchSyncStreamResponse",
-                "structure": "SyncStreamResponse"
+                "structure": "SyncStreamResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved stream"
+                }
               }
             },
             {
@@ -1426,13 +1753,23 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "modifies an stream resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource#update-a-sync-stream-resource"
+              },
               "input": {
                 "name": "UpdateSyncStreamInput",
-                "structure": "SyncStreamInput"
+                "structure": "SyncStreamInput",
+                "documentation": {
+                  "description": "defines input fields for updating a stream resource"
+                }
               },
               "response": {
                 "name": "UpdateSyncStreamResponse",
-                "structure": "SyncStreamResponse"
+                "structure": "SyncStreamResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated stream"
+                }
               }
             },
             {
@@ -1458,6 +1795,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a stream resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource#delete-a-sync-stream-resource"
               }
             }
           ]
@@ -1480,9 +1821,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves an service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service#fetch-a-service-resource"
+          },
           "response": {
             "name": "FetchServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved service"
+            }
           }
         },
         {
@@ -1501,13 +1849,23 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service#update-a-service-resource"
+          },
           "input": {
             "name": "UpdateServiceInput",
-            "structure": "ServiceInput"
+            "structure": "ServiceInput",
+            "documentation": {
+              "description": "defines input fields for updating a service resource"
+            }
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated service"
+            }
           }
         },
         {
@@ -1525,6 +1883,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a service resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service#delete-a-service-resource"
           }
         }
       ]

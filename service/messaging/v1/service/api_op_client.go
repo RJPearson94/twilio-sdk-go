@@ -11,31 +11,27 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_codes"
 )
 
+// Client for managing a specific messaging resource
+// See https://www.twilio.com/docs/sms/services/api for more details
 type Client struct {
 	client *client.Client
 
 	sid string
 
-	// Sub client to manage alphasender resources
-	AlphaSender func(string) *alpha_sender.Client
-	// Sub client to manage alphasenders resources
+	AlphaSender  func(string) *alpha_sender.Client
 	AlphaSenders *alpha_senders.Client
-	// Sub client to manage phonenumber resources
-	PhoneNumber func(string) *phone_number.Client
-	// Sub client to manage phonenumbers resources
+	PhoneNumber  func(string) *phone_number.Client
 	PhoneNumbers *phone_numbers.Client
-	// Sub client to manage shortcode resources
-	ShortCode func(string) *short_code.Client
-	// Sub client to manage shortcodes resources
-	ShortCodes *short_codes.Client
+	ShortCode    func(string) *short_code.Client
+	ShortCodes   *short_codes.Client
 }
 
-// The properties required to manage the service resources
+// ClientProperties are the properties required to manage the service resources
 type ClientProperties struct {
 	Sid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the service client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateTaskInput defines the input parameters/ properties for creating a new task resource
+// CreateTaskInput defines the input fields for creating a new task resource
 type CreateTaskInput struct {
 	Actions      *string `form:"Actions,omitempty"`
 	ActionsURL   *string `form:"ActionsUrl,omitempty"`
@@ -17,7 +17,7 @@ type CreateTaskInput struct {
 	UniqueName   string  `validate:"required" form:"UniqueName"`
 }
 
-// CreateTaskResponse resource/ response properties for the created task
+// CreateTaskResponse defines the response fields for the created task
 type CreateTaskResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	ActionsURL   string     `json:"actions_url"`

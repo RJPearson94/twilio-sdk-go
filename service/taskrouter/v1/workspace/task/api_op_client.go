@@ -3,6 +3,8 @@ package task
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific task resource
+// See https://www.twilio.com/docs/taskrouter/api/task for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	workspaceSid string
 }
 
-// The properties required to manage the task resources
+// ClientProperties are the properties required to manage the task resources
 type ClientProperties struct {
 	Sid          string
 	WorkspaceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the task client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

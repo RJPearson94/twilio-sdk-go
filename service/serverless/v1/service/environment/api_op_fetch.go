@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchEnvironmentResponse defines the response fields for the retrieved environment
 type FetchEnvironmentResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	BuildSid     *string    `json:"build_sid,omitempty"`
@@ -22,10 +23,15 @@ type FetchEnvironmentResponse struct {
 	UniqueName   string     `json:"unique_name"`
 }
 
+// Fetch retrieves a environment resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#fetch-an-environment-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchEnvironmentResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a environment resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#fetch-an-environment-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchEnvironmentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

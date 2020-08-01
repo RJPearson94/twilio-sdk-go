@@ -9,13 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateFieldTypeInput defines input parameters/ properties for updating a field type
+// UpdateFieldTypeInput defines the input fields for updating a field type
 type UpdateFieldTypeInput struct {
 	FriendlyName *string `form:"FriendlyName,omitempty"`
 	UniqueName   *string `form:"UniqueName,omitempty"`
 }
 
-// UpdateFieldTypeResponse resource/ response properties for the updated field type
+// UpdateFieldTypeResponse defines the response fields for the updated field type
 type UpdateFieldTypeResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	AssistantSid string     `json:"assistant_sid"`

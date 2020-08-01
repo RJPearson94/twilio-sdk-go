@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchFieldValueResponse resource/ response properties for the retrieved field value
+// FetchFieldValueResponse defines the response fields for the retrieved field value
 type FetchFieldValueResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	AssistantSid string     `json:"assistant_sid"`

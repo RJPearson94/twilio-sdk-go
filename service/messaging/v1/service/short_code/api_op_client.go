@@ -3,6 +3,8 @@ package short_code
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific short code resource
+// See https://www.twilio.com/docs/sms/services/api/shortcode-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	sid        string
 }
 
-// The properties required to manage the shortcode resources
+// ClientProperties are the properties required to manage the shortcode resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the shortcode client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

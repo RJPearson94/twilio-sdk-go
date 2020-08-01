@@ -3,6 +3,8 @@ package alpha_sender
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific alpha sender resource
+// See https://www.twilio.com/docs/sms/services/api/alphasender-resource for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	sid        string
 }
 
-// The properties required to manage the alphasender resources
+// ClientProperties are the properties required to manage the alphasender resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the alphasender client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

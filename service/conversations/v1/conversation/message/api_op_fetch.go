@@ -16,6 +16,7 @@ type FetchMessageResponseMedia struct {
 	Size        int    `json:"size"`
 }
 
+// FetchMessageResponse defines the response fields for the retrieved message
 type FetchMessageResponse struct {
 	AccountSid      string                       `json:"account_sid"`
 	Attributes      string                       `json:"attributes"`
@@ -31,10 +32,15 @@ type FetchMessageResponse struct {
 	URL             string                       `json:"url"`
 }
 
+// Fetch retrieves a message resource
+// See https://www.twilio.com/docs/conversations/api/conversation-message-resource#fetch-a-conversationmessage-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchMessageResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a message resource
+// See https://www.twilio.com/docs/conversations/api/conversation-message-resource#fetch-a-conversationmessage-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchMessageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

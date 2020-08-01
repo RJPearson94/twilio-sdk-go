@@ -9,12 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateUserChannelInput defines input fields for updating a user channel resource
 type UpdateUserChannelInput struct {
 	LastConsumedMessageIndex *int       `form:"LastConsumedMessageIndex,omitempty"`
 	LastConsumptionTimestamp *time.Time `form:"LastConsumptionTimestamp,omitempty"`
 	NotificationLevel        *string    `form:"NotificationLevel,omitempty"`
 }
 
+// UpdateUserChannelResponse defines the response fields for the updated user channel
 type UpdateUserChannelResponse struct {
 	AccountSid               string  `json:"account_sid"`
 	ChannelSid               string  `json:"channel_sid"`
@@ -28,10 +30,15 @@ type UpdateUserChannelResponse struct {
 	UserSid                  string  `json:"user_sid"`
 }
 
+// Update modifies a user channel resource
+// See https://www.twilio.com/docs/chat/rest/user-channel-resource#set-the-notificationlevel for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateUserChannelInput) (*UpdateUserChannelResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a user channel resource
+// See https://www.twilio.com/docs/chat/rest/user-channel-resource#set-the-notificationlevel for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateUserChannelInput) (*UpdateUserChannelResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

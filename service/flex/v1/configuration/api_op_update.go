@@ -36,6 +36,7 @@ type UpdateConfigurationInputWorkerChannel struct {
 	Name         string `validate:"required" json:"name"`
 }
 
+// UpdateConfigurationInput defines input fields for updating a configuration resource
 type UpdateConfigurationInput struct {
 	AccountSid                   string                                              `validate:"required" json:"account_sid"`
 	Attributes                   *interface{}                                        `json:"attributes,omitempty"`
@@ -95,6 +96,7 @@ type UpdateConfigurationResponseWorkerChannel struct {
 	Name         string `json:"name"`
 }
 
+// UpdateConfigurationResponse defines the response fields for the updated configuration
 type UpdateConfigurationResponse struct {
 	AccountSid                   string                                                 `json:"account_sid"`
 	Attributes                   *interface{}                                           `json:"attributes,omitempty"`
@@ -136,10 +138,13 @@ type UpdateConfigurationResponse struct {
 	WfmIntegrations              *[]UpdateConfigurationResponseIntegration              `json:"wfm_integrations,omitempty"`
 }
 
+// Update modifies a configuration resource
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateConfigurationInput) (*UpdateConfigurationResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a configuration resource
 func (c Client) UpdateWithContext(context context.Context, input *UpdateConfigurationInput) (*UpdateConfigurationResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

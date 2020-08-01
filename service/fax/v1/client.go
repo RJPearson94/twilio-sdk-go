@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
+// Fax client is used to manage resources for Programmable Fax
+// See https://www.twilio.com/docs/fax for more details
 type Fax struct {
 	client *client.Client
 	Faxes  *faxes.Client
@@ -19,6 +21,7 @@ func (s Fax) GetClient() *client.Client {
 	return s.client
 }
 
+// New creates a new instance of the client using session data
 func New(sess *session.Session) *Fax {
 	config := client.GetDefaultConfig()
 	config.Beta = false
@@ -28,6 +31,7 @@ func New(sess *session.Session) *Fax {
 	return NewWithClient(client.New(sess, config))
 }
 
+// NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Fax {
 	return &Fax{
 		client: client,
@@ -40,6 +44,7 @@ func NewWithClient(client *client.Client) *Fax {
 	}
 }
 
+// NewWithCredentials creates a new instance of the client with credentials
 func NewWithCredentials(creds *credentials.Credentials) *Fax {
 	return New(session.New(creds))
 }

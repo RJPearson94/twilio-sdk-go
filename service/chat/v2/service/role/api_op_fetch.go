@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchRoleResponse defines the response fields for the retrieved role
 type FetchRoleResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -21,10 +22,15 @@ type FetchRoleResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Fetch retrieves a role resource
+// See https://www.twilio.com/docs/chat/rest/role-resource#fetch-a-role-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchRoleResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a role resource
+// See https://www.twilio.com/docs/chat/rest/role-resource#fetch-a-role-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchRoleResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

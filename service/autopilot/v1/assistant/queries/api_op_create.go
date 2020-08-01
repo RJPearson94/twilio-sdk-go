@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateQueryInput defines the input parameters/ properties for creating a new query resource
+// CreateQueryInput defines the input fields for creating a new query resource
 type CreateQueryInput struct {
 	Language   string  `validate:"required" form:"Language"`
 	ModelBuild *string `form:"ModelBuild,omitempty"`
@@ -28,7 +28,7 @@ type CreateQueryResponseResult struct {
 	Task   string                     `json:"task"`
 }
 
-// CreateQueryResponse resource/ response properties for the created query
+// CreateQueryResponse defines the response fields for the created query
 type CreateQueryResponse struct {
 	AccountSid    string                    `json:"account_sid"`
 	AssistantSid  string                    `json:"assistant_sid"`

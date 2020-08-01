@@ -3,6 +3,8 @@ package deployments
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing deployment resources
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	serviceSid     string
 }
 
-// The properties required to manage the deployments resources
+// ClientProperties are the properties required to manage the deployments resources
 type ClientProperties struct {
 	EnvironmentSid string
 	ServiceSid     string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the deployments client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

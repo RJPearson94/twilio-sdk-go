@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateWorkflowInput defines input fields for updating a workflow resource
 type UpdateWorkflowInput struct {
 	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
 	Configuration                 *string `form:"Configuration,omitempty"`
@@ -18,6 +19,7 @@ type UpdateWorkflowInput struct {
 	TaskReservationTimeout        *int    `form:"TaskReservationTimeout,omitempty"`
 }
 
+// UpdateWorkflowResponse defines the response fields for the updated workflow
 type UpdateWorkflowResponse struct {
 	AccountSid                    string      `json:"account_sid"`
 	AssignmentCallbackURL         *string     `json:"assignment_callback_url,omitempty"`
@@ -33,10 +35,15 @@ type UpdateWorkflowResponse struct {
 	WorkspaceSid                  string      `json:"workspace_sid"`
 }
 
+// Update modifies a workflow resource
+// See https://www.twilio.com/docs/taskrouter/api/workflow#update-a-workflow-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateWorkflowInput) (*UpdateWorkflowResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a workflow resource
+// See https://www.twilio.com/docs/taskrouter/api/workflow#update-a-workflow-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkflowInput) (*UpdateWorkflowResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

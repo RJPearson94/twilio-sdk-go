@@ -3,7 +3,7 @@ package queries
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing an Autopilot Query resource
+// Client for managing query resources
 // See https://www.twilio.com/docs/autopilot/api/query for more details
 type Client struct {
 	client *client.Client

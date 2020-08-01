@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateSyncMapItemInput defines input fields for updating a map item resource
 type UpdateSyncMapItemInput struct {
 	CollectionTtl *int    `form:"CollectionTtl,omitempty"`
 	Data          *string `form:"Data,omitempty"`
@@ -16,6 +17,7 @@ type UpdateSyncMapItemInput struct {
 	Ttl           *int    `form:"Ttl,omitempty"`
 }
 
+// UpdateSyncMapItemResponse defines the response fields for the updated map item
 type UpdateSyncMapItemResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
@@ -30,10 +32,15 @@ type UpdateSyncMapItemResponse struct {
 	URL         string                 `json:"url"`
 }
 
+// Update modifies an map item resource
+// See https://www.twilio.com/docs/sync/api/map-item-resource#update-a-mapitem-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateSyncMapItemInput) (*UpdateSyncMapItemResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies an map item resource
+// See https://www.twilio.com/docs/sync/api/map-item-resource#update-a-mapitem-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateSyncMapItemInput) (*UpdateSyncMapItemResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

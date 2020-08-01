@@ -3,7 +3,7 @@ package field_values
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing an Autopilot Field Value resource
+// Client for managing field value resources
 // See https://www.twilio.com/docs/autopilot/api/field-value for more details
 type Client struct {
 	client *client.Client

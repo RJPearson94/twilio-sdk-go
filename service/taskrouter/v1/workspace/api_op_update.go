@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateWorkspaceInput defines input fields for updating a workspace resource
 type UpdateWorkspaceInput struct {
 	EventCallbackURL     *string `form:"EventCallbackUrl,omitempty"`
 	EventsFilter         *string `form:"EventsFilter,omitempty"`
@@ -18,6 +19,7 @@ type UpdateWorkspaceInput struct {
 	Template             *string `form:"Template,omitempty"`
 }
 
+// UpdateWorkspaceResponse defines the response fields for the updated workspace
 type UpdateWorkspaceResponse struct {
 	AccountSid           string     `json:"account_sid"`
 	DateCreated          time.Time  `json:"date_created"`
@@ -35,10 +37,15 @@ type UpdateWorkspaceResponse struct {
 	URL                  string     `json:"url"`
 }
 
+// Update modifies a workspace resource
+// See https://www.twilio.com/docs/taskrouter/api/workspace#update-a-workspace-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateWorkspaceInput) (*UpdateWorkspaceResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a workspace resource
+// See https://www.twilio.com/docs/taskrouter/api/workspace#update-a-workspace-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWorkspaceInput) (*UpdateWorkspaceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

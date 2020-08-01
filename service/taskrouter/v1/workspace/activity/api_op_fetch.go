@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchActivityResponse defines the response fields for the retrieved activity
 type FetchActivityResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	Available    bool       `json:"available"`
@@ -20,10 +21,15 @@ type FetchActivityResponse struct {
 	WorkspaceSid string     `json:"workspace_sid"`
 }
 
+// Fetch retrieves an activity resource
+// See https://www.twilio.com/docs/taskrouter/api/activity#fetch-an-activity-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchActivityResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an activity resource
+// See https://www.twilio.com/docs/taskrouter/api/activity#fetch-an-activity-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchActivityResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

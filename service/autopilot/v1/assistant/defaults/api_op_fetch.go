@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchDefaultResponse resource/ response properties for the retrieved defaults
+// FetchDefaultResponse defines the response fields for the retrieved defaults
 type FetchDefaultResponse struct {
 	AccountSid   string                 `json:"account_sid"`
 	AssistantSid string                 `json:"assistant_sid"`

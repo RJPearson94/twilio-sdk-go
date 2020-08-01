@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchAssetResponse defines the response fields for the retrieved asset
 type FetchAssetResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -19,10 +20,15 @@ type FetchAssetResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Fetch retrieves a asset resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#fetch-an-asset-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchAssetResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a asset resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#fetch-an-asset-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchAssetResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

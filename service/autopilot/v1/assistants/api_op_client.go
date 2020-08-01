@@ -3,7 +3,7 @@ package assistants
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing an Autopilot assistant resource
+// Client for managing assistant resources
 // See https://www.twilio.com/docs/autopilot/api/assistant for more details
 type Client struct {
 	client *client.Client

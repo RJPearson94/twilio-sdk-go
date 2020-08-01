@@ -9,14 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateSampleInput defines the input parameters/ properties for creating a new task sample resource
+// CreateSampleInput defines the input fields for creating a new task sample resource
 type CreateSampleInput struct {
 	Language      string  `validate:"required" form:"Language"`
 	SourceChannel *string `form:"SourceChannel,omitempty"`
 	TaggedText    string  `validate:"required" form:"TaggedText"`
 }
 
-// CreateSampleResponse resource/ response properties for the created task sample
+// CreateSampleResponse defines the response fields for the created task sample
 type CreateSampleResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

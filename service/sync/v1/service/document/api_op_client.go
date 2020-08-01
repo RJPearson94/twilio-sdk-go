@@ -6,23 +6,24 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document/permissions"
 )
 
+// Client for managing a specific document resource
+// See https://www.twilio.com/docs/sync/api/document-resource for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 	sid        string
 
-	// Sub client to manage permissions resources
 	Permissions func(string) *permissions.Client
 }
 
-// The properties required to manage the document resources
+// ClientProperties are the properties required to manage the document resources
 type ClientProperties struct {
 	ServiceSid string
 	Sid        string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the document client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

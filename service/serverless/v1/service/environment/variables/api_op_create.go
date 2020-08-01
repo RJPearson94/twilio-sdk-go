@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateVariableInput defines the input fields for creating a new environment variable resource
 type CreateVariableInput struct {
 	Key   string `validate:"required" form:"Key"`
 	Value string `validate:"required" form:"Value"`
 }
 
+// CreateVariableResponse defines the response fields for the created environment variable
 type CreateVariableResponse struct {
 	AccountSid     string     `json:"account_sid"`
 	DateCreated    time.Time  `json:"date_created"`
@@ -26,10 +28,15 @@ type CreateVariableResponse struct {
 	Value          string     `json:"value"`
 }
 
+// Create creates a new environment variable
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#create-a-variable-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateVariableInput) (*CreateVariableResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new environment variable
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#create-a-variable-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateVariableInput) (*CreateVariableResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

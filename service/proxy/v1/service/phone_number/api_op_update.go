@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdatePhoneNumberInput defines input fields for updating a phone number resource
 type UpdatePhoneNumberInput struct {
 	IsReserved *bool `form:"IsReserved,omitempty"`
 }
@@ -29,6 +30,7 @@ type UpdatePhoneNumberResponseCapabilities struct {
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
 }
 
+// UpdatePhoneNumberResponse defines the response fields for the updated phone number
 type UpdatePhoneNumberResponse struct {
 	AccountSid   string                                 `json:"account_sid"`
 	Capabilities *UpdatePhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
@@ -44,10 +46,15 @@ type UpdatePhoneNumberResponse struct {
 	URL          string                                 `json:"url"`
 }
 
+// Update modifies a phone number resource
+// See https://www.twilio.com/docs/proxy/api/phone-number#update-a-phonenumber-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdatePhoneNumberInput) (*UpdatePhoneNumberResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a phone number resource
+// See https://www.twilio.com/docs/proxy/api/phone-number#update-a-phonenumber-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdatePhoneNumberInput) (*UpdatePhoneNumberResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

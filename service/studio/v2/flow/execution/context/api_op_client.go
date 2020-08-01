@@ -3,6 +3,8 @@ package context
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing execution context resources
+// See https://www.twilio.com/docs/studio/rest-api/v2/execution-context for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	flowSid      string
 }
 
-// The properties required to manage the context resources
+// ClientProperties are the properties required to manage the context resources
 type ClientProperties struct {
 	ExecutionSid string
 	FlowSid      string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the context client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

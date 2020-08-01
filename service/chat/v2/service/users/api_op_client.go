@@ -3,18 +3,20 @@ package users
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing user resources
+// See https://www.twilio.com/docs/chat/rest/user-resource for more details
 type Client struct {
 	client *client.Client
 
 	serviceSid string
 }
 
-// The properties required to manage the users resources
+// ClientProperties are the properties required to manage the users resources
 type ClientProperties struct {
 	ServiceSid string
 }
 
-// Create a new instance of the client
+// New creates a new instance of the users client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

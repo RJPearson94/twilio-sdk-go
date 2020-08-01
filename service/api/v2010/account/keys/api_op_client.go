@@ -3,7 +3,7 @@ package keys
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing account key resources
+// Client for managing api key resources
 // See https://www.twilio.com/docs/iam/keys/api-key-resource for more details
 type Client struct {
 	client *client.Client

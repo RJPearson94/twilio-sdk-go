@@ -20,6 +20,7 @@ type FetchFlexFlowResponseIntegration struct {
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
 }
 
+// FetchFlexFlowResponse defines the response fields for the retrieved flex flow
 type FetchFlexFlowResponse struct {
 	AccountSid      string                            `json:"account_sid"`
 	ChannelType     string                            `json:"channel_type"`
@@ -37,10 +38,13 @@ type FetchFlexFlowResponse struct {
 	URL             string                            `json:"url"`
 }
 
+// Fetch retrieves an flex flow resource
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchFlexFlowResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves an flex flow resource
 func (c Client) FetchWithContext(context context.Context) (*FetchFlexFlowResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

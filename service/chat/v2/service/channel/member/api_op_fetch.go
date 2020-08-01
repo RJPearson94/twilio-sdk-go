@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchChannelMemberResponse defines the response fields for the retrieved member
 type FetchChannelMemberResponse struct {
 	AccountSid               string     `json:"account_sid"`
 	Attributes               *string    `json:"attributes,omitempty"`
@@ -24,10 +25,15 @@ type FetchChannelMemberResponse struct {
 	URL                      string     `json:"url"`
 }
 
+// Fetch retrieves a member resource
+// See https://www.twilio.com/docs/chat/rest/member-resource#fetch-a-member-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchChannelMemberResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a member resource
+// See https://www.twilio.com/docs/chat/rest/member-resource#fetch-a-member-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchChannelMemberResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

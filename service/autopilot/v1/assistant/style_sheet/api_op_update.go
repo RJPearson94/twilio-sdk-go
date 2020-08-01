@@ -8,12 +8,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateStyleSheetInput defines input parameters/ properties for updating a stylesheet
+// UpdateStyleSheetInput defines the input fields for updating a stylesheet
 type UpdateStyleSheetInput struct {
 	StyleSheet *string `form:"StyleSheet,omitempty"`
 }
 
-// UpdateStyleSheetResponse resource/ response properties for the updated style sheet
+// UpdateStyleSheetResponse defines the response fields for the updated style sheet
 type UpdateStyleSheetResponse struct {
 	AccountSid   string                 `json:"account_sid"`
 	AssistantSid string                 `json:"assistant_sid"`

@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateWebhookInput defines the input parameters/ properties for creating a new webhook resource
+// CreateWebhookInput defines the input fields for creating a new webhook resource
 type CreateWebhookInput struct {
 	Events        string  `validate:"required" form:"Events"`
 	UniqueName    string  `validate:"required" form:"UniqueName"`
@@ -17,7 +17,7 @@ type CreateWebhookInput struct {
 	WebhookURL    string  `validate:"required" form:"WebhookUrl"`
 }
 
-// CreateWebhookResponse resource/ response properties for the created webhook
+// CreateWebhookResponse defines the response fields for the created webhook
 type CreateWebhookResponse struct {
 	AccountSid    string     `json:"account_sid"`
 	AssistantSid  string     `json:"assistant_sid"`

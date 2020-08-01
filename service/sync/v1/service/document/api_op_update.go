@@ -9,11 +9,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateDocumentInput defines input fields for updating a document resource
 type UpdateDocumentInput struct {
 	Data *string `form:"Data,omitempty"`
 	Ttl  *int    `form:"Ttl,omitempty"`
 }
 
+// UpdateDocumentResponse defines the response fields for the updated document
 type UpdateDocumentResponse struct {
 	AccountSid  string                 `json:"account_sid"`
 	CreatedBy   string                 `json:"created_by"`
@@ -28,10 +30,15 @@ type UpdateDocumentResponse struct {
 	UniqueName  *string                `json:"unique_name,omitempty"`
 }
 
+// Update modifies a document resource
+// See https://www.twilio.com/docs/sync/api/document-resource#update-a-document-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateDocumentInput) (*UpdateDocumentResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a document resource
+// See https://www.twilio.com/docs/sync/api/document-resource#update-a-document-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateDocumentInput) (*UpdateDocumentResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

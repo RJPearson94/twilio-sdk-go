@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchExecutionResponse defines the response fields for the retrieved execution
 type FetchExecutionResponse struct {
 	AccountSid            string      `json:"account_sid"`
 	ContactChannelAddress string      `json:"contact_channel_address"`
@@ -21,10 +22,15 @@ type FetchExecutionResponse struct {
 	URL                   string      `json:"url"`
 }
 
+// Fetch retrieves a execution resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/execution#fetch-a-single-execution for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchExecutionResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a execution resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/execution#fetch-a-single-execution for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchExecutionResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

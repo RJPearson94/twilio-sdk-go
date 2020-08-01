@@ -9,10 +9,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateFaxInput defines input fields for updating an fax resource
 type UpdateFaxInput struct {
 	Status *string `form:"Status,omitempty"`
 }
 
+// UpdateFaxResponse defines the response fields for the updated fax
 type UpdateFaxResponse struct {
 	APIVersion  string     `json:"api_version"`
 	AccountSid  string     `json:"account_sid"`
@@ -33,10 +35,15 @@ type UpdateFaxResponse struct {
 	URL         string     `json:"url"`
 }
 
+// Update modifies a fax resource
+// See https://www.twilio.com/docs/fax/api/fax-resource#update-a-fax-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateFaxInput) (*UpdateFaxResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a fax resource
+// See https://www.twilio.com/docs/fax/api/fax-resource#update-a-fax-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateFaxInput) (*UpdateFaxResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

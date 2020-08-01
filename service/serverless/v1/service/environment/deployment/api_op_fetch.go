@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// FetchDeploymentResponse defines the response fields for the retrieved deployment
 type FetchDeploymentResponse struct {
 	AccountSid     string     `json:"account_sid"`
 	BuildSid       string     `json:"build_sid"`
@@ -20,10 +21,15 @@ type FetchDeploymentResponse struct {
 	URL            string     `json:"url"`
 }
 
+// Fetch retrieves a deployment resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment#fetch-a-deployment-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchDeploymentResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
+// FetchWithContext retrieves a deployment resource
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment#fetch-a-deployment-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchDeploymentResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

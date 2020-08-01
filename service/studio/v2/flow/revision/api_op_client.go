@@ -3,6 +3,8 @@ package revision
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
+// Client for managing a specific flow revision resource
+// See https://www.twilio.com/docs/studio/rest-api/v2/flow-revision for more details
 type Client struct {
 	client *client.Client
 
@@ -10,13 +12,13 @@ type Client struct {
 	revisionNumber int
 }
 
-// The properties required to manage the revision resources
+// ClientProperties are the properties required to manage the revision resources
 type ClientProperties struct {
 	FlowSid        string
 	RevisionNumber int
 }
 
-// Create a new instance of the client
+// New creates a new instance of the revision client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

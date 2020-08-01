@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateServiceInput defines input fields for updating a messaging resource
 type UpdateServiceInput struct {
 	AreaCodeGeomatch      *bool   `form:"AreaCodeGeomatch,omitempty"`
 	FallbackMethod        *string `form:"FallbackMethod,omitempty"`
@@ -26,6 +27,7 @@ type UpdateServiceInput struct {
 	ValidityPeriod        *int    `form:"ValidityPeriod,omitempty"`
 }
 
+// UpdateServiceResponse defines the response fields for the updated messaging
 type UpdateServiceResponse struct {
 	AccountSid            string     `json:"account_sid"`
 	AreaCodeGeomatch      bool       `json:"area_code_geomatch"`
@@ -48,10 +50,15 @@ type UpdateServiceResponse struct {
 	ValidityPeriod        int        `json:"validity_period"`
 }
 
+// Update modifies a messaging resource
+// See https://www.twilio.com/docs/sms/services/api#update-a-service-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a messaging resource
+// See https://www.twilio.com/docs/sms/services/api#update-a-service-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateServiceInput) (*UpdateServiceResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

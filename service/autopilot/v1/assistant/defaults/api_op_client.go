@@ -3,7 +3,7 @@ package defaults
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing a defaults resource
+// Client for managing default resources
 // See https://www.twilio.com/docs/autopilot/api/assistant/defaults for more details
 type Client struct {
 	client *client.Client

@@ -8,7 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// FetchBalanceResponse resource/ response properties for retrieving an account balance
+// FetchBalanceResponse defines the response fields for retrieving an account balance
 type FetchBalanceResponse struct {
 	AccountSid string `json:"account_sid"`
 	Balance    string `json:"balance"`

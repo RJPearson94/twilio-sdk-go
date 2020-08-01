@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateCredentialInput defines the input fields for updating a credential resource
 type UpdateCredentialInput struct {
 	ApiKey       *string `form:"ApiKey,omitempty"`
 	Certificate  *string `form:"Certificate,omitempty"`
@@ -18,6 +19,7 @@ type UpdateCredentialInput struct {
 	Secret       *string `form:"Secret,omitempty"`
 }
 
+// UpdateCredentialResponse defines the response fields for the updated credential
 type UpdateCredentialResponse struct {
 	AccountSid   string     `json:"account_sid"`
 	DateCreated  time.Time  `json:"date_created"`
@@ -29,10 +31,15 @@ type UpdateCredentialResponse struct {
 	URL          string     `json:"url"`
 }
 
+// Update modifies a credential resource
+// See https://www.twilio.com/docs/chat/rest/credential-resource#update-a-credential-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateCredentialInput) (*UpdateCredentialResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a credential resource
+// See https://www.twilio.com/docs/chat/rest/credential-resource#update-a-credential-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateCredentialInput) (*UpdateCredentialResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

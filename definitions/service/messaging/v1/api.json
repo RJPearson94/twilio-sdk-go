@@ -11,6 +11,10 @@
     {
       "name": "Services",
       "packageName": "services",
+      "documentation": {
+        "description": "Client for managing messaging resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api"
+      },
       "operations": [
         {
           "name": "Create",
@@ -18,12 +22,22 @@
             "uri": "/Services",
             "method": "Post"
           },
+          "documentation": {
+            "description": "creates a new messaging",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#create-a-service-resource"
+          },
           "input": {
-            "structure": "CreateServiceInput"
+            "structure": "CreateServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new messaging resource"
+            }
           },
           "response": {
             "name": "CreateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created messaging"
+            }
           }
         }
       ]
@@ -36,6 +50,10 @@
           "dataType": "string"
         }
       },
+      "documentation": {
+        "description": "Client for managing a specific messaging resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api"
+      },
       "subClients": [
         {
           "name": "PhoneNumbers",
@@ -45,6 +63,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing phone number resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/phonenumber-resource"
           },
           "operations": [
             {
@@ -63,12 +85,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new phone number",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/phonenumber-resource#create-a-phonenumber-resource"
+              },
               "input": {
-                "structure": "CreatePhoneNumberInput"
+                "structure": "CreatePhoneNumberInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new phone number resource"
+                }
               },
               "response": {
                 "name": "CreatePhoneNumberResponse",
-                "structure": "PhoneNumberResponse"
+                "structure": "PhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created phone number"
+                }
               }
             }
           ]
@@ -93,6 +125,10 @@
               "functionParameter": "phoneNumberSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific phone number resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/phonenumber-resource"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -118,9 +154,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a phone number resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/phonenumber-resource#fetch-a-phonenumber-resource"
+              },
               "response": {
                 "name": "FetchPhoneNumberResponse",
-                "structure": "PhoneNumberResponse"
+                "structure": "PhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved phone number"
+                }
               }
             },
             {
@@ -146,6 +189,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a phone number resource from the messaging resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/phonenumber-resource#delete-a-phonenumber-resource"
               }
             }
           ]
@@ -158,6 +205,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing short code resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/shortcode-resource"
           },
           "operations": [
             {
@@ -176,12 +227,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new short code",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/shortcode-resource#create-a-shortcode-resource"
+              },
               "input": {
-                "structure": "CreateShortCodeInput"
+                "structure": "CreateShortCodeInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new short code resource"
+                }
               },
               "response": {
                 "name": "CreateShortCodeResponse",
-                "structure": "ShortCodeResponse"
+                "structure": "ShortCodeResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created short code"
+                }
               }
             }
           ]
@@ -206,6 +267,10 @@
               "functionParameter": "shortCodeSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific short code resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/shortcode-resource"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -231,9 +296,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a short code resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/shortcode-resource#fetch-a-shortcode-resource"
+              },
               "response": {
                 "name": "FetchShortCodeResponse",
-                "structure": "ShortCodeResponse"
+                "structure": "ShortCodeResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved short code"
+                }
               }
             },
             {
@@ -259,6 +331,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a short code resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/shortcode-resource#delete-a-shortcode-resource"
               }
             }
           ]
@@ -271,6 +347,10 @@
               "dataType": "string",
               "parentProperty": "sid"
             }
+          },
+          "documentation": {
+            "description": "Client for managing alpha sender resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/alphasender-resource"
           },
           "operations": [
             {
@@ -289,12 +369,22 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "creates a new alpha sender",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/alphasender-resource#create-an-alphasender-resource"
+              },
               "input": {
-                "structure": "CreateAlphaSenderInput"
+                "structure": "CreateAlphaSenderInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new alpha sender resource"
+                }
               },
               "response": {
                 "name": "CreateAlphaSenderResponse",
-                "structure": "AlphaSenderResponse"
+                "structure": "AlphaSenderResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created alpha sender"
+                }
               }
             }
           ]
@@ -319,6 +409,10 @@
               "functionParameter": "alphaSenderSid"
             }
           },
+          "documentation": {
+            "description": "Client for managing a specific alpha sender resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/alphasender-resource"
+          },
           "operations": [
             {
               "name": "Fetch",
@@ -344,9 +438,16 @@
                   }
                 ]
               },
+              "documentation": {
+                "description": "retrieves a alpha sender resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/alphasender-resource#fetch-an-alphasender-resource"
+              },
               "response": {
                 "name": "FetchAlphaSenderResponse",
-                "structure": "AlphaSenderResponse"
+                "structure": "AlphaSenderResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved alpha sender"
+                }
               }
             },
             {
@@ -372,6 +473,10 @@
                     }
                   }
                 ]
+              },
+              "documentation": {
+                "description": "removes a alpha sender resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/alphasender-resource#delete-an-alphasender-resource"
               }
             }
           ]
@@ -394,9 +499,16 @@
               }
             ]
           },
+          "documentation": {
+            "description": "retrieves a messaging resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#fetch-a-service-resource"
+          },
           "response": {
             "name": "FetchServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved messaging"
+            }
           }
         },
         {
@@ -415,12 +527,22 @@
               }
             ]
           },
+          "documentation": {
+            "description": "modifies a messaging resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#update-a-service-resource"
+          },
           "input": {
-            "structure": "UpdateServiceInput"
+            "structure": "UpdateServiceInput",
+            "documentation": {
+              "description": "defines input fields for updating a messaging resource"
+            }
           },
           "response": {
             "name": "UpdateServiceResponse",
-            "structure": "ServiceResponse"
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated messaging"
+            }
           }
         },
         {
@@ -438,6 +560,10 @@
                 }
               }
             ]
+          },
+          "documentation": {
+            "description": "removes a messaging resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#delete-a-service-resource"
           }
         }
       ]

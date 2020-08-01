@@ -8,10 +8,15 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// Delete removes a phone number resource from the messaging resource
+// See https://www.twilio.com/docs/sms/services/api/phonenumber-resource#delete-a-phonenumber-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Delete() error {
 	return c.DeleteWithContext(context.Background())
 }
 
+// DeleteWithContext removes a phone number resource from the messaging resource
+// See https://www.twilio.com/docs/sms/services/api/phonenumber-resource#delete-a-phonenumber-resource for more details
 func (c Client) DeleteWithContext(context context.Context) error {
 	op := client.Operation{
 		Method: http.MethodDelete,

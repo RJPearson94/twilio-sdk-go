@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateChannelMessageInput defines input fields for updating a message resource
 type UpdateChannelMessageInput struct {
 	Attributes    *string    `form:"Attributes,omitempty"`
 	Body          *string    `form:"Body,omitempty"`
@@ -18,6 +19,7 @@ type UpdateChannelMessageInput struct {
 	LastUpdatedBy *string    `form:"LastUpdatedBy,omitempty"`
 }
 
+// UpdateChannelMessageResponse defines the response fields for the updated message
 type UpdateChannelMessageResponse struct {
 	AccountSid    string                  `json:"account_sid"`
 	Attributes    *string                 `json:"attributes,omitempty"`
@@ -37,10 +39,15 @@ type UpdateChannelMessageResponse struct {
 	WasEdited     *bool                   `json:"was_edited,omitempty"`
 }
 
+// Update modifies a message resource
+// See https://www.twilio.com/docs/chat/rest/message-resource#update-a-message-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateChannelMessageInput) (*UpdateChannelMessageResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a message resource
+// See https://www.twilio.com/docs/chat/rest/message-resource#update-a-message-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelMessageInput) (*UpdateChannelMessageResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

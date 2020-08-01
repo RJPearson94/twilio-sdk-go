@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// UpdateChannelWebhookInput defines input fields for updating a webhook resource
 type UpdateChannelWebhookInput struct {
 	ConfigurationFilters    *[]string `form:"Configuration.Filters,omitempty"`
 	ConfigurationFlowSid    *string   `form:"Configuration.FlowSid,omitempty"`
@@ -27,6 +28,7 @@ type UpdateChannelWebhookResponseConfiguration struct {
 	URL        *string   `json:"url,omitempty"`
 }
 
+// UpdateChannelWebhookResponse defines the response fields for the updated webhook
 type UpdateChannelWebhookResponse struct {
 	AccountSid    string                                    `json:"account_sid"`
 	ChannelSid    string                                    `json:"channel_sid"`
@@ -39,10 +41,15 @@ type UpdateChannelWebhookResponse struct {
 	URL           string                                    `json:"url"`
 }
 
+// Update modifies a webhook resource
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource#update-a-channelwebhook-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Update(input *UpdateChannelWebhookInput) (*UpdateChannelWebhookResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
+// UpdateWithContext modifies a webhook resource
+// See https://www.twilio.com/docs/chat/rest/channel-webhook-resource#update-a-channelwebhook-resource for more details
 func (c Client) UpdateWithContext(context context.Context, input *UpdateChannelWebhookInput) (*UpdateChannelWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

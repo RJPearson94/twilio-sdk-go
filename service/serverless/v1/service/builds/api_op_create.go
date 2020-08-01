@@ -9,6 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+// CreateBuildInput defines the input fields for creating a new build resource
 type CreateBuildInput struct {
 	AssetVersions    *[]string `form:"AssetVersions,omitempty"`
 	Dependencies     *string   `form:"Dependencies,omitempty"`
@@ -42,6 +43,7 @@ type CreateFunctionVersion struct {
 	Visibility  string    `json:"visibility"`
 }
 
+// CreateBuildResponse defines the response fields for the created build
 type CreateBuildResponse struct {
 	AccountSid       string                   `json:"account_sid"`
 	AssetVersions    *[]CreateAssetVersion    `json:"asset_versions,omitempty"`
@@ -55,10 +57,15 @@ type CreateBuildResponse struct {
 	URL              string                   `json:"url"`
 }
 
+// Create creates a new build
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/build#create-a-build-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateBuildInput) (*CreateBuildResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new build
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/build#create-a-build-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateBuildInput) (*CreateBuildResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

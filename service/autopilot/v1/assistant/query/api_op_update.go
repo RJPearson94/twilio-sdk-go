@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// UpdateQueryInput defines input parameters/ properties for updating a query
+// UpdateQueryInput defines the input fields for updating a query
 type UpdateQueryInput struct {
 	SampleSid *string `form:"SampleSid,omitempty"`
 	Status    *string `form:"Status,omitempty"`
@@ -26,7 +26,7 @@ type UpdateQueryResponseResult struct {
 	Task   string                     `json:"task"`
 }
 
-// UpdateQueryResponse resource/ response properties for the updated query
+// UpdateQueryResponse defines the response fields for the updated query
 type UpdateQueryResponse struct {
 	AccountSid    string                    `json:"account_sid"`
 	AssistantSid  string                    `json:"assistant_sid"`

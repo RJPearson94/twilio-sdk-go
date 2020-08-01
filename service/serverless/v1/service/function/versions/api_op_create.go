@@ -17,12 +17,14 @@ type CreateContentDetails struct {
 	FileName    string        `validate:"required" mapstructure:"FileName"`
 }
 
+// CreateVersionInput defines the input fields for creating a new function version resource
 type CreateVersionInput struct {
 	Content    CreateContentDetails `validate:"required" mapstructure:"Content"`
 	Path       string               `validate:"required" mapstructure:"Path"`
 	Visibility string               `validate:"required" mapstructure:"Visibility"`
 }
 
+// CreateVersionResponse defines the response fields for the created function version
 type CreateVersionResponse struct {
 	AccountSid  string    `json:"account_sid"`
 	DateCreated time.Time `json:"date_created"`
@@ -34,10 +36,15 @@ type CreateVersionResponse struct {
 	Visibility  string    `json:"visibility"`
 }
 
+// Create creates a new function version
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#create-a-function-version-resource for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateVersionInput) (*CreateVersionResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
+// CreateWithContext creates a new function version
+// See https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#create-a-function-version-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateVersionInput) (*CreateVersionResponse, error) {
 	op := client.Operation{
 		OverrideBaseURL: utils.String(client.CreateBaseURL("serverless-upload", "v1")),
