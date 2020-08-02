@@ -2,7 +2,6 @@ package acceptance
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	. "github.com/onsi/ginkgo"
@@ -34,7 +33,7 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
 	})
 	if err != nil {
-		log.Panicf("%s", err)
+		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
 	syncSession := twilio.NewWithCredentials(creds).Sync.V1

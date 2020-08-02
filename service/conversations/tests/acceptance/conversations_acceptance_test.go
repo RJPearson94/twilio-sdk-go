@@ -2,7 +2,6 @@ package acceptance
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/google/uuid"
@@ -29,7 +28,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
 	})
 	if err != nil {
-		log.Panicf("%s", err)
+		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
 	conversationsSession := twilio.NewWithCredentials(creds).Conversations.V1

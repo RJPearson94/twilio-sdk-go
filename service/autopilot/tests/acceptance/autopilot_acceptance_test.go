@@ -2,7 +2,6 @@ package acceptance
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -40,7 +39,7 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
 	})
 	if err != nil {
-		log.Panicf("%s", err)
+		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
 	autopilotSession := twilio.NewWithCredentials(creds).Autopilot.V1
@@ -652,7 +651,7 @@ func poll(maxAttempts int, delay int, client *v1.Autopilot, assistantSid string,
 	for i := 0; i < maxAttempts; i++ {
 		resp, err := client.Assistant(assistantSid).ModelBuild(modelBuildSid).Fetch()
 		if err != nil {
-			return fmt.Errorf("Failed to poll autopilot mode build: %s", err)
+			return fmt.Errorf("Failed to poll autopilot model build: %s", err)
 		}
 
 		if resp.Status == "failed" {

@@ -13,9 +13,9 @@ import (
 
 // Prerequisites
 
-// 1) Twilio Account SID set as an environment variaable - TWILIO_ACCOUNT_SID
-// 2) Twilio Auth Token set as an environment variaable - TWILIO_AUTH_TOKEN
-// 3) SID for a Twilio Chat Service which is configured for Flex set as an environment variaable - TWILIO_PHONE_NUMBER_SID
+// 1) Twilio Account SID set as an environment variable - TWILIO_ACCOUNT_SID
+// 2) Twilio Auth Token set as an environment variable - TWILIO_AUTH_TOKEN
+// 3) SID for a Twilio Chat Service which is configured for Flex set as an environment variable - TWILIO_PHONE_NUMBER_SID
 
 func TestAcceptance(t *testing.T) {
 	RegisterFailHandler(Fail)

@@ -13,8 +13,8 @@ import (
 
 // Prerequisites
 
-// 1) Twilio Account SID set as an environment variaable - TWILIO_ACCOUNT_SID
-// 2) Twilio Auth Token set as an environment variaable - TWILIO_AUTH_TOKEN
+// 1) Twilio Account SID set as an environment variable - TWILIO_ACCOUNT_SID
+// 2) Twilio Auth Token set as an environment variable - TWILIO_AUTH_TOKEN
 // 3) A url for a TwiML bin which has the following TwiML body
 // <?xml version="1.0" encoding="UTF-8"?>
 // <Response>

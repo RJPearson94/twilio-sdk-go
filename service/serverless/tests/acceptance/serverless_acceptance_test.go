@@ -2,7 +2,6 @@ package acceptance
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -37,7 +36,7 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
 	})
 	if err != nil {
-		log.Panicf("%s", err)
+		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
 	serverlessSession := twilio.NewWithCredentials(creds).Serverless.V1
