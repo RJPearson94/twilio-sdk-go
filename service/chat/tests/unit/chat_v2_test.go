@@ -1512,7 +1512,7 @@ var _ = Describe("Chat V2", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the get user channel response should be nil", func() {
+			It("Then the update user channel response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
