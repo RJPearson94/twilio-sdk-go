@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/fax"
@@ -20,6 +21,7 @@ import (
 // Twilio clients manage all the available Twilio services & resources within the SDK
 type Twilio struct {
 	API           *api.API
+	Autopilot     *autopilot.Autopilot
 	Chat          *chat.Chat
 	Conversations *conversations.Conversations
 	Fax           *fax.Fax
@@ -37,6 +39,7 @@ type Twilio struct {
 func New(sess *session.Session) *Twilio {
 	return &Twilio{
 		API:           api.New(sess),
+		Autopilot:     autopilot.New(sess),
 		Chat:          chat.New(sess),
 		Conversations: conversations.New(sess),
 		Fax:           fax.New(sess),

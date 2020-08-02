@@ -785,10 +785,10 @@ var _ = Describe("Autopilot V1", func() {
 		})
 	})
 
-	Describe("Given I have a actions client", func() {
+	Describe("Given I have a statistics client", func() {
 		statisticsClient := autopilotSession.Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Task("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Statistics()
 
-		Describe("When the actions is successfully retrieved", func() {
+		Describe("When the statistics is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/statisticsResponse.json")
