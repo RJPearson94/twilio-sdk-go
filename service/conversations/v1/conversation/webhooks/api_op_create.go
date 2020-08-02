@@ -17,7 +17,7 @@ type CreateConversationWebhookInput struct {
 	ConfigurationReplayAfter *int      `form:"Configuration.ReplayAfter,omitempty"`
 	ConfigurationTriggers    *[]string `form:"Configuration.Triggers,omitempty"`
 	ConfigurationURL         *string   `form:"Configuration.Url,omitempty"`
-	Target                   string    `validate:"required" form:"target"`
+	Target                   string    `validate:"required" form:"Target"`
 }
 
 type CreateConversationWebhookResponseConfiguration struct {

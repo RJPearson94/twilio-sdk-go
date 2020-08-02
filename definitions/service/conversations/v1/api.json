@@ -1124,7 +1124,7 @@
         {
           "name": "Target",
           "type": "string",
-          "value": "target",
+          "value": "Target",
           "required": true
         },
         {
