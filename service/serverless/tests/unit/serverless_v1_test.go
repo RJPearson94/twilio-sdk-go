@@ -1928,7 +1928,7 @@ var _ = Describe("Serverless V1", func() {
 			})
 		})
 
-		Describe("When the delete variable response returns a 404", func() {
+		Describe("When the delete build api returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds/ZB71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
