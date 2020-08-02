@@ -991,12 +991,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.SessionSid).To(Equal("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				fixture, _ := ioutil.ReadFile("testdata/interactionData.json")
-				data := make(map[string]interface{})
-				json.Unmarshal(fixture, &data)
-				Expect(resp.Data).To(Equal(&data))
-
+				Expect(resp.Data).To(Equal(utils.String("{ \"body\": \"some message\" }")))
 				Expect(resp.InboundParticipantSid).To(Equal(utils.String("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.InboundResourceSid).To(Equal(utils.String("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.InboundResourceStatus).To(Equal(utils.String("sent")))
@@ -1254,11 +1249,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.SessionSid).To(Equal("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				data := make(map[string]interface{})
-				json.Unmarshal(interactionData, &data)
-				Expect(resp.Data).To(Equal(&data))
-
+				Expect(resp.Data).To(Equal(utils.String("{ \"body\": \"some message\" }")))
 				Expect(resp.InboundParticipantSid).To(BeNil())
 				Expect(resp.InboundResourceSid).To(BeNil())
 				Expect(resp.InboundResourceStatus).To(BeNil())

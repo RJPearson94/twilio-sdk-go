@@ -1732,10 +1732,7 @@
         },
         {
           "name": "Data",
-          "type": "map",
-          "items": {
-            "type": "interface{}"
-          },
+          "type": "string",
           "value": "data",
           "required": false
         },
@@ -1825,10 +1822,7 @@
         },
         {
           "name": "Data",
-          "type": "map",
-          "items": {
-            "type": "interface{}"
-          },
+          "type": "string",
           "value": "data",
           "required": false
         },

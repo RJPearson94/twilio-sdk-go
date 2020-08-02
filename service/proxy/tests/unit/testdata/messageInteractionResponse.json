@@ -1,8 +1,6 @@
 {
   "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "data": {
-    "body": "some message"
-  },
+  "data": "{ \"body\": \"some message\" }",
   "date_created": "2015-07-30T20:00:00Z",
   "date_updated": null,
   "participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
