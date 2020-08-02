@@ -926,7 +926,10 @@
           "name": "Body",
           "type": "string",
           "value": "Body",
-          "required": true
+          "required": true,
+          "validation": {
+            "ignore": true
+          }
         }
       ]
     },

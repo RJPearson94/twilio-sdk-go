@@ -101,6 +101,10 @@ func mapProperties(structure *gabs.Container, dataType string, apiOperationName 
 			propertiesResponse.Set(property.Path("name").Data(), "name")
 			propertiesResponse.Set(property.Path("required").Data(), "required")
 
+			if property.Exists("validation") {
+				propertiesResponse.Set(property.Path("validation").Data(), "validation")
+			}
+
 			typeName, nestedAdditionalStructs := mapType(property, dataType, apiOperationName, structures)
 			propertiesResponse.Set(typeName, "type")
 

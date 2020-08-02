@@ -11,7 +11,7 @@ import (
 
 // UpdateMessageInput defines input fields for updating a message resource
 type UpdateMessageInput struct {
-	Body string `validate:"required" form:"Body"`
+	Body string `form:"Body"`
 }
 
 // UpdateMessageResponse defines the response fields for the updated message

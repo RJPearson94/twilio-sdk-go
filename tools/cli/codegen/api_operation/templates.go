@@ -61,7 +61,7 @@ PathParams: map[string]string{ {{ range $index, $pathParam := .http.pathParams }
 	"{{ $pathParam.name }}": {{ if eq $pathParam.value.onService true }} {{ if eq $pathParam.value.type "int" }} strconv.Itoa(c.{{ $pathParam.value.property }}) {{ else }} c.{{ $pathParam.value.property }} {{ end }}, {{ end }} {{ end }}
 },{{ end }}`
 
-const inputTags = "`{{ if and (ne $property.type \"bool\") (eq $property.required true) }}validate:\"required\" {{ end }}{{ template \"dataTypeTagsTemplate\" $ }}:\"{{ $property.value }}{{ if eq $property.required false}},omitempty{{ end }}\"`"
+const inputTags = "`{{ if and $property.validation $property.validation.ignore }}{{ else }}{{ if and (ne $property.type \"bool\") (eq $property.required true) }}validate:\"required\" {{ end }}{{ end }}{{ template \"dataTypeTagsTemplate\" $ }}:\"{{ $property.value }}{{ if eq $property.required false}},omitempty{{ end }}\"`"
 
 const responseTags = "{{ if eq $.type \"JSON\" }}`json:\"{{ $property.value }}{{if eq $property.required false}},omitempty{{ end }}\"`{{ end }}"
 
