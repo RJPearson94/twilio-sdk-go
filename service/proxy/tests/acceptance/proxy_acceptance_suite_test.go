@@ -13,10 +13,10 @@ import (
 
 // Prerequisites
 
-// 1) Twilio Account SID set in the environment variaable - TWILIO_ACCOUNT_SID
-// 2) Twilio Auth Token set in the environment variaable - TWILIO_AUTH_TOKEN
-// 3) SID for a Twilio Phone Number set in the environment variaable - TWILIO_PHONE_NUMBER_SID
-// 4) Phone Number to send messages to - DESTINATION_PHONE_NUMBER
+// 1) Twilio Account SID set as an environment variaable - TWILIO_ACCOUNT_SID
+// 2) Twilio Auth Token set as an environment variaable - TWILIO_AUTH_TOKEN
+// 3) SID for a Twilio Phone Number set as an environment variaable - TWILIO_PHONE_NUMBER_SID
+// 4) Phone Number to send messages to set as an environment variaable - DESTINATION_PHONE_NUMBER
 
 func TestAcceptance(t *testing.T) {
 	RegisterFailHandler(Fail)
