@@ -39,7 +39,7 @@ var _ = Describe("Sync Acceptance Tests", func() {
 
 	syncSession := twilio.NewWithCredentials(creds).Sync.V1
 
-	Describe("Given the Sync Service", func() {
+	Describe("Given the Sync Service clients", func() {
 		It("Then the service is created, fetched, updated and deleted", func() {
 			createResp, createErr := syncSession.Services.Create(&services.CreateServiceInput{})
 			Expect(createErr).To(BeNil())
@@ -61,21 +61,21 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync Document", func() {
+	Describe("Given the Sync Document clients", func() {
 
 		var serviceSid string
 
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 
@@ -102,21 +102,21 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync List", func() {
+	Describe("Given the Sync List clients", func() {
 
 		var serviceSid string
 
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 
@@ -143,7 +143,7 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync List Item", func() {
+	Describe("Given the Sync List Item clients", func() {
 
 		var serviceSid string
 		var syncListSid string
@@ -151,24 +151,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 
 			syncListResp, syncListErr := syncSession.Service(serviceSid).SyncLists.Create(&sync_lists.CreateSyncListInput{})
 			if syncListErr != nil {
-				Fail(fmt.Sprintf("Sync List failed to create. Error %s", syncListErr.Error()))
+				Fail(fmt.Sprintf("Failed to create sync list. Error %s", syncListErr.Error()))
 			}
 			syncListSid = syncListResp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).SyncList(syncListSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Sync List failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete sync list. Error %s", err.Error()))
 			}
 
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 
@@ -197,21 +197,21 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync Map", func() {
+	Describe("Given the Sync Map clients", func() {
 
 		var serviceSid string
 
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 
@@ -238,7 +238,7 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync Map Item", func() {
+	Describe("Given the Sync Map Item clients", func() {
 
 		var serviceSid string
 		var syncMapSid string
@@ -246,24 +246,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 
 			syncMapResp, syncMapErr := syncSession.Service(serviceSid).SyncMaps.Create(&sync_maps.CreateSyncMapInput{})
 			if syncMapErr != nil {
-				Fail(fmt.Sprintf("Sync Map failed to create. Error %s", syncMapErr.Error()))
+				Fail(fmt.Sprintf("Failed to create sync map. Error %s", syncMapErr.Error()))
 			}
 			syncMapSid = syncMapResp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).SyncMap(syncMapSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Sync Map failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete sync map. Error %s", err.Error()))
 			}
 
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 
@@ -293,21 +293,21 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync Stream", func() {
+	Describe("Given the Sync Stream clients", func() {
 
 		var serviceSid string
 
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 
@@ -334,7 +334,7 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Sync Stream Message", func() {
+	Describe("Given the Sync Stream Message client", func() {
 
 		var serviceSid string
 		var syncStreamSid string
@@ -342,24 +342,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		BeforeEach(func() {
 			resp, err := syncSession.Services.Create(&services.CreateServiceInput{})
 			if err != nil {
-				Fail(fmt.Sprintf("Service failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
 			}
 			serviceSid = resp.Sid
 
 			syncStreamResp, syncStreamErr := syncSession.Service(serviceSid).SyncStreams.Create(&sync_streams.CreateSyncStreamInput{})
 			if syncStreamErr != nil {
-				Fail(fmt.Sprintf("Sync Stream failed to create. Error %s", syncStreamErr.Error()))
+				Fail(fmt.Sprintf("Failed to create sync stream. Error %s", syncStreamErr.Error()))
 			}
 			syncStreamSid = syncStreamResp.Sid
 		})
 
 		AfterEach(func() {
 			if err := syncSession.Service(serviceSid).SyncStream(syncStreamSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Sync Stream failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete sync stream. Error %s", err.Error()))
 			}
 
 			if err := syncSession.Service(serviceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Service failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
 			}
 		})
 

@@ -40,7 +40,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 
 	taskrouterSession := twilio.NewWithCredentials(creds).TaskRouter.V1
 
-	Describe("Given the TaskRouter Workspace", func() {
+	Describe("Given the TaskRouter Workspace clients", func() {
 		It("Then the workspace is create, fetched, updated and deleted", func() {
 			createResp, createErr := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
 				FriendlyName: uuid.New().String(),
@@ -64,7 +64,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the TaskRouter Task Queue", func() {
+	Describe("Given the TaskRouter Task Queue clients", func() {
 
 		var workspaceSid string
 
@@ -73,14 +73,14 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if err != nil {
-				Fail(fmt.Sprintf("Workspace failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
 			}
 			workspaceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workspace failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
 			}
 		})
 
@@ -107,7 +107,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the TaskRouter Workflow", func() {
+	Describe("Given the TaskRouter Workflow clients", func() {
 
 		var workspaceSid string
 		var taskQueueSid string
@@ -117,7 +117,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if err != nil {
-				Fail(fmt.Sprintf("Workspace failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
 			}
 			workspaceSid = resp.Sid
 
@@ -125,18 +125,18 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if taskQueueErr != nil {
-				Fail(fmt.Sprintf("Task Queue failed to create. Error %s", taskQueueErr.Error()))
+				Fail(fmt.Sprintf("Failed to create task queue. Error %s", taskQueueErr.Error()))
 			}
 			taskQueueSid = taskQueueResp.Sid
 		})
 
 		AfterEach(func() {
 			if err := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Task Queue failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete task queue. Error %s", err.Error()))
 			}
 
 			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workspace failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
 			}
 		})
 
@@ -164,7 +164,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the TaskRouter Worker", func() {
+	Describe("Given the TaskRouter Worker clients", func() {
 
 		var workspaceSid string
 
@@ -173,14 +173,14 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if err != nil {
-				Fail(fmt.Sprintf("Workspace failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
 			}
 			workspaceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workspace failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
 			}
 		})
 
@@ -207,7 +207,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the TaskRouter Activity", func() {
+	Describe("Given the TaskRouter Activity clients", func() {
 
 		var workspaceSid string
 
@@ -216,14 +216,14 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if err != nil {
-				Fail(fmt.Sprintf("Workspace failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
 			}
 			workspaceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workspace failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
 			}
 		})
 
@@ -251,7 +251,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the TaskRouter Task Channel", func() {
+	Describe("Given the TaskRouter Task Channel clients", func() {
 
 		var workspaceSid string
 
@@ -260,14 +260,14 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if err != nil {
-				Fail(fmt.Sprintf("Workspace failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
 			}
 			workspaceSid = resp.Sid
 		})
 
 		AfterEach(func() {
 			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workspace failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
 			}
 		})
 
@@ -297,7 +297,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the TaskRouter Task client", func() {
+	Describe("Given the TaskRouter Task clients", func() {
 
 		var workspaceSid string
 		var taskQueueSid string
@@ -308,7 +308,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if err != nil {
-				Fail(fmt.Sprintf("Workspace failed to create. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
 			}
 			workspaceSid = resp.Sid
 
@@ -316,7 +316,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				FriendlyName: uuid.New().String(),
 			})
 			if taskQueueErr != nil {
-				Fail(fmt.Sprintf("Task Queue failed to create. Error %s", taskQueueErr.Error()))
+				Fail(fmt.Sprintf("Failed to create task queue. Error %s", taskQueueErr.Error()))
 			}
 			taskQueueSid = taskQueueResp.Sid
 
@@ -325,22 +325,22 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 				Configuration: fmt.Sprintf(`{ "task_routing": { "default_filter": { "queue": "%s" } } }`, taskQueueSid),
 			})
 			if workflowErr != nil {
-				Fail(fmt.Sprintf("Workflow failed to create. Error %s", workflowErr.Error()))
+				Fail(fmt.Sprintf("Failed to create workflow. Error %s", workflowErr.Error()))
 			}
 			workflowSid = workflowResp.Sid
 		})
 
 		AfterEach(func() {
 			if err := taskrouterSession.Workspace(workspaceSid).Workflow(workflowSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workflow failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workflow. Error %s", err.Error()))
 			}
 
 			if err := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Task Queue failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete task queue. Error %s", err.Error()))
 			}
 
 			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
-				Fail(fmt.Sprintf("Workspace failed to delete. Error %s", err.Error()))
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
 			}
 		})
 

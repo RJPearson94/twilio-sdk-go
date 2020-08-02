@@ -3,6 +3,7 @@
 package acceptance
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -28,7 +29,7 @@ var _ = BeforeSuite(func() {
 
 	for _, variable := range variables {
 		if value := os.Getenv(variable); value == "" {
-			t.Fatalf("`%s` are required for running acceptance tests", variable)
+			Fail(fmt.Sprintf("`%s` are required for running acceptance tests", variable))
 		}
 	}
 })
