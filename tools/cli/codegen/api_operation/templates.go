@@ -130,6 +130,20 @@ func (p *{{ .pagination.name }}) NextWithContext(context context.Context) bool {
 		}
 
 		options.{{ .pagination.page.nextToken }} = utils.String(parsedURL.Query().Get("{{ .pagination.page.nextToken }}"))
+
+		page, pageErr := strconv.Atoi(parsedURL.Query().Get("Page"))
+		if pageErr != nil {
+			p.Page.Error = pageErr
+			return false
+		}
+		options.Page = utils.Int(page)
+
+		pageSize, pageSizeErr := strconv.Atoi(parsedURL.Query().Get("PageSize"))
+		if pageSizeErr != nil {
+			p.Page.Error = pageSizeErr
+			return false
+		}
+		options.PageSize = utils.Int(pageSize)
 	}
 
 	resp, err := p.Page.client.PageWithContext(context, options)

@@ -197,7 +197,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/assistantsPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -240,7 +240,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -784,7 +784,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/tasksPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -827,7 +827,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -1329,7 +1329,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/samplesPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -1372,7 +1372,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -1715,7 +1715,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Fields?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Fields?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/fieldsPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -1758,7 +1758,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Fields?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Fields?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -2021,7 +2021,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/fieldTypesPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -2064,7 +2064,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -2405,7 +2405,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/fieldValuesPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -2448,7 +2448,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -2703,7 +2703,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/modelBuildsPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -2746,7 +2746,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -3127,7 +3127,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/queriesPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -3170,7 +3170,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
@@ -3571,7 +3571,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/webhooksPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
@@ -3614,7 +3614,7 @@ var _ = Describe("Autopilot V1", func() {
 				},
 			)
 
-			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?PageToken=abc1234",
+			httpmock.RegisterResponder("GET", "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})

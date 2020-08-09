@@ -5,6 +5,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"strconv"
 	"time"
 
 	"github.com/RJPearson94/twilio-sdk-go/client"
@@ -148,6 +149,20 @@ func (p *ModelBuildsPaginator) NextWithContext(context context.Context) bool {
 		}
 
 		options.PageToken = utils.String(parsedURL.Query().Get("PageToken"))
+
+		page, pageErr := strconv.Atoi(parsedURL.Query().Get("Page"))
+		if pageErr != nil {
+			p.Page.Error = pageErr
+			return false
+		}
+		options.Page = utils.Int(page)
+
+		pageSize, pageSizeErr := strconv.Atoi(parsedURL.Query().Get("PageSize"))
+		if pageSizeErr != nil {
+			p.Page.Error = pageSizeErr
+			return false
+		}
+		options.PageSize = utils.Int(pageSize)
 	}
 
 	resp, err := p.Page.client.PageWithContext(context, options)
