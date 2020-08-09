@@ -40,6 +40,49 @@
               "description": "defines the response fields for the created assistant"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Assistants",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of assistants",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant#read-multiple-assistant-resources"
+          },
+          "response": {
+            "structure": "AssistantsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the assistants page"
+            }
+          },
+          "pagination": {
+            "name": "AssistantsPaginator",
+            "page": {
+              "name": "AssistantsPage",
+              "nextToken": "PageToken",
+              "items": "Assistants",
+              "structure": "PageAssistantResponse"
+            }
+          }
         }
       ]
     },
@@ -265,6 +308,59 @@
                   "description": "defines the response fields for the created task"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Tasks",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of tasks",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task#read-multiple-task-resources"
+              },
+              "response": {
+                "structure": "TasksPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the tasks page"
+                }
+              },
+              "pagination": {
+                "name": "TasksPaginator",
+                "page": {
+                  "name": "TasksPage",
+                  "nextToken": "PageToken",
+                  "items": "Tasks",
+                  "structure": "PageTaskResponse"
+                }
+              }
             }
           ]
         },
@@ -351,6 +447,67 @@
                     "structure": "FieldResponse",
                     "documentation": {
                       "description": "defines the response fields for the created task field"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Fields",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of fields",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-field#read-multiple-field-resources"
+                  },
+                  "response": {
+                    "structure": "FieldsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the fields page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "FieldsPaginator",
+                    "page": {
+                      "name": "FieldsPage",
+                      "nextToken": "PageToken",
+                      "items": "Fields",
+                      "structure": "PageFieldResponse"
                     }
                   }
                 }
@@ -525,6 +682,72 @@
                     "structure": "SampleResponse",
                     "documentation": {
                       "description": "defines the response fields for the created task sample"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/Tasks/{taskSid}/Samples",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of samples",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/task-sample#read-multiple-sample-resources"
+                  },
+                  "response": {
+                    "structure": "SamplesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the samples page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "SamplesPaginator",
+                    "page": {
+                      "name": "SamplesPage",
+                      "nextToken": "PageToken",
+                      "items": "Samples",
+                      "structure": "PageSampleResponse"
                     }
                   }
                 }
@@ -1010,6 +1233,59 @@
                   "description": "defines the response fields for the created field type"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/FieldTypes",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of field types",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-type#read-multiple-fieldtype-resources"
+              },
+              "response": {
+                "structure": "FieldTypesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the field types page"
+                }
+              },
+              "pagination": {
+                "name": "FieldTypesPaginator",
+                "page": {
+                  "name": "FieldTypesPage",
+                  "nextToken": "PageToken",
+                  "items": "FieldTypes",
+                  "structure": "PageFieldTypeResponse"
+                }
+              }
             }
           ]
         },
@@ -1095,6 +1371,72 @@
                     "structure": "FieldValueResponse",
                     "documentation": {
                       "description": "defines the response fields for the created field value"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Assistants/{assistantSid}/FieldTypes/{fieldTypeSid}/FieldValues",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "assistantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assistantSid"
+                        }
+                      },
+                      {
+                        "name": "fieldTypeSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "fieldTypeSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Language",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of field values",
+                    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/field-value#read-multiple-fieldvalue-resources"
+                  },
+                  "response": {
+                    "structure": "FieldValuesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the field value page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "FieldValuesPaginator",
+                    "page": {
+                      "name": "FieldValuesPage",
+                      "nextToken": "PageToken",
+                      "items": "FieldValues",
+                      "structure": "PageFieldValueResponse"
                     }
                   }
                 }
@@ -1370,6 +1712,59 @@
                   "description": "defines the response fields for the created model build"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/ModelBuilds",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of model builds",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/model-build#read-multiple-modelbuild-resources"
+              },
+              "response": {
+                "structure": "ModelBuildsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the model build page"
+                }
+              },
+              "pagination": {
+                "name": "ModelBuildsPaginator",
+                "page": {
+                  "name": "ModelBuildsPage",
+                  "nextToken": "PageToken",
+                  "items": "ModelBuilds",
+                  "structure": "PageModelBuildResponse"
+                }
+              }
             }
           ]
         },
@@ -1552,6 +1947,79 @@
                 "structure": "QueryResponse",
                 "documentation": {
                   "description": "defines the response fields for the created query"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Queries",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "Language",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "ModelBuild",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DialogueSid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of queries",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/query?code-sample=code-read-list-all-queries-for-an-assistant"
+              },
+              "response": {
+                "structure": "QueriesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the query page"
+                }
+              },
+              "pagination": {
+                "name": "QueriesPaginator",
+                "page": {
+                  "name": "QueriesPage",
+                  "nextToken": "PageToken",
+                  "items": "Queries",
+                  "structure": "PageQueryResponse"
                 }
               }
             }
@@ -1737,6 +2205,59 @@
                 "structure": "WebhookResponse",
                 "documentation": {
                   "description": "defines the response fields for the created webhook"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Webhooks",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of webhook",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/event-webhooks#read-multiple-webhook-resources"
+              },
+              "response": {
+                "structure": "WebhooksPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the webhook page"
+                }
+              },
+              "pagination": {
+                "name": "WebhooksPaginator",
+                "page": {
+                  "name": "WebhooksPage",
+                  "nextToken": "PageToken",
+                  "items": "Webhooks",
+                  "structure": "PageWebhookResponse"
                 }
               }
             }
@@ -2024,6 +2545,73 @@
         }
       ]
     },
+    "AssistantsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Assistants",
+          "type": "array",
+          "items": {
+            "structure": "AssistantResponse"
+          },
+          "value": "assistants",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        }
+      ]
+    },
     "AssistantResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2211,6 +2799,26 @@
         }
       ]
     },
+    "TasksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Tasks",
+          "type": "array",
+          "items": {
+            "structure": "TaskResponse"
+          },
+          "value": "tasks",
+          "required": true
+        }
+      ]
+    },
     "TaskResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2254,6 +2862,26 @@
           "name": "FieldType",
           "type": "string",
           "value": "FieldType",
+          "required": true
+        }
+      ]
+    },
+    "FieldsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Fields",
+          "type": "array",
+          "items": {
+            "structure": "FieldResponse"
+          },
+          "value": "fields",
           "required": true
         }
       ]
@@ -2331,6 +2959,26 @@
           "type": "string",
           "value": "SourceChannel",
           "required": false
+        }
+      ]
+    },
+    "SamplesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Samples",
+          "type": "array",
+          "items": {
+            "structure": "SampleResponse"
+          },
+          "value": "samples",
+          "required": true
         }
       ]
     },
@@ -2494,6 +3142,26 @@
         }
       ]
     },
+    "FieldTypesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "FieldTypes",
+          "type": "array",
+          "items": {
+            "structure": "FieldTypeResponse"
+          },
+          "value": "field_types",
+          "required": true
+        }
+      ]
+    },
     "FieldTypeResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2538,6 +3206,26 @@
           "type": "string",
           "value": "SynonymOf",
           "required": false
+        }
+      ]
+    },
+    "FieldValuesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "FieldValues",
+          "type": "array",
+          "items": {
+            "structure": "FieldValueResponse"
+          },
+          "value": "field_values",
+          "required": true
         }
       ]
     },
@@ -2602,6 +3290,26 @@
           "type": "string",
           "value": "UniqueName",
           "required": false
+        }
+      ]
+    },
+    "ModelBuildsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "ModelBuilds",
+          "type": "array",
+          "items": {
+            "structure": "ModelBuildResponse"
+          },
+          "value": "model_builds",
+          "required": true
         }
       ]
     },
@@ -2730,6 +3438,26 @@
         }
       ]
     },
+    "QueriesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Queries",
+          "type": "array",
+          "items": {
+            "structure": "QueryResponse"
+          },
+          "value": "queries",
+          "required": true
+        }
+      ]
+    },
     "QueryResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2845,6 +3573,26 @@
           "type": "string",
           "value": "WebhookMethod",
           "required": false
+        }
+      ]
+    },
+    "WebhooksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Webhooks",
+          "type": "array",
+          "items": {
+            "structure": "WebhookResponse"
+          },
+          "value": "webhooks",
+          "required": true
         }
       ]
     },

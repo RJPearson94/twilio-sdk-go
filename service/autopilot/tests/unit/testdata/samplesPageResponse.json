@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "samples"
+  },
+  "samples": [
+    {
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "task_sid": "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-27T23:00:00Z",
+      "language": "en-US",
+      "tagged_text": "hello world",
+      "date_updated": null,
+      "source_channel": null
+    }
+  ]
+}

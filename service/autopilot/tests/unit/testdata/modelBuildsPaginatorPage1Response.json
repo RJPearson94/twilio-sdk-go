@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?PageSize=50&Page=0",
+    "previous_page_url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds?PageSize=50&Page=0&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "model_builds"
+  },
+  "model_builds": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_updated": null,
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "status": "enqueued",
+      "assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-27T23:00:00Z",
+      "sid": "UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "unique_name": "test2",
+      "build_duration": null,
+      "error_code": null
+    }
+  ]
+}

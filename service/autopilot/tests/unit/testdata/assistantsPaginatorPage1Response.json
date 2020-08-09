@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://autopilot.twilio.com/v1/Assistants?PageSize=50&Page=0",
+    "previous_page_url": "https://autopilot.twilio.com/v1/Assistants?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://autopilot.twilio.com/v1/Assistants?PageSize=50&Page=0&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "assistants"
+  },
+  "assistants": [
+    {
+      "unique_name": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-1236",
+      "latest_model_build_sid": null,
+      "date_updated": null,
+      "callback_events": null,
+      "friendly_name": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "log_queries": true,
+      "url": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2020-06-27T23:00:00Z",
+      "callback_url": null,
+      "development_stage": "in-development",
+      "needs_model_build": false,
+      "links": {
+        "tasks": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Tasks",
+        "dialogues": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Dialogues",
+        "style_sheet": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/StyleSheet",
+        "model_builds": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/ModelBuilds",
+        "defaults": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Defaults",
+        "queries": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Queries",
+        "field_types": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/FieldTypes",
+        "webhooks": "https://autopilot.twilio.com/v1/Assistants/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Webhooks"
+      }
+    }
+  ]
+}

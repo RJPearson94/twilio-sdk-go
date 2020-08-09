@@ -51,6 +51,18 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
+			pageResp, pageErr := autopilotSession.Assistants.Page(&assistants.AssistantsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Assistants)).Should(BeNumerically(">=", 1))
+
+			paginator := autopilotSession.Assistants.NewAssistantsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Assistants)).Should(BeNumerically(">=", 1))
+
 			assistantClient := autopilotSession.Assistant(createResp.Sid)
 
 			fetchResp, fetchErr := assistantClient.Fetch()
@@ -147,12 +159,26 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the task is created, fetched, updated and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).Tasks.Create(&tasks.CreateTaskInput{
+			tasksClient := autopilotSession.Assistant(assistantSid).Tasks
+
+			createResp, createErr := tasksClient.Create(&tasks.CreateTaskInput{
 				UniqueName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := tasksClient.Page(&tasks.TasksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Tasks)).Should(BeNumerically(">=", 1))
+
+			paginator := tasksClient.NewTasksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Tasks)).Should(BeNumerically(">=", 1))
 
 			taskClient := autopilotSession.Assistant(assistantSid).Task(createResp.Sid)
 
@@ -285,13 +311,27 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the task sample is created, fetched, updated and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).Task(taskSid).Samples.Create(&samples.CreateSampleInput{
+			samplesClient := autopilotSession.Assistant(assistantSid).Task(taskSid).Samples
+
+			createResp, createErr := samplesClient.Create(&samples.CreateSampleInput{
 				Language:   "en-US",
 				TaggedText: "hello world",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := samplesClient.Page(&samples.SamplesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Samples)).Should(BeNumerically(">=", 1))
+
+			paginator := samplesClient.NewSamplesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Samples)).Should(BeNumerically(">=", 1))
 
 			sampleClient := autopilotSession.Assistant(assistantSid).Task(taskSid).Sample(createResp.Sid)
 
@@ -340,13 +380,27 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the task field is created, fetched and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).Task(taskSid).Fields.Create(&fields.CreateFieldInput{
+			fieldsClient := autopilotSession.Assistant(assistantSid).Task(taskSid).Fields
+
+			createResp, createErr := fieldsClient.Create(&fields.CreateFieldInput{
 				UniqueName: uuid.New().String(),
 				FieldType:  "Twilio.YES_NO",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := fieldsClient.Page(&fields.FieldsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Fields)).Should(BeNumerically(">=", 1))
+
+			paginator := fieldsClient.NewFieldsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Fields)).Should(BeNumerically(">=", 1))
 
 			fieldClient := autopilotSession.Assistant(assistantSid).Task(taskSid).Field(createResp.Sid)
 
@@ -378,12 +432,26 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the field type is created, fetched, updated and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).FieldTypes.Create(&field_types.CreateFieldTypeInput{
+			fieldTypesClient := autopilotSession.Assistant(assistantSid).FieldTypes
+
+			createResp, createErr := fieldTypesClient.Create(&field_types.CreateFieldTypeInput{
 				UniqueName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := fieldTypesClient.Page(&field_types.FieldTypesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.FieldTypes)).Should(BeNumerically(">=", 1))
+
+			paginator := fieldTypesClient.NewFieldTypesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.FieldTypes)).Should(BeNumerically(">=", 1))
 
 			fieldTypeClient := autopilotSession.Assistant(assistantSid).FieldType(createResp.Sid)
 
@@ -432,13 +500,27 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the field value is created, fetched and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).FieldType(fieldTypeSid).FieldValues.Create(&field_values.CreateFieldValueInput{
+			fieldValuesClient := autopilotSession.Assistant(assistantSid).FieldType(fieldTypeSid).FieldValues
+
+			createResp, createErr := fieldValuesClient.Create(&field_values.CreateFieldValueInput{
 				Language: "en-US",
 				Value:    "test",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := fieldValuesClient.Page(&field_values.FieldValuesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.FieldValues)).Should(BeNumerically(">=", 1))
+
+			paginator := fieldValuesClient.NewFieldValuesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.FieldValues)).Should(BeNumerically(">=", 1))
 
 			fieldValueClient := autopilotSession.Assistant(assistantSid).FieldType(fieldTypeSid).FieldValue(createResp.Sid)
 
@@ -497,10 +579,24 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the model build is created, fetched, updated and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).ModelBuilds.Create(&model_builds.CreateModelBuildInput{})
+			modelBuildsClient := autopilotSession.Assistant(assistantSid).ModelBuilds
+
+			createResp, createErr := modelBuildsClient.Create(&model_builds.CreateModelBuildInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := modelBuildsClient.Page(&model_builds.ModelBuildsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.ModelBuilds)).Should(BeNumerically(">=", 1))
+
+			paginator := modelBuildsClient.NewModelBuildsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.ModelBuilds)).Should(BeNumerically(">=", 1))
 
 			modelBuildClient := autopilotSession.Assistant(assistantSid).ModelBuild(createResp.Sid)
 
@@ -580,13 +676,27 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the query is created, fetched, updated and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).Queries.Create(&queries.CreateQueryInput{
+			queriesClient := autopilotSession.Assistant(assistantSid).Queries
+
+			createResp, createErr := queriesClient.Create(&queries.CreateQueryInput{
 				Language: "en-US",
 				Query:    "hello world",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := queriesClient.Page(&queries.QueriesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Queries)).Should(BeNumerically(">=", 1))
+
+			paginator := queriesClient.NewQueriesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Queries)).Should(BeNumerically(">=", 1))
 
 			queryClient := autopilotSession.Assistant(assistantSid).Query(createResp.Sid)
 
@@ -622,7 +732,9 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 
 		It("Then the webhook is created, fetched, updated and deleted", func() {
-			createResp, createErr := autopilotSession.Assistant(assistantSid).Webhooks.Create(&webhooks.CreateWebhookInput{
+			webhooksClient := autopilotSession.Assistant(assistantSid).Webhooks
+
+			createResp, createErr := webhooksClient.Create(&webhooks.CreateWebhookInput{
 				UniqueName: uuid.New().String(),
 				Events:     "onDialogueEnd",
 				WebhookURL: "https://localhost/webhook",
@@ -630,6 +742,18 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := webhooksClient.Page(&webhooks.WebhooksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
+
+			paginator := webhooksClient.NewWebhooksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Webhooks)).Should(BeNumerically(">=", 1))
 
 			webhookClient := autopilotSession.Assistant(assistantSid).Webhook(createResp.Sid)
 
