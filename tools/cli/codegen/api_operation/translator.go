@@ -42,6 +42,10 @@ func Translate(content []byte) (*interface{}, error) {
 		response.Set(responseStructure.Data(), "response")
 	}
 
+	if jsonParsed.Exists("pagination") {
+		response.Set(jsonParsed.Path("pagination").Data(), "pagination")
+	}
+
 	data := response.Data()
 	return &data, nil
 }

@@ -4,20 +4,18 @@ package assistants
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+// AssistantsPageOptions defines the query options for the api operation
 type AssistantsPageOptions struct {
-	DateCreatedAfter      *time.Time
-	DateCreatedOnOrBefore *time.Time
-	From                  *string
-	PageSize              *int
-	Page                  *int
-	PageToken             *string
-	To                    *string
+	PageSize  *int
+	Page      *int
+	PageToken *string
 }
 
 type PageAssistantResponse struct {
@@ -32,8 +30,8 @@ type PageAssistantResponse struct {
 	LogQueries          bool       `json:"log_queries"`
 	NeedsModelBuild     *bool      `json:"needs_model_build,omitempty"`
 	Sid                 string     `json:"sid"`
-	UniqueName          string     `json:"unique_name"`
 	URL                 string     `json:"url"`
+	UniqueName          string     `json:"unique_name"`
 }
 
 type PageMetaResponse struct {
@@ -46,15 +44,21 @@ type PageMetaResponse struct {
 	URL             string  `json:"url"`
 }
 
+// AssistantsPageResponse defines the response fields for the assistants page
 type AssistantsPageResponse struct {
 	Assistants []PageAssistantResponse `json:"assistants"`
 	Meta       PageMetaResponse        `json:"meta"`
 }
 
+// Page retrieves a page of assistants
+// See https://www.twilio.com/docs/autopilot/api/assistant#read-multiple-assistant-resources for more details
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Page(options *AssistantsPageOptions) (*AssistantsPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
+// PageWithContext retrieves a page of assistants
+// See https://www.twilio.com/docs/autopilot/api/assistant#read-multiple-assistant-resources for more details
 func (c Client) PageWithContext(context context.Context, options *AssistantsPageOptions) (*AssistantsPageResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodGet,
@@ -67,4 +71,92 @@ func (c Client) PageWithContext(context context.Context, options *AssistantsPage
 		return nil, err
 	}
 	return response, nil
+}
+
+// AssistantsPaginator defines the fields for makings paginated api calls
+// Assistants is an array of assistants that have been returned from all of the page calls
+type AssistantsPaginator struct {
+	options    *AssistantsPageOptions
+	Page       *AssistantsPage
+	Assistants []PageAssistantResponse
+}
+
+// NewAssistantsPaginator creates a new instance of the paginator for Page.
+func (c *Client) NewAssistantsPaginator() *AssistantsPaginator {
+	return c.NewAssistantsPaginatorWithOptions(nil)
+}
+
+// NewAssistantsPaginatorWithOptions creates a new instance of the paginator for Page with options.
+func (c *Client) NewAssistantsPaginatorWithOptions(options *AssistantsPageOptions) *AssistantsPaginator {
+	return &AssistantsPaginator{
+		options: options,
+		Page: &AssistantsPage{
+			CurrentPage: nil,
+			Error:       nil,
+			client:      c,
+		},
+		Assistants: make([]PageAssistantResponse, 0),
+	}
+}
+
+// AssistantsPage defines the fields for the page
+// The CurrentPage and Error fields can be used to access the PageAssistantResponse or error that is returned from the api call(s)
+type AssistantsPage struct {
+	client *Client
+
+	CurrentPage *AssistantsPageResponse
+	Error       error
+}
+
+// CurrentPage retrieves the results for the current page
+func (p *AssistantsPaginator) CurrentPage() *AssistantsPageResponse {
+	return p.Page.CurrentPage
+}
+
+// Error retrieves the error returned from the page
+func (p *AssistantsPaginator) Error() error {
+	return p.Page.Error
+}
+
+// Next retrieves the next page of results.
+// Next will return false when either an error occurs or there are no more pages to iterate
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+func (p *AssistantsPaginator) Next() bool {
+	return p.NextWithContext(context.Background())
+}
+
+// NextWithContext retrieves the next page of results.
+// NextWithContext will return false when either an error occurs or there are no more pages to iterate
+func (p *AssistantsPaginator) NextWithContext(context context.Context) bool {
+	options := p.options
+
+	if options == nil {
+		options = &AssistantsPageOptions{}
+	}
+
+	if p.CurrentPage() != nil {
+		nextPageURL := p.CurrentPage().Meta.NextPageURL
+
+		if nextPageURL == nil {
+			return false
+		}
+
+		parsedURL, err := url.Parse(*nextPageURL)
+		if err != nil {
+			p.Page.Error = err
+			return false
+		}
+
+		options.PageToken = utils.String(parsedURL.Query().Get("PageToken"))
+	}
+
+	resp, err := p.Page.client.PageWithContext(context, options)
+	p.Page.CurrentPage = resp
+	p.Page.Error = err
+
+	if p.Page.Error == nil {
+		p.Assistants = append(p.Assistants, resp.Assistants...)
+	}
+
+	return p.Page.Error == nil
 }

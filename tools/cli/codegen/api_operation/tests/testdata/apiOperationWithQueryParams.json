@@ -6,27 +6,16 @@
     "uri": "/Assistants",
     "method": "Get"
   },
+  "documentation": {
+    "description": "retrieves a page of assistants",
+    "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/assistant#read-multiple-assistant-resources"
+  },
   "options": {
     "name": "AssistantsPageOptions",
+    "documentation": {
+      "description": "defines the query options for the api operation"
+    },
     "properties": [
-      {
-        "name": "DateCreatedAfter",
-        "type": "time.Time",
-        "value": "DateCreatedAfter",
-        "required": false
-      },
-      {
-        "name": "DateCreatedOnOrBefore",
-        "type": "time.Time",
-        "value": "DateCreatedOnOrBefore",
-        "required": false
-      },
-      {
-        "name": "From",
-        "type": "string",
-        "value": "From",
-        "required": false
-      },
       {
         "name": "PageSize",
         "type": "int",
@@ -43,12 +32,6 @@
         "name": "PageToken",
         "type": "string",
         "value": "PageToken",
-        "required": false
-      },
-      {
-        "name": "To",
-        "type": "string",
-        "value": "To",
         "required": false
       }
     ]
@@ -128,15 +111,15 @@
             "required": true
           },
           {
-            "name": "UniqueName",
-            "type": "string",
-            "value": "unique_name",
-            "required": true
-          },
-          {
             "name": "URL",
             "type": "string",
             "value": "url",
+            "required": true
+          },
+          {
+            "name": "UniqueName",
+            "type": "string",
+            "value": "unique_name",
             "required": true
           }
         ]
@@ -204,6 +187,18 @@
         "value": "meta",
         "required": true
       }
-    ]
+    ],
+    "documentation": {
+      "description": "defines the response fields for the assistants page"
+    }
+  },
+  "pagination": {
+    "name": "AssistantsPaginator",
+    "page": {
+      "name": "AssistantsPage",
+      "nextToken": "PageToken",
+      "items": "Assistants",
+      "structure": "PageAssistantResponse"
+    }
   }
 }

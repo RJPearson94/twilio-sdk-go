@@ -52,6 +52,97 @@ func (c Client) {{ .name }}WithContext(context context.Context {{ if .options }}
 	}
 	return {{ if .response }} response, {{ end }} nil
 }
+
+{{ if .pagination }}
+// {{ .pagination.name }} defines the fields for makings paginated api calls
+// {{ .pagination.page.items }} is an array of {{ .pagination.page.items | ToLowerCase }} that have been returned from all of the page calls
+type {{ .pagination.name }} struct {
+	options *{{ .options.name }}
+	Page *{{ .pagination.page.name }}
+	{{ .pagination.page.items }}  []{{.pagination.page.structure }}
+}
+
+// New{{ .pagination.name }} creates a new instance of the paginator for {{ .name }}.
+func (c *Client) New{{ .pagination.name }}() *{{ .pagination.name }} {
+	return c.New{{ .pagination.name }}WithOptions(nil)
+}
+
+// New{{ .pagination.name }}WithOptions creates a new instance of the paginator for {{ .name }} with options.
+func (c *Client) New{{ .pagination.name }}WithOptions(options *{{ .options.name }}) *{{ .pagination.name }} {
+	return &{{ .pagination.name }}{
+		options: options,
+		Page: &{{ .pagination.page.name }}{
+			CurrentPage: nil,
+			Error:       nil,
+			client:      c,
+			
+		},
+		{{ .pagination.page.items }}:  make([]{{.pagination.page.structure }}, 0),
+	}
+}
+
+// {{ .pagination.page.name }} defines the fields for the page
+// The CurrentPage and Error fields can be used to access the {{.pagination.page.structure }} or error that is returned from the api call(s)
+type {{ .pagination.page.name }} struct {
+	client *Client
+
+	CurrentPage *{{ .response.name }}
+	Error       error
+}
+
+// CurrentPage retrieves the results for the current page 
+func (p *{{ .pagination.name }}) CurrentPage() *{{ .response.name }} {
+	return p.Page.CurrentPage
+}
+
+// Error retrieves the error returned from the page
+func (p *{{ .pagination.name }}) Error() error {
+	return p.Page.Error
+}
+
+// Next retrieves the next page of results. 
+// Next will return false when either an error occurs or there are no more pages to iterate 
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information 
+func (p *{{ .pagination.name }}) Next() bool {
+	return p.NextWithContext(context.Background())
+}
+
+// NextWithContext retrieves the next page of results. 
+// NextWithContext will return false when either an error occurs or there are no more pages to iterate 
+func (p *{{ .pagination.name }}) NextWithContext(context context.Context) bool {
+	options := p.options
+	
+	if options == nil {
+		options = &{{ .options.name }}{}
+	}
+
+	if p.CurrentPage() != nil {
+		nextPageURL := p.CurrentPage().Meta.NextPageURL
+
+		if nextPageURL == nil {
+			return false
+		}
+
+		parsedURL, err := url.Parse(*nextPageURL)
+		if err != nil {
+			p.Page.Error = err
+			return false
+		}
+
+		options.{{ .pagination.page.nextToken }} = utils.String(parsedURL.Query().Get("{{ .pagination.page.nextToken }}"))
+	}
+
+	resp, err := p.Page.client.PageWithContext(context, options)
+	p.Page.CurrentPage = resp
+	p.Page.Error = err
+	
+	if p.Page.Error == nil {
+		p.{{ .pagination.page.items }} = append(p.{{ .pagination.page.items }}, resp.{{ .pagination.page.items }}...)
+	}
+
+	return p.Page.Error == nil
+}
+{{ end }}
 `
 
 const overrideBaseURL = `{{if .http.overrides}} 
