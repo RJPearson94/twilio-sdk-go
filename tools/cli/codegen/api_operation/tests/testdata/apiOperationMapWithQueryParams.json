@@ -1,0 +1,241 @@
+{
+  "packageName": "assistants",
+  "name": "Page",
+  "imports": ["github.com/RJPearson94/twilio-sdk-go/client"],
+  "http": {
+    "uri": "/Assistants",
+    "method": "Get",
+    "queryParams": [
+      {
+        "required": false,
+        "name": "DateCreatedAfter",
+        "type": "time.Time"
+      },
+      {
+        "type": "time.Time",
+        "required": false,
+        "name": "DateCreatedOnOrBefore"
+      },
+      {
+        "name": "From",
+        "type": "string",
+        "required": false
+      },
+      {
+        "required": false,
+        "name": "PageSize",
+        "type": "int"
+      },
+      {
+        "required": false,
+        "name": "Page",
+        "type": "int"
+      },
+      {
+        "name": "PageToken",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "To",
+        "type": "string",
+        "required": false
+      }
+    ]
+  },
+  "options": {
+    "name": "AssistantsPageOptions",
+    "documentation": {
+      "description": "defines the query options for the api operation"
+    },
+    "properties": [
+      {
+        "required": false,
+        "name": "DateCreatedAfter",
+        "type": "time.Time"
+      },
+      {
+        "type": "time.Time",
+        "required": false,
+        "name": "DateCreatedOnOrBefore"
+      },
+      {
+        "name": "From",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "PageSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "type": "int",
+        "required": false,
+        "name": "Page"
+      },
+      {
+        "type": "string",
+        "required": false,
+        "name": "PageToken"
+      },
+      {
+        "name": "To",
+        "type": "string",
+        "required": false
+      }
+    ]
+  },
+  "response": {
+    "name": "AssistantsPageResponse",
+    "type": "JSON",
+    "additionalStructs": [
+      {
+        "name": "PageAssistantResponse",
+        "type": "JSON",
+        "properties": [
+          {
+            "name": "AccountSid",
+            "required": true,
+            "type": "string",
+            "value": "account_sid"
+          },
+          {
+            "value": "callback_events",
+            "name": "CallbackEvents",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "value": "callback_url",
+            "name": "CallbackURL",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "required": true,
+            "type": "time.Time",
+            "value": "date_created",
+            "name": "DateCreated"
+          },
+          {
+            "value": "date_updated",
+            "name": "DateUpdated",
+            "required": false,
+            "type": "time.Time"
+          },
+          {
+            "required": true,
+            "type": "string",
+            "value": "development_stage",
+            "name": "DevelopmentStage"
+          },
+          {
+            "value": "friendly_name",
+            "name": "FriendlyName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "required": false,
+            "type": "string",
+            "value": "latest_model_build_sid",
+            "name": "LatestModelBuildSid"
+          },
+          {
+            "type": "bool",
+            "value": "log_queries",
+            "name": "LogQueries",
+            "required": true
+          },
+          {
+            "value": "needs_model_build",
+            "name": "NeedsModelBuild",
+            "required": false,
+            "type": "bool"
+          },
+          {
+            "value": "sid",
+            "name": "Sid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "required": true,
+            "type": "string",
+            "value": "url",
+            "name": "URL"
+          },
+          {
+            "value": "unique_name",
+            "name": "UniqueName",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "PageMetaResponse",
+        "type": "JSON",
+        "properties": [
+          {
+            "value": "first_page_url",
+            "name": "FirstPageURL",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "required": true,
+            "type": "string",
+            "value": "key",
+            "name": "Key"
+          },
+          {
+            "value": "next_page_url",
+            "name": "NextPageURL",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "value": "page",
+            "name": "Page",
+            "required": true,
+            "type": "int"
+          },
+          {
+            "value": "page_size",
+            "name": "PageSize",
+            "required": true,
+            "type": "int"
+          },
+          {
+            "type": "string",
+            "value": "previous_page_url",
+            "name": "PreviousPageURL",
+            "required": false
+          },
+          {
+            "type": "string",
+            "value": "url",
+            "name": "URL",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "value": "assistants",
+        "name": "Assistants",
+        "required": true,
+        "type": "[]PageAssistantResponse"
+      },
+      {
+        "value": "meta",
+        "name": "Meta",
+        "required": true,
+        "type": "PageMetaResponse"
+      }
+    ]
+  }
+}

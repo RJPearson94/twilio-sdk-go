@@ -16,6 +16,10 @@ import "{{ $import }}" {{ end }} {{ end }}
 {{ template "inputStructTemplate" .input }}
 {{ end }}
 
+{{ if .options }} 
+{{ template "optionsStructTemplate" .options }}
+{{ end }}
+
 {{ if .response }} 
 {{ if .response.additionalStructs }} {{ range $index, $additionalStruct := .response.additionalStructs }} 
 {{ template "responseStructTemplate" $additionalStruct }} 
@@ -26,16 +30,16 @@ import "{{ $import }}" {{ end }} {{ end }}
 {{ if .documentation }} // {{ .name }} {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
 // See {{ .documentation.twilioDocsLink }} for more details {{ end }} 
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information {{ end }}
-func (c Client) {{ .name }} ({{ if .input }}input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
-	return c.{{.name}}WithContext(context.Background() {{ if .input }}, input {{ end }})
+func (c Client) {{ .name }} ({{ if .options }}options *{{ .options.name }}, {{ end }} {{ if .input }}input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
+	return c.{{.name}}WithContext(context.Background() {{ if .options }}, options {{ end }} {{ if .input }}, input {{ end }})
 }
 
 {{ if .documentation }} // {{ .name }}WithContext {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
 // See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }}
-func (c Client) {{ .name }}WithContext(context context.Context {{ if .input }}, input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
+func (c Client) {{ .name }}WithContext(context context.Context {{ if .options }}, options *{{ .options.name }} {{ end }} {{ if .input }}, input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
 	op := client.Operation{ ${overrideBaseURL}
 		Method: http.Method{{ .http.method }},
-		URI: "{{ .http.uri }}", ${addContentType} ${addPathParams}
+		URI: "{{ .http.uri }}", ${addContentType} ${addPathParams} ${addQueryParams}
 	}
 
 	{{ if .input }} if input == nil {
@@ -58,8 +62,11 @@ ContentType: client.{{ .input.type }},{{ end }}`
 
 const addPathParams = `{{ if .http.pathParams }} 
 PathParams: map[string]string{ {{ range $index, $pathParam := .http.pathParams }}
-	"{{ $pathParam.name }}": {{ if eq $pathParam.value.onService true }} {{ if eq $pathParam.value.type "int" }} strconv.Itoa(c.{{ $pathParam.value.property }}) {{ else }} c.{{ $pathParam.value.property }} {{ end }}, {{ end }} {{ end }}
+	"{{ $pathParam.name }}": {{ if eq $pathParam.value.onService true }} {{ if eq $pathParam.value.type "int" }} strconv.Itoa({{ template "onServiceTemplate" $pathParam }}.{{ $pathParam.value.property }}) {{ else }} {{ template "onServiceTemplate" $pathParam }}.{{ $pathParam.value.property }} {{ end }}, {{ end }} {{ end }}
 },{{ end }}`
+
+const addQueryParams = `{{ if .options }} 
+QueryParams: utils.StructToStringMap(options),{{ end }}`
 
 const inputTags = "`{{ if and $property.validation $property.validation.ignore }}{{ else }}{{ if and (ne $property.type \"bool\") (eq $property.required true) }}validate:\"required\" {{ end }}{{ end }}{{ template \"dataTypeTagsTemplate\" $ }}:\"{{ $property.value }}{{ if eq $property.required false}},omitempty{{ end }}\"`"
 
@@ -67,10 +74,13 @@ const responseTags = "{{ if eq $.type \"JSON\" }}`json:\"{{ $property.value }}{{
 
 // blocks
 
-var defineTemplates = inputStructTemplate + " " + responseStructTemplate + " " + dataTypeTagsTemplate
+var defineTemplates = optionsStructTemplate + " " + inputStructTemplate + " " + responseStructTemplate + " " + dataTypeTagsTemplate + " " + onServiceTemplate
 
 const dataTypeTagsTemplate = "{{ define \"dataTypeTagsTemplate\" }}{{ if eq .type \"URLEncoded\" }}form{{ else if eq .type \"FormData\" }}mapstructure{{ else if eq .type \"JSON\" }}json{{ end }}{{ end }}"
 
+const onServiceTemplate = `{{ define "onServiceTemplate" }}{{ if eq .value.onService true }}c{{ else }}input{{ end }}{{ end }}`
+
+var optionsStructTemplate = structTemplate("optionsStructTemplate", "")
 var inputStructTemplate = structTemplate("inputStructTemplate", inputTags)
 var responseStructTemplate = structTemplate("responseStructTemplate", responseTags)
 

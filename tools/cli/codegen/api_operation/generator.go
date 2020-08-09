@@ -33,6 +33,7 @@ func init() {
 		"${overrideBaseURL}", overrideBaseURL,
 		"${addContentType}", addContentType,
 		"${addPathParams}", addPathParams,
+		"${addQueryParams}", addQueryParams,
 	)
 
 	parsedAPIOperationTemplate = template.Must(template.New("generateAPIOperation").Funcs(helpers).Parse(parsedAPIOperationReplacer.Replace(apiOperationContent)))

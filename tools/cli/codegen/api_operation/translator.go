@@ -4,6 +4,7 @@ import (
 	"sort"
 
 	"github.com/Jeffail/gabs/v2"
+	"github.com/iancoleman/strcase"
 )
 
 func Translate(content []byte) (*interface{}, error) {
@@ -13,9 +14,10 @@ func Translate(content []byte) (*interface{}, error) {
 	}
 
 	apiOperationName := jsonParsed.Path("name").Data().(string)
+	packageName := jsonParsed.Path("packageName").Data().(string)
 
 	response := gabs.New()
-	response.Set(jsonParsed.Path("packageName").Data(), "packageName")
+	response.Set(packageName, "packageName")
 	response.Set(jsonParsed.Path("imports").Data(), "imports")
 	if jsonParsed.Exists("documentation") {
 		response.Set(jsonParsed.Path("documentation").Data(), "documentation")
@@ -24,6 +26,11 @@ func Translate(content []byte) (*interface{}, error) {
 	response.Set(jsonParsed.Path("http").Data(), "http")
 
 	structures := jsonParsed.S("structures").ChildrenMap()
+
+	if jsonParsed.Exists("http", "queryParams") {
+		optionStructure := mapOptions(jsonParsed.Path("http.queryParams"), apiOperationName, packageName)
+		response.Set(optionStructure.Data(), "options")
+	}
 
 	if jsonParsed.Exists("input") {
 		inputStructure := mapStructure(jsonParsed.Path("input"), apiOperationName, structures)
@@ -60,9 +67,6 @@ func mapStructure(structure *gabs.Container, apiOperationName string, structures
 	dataType := nestedStructure.Path("type").Data().(string)
 	structureResponse.Set(dataType, "type")
 
-	properties := getProperties(nestedStructure, structures)
-	nestedStructure.Set(properties, "properties")
-
 	properties, additionalStructs := mapProperties(nestedStructure, dataType, apiOperationName, structures)
 	structureResponse.Set(properties, "properties")
 
@@ -87,9 +91,31 @@ func getProperties(structure *gabs.Container, structures map[string]*gabs.Contai
 	return properties
 }
 
+func mapOptions(structure *gabs.Container, name string, packageName string) *gabs.Container {
+	structureResponse := gabs.New()
+	structureResponse.Set(strcase.ToCamel(packageName)+name+"Options", "name")
+	structureResponse.Set("defines the query options for the api operation", "documentation", "description")
+
+	properties := make([]interface{}, 0)
+	for _, property := range structure.Children() {
+		propertiesResponse := gabs.New()
+		propertiesResponse.Set(property.Path("name").Data(), "name")
+		propertiesResponse.Set(property.Path("type").Data(), "type")
+		propertiesResponse.Set(property.Path("required").Data(), "required")
+
+		properties = append(properties, propertiesResponse.Data())
+	}
+
+	structureResponse.Set(properties, "properties")
+	return structureResponse
+}
+
 func mapProperties(structure *gabs.Container, dataType string, apiOperationName string, structures map[string]*gabs.Container) ([]interface{}, []interface{}) {
 	properties := make([]interface{}, 0)
 	additionalStructs := make([]interface{}, 0)
+
+	structureProperties := getProperties(structure, structures)
+	structure.Set(structureProperties, "properties")
 
 	for _, property := range structure.S("properties").Children() {
 		if property != nil {

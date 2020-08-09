@@ -29,6 +29,23 @@ var _ = Describe("API Operation CodeGen", func() {
 				Expect(string(*resp)).To(Equal(string(goldenData)))
 			})
 		})
+
+		Describe("When the api operation is generated with query params", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/apiOperationWithQueryParams.golden")
+			apiOperationJSON, _ := ioutil.ReadFile("testdata/apiOperationWithQueryParams.json")
+			var apiOperationData interface{}
+			_ = json.Unmarshal(apiOperationJSON, &apiOperationData)
+
+			resp, err := apioperation.Generate(apiOperationData, true)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the response should match the golden data", func() {
+				Expect(string(*resp)).To(Equal(string(goldenData)))
+			})
+		})
 	})
 
 	Describe("Given a snippet of api json", func() {
@@ -80,6 +97,23 @@ var _ = Describe("API Operation CodeGen", func() {
 
 			It("Then the response should match the golden data", func() {
 				Expect(*resp).To(Equal(apiOperationMapWithNestedStructureArrayData.Data()))
+			})
+		})
+
+		Describe("When the json with query params is translated", func() {
+			apiOperationStructureMapWithQueryParamsJSON, _ := ioutil.ReadFile("testdata/apiOperationStructureWithQueryParams.json")
+
+			apiOperationMapWithQueryParamsJSON, _ := ioutil.ReadFile("testdata/apiOperationMapWithQueryParams.json")
+			apiOperationMapWithQueryParamsData, _ := gabs.ParseJSON(apiOperationMapWithQueryParamsJSON)
+
+			resp, err := apioperation.Translate(apiOperationStructureMapWithQueryParamsJSON)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the response should match the golden data", func() {
+				Expect(*resp).To(Equal(apiOperationMapWithQueryParamsData.Data()))
 			})
 		})
 	})

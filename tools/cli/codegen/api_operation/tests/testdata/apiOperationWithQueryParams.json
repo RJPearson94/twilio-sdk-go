@@ -1,0 +1,209 @@
+{
+  "packageName": "assistants",
+  "name": "Page",
+  "imports": ["github.com/RJPearson94/twilio-sdk-go/client"],
+  "http": {
+    "uri": "/Assistants",
+    "method": "Get"
+  },
+  "options": {
+    "name": "AssistantsPageOptions",
+    "properties": [
+      {
+        "name": "DateCreatedAfter",
+        "type": "time.Time",
+        "value": "DateCreatedAfter",
+        "required": false
+      },
+      {
+        "name": "DateCreatedOnOrBefore",
+        "type": "time.Time",
+        "value": "DateCreatedOnOrBefore",
+        "required": false
+      },
+      {
+        "name": "From",
+        "type": "string",
+        "value": "From",
+        "required": false
+      },
+      {
+        "name": "PageSize",
+        "type": "int",
+        "value": "PageSize",
+        "required": false
+      },
+      {
+        "name": "Page",
+        "type": "int",
+        "value": "Page",
+        "required": false
+      },
+      {
+        "name": "PageToken",
+        "type": "string",
+        "value": "PageToken",
+        "required": false
+      },
+      {
+        "name": "To",
+        "type": "string",
+        "value": "To",
+        "required": false
+      }
+    ]
+  },
+  "response": {
+    "name": "AssistantsPageResponse",
+    "type": "JSON",
+    "additionalStructs": [
+      {
+        "name": "PageAssistantResponse",
+        "type": "JSON",
+        "properties": [
+          {
+            "name": "AccountSid",
+            "type": "string",
+            "value": "account_sid",
+            "required": true
+          },
+          {
+            "name": "CallbackEvents",
+            "type": "string",
+            "value": "callback_events",
+            "required": false
+          },
+          {
+            "name": "CallbackURL",
+            "type": "string",
+            "value": "callback_url",
+            "required": false
+          },
+          {
+            "name": "DateCreated",
+            "type": "time.Time",
+            "value": "date_created",
+            "required": true
+          },
+          {
+            "name": "DateUpdated",
+            "type": "time.Time",
+            "value": "date_updated",
+            "required": false
+          },
+          {
+            "name": "DevelopmentStage",
+            "type": "string",
+            "value": "development_stage",
+            "required": true
+          },
+          {
+            "name": "FriendlyName",
+            "type": "string",
+            "value": "friendly_name",
+            "required": false
+          },
+          {
+            "name": "LatestModelBuildSid",
+            "type": "string",
+            "value": "latest_model_build_sid",
+            "required": false
+          },
+          {
+            "name": "LogQueries",
+            "type": "bool",
+            "value": "log_queries",
+            "required": true
+          },
+          {
+            "name": "NeedsModelBuild",
+            "type": "bool",
+            "value": "needs_model_build",
+            "required": false
+          },
+          {
+            "name": "Sid",
+            "type": "string",
+            "value": "sid",
+            "required": true
+          },
+          {
+            "name": "UniqueName",
+            "type": "string",
+            "value": "unique_name",
+            "required": true
+          },
+          {
+            "name": "URL",
+            "type": "string",
+            "value": "url",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "PageMetaResponse",
+        "type": "JSON",
+        "properties": [
+          {
+            "name": "FirstPageURL",
+            "type": "string",
+            "value": "first_page_url",
+            "required": true
+          },
+          {
+            "name": "Key",
+            "type": "string",
+            "value": "key",
+            "required": true
+          },
+          {
+            "name": "NextPageURL",
+            "type": "string",
+            "value": "next_page_url",
+            "required": false
+          },
+          {
+            "name": "Page",
+            "type": "int",
+            "value": "page",
+            "required": true
+          },
+          {
+            "name": "PageSize",
+            "type": "int",
+            "value": "page_size",
+            "required": true
+          },
+
+          {
+            "name": "PreviousPageURL",
+            "type": "string",
+            "value": "previous_page_url",
+            "required": false
+          },
+          {
+            "name": "URL",
+            "type": "string",
+            "value": "url",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "name": "Assistants",
+        "type": "[]PageAssistantResponse",
+        "value": "assistants",
+        "required": true
+      },
+      {
+        "name": "Meta",
+        "type": "PageMetaResponse",
+        "value": "meta",
+        "required": true
+      }
+    ]
+  }
+}
