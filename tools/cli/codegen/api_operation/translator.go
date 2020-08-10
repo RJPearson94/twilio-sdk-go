@@ -4,6 +4,7 @@ import (
 	"sort"
 
 	"github.com/Jeffail/gabs/v2"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 	"github.com/iancoleman/strcase"
 )
 
@@ -15,6 +16,7 @@ func Translate(content []byte) (*interface{}, error) {
 
 	apiOperationName := jsonParsed.Path("name").Data().(string)
 	packageName := jsonParsed.Path("packageName").Data().(string)
+	var structPrefix *string
 
 	response := gabs.New()
 	response.Set(packageName, "packageName")
@@ -27,19 +29,25 @@ func Translate(content []byte) (*interface{}, error) {
 
 	structures := jsonParsed.S("structures").ChildrenMap()
 
-	if jsonParsed.Exists("http", "queryParams") {
-		optionStructure := mapOptions(jsonParsed.Path("http.queryParams"), apiOperationName, packageName)
-		response.Set(optionStructure.Data(), "options")
-	}
-
 	if jsonParsed.Exists("input") {
 		inputStructure := mapStructure(jsonParsed.Path("input"), apiOperationName, structures)
+		inputName := inputStructure.Path("name").Data().(string)
+		structPrefix = utils.String(inputName[0 : len(inputName)-len("input")])
+
 		response.Set(inputStructure.Data(), "input")
 	}
 
 	if jsonParsed.Exists("response") {
 		responseStructure := mapStructure(jsonParsed.Path("response"), apiOperationName, structures)
+		responseName := responseStructure.Path("name").Data().(string)
+		structPrefix = utils.String(responseName[0 : len(responseName)-len("response")])
+
 		response.Set(responseStructure.Data(), "response")
+	}
+
+	if jsonParsed.Exists("http", "queryParams") {
+		optionStructure := mapOptions(jsonParsed.Path("http.queryParams"), apiOperationName, packageName, structPrefix)
+		response.Set(optionStructure.Data(), "options")
 	}
 
 	if jsonParsed.Exists("pagination") {
@@ -95,16 +103,28 @@ func getProperties(structure *gabs.Container, structures map[string]*gabs.Contai
 	return properties
 }
 
-func mapOptions(structure *gabs.Container, name string, packageName string) *gabs.Container {
+func mapOptions(structure *gabs.Container, name string, packageName string, structPrefix *string) *gabs.Container {
 	structureResponse := gabs.New()
-	structureResponse.Set(strcase.ToCamel(packageName)+name+"Options", "name")
+
+	if structPrefix == nil {
+		structPrefix = utils.String(strcase.ToCamel(packageName) + name)
+	}
+
+	structureResponse.Set(*structPrefix+"Options", "name")
 	structureResponse.Set("defines the query options for the api operation", "documentation", "description")
 
 	properties := make([]interface{}, 0)
 	for _, property := range structure.Children() {
 		propertiesResponse := gabs.New()
 		propertiesResponse.Set(property.Path("name").Data(), "name")
+
+		typeName := property.Path("type").Data().(string)
 		propertiesResponse.Set(property.Path("type").Data(), "type")
+
+		if typeName == "array" {
+			propertiesResponse.Set("[]"+property.Path("items.type").Data().(string), "type")
+		}
+
 		propertiesResponse.Set(property.Path("required").Data(), "required")
 
 		properties = append(properties, propertiesResponse.Data())

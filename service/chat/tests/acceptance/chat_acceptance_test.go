@@ -26,6 +26,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user"
 	v2UserChannel "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/channel"
+	v2UserChannels "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -45,12 +46,26 @@ var _ = Describe("Chat Acceptance Tests", func() {
 
 	Describe("Given the chat service clients", func() {
 		It("Then the service is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Services.Create(&services.CreateServiceInput{
+			servicesClient := chatSession.Services
+
+			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := servicesClient.Page(&services.ServicesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Services)).Should(BeNumerically(">=", 1))
+
+			paginator := servicesClient.NewServicesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Services)).Should(BeNumerically(">=", 1))
 
 			serviceClient := chatSession.Service(createResp.Sid)
 
@@ -69,13 +84,27 @@ var _ = Describe("Chat Acceptance Tests", func() {
 
 	Describe("Given the chat credential clients", func() {
 		It("Then the credential is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Credentials.Create(&v2Credentials.CreateCredentialInput{
+			credentialsClient := chatSession.Credentials
+
+			createResp, createErr := credentialsClient.Create(&v2Credentials.CreateCredentialInput{
 				Type:   "fcm",
 				Secret: utils.String("secret"),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := credentialsClient.Page(&v2Credentials.CredentialsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Credentials)).Should(BeNumerically(">=", 1))
+
+			paginator := credentialsClient.NewCredentialsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Credentials)).Should(BeNumerically(">=", 1))
 
 			credentialClient := chatSession.Credential(createResp.Sid)
 
@@ -115,10 +144,24 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the channel is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Channels.Create(&channels.CreateChannelInput{})
+			channelsClient := chatSession.Service(serviceSid).Channels
+
+			createResp, createErr := channelsClient.Create(&channels.CreateChannelInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := channelsClient.Page(&channels.ChannelsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Channels)).Should(BeNumerically(">=", 1))
+
+			paginator := channelsClient.NewChannelsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Channels)).Should(BeNumerically(">=", 1))
 
 			channelClient := chatSession.Service(serviceSid).Channel(createResp.Sid)
 
@@ -182,12 +225,26 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the channel invite is created, fetched and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Channel(channelSid).Invites.Create(&invites.CreateChannelInviteInput{
+			invitesClient := chatSession.Service(serviceSid).Channel(channelSid).Invites
+
+			createResp, createErr := invitesClient.Create(&invites.CreateChannelInviteInput{
 				Identity: identity,
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := invitesClient.Page(&invites.ChannelInvitesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Invites)).Should(BeNumerically(">=", 1))
+
+			paginator := invitesClient.NewChannelInvitesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Invites)).Should(BeNumerically(">=", 1))
 
 			inviteClient := chatSession.Service(serviceSid).Channel(channelSid).Invite(createResp.Sid)
 
@@ -232,12 +289,26 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the channel member is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Channel(channelSid).Members.Create(&members.CreateChannelMemberInput{
+			membersClient := chatSession.Service(serviceSid).Channel(channelSid).Members
+
+			createResp, createErr := membersClient.Create(&members.CreateChannelMemberInput{
 				Identity: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := membersClient.Page(&members.ChannelMembersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Members)).Should(BeNumerically(">=", 1))
+
+			paginator := membersClient.NewChannelMembersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Members)).Should(BeNumerically(">=", 1))
 
 			memberClient := chatSession.Service(serviceSid).Channel(channelSid).Member(createResp.Sid)
 
@@ -286,12 +357,26 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the channel message is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Channel(channelSid).Messages.Create(&messages.CreateChannelMessageInput{
+			messagesClient := chatSession.Service(serviceSid).Channel(channelSid).Messages
+
+			createResp, createErr := messagesClient.Create(&messages.CreateChannelMessageInput{
 				Body: utils.String("Test"),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := messagesClient.Page(&messages.ChannelMessagesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Messages)).Should(BeNumerically(">=", 1))
+
+			paginator := messagesClient.NewChannelMessagesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Messages)).Should(BeNumerically(">=", 1))
 
 			messageClient := chatSession.Service(serviceSid).Channel(channelSid).Message(createResp.Sid)
 
@@ -340,7 +425,9 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the channel webhook is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Channel(channelSid).Webhooks.Create(&webhooks.CreateChannelWebhookInput{
+			webhooksClient := chatSession.Service(serviceSid).Channel(channelSid).Webhooks
+
+			createResp, createErr := webhooksClient.Create(&webhooks.CreateChannelWebhookInput{
 				Type:                 "webhook",
 				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
 				ConfigurationFilters: &[]string{"onMessageSent"},
@@ -348,6 +435,18 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := webhooksClient.Page(&webhooks.ChannelWebhooksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
+
+			paginator := webhooksClient.NewChannelWebhooksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Webhooks)).Should(BeNumerically(">=", 1))
 
 			webhookClient := chatSession.Service(serviceSid).Channel(channelSid).Webhook(createResp.Sid)
 
@@ -385,7 +484,9 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the role is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Roles.Create(&roles.CreateRoleInput{
+			rolesClient := chatSession.Service(serviceSid).Roles
+
+			createResp, createErr := rolesClient.Create(&roles.CreateRoleInput{
 				FriendlyName: uuid.New().String(),
 				Type:         "channel",
 				Permission:   []string{"sendMessage"},
@@ -393,6 +494,18 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := rolesClient.Page(&roles.RolesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Roles)).Should(BeNumerically(">=", 1))
+
+			paginator := rolesClient.NewRolesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Roles)).Should(BeNumerically(">=", 1))
 
 			roleClient := chatSession.Service(serviceSid).Role(createResp.Sid)
 
@@ -432,12 +545,26 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 
 		It("Then the user is created, fetched, updated and deleted", func() {
-			createResp, createErr := chatSession.Service(serviceSid).Users.Create(&users.CreateUserInput{
+			usersClient := chatSession.Service(serviceSid).Users
+
+			createResp, createErr := usersClient.Create(&users.CreateUserInput{
 				Identity: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := usersClient.Page(&users.UsersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Users)).Should(BeNumerically(">=", 1))
+
+			paginator := usersClient.NewUsersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Users)).Should(BeNumerically(">=", 1))
 
 			userClient := chatSession.Service(serviceSid).User(createResp.Sid)
 
@@ -454,7 +581,7 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the chat user channel client", func() {
+	Describe("Given the chat user channel clients", func() {
 
 		var identity string
 		var serviceSid string
@@ -513,7 +640,21 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			}
 		})
 
-		It("Then the user channel is created, fetched and deleted", func() {
+		It("Then the user channel is fetched and updated", func() {
+			userChannelsClient := chatSession.Service(serviceSid).User(userSid).Channels
+
+			pageResp, pageErr := userChannelsClient.Page(&v2UserChannels.UserChannelsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Channels)).Should(BeNumerically(">=", 1))
+
+			paginator := userChannelsClient.NewUserChannelsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Channels)).Should(BeNumerically(">=", 1))
+
 			userChannelClient := chatSession.Service(serviceSid).User(userSid).Channel(channelSid)
 
 			fetchResp, fetchErr := userChannelClient.Fetch()
@@ -528,5 +669,5 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 	})
 
-	// TODO Add binding and user binding tests
+	// TODO Add binfing & user binding tests
 })

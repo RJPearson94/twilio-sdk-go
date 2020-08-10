@@ -39,6 +39,49 @@
               "description": "defines the response fields for the created service"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
         }
       ]
     },
@@ -55,6 +98,91 @@
         "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/service-resource"
       },
       "subClients": [
+        {
+          "name": "Bindings",
+          "packageName": "bindings",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing binding resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/binding-resource"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "BindingType",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "required": false
+                  },
+                  {
+                    "name": "Identity",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "required": false
+                  },
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of bindings",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/binding-resource#read-multiple-binding-resources"
+              },
+              "response": {
+                "structure": "BindingsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the bindings page"
+                }
+              },
+              "pagination": {
+                "name": "BindingsPaginator",
+                "page": {
+                  "name": "BindingsPage",
+                  "nextToken": "PageToken",
+                  "items": "Bindings",
+                  "structure": "PageBindingResponse"
+                }
+              }
+            }
+          ]
+        },
         {
           "name": "Binding",
           "packageName": "binding",
@@ -193,6 +321,67 @@
                   "description": "defines the response fields for the created channel"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Channels",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "Type",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "required": false
+                  },
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of channels",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-resource#read-multiple-channel-resources"
+              },
+              "response": {
+                "structure": "ChannelsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the channels page"
+                }
+              },
+              "pagination": {
+                "name": "ChannelsPaginator",
+                "page": {
+                  "name": "ChannelsPage",
+                  "nextToken": "PageToken",
+                  "items": "Channels",
+                  "structure": "PageChannelResponse"
+                }
+              }
             }
           ]
         },
@@ -278,6 +467,75 @@
                     "structure": "ChannelInviteResponse",
                     "documentation": {
                       "description": "defines the response fields for the created invite"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Channels/{channelSid}/Invites",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "channelSid",
+                        "value": {
+                          "onService": true,
+                          "property": "channelSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Identity",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "required": false
+                      },
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of channel invites",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/invite-resource#read-multiple-invite-resources"
+                  },
+                  "response": {
+                    "structure": "ChannelInvitesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the channel invites page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ChannelInvitesPaginator",
+                    "page": {
+                      "name": "ChannelInvitesPage",
+                      "nextToken": "PageToken",
+                      "items": "Invites",
+                      "structure": "PageChannelInviteResponse"
                     }
                   }
                 }
@@ -452,6 +710,75 @@
                     "structure": "ChannelMemberResponse",
                     "documentation": {
                       "description": "defines the response fields for the created member"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Channels/{channelSid}/Members",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "channelSid",
+                        "value": {
+                          "onService": true,
+                          "property": "channelSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Identity",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "required": false
+                      },
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of channel members",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/member-resource#read-multiple-member-resources"
+                  },
+                  "response": {
+                    "structure": "ChannelMembersPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the channel members page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ChannelMembersPaginator",
+                    "page": {
+                      "name": "ChannelMembersPage",
+                      "nextToken": "PageToken",
+                      "items": "Members",
+                      "structure": "PageChannelMemberResponse"
                     }
                   }
                 }
@@ -679,6 +1006,72 @@
                       "description": "defines the response fields for the created message"
                     }
                   }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Channels/{channelSid}/Messages",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "channelSid",
+                        "value": {
+                          "onService": true,
+                          "property": "channelSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Order",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of channel messages",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource#read-multiple-message-resources"
+                  },
+                  "response": {
+                    "structure": "ChannelMessagesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the channel messages page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ChannelMessagesPaginator",
+                    "page": {
+                      "name": "ChannelMessagesPage",
+                      "nextToken": "PageToken",
+                      "items": "Messages",
+                      "structure": "PageChannelMessageResponse"
+                    }
+                  }
                 }
               ]
             },
@@ -902,6 +1295,67 @@
                     "structure": "ChannelWebhookResponse",
                     "documentation": {
                       "description": "defines the response fields for the created webhook"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Channels/{channelSid}/Webhooks",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "channelSid",
+                        "value": {
+                          "onService": true,
+                          "property": "channelSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of channel webhooks",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/channel-webhook-resource#read-multiple-channelwebhook-resources"
+                  },
+                  "response": {
+                    "structure": "ChannelWebhooksPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the channel webhooks page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ChannelWebhooksPaginator",
+                    "page": {
+                      "name": "ChannelWebhooksPage",
+                      "nextToken": "PageToken",
+                      "items": "Webhooks",
+                      "structure": "PageChannelWebhookResponse"
                     }
                   }
                 }
@@ -1229,6 +1683,59 @@
                   "description": "defines the response fields for the created role"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Roles",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of roles",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/role-resource#read-multiple-role-resources"
+              },
+              "response": {
+                "structure": "RolesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the roles page"
+                }
+              },
+              "pagination": {
+                "name": "RolesPaginator",
+                "page": {
+                  "name": "RolesPage",
+                  "nextToken": "PageToken",
+                  "items": "Roles",
+                  "structure": "PageRoleResponse"
+                }
+              }
             }
           ]
         },
@@ -1413,6 +1920,59 @@
                   "description": "defines the response fields for the created user"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Users",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of users",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource#read-multiple-user-resources"
+              },
+              "response": {
+                "structure": "UsersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the users page"
+                }
+              },
+              "pagination": {
+                "name": "UsersPaginator",
+                "page": {
+                  "name": "UsersPage",
+                  "nextToken": "PageToken",
+                  "items": "Users",
+                  "structure": "PageUserResponse"
+                }
+              }
             }
           ]
         },
@@ -1441,6 +2001,95 @@
             "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-resource"
           },
           "subClients": [
+            {
+              "name": "Bindings",
+              "packageName": "bindings",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "userSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing user binding resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-binding-resource"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Users/{userSid}/Bindings",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "userSid",
+                        "value": {
+                          "onService": true,
+                          "property": "userSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "BindingType",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "required": false
+                      },
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of user bindings",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-binding-resource#read-multiple-userbinding-resources"
+                  },
+                  "response": {
+                    "structure": "UserBindingsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the user bindings page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "UserBindingsPaginator",
+                    "page": {
+                      "name": "UserBindingsPage",
+                      "nextToken": "PageToken",
+                      "items": "Bindings",
+                      "structure": "PageUserBindingResponse"
+                    }
+                  }
+                }
+              ]
+            },
             {
               "name": "Binding",
               "packageName": "binding",
@@ -1549,6 +2198,87 @@
                   "documentation": {
                     "description": "removes a user binding resource from the account",
                     "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-binding-resource#delete-a-user-binding-resource"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Channels",
+              "packageName": "channels",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "userSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing user channel resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-channel-resource"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Users/{userSid}/Channels",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "userSid",
+                        "value": {
+                          "onService": true,
+                          "property": "userSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of user channels",
+                    "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/user-channel-resource#read-multiple-userchannel-resources"
+                  },
+                  "response": {
+                    "structure": "UserChannelsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the user channels page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "UserChannelsPaginator",
+                    "page": {
+                      "name": "UserChannelsPage",
+                      "nextToken": "PageToken",
+                      "items": "Channels",
+                      "structure": "PageUserChannelResponse"
+                    }
                   }
                 }
               ]
@@ -1908,6 +2638,49 @@
               "description": "defines the response fields for the created credentials"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Credentials",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of credentials",
+            "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/credential-resource#read-multiple-credential-resources"
+          },
+          "response": {
+            "structure": "CredentialsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the credentials page"
+            }
+          },
+          "pagination": {
+            "name": "CredentialsPaginator",
+            "page": {
+              "name": "CredentialsPage",
+              "nextToken": "PageToken",
+              "items": "Credentials",
+              "structure": "PageCredentialResponse"
+            }
+          }
         }
       ]
     },
@@ -2211,6 +2984,26 @@
         }
       ]
     },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
     "ServiceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2331,6 +3124,26 @@
         }
       ]
     },
+    "BindingsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Bindings",
+          "type": "array",
+          "items": {
+            "structure": "BindingResponse"
+          },
+          "value": "bindings",
+          "required": true
+        }
+      ]
+    },
     "BindingResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2429,6 +3242,26 @@
         }
       ]
     },
+    "ChannelsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Channels",
+          "type": "array",
+          "items": {
+            "structure": "ChannelResponse"
+          },
+          "value": "channels",
+          "required": true
+        }
+      ]
+    },
     "ChannelResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2497,6 +3330,26 @@
           "type": "string",
           "value": "RoleSid",
           "required": false
+        }
+      ]
+    },
+    "ChannelInvitesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Invites",
+          "type": "array",
+          "items": {
+            "structure": "ChannelInviteResponse"
+          },
+          "value": "invites",
+          "required": true
         }
       ]
     },
@@ -2586,6 +3439,26 @@
           "type": "string",
           "value": "Attributes",
           "required": false
+        }
+      ]
+    },
+    "ChannelMembersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Members",
+          "type": "array",
+          "items": {
+            "structure": "ChannelMemberResponse"
+          },
+          "value": "members",
+          "required": true
         }
       ]
     },
@@ -2688,6 +3561,26 @@
           "type": "string",
           "value": "Body",
           "required": false
+        }
+      ]
+    },
+    "ChannelMessagesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Messages",
+          "type": "array",
+          "items": {
+            "structure": "ChannelMessageResponse"
+          },
+          "value": "messages",
+          "required": true
         }
       ]
     },
@@ -2872,6 +3765,26 @@
         }
       ]
     },
+    "ChannelWebhooksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Webhooks",
+          "type": "array",
+          "items": {
+            "structure": "ChannelWebhookResponse"
+          },
+          "value": "webhooks",
+          "required": true
+        }
+      ]
+    },
     "ChannelWebhookResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2938,6 +3851,26 @@
             "type": "string"
           },
           "value": "Permission",
+          "required": true
+        }
+      ]
+    },
+    "RolesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Roles",
+          "type": "array",
+          "items": {
+            "structure": "RoleResponse"
+          },
+          "value": "roles",
           "required": true
         }
       ]
@@ -3010,6 +3943,26 @@
         }
       ]
     },
+    "UsersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Users",
+          "type": "array",
+          "items": {
+            "structure": "UserResponse"
+          },
+          "value": "users",
+          "required": true
+        }
+      ]
+    },
     "UserResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -3061,6 +4014,26 @@
           "type": "int",
           "value": "joined_channels_count",
           "required": false
+        }
+      ]
+    },
+    "UserBindingsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Bindings",
+          "type": "array",
+          "items": {
+            "structure": "UserBindingResponse"
+          },
+          "value": "bindings",
+          "required": true
         }
       ]
     },
@@ -3135,6 +4108,26 @@
           "type": "time.Time",
           "value": "LastConsumptionTimestamp",
           "required": false
+        }
+      ]
+    },
+    "UserChannelsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Channels",
+          "type": "array",
+          "items": {
+            "structure": "UserChannelResponse"
+          },
+          "value": "channels",
+          "required": true
         }
       ]
     },
@@ -3256,6 +4249,26 @@
         }
       ]
     },
+    "CredentialsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Credentials",
+          "type": "array",
+          "items": {
+            "structure": "CredentialResponse"
+          },
+          "value": "credentials",
+          "required": true
+        }
+      ]
+    },
     "CredentialResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -3277,6 +4290,53 @@
           "type": "string",
           "value": "sandbox",
           "required": false
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
         }
       ]
     },

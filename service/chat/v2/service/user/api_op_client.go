@@ -4,7 +4,9 @@ package user
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/binding"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/bindings"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/channels"
 )
 
 // Client for managing a specific user resource
@@ -15,8 +17,10 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Binding func(string) *binding.Client
-	Channel func(string) *channel.Client
+	Binding  func(string) *binding.Client
+	Bindings *bindings.Client
+	Channel  func(string) *channel.Client
+	Channels *channels.Client
 }
 
 // ClientProperties are the properties required to manage the user resources
@@ -40,6 +44,10 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				UserSid:    properties.Sid,
 			})
 		},
+		Bindings: bindings.New(client, bindings.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			UserSid:    properties.Sid,
+		}),
 		Channel: func(channelSid string) *channel.Client {
 			return channel.New(client, channel.ClientProperties{
 				ServiceSid: properties.ServiceSid,
@@ -47,5 +55,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				UserSid:    properties.Sid,
 			})
 		},
+		Channels: channels.New(client, channels.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			UserSid:    properties.Sid,
+		}),
 	}
 }
