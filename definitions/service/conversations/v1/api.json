@@ -40,6 +40,49 @@
               "description": "defines the response fields for the created conversation"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Conversations",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of conversations",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource#read-multiple-conversation-resources"
+          },
+          "response": {
+            "structure": "ConversationsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the conversations page"
+            }
+          },
+          "pagination": {
+            "name": "ConversationsPaginator",
+            "page": {
+              "name": "ConversationsPage",
+              "nextToken": "PageToken",
+              "items": "Conversations",
+              "structure": "PageConversationResponse"
+            }
+          }
         }
       ]
     },
@@ -101,6 +144,59 @@
                 "structure": "MessageResponse",
                 "documentation": {
                   "description": "defines the response fields for the created message"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Conversations/{conversationSid}/Messages",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "conversationSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "conversationSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of messages",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource#list-all-conversation-messages"
+              },
+              "response": {
+                "structure": "MessagesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the messages page"
+                }
+              },
+              "pagination": {
+                "name": "MessagesPaginator",
+                "page": {
+                  "name": "MessagesPage",
+                  "nextToken": "PageToken",
+                  "items": "Messages",
+                  "structure": "PageMessageResponse"
                 }
               }
             }
@@ -288,6 +384,59 @@
                   "description": "defines the response fields for the created participant"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Conversations/{conversationSid}/Participants",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "conversationSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "conversationSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of participants",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#read-multiple-conversationparticipant-resources"
+              },
+              "response": {
+                "structure": "ParticipantsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the participants page"
+                }
+              },
+              "pagination": {
+                "name": "ParticipantsPaginator",
+                "page": {
+                  "name": "ParticipantsPage",
+                  "nextToken": "PageToken",
+                  "items": "Participants",
+                  "structure": "PageParticipantResponse"
+                }
+              }
             }
           ]
         },
@@ -471,6 +620,59 @@
                 "structure": "ConversationWebhookResponse",
                 "documentation": {
                   "description": "defines the response fields for the created webhook"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Conversations/{conversationSid}/Webhooks",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "conversationSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "conversationSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of webhooks",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#read-multiple-conversationscopedwebhook-resources"
+              },
+              "response": {
+                "structure": "ConversationWebhooksPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the webhooks page"
+                }
+              },
+              "pagination": {
+                "name": "ConversationWebhooksPaginator",
+                "page": {
+                  "name": "ConversationWebhooksPage",
+                  "nextToken": "PageToken",
+                  "items": "Webhooks",
+                  "structure": "PageConversationWebhookResponse"
                 }
               }
             }
@@ -824,6 +1026,26 @@
         }
       ]
     },
+    "ConversationsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Conversations",
+          "type": "array",
+          "items": {
+            "structure": "ConversationResponse"
+          },
+          "value": "conversations",
+          "required": true
+        }
+      ]
+    },
     "ConversationResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -938,6 +1160,26 @@
           "name": "Size",
           "type": "int",
           "value": "size",
+          "required": true
+        }
+      ]
+    },
+    "MessagesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Messages",
+          "type": "array",
+          "items": {
+            "structure": "MessageResponse"
+          },
+          "value": "messages",
           "required": true
         }
       ]
@@ -1078,6 +1320,26 @@
           "type": "string",
           "value": "projected_address",
           "required": false
+        }
+      ]
+    },
+    "ParticipantsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Participants",
+          "type": "array",
+          "items": {
+            "structure": "ParticipantResponse"
+          },
+          "value": "participants",
+          "required": true
         }
       ]
     },
@@ -1223,6 +1485,26 @@
         }
       ]
     },
+    "ConversationWebhooksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Webhooks",
+          "type": "array",
+          "items": {
+            "structure": "ConversationWebhookResponse"
+          },
+          "value": "webhooks",
+          "required": true
+        }
+      ]
+    },
     "ConversationWebhookResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1331,6 +1613,53 @@
           "name": "URL",
           "type": "string",
           "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]

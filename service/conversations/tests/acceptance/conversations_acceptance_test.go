@@ -16,6 +16,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/participants"
 	conversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhook"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -35,10 +36,24 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 
 	Describe("Given the conversations conversation clients", func() {
 		It("Then the conversation is created, fetched, updated and deleted", func() {
-			createResp, createErr := conversationsSession.Conversations.Create(&conversationsResource.CreateConversationInput{})
+			conversationsClient := conversationsSession.Conversations
+
+			createResp, createErr := conversationsClient.Create(&conversationsResource.CreateConversationInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := conversationsClient.Page(&conversations.ConversationsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Conversations)).Should(BeNumerically(">=", 1))
+
+			paginator := conversationsClient.NewConversationsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Conversations)).Should(BeNumerically(">=", 1))
 
 			conversationClient := conversationsSession.Conversation(createResp.Sid)
 
@@ -88,12 +103,26 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 
 		It("Then the message is created, fetched, updated and deleted", func() {
-			createResp, createErr := conversationsSession.Conversation(conversationSid).Messages.Create(&messages.CreateMessageInput{
+			messagesClient := conversationsSession.Conversation(conversationSid).Messages
+
+			createResp, createErr := messagesClient.Create(&messages.CreateMessageInput{
 				Body: utils.String("Hello World"),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := messagesClient.Page(&messages.MessagesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Messages)).Should(BeNumerically(">=", 1))
+
+			paginator := messagesClient.NewMessagesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Messages)).Should(BeNumerically(">=", 1))
 
 			messageClient := conversationsSession.Conversation(conversationSid).Message(createResp.Sid)
 
@@ -129,12 +158,26 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 
 		It("Then the participant is created, fetched, updated and deleted", func() {
-			createResp, createErr := conversationsSession.Conversation(conversationSid).Participants.Create(&participants.CreateParticipantInput{
+			participantsClient := conversationsSession.Conversation(conversationSid).Participants
+
+			createResp, createErr := participantsClient.Create(&participants.CreateParticipantInput{
 				Identity: utils.String(uuid.New().String()),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := participantsClient.Page(&participants.ParticipantsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Participants)).Should(BeNumerically(">=", 1))
+
+			paginator := participantsClient.NewParticipantsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Participants)).Should(BeNumerically(">=", 1))
 
 			participantClient := conversationsSession.Conversation(conversationSid).Participant(createResp.Sid)
 
@@ -170,7 +213,9 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 
 		It("Then the webhook is created, fetched, updated and deleted", func() {
-			createResp, createErr := conversationsSession.Conversation(conversationSid).Webhooks.Create(&conversationWebhooks.CreateConversationWebhookInput{
+			webhooksClient := conversationsSession.Conversation(conversationSid).Webhooks
+
+			createResp, createErr := webhooksClient.Create(&conversationWebhooks.CreateConversationWebhookInput{
 				Target:               "webhook",
 				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
 				ConfigurationFilters: &[]string{"onMessageAdded"},
@@ -178,6 +223,18 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := webhooksClient.Page(&conversationWebhooks.ConversationWebhooksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
+
+			paginator := webhooksClient.NewConversationWebhooksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Webhooks)).Should(BeNumerically(">=", 1))
 
 			webhookClient := conversationsSession.Conversation(conversationSid).Webhook(createResp.Sid)
 
@@ -193,5 +250,4 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(deleteErr).To(BeNil())
 		})
 	})
-
 })
