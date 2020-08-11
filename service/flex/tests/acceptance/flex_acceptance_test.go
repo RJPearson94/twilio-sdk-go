@@ -47,7 +47,9 @@ var _ = Describe("Flex Acceptance Tests", func() {
 	Describe("Given the flex flow clients", func() {
 
 		It("Then the flex flow is created, fetched, updated and deleted", func() {
-			createResp, createErr := flexSession.FlexFlows.Create(&flex_flows.CreateFlexFlowInput{
+			flexFlowsClient := flexSession.FlexFlows
+
+			createResp, createErr := flexFlowsClient.Create(&flex_flows.CreateFlexFlowInput{
 				FriendlyName:    uuid.New().String(),
 				ChatServiceSid:  os.Getenv("TWILIO_FLEX_CHANNEL_SERVICE_SID"),
 				ChannelType:     "web",
@@ -57,6 +59,18 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := flexFlowsClient.Page(&flex_flows.FlexFlowsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.FlexFlows)).Should(BeNumerically(">=", 1))
+
+			paginator := flexFlowsClient.NewFlexFlowsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.FlexFlows)).Should(BeNumerically(">=", 1))
 
 			flexFlowClient := flexSession.FlexFlow(createResp.Sid)
 
@@ -98,7 +112,9 @@ var _ = Describe("Flex Acceptance Tests", func() {
 		})
 
 		It("Then the channel is created, fetched and deleted", func() {
-			createResp, createErr := flexSession.Channels.Create(&channels.CreateChannelInput{
+			channelsClient := flexSession.Channels
+
+			createResp, createErr := channelsClient.Create(&channels.CreateChannelInput{
 				FlexFlowSid:          flexFlowSid,
 				Identity:             uuid.New().String(),
 				ChatUserFriendlyName: uuid.New().String(),
@@ -107,6 +123,18 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := channelsClient.Page(&channels.ChannelsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Channels)).Should(BeNumerically(">=", 1))
+
+			paginator := channelsClient.NewChannelsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Channels)).Should(BeNumerically(">=", 1))
 
 			channelClient := flexSession.Channel(createResp.Sid)
 

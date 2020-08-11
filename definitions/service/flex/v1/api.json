@@ -87,6 +87,48 @@
               "description": "defines the response fields for the created flex flow"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/FlexFlows",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of flex flows"
+          },
+          "response": {
+            "structure": "FlexFlowsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the flex flows page"
+            }
+          },
+          "pagination": {
+            "name": "FlexFlowsPaginator",
+            "page": {
+              "name": "FlexFlowsPage",
+              "nextToken": "PageToken",
+              "items": "FlexFlows",
+              "structure": "PageFlexFlowResponse"
+            }
+          }
         }
       ]
     },
@@ -214,6 +256,48 @@
               "description": "defines the response fields for the created channel"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Channels",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of channels"
+          },
+          "response": {
+            "structure": "ChannelsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the channels page"
+            }
+          },
+          "pagination": {
+            "name": "ChannelsPaginator",
+            "page": {
+              "name": "ChannelsPage",
+              "nextToken": "PageToken",
+              "items": "Channels",
+              "structure": "PageChannelResponse"
+            }
+          }
         }
       ]
     },
@@ -305,6 +389,48 @@
             "structure": "WebChannelResponse",
             "documentation": {
               "description": "defines the response fields for the created web channel"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/WebChannels",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of web channels"
+          },
+          "response": {
+            "structure": "WebChannelsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the web channels page"
+            }
+          },
+          "pagination": {
+            "name": "WebChannelsPaginator",
+            "page": {
+              "name": "WebChannelsPage",
+              "nextToken": "PageToken",
+              "items": "WebChannels",
+              "structure": "PageWebChannelResponse"
             }
           }
         }
@@ -1270,6 +1396,26 @@
         }
       ]
     },
+    "FlexFlowsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "FlexFlows",
+          "type": "array",
+          "items": {
+            "structure": "FlexFlowResponse"
+          },
+          "value": "flex_flows",
+          "required": true
+        }
+      ]
+    },
     "FlexFlowResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1395,6 +1541,26 @@
         }
       ]
     },
+    "ChannelsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Channels",
+          "type": "array",
+          "items": {
+            "structure": "ChannelResponse"
+          },
+          "value": "flex_chat_channels",
+          "required": true
+        }
+      ]
+    },
     "ChannelResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1477,6 +1643,26 @@
         }
       ]
     },
+    "WebChannelsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "WebChannels",
+          "type": "array",
+          "items": {
+            "structure": "WebChannelResponse"
+          },
+          "value": "flex_chat_channels",
+          "required": true
+        }
+      ]
+    },
     "WebChannelResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1485,6 +1671,53 @@
           "name": "FlexFlowSid",
           "type": "string",
           "value": "flex_flow_sid",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]
