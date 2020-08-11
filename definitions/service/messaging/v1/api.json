@@ -39,6 +39,49 @@
               "description": "defines the response fields for the created messaging"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
         }
       ]
     },
@@ -100,6 +143,59 @@
                 "structure": "PhoneNumberResponse",
                 "documentation": {
                   "description": "defines the response fields for the created phone number"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/PhoneNumbers",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of phone numbers",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/phonenumber-resource#read-multiple-phonenumber-resources"
+              },
+              "response": {
+                "structure": "PhoneNumbersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the phone numbers page"
+                }
+              },
+              "pagination": {
+                "name": "PhoneNumbersPaginator",
+                "page": {
+                  "name": "PhoneNumbersPage",
+                  "nextToken": "PageToken",
+                  "items": "PhoneNumbers",
+                  "structure": "PagePhoneNumberResponse"
                 }
               }
             }
@@ -244,6 +340,59 @@
                   "description": "defines the response fields for the created short code"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/ShortCodes",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of short codes",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/shortcode-resource#read-multiple-shortcode-resources"
+              },
+              "response": {
+                "structure": "ShortCodesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the short codes page"
+                }
+              },
+              "pagination": {
+                "name": "ShortCodesPaginator",
+                "page": {
+                  "name": "ShortCodesPage",
+                  "nextToken": "PageToken",
+                  "items": "ShortCodes",
+                  "structure": "PageShortCodeResponse"
+                }
+              }
             }
           ]
         },
@@ -384,6 +533,59 @@
                 "structure": "AlphaSenderResponse",
                 "documentation": {
                   "description": "defines the response fields for the created alpha sender"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/AlphaSenders",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of alpha senders",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api/alphasender-resource#read-multiple-alphasender-resources"
+              },
+              "response": {
+                "structure": "AlphaSendersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the alpha senders page"
+                }
+              },
+              "pagination": {
+                "name": "AlphaSendersPaginator",
+                "page": {
+                  "name": "AlphaSendersPage",
+                  "nextToken": "PageToken",
+                  "items": "AlphaSenders",
+                  "structure": "PageAlphaSenderResponse"
                 }
               }
             }
@@ -677,6 +879,26 @@
         }
       ]
     },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
     "ServiceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -778,6 +1000,26 @@
         }
       ]
     },
+    "PhoneNumbersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "PhoneNumbers",
+          "type": "array",
+          "items": {
+            "structure": "PhoneNumberResponse"
+          },
+          "value": "phone_numbers",
+          "required": true
+        }
+      ]
+    },
     "PhoneNumberResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -818,6 +1060,26 @@
           "name": "ShortCodeSid",
           "type": "string",
           "value": "ShortCodeSid",
+          "required": true
+        }
+      ]
+    },
+    "ShortCodesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "ShortCodes",
+          "type": "array",
+          "items": {
+            "structure": "ShortCodeResponse"
+          },
+          "value": "short_codes",
           "required": true
         }
       ]
@@ -866,6 +1128,26 @@
         }
       ]
     },
+    "AlphaSendersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "AlphaSenders",
+          "type": "array",
+          "items": {
+            "structure": "AlphaSenderResponse"
+          },
+          "value": "alpha_senders",
+          "required": true
+        }
+      ]
+    },
     "AlphaSenderResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -889,6 +1171,53 @@
             "type": "string"
           },
           "value": "capabilities",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]

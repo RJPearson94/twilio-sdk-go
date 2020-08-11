@@ -63,6 +63,9 @@ func mapStructure(structure *gabs.Container, apiOperationName string, structures
 	nestedStructureName := structure.Path("structure").Data().(string)
 
 	nestedStructure := structures[nestedStructureName]
+	if nestedStructure == nil {
+		panic("Nested structure with name " + nestedStructureName + " is not found")
+	}
 	var name string
 	if structure.Exists("name") {
 		name = structure.Path("name").Data().(string)

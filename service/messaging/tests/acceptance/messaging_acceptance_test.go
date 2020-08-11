@@ -29,12 +29,26 @@ var _ = Describe("Messaging Acceptance Tests", func() {
 
 	Describe("Given the messaging service clients", func() {
 		It("Then the service is created, fetched, updated and deleted", func() {
-			createResp, createErr := messagingSession.Services.Create(&services.CreateServiceInput{
+			servicesClient := messagingSession.Services
+
+			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := servicesClient.Page(&services.ServicesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Services)).Should(BeNumerically(">=", 1))
+
+			paginator := servicesClient.NewServicesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Services)).Should(BeNumerically(">=", 1))
 
 			serviceClient := messagingSession.Service(createResp.Sid)
 
@@ -72,12 +86,26 @@ var _ = Describe("Messaging Acceptance Tests", func() {
 		})
 
 		It("Then the phone number is created, fetched and deleted", func() {
-			createResp, createErr := messagingSession.Service(serviceSid).PhoneNumbers.Create(&phone_numbers.CreatePhoneNumberInput{
+			phoneNumbersClient := messagingSession.Service(serviceSid).PhoneNumbers
+
+			createResp, createErr := phoneNumbersClient.Create(&phone_numbers.CreatePhoneNumberInput{
 				PhoneNumberSid: os.Getenv("TWILIO_PHONE_NUMBER_SID"),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := phoneNumbersClient.Page(&phone_numbers.PhoneNumbersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.PhoneNumbers)).Should(BeNumerically(">=", 1))
+
+			paginator := phoneNumbersClient.NewPhoneNumbersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.PhoneNumbers)).Should(BeNumerically(">=", 1))
 
 			phoneNumberClient := messagingSession.Service(serviceSid).PhoneNumber(createResp.Sid)
 
