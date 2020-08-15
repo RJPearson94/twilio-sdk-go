@@ -2,6 +2,7 @@ package tests
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 
 	"github.com/Jeffail/gabs/v2"
@@ -43,6 +44,7 @@ var _ = Describe("API Operation CodeGen", func() {
 			})
 
 			It("Then the response should match the golden data", func() {
+				fmt.Println(string(*resp))
 				Expect(string(*resp)).To(Equal(string(goldenData)))
 			})
 		})
