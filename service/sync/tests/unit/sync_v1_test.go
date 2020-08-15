@@ -14,17 +14,17 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document"
-	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document/permissions"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document/permission"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/documents"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list"
 	syncListItem "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/item"
 	syncListItems "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/items"
-	syncListPermissions "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/permissions"
+	syncListPermission "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_list/permission"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map"
 	syncMapItem "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/item"
 	syncMapItems "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/items"
-	syncMapPermissions "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/permissions"
+	syncMapPermission "github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/permission"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_maps"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_stream"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_stream/messages"
@@ -458,7 +458,7 @@ var _ = Describe("Sync V1", func() {
 	})
 
 	Describe("Given I have a document permissions identity", func() {
-		documentPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("test")
+		documentPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("test")
 
 		Describe("When the document permissions are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/test",
@@ -498,7 +498,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Fetch()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -518,7 +518,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &permissions.UpdateDocumentPermissionsInput{
+			updateInput := &permission.UpdateDocumentPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
@@ -552,13 +552,13 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &permissions.UpdateDocumentPermissionsInput{
+			updateInput := &permission.UpdateDocumentPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
 			}
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Update(updateInput)
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -587,7 +587,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Delete()
+			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1015,7 +1015,7 @@ var _ = Describe("Sync V1", func() {
 	})
 
 	Describe("Given I have a sync list permissions identity", func() {
-		syncListPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("test")
+		syncListPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("test")
 
 		Describe("When the list permissions are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/test",
@@ -1055,7 +1055,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Fetch()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1075,7 +1075,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &syncListPermissions.UpdateSyncListPermissionsInput{
+			updateInput := &syncListPermission.UpdateSyncListPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
@@ -1109,13 +1109,13 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &syncListPermissions.UpdateSyncListPermissionsInput{
+			updateInput := &syncListPermission.UpdateSyncListPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
 			}
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Update(updateInput)
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1144,7 +1144,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Delete()
+			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1591,7 +1591,7 @@ var _ = Describe("Sync V1", func() {
 	})
 
 	Describe("Given I have a sync map permissions identity", func() {
-		syncMapPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("test")
+		syncMapPermissionsClient := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("test")
 
 		Describe("When the sync map permissions are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/test",
@@ -1631,7 +1631,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Fetch()
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1651,7 +1651,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &syncMapPermissions.UpdateSyncMapPermissionsInput{
+			updateInput := &syncMapPermission.UpdateSyncMapPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
@@ -1685,13 +1685,13 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			updateInput := &syncMapPermissions.UpdateSyncMapPermissionsInput{
+			updateInput := &syncMapPermission.UpdateSyncMapPermissionsInput{
 				Read:   true,
 				Write:  false,
 				Manage: false,
 			}
 
-			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Update(updateInput)
+			resp, err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1720,7 +1720,7 @@ var _ = Describe("Sync V1", func() {
 				},
 			)
 
-			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permissions("unknownIdentity").Delete()
+			err := syncSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Permission("unknownIdentity").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

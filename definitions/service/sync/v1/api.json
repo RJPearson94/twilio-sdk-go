@@ -40,6 +40,49 @@
               "description": "defines the response fields for the created service"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/sync/api/service#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
         }
       ]
     },
@@ -103,6 +146,59 @@
                   "description": "defines the response fields for the created document"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Documents",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of documents",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-resource#read-multiple-document-resources"
+              },
+              "response": {
+                "structure": "DocumentsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the documents page"
+                }
+              },
+              "pagination": {
+                "name": "DocumentsPaginator",
+                "page": {
+                  "name": "DocumentsPage",
+                  "nextToken": "PageToken",
+                  "items": "Documents",
+                  "structure": "PageDocumentResponse"
+                }
+              }
             }
           ]
         },
@@ -134,6 +230,87 @@
             {
               "name": "Permissions",
               "packageName": "permissions",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "documentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing document permission resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Documents",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "documentSid",
+                        "value": {
+                          "onService": true,
+                          "property": "documentSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of document permissions",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource#read-multiple-document-permission-resources"
+                  },
+                  "response": {
+                    "structure": "DocumentPermissionsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the document permissions page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "DocumentPermissionsPaginator",
+                    "page": {
+                      "name": "DocumentPermissionsPage",
+                      "nextToken": "PageToken",
+                      "items": "Permissions",
+                      "structure": "PageDocumentPermissionsResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Permission",
+              "packageName": "permission",
               "function": {
                 "parameters": {
                   "identity": {
@@ -156,7 +333,7 @@
                 }
               },
               "documentation": {
-                "description": "Client for managing document permission resources",
+                "description": "Client for managing a specific document permissions resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/sync/api/document-permission-resource"
               },
               "operations": [
@@ -453,6 +630,59 @@
                   "description": "defines the response fields for the created list"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Lists",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of lists",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/list-resource#read-a-list-resource"
+              },
+              "response": {
+                "structure": "SyncListsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the lists page"
+                }
+              },
+              "pagination": {
+                "name": "SyncListsPaginator",
+                "page": {
+                  "name": "SyncListsPage",
+                  "nextToken": "PageToken",
+                  "items": "SyncLists",
+                  "structure": "PageSyncListResponse"
+                }
+              }
             }
           ]
         },
@@ -538,6 +768,82 @@
                     "structure": "SyncListItemResponse",
                     "documentation": {
                       "description": "defines the response fields for the created list item"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Items",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncListSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncListSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Order",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "From",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Bounds",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of list items",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/listitem-resource#read-a-listitem-resource"
+                  },
+                  "response": {
+                    "structure": "SyncListItemsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the list items page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "SyncListItemsPaginator",
+                    "page": {
+                      "name": "SyncListItemsPage",
+                      "nextToken": "PageToken",
+                      "items": "SyncListItems",
+                      "structure": "PageSyncListItemResponse"
                     }
                   }
                 }
@@ -708,6 +1014,87 @@
             {
               "name": "Permissions",
               "packageName": "permissions",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "syncListSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing list permission resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-list-permission-resource"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Lists/{syncListSid}/Permissions",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncListSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncListSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of list permissions",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-list-permission-resource#read-multiple-sync-list-permission-resources"
+                  },
+                  "response": {
+                    "structure": "SyncListPermissionsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the list permissions page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "SyncListPermissionsPaginator",
+                    "page": {
+                      "name": "SyncListPermissionsPage",
+                      "nextToken": "PageToken",
+                      "items": "Permissions",
+                      "structure": "PageSyncListPermissionsResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Permission",
+              "packageName": "permission",
               "function": {
                 "parameters": {
                   "identity": {
@@ -1027,6 +1414,59 @@
                   "description": "defines the response fields for the created map"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Maps",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of maps",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-resource#read-multiple-syncmap-resources"
+              },
+              "response": {
+                "structure": "SyncMapsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the maps page"
+                }
+              },
+              "pagination": {
+                "name": "SyncMapsPaginator",
+                "page": {
+                  "name": "SyncMapsPage",
+                  "nextToken": "PageToken",
+                  "items": "SyncMaps",
+                  "structure": "PageSyncMapResponse"
+                }
+              }
             }
           ]
         },
@@ -1112,6 +1552,82 @@
                     "structure": "SyncMapItemResponse",
                     "documentation": {
                       "description": "defines the response fields for the created map item"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Items",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Order",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "From",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Bounds",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of map items",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/map-item-resource#read-all-mapitem-resources"
+                  },
+                  "response": {
+                    "structure": "SyncMapItemsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the map items page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "SyncMapItemsPaginator",
+                    "page": {
+                      "name": "SyncMapItemsPage",
+                      "nextToken": "PageToken",
+                      "items": "SyncMapItems",
+                      "structure": "PageSyncMapItemResponse"
                     }
                   }
                 }
@@ -1282,6 +1798,87 @@
             {
               "name": "Permissions",
               "packageName": "permissions",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "syncMapSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing map permission resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-map-permission-resource"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Maps/{syncMapSid}/Permissions",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "serviceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "syncMapSid",
+                        "value": {
+                          "onService": true,
+                          "property": "syncMapSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of map permissions",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sync/api/sync-map-permission-resource#read-multiple-sync-map-permission-resources"
+                  },
+                  "response": {
+                    "structure": "SyncMapPermissionsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the map permissions page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "SyncMapPermissionsPaginator",
+                    "page": {
+                      "name": "SyncMapPermissionsPage",
+                      "nextToken": "PageToken",
+                      "items": "Permissions",
+                      "structure": "PageSyncMapPermissionsResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Permission",
+              "packageName": "permission",
               "function": {
                 "parameters": {
                   "identity": {
@@ -1599,6 +2196,59 @@
                 "structure": "SyncStreamResponse",
                 "documentation": {
                   "description": "defines the response fields for the created stream"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Streams",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "property": "serviceSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of streams",
+                "twilioDocsLink": "https://www.twilio.com/docs/sync/api/stream-resource#read-multiple-sync-stream-resources"
+              },
+              "response": {
+                "structure": "SyncStreamsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the streams page"
+                }
+              },
+              "pagination": {
+                "name": "SyncStreamsPaginator",
+                "page": {
+                  "name": "SyncStreamsPage",
+                  "nextToken": "PageToken",
+                  "items": "SyncStreams",
+                  "structure": "PageSyncStreamResponse"
                 }
               }
             }
@@ -1940,6 +2590,26 @@
         }
       ]
     },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
     "ServiceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2023,6 +2693,26 @@
         }
       ]
     },
+    "DocumentsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Documents",
+          "type": "array",
+          "items": {
+            "structure": "DocumentResponse"
+          },
+          "value": "documents",
+          "required": true
+        }
+      ]
+    },
     "DocumentResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2087,6 +2777,26 @@
           "name": "Manage",
           "type": "bool",
           "value": "Manage",
+          "required": true
+        }
+      ]
+    },
+    "DocumentPermissionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Permissions",
+          "type": "array",
+          "items": {
+            "structure": "DocumentPermissionsResponse"
+          },
+          "value": "permissions",
           "required": true
         }
       ]
@@ -2173,6 +2883,26 @@
         }
       ]
     },
+    "SyncListsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "SyncLists",
+          "type": "array",
+          "items": {
+            "structure": "SyncListResponse"
+          },
+          "value": "lists",
+          "required": true
+        }
+      ]
+    },
     "SyncListResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2253,6 +2983,26 @@
           "type": "int",
           "value": "CollectionTtl",
           "required": false
+        }
+      ]
+    },
+    "SyncListItemsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "SyncListItems",
+          "type": "array",
+          "items": {
+            "structure": "SyncListItemResponse"
+          },
+          "value": "items",
+          "required": true
         }
       ]
     },
@@ -2353,6 +3103,26 @@
         }
       ]
     },
+    "SyncListPermissionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Permissions",
+          "type": "array",
+          "items": {
+            "structure": "SyncListPermissionsResponse"
+          },
+          "value": "permissions",
+          "required": true
+        }
+      ]
+    },
     "SyncListPermissionsResponse": {
       "type": "JSON",
       "properties": [
@@ -2432,6 +3202,26 @@
           "type": "int",
           "value": "CollectionTtl",
           "required": false
+        }
+      ]
+    },
+    "SyncMapsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "SyncMaps",
+          "type": "array",
+          "items": {
+            "structure": "SyncMapResponse"
+          },
+          "value": "maps",
+          "required": true
         }
       ]
     },
@@ -2521,6 +3311,26 @@
           "type": "int",
           "value": "CollectionTtl",
           "required": false
+        }
+      ]
+    },
+    "SyncMapItemsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "SyncMapItems",
+          "type": "array",
+          "items": {
+            "structure": "SyncMapItemResponse"
+          },
+          "value": "items",
+          "required": true
         }
       ]
     },
@@ -2621,6 +3431,26 @@
         }
       ]
     },
+    "SyncMapPermissionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Permissions",
+          "type": "array",
+          "items": {
+            "structure": "SyncMapPermissionsResponse"
+          },
+          "value": "permissions",
+          "required": true
+        }
+      ]
+    },
     "SyncMapPermissionsResponse": {
       "type": "JSON",
       "properties": [
@@ -2697,6 +3527,26 @@
         }
       ]
     },
+    "SyncStreamsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "SyncStreams",
+          "type": "array",
+          "items": {
+            "structure": "SyncStreamResponse"
+          },
+          "value": "streams",
+          "required": true
+        }
+      ]
+    },
     "SyncStreamResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2754,6 +3604,53 @@
           "name": "Sid",
           "type": "string",
           "value": "sid",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]

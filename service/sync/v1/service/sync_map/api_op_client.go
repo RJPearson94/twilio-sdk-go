@@ -5,6 +5,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/item"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/items"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/permission"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_map/permissions"
 )
 
@@ -18,7 +19,8 @@ type Client struct {
 
 	Item        func(string) *item.Client
 	Items       *items.Client
-	Permissions func(string) *permissions.Client
+	Permission  func(string) *permission.Client
+	Permissions *permissions.Client
 }
 
 // ClientProperties are the properties required to manage the syncmap resources
@@ -46,12 +48,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			ServiceSid: properties.ServiceSid,
 			SyncMapSid: properties.Sid,
 		}),
-		Permissions: func(identity string) *permissions.Client {
-			return permissions.New(client, permissions.ClientProperties{
+		Permission: func(identity string) *permission.Client {
+			return permission.New(client, permission.ClientProperties{
 				Identity:   identity,
 				ServiceSid: properties.ServiceSid,
 				SyncMapSid: properties.Sid,
 			})
 		},
+		Permissions: permissions.New(client, permissions.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			SyncMapSid: properties.Sid,
+		}),
 	}
 }

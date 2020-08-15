@@ -40,22 +40,36 @@ var _ = Describe("Sync Acceptance Tests", func() {
 
 	Describe("Given the Sync Service clients", func() {
 		It("Then the service is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Services.Create(&services.CreateServiceInput{})
+			servicesClient := syncSession.Services
+
+			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			syncClient := syncSession.Service(createResp.Sid)
+			pageResp, pageErr := servicesClient.Page(&services.ServicesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Services)).Should(BeNumerically(">=", 1))
 
-			fetchResp, fetchErr := syncClient.Fetch()
+			paginator := servicesClient.NewServicesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Services)).Should(BeNumerically(">=", 1))
+
+			serviceClient := syncSession.Service(createResp.Sid)
+
+			fetchResp, fetchErr := serviceClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := syncClient.Update(&service.UpdateServiceInput{})
+			updateResp, updateErr := serviceClient.Update(&service.UpdateServiceInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 
-			deleteErr := syncClient.Delete()
+			deleteErr := serviceClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
@@ -79,10 +93,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 
 		It("Then the document is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Service(serviceSid).Documents.Create(&documents.CreateDocumentInput{})
+			documentsClient := syncSession.Service(serviceSid).Documents
+
+			createResp, createErr := documentsClient.Create(&documents.CreateDocumentInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := documentsClient.Page(&documents.DocumentsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Documents)).Should(BeNumerically(">=", 1))
+
+			paginator := documentsClient.NewDocumentsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Documents)).Should(BeNumerically(">=", 1))
 
 			documentClient := syncSession.Service(serviceSid).Document(createResp.Sid)
 
@@ -120,10 +148,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 
 		It("Then the sync list is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Service(serviceSid).SyncLists.Create(&sync_lists.CreateSyncListInput{})
+			syncListsClient := syncSession.Service(serviceSid).SyncLists
+
+			createResp, createErr := syncListsClient.Create(&sync_lists.CreateSyncListInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := syncListsClient.Page(&sync_lists.SyncListsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.SyncLists)).Should(BeNumerically(">=", 1))
+
+			paginator := syncListsClient.NewSyncListsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.SyncLists)).Should(BeNumerically(">=", 1))
 
 			syncListClient := syncSession.Service(serviceSid).SyncList(createResp.Sid)
 
@@ -172,12 +214,26 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 
 		It("Then the sync list item is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Service(serviceSid).SyncList(syncListSid).Items.Create(&syncListItems.CreateSyncListItemInput{
+			syncListItemsClient := syncSession.Service(serviceSid).SyncList(syncListSid).Items
+
+			createResp, createErr := syncListItemsClient.Create(&syncListItems.CreateSyncListItemInput{
 				Data: "{}",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Index).ToNot(BeNil())
+
+			pageResp, pageErr := syncListItemsClient.Page(&syncListItems.SyncListItemsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.SyncListItems)).Should(BeNumerically(">=", 1))
+
+			paginator := syncListItemsClient.NewSyncListItemsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.SyncListItems)).Should(BeNumerically(">=", 1))
 
 			syncListItemClient := syncSession.Service(serviceSid).SyncList(syncListSid).Item(createResp.Index)
 
@@ -215,10 +271,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 
 		It("Then the sync map is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Service(serviceSid).SyncMaps.Create(&sync_maps.CreateSyncMapInput{})
+			syncMapsClient := syncSession.Service(serviceSid).SyncMaps
+
+			createResp, createErr := syncMapsClient.Create(&sync_maps.CreateSyncMapInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := syncMapsClient.Page(&sync_maps.SyncMapsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.SyncMaps)).Should(BeNumerically(">=", 1))
+
+			paginator := syncMapsClient.NewSyncMapsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.SyncMaps)).Should(BeNumerically(">=", 1))
 
 			syncMapClient := syncSession.Service(serviceSid).SyncMap(createResp.Sid)
 
@@ -267,13 +337,27 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 
 		It("Then the sync map item is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Service(serviceSid).SyncMap(syncMapSid).Items.Create(&syncMapItems.CreateSyncMapItemInput{
+			syncMapItemsClient := syncSession.Service(serviceSid).SyncMap(syncMapSid).Items
+
+			createResp, createErr := syncMapItemsClient.Create(&syncMapItems.CreateSyncMapItemInput{
 				Data: "{}",
 				Key:  "test",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Key).ToNot(BeNil())
+
+			pageResp, pageErr := syncMapItemsClient.Page(&syncMapItems.SyncMapItemsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.SyncMapItems)).Should(BeNumerically(">=", 1))
+
+			paginator := syncMapItemsClient.NewSyncMapItemsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.SyncMapItems)).Should(BeNumerically(">=", 1))
 
 			syncMapItemClient := syncSession.Service(serviceSid).SyncMap(syncMapSid).Item(createResp.Key)
 
@@ -311,10 +395,24 @@ var _ = Describe("Sync Acceptance Tests", func() {
 		})
 
 		It("Then the sync stream is created, fetched, updated and deleted", func() {
-			createResp, createErr := syncSession.Service(serviceSid).SyncStreams.Create(&sync_streams.CreateSyncStreamInput{})
+			syncStreamsClient := syncSession.Service(serviceSid).SyncStreams
+
+			createResp, createErr := syncStreamsClient.Create(&sync_streams.CreateSyncStreamInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := syncStreamsClient.Page(&sync_streams.SyncStreamsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.SyncStreams)).Should(BeNumerically(">=", 1))
+
+			paginator := syncStreamsClient.NewSyncStreamsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.SyncStreams)).Should(BeNumerically(">=", 1))
 
 			syncStreamClient := syncSession.Service(serviceSid).SyncStream(createResp.Sid)
 

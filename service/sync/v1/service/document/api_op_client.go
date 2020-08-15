@@ -3,6 +3,7 @@ package document
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document/permission"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document/permissions"
 )
 
@@ -14,7 +15,8 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Permissions func(string) *permissions.Client
+	Permission  func(string) *permission.Client
+	Permissions *permissions.Client
 }
 
 // ClientProperties are the properties required to manage the document resources
@@ -31,12 +33,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		serviceSid: properties.ServiceSid,
 		sid:        properties.Sid,
 
-		Permissions: func(identity string) *permissions.Client {
-			return permissions.New(client, permissions.ClientProperties{
+		Permission: func(identity string) *permission.Client {
+			return permission.New(client, permission.ClientProperties{
 				DocumentSid: properties.Sid,
 				Identity:    identity,
 				ServiceSid:  properties.ServiceSid,
 			})
 		},
+		Permissions: permissions.New(client, permissions.ClientProperties{
+			DocumentSid: properties.Sid,
+			ServiceSid:  properties.ServiceSid,
+		}),
 	}
 }
