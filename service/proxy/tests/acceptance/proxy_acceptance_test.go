@@ -14,6 +14,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session"
+	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/interactions"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participant/message_interactions"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participants"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/sessions"
@@ -35,12 +36,26 @@ var _ = Describe("Proxy Acceptance Tests", func() {
 
 	Describe("Given the proxy service clients", func() {
 		It("Then the service is created, fetched, updated and deleted", func() {
-			createResp, createErr := proxySession.Services.Create(&services.CreateServiceInput{
+			servicesClient := proxySession.Services
+
+			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{
 				UniqueName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := servicesClient.Page(&services.ServicesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Services)).Should(BeNumerically(">=", 1))
+
+			paginator := servicesClient.NewServicesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Services)).Should(BeNumerically(">=", 1))
 
 			serviceClient := proxySession.Service(createResp.Sid)
 
@@ -78,12 +93,26 @@ var _ = Describe("Proxy Acceptance Tests", func() {
 		})
 
 		It("Then the phone number is created, fetched, updated and deleted", func() {
-			createResp, createErr := proxySession.Service(serviceSid).PhoneNumbers.Create(&phone_numbers.CreatePhoneNumberInput{
+			phoneNumbersClient := proxySession.Service(serviceSid).PhoneNumbers
+
+			createResp, createErr := phoneNumbersClient.Create(&phone_numbers.CreatePhoneNumberInput{
 				Sid: utils.String(os.Getenv("TWILIO_PHONE_NUMBER_SID")),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := phoneNumbersClient.Page(&phone_numbers.PhoneNumbersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.PhoneNumbers)).Should(BeNumerically(">=", 1))
+
+			paginator := phoneNumbersClient.NewPhoneNumbersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.PhoneNumbers)).Should(BeNumerically(">=", 1))
 
 			phoneNumberClient := proxySession.Service(serviceSid).PhoneNumber(createResp.Sid)
 
@@ -121,10 +150,24 @@ var _ = Describe("Proxy Acceptance Tests", func() {
 		})
 
 		It("Then the session is created, fetched, updated and deleted", func() {
-			createResp, createErr := proxySession.Service(serviceSid).Sessions.Create(&sessions.CreateSessionInput{})
+			sessionsClient := proxySession.Service(serviceSid).Sessions
+
+			createResp, createErr := sessionsClient.Create(&sessions.CreateSessionInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := sessionsClient.Page(&sessions.SessionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Sessions)).Should(BeNumerically(">=", 1))
+
+			paginator := sessionsClient.NewSessionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Sessions)).Should(BeNumerically(">=", 1))
 
 			sessionClient := proxySession.Service(serviceSid).Session(createResp.Sid)
 
@@ -180,12 +223,26 @@ var _ = Describe("Proxy Acceptance Tests", func() {
 		})
 
 		It("Then the participant is created, fetched and deleted", func() {
-			createResp, createErr := proxySession.Service(serviceSid).Session(sessionSid).Participants.Create(&participants.CreateParticipantInput{
+			participantsClient := proxySession.Service(serviceSid).Session(sessionSid).Participants
+
+			createResp, createErr := participantsClient.Create(&participants.CreateParticipantInput{
 				Identifier: os.Getenv("DESTINATION_PHONE_NUMBER"),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := participantsClient.Page(&participants.ParticipantsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Participants)).Should(BeNumerically(">=", 1))
+
+			paginator := participantsClient.NewParticipantsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Participants)).Should(BeNumerically(">=", 1))
 
 			participantClient := proxySession.Service(serviceSid).Session(sessionSid).Participant(createResp.Sid)
 
@@ -256,6 +313,20 @@ var _ = Describe("Proxy Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			interactionsClient := proxySession.Service(serviceSid).Session(sessionSid).Interactions
+
+			pageResp, pageErr := interactionsClient.Page(&interactions.InteractionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Interactions)).Should(BeNumerically(">=", 1))
+
+			paginator := interactionsClient.NewInteractionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Interactions)).Should(BeNumerically(">=", 1))
 
 			interactionClient := proxySession.Service(serviceSid).Session(sessionSid).Interaction(createResp.Sid)
 

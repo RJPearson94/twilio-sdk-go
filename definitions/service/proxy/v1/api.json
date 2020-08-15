@@ -39,6 +39,49 @@
               "description": "defines the response fields for the created service"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/service#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
         }
       ]
     },
@@ -100,6 +143,59 @@
                 "structure": "PhoneNumberResponse",
                 "documentation": {
                   "description": "defines the response fields for the created phone number"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/PhoneNumbers",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of phone numbers",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/phone-number#get-the-list-of-phone-numbers-associated-with-a-proxy-service"
+              },
+              "response": {
+                "structure": "PhoneNumbersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the phone numbers page"
+                }
+              },
+              "pagination": {
+                "name": "PhoneNumbersPaginator",
+                "page": {
+                  "name": "PhoneNumbersPage",
+                  "nextToken": "PageToken",
+                  "items": "PhoneNumbers",
+                  "structure": "PagePhoneNumberResponse"
                 }
               }
             }
@@ -286,6 +382,59 @@
                   "description": "defines the response fields for the created short code"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/ShortCodes",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of short codes",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/short-code#get-the-list-of-short-codes-associated-with-a-proxy-service"
+              },
+              "response": {
+                "structure": "ShortCodesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the short codes page"
+                }
+              },
+              "pagination": {
+                "name": "ShortCodesPaginator",
+                "page": {
+                  "name": "ShortCodesPage",
+                  "nextToken": "PageToken",
+                  "items": "ShortCodes",
+                  "structure": "PageShortCodeResponse"
+                }
+              }
             }
           ]
         },
@@ -470,6 +619,59 @@
                   "description": "defines the response fields for the created session"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Sessions",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of sessions",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/session#read-multiple-session-resources"
+              },
+              "response": {
+                "structure": "SessionsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the sessions page"
+                }
+              },
+              "pagination": {
+                "name": "SessionsPaginator",
+                "page": {
+                  "name": "SessionsPage",
+                  "nextToken": "PageToken",
+                  "items": "Sessions",
+                  "structure": "PageSessionResponse"
+                }
+              }
             }
           ]
         },
@@ -555,6 +757,67 @@
                     "structure": "ParticipantResponse",
                     "documentation": {
                       "description": "defines the response fields for the created participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Sessions/{sessionSid}/Participants",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "sessionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sessionSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of participants",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant#read-multiple-participant-resources"
+                  },
+                  "response": {
+                    "structure": "ParticipantsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the participants page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ParticipantsPaginator",
+                    "page": {
+                      "name": "ParticipantsPage",
+                      "nextToken": "PageToken",
+                      "items": "Participants",
+                      "structure": "PageParticipantResponse"
                     }
                   }
                 }
@@ -744,6 +1007,87 @@
                   "documentation": {
                     "description": "removes a participant resource from the account",
                     "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/participant#delete-a-participant-resource"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Interactions",
+              "packageName": "interactions",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "sessionSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing interaction resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/interaction"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Sessions/{sessionSid}/Interactions",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "sessionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sessionSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of interactions",
+                    "twilioDocsLink": "https://www.twilio.com/docs/proxy/api/interaction#read-multiple-interaction-resources"
+                  },
+                  "response": {
+                    "structure": "InteractionsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the interactions page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "InteractionsPaginator",
+                    "page": {
+                      "name": "InteractionsPage",
+                      "nextToken": "PageToken",
+                      "items": "Interactions",
+                      "structure": "PageInteractionResponse"
+                    }
                   }
                 }
               ]
@@ -1132,6 +1476,26 @@
         }
       ]
     },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
     "ServiceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1309,6 +1673,26 @@
         }
       ]
     },
+    "PhoneNumbersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "PhoneNumbers",
+          "type": "array",
+          "items": {
+            "structure": "PhoneNumberResponse"
+          },
+          "value": "phone_numbers",
+          "required": true
+        }
+      ]
+    },
     "PhoneNumberResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1462,6 +1846,26 @@
         }
       ]
     },
+    "ShortCodesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "ShortCodes",
+          "type": "array",
+          "items": {
+            "structure": "ShortCodeResponse"
+          },
+          "value": "short_codes",
+          "required": true
+        }
+      ]
+    },
     "ShortCodeResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1545,6 +1949,26 @@
           "type": "string",
           "value": "Status",
           "required": false
+        }
+      ]
+    },
+    "SessionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Sessions",
+          "type": "array",
+          "items": {
+            "structure": "SessionResponse"
+          },
+          "value": "sessions",
+          "required": true
         }
       ]
     },
@@ -1640,6 +2064,26 @@
           "type": "string",
           "value": "ProxyIdentifierSid",
           "required": false
+        }
+      ]
+    },
+    "ParticipantsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Participants",
+          "type": "array",
+          "items": {
+            "structure": "ParticipantResponse"
+          },
+          "value": "participants",
+          "required": true
         }
       ]
     },
@@ -1804,6 +2248,26 @@
         }
       ]
     },
+    "InteractionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Interactions",
+          "type": "array",
+          "items": {
+            "structure": "InteractionResponse"
+          },
+          "value": "interactions",
+          "required": true
+        }
+      ]
+    },
     "InteractionResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1891,6 +2355,53 @@
           "type": "string",
           "value": "type",
           "required": false
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
         }
       ]
     },

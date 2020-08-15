@@ -4,6 +4,7 @@ package session
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/interaction"
+	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/interactions"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participant"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participants"
 )
@@ -17,6 +18,7 @@ type Client struct {
 	sid        string
 
 	Interaction  func(string) *interaction.Client
+	Interactions *interactions.Client
 	Participant  func(string) *participant.Client
 	Participants *participants.Client
 }
@@ -42,6 +44,10 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				Sid:        interactionSid,
 			})
 		},
+		Interactions: interactions.New(client, interactions.ClientProperties{
+			ServiceSid: properties.ServiceSid,
+			SessionSid: properties.Sid,
+		}),
 		Participant: func(participantSid string) *participant.Client {
 			return participant.New(client, participant.ClientProperties{
 				ServiceSid: properties.ServiceSid,
