@@ -43,13 +43,27 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 
 	Describe("Given the serverless service clients", func() {
 		It("Then the service is created, fetched, updated and deleted", func() {
-			createResp, createErr := serverlessSession.Services.Create(&services.CreateServiceInput{
+			servicesClient := serverlessSession.Services
+
+			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{
 				FriendlyName: uuid.New().String(),
 				UniqueName:   uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := servicesClient.Page(&services.ServicesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Services)).Should(BeNumerically(">=", 1))
+
+			paginator := servicesClient.NewServicesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Services)).Should(BeNumerically(">=", 1))
 
 			serviceClient := serverlessSession.Service(createResp.Sid)
 
@@ -88,12 +102,26 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the environment is created, fetched and deleted", func() {
-			createResp, createErr := serverlessSession.Service(serviceSid).Environments.Create(&environments.CreateEnvironmentInput{
+			environmentsClient := serverlessSession.Service(serviceSid).Environments
+
+			createResp, createErr := environmentsClient.Create(&environments.CreateEnvironmentInput{
 				UniqueName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := environmentsClient.Page(&environments.EnvironmentsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Environments)).Should(BeNumerically(">=", 1))
+
+			paginator := environmentsClient.NewEnvironmentsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Environments)).Should(BeNumerically(">=", 1))
 
 			environmentClient := serverlessSession.Service(serviceSid).Environment(createResp.Sid)
 
@@ -141,13 +169,27 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the environment variable is created, fetched, updated and deleted", func() {
-			createResp, createErr := serverlessSession.Service(serviceSid).Environment(environmentSid).Variables.Create(&variables.CreateVariableInput{
+			variablesClient := serverlessSession.Service(serviceSid).Environment(environmentSid).Variables
+
+			createResp, createErr := variablesClient.Create(&variables.CreateVariableInput{
 				Key:   "key",
 				Value: "value",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := variablesClient.Page(&variables.VariablesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Variables)).Should(BeNumerically(">=", 1))
+
+			paginator := variablesClient.NewVariablesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Variables)).Should(BeNumerically(">=", 1))
 
 			variableClient := serverlessSession.Service(serviceSid).Environment(environmentSid).Variable(createResp.Sid)
 
@@ -186,12 +228,26 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the function is created, fetched, updated and deleted", func() {
-			createResp, createErr := serverlessSession.Service(serviceSid).Functions.Create(&functions.CreateFunctionInput{
+			functionsClient := serverlessSession.Service(serviceSid).Functions
+
+			createResp, createErr := functionsClient.Create(&functions.CreateFunctionInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := functionsClient.Page(&functions.FunctionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Functions)).Should(BeNumerically(">=", 1))
+
+			paginator := functionsClient.NewFunctionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Functions)).Should(BeNumerically(">=", 1))
 
 			functionClient := serverlessSession.Service(serviceSid).Function(createResp.Sid)
 
@@ -245,10 +301,24 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the function version is created and fetched", func() {
+			functionVersionsClient := serverlessSession.Service(serviceSid).Function(functionSid).Versions
+
 			createResp, createErr := createFunctionVersion(serverlessSession, serviceSid, functionSid)
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := functionVersionsClient.Page(&functionVersions.VersionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Versions)).Should(BeNumerically(">=", 1))
+
+			paginator := functionVersionsClient.NewVersionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Versions)).Should(BeNumerically(">=", 1))
 
 			functionVersionClient := serverlessSession.Service(serviceSid).Function(functionSid).Version(createResp.Sid)
 
@@ -330,12 +400,26 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the asset is created, fetched, updated and deleted", func() {
-			createResp, createErr := serverlessSession.Service(serviceSid).Assets.Create(&assets.CreateAssetInput{
+			assetsClient := serverlessSession.Service(serviceSid).Assets
+
+			createResp, createErr := assetsClient.Create(&assets.CreateAssetInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := assetsClient.Page(&assets.AssetsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Assets)).Should(BeNumerically(">=", 1))
+
+			paginator := assetsClient.NewAssetsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Assets)).Should(BeNumerically(">=", 1))
 
 			assetClient := serverlessSession.Service(serviceSid).Asset(createResp.Sid)
 
@@ -389,10 +473,24 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the asset version is created and fetched", func() {
+			assetVersionsClient := serverlessSession.Service(serviceSid).Asset(assetSid).Versions
+
 			createResp, createErr := createAssetVersion(serverlessSession, serviceSid, assetSid)
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := assetVersionsClient.Page(&assetVersions.VersionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Versions)).Should(BeNumerically(">=", 1))
+
+			paginator := assetVersionsClient.NewVersionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Versions)).Should(BeNumerically(">=", 1))
 
 			assetVersionClient := serverlessSession.Service(serviceSid).Asset(assetSid).Version(createResp.Sid)
 
@@ -444,12 +542,26 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the build is created, fetched and deleted", func() {
-			createResp, createErr := serverlessSession.Service(serviceSid).Builds.Create(&builds.CreateBuildInput{
+			buildsClient := serverlessSession.Service(serviceSid).Builds
+
+			createResp, createErr := buildsClient.Create(&builds.CreateBuildInput{
 				AssetVersions: &[]string{assetVersionSid},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := buildsClient.Page(&builds.BuildsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Builds)).Should(BeNumerically(">=", 1))
+
+			paginator := buildsClient.NewBuildsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Builds)).Should(BeNumerically(">=", 1))
 
 			buildClient := serverlessSession.Service(serviceSid).Build(createResp.Sid)
 
@@ -462,7 +574,7 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the serverless build clients", func() {
+	Describe("Given the serverless deployments clients", func() {
 
 		var serviceSid string
 		var environmentSid string
@@ -534,12 +646,26 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the deployment is created, fetched and redeployed", func() {
-			createResp, createErr := serverlessSession.Service(serviceSid).Environment(environmentSid).Deployments.Create(&deployments.CreateDeploymentInput{
+			deploymentsClient := serverlessSession.Service(serviceSid).Environment(environmentSid).Deployments
+
+			createResp, createErr := deploymentsClient.Create(&deployments.CreateDeploymentInput{
 				BuildSid: utils.String(buildSid),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := deploymentsClient.Page(&deployments.DeploymentsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Deployments)).Should(BeNumerically(">=", 1))
+
+			paginator := deploymentsClient.NewDeploymentsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Deployments)).Should(BeNumerically(">=", 1))
 
 			deploymentClient := serverlessSession.Service(serviceSid).Environment(environmentSid).Deployment(createResp.Sid)
 

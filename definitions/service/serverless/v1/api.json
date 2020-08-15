@@ -39,6 +39,49 @@
               "description": "defines the response fields for the created service"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/service#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
         }
       ]
     },
@@ -100,6 +143,59 @@
                 "structure": "EnvironmentResponse",
                 "documentation": {
                   "description": "defines the response fields for the created environment"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Environments",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of environments",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/environment#read-multiple-environment-resources"
+              },
+              "response": {
+                "structure": "EnvironmentsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the environments page"
+                }
+              },
+              "pagination": {
+                "name": "EnvironmentsPaginator",
+                "page": {
+                  "name": "EnvironmentsPage",
+                  "nextToken": "PageToken",
+                  "items": "Environments",
+                  "structure": "PageEnvironmentResponse"
                 }
               }
             }
@@ -187,6 +283,67 @@
                     "structure": "VariableResponse",
                     "documentation": {
                       "description": "defines the response fields for the created environment variable"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Variables",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of environment variables",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/variable#read-multiple-variable-resources"
+                  },
+                  "response": {
+                    "structure": "VariablesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the environment variables page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "VariablesPaginator",
+                    "page": {
+                      "name": "VariablesPage",
+                      "nextToken": "PageToken",
+                      "items": "Variables",
+                      "structure": "PageVariableResponse"
                     }
                   }
                 }
@@ -413,6 +570,67 @@
                       "description": "defines the response fields for the created deployment"
                     }
                   }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Deployments",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of deployments",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/deployment#read-multiple-deployment-resources"
+                  },
+                  "response": {
+                    "structure": "DeploymentsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the deployments page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "DeploymentsPaginator",
+                    "page": {
+                      "name": "DeploymentsPage",
+                      "nextToken": "PageToken",
+                      "items": "Deployments",
+                      "structure": "PageDeploymentResponse"
+                    }
+                  }
                 }
               ]
             },
@@ -608,6 +826,59 @@
                   "description": "defines the response fields for the created function"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Functions",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of functions",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function#read-multiple-function-resources"
+              },
+              "response": {
+                "structure": "FunctionsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the functions page"
+                }
+              },
+              "pagination": {
+                "name": "FunctionsPaginator",
+                "page": {
+                  "name": "FunctionsPage",
+                  "nextToken": "PageToken",
+                  "items": "Functions",
+                  "structure": "PageFunctionResponse"
+                }
+              }
             }
           ]
         },
@@ -697,6 +968,68 @@
                     "structure": "FunctionVersionResponse",
                     "documentation": {
                       "description": "defines the response fields for the created function version"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Functions/{functionSid}/Versions",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "functionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "functionSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of function versions",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/function-version#read-multiple-functionversion-resources"
+                  },
+                  "response": {
+                    "name": "VersionsPageResponse",
+                    "structure": "FunctionVersionsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the function versions page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "VersionsPaginator",
+                    "page": {
+                      "name": "VersionsPage",
+                      "nextToken": "PageToken",
+                      "items": "Versions",
+                      "structure": "PageFunctionVersionResponse"
                     }
                   }
                 }
@@ -1007,6 +1340,59 @@
                   "description": "defines the response fields for the created asset"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Assets",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of assets",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#read-multiple-asset-resources"
+              },
+              "response": {
+                "structure": "AssetsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the assets page"
+                }
+              },
+              "pagination": {
+                "name": "AssetsPaginator",
+                "page": {
+                  "name": "AssetsPage",
+                  "nextToken": "PageToken",
+                  "items": "Assets",
+                  "structure": "PageAssetResponse"
+                }
+              }
             }
           ]
         },
@@ -1096,6 +1482,68 @@
                     "structure": "AssetVersionResponse",
                     "documentation": {
                       "description": "defines the response fields for the created asset version"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Assets/{assetSid}/Versions",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "assetSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "assetSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of asset versions",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/asset-version#read-multiple-assetversion-resources"
+                  },
+                  "response": {
+                    "name": "VersionsPageResponse",
+                    "structure": "AssetVersionsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the asset versions page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "VersionsPaginator",
+                    "page": {
+                      "name": "VersionsPage",
+                      "nextToken": "PageToken",
+                      "items": "Versions",
+                      "structure": "PageAssetVersionResponse"
                     }
                   }
                 }
@@ -1335,6 +1783,59 @@
                   "description": "defines the response fields for the created build"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Builds",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of builds",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build#read-multiple-build-resources"
+              },
+              "response": {
+                "structure": "BuildsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the builds page"
+                }
+              },
+              "pagination": {
+                "name": "BuildsPaginator",
+                "page": {
+                  "name": "BuildsPage",
+                  "nextToken": "PageToken",
+                  "items": "Builds",
+                  "structure": "PageBuildResponse"
+                }
+              }
             }
           ]
         },
@@ -1566,6 +2067,26 @@
         }
       ]
     },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
     "ServiceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1610,6 +2131,26 @@
           "type": "string",
           "value": "DomainSuffix",
           "required": false
+        }
+      ]
+    },
+    "EnvironmentsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Environments",
+          "type": "array",
+          "items": {
+            "structure": "EnvironmentResponse"
+          },
+          "value": "environments",
+          "required": true
         }
       ]
     },
@@ -1683,6 +2224,26 @@
         }
       ]
     },
+    "VariablesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Variables",
+          "type": "array",
+          "items": {
+            "structure": "VariableResponse"
+          },
+          "value": "variables",
+          "required": true
+        }
+      ]
+    },
     "VariableResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1724,6 +2285,26 @@
         }
       ]
     },
+    "DeploymentsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Deployments",
+          "type": "array",
+          "items": {
+            "structure": "DeploymentResponse"
+          },
+          "value": "deployments",
+          "required": true
+        }
+      ]
+    },
     "DeploymentResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1755,6 +2336,26 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "FunctionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Functions",
+          "type": "array",
+          "items": {
+            "structure": "FunctionResponse"
+          },
+          "value": "functions",
           "required": true
         }
       ]
@@ -1819,6 +2420,26 @@
           "name": "Visibility",
           "type": "string",
           "value": "Visibility",
+          "required": true
+        }
+      ]
+    },
+    "FunctionVersionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Versions",
+          "type": "array",
+          "items": {
+            "structure": "FunctionVersionResponse"
+          },
+          "value": "function_versions",
           "required": true
         }
       ]
@@ -1928,6 +2549,26 @@
         }
       ]
     },
+    "AssetsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Assets",
+          "type": "array",
+          "items": {
+            "structure": "AssetResponse"
+          },
+          "value": "assets",
+          "required": true
+        }
+      ]
+    },
     "AssetResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1942,6 +2583,26 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "AssetVersionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Versions",
+          "type": "array",
+          "items": {
+            "structure": "AssetVersionResponse"
+          },
+          "value": "asset_versions",
           "required": true
         }
       ]
@@ -2151,6 +2812,26 @@
         }
       ]
     },
+    "BuildsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Builds",
+          "type": "array",
+          "items": {
+            "structure": "BuildResponse"
+          },
+          "value": "builds",
+          "required": true
+        }
+      ]
+    },
     "BuildResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -2192,6 +2873,53 @@
           "name": "Status",
           "type": "string",
           "value": "status",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]
