@@ -41,12 +41,26 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 
 	Describe("Given the TaskRouter Workspace clients", func() {
 		It("Then the workspace is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
+			workspacesClient := taskrouterSession.Workspaces
+
+			createResp, createErr := workspacesClient.Create(&workspaces.CreateWorkspaceInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := workspacesClient.Page(&workspaces.WorkspacesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Workspaces)).Should(BeNumerically(">=", 1))
+
+			paginator := workspacesClient.NewWorkspacesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Workspaces)).Should(BeNumerically(">=", 1))
 
 			workspaceClient := taskrouterSession.Workspace(createResp.Sid)
 
@@ -84,12 +98,26 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 
 		It("Then the task queue is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspace(workspaceSid).TaskQueues.Create(&task_queues.CreateTaskQueueInput{
+			taskQueuesClient := taskrouterSession.Workspace(workspaceSid).TaskQueues
+
+			createResp, createErr := taskQueuesClient.Create(&task_queues.CreateTaskQueueInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := taskQueuesClient.Page(&task_queues.TaskQueuesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.TaskQueues)).Should(BeNumerically(">=", 1))
+
+			paginator := taskQueuesClient.NewTaskQueuesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.TaskQueues)).Should(BeNumerically(">=", 1))
 
 			taskQueueClient := taskrouterSession.Workspace(workspaceSid).TaskQueue(createResp.Sid)
 
@@ -140,13 +168,27 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 
 		It("Then the workflow is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspace(workspaceSid).Workflows.Create(&workflows.CreateWorkflowInput{
+			workflowsClient := taskrouterSession.Workspace(workspaceSid).Workflows
+
+			createResp, createErr := workflowsClient.Create(&workflows.CreateWorkflowInput{
 				FriendlyName:  uuid.New().String(),
 				Configuration: fmt.Sprintf(`{ "task_routing": { "default_filter": { "queue": "%s" } } }`, taskQueueSid),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := workflowsClient.Page(&workflows.WorkflowsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Workflows)).Should(BeNumerically(">=", 1))
+
+			paginator := workflowsClient.NewWorkflowsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Workflows)).Should(BeNumerically(">=", 1))
 
 			workflowClient := taskrouterSession.Workspace(workspaceSid).Workflow(createResp.Sid)
 
@@ -184,12 +226,26 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 
 		It("Then the worker is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspace(workspaceSid).Workers.Create(&workers.CreateWorkerInput{
+			workersClient := taskrouterSession.Workspace(workspaceSid).Workers
+
+			createResp, createErr := workersClient.Create(&workers.CreateWorkerInput{
 				FriendlyName: uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := workersClient.Page(&workers.WorkersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Workers)).Should(BeNumerically(">=", 1))
+
+			paginator := workersClient.NewWorkersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Workers)).Should(BeNumerically(">=", 1))
 
 			workerClient := taskrouterSession.Workspace(workspaceSid).Worker(createResp.Sid)
 
@@ -227,13 +283,27 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 
 		It("Then the activity is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspace(workspaceSid).Activities.Create(&activities.CreateActivityInput{
+			activitiesClient := taskrouterSession.Workspace(workspaceSid).Activities
+
+			createResp, createErr := activitiesClient.Create(&activities.CreateActivityInput{
 				FriendlyName: uuid.New().String(),
 				Available:    utils.Bool(true),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := activitiesClient.Page(&activities.ActivitiesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Activities)).Should(BeNumerically(">=", 1))
+
+			paginator := activitiesClient.NewActivitiesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Activities)).Should(BeNumerically(">=", 1))
 
 			activityClient := taskrouterSession.Workspace(workspaceSid).Activity(createResp.Sid)
 
@@ -271,13 +341,27 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 
 		It("Then the task channel is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspace(workspaceSid).TaskChannels.Create(&task_channels.CreateTaskChannelInput{
+			taskChannelsClient := taskrouterSession.Workspace(workspaceSid).TaskChannels
+
+			createResp, createErr := taskChannelsClient.Create(&task_channels.CreateTaskChannelInput{
 				FriendlyName: uuid.New().String(),
 				UniqueName:   uuid.New().String(),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := taskChannelsClient.Page(&task_channels.TaskChannelsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.TaskChannels)).Should(BeNumerically(">=", 1))
+
+			paginator := taskChannelsClient.NewTaskChannelsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.TaskChannels)).Should(BeNumerically(">=", 1))
 
 			taskChannelClient := taskrouterSession.Workspace(workspaceSid).TaskChannel(createResp.Sid)
 
@@ -344,12 +428,26 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 
 		It("Then the task is create, fetched, updated and deleted", func() {
-			createResp, createErr := taskrouterSession.Workspace(workspaceSid).Tasks.Create(&tasks.CreateTaskInput{
+			tasksClient := taskrouterSession.Workspace(workspaceSid).Tasks
+
+			createResp, createErr := tasksClient.Create(&tasks.CreateTaskInput{
 				TaskChannel: utils.String("default"),
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := tasksClient.Page(&tasks.TasksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Tasks)).Should(BeNumerically(">=", 1))
+
+			paginator := tasksClient.NewTasksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Tasks)).Should(BeNumerically(">=", 1))
 
 			taskClient := taskrouterSession.Workspace(workspaceSid).Task(createResp.Sid)
 

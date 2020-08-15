@@ -39,6 +39,54 @@
               "description": "defines the response fields for the created workspace"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Workspaces",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of workspaces",
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workspace#list-all-workspaces"
+          },
+          "response": {
+            "structure": "WorkspacesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the workspaces page"
+            }
+          },
+          "pagination": {
+            "name": "WorkspacesPaginator",
+            "page": {
+              "name": "WorkspacesPage",
+              "nextToken": "PageToken",
+              "items": "Workspaces",
+              "structure": "PageWorkspaceResponse"
+            }
+          }
         }
       ]
     },
@@ -100,6 +148,59 @@
                 "structure": "TaskQueueResponse",
                 "documentation": {
                   "description": "defines the response fields for the created task queue"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Workspaces/{workspaceSid}/TaskQueues",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "workspaceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "workspaceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of task queues",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue#action-list"
+              },
+              "response": {
+                "structure": "TaskQueuesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the task queues page"
+                }
+              },
+              "pagination": {
+                "name": "TaskQueuesPaginator",
+                "page": {
+                  "name": "TaskQueuesPage",
+                  "nextToken": "PageToken",
+                  "items": "TaskQueues",
+                  "structure": "PageTaskQueueResponse"
                 }
               }
             }
@@ -286,6 +387,64 @@
                   "description": "defines the response fields for the created workflow"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Workspaces/{workspaceSid}/Workflows",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "workspaceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "workspaceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of workflows",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/workflow#read-multiple-workflow-resources"
+              },
+              "response": {
+                "structure": "WorkflowsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the workflows page"
+                }
+              },
+              "pagination": {
+                "name": "WorkflowsPaginator",
+                "page": {
+                  "name": "WorkflowsPage",
+                  "nextToken": "PageToken",
+                  "items": "Workflows",
+                  "structure": "PageWorkflowResponse"
+                }
+              }
             }
           ]
         },
@@ -468,6 +627,94 @@
                 "structure": "WorkerResponse",
                 "documentation": {
                   "description": "defines the response fields for the created worker"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Workspaces/{workspaceSid}/Workers",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "workspaceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "workspaceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "ActivityName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "ActivitySid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Available",
+                    "type": "bool",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "TargetWorkersExpression",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "TaskQueueName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "TaskQueueSid",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of workers",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker#read-multiple-worker-resources"
+              },
+              "response": {
+                "structure": "WorkersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the workers page"
+                }
+              },
+              "pagination": {
+                "name": "WorkersPaginator",
+                "page": {
+                  "name": "WorkersPage",
+                  "nextToken": "PageToken",
+                  "items": "Workers",
+                  "structure": "PageWorkerResponse"
                 }
               }
             }
@@ -654,6 +901,69 @@
                   "description": "defines the response fields for the created activity"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Workspaces/{workspaceSid}/Activities",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "workspaceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "workspaceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Available",
+                    "type": "bool",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of activities",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/activity#read-multiple-activity-resources"
+              },
+              "response": {
+                "structure": "ActivitiesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the activities page"
+                }
+              },
+              "pagination": {
+                "name": "ActivitiesPaginator",
+                "page": {
+                  "name": "ActivitiesPage",
+                  "nextToken": "PageToken",
+                  "items": "Activities",
+                  "structure": "PageActivityResponse"
+                }
+              }
             }
           ]
         },
@@ -836,6 +1146,59 @@
                 "structure": "TaskChannelResponse",
                 "documentation": {
                   "description": "defines the response fields for the created task channel"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Workspaces/{workspaceSid}/TaskChannels",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "workspaceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "workspaceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of task channels",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel#read-multiple-taskchannel-resources"
+              },
+              "response": {
+                "structure": "TaskChannelsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the task channels page"
+                }
+              },
+              "pagination": {
+                "name": "TaskChannelsPaginator",
+                "page": {
+                  "name": "TaskChannelsPage",
+                  "nextToken": "PageToken",
+                  "items": "TaskChannels",
+                  "structure": "PageTaskChannelResponse"
                 }
               }
             }
@@ -1021,6 +1384,107 @@
                 "structure": "TaskResponse",
                 "documentation": {
                   "description": "defines the response fields for the created task"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Workspaces/{workspaceSid}/Tasks",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "workspaceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "workspaceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Priority",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "AssignmentStatus",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "required": false
+                  },
+                  {
+                    "name": "WorkflowSid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "WorkflowName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "TaskQueueSid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "TaskQueueName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "EvaluateTaskAttributes",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Ordering",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "HasAddons",
+                    "type": "bool",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of tasks",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task#read-multiple-task-resources"
+              },
+              "response": {
+                "structure": "TasksPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the tasks page"
+                }
+              },
+              "pagination": {
+                "name": "TasksPaginator",
+                "page": {
+                  "name": "TasksPage",
+                  "nextToken": "PageToken",
+                  "items": "Tasks",
+                  "structure": "PageTaskResponse"
                 }
               }
             }
@@ -1309,6 +1773,26 @@
         }
       ]
     },
+    "WorkspacesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Workspaces",
+          "type": "array",
+          "items": {
+            "structure": "WorkspaceResponse"
+          },
+          "value": "workspaces",
+          "required": true
+        }
+      ]
+    },
     "WorkspaceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1425,6 +1909,26 @@
           "type": "string",
           "value": "ReservationActivitySid",
           "required": false
+        }
+      ]
+    },
+    "TaskQueuesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "TaskQueues",
+          "type": "array",
+          "items": {
+            "structure": "TaskQueueResponse"
+          },
+          "value": "task_queues",
+          "required": true
         }
       ]
     },
@@ -1561,6 +2065,26 @@
         }
       ]
     },
+    "WorkflowsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Workflows",
+          "type": "array",
+          "items": {
+            "structure": "WorkflowResponse"
+          },
+          "value": "workflows",
+          "required": true
+        }
+      ]
+    },
     "WorkflowResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1656,6 +2180,26 @@
         }
       ]
     },
+    "WorkersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Workers",
+          "type": "array",
+          "items": {
+            "structure": "WorkerResponse"
+          },
+          "value": "workers",
+          "required": true
+        }
+      ]
+    },
     "WorkerResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1732,6 +2276,26 @@
         }
       ]
     },
+    "ActivitiesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Activities",
+          "type": "array",
+          "items": {
+            "structure": "ActivityResponse"
+          },
+          "value": "activities",
+          "required": true
+        }
+      ]
+    },
     "ActivityResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1793,6 +2357,26 @@
           "type": "bool",
           "value": "ChannelOptimizedRouting",
           "required": false
+        }
+      ]
+    },
+    "TaskChannelsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "TaskChannels",
+          "type": "array",
+          "items": {
+            "structure": "TaskChannelResponse"
+          },
+          "value": "channels",
+          "required": true
         }
       ]
     },
@@ -1885,6 +2469,26 @@
         }
       ]
     },
+    "TasksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Tasks",
+          "type": "array",
+          "items": {
+            "structure": "TaskResponse"
+          },
+          "value": "tasks",
+          "required": true
+        }
+      ]
+    },
     "TaskResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1971,6 +2575,53 @@
           "name": "Timeout",
           "type": "int",
           "value": "timeout",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]
