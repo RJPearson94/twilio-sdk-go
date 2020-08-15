@@ -13,6 +13,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/executions"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/revisions"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -91,7 +92,9 @@ var _ = Describe("Studio Acceptance Tests", func() {
 
 	Describe("Given the Studio Flow", func() {
 		It("Then the flow is created, fetched, updated and deleted", func() {
-			createResp, createErr := studioSession.Flows.Create(&flows.CreateFlowInput{
+			flowsClient := studioSession.Flows
+
+			createResp, createErr := flowsClient.Create(&flows.CreateFlowInput{
 				FriendlyName: uuid.New().String(),
 				Status:       "draft",
 				Definition:   flowDefinition,
@@ -100,19 +103,31 @@ var _ = Describe("Studio Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			syncClient := studioSession.Flow(createResp.Sid)
+			pageResp, pageErr := flowsClient.Page(&flows.FlowsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Flows)).Should(BeNumerically(">=", 1))
 
-			fetchResp, fetchErr := syncClient.Fetch()
+			paginator := flowsClient.NewFlowsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Flows)).Should(BeNumerically(">=", 1))
+
+			flowClient := studioSession.Flow(createResp.Sid)
+
+			fetchResp, fetchErr := flowClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := syncClient.Update(&flow.UpdateFlowInput{
+			updateResp, updateErr := flowClient.Update(&flow.UpdateFlowInput{
 				Status: "published",
 			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 
-			deleteErr := syncClient.Delete()
+			deleteErr := flowClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
@@ -140,7 +155,9 @@ var _ = Describe("Studio Acceptance Tests", func() {
 		})
 
 		It("Then the execution is created, fetched, updated and deleted", func() {
-			createResp, createErr := studioSession.Flow(flowSid).Executions.Create(&executions.CreateExecutionInput{
+			executionsClient := studioSession.Flow(flowSid).Executions
+
+			createResp, createErr := executionsClient.Create(&executions.CreateExecutionInput{
 				To:         "+18001234567",
 				From:       "+18001234568",
 				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
@@ -148,6 +165,18 @@ var _ = Describe("Studio Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := executionsClient.Page(&executions.ExecutionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Executions)).Should(BeNumerically(">=", 1))
+
+			paginator := executionsClient.NewExecutionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Executions)).Should(BeNumerically(">=", 1))
 
 			executionClient := studioSession.Flow(flowSid).Execution(createResp.Sid)
 
@@ -166,7 +195,7 @@ var _ = Describe("Studio Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the Flow Execution Content", func() {
+	Describe("Given the Flow Execution Context", func() {
 
 		var flowSid string
 		var executionSid string
@@ -203,10 +232,10 @@ var _ = Describe("Studio Acceptance Tests", func() {
 			}
 		})
 
-		It("Then the execution content is fetched", func() {
-			executionClient := studioSession.Flow(flowSid).Execution(executionSid).Context()
+		It("Then the execution context is fetched", func() {
+			contextClient := studioSession.Flow(flowSid).Execution(executionSid).Context()
 
-			fetchResp, fetchErr := executionClient.Fetch()
+			fetchResp, fetchErr := contextClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 		})
@@ -237,6 +266,20 @@ var _ = Describe("Studio Acceptance Tests", func() {
 		})
 
 		It("Then the revision is fetched", func() {
+			revisionsClient := studioSession.Flow(flowSid).Revisions
+
+			pageResp, pageErr := revisionsClient.Page(&revisions.RevisionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Revisions)).Should(BeNumerically(">=", 1))
+
+			paginator := revisionsClient.NewRevisionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Revisions)).Should(BeNumerically(">=", 1))
+
 			revisionClient := studioSession.Flow(flowSid).Revision(flowRevision)
 
 			fetchResp, fetchErr := revisionClient.Fetch()

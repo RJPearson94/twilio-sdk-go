@@ -6,6 +6,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/executions"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/revision"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/revisions"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
 )
 
@@ -19,6 +20,7 @@ type Client struct {
 	Execution  func(string) *execution.Client
 	Executions *executions.Client
 	Revision   func(int) *revision.Client
+	Revisions  *revisions.Client
 	TestUsers  func() *test_users.Client
 }
 
@@ -49,6 +51,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				RevisionNumber: revisionNumber,
 			})
 		},
+		Revisions: revisions.New(client, revisions.ClientProperties{
+			FlowSid: properties.Sid,
+		}),
 		TestUsers: func() *test_users.Client {
 			return test_users.New(client, test_users.ClientProperties{
 				FlowSid: properties.Sid,

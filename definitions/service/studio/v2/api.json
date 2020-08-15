@@ -39,6 +39,49 @@
               "description": "defines the response fields for the created flow"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Flows",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of flows",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow#read-multiple-flow-resources"
+          },
+          "response": {
+            "structure": "FlowsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the flows page"
+            }
+          },
+          "pagination": {
+            "name": "FlowsPaginator",
+            "page": {
+              "name": "FlowsPage",
+              "nextToken": "PageToken",
+              "items": "Flows",
+              "structure": "PageFlowResponse"
+            }
+          }
         }
       ]
     },
@@ -55,6 +98,75 @@
         "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow"
       },
       "subClients": [
+        {
+          "name": "Revisions",
+          "packageName": "revisions",
+          "properties": {
+            "flowSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing flow revision resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow-revision"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Flows/{flowSid}/Revisions",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "flowSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of flow revisions",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/flow-revision#read-multiple-flowrevision-resources"
+              },
+              "response": {
+                "structure": "RevisionsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the flow revisions page"
+                }
+              },
+              "pagination": {
+                "name": "RevisionsPaginator",
+                "page": {
+                  "name": "RevisionsPage",
+                  "nextToken": "PageToken",
+                  "items": "Revisions",
+                  "structure": "PageRevisionResponse"
+                }
+              }
+            }
+          ]
+        },
         {
           "name": "Revision",
           "packageName": "revision",
@@ -246,6 +358,69 @@
                   "description": "defines the response fields for the created execution"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Flows/{flowSid}/Executions",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "flowSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "flowSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreatedFrom",
+                    "type": "time.Time",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreatedTo",
+                    "type": "time.Time",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of executions",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/execution#read-a-list-of-executions"
+              },
+              "response": {
+                "structure": "ExecutionsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the executions page"
+                }
+              },
+              "pagination": {
+                "name": "ExecutionsPaginator",
+                "page": {
+                  "name": "ExecutionsPage",
+                  "nextToken": "PageToken",
+                  "items": "Executions",
+                  "structure": "PageExecutionResponse"
+                }
+              }
             }
           ]
         },
@@ -328,6 +503,87 @@
                     "structure": "ContextResponse",
                     "documentation": {
                       "description": "defines the response fields for the retrieved execution context"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Steps",
+              "packageName": "steps",
+              "properties": {
+                "flowSid": {
+                  "dataType": "string",
+                  "parentProperty": "flowSid"
+                },
+                "executionSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing step resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/step"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Flows/{flowSid}/Executions/{executionSid}/Steps",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "flowSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "flowSid"
+                        }
+                      },
+                      {
+                        "name": "executionSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "executionSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of steps",
+                    "twilioDocsLink": "https://www.twilio.com/docs/studio/rest-api/v2/step#read-a-list-of-step-resources"
+                  },
+                  "response": {
+                    "structure": "StepsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the steps page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "StepsPaginator",
+                    "page": {
+                      "name": "StepsPage",
+                      "nextToken": "PageToken",
+                      "items": "Steps",
+                      "structure": "PageStepResponse"
                     }
                   }
                 }
@@ -767,6 +1023,51 @@
         }
       ]
     },
+    "FlowsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Flows",
+          "type": "array",
+          "items": {
+            "structure": "FlowResponse"
+          },
+          "value": "flows",
+          "required": true
+        }
+      ]
+    },
+    "RevisionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Revisions",
+          "type": "array",
+          "items": {
+            "structure": "RevisionResponse"
+          },
+          "value": "revisions",
+          "required": true
+        }
+      ]
+    },
+    "RevisionResponse": {
+      "type": "JSON",
+      "extends": "FlowResponse",
+      "properties": []
+    },
     "FlowResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -907,6 +1208,26 @@
         }
       ]
     },
+    "ExecutionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Executions",
+          "type": "array",
+          "items": {
+            "structure": "ExecutionResponse"
+          },
+          "value": "executions",
+          "required": true
+        }
+      ]
+    },
     "ExecutionResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -968,6 +1289,26 @@
           "name": "URL",
           "type": "string",
           "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "StepsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Steps",
+          "type": "array",
+          "items": {
+            "structure": "StepResponse"
+          },
+          "value": "steps",
           "required": true
         }
       ]
@@ -1097,6 +1438,53 @@
           "name": "Valid",
           "type": "bool",
           "value": "valid",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]
