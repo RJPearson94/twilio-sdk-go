@@ -4,7 +4,8 @@ package message
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedback"
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media_attachment"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media_attachments"
 )
 
 // Client for managing a specific message resource
@@ -15,8 +16,9 @@ type Client struct {
 	accountSid string
 	sid        string
 
-	Feedback *feedback.Client
-	Media    func(string) *media.Client
+	Feedback         *feedback.Client
+	MediaAttachment  func(string) *media_attachment.Client
+	MediaAttachments *media_attachments.Client
 }
 
 // ClientProperties are the properties required to manage the message resources
@@ -37,12 +39,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			AccountSid: properties.AccountSid,
 			MessageSid: properties.Sid,
 		}),
-		Media: func(mediaSid string) *media.Client {
-			return media.New(client, media.ClientProperties{
+		MediaAttachment: func(mediaSid string) *media_attachment.Client {
+			return media_attachment.New(client, media_attachment.ClientProperties{
 				AccountSid: properties.AccountSid,
 				MessageSid: properties.Sid,
 				Sid:        mediaSid,
 			})
 		},
+		MediaAttachments: media_attachments.New(client, media_attachments.ClientProperties{
+			AccountSid: properties.AccountSid,
+			MessageSid: properties.Sid,
+		}),
 	}
 }

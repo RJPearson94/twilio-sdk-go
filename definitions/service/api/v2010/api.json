@@ -39,6 +39,63 @@
               "description": "defines the response fields for the created sub account"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Accounts.json",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of account",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account#read-multiple-account-resources"
+          },
+          "response": {
+            "structure": "AccountsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the accounts page"
+            }
+          },
+          "pagination": {
+            "name": "AccountsPaginator",
+            "page": {
+              "name": "AccountsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": false,
+                "property": "NextPageURI"
+              },
+              "items": "Accounts",
+              "structure": "PageAccountResponse"
+            }
+          }
         }
       ]
     },
@@ -145,6 +202,73 @@
                 "structure": "CreateKeyResponse",
                 "documentation": {
                   "description": "defines the response fields for creating a new API Key"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Keys.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of keys",
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource?code-sample=code-read-keys"
+              },
+              "response": {
+                "structure": "KeysPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the keys page"
+                }
+              },
+              "pagination": {
+                "name": "KeysPaginator",
+                "page": {
+                  "name": "KeysPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Keys",
+                  "structure": "PageKeyResponse"
                 }
               }
             }
@@ -332,6 +456,78 @@
                   "description": "defines the response fields for the created message"
                 }
               }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Messages.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "To",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "From",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateSent",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of messages",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-resource#read-multiple-message-resources"
+              },
+              "response": {
+                "structure": "MessagesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the messages page"
+                }
+              },
+              "pagination": {
+                "name": "MessagesPaginator",
+                "page": {
+                  "name": "MessagesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Messages",
+                  "structure": "PageMessageResponse"
+                }
+              }
             }
           ]
         },
@@ -423,10 +619,100 @@
               ]
             },
             {
-              "name": "Media",
-              "packageName": "media",
+              "name": "Media Attachments",
+              "packageName": "media_attachments",
               "documentation": {
-                "description": "Client for managing a specific message media resource",
+                "description": "Client for managing message media attachments resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "messageSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Messages/{messageSid}/Media.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "messageSid",
+                        "value": {
+                          "onService": true,
+                          "property": "messageSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of message media attachments",
+                    "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#read-multiple-media-resources"
+                  },
+                  "response": {
+                    "structure": "MediaPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the message media attachments page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "MediaPaginator",
+                    "page": {
+                      "name": "MediaPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "Media",
+                      "structure": "PageMediaResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Media Attachment",
+              "packageName": "media_attachment",
+              "documentation": {
+                "description": "Client for managing a specific message media attachment resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource"
               },
               "function": {
@@ -484,14 +770,14 @@
                     ]
                   },
                   "documentation": {
-                    "description": "retrieves a media resource",
+                    "description": "retrieves a media attachment resource",
                     "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#fetch-a-media-resource"
                   },
                   "response": {
                     "name": "FetchMediaResponse",
                     "structure": "MediaResponse",
                     "documentation": {
-                      "description": "defines the response fields for the retrieved media"
+                      "description": "defines the response fields for the retrieved media attachment"
                     }
                   }
                 },
@@ -528,7 +814,7 @@
                     ]
                   },
                   "documentation": {
-                    "description": "removes a media resource from the account",
+                    "description": "removes a media attachment resource from the account",
                     "twilioDocsLink": "https://www.twilio.com/docs/sms/api/media-resource#delete-a-media-resource"
                   }
                 }
@@ -741,6 +1027,21 @@
         }
       ]
     },
+    "AccountsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Accounts",
+          "type": "array",
+          "items": {
+            "structure": "AccountResponse"
+          },
+          "value": "accounts",
+          "required": true
+        }
+      ]
+    },
     "AccountResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -796,6 +1097,21 @@
           "name": "Secret",
           "type": "string",
           "value": "secret",
+          "required": true
+        }
+      ]
+    },
+    "KeysPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Keys",
+          "type": "array",
+          "items": {
+            "structure": "KeyResponse"
+          },
+          "value": "keys",
           "required": true
         }
       ]
@@ -933,6 +1249,21 @@
         }
       ]
     },
+    "MessagesPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Messages",
+          "type": "array",
+          "items": {
+            "structure": "MessageResponse"
+          },
+          "value": "messages",
+          "required": true
+        }
+      ]
+    },
     "MessageResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1064,6 +1395,21 @@
         }
       ]
     },
+    "MediaPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Media",
+          "type": "array",
+          "items": {
+            "structure": "MediaResponse"
+          },
+          "value": "media",
+          "required": true
+        }
+      ]
+    },
     "MediaResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -1107,6 +1453,59 @@
           "name": "Balance",
           "type": "string",
           "value": "balance",
+          "required": true
+        }
+      ]
+    },
+    "BasePageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURI",
+          "type": "string",
+          "value": "first_page_uri",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURI",
+          "type": "string",
+          "value": "previous_page_uri",
+          "required": false
+        },
+        {
+          "name": "URI",
+          "type": "string",
+          "value": "uri",
+          "required": true
+        },
+        {
+          "name": "NextPageURI",
+          "type": "string",
+          "value": "next_page_uri",
+          "required": false
+        },
+        {
+          "name": "Start",
+          "type": "int",
+          "value": "start",
+          "required": true
+        },
+        {
+          "name": "End",
+          "type": "int",
+          "value": "end",
           "required": true
         }
       ]

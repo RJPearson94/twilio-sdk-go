@@ -35,10 +35,24 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the account clients", func() {
 		It("Then the account is created, fetched and updated", func() {
-			createResp, createErr := apiSession.Accounts.Create(&accounts.CreateAccountInput{})
+			accountsClient := apiSession.Accounts
+
+			createResp, createErr := accountsClient.Create(&accounts.CreateAccountInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := accountsClient.Page(&accounts.AccountsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Accounts)).Should(BeNumerically(">=", 1))
+
+			paginator := accountsClient.NewAccountsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Accounts)).Should(BeNumerically(">=", 1))
 
 			accountClient := apiSession.Account(createResp.Sid)
 
@@ -86,10 +100,24 @@ var _ = Describe("API Acceptance Tests", func() {
 		})
 
 		It("Then the key is created, fetched, updated and deleted", func() {
-			createResp, createErr := apiSession.Account(accountSid).Keys.Create(&keys.CreateKeyInput{})
+			keysClient := apiSession.Account(accountSid).Keys
+
+			createResp, createErr := keysClient.Create(&keys.CreateKeyInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := keysClient.Page(&keys.KeysPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Keys)).Should(BeNumerically(">=", 1))
+
+			paginator := keysClient.NewKeysPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Keys)).Should(BeNumerically(">=", 1))
 
 			keyClient := apiSession.Account(accountSid).Key(createResp.Sid)
 
@@ -108,7 +136,9 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the message clients", func() {
 		It("Then the message is created, fetched, updated and deleted", func() {
-			createResp, createErr := apiSession.Account(accountSid).Messages.Create(&messages.CreateMessageInput{
+			messagesClient := apiSession.Account(accountSid).Messages
+
+			createResp, createErr := messagesClient.Create(&messages.CreateMessageInput{
 				To:   os.Getenv("DESTINATION_PHONE_NUMBER"),
 				From: utils.String(os.Getenv("TWILIO_PHONE_NUMBER")),
 				Body: utils.String("Hello World"),
@@ -118,6 +148,18 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(createResp.Sid).ToNot(BeNil())
 
 			poll(30, 1000, apiSession, accountSid, createResp.Sid)
+
+			pageResp, pageErr := messagesClient.Page(&messages.MessagesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Messages)).Should(BeNumerically(">=", 1))
+
+			paginator := messagesClient.NewMessagesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Messages)).Should(BeNumerically(">=", 1))
 
 			messageClient := apiSession.Account(accountSid).Message(createResp.Sid)
 
