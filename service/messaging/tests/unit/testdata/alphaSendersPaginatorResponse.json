@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders?PageSize=50&Page=0",
+    "next_page_url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "alpha_senders"
+  },
+  "alpha_senders": [
+    {
+      "alpha_sender": "Test Company",
+      "date_updated": null,
+      "capabilities": ["SMS"],
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "sid": "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "date_created": "2020-06-20T20:50:24Z",
+      "service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "alpha_sender": "Test Company",
+      "date_updated": null,
+      "capabilities": ["SMS"],
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "sid": "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2020-06-20T20:50:24Z",
+      "service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}
