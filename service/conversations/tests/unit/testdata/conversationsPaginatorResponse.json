@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://conversations.twilio.com/v1/Conversations?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://conversations.twilio.com/v1/Conversations?PageSize=50&Page=0",
+    "next_page_url": "https://conversations.twilio.com/v1/Conversations?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "conversations"
+  },
+  "conversations": [
+    {
+      "date_updated": null,
+      "friendly_name": "Test",
+      "timers": {},
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "state": "active",
+      "date_created": "2020-06-20T20:50:24Z",
+      "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "attributes": "{}",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "links": {
+        "participants": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Participants",
+        "messages": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Messages",
+        "webhooks": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Webhooks"
+      }
+    },
+    {
+      "date_updated": null,
+      "friendly_name": "Test",
+      "timers": {},
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "state": "active",
+      "date_created": "2020-06-20T20:50:24Z",
+      "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "attributes": "{}",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "links": {
+        "participants": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Participants",
+        "messages": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Messages",
+        "webhooks": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Webhooks"
+      }
+    }
+  ]
+}
