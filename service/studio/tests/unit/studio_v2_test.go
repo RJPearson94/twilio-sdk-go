@@ -14,7 +14,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/execution/steps"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/executions"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/revisions"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow_validation"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
@@ -37,7 +39,7 @@ var _ = Describe("Studio V2", func() {
 	defer httpmock.DeactivateAndReset()
 
 	Describe("Given the Flows Client", func() {
-		flowClient := studioSession.Flows
+		flowsClient := studioSession.Flows
 
 		Describe("When the Flow is successfully created", func() {
 			flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
@@ -57,7 +59,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := flowClient.Create(createInput)
+			resp, err := flowsClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -92,8 +94,8 @@ var _ = Describe("Studio V2", func() {
 				Definition: string(flowDefinition),
 			}
 
-			resp, err := flowClient.Create(createInput)
-			It("Then an error should be returned", func() {
+			resp, err := flowsClient.Create(createInput)
+			It("Then an error flowsClient be returned", func() {
 				ExpectInvalidInputError(err)
 			})
 
@@ -110,7 +112,7 @@ var _ = Describe("Studio V2", func() {
 				Definition:   string(flowDefinition),
 			}
 
-			resp, err := flowClient.Create(createInput)
+			resp, err := flowsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -126,7 +128,7 @@ var _ = Describe("Studio V2", func() {
 				Status:       "draft",
 			}
 
-			resp, err := flowClient.Create(createInput)
+			resp, err := flowsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -154,19 +156,180 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := flowClient.Create(createInput)
+			resp, err := flowsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create flow response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of flows are successfully retrieved", func() {
+			pageOptions := &flows.FlowsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := flowsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the flows page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://studio.twilio.com/v2/Flows?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://studio.twilio.com/v2/Flows?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("flows"))
+
+				flows := resp.Flows
+				Expect(flows).ToNot(BeNil())
+				Expect(len(flows)).To(Equal(1))
+
+				Expect(flows[0].Status).To(Equal("draft"))
+
+				flowDefinition, _ := ioutil.ReadFile("testdata/flowDefinition.json")
+				definition := make(map[string]interface{})
+				json.Unmarshal(flowDefinition, &definition)
+				Expect(flows[0].Definition).To(Equal(definition))
+
+				Expect(flows[0].Errors).To(BeNil())
+				Expect(flows[0].Warnings).To(BeNil())
+				Expect(flows[0].DateUpdated).To(BeNil())
+				Expect(flows[0].FriendlyName).To(Equal("Test 2"))
+				Expect(flows[0].AccountSid).To(Equal("ACxxxxxxxxxxxx"))
+				Expect(flows[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-05-30T22:28:43Z"))
+				Expect(flows[0].URL).To(Equal("https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxxx"))
+				Expect(flows[0].Valid).To(Equal(true))
+				Expect(flows[0].Sid).To(Equal("FWxxxxxxxxxxxx"))
+				Expect(flows[0].CommitMessage).To(BeNil())
+				Expect(flows[0].WebhookURL).To(Equal("https://webhooks.twilio.com/v1/Accounts/ACxxxxxxxxxxxx/Flows/FWxxxxxxxxxxxx"))
+				Expect(flows[0].Revision).To(Equal(1))
+
+			})
+		})
+
+		Describe("When the page of flows api returns a 500 response", func() {
+			pageOptions := &flows.FlowsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := flowsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the flows page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated flows are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := flowsClient.NewFlowsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated flows current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated flows results should be returned", func() {
+				Expect(len(paginator.Flows)).To(Equal(3))
+			})
+		})
+
+		Describe("When the flows api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := flowsClient.NewFlowsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated flows current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -344,8 +507,8 @@ var _ = Describe("Studio V2", func() {
 		})
 	})
 
-	Describe("Given the Execution Client", func() {
-		executionClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Executions
+	Describe("Given the Executions Client", func() {
+		executionsClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Executions
 
 		Describe("When the execution is successfully created", func() {
 			createInput := &executions.CreateExecutionInput{
@@ -363,7 +526,7 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := executionClient.Create(createInput)
+			resp, err := executionsClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -388,7 +551,7 @@ var _ = Describe("Studio V2", func() {
 				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
-			resp, err := executionClient.Create(createInput)
+			resp, err := executionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -404,7 +567,7 @@ var _ = Describe("Studio V2", func() {
 				Parameters: utils.String("{\"name\": \"RJPearson94\"}"),
 			}
 
-			resp, err := executionClient.Create(createInput)
+			resp, err := executionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInvalidInputError(err)
 			})
@@ -430,19 +593,169 @@ var _ = Describe("Studio V2", func() {
 				},
 			)
 
-			resp, err := executionClient.Create(createInput)
+			resp, err := executionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create flow response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of executions are successfully retrieved", func() {
+			pageOptions := &executions.ExecutionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/executionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := executionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the executions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("executions"))
+
+				executions := resp.Executions
+				Expect(executions).ToNot(BeNil())
+				Expect(len(executions)).To(Equal(1))
+
+				Expect(executions[0].Sid).To(Equal("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(executions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(executions[0].FlowSid).To(Equal("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(executions[0].Context).To(BeEmpty())
+				Expect(executions[0].ContactChannelAddress).To(Equal("+18001234567"))
+				Expect(executions[0].Status).To(Equal("active"))
+				Expect(executions[0].DateUpdated).To(BeNil())
+				Expect(executions[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(executions[0].URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of executions api returns a 500 response", func() {
+			pageOptions := &executions.ExecutionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := executionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the executions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated executions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/executionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/executionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := executionsClient.NewExecutionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated executions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated executions results should be returned", func() {
+				Expect(len(paginator.Executions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the executions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/executionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := executionsClient.NewExecutionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated executions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -644,6 +957,168 @@ var _ = Describe("Studio V2", func() {
 		})
 	})
 
+	Describe("Given I have a Steps Client", func() {
+		stepsClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Steps
+
+		Describe("When the page of steps are successfully retrieved", func() {
+			pageOptions := &steps.StepsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/stepsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := stepsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the steps page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("steps"))
+
+				steps := resp.Steps
+				Expect(steps).ToNot(BeNil())
+				Expect(len(steps)).To(Equal(1))
+
+				Expect(steps[0].Sid).To(Equal("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(steps[0].ExecutionSid).To(Equal("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(steps[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(steps[0].FlowSid).To(Equal("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(steps[0].Name).To(Equal("incomingRequest"))
+				Expect(steps[0].Context).To(BeEmpty())
+				Expect(steps[0].TransitionedFrom).To(Equal("Trigger"))
+				Expect(steps[0].TransitionedTo).To(Equal("Ended"))
+				Expect(steps[0].DateUpdated).To(BeNil())
+				Expect(steps[0].DateCreated.Format(time.RFC3339)).To(Equal("2017-11-06T12:00:00Z"))
+				Expect(steps[0].URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of steps api returns a 500 response", func() {
+			pageOptions := &steps.StepsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := stepsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the steps page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated steps are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/stepsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/stepsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := stepsClient.NewStepsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated steps current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated steps results should be returned", func() {
+				Expect(len(paginator.Steps)).To(Equal(3))
+			})
+		})
+
+		Describe("When the steps api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/stepsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := stepsClient.NewStepsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated steps current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
 	Describe("Given I have a Step SID", func() {
 		stepClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Step("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
@@ -749,6 +1224,174 @@ var _ = Describe("Studio V2", func() {
 		})
 	})
 
+	Describe("Given I have a Revisions Client", func() {
+		revisionsClient := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Revisions
+
+		Describe("When the page of revisions are successfully retrieved", func() {
+			pageOptions := &revisions.RevisionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowRevisionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := revisionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the revisions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("revisions"))
+
+				revisions := resp.Revisions
+				Expect(revisions).ToNot(BeNil())
+				Expect(len(revisions)).To(Equal(1))
+
+				Expect(revisions[0].Sid).To(Equal("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(revisions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				definition := make(map[string]interface{})
+				definition["initial_state"] = "Trigger"
+
+				Expect(revisions[0].Definition).To(Equal(definition))
+				Expect(revisions[0].FriendlyName).To(Equal("Test Flow"))
+				Expect(revisions[0].Status).To(Equal("published"))
+				Expect(revisions[0].CommitMessage).To(BeNil())
+				Expect(revisions[0].Valid).To(Equal(true))
+
+				errors := make([]interface{}, 0)
+				Expect(revisions[0].Errors).To(Equal(&errors))
+				Expect(revisions[0].DateUpdated).To(BeNil())
+				Expect(revisions[0].DateCreated.Format(time.RFC3339)).To(Equal("2017-11-06T12:00:00Z"))
+				Expect(revisions[0].URL).To(Equal("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions/1"))
+			})
+		})
+
+		Describe("When the page of revisions api returns a 500 response", func() {
+			pageOptions := &revisions.RevisionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := revisionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the revisions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated revisions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowRevisionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowRevisionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := revisionsClient.NewRevisionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated revisions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated revisions results should be returned", func() {
+				Expect(len(paginator.Revisions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the revisions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flowRevisionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := revisionsClient.NewRevisionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated revisions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
 	Describe("Given I have a Revision Number", func() {
 		flowRevision := studioSession.Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Revision(1)
 
@@ -789,7 +1432,7 @@ var _ = Describe("Studio V2", func() {
 			})
 		})
 
-		Describe("When the get execution response returns a 404", func() {
+		Describe("When the get flow revision response returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions/100",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -902,13 +1545,7 @@ var _ = Describe("Studio V2", func() {
 
 			resp, err := testUsersClient.Update(updateInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the update test users response should be nil", func() {
@@ -950,6 +1587,16 @@ var _ = Describe("Studio V2", func() {
 		})
 	})
 })
+
+func ExpectInternalServerError(err error) {
+	Expect(err).ToNot(BeNil())
+	twilioErr, ok := err.(*utils.TwilioError)
+	Expect(ok).To(Equal(true))
+	Expect(twilioErr.Code).To(BeNil())
+	Expect(twilioErr.Message).To(Equal("An error occurred"))
+	Expect(twilioErr.MoreInfo).To(BeNil())
+	Expect(twilioErr.Status).To(Equal(500))
+}
 
 func ExpectInvalidInputError(err error) {
 	ExpectErrorToNotBeATwilioError(err)

@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=0",
+    "next_page_url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "flows"
+  },
+  "flows": [
+    {
+      "meta": {
+        "page": 0,
+        "page_size": 50,
+        "first_page_url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=0",
+        "next_page_url": null,
+        "key": "flows"
+      },
+      "flows": [
+        {
+          "status": "draft",
+          "definition": {
+            "states": [
+              {
+                "transitions": [],
+                "type": "trigger",
+                "name": "Trigger",
+                "properties": {
+                  "offset": {
+                    "y": 0,
+                    "x": 0
+                  }
+                }
+              }
+            ],
+            "initial_state": "Trigger",
+            "flags": {
+              "allow_concurrent_calls": true
+            },
+            "description": "A New Flow"
+          },
+          "errors": null,
+          "warnings": null,
+          "date_updated": null,
+          "friendly_name": "Test 2",
+          "account_sid": "ACxxxxxxxxxxxx",
+          "date_created": "2020-05-30T22:28:43Z",
+          "url": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx1",
+          "valid": true,
+          "sid": "FWxxxxxxxxxxx1",
+          "commit_message": null,
+          "webhook_url": "https://webhooks.twilio.com/v1/Accounts/ACxxxxxxxxxxxx/Flows/FWxxxxxxxxxxx1",
+          "revision": 1,
+          "links": {
+            "test_users": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx1/TestUsers",
+            "revisions": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx1/Revisions",
+            "executions": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx1/Executions"
+          }
+        }
+      ]
+    },
+    {
+      "meta": {
+        "page": 0,
+        "page_size": 50,
+        "first_page_url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "url": "https://studio.twilio.com/v2/Flows?PageSize=50&Page=0",
+        "next_page_url": null,
+        "key": "flows"
+      },
+      "flows": [
+        {
+          "status": "draft",
+          "definition": {
+            "states": [
+              {
+                "transitions": [],
+                "type": "trigger",
+                "name": "Trigger",
+                "properties": {
+                  "offset": {
+                    "y": 0,
+                    "x": 0
+                  }
+                }
+              }
+            ],
+            "initial_state": "Trigger",
+            "flags": {
+              "allow_concurrent_calls": true
+            },
+            "description": "A New Flow"
+          },
+          "errors": null,
+          "warnings": null,
+          "date_updated": null,
+          "friendly_name": "Test 2",
+          "account_sid": "ACxxxxxxxxxxxx",
+          "date_created": "2020-05-30T22:28:43Z",
+          "url": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx2",
+          "valid": true,
+          "sid": "FWxxxxxxxxxxx2",
+          "commit_message": null,
+          "webhook_url": "https://webhooks.twilio.com/v1/Accounts/ACxxxxxxxxxxxx/Flows/FWxxxxxxxxxxx2",
+          "revision": 1,
+          "links": {
+            "test_users": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx2/TestUsers",
+            "revisions": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx2/Revisions",
+            "executions": "https://studio.twilio.com/v2/Flows/FWxxxxxxxxxxx2/Executions"
+          }
+        }
+      ]
+    }
+  ]
+}

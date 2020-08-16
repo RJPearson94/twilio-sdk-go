@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?PageSize=50&Page=0",
+    "previous_page_url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "revisions"
+  },
+  "revisions": [
+    {
+      "sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "definition": {
+        "initial_state": "Trigger"
+      },
+      "friendly_name": "Test Flow",
+      "status": "published",
+      "revision": 3,
+      "commit_message": null,
+      "valid": true,
+      "errors": [],
+      "date_created": "2017-11-06T12:00:00Z",
+      "date_updated": null,
+      "url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions/1"
+    }
+  ]
+}

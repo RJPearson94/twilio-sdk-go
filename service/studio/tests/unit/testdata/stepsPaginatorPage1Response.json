@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?PageSize=50&Page=0",
+    "previous_page_url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "steps"
+  },
+  "steps": [
+    {
+      "sid": "FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "execution_sid": "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "name": "incomingRequest",
+      "context": {},
+      "transitioned_from": "Trigger",
+      "transitioned_to": "Ended",
+      "date_created": "2017-11-06T12:00:00Z",
+      "date_updated": null,
+      "url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "links": {
+        "step_context": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Context"
+      }
+    }
+  ]
+}
