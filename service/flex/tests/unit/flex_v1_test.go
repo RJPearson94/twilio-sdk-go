@@ -126,13 +126,7 @@ var _ = Describe("Flex V1", func() {
 
 			resp, err := configurationClient.Fetch()
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the get configuration response should be nil", func() {
@@ -341,17 +335,175 @@ var _ = Describe("Flex V1", func() {
 
 			resp, err := flexFlowsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create flex flow response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of flex flows are successfully retrieved", func() {
+			pageOptions := &flex_flows.FlexFlowsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flexFlowsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := flexFlowsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the flex flows page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://flex-api.twilio.com/v1/FlexFlows?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://flex-api.twilio.com/v1/FlexFlows?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("flex_flows"))
+
+				flexFlows := resp.FlexFlows
+				Expect(flexFlows).ToNot(BeNil())
+				Expect(len(flexFlows)).To(Equal(1))
+
+				Expect(flexFlows[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(flexFlows[0].Sid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(flexFlows[0].FriendlyName).To(Equal("Test Flex Flow"))
+				Expect(flexFlows[0].ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(flexFlows[0].ChannelType).To(Equal("web"))
+				Expect(flexFlows[0].ContactIdentity).To(Equal(utils.String("12345")))
+				Expect(flexFlows[0].Enabled).To(Equal(true))
+				Expect(flexFlows[0].IntegrationType).To(Equal(utils.String("studio")))
+				Expect(flexFlows[0].Integration).To(Equal(&flex_flows.PageFlexFlowResponseIntegration{
+					RetryCount: utils.Int(1),
+					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				}))
+				Expect(flexFlows[0].LongLived).To(Equal(utils.Bool(true)))
+				Expect(flexFlows[0].JanitorEnabled).To(Equal(utils.Bool(true)))
+				Expect(flexFlows[0].DateUpdated).To(BeNil())
+				Expect(flexFlows[0].DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(flexFlows[0].URL).To(Equal("https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of flex flows api returns a 500 response", func() {
+			pageOptions := &flex_flows.FlexFlowsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := flexFlowsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the flex flows page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated flex flows are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flexFlowsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flexFlowsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := flexFlowsClient.NewFlexFlowsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated flex flows current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated flex flows results should be returned", func() {
+				Expect(len(paginator.FlexFlows)).To(Equal(3))
+			})
+		})
+
+		Describe("When the flex flows api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/flexFlowsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/FlexFlows?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := flexFlowsClient.NewFlexFlowsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated flex flows current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -630,17 +782,166 @@ var _ = Describe("Flex V1", func() {
 
 			resp, err := channelsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create channel response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of channels are successfully retrieved", func() {
+			pageOptions := &channels.ChannelsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/Channels?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/channelsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := channelsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the channels page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://flex-api.twilio.com/v1/Channels?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://flex-api.twilio.com/v1/Channels?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("flex_chat_channels"))
+
+				channels := resp.Channels
+				Expect(channels).ToNot(BeNil())
+				Expect(len(channels)).To(Equal(1))
+
+				Expect(channels[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].FlexFlowSid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].TaskSid).To(Equal(utils.String("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(channels[0].UserSid).To(Equal("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].DateUpdated).To(BeNil())
+				Expect(channels[0].DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(channels[0].URL).To(Equal("https://flex-api.twilio.com/v1/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of channels api returns a 500 response", func() {
+			pageOptions := &channels.ChannelsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/Channels?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := channelsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the channels page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated channels are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/Channels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/channelsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/Channels?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/channelsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := channelsClient.NewChannelsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated channels current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated channels results should be returned", func() {
+				Expect(len(paginator.Channels)).To(Equal(3))
+			})
+		})
+
+		Describe("When the channels api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/Channels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/channelsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/Channels?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := channelsClient.NewChannelsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated channels current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -845,17 +1146,164 @@ var _ = Describe("Flex V1", func() {
 
 			resp, err := webChannelsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create web channel response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of web channels are successfully retrieved", func() {
+			pageOptions := &web_channels.WebChannelsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webChannelsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := webChannelsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the web channels page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://flex-api.twilio.com/v1/WebChannels?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://flex-api.twilio.com/v1/WebChannels?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("flex_chat_channels"))
+
+				webChannels := resp.WebChannels
+				Expect(webChannels).ToNot(BeNil())
+				Expect(len(webChannels)).To(Equal(1))
+
+				Expect(webChannels[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(webChannels[0].Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(webChannels[0].FlexFlowSid).To(Equal("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(webChannels[0].DateUpdated).To(BeNil())
+				Expect(webChannels[0].DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(webChannels[0].URL).To(Equal("https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of web channels api returns a 500 response", func() {
+			pageOptions := &web_channels.WebChannelsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := webChannelsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the web channels page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated web channels are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webChannelsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webChannelsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := webChannelsClient.NewWebChannelsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated web channels current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated web channels results should be returned", func() {
+				Expect(len(paginator.WebChannels)).To(Equal(3))
+			})
+		})
+
+		Describe("When the web channels api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/webChannelsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/WebChannels?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := webChannelsClient.NewWebChannelsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated web channels current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -985,6 +1433,16 @@ var _ = Describe("Flex V1", func() {
 		})
 	})
 })
+
+func ExpectInternalServerError(err error) {
+	Expect(err).ToNot(BeNil())
+	twilioErr, ok := err.(*utils.TwilioError)
+	Expect(ok).To(Equal(true))
+	Expect(twilioErr.Code).To(BeNil())
+	Expect(twilioErr.Message).To(Equal("An error occurred"))
+	Expect(twilioErr.MoreInfo).To(BeNil())
+	Expect(twilioErr.Status).To(Equal(500))
+}
 
 func ExpectInvalidInputError(err error) {
 	ExpectErrorToNotBeATwilioError(err)

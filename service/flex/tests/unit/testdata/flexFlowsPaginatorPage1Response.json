@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=50&Page=0",
+    "previous_page_url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "flex_flows"
+  },
+  "flex_flows": [
+    {
+      "sid": "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2016-08-01T22:10:40Z",
+      "date_updated": null,
+      "friendly_name": "Test Flex Flow",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "channel_type": "web",
+      "contact_identity": "12345",
+      "enabled": true,
+      "integration_type": "studio",
+      "integration": {
+        "flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "retry_count": 1
+      },
+      "long_lived": true,
+      "janitor_enabled": true,
+      "url": "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"
+    }
+  ]
+}

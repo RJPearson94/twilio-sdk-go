@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://flex-api.twilio.com/v1/WebChannels?PageSize=50&Page=0",
+    "previous_page_url": "https://flex-api.twilio.com/v1/WebChannels?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://flex-api.twilio.com/v1/WebChannels?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "flex_chat_channels"
+  },
+  "flex_chat_channels": [
+    {
+      "flex_flow_sid": "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "2016-08-01T22:10:40Z",
+      "date_updated": null,
+      "url": "https://flex-api.twilio.com/v1/WebChannels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"
+    }
+  ]
+}
