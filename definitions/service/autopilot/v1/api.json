@@ -79,6 +79,10 @@
             "page": {
               "name": "AssistantsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Assistants",
               "structure": "PageAssistantResponse"
             }
@@ -357,6 +361,10 @@
                 "page": {
                   "name": "TasksPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Tasks",
                   "structure": "PageTaskResponse"
                 }
@@ -506,6 +514,10 @@
                     "page": {
                       "name": "FieldsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Fields",
                       "structure": "PageFieldResponse"
                     }
@@ -746,6 +758,10 @@
                     "page": {
                       "name": "SamplesPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Samples",
                       "structure": "PageSampleResponse"
                     }
@@ -1282,6 +1298,10 @@
                 "page": {
                   "name": "FieldTypesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "FieldTypes",
                   "structure": "PageFieldTypeResponse"
                 }
@@ -1435,6 +1455,10 @@
                     "page": {
                       "name": "FieldValuesPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "FieldValues",
                       "structure": "PageFieldValueResponse"
                     }
@@ -1761,6 +1785,10 @@
                 "page": {
                   "name": "ModelBuildsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "ModelBuilds",
                   "structure": "PageModelBuildResponse"
                 }
@@ -2018,6 +2046,10 @@
                 "page": {
                   "name": "QueriesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Queries",
                   "structure": "PageQueryResponse"
                 }
@@ -2256,6 +2288,10 @@
                 "page": {
                   "name": "WebhooksPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Webhooks",
                   "structure": "PageWebhookResponse"
                 }

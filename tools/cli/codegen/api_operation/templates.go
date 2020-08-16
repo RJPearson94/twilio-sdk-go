@@ -117,13 +117,13 @@ func (p *{{ .pagination.name }}) NextWithContext(context context.Context) bool {
 	}
 
 	if p.CurrentPage() != nil {
-		nextPageURL := p.CurrentPage().Meta.NextPageURL
+		nextPage := p.CurrentPage().{{ if .pagination.page.nextPage.meta }}Meta.{{ end }}{{ .pagination.page.nextPage.property }}
 
-		if nextPageURL == nil {
+		if nextPage == nil {
 			return false
 		}
 
-		parsedURL, err := url.Parse(*nextPageURL)
+		parsedURL, err := url.Parse(*nextPage)
 		if err != nil {
 			p.Page.Error = err
 			return false

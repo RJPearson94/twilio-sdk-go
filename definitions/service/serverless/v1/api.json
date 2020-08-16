@@ -78,6 +78,10 @@
             "page": {
               "name": "ServicesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Services",
               "structure": "PageServiceResponse"
             }
@@ -194,6 +198,10 @@
                 "page": {
                   "name": "EnvironmentsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Environments",
                   "structure": "PageEnvironmentResponse"
                 }
@@ -342,6 +350,10 @@
                     "page": {
                       "name": "VariablesPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Variables",
                       "structure": "PageVariableResponse"
                     }
@@ -627,6 +639,10 @@
                     "page": {
                       "name": "DeploymentsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Deployments",
                       "structure": "PageDeploymentResponse"
                     }
@@ -875,6 +891,10 @@
                 "page": {
                   "name": "FunctionsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Functions",
                   "structure": "PageFunctionResponse"
                 }
@@ -1028,6 +1048,10 @@
                     "page": {
                       "name": "VersionsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Versions",
                       "structure": "PageFunctionVersionResponse"
                     }
@@ -1389,6 +1413,10 @@
                 "page": {
                   "name": "AssetsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Assets",
                   "structure": "PageAssetResponse"
                 }
@@ -1542,6 +1570,10 @@
                     "page": {
                       "name": "VersionsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Versions",
                       "structure": "PageAssetVersionResponse"
                     }
@@ -1832,6 +1864,10 @@
                 "page": {
                   "name": "BuildsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Builds",
                   "structure": "PageBuildResponse"
                 }

@@ -125,6 +125,10 @@
             "page": {
               "name": "FlexFlowsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "FlexFlows",
               "structure": "PageFlexFlowResponse"
             }
@@ -294,6 +298,10 @@
             "page": {
               "name": "ChannelsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Channels",
               "structure": "PageChannelResponse"
             }
@@ -429,6 +437,10 @@
             "page": {
               "name": "WebChannelsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "WebChannels",
               "structure": "PageWebChannelResponse"
             }

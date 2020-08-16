@@ -79,6 +79,10 @@
             "page": {
               "name": "ConversationsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Conversations",
               "structure": "PageConversationResponse"
             }
@@ -195,6 +199,10 @@
                 "page": {
                   "name": "MessagesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Messages",
                   "structure": "PageMessageResponse"
                 }
@@ -433,6 +441,10 @@
                 "page": {
                   "name": "ParticipantsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Participants",
                   "structure": "PageParticipantResponse"
                 }
@@ -671,6 +683,10 @@
                 "page": {
                   "name": "ConversationWebhooksPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Webhooks",
                   "structure": "PageConversationWebhookResponse"
                 }

@@ -99,6 +99,10 @@
             "page": {
               "name": "FaxesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Faxes",
               "structure": "PageFaxResponse"
             }
@@ -181,6 +185,10 @@
                 "page": {
                   "name": "MediaPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Media",
                   "structure": "PageMediaResponse"
                 }

@@ -197,6 +197,10 @@
     "page": {
       "name": "AssistantsPage",
       "nextToken": "PageToken",
+      "nextPage": {
+        "meta": true,
+        "property": "NextPageURL"
+      },
       "items": "Assistants",
       "structure": "PageAssistantResponse"
     }

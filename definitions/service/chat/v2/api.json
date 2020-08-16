@@ -78,6 +78,10 @@
             "page": {
               "name": "ServicesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Services",
               "structure": "PageServiceResponse"
             }
@@ -176,6 +180,10 @@
                 "page": {
                   "name": "BindingsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Bindings",
                   "structure": "PageBindingResponse"
                 }
@@ -378,6 +386,10 @@
                 "page": {
                   "name": "ChannelsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Channels",
                   "structure": "PageChannelResponse"
                 }
@@ -534,6 +546,10 @@
                     "page": {
                       "name": "ChannelInvitesPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Invites",
                       "structure": "PageChannelInviteResponse"
                     }
@@ -777,6 +793,10 @@
                     "page": {
                       "name": "ChannelMembersPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Members",
                       "structure": "PageChannelMemberResponse"
                     }
@@ -1068,6 +1088,10 @@
                     "page": {
                       "name": "ChannelMessagesPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Messages",
                       "structure": "PageChannelMessageResponse"
                     }
@@ -1354,6 +1378,10 @@
                     "page": {
                       "name": "ChannelWebhooksPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Webhooks",
                       "structure": "PageChannelWebhookResponse"
                     }
@@ -1732,6 +1760,10 @@
                 "page": {
                   "name": "RolesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Roles",
                   "structure": "PageRoleResponse"
                 }
@@ -1969,6 +2001,10 @@
                 "page": {
                   "name": "UsersPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Users",
                   "structure": "PageUserResponse"
                 }
@@ -2083,6 +2119,10 @@
                     "page": {
                       "name": "UserBindingsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Bindings",
                       "structure": "PageUserBindingResponse"
                     }
@@ -2276,6 +2316,10 @@
                     "page": {
                       "name": "UserChannelsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Channels",
                       "structure": "PageUserChannelResponse"
                     }
@@ -2677,6 +2721,10 @@
             "page": {
               "name": "CredentialsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Credentials",
               "structure": "PageCredentialResponse"
             }

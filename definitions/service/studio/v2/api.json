@@ -78,6 +78,10 @@
             "page": {
               "name": "FlowsPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Flows",
               "structure": "PageFlowResponse"
             }
@@ -160,6 +164,10 @@
                 "page": {
                   "name": "RevisionsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Revisions",
                   "structure": "PageRevisionResponse"
                 }
@@ -417,6 +425,10 @@
                 "page": {
                   "name": "ExecutionsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Executions",
                   "structure": "PageExecutionResponse"
                 }
@@ -582,6 +594,10 @@
                     "page": {
                       "name": "StepsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Steps",
                       "structure": "PageStepResponse"
                     }

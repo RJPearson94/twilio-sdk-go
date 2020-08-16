@@ -78,6 +78,10 @@
             "page": {
               "name": "ServicesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Services",
               "structure": "PageServiceResponse"
             }
@@ -194,6 +198,10 @@
                 "page": {
                   "name": "PhoneNumbersPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "PhoneNumbers",
                   "structure": "PagePhoneNumberResponse"
                 }
@@ -431,6 +439,10 @@
                 "page": {
                   "name": "ShortCodesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "ShortCodes",
                   "structure": "PageShortCodeResponse"
                 }
@@ -668,6 +680,10 @@
                 "page": {
                   "name": "SessionsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Sessions",
                   "structure": "PageSessionResponse"
                 }
@@ -816,6 +832,10 @@
                     "page": {
                       "name": "ParticipantsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Participants",
                       "structure": "PageParticipantResponse"
                     }
@@ -1085,6 +1105,10 @@
                     "page": {
                       "name": "InteractionsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Interactions",
                       "structure": "PageInteractionResponse"
                     }

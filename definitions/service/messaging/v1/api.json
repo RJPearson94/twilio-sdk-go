@@ -78,6 +78,10 @@
             "page": {
               "name": "ServicesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Services",
               "structure": "PageServiceResponse"
             }
@@ -194,6 +198,10 @@
                 "page": {
                   "name": "PhoneNumbersPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "PhoneNumbers",
                   "structure": "PagePhoneNumberResponse"
                 }
@@ -389,6 +397,10 @@
                 "page": {
                   "name": "ShortCodesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "ShortCodes",
                   "structure": "PageShortCodeResponse"
                 }
@@ -584,6 +596,10 @@
                 "page": {
                   "name": "AlphaSendersPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "AlphaSenders",
                   "structure": "PageAlphaSenderResponse"
                 }

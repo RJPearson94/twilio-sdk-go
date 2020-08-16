@@ -79,6 +79,10 @@
             "page": {
               "name": "ServicesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Services",
               "structure": "PageServiceResponse"
             }
@@ -195,6 +199,10 @@
                 "page": {
                   "name": "DocumentsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Documents",
                   "structure": "PageDocumentResponse"
                 }
@@ -301,6 +309,10 @@
                     "page": {
                       "name": "DocumentPermissionsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Permissions",
                       "structure": "PageDocumentPermissionsResponse"
                     }
@@ -679,6 +691,10 @@
                 "page": {
                   "name": "SyncListsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "SyncLists",
                   "structure": "PageSyncListResponse"
                 }
@@ -842,6 +858,10 @@
                     "page": {
                       "name": "SyncListItemsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "SyncListItems",
                       "structure": "PageSyncListItemResponse"
                     }
@@ -1085,6 +1105,10 @@
                     "page": {
                       "name": "SyncListPermissionsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Permissions",
                       "structure": "PageSyncListPermissionsResponse"
                     }
@@ -1463,6 +1487,10 @@
                 "page": {
                   "name": "SyncMapsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "SyncMaps",
                   "structure": "PageSyncMapResponse"
                 }
@@ -1626,6 +1654,10 @@
                     "page": {
                       "name": "SyncMapItemsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "SyncMapItems",
                       "structure": "PageSyncMapItemResponse"
                     }
@@ -1869,6 +1901,10 @@
                     "page": {
                       "name": "SyncMapPermissionsPage",
                       "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
                       "items": "Permissions",
                       "structure": "PageSyncMapPermissionsResponse"
                     }
@@ -2247,6 +2283,10 @@
                 "page": {
                   "name": "SyncStreamsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "SyncStreams",
                   "structure": "PageSyncStreamResponse"
                 }

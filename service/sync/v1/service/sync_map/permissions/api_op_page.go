@@ -134,13 +134,13 @@ func (p *SyncMapPermissionsPaginator) NextWithContext(context context.Context) b
 	}
 
 	if p.CurrentPage() != nil {
-		nextPageURL := p.CurrentPage().Meta.NextPageURL
+		nextPage := p.CurrentPage().Meta.NextPageURL
 
-		if nextPageURL == nil {
+		if nextPage == nil {
 			return false
 		}
 
-		parsedURL, err := url.Parse(*nextPageURL)
+		parsedURL, err := url.Parse(*nextPage)
 		if err != nil {
 			p.Page.Error = err
 			return false

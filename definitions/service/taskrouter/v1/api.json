@@ -83,6 +83,10 @@
             "page": {
               "name": "WorkspacesPage",
               "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
               "items": "Workspaces",
               "structure": "PageWorkspaceResponse"
             }
@@ -199,6 +203,10 @@
                 "page": {
                   "name": "TaskQueuesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "TaskQueues",
                   "structure": "PageTaskQueueResponse"
                 }
@@ -441,6 +449,10 @@
                 "page": {
                   "name": "WorkflowsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Workflows",
                   "structure": "PageWorkflowResponse"
                 }
@@ -713,6 +725,10 @@
                 "page": {
                   "name": "WorkersPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Workers",
                   "structure": "PageWorkerResponse"
                 }
@@ -960,6 +976,10 @@
                 "page": {
                   "name": "ActivitiesPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Activities",
                   "structure": "PageActivityResponse"
                 }
@@ -1197,6 +1217,10 @@
                 "page": {
                   "name": "TaskChannelsPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "TaskChannels",
                   "structure": "PageTaskChannelResponse"
                 }
@@ -1483,6 +1507,10 @@
                 "page": {
                   "name": "TasksPage",
                   "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
                   "items": "Tasks",
                   "structure": "PageTaskResponse"
                 }

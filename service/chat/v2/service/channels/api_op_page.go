@@ -140,13 +140,13 @@ func (p *ChannelsPaginator) NextWithContext(context context.Context) bool {
 	}
 
 	if p.CurrentPage() != nil {
-		nextPageURL := p.CurrentPage().Meta.NextPageURL
+		nextPage := p.CurrentPage().Meta.NextPageURL
 
-		if nextPageURL == nil {
+		if nextPage == nil {
 			return false
 		}
 
-		parsedURL, err := url.Parse(*nextPageURL)
+		parsedURL, err := url.Parse(*nextPage)
 		if err != nil {
 			p.Page.Error = err
 			return false
