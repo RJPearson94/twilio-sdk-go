@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
+    "next_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "roles"
+  },
+  "roles": [
+    {
+      "sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "friendly_name": "Test",
+      "type": "channel",
+      "permissions": ["sendMessage"],
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"
+    },
+    {
+      "sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "friendly_name": "Test",
+      "type": "channel",
+      "permissions": ["sendMessage"],
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}

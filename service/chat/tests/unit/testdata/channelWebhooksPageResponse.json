@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "webhooks"
+  },
+  "Webhooks": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "channel_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "type": "studio",
+      "configuration": {
+        "flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      },
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

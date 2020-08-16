@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites?PageSize=50&Page=0",
+    "previous_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "invites"
+  },
+  "invites": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "channel_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "created_by": "created_by",
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "identity": "identity",
+      "role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"
+    }
+  ]
+}

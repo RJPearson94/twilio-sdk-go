@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=0",
+    "next_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "bindings"
+  },
+  "bindings": [
+    {
+      "sid": "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "endpoint": "Test",
+      "identity": "TestUser",
+      "user_sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "binding_type": "gcm",
+      "credential_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "message_types": ["removed_from_channel", "new_message"],
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"
+    },
+    {
+      "sid": "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "endpoint": "Test",
+      "identity": "TestUser",
+      "user_sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "binding_type": "gcm",
+      "credential_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "message_types": ["removed_from_channel", "new_message"],
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}

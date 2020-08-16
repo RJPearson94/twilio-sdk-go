@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "bindings"
+  },
+  "bindings": [
+    {
+      "sid": "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "date_updated": null,
+      "endpoint": "Test",
+      "identity": "TestUser",
+      "binding_type": "gcm",
+      "credential_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "message_types": null,
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "links": {
+        "user": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/TestUser"
+      }
+    }
+  ]
+}

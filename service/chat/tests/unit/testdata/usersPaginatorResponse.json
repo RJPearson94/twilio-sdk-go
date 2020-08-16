@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users?PageSize=50&Page=0",
+    "next_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "users"
+  },
+  "users": [
+    {
+      "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "identity": "Test",
+      "attributes": null,
+      "is_online": true,
+      "is_notifiable": null,
+      "friendly_name": null,
+      "joined_channels_count": 0,
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "links": {
+        "user_channels": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Channels",
+        "user_bindings": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Bindings"
+      },
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"
+    },
+    {
+      "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "identity": "Test",
+      "attributes": null,
+      "is_online": true,
+      "is_notifiable": null,
+      "friendly_name": null,
+      "joined_channels_count": 0,
+      "date_created": "2020-06-20T22:19:51Z",
+      "date_updated": null,
+      "links": {
+        "user_channels": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Channels",
+        "user_bindings": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Bindings"
+      },
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}

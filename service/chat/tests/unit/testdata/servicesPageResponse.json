@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://chat.twilio.com/v2/Services?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://chat.twilio.com/v2/Services?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "services"
+  },
+  "services": [
+    {
+      "typing_indicator_timeout": 5,
+      "date_updated": null,
+      "post_webhook_url": null,
+      "read_status_enabled": true,
+      "consumption_report_interval": 10,
+      "pre_webhook_retry_count": 0,
+      "default_service_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "media": {
+        "compatibility_message": "Media messages are not supported by your client",
+        "size_limit_mb": 150
+      },
+      "default_channel_creator_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "reachability_enabled": false,
+      "webhook_filters": null,
+      "post_webhook_retry_count": 0,
+      "sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "pre_webhook_url": null,
+      "notifications": {
+        "removed_from_channel": {
+          "enabled": false
+        },
+        "log_enabled": false,
+        "added_to_channel": {
+          "enabled": false
+        },
+        "new_message": {
+          "enabled": false
+        },
+        "invited_to_channel": {
+          "enabled": false
+        }
+      },
+      "webhook_method": null,
+      "limits": {
+        "user_channels": 250,
+        "channel_members": 100
+      },
+      "url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "friendly_name": "Test",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "default_channel_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "links": {
+        "channels": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+        "bindings": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings",
+        "users": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users",
+        "roles": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles"
+      }
+    }
+  ]
+}
