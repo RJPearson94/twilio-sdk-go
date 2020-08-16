@@ -16,6 +16,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session"
+	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/interactions"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participant/message_interactions"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/session/participants"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/sessions"
@@ -109,17 +110,171 @@ var _ = Describe("Proxy V1", func() {
 
 			resp, err := servicesClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create service response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of services are successfully retrieved", func() {
+			pageOptions := &services.ServicesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := servicesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the services page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://proxy.twilio.com/v1/Services?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://proxy.twilio.com/v1/Services?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("services"))
+
+				services := resp.Services
+				Expect(services).ToNot(BeNil())
+				Expect(len(services)).To(Equal(1))
+
+				Expect(services[0].Sid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(services[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(services[0].ChatInstanceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(services[0].UniqueName).To(Equal("Test"))
+				Expect(services[0].DefaultTtl).To(Equal(utils.Int(3600)))
+				Expect(services[0].CallbackURL).To(Equal(utils.String("http://www.callback_url.com")))
+				Expect(services[0].GeoMatchLevel).To(Equal(utils.String("country")))
+				Expect(services[0].NumberSelectionBehavior).To(Equal(utils.String("prefer_sticky")))
+				Expect(services[0].InterceptCallbackURL).To(Equal(utils.String("http://www.intercept_callback_url.com")))
+				Expect(services[0].OutOfSessionCallbackURL).To(Equal(utils.String("http://www.out_of_session_callback_url.com")))
+				Expect(services[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(services[0].DateUpdated).To(BeNil())
+				Expect(services[0].URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of services api returns a 500 response", func() {
+			pageOptions := &services.ServicesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := servicesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the services page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated services are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := servicesClient.NewServicesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated services current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated services results should be returned", func() {
+				Expect(len(paginator.Services)).To(Equal(3))
+			})
+		})
+
+		Describe("When the services api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := servicesClient.NewServicesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated services current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -336,17 +491,184 @@ var _ = Describe("Proxy V1", func() {
 
 			resp, err := phoneNumbersClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create phone number response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of phone numbers are successfully retrieved", func() {
+			pageOptions := &phone_numbers.PhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := phoneNumbersClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the phone numbers page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("phone_numbers"))
+
+				phoneNumbers := resp.PhoneNumbers
+				Expect(phoneNumbers).ToNot(BeNil())
+				Expect(len(phoneNumbers)).To(Equal(1))
+
+				Expect(phoneNumbers[0].Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(phoneNumbers[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(phoneNumbers[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(phoneNumbers[0].PhoneNumber).To(Equal(utils.String("+123456789")))
+				Expect(phoneNumbers[0].FriendlyName).To(Equal(utils.String("Test")))
+				Expect(phoneNumbers[0].Capabilities).To(Equal(&phone_numbers.PagePhoneNumberResponseCapabilities{
+					VoiceInbound:             utils.Bool(true),
+					SmsInbound:               utils.Bool(true),
+					RestrictionVoiceDomestic: utils.Bool(false),
+					FaxOutbound:              utils.Bool(false),
+					RestrictionSmsDomestic:   utils.Bool(false),
+					FaxInbound:               utils.Bool(false),
+					SmsOutbound:              utils.Bool(true),
+					RestrictionMmsDomestic:   utils.Bool(false),
+					MmsOutbound:              utils.Bool(true),
+					VoiceOutbound:            utils.Bool(true),
+					MmsInbound:               utils.Bool(true),
+					RestrictionFaxDomestic:   utils.Bool(false),
+					SipTrunking:              utils.Bool(true),
+				}))
+				Expect(phoneNumbers[0].IsoCountry).To(Equal(utils.String("US")))
+				Expect(phoneNumbers[0].IsReserved).To(Equal(utils.Bool(false)))
+				Expect(phoneNumbers[0].InUse).To(Equal(utils.Int(0)))
+				Expect(phoneNumbers[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(phoneNumbers[0].DateUpdated).To(BeNil())
+				Expect(phoneNumbers[0].URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of phone numbers api returns a 500 response", func() {
+			pageOptions := &phone_numbers.PhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := phoneNumbersClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the phone numbers page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated phone numbers are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := phoneNumbersClient.NewPhoneNumbersPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated phone numbers current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated phone numbers results should be returned", func() {
+				Expect(len(paginator.PhoneNumbers)).To(Equal(3))
+			})
+		})
+
+		Describe("When the phone numbers api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := phoneNumbersClient.NewPhoneNumbersPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated phone numbers current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -589,17 +911,171 @@ var _ = Describe("Proxy V1", func() {
 
 			resp, err := shortCodesClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create short code response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of short codes are successfully retrieved", func() {
+			pageOptions := &short_codes.ShortCodesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/shortCodesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := shortCodesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the short codes page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("short_codes"))
+
+				shortCodes := resp.ShortCodes
+				Expect(shortCodes).ToNot(BeNil())
+				Expect(len(shortCodes)).To(Equal(1))
+
+				Expect(shortCodes[0].Sid).To(Equal("SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(shortCodes[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(shortCodes[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(shortCodes[0].ShortCode).To(Equal(utils.String("12345")))
+				Expect(shortCodes[0].Capabilities).To(Equal(&short_codes.PageShortCodeResponseCapabilities{
+					VoiceInbound: utils.Bool(false),
+					SmsOutbound:  utils.Bool(true),
+				}))
+				Expect(shortCodes[0].IsoCountry).To(Equal(utils.String("US")))
+				Expect(shortCodes[0].IsReserved).To(Equal(utils.Bool(false)))
+				Expect(shortCodes[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(shortCodes[0].DateUpdated).To(BeNil())
+				Expect(shortCodes[0].URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes/SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of short codes api returns a 500 response", func() {
+			pageOptions := &short_codes.ShortCodesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := shortCodesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the short codes page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated short codes are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/shortCodesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/shortCodesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := shortCodesClient.NewShortCodesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated short codes current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated short codes results should be returned", func() {
+				Expect(len(paginator.ShortCodes)).To(Equal(3))
+			})
+		})
+
+		Describe("When the short codes api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/shortCodesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := shortCodesClient.NewShortCodesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated short codes current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -805,17 +1281,173 @@ var _ = Describe("Proxy V1", func() {
 
 			resp, err := sessionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create session response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of sessions are successfully retrieved", func() {
+			pageOptions := &sessions.SessionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/sessionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := sessionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the sessions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("sessions"))
+
+				sessions := resp.Sessions
+				Expect(sessions).ToNot(BeNil())
+				Expect(len(sessions)).To(Equal(1))
+
+				Expect(sessions[0].Sid).To(Equal("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(sessions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(sessions[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(sessions[0].Status).To(Equal(utils.String("open")))
+				Expect(sessions[0].UniqueName).To(Equal("Test"))
+				Expect(sessions[0].DateStarted.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(sessions[0].DateEnded).To(BeNil())
+				Expect(sessions[0].DateLastInteraction.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(sessions[0].DateExpiry.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(sessions[0].Ttl).To(Equal(utils.Int(3600)))
+				Expect(sessions[0].Mode).To(Equal(utils.String("voice-and-message")))
+				Expect(sessions[0].ClosedReason).To(Equal(utils.String("")))
+				Expect(sessions[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(sessions[0].DateUpdated).To(BeNil())
+				Expect(sessions[0].URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of sessions api returns a 500 response", func() {
+			pageOptions := &sessions.SessionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := sessionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the sessions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated sessions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/sessionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/sessionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := sessionsClient.NewSessionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated sessions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated sessions results should be returned", func() {
+				Expect(len(paginator.Sessions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the sessions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/sessionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := sessionsClient.NewSessionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated sessions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -963,6 +1595,176 @@ var _ = Describe("Proxy V1", func() {
 			err := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KC71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the interactions client", func() {
+		interactionsClient := proxySession.Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Session("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Interactions
+
+		Describe("When the page of interactions are successfully retrieved", func() {
+			pageOptions := &interactions.InteractionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/interactionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := interactionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the interactions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("interactions"))
+
+				interactions := resp.Interactions
+				Expect(interactions).ToNot(BeNil())
+				Expect(len(interactions)).To(Equal(1))
+
+				Expect(interactions[0].Sid).To(Equal("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(interactions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(interactions[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(interactions[0].SessionSid).To(Equal("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(interactions[0].Data).To(Equal(utils.String("{ \"body\": \"some message\" }")))
+				Expect(interactions[0].InboundParticipantSid).To(Equal(utils.String("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(interactions[0].InboundResourceSid).To(Equal(utils.String("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(interactions[0].InboundResourceStatus).To(Equal(utils.String("sent")))
+				Expect(interactions[0].InboundResourceType).To(Equal(utils.String("Message")))
+				Expect(interactions[0].InboundResourceURL).To(BeNil())
+				Expect(interactions[0].OutboundParticipantSid).To(Equal(utils.String("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(interactions[0].OutboundResourceSid).To(Equal(utils.String("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(interactions[0].OutboundResourceStatus).To(Equal(utils.String("sent")))
+				Expect(interactions[0].OutboundResourceType).To(Equal(utils.String("Message")))
+				Expect(interactions[0].OutboundResourceURL).To(BeNil())
+				Expect(interactions[0].Type).To(Equal(utils.String("message")))
+				Expect(interactions[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(interactions[0].DateUpdated).To(BeNil())
+				Expect(interactions[0].URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of interactions api returns a 500 response", func() {
+			pageOptions := &interactions.InteractionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := interactionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the interactions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated interactions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/interactionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/interactionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := interactionsClient.NewInteractionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated interactions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated interactions results should be returned", func() {
+				Expect(len(paginator.Interactions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the interactions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/interactionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := interactionsClient.NewInteractionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated interactions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1123,17 +1925,170 @@ var _ = Describe("Proxy V1", func() {
 
 			resp, err := participantsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create participant response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of participants are successfully retrieved", func() {
+			pageOptions := &participants.ParticipantsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := participantsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the participants page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("participants"))
+
+				participants := resp.Participants
+				Expect(participants).ToNot(BeNil())
+				Expect(len(participants)).To(Equal(1))
+
+				Expect(participants[0].Sid).To(Equal("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].SessionSid).To(Equal("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].Identifier).To(Equal("+123456789"))
+				Expect(participants[0].ProxyIdentifier).To(Equal(utils.String("+123456788")))
+				Expect(participants[0].ProxyIdentifierSid).To(Equal(utils.String("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(participants[0].FriendlyName).To(Equal(utils.String("Test")))
+				Expect(participants[0].DateCreated.Format(time.RFC3339)).To(Equal("2015-07-30T20:00:00Z"))
+				Expect(participants[0].DateUpdated).To(BeNil())
+				Expect(participants[0].DateDeleted).To(BeNil())
+				Expect(participants[0].URL).To(Equal("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of participants api returns a 500 response", func() {
+			pageOptions := &participants.ParticipantsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := participantsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the participants page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated participants are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := participantsClient.NewParticipantsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated participants current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated participants results should be returned", func() {
+				Expect(len(paginator.Participants)).To(Equal(3))
+			})
+		})
+
+		Describe("When the participants api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := participantsClient.NewParticipantsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated participants current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1285,13 +2240,7 @@ var _ = Describe("Proxy V1", func() {
 
 			resp, err := messageInteractionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create message interaction response should be nil", func() {
@@ -1300,6 +2249,16 @@ var _ = Describe("Proxy V1", func() {
 		})
 	})
 })
+
+func ExpectInternalServerError(err error) {
+	Expect(err).ToNot(BeNil())
+	twilioErr, ok := err.(*utils.TwilioError)
+	Expect(ok).To(Equal(true))
+	Expect(twilioErr.Code).To(BeNil())
+	Expect(twilioErr.Message).To(Equal("An error occurred"))
+	Expect(twilioErr.MoreInfo).To(BeNil())
+	Expect(twilioErr.Status).To(Equal(500))
+}
 
 func ExpectInvalidInputError(err error) {
 	ExpectErrorToNotBeATwilioError(err)

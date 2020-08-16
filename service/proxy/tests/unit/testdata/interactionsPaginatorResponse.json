@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?PageSize=50&Page=0",
+    "next_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "interactions"
+  },
+  "interactions": [
+    {
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "data": "{ \"body\": \"some message\" }",
+      "date_created": "2015-07-30T20:00:00Z",
+      "date_updated": null,
+      "inbound_participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "inbound_resource_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "inbound_resource_status": "sent",
+      "inbound_resource_type": "Message",
+      "inbound_resource_url": null,
+      "outbound_participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "outbound_resource_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "outbound_resource_status": "sent",
+      "outbound_resource_type": "Message",
+      "outbound_resource_url": null,
+      "sid": "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "type": "message",
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "session_sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "data": "{ \"body\": \"some message\" }",
+      "date_created": "2015-07-30T20:00:00Z",
+      "date_updated": null,
+      "inbound_participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "inbound_resource_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "inbound_resource_status": "sent",
+      "inbound_resource_type": "Message",
+      "inbound_resource_url": null,
+      "outbound_participant_sid": "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "outbound_resource_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "outbound_resource_status": "sent",
+      "outbound_resource_type": "Message",
+      "outbound_resource_url": null,
+      "sid": "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "type": "message",
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "session_sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?PageSize=50&Page=0",
+    "previous_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "short_codes"
+  },
+  "short_codes": [
+    {
+      "sid": "SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2015-07-30T20:00:00Z",
+      "date_updated": null,
+      "short_code": "12345",
+      "iso_country": "US",
+      "capabilities": {
+        "sms_outbound": true,
+        "voice_inbound": false
+      },
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes/SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "is_reserved": false
+    }
+  ]
+}

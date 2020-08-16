@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=0",
+    "next_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "sessions"
+  },
+  "sessions": [
+    {
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "status": "open",
+      "unique_name": "Test",
+      "date_started": "2015-07-30T20:00:00Z",
+      "date_ended": null,
+      "date_last_interaction": "2015-07-30T20:00:00Z",
+      "date_expiry": "2015-07-30T20:00:00Z",
+      "ttl": 3600,
+      "mode": "voice-and-message",
+      "closed_reason": "",
+      "sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "date_updated": null,
+      "date_created": "2015-07-30T20:00:00Z",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "links": {
+        "interactions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Interactions",
+        "participants": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Participants"
+      }
+    },
+    {
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "status": "open",
+      "unique_name": "Test",
+      "date_started": "2015-07-30T20:00:00Z",
+      "date_ended": null,
+      "date_last_interaction": "2015-07-30T20:00:00Z",
+      "date_expiry": "2015-07-30T20:00:00Z",
+      "ttl": 3600,
+      "mode": "voice-and-message",
+      "closed_reason": "",
+      "sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_updated": null,
+      "date_created": "2015-07-30T20:00:00Z",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "links": {
+        "interactions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Interactions",
+        "participants": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Participants"
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://proxy.twilio.com/v1/Services?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://proxy.twilio.com/v1/Services?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "services"
+  },
+  "services": [
+    {
+      "sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "chat_instance_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "unique_name": "Test",
+      "default_ttl": 3600,
+      "callback_url": "http://www.callback_url.com",
+      "geo_match_level": "country",
+      "number_selection_behavior": "prefer_sticky",
+      "intercept_callback_url": "http://www.intercept_callback_url.com",
+      "out_of_session_callback_url": "http://www.out_of_session_callback_url.com",
+      "date_created": "2015-07-30T20:00:00Z",
+      "date_updated": null,
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "links": {
+        "sessions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions",
+        "phone_numbers": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
+        "short_codes": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes"
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=0",
+    "previous_page_url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "sessions"
+  },
+  "sessions": [
+    {
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "status": "open",
+      "unique_name": "Test",
+      "date_started": "2015-07-30T20:00:00Z",
+      "date_ended": null,
+      "date_last_interaction": "2015-07-30T20:00:00Z",
+      "date_expiry": "2015-07-30T20:00:00Z",
+      "ttl": 3600,
+      "mode": "voice-and-message",
+      "closed_reason": "",
+      "sid": "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_updated": null,
+      "date_created": "2015-07-30T20:00:00Z",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "links": {
+        "interactions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Interactions",
+        "participants": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Participants"
+      }
+    }
+  ]
+}
