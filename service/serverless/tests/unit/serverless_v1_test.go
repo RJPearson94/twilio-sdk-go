@@ -128,17 +128,167 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := servicesClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create service response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of services are successfully retrieved", func() {
+			pageOptions := &services.ServicesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := servicesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the services page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("services"))
+
+				services := resp.Services
+				Expect(services).ToNot(BeNil())
+				Expect(len(services)).To(Equal(1))
+
+				Expect(services[0].Sid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(services[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(services[0].FriendlyName).To(Equal("Test 2"))
+				Expect(services[0].UniqueName).To(Equal("Unique Test 2"))
+				Expect(services[0].IncludeCredentials).To(Equal(true))
+				Expect(services[0].UiEditable).To(Equal(false))
+				Expect(services[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(services[0].DateUpdated).To(BeNil())
+				Expect(services[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of services api returns a 500 response", func() {
+			pageOptions := &services.ServicesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := servicesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the services page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated services are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := servicesClient.NewServicesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated services current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated services results should be returned", func() {
+				Expect(len(paginator.Services)).To(Equal(3))
+			})
+		})
+
+		Describe("When the services api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/servicesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := servicesClient.NewServicesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated services current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -341,17 +491,167 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := environmentsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create environment response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of environments are successfully retrieved", func() {
+			pageOptions := &environments.EnvironmentsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/environmentsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := environmentsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the environments page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("environments"))
+
+				environments := resp.Environments
+				Expect(environments).ToNot(BeNil())
+				Expect(len(environments)).To(Equal(1))
+
+				Expect(environments[0].Sid).To(Equal("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(environments[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(environments[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(environments[0].UniqueName).To(Equal("test-2"))
+				Expect(environments[0].DomainSuffix).To(BeNil())
+				Expect(environments[0].DomainName).To(Equal("test-2.twil.io"))
+				Expect(environments[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(environments[0].DateUpdated).To(BeNil())
+				Expect(environments[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of environments api returns a 500 response", func() {
+			pageOptions := &environments.EnvironmentsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := environmentsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the environments page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated environments are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/environmentsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/environmentsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := environmentsClient.NewEnvironmentsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated environments current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated environments results should be returned", func() {
+				Expect(len(paginator.Environments)).To(Equal(3))
+			})
+		})
+
+		Describe("When the environments api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/environmentsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := environmentsClient.NewEnvironmentsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated environments current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -518,17 +818,167 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := variablesClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create variable response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of variables are successfully retrieved", func() {
+			pageOptions := &variables.VariablesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/variablesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := variablesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the variables page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("variables"))
+
+				variables := resp.Variables
+				Expect(variables).ToNot(BeNil())
+				Expect(len(variables)).To(Equal(1))
+
+				Expect(variables[0].Sid).To(Equal("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(variables[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(variables[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(variables[0].EnvironmentSid).To(Equal("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(variables[0].Key).To(Equal("key"))
+				Expect(variables[0].Value).To(Equal("value"))
+				Expect(variables[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(variables[0].DateUpdated).To(BeNil())
+				Expect(variables[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of variables api returns a 500 response", func() {
+			pageOptions := &variables.VariablesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := variablesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the variables page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated variables are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/variablesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/variablesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := variablesClient.NewVariablesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated variables current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated variables results should be returned", func() {
+				Expect(len(paginator.Variables)).To(Equal(3))
+			})
+		})
+
+		Describe("When the variables api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/variablesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := variablesClient.NewVariablesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated variables current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -717,17 +1167,166 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := deploymentsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create deployment response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of deployments are successfully retrieved", func() {
+			pageOptions := &deployments.DeploymentsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/deploymentsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := deploymentsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the deployments page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("deployments"))
+
+				deployments := resp.Deployments
+				Expect(deployments).ToNot(BeNil())
+				Expect(len(deployments)).To(Equal(1))
+
+				Expect(deployments[0].Sid).To(Equal("ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(deployments[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(deployments[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(deployments[0].EnvironmentSid).To(Equal("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(deployments[0].BuildSid).To(Equal("ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(deployments[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(deployments[0].DateUpdated).To(BeNil())
+				Expect(deployments[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments/ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of deployments api returns a 500 response", func() {
+			pageOptions := &deployments.DeploymentsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := deploymentsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the deployments page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated deployments are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/deploymentsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/deploymentsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := deploymentsClient.NewDeploymentsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated deployments current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated deployments results should be returned", func() {
+				Expect(len(paginator.Deployments)).To(Equal(3))
+			})
+		})
+
+		Describe("When the deployments api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/deploymentsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := deploymentsClient.NewDeploymentsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated deployments current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -847,17 +1446,165 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := functionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create function response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of functions are successfully retrieved", func() {
+			pageOptions := &functions.FunctionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := functionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the functions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("functions"))
+
+				functions := resp.Functions
+				Expect(functions).ToNot(BeNil())
+				Expect(len(functions)).To(Equal(1))
+
+				Expect(functions[0].Sid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functions[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functions[0].FriendlyName).To(Equal("Test 2"))
+				Expect(functions[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(functions[0].DateUpdated).To(BeNil())
+				Expect(functions[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of functions api returns a 500 response", func() {
+			pageOptions := &functions.FunctionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := functionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the functions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated functions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := functionsClient.NewFunctionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated functions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated functions results should be returned", func() {
+				Expect(len(paginator.Functions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the functions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := functionsClient.NewFunctionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated functions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1172,17 +1919,166 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := functionVersionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create function version response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of function versions are successfully retrieved", func() {
+			pageOptions := &functionVersions.VersionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := functionVersionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the function versions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("function_versions"))
+
+				functionVersions := resp.Versions
+				Expect(functionVersions).ToNot(BeNil())
+				Expect(len(functionVersions)).To(Equal(1))
+
+				Expect(functionVersions[0].Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functionVersions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functionVersions[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functionVersions[0].FunctionSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functionVersions[0].Path).To(Equal("/test"))
+				Expect(functionVersions[0].Visibility).To(Equal("public"))
+				Expect(functionVersions[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(functionVersions[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of function versions api returns a 500 response", func() {
+			pageOptions := &functionVersions.VersionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := functionVersionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the function versions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated function versions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := functionVersionsClient.NewVersionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated function versions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated function versions results should be returned", func() {
+				Expect(len(paginator.Versions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the function versions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/functionVersionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := functionVersionsClient.NewVersionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated function versions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1352,17 +2248,165 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := assetsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create asset response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of assets are successfully retrieved", func() {
+			pageOptions := &assets.AssetsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := assetsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the assets page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("assets"))
+
+				assets := resp.Assets
+				Expect(assets).ToNot(BeNil())
+				Expect(len(assets)).To(Equal(1))
+
+				Expect(assets[0].Sid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assets[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assets[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assets[0].FriendlyName).To(Equal("Test Asset 2"))
+				Expect(assets[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(assets[0].DateUpdated).To(BeNil())
+				Expect(assets[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of assets api returns a 500 response", func() {
+			pageOptions := &assets.AssetsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := assetsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the assets page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated assets are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := assetsClient.NewAssetsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated assets current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated assets results should be returned", func() {
+				Expect(len(paginator.Assets)).To(Equal(3))
+			})
+		})
+
+		Describe("When the assets api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := assetsClient.NewAssetsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated assets current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1677,17 +2721,166 @@ var _ = Describe("Serverless V1", func() {
 
 			resp, err := assetVersionsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create asset version response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of asset versions are successfully retrieved", func() {
+			pageOptions := &assetVersions.VersionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetVersionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := assetVersionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the asset versions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("asset_versions"))
+
+				assetVersions := resp.Versions
+				Expect(assetVersions).ToNot(BeNil())
+				Expect(len(assetVersions)).To(Equal(1))
+
+				Expect(assetVersions[0].Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].AssetSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].Path).To(Equal("/test"))
+				Expect(assetVersions[0].Visibility).To(Equal("public"))
+				Expect(assetVersions[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(assetVersions[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of asset versions api returns a 500 response", func() {
+			pageOptions := &assetVersions.VersionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := assetVersionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the asset versions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated asset versions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetVersionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetVersionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := assetVersionsClient.NewVersionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated asset versions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated asset versions results should be returned", func() {
+				Expect(len(paginator.Versions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the asset versions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/assetVersionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := assetVersionsClient.NewVersionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated asset versions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1744,8 +2937,8 @@ var _ = Describe("Serverless V1", func() {
 		})
 	})
 
-	Describe("Given the build client", func() {
-		buildClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Builds
+	Describe("Given the builds client", func() {
+		buildsClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Builds
 
 		Describe("When the build is successfully created", func() {
 			createInput := &builds.CreateBuildInput{}
@@ -1759,7 +2952,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := buildClient.Create(createInput)
+			resp, err := buildsClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1820,19 +3013,199 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := buildClient.Create(createInput)
+			resp, err := buildsClient.Create(createInput)
 			It("Then an error should be returned", func() {
-				Expect(err).ToNot(BeNil())
-				twilioErr, ok := err.(*utils.TwilioError)
-				Expect(ok).To(Equal(true))
-				Expect(twilioErr.Code).To(BeNil())
-				Expect(twilioErr.Message).To(Equal("An error occurred"))
-				Expect(twilioErr.MoreInfo).To(BeNil())
-				Expect(twilioErr.Status).To(Equal(500))
+				ExpectInternalServerError(err)
 			})
 
 			It("Then the create build response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of builds are successfully retrieved", func() {
+			pageOptions := &builds.BuildsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/buildsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := buildsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the builds page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("builds"))
+
+				builds := resp.Builds
+				Expect(builds).ToNot(BeNil())
+				Expect(len(builds)).To(Equal(1))
+
+				Expect(builds[0].Sid).To(Equal("ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(builds[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(builds[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				Expect(builds[0].AssetVersions).ToNot(BeNil())
+
+				assetVersions := *builds[0].AssetVersions
+				Expect(len(assetVersions)).To(Equal(1))
+				Expect(assetVersions[0].Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].AssetSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(assetVersions[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(assetVersions[0].Path).To(Equal("/asset-test"))
+				Expect(assetVersions[0].Visibility).To(Equal("PUBLIC"))
+
+				Expect(builds[0].FunctionVersions).ToNot(BeNil())
+
+				functionVersions := *builds[0].FunctionVersions
+				Expect(len(functionVersions)).To(Equal(1))
+				Expect(functionVersions[0].Sid).To(Equal("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"))
+				Expect(functionVersions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functionVersions[0].ServiceSid).To(Equal("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(functionVersions[0].FunctionSid).To(Equal("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"))
+				Expect(functionVersions[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(functionVersions[0].Path).To(Equal("/function-test"))
+				Expect(functionVersions[0].Visibility).To(Equal("PUBLIC"))
+
+				Expect(builds[0].Dependencies).ToNot(BeNil())
+
+				dependencies := *builds[0].Dependencies
+				Expect(len(dependencies)).To(Equal(1))
+				Expect(dependencies[0].Name).To(Equal("twilio"))
+				Expect(dependencies[0].Version).To(Equal("3.6.3"))
+
+				Expect(builds[0].Status).To(Equal("building"))
+				Expect(builds[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(builds[0].DateUpdated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
+				Expect(builds[0].URL).To(Equal("https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds/ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of builds api returns a 500 response", func() {
+			pageOptions := &builds.BuildsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := buildsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the builds page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated builds are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/buildsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/buildsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := buildsClient.NewBuildsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated builds current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated builds results should be returned", func() {
+				Expect(len(paginator.Builds)).To(Equal(3))
+			})
+		})
+
+		Describe("When the builds api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/buildsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Builds?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := buildsClient.NewBuildsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated builds current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
@@ -1945,6 +3318,16 @@ var _ = Describe("Serverless V1", func() {
 		})
 	})
 })
+
+func ExpectInternalServerError(err error) {
+	Expect(err).ToNot(BeNil())
+	twilioErr, ok := err.(*utils.TwilioError)
+	Expect(ok).To(Equal(true))
+	Expect(twilioErr.Code).To(BeNil())
+	Expect(twilioErr.Message).To(Equal("An error occurred"))
+	Expect(twilioErr.MoreInfo).To(BeNil())
+	Expect(twilioErr.Status).To(Equal(500))
+}
 
 func ExpectInvalidInputError(err error) {
 	ExpectErrorToNotBeATwilioError(err)

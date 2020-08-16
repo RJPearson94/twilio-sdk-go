@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "variables"
+  },
+  "variables": [
+    {
+      "sid": "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "environment_sid": "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "key": "key",
+      "value": "value",
+      "date_created": "2018-11-10T20:00:00Z",
+      "date_updated": null,
+      "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

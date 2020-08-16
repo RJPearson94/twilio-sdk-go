@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://serverless.twilio.com/v1/Services?PageSize=50&Page=0",
+    "previous_page_url": "https://serverless.twilio.com/v1/Services?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://serverless.twilio.com/v1/Services?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "services"
+  },
+  "services": [
+    {
+      "sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "friendly_name": "Test 2",
+      "unique_name": "Unique Test 2",
+      "include_credentials": true,
+      "ui_editable": false,
+      "date_created": "2018-11-10T20:00:00Z",
+      "date_updated": null,
+      "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "links": {
+        "environments": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Environments",
+        "functions": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Functions",
+        "assets": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Assets",
+        "builds": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Builds"
+      }
+    }
+  ]
+}

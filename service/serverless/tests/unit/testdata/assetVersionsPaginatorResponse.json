@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0",
+    "next_page_url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "asset_versions"
+  },
+  "asset_versions": [
+    {
+      "sid": "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "asset_sid": "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "path": "/test",
+      "visibility": "public",
+      "date_created": "2018-11-10T20:00:00Z",
+      "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "links": {
+        "asset_version_content": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Content"
+      }
+    },
+    {
+      "sid": "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "asset_sid": "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "path": "/test",
+      "visibility": "public",
+      "date_created": "2018-11-10T20:00:00Z",
+      "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "links": {
+        "asset_version_content": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Content"
+      }
+    }
+  ]
+}
