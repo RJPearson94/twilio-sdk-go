@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://sync.twilio.com/v1/Services?PageSize=50&Page=0",
+    "previous_page_url": "https://sync.twilio.com/v1/Services?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://sync.twilio.com/v1/Services?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "services"
+  },
+  "services": [
+    {
+      "unique_name": null,
+      "acl_enabled": false,
+      "reachability_debouncing_window": 5000,
+      "date_updated": null,
+      "reachability_debouncing_enabled": false,
+      "friendly_name": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "reachability_webhooks_enabled": false,
+      "sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "2020-06-20T20:50:24Z",
+      "webhook_url": null,
+      "webhooks_from_rest_enabled": false,
+      "links": {
+        "maps": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Maps",
+        "documents": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Documents",
+        "streams": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Streams",
+        "lists": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Lists"
+      }
+    }
+  ]
+}

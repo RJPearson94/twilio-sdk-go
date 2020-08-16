@@ -57,7 +57,7 @@ func (c Client) Page(options *DocumentPermissionsPageOptions) (*DocumentPermissi
 func (c Client) PageWithContext(context context.Context, options *DocumentPermissionsPageOptions) (*DocumentPermissionsPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
-		URI:    "/Services/{serviceSid}/Documents",
+		URI:    "/Services/{serviceSid}/Documents/{documentSid}/Permissions",
 		PathParams: map[string]string{
 			"serviceSid":  c.serviceSid,
 			"documentSid": c.documentSid,

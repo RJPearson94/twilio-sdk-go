@@ -248,7 +248,7 @@
                 {
                   "name": "Page",
                   "http": {
-                    "uri": "/Services/{serviceSid}/Documents",
+                    "uri": "/Services/{serviceSid}/Documents/{documentSid}/Permissions",
                     "method": "Get",
                     "pathParams": [
                       {
