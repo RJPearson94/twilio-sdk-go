@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "workflows"
+  },
+  "workflows": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "assignment_callback_url": "https://example.com/",
+      "configuration": {
+        "task_routing": {
+          "default_filter": {
+            "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          },
+          "filters": [
+            {
+              "expression": "type=='sales'",
+              "targets": [
+                {
+                  "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                }
+              ]
+            },
+            {
+              "expression": "type=='marketing'",
+              "targets": [
+                {
+                  "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"
+                }
+              ]
+            },
+            {
+              "expression": "type=='support'",
+              "targets": [
+                {
+                  "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "date_created": "2020-06-27T23:00:00Z",
+      "date_updated": null,
+      "document_content_type": "application/json",
+      "fallback_assignment_callback_url": "https://example2.com/",
+      "friendly_name": "Sales, Marketing, Support Workflow",
+      "sid": "WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "task_reservation_timeout": 120,
+      "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "links": {
+        "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+        "real_time_statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+        "cumulative_statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics"
+      }
+    }
+  ]
+}
