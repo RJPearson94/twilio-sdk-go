@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?PageSize=50&Page=0",
+    "next_page_url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "media"
+  },
+  "media": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "content_type": "application/pdf",
+      "date_created": "2020-06-20T20:50:24Z",
+      "date_updated": null,
+      "fax_sid": "FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "content_type": "application/pdf",
+      "date_created": "2020-06-20T20:50:24Z",
+      "date_updated": null,
+      "fax_sid": "FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}

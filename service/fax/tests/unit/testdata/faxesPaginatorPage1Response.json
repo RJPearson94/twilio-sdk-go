@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://fax.twilio.com/v1/Faxes?PageSize=50&Page=0",
+    "previous_page_url": "https://fax.twilio.com/v1/Faxes?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://fax.twilio.com/v1/Faxes?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "faxes"
+  },
+  "faxes": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "api_version": "v1",
+      "date_created": "2020-06-20T20:50:24Z",
+      "date_updated": null,
+      "direction": "outbound",
+      "from": "+1123456789",
+      "media_url": "http://localhost/media",
+      "media_sid": null,
+      "num_pages": null,
+      "price": null,
+      "price_unit": null,
+      "quality": "superfine",
+      "sid": "FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "status": "queued",
+      "to": "+1987654321",
+      "duration": null,
+      "links": {
+        "media": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Media"
+      },
+      "url": "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"
+    }
+  ]
+}

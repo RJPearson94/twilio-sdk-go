@@ -40,6 +40,69 @@
               "description": "defines the response fields for the created fax"
             }
           }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Faxes",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "From",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "To",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedOnOrBefore",
+                "type": "time.Time",
+                "required": false
+              },
+              {
+                "name": "DateCreatedAfters",
+                "type": "time.Time",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of faxes",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-resource#read-multiple-fax-resources"
+          },
+          "response": {
+            "structure": "FaxesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the faxes page"
+            }
+          },
+          "pagination": {
+            "name": "FaxesPaginator",
+            "page": {
+              "name": "FaxesPage",
+              "nextToken": "PageToken",
+              "items": "Faxes",
+              "structure": "PageFaxResponse"
+            }
+          }
         }
       ]
     },
@@ -57,8 +120,77 @@
       },
       "subClients": [
         {
-          "name": "Media",
-          "packageName": "media",
+          "name": "Media Files",
+          "packageName": "media_files",
+          "properties": {
+            "faxSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing media resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-media-resource"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Faxes/{faxSid}/Media",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "faxSid",
+                    "value": {
+                      "onService": true,
+                      "property": "faxSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of fax media files",
+                "twilioDocsLink": "https://www.twilio.com/docs/fax/api/fax-media-resource#read-multiple-fax-media-resources"
+              },
+              "response": {
+                "structure": "MediaPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the fax media page"
+                }
+              },
+              "pagination": {
+                "name": "MediaPaginator",
+                "page": {
+                  "name": "MediaPage",
+                  "nextToken": "PageToken",
+                  "items": "Media",
+                  "structure": "PageMediaResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Media File",
+          "packageName": "media_file",
           "function": {
             "parameters": {
               "mediaSid": {
@@ -307,6 +439,26 @@
         }
       ]
     },
+    "FaxesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Faxes",
+          "type": "array",
+          "items": {
+            "structure": "FaxResponse"
+          },
+          "value": "faxes",
+          "required": true
+        }
+      ]
+    },
     "FaxResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -385,6 +537,26 @@
         }
       ]
     },
+    "MediaPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Media",
+          "type": "array",
+          "items": {
+            "structure": "MediaResponse"
+          },
+          "value": "media",
+          "required": true
+        }
+      ]
+    },
     "MediaResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -399,6 +571,53 @@
           "name": "ContentType",
           "type": "string",
           "value": "content_type",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
           "required": true
         }
       ]

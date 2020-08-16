@@ -13,6 +13,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/service/fax"
 	faxResource "github.com/RJPearson94/twilio-sdk-go/service/fax/v1/fax"
+	"github.com/RJPearson94/twilio-sdk-go/service/fax/v1/fax/media_files"
 	"github.com/RJPearson94/twilio-sdk-go/service/fax/v1/faxes"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -284,8 +285,166 @@ var _ = Describe("Fax V1", func() {
 		})
 	})
 
-	Describe("Given I have a media sid", func() {
-		mediaClient := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+	Describe("Given I have a media files client", func() {
+		mediaFilesClient := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaFiles
+
+		Describe("When the page of media are successfully retrieved", func() {
+			pageOptions := &media_files.MediaPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/mediaPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := mediaFilesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the media page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("media"))
+
+				media := resp.Media
+				Expect(media).ToNot(BeNil())
+				Expect(len(media)).To(Equal(1))
+
+				Expect(media[0].Sid).To(Equal("MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(media[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(media[0].FaxSid).To(Equal("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(media[0].ContentType).To(Equal("application/pdf"))
+				Expect(media[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(media[0].DateUpdated).To(BeNil())
+				Expect(media[0].URL).To(Equal("https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of media api returns a 500 response", func() {
+			pageOptions := &media_files.MediaPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := mediaFilesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the media page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated media are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/mediaPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/mediaPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := mediaFilesClient.NewMediaPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated media current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated media results should be returned", func() {
+				Expect(len(paginator.Media)).To(Equal(3))
+			})
+		})
+
+		Describe("When the media api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/mediaPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := mediaFilesClient.NewMediaPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated media current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a media file sid", func() {
+		mediaClient := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaFile("MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the media resource is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -324,7 +483,7 @@ var _ = Describe("Fax V1", func() {
 				},
 			)
 
-			resp, err := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("ME71").Fetch()
+			resp, err := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaFile("ME71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -353,7 +512,7 @@ var _ = Describe("Fax V1", func() {
 				},
 			)
 
-			err := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Media("ME71").Delete()
+			err := faxSession.Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaFile("ME71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

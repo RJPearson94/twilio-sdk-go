@@ -3,7 +3,8 @@ package fax
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
-	"github.com/RJPearson94/twilio-sdk-go/service/fax/v1/fax/media"
+	"github.com/RJPearson94/twilio-sdk-go/service/fax/v1/fax/media_file"
+	"github.com/RJPearson94/twilio-sdk-go/service/fax/v1/fax/media_files"
 )
 
 // Client for managing a specific fax resource
@@ -13,7 +14,8 @@ type Client struct {
 
 	sid string
 
-	Media func(string) *media.Client
+	MediaFile  func(string) *media_file.Client
+	MediaFiles *media_files.Client
 }
 
 // ClientProperties are the properties required to manage the fax resources
@@ -28,11 +30,14 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
-		Media: func(mediaSid string) *media.Client {
-			return media.New(client, media.ClientProperties{
+		MediaFile: func(mediaSid string) *media_file.Client {
+			return media_file.New(client, media_file.ClientProperties{
 				FaxSid: properties.Sid,
 				Sid:    mediaSid,
 			})
 		},
+		MediaFiles: media_files.New(client, media_files.ClientProperties{
+			FaxSid: properties.Sid,
+		}),
 	}
 }
