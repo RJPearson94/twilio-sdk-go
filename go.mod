@@ -3,7 +3,7 @@ module github.com/RJPearson94/twilio-sdk-go
 go 1.14
 
 require (
-	github.com/Jeffail/gabs/v2 v2.5.1
+	github.com/Jeffail/gabs/v2 v2.6.0
 	github.com/go-playground/form v3.1.4+incompatible
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible
