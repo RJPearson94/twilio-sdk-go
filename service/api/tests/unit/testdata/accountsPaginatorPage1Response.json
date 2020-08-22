@@ -1,0 +1,45 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts.json?PageSize=50&Page=0",
+  "end": 1,
+  "previous_page_uri": "/2010-04-01/Accounts.json?PageSize=50&Page=0&PageToken=zyx9876",
+  "uri": "/2010-04-01/Accounts.json?PageSize=50&Page=1&PageToken=abc1234",
+  "page_size": 50,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 1,
+  "accounts": [
+    {
+      "status": "active",
+      "date_updated": null,
+      "auth_token": "TestToken",
+      "friendly_name": "Test",
+      "owner_account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3.json",
+      "sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "type": "Trial",
+      "subresource_uris": {
+        "addresses": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Addresses.json",
+        "conferences": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Conferences.json",
+        "signing_keys": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/SigningKeys.json",
+        "transcriptions": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Transcriptions.json",
+        "connect_apps": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/ConnectApps.json",
+        "sip": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/SIP.json",
+        "authorized_connect_apps": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/AuthorizedConnectApps.json",
+        "usage": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Usage.json",
+        "keys": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Keys.json",
+        "applications": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Applications.json",
+        "recordings": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Recordings.json",
+        "short_codes": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/SMS/ShortCodes.json",
+        "calls": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Calls.json",
+        "notifications": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Notifications.json",
+        "incoming_phone_numbers": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/IncomingPhoneNumbers.json",
+        "queues": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Queues.json",
+        "messages": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Messages.json",
+        "outgoing_caller_ids": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/OutgoingCallerIds.json",
+        "available_phone_numbers": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/AvailablePhoneNumbers.json",
+        "balance": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Balance.json"
+      }
+    }
+  ]
+}

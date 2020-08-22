@@ -1,0 +1,21 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json?PageSize=50&Page=0",
+  "end": 1,
+  "previous_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json?PageSize=50&Page=0&PageToken=zyx9876",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json?PageSize=50&Page=1&PageToken=abc1234",
+  "page_size": 50,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 1,
+  "media": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "content_type": "image/jpeg",
+      "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "date_updated": null,
+      "parent_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3.json"
+    }
+  ]
+}
