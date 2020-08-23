@@ -30,20 +30,20 @@ type PageMetaResponse struct {
 }
 
 type PageRevisionResponse struct {
-	AccountSid    string         `json:"account_sid"`
-	CommitMessage *string        `json:"commit_message,omitempty"`
-	DateCreated   time.Time      `json:"date_created"`
-	DateUpdated   *time.Time     `json:"date_updated,omitempty"`
-	Definition    interface{}    `json:"definition"`
-	Errors        *[]interface{} `json:"errors,omitempty"`
-	FriendlyName  string         `json:"friendly_name"`
-	Revision      int            `json:"revision"`
-	Sid           string         `json:"sid"`
-	Status        string         `json:"status"`
-	URL           string         `json:"url"`
-	Valid         bool           `json:"valid"`
-	Warnings      *[]interface{} `json:"warnings,omitempty"`
-	WebhookURL    string         `json:"webhook_url"`
+	AccountSid    string                 `json:"account_sid"`
+	CommitMessage *string                `json:"commit_message,omitempty"`
+	DateCreated   time.Time              `json:"date_created"`
+	DateUpdated   *time.Time             `json:"date_updated,omitempty"`
+	Definition    map[string]interface{} `json:"definition"`
+	Errors        *[]interface{}         `json:"errors,omitempty"`
+	FriendlyName  string                 `json:"friendly_name"`
+	Revision      int                    `json:"revision"`
+	Sid           string                 `json:"sid"`
+	Status        string                 `json:"status"`
+	URL           string                 `json:"url"`
+	Valid         bool                   `json:"valid"`
+	Warnings      *[]interface{}         `json:"warnings,omitempty"`
+	WebhookURL    string                 `json:"webhook_url"`
 }
 
 // RevisionsPageResponse defines the response fields for the flow revisions page

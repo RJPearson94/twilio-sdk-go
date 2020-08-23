@@ -1096,7 +1096,10 @@
         },
         {
           "name": "Definition",
-          "type": "interface{}",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
           "value": "definition",
           "required": true
         },
