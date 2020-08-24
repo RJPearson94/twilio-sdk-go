@@ -11,12 +11,13 @@ import (
 
 type FetchFlexFlowResponseIntegration struct {
 	Channel           *string `json:"channel,omitempty"`
-	CreationOnMessage *string `json:"creation_on_message,omitempty"`
+	CreationOnMessage *bool   `json:"creation_on_message,omitempty"`
 	FlowSid           *string `json:"flow_sid,omitempty"`
 	Priority          *int    `json:"priority,omitempty"`
 	RetryCount        *int    `json:"retry_count,omitempty"`
 	Timeout           *int    `json:"timeout,omitempty"`
 	URL               *string `json:"url,omitempty"`
+	WorkflowSid       *string `json:"workflow_sid,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
 }
 

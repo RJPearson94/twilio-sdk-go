@@ -1312,6 +1312,12 @@
           "required": false
         },
         {
+          "name": "IntegrationWorkflowSid",
+          "type": "string",
+          "value": "Integration.WorkflowSid",
+          "required": false
+        },
+        {
           "name": "IntegrationChannel",
           "type": "string",
           "value": "Integration.Channel",
@@ -1331,7 +1337,7 @@
         },
         {
           "name": "IntegrationCreationOnMessage",
-          "type": "string",
+          "type": "bool",
           "value": "Integration.CreationOnMessage",
           "required": false
         },
@@ -1371,6 +1377,12 @@
           "required": false
         },
         {
+          "name": "WorkflowSid",
+          "type": "string",
+          "value": "workflow_sid",
+          "required": false
+        },
+        {
           "name": "WorkspaceSid",
           "type": "string",
           "value": "workspace_sid",
@@ -1396,7 +1408,7 @@
         },
         {
           "name": "CreationOnMessage",
-          "type": "string",
+          "type": "bool",
           "value": "creation_on_message",
           "required": false
         },

@@ -17,13 +17,14 @@ type UpdateFlexFlowInput struct {
 	Enabled                      *bool   `form:"Enabled,omitempty"`
 	FriendlyName                 *string `form:"FriendlyName,omitempty"`
 	IntegrationChannel           *string `form:"Integration.Channel,omitempty"`
-	IntegrationCreationOnMessage *string `form:"Integration.CreationOnMessage,omitempty"`
+	IntegrationCreationOnMessage *bool   `form:"Integration.CreationOnMessage,omitempty"`
 	IntegrationFlowSid           *string `form:"Integration.FlowSid,omitempty"`
 	IntegrationPriority          *int    `form:"Integration.Priority,omitempty"`
 	IntegrationRetryCount        *int    `form:"Integration.RetryCount,omitempty"`
 	IntegrationTimeout           *int    `form:"Integration.Timeout,omitempty"`
 	IntegrationType              *string `form:"IntegrationType,omitempty"`
 	IntegrationURL               *string `form:"Integration.Url,omitempty"`
+	IntegrationWorkflowSid       *string `form:"Integration.WorkflowSid,omitempty"`
 	IntegrationWorkspaceSid      *string `form:"Integration.WorkspaceSid,omitempty"`
 	JanitorEnabled               *bool   `form:"JanitorEnabled,omitempty"`
 	LongLived                    *bool   `form:"LongLived,omitempty"`
@@ -31,12 +32,13 @@ type UpdateFlexFlowInput struct {
 
 type UpdateFlexFlowResponseIntegration struct {
 	Channel           *string `json:"channel,omitempty"`
-	CreationOnMessage *string `json:"creation_on_message,omitempty"`
+	CreationOnMessage *bool   `json:"creation_on_message,omitempty"`
 	FlowSid           *string `json:"flow_sid,omitempty"`
 	Priority          *int    `json:"priority,omitempty"`
 	RetryCount        *int    `json:"retry_count,omitempty"`
 	Timeout           *int    `json:"timeout,omitempty"`
 	URL               *string `json:"url,omitempty"`
+	WorkflowSid       *string `json:"workflow_sid,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
 }
 
