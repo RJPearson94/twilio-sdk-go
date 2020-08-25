@@ -19,18 +19,18 @@ type UpdateWorkerInput struct {
 
 // UpdateWorkflowResponse defines the response fields for the updated worker
 type UpdateWorkflowResponse struct {
-	AccountSid        string      `json:"account_sid"`
-	ActivityName      string      `json:"activity_name"`
-	ActivitySid       string      `json:"activity_sid"`
-	Attributes        interface{} `json:"attributes"`
-	Available         bool        `json:"available"`
-	DateCreated       time.Time   `json:"date_created"`
-	DateStatusChanged *time.Time  `json:"date_status_changed,omitempty"`
-	DateUpdated       *time.Time  `json:"date_updated,omitempty"`
-	FriendlyName      string      `json:"friendly_name"`
-	Sid               string      `json:"sid"`
-	URL               string      `json:"url"`
-	WorkspaceSid      string      `json:"workspace_sid"`
+	AccountSid        string     `json:"account_sid"`
+	ActivityName      string     `json:"activity_name"`
+	ActivitySid       string     `json:"activity_sid"`
+	Attributes        string     `json:"attributes"`
+	Available         bool       `json:"available"`
+	DateCreated       time.Time  `json:"date_created"`
+	DateStatusChanged *time.Time `json:"date_status_changed,omitempty"`
+	DateUpdated       *time.Time `json:"date_updated,omitempty"`
+	FriendlyName      string     `json:"friendly_name"`
+	Sid               string     `json:"sid"`
+	URL               string     `json:"url"`
+	WorkspaceSid      string     `json:"workspace_sid"`
 }
 
 // Update modifies a worker resource

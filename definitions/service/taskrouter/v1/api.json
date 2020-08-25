@@ -2155,7 +2155,7 @@
         },
         {
           "name": "Configuration",
-          "type": "interface{}",
+          "type": "string",
           "value": "configuration",
           "required": true
         }
@@ -2258,7 +2258,7 @@
         },
         {
           "name": "Attributes",
-          "type": "interface{}",
+          "type": "string",
           "value": "attributes",
           "required": true
         },

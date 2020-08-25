@@ -21,18 +21,18 @@ type UpdateWorkflowInput struct {
 
 // UpdateWorkflowResponse defines the response fields for the updated workflow
 type UpdateWorkflowResponse struct {
-	AccountSid                    string      `json:"account_sid"`
-	AssignmentCallbackURL         *string     `json:"assignment_callback_url,omitempty"`
-	Configuration                 interface{} `json:"configuration"`
-	DateCreated                   time.Time   `json:"date_created"`
-	DateUpdated                   *time.Time  `json:"date_updated,omitempty"`
-	DocumentContentType           string      `json:"document_content_type"`
-	FallbackAssignmentCallbackURL *string     `json:"fallback_assignment_callback_url,omitempty"`
-	FriendlyName                  string      `json:"friendly_name"`
-	Sid                           string      `json:"sid"`
-	TaskReservationTimeout        int         `json:"task_reservation_timeout"`
-	URL                           string      `json:"url"`
-	WorkspaceSid                  string      `json:"workspace_sid"`
+	AccountSid                    string     `json:"account_sid"`
+	AssignmentCallbackURL         *string    `json:"assignment_callback_url,omitempty"`
+	Configuration                 string     `json:"configuration"`
+	DateCreated                   time.Time  `json:"date_created"`
+	DateUpdated                   *time.Time `json:"date_updated,omitempty"`
+	DocumentContentType           string     `json:"document_content_type"`
+	FallbackAssignmentCallbackURL *string    `json:"fallback_assignment_callback_url,omitempty"`
+	FriendlyName                  string     `json:"friendly_name"`
+	Sid                           string     `json:"sid"`
+	TaskReservationTimeout        int        `json:"task_reservation_timeout"`
+	URL                           string     `json:"url"`
+	WorkspaceSid                  string     `json:"workspace_sid"`
 }
 
 // Update modifies a workflow resource

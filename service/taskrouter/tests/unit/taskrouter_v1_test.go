@@ -815,11 +815,10 @@ var _ = Describe("Taskrouter V1", func() {
 		workflowsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflows
 
 		Describe("When the workflow is successfully created", func() {
-			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
-
+			configuration := "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}"
 			createInput := &workflows.CreateWorkflowInput{
 				FriendlyName:  "Test 2",
-				Configuration: string(taskRoutingConfiguration),
+				Configuration: configuration,
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows",
@@ -840,11 +839,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
-
-				configuration := make(map[string]interface{})
-				json.Unmarshal(taskRoutingConfiguration, &configuration)
 				Expect(resp.Configuration).To(Equal(configuration))
-
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
 				Expect(resp.DocumentContentType).To(Equal("application/json"))
@@ -858,10 +853,9 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 
 		Describe("When the workflow request does not contain a friendly name", func() {
-			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
-
+			configuration := "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}"
 			createInput := &workflows.CreateWorkflowInput{
-				Configuration: string(taskRoutingConfiguration),
+				Configuration: configuration,
 			}
 
 			resp, err := workflowsClient.Create(createInput)
@@ -890,11 +884,10 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 
 		Describe("When the workflow api returns a 500 response", func() {
-			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
-
+			configuration := "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}"
 			createInput := &workflows.CreateWorkflowInput{
 				FriendlyName:  "Test 2",
-				Configuration: string(taskRoutingConfiguration),
+				Configuration: configuration,
 			}
 
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows",
@@ -956,9 +949,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(workflows[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(workflows[0].AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
 
-				taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
-				configuration := make(map[string]interface{})
-				json.Unmarshal(taskRoutingConfiguration, &configuration)
+				configuration := "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}"
 				Expect(workflows[0].Configuration).To(Equal(configuration))
 
 				Expect(workflows[0].DateUpdated).To(BeNil())
@@ -1085,8 +1076,6 @@ var _ = Describe("Taskrouter V1", func() {
 		workflowClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the workflow is successfully retrieved", func() {
-			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
-
 			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/workflowsResponse.json")
@@ -1106,8 +1095,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
 
-				configuration := make(map[string]interface{})
-				json.Unmarshal(taskRoutingConfiguration, &configuration)
+				configuration := "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}"
 				Expect(resp.Configuration).To(Equal(configuration))
 
 				Expect(resp.DateUpdated).To(BeNil())
@@ -1143,8 +1131,6 @@ var _ = Describe("Taskrouter V1", func() {
 		})
 
 		Describe("When the workflow is successfully updated", func() {
-			taskRoutingConfiguration, _ := ioutil.ReadFile("testdata/taskRoutingConfiguration.json")
-
 			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/updatedWorkflowsResponse.json")
@@ -1166,8 +1152,7 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AssignmentCallbackURL).To(Equal(utils.String("https://example.com/")))
 
-				configuration := make(map[string]interface{})
-				json.Unmarshal(taskRoutingConfiguration, &configuration)
+				configuration := "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}"
 				Expect(resp.Configuration).To(Equal(configuration))
 
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
@@ -1261,11 +1246,8 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.ActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ActivityName).To(Equal("Offline"))
 				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				attributes := make(map[string]interface{})
-				Expect(resp.Attributes).To(Equal(attributes))
+				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Available).To(Equal(false))
-
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
 				Expect(resp.DateStatusChanged.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
@@ -1352,11 +1334,8 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(workers[0].ActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(workers[0].ActivityName).To(Equal("Offline"))
 				Expect(workers[0].WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				attributes := make(map[string]interface{})
-				Expect(workers[0].Attributes).To(Equal(attributes))
+				Expect(workers[0].Attributes).To(Equal("{}"))
 				Expect(workers[0].Available).To(Equal(false))
-
 				Expect(workers[0].DateUpdated).To(BeNil())
 				Expect(workers[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
 				Expect(workers[0].DateStatusChanged.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
@@ -1497,11 +1476,8 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.ActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ActivityName).To(Equal("Offline"))
 				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				attributes := make(map[string]interface{})
-				Expect(resp.Attributes).To(Equal(attributes))
+				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Available).To(Equal(false))
-
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
 				Expect(resp.DateStatusChanged.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
@@ -1553,11 +1529,8 @@ var _ = Describe("Taskrouter V1", func() {
 				Expect(resp.ActivitySid).To(Equal("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ActivityName).To(Equal("Offline"))
 				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
-				attributes := make(map[string]interface{})
-				Expect(resp.Attributes).To(Equal(attributes))
+				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Available).To(Equal(false))
-
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
 				Expect(resp.DateStatusChanged.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))

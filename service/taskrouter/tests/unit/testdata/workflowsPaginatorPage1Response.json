@@ -12,39 +12,7 @@
     {
       "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "assignment_callback_url": "https://example.com/",
-      "configuration": {
-        "task_routing": {
-          "default_filter": {
-            "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-          },
-          "filters": [
-            {
-              "expression": "type=='sales'",
-              "targets": [
-                {
-                  "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                }
-              ]
-            },
-            {
-              "expression": "type=='marketing'",
-              "targets": [
-                {
-                  "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"
-                }
-              ]
-            },
-            {
-              "expression": "type=='support'",
-              "targets": [
-                {
-                  "queue": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
-                }
-              ]
-            }
-          ]
-        }
-      },
+      "configuration": "{\"task_routing\":{\"default_filter\":{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"},\"filters\":[{\"expression\":\"type=='sales'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]},{\"expression\":\"type=='marketing'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1\"}]},{\"expression\":\"type=='support'\",\"targets\":[{\"queue\":\"WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2\"}]}]}}",
       "date_created": "2020-06-27T23:00:00Z",
       "date_updated": null,
       "document_content_type": "application/json",
