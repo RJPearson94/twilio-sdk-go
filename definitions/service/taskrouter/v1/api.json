@@ -2082,7 +2082,7 @@
         {
           "name": "FallbackAssignmentCallbackURL",
           "type": "string",
-          "value": "fallbackAssignmentCallbackUrl",
+          "value": "FallbackAssignmentCallbackUrl",
           "required": false
         },
         {

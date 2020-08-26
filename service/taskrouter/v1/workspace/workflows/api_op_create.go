@@ -13,7 +13,7 @@ import (
 type CreateWorkflowInput struct {
 	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
 	Configuration                 string  `validate:"required" form:"Configuration"`
-	FallbackAssignmentCallbackURL *string `form:"fallbackAssignmentCallbackUrl,omitempty"`
+	FallbackAssignmentCallbackURL *string `form:"FallbackAssignmentCallbackUrl,omitempty"`
 	FriendlyName                  string  `validate:"required" form:"FriendlyName"`
 	TaskReservationTimeout        *int    `form:"TaskReservationTimeout,omitempty"`
 }

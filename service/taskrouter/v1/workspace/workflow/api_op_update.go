@@ -13,7 +13,7 @@ import (
 type UpdateWorkflowInput struct {
 	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
 	Configuration                 *string `form:"Configuration,omitempty"`
-	FallbackAssignmentCallbackURL *string `form:"fallbackAssignmentCallbackUrl,omitempty"`
+	FallbackAssignmentCallbackURL *string `form:"FallbackAssignmentCallbackUrl,omitempty"`
 	FriendlyName                  *string `form:"FriendlyName,omitempty"`
 	ReEvaluateTasks               *bool   `form:"ReEvaluateTasks,omitempty"`
 	TaskReservationTimeout        *int    `form:"TaskReservationTimeout,omitempty"`
