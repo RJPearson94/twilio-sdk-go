@@ -1091,6 +1091,9 @@
                 {
                   "name": "Content",
                   "packageName": "content",
+                  "function": {
+                    "parameters": {}
+                  },
                   "properties": {
                     "serviceSid": {
                       "dataType": "string",

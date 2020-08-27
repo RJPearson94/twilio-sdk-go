@@ -370,7 +370,7 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 		})
 
 		It("Then the function version content is fetched", func() {
-			functionVersionContentClient := serverlessSession.Service(serviceSid).Function(functionSid).Version(versionSid).Content
+			functionVersionContentClient := serverlessSession.Service(serviceSid).Function(functionSid).Version(versionSid).Content()
 
 			fetchResp, fetchErr := functionVersionContentClient.Fetch()
 			Expect(fetchErr).To(BeNil())

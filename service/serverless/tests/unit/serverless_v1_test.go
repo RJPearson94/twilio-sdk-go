@@ -2136,7 +2136,7 @@ var _ = Describe("Serverless V1", func() {
 	})
 
 	Describe("Given I have a function version content client", func() {
-		functionVersionContentClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Content
+		functionVersionContentClient := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Content()
 
 		Describe("When the function version content is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Content",
@@ -2174,7 +2174,7 @@ var _ = Describe("Serverless V1", func() {
 				},
 			)
 
-			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Content.Fetch()
+			resp, err := serverlessSession.Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("ZN71").Content().Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

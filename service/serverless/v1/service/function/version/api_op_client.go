@@ -15,7 +15,7 @@ type Client struct {
 	serviceSid  string
 	sid         string
 
-	Content *content.Client
+	Content func() *content.Client
 }
 
 // ClientProperties are the properties required to manage the version resources
@@ -34,10 +34,12 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		serviceSid:  properties.ServiceSid,
 		sid:         properties.Sid,
 
-		Content: content.New(client, content.ClientProperties{
-			FunctionSid: properties.FunctionSid,
-			ServiceSid:  properties.ServiceSid,
-			VersionSid:  properties.Sid,
-		}),
+		Content: func() *content.Client {
+			return content.New(client, content.ClientProperties{
+				FunctionSid: properties.FunctionSid,
+				ServiceSid:  properties.ServiceSid,
+				VersionSid:  properties.Sid,
+			})
+		},
 	}
 }
