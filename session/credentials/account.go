@@ -21,6 +21,10 @@ func (account Account) Validate() error {
 	return nil
 }
 
+func (account Account) AccountSid() string {
+	return account.Sid
+}
+
 func (account Account) username() string {
 	return account.Sid
 }

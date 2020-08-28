@@ -9,8 +9,9 @@ import (
 // APIKey represents a Twilio API Key which can be used to authenticate
 // against the Twilio APIs
 type APIKey struct {
-	Sid   string `validate:"required,startswith=SK"`
-	Value string `validate:"required"`
+	Account string `validate:"required,startswith=AC"`
+	Sid     string `validate:"required,startswith=SK"`
+	Value   string `validate:"required"`
 }
 
 // Validate ensures the API Keys is valid
@@ -19,6 +20,10 @@ func (apiKey APIKey) Validate() error {
 		return fmt.Errorf("API Key Details Specified are invalid")
 	}
 	return nil
+}
+
+func (apiKey APIKey) AccountSid() string {
+	return apiKey.Account
 }
 
 func (apiKey APIKey) username() string {

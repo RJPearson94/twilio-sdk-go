@@ -2,8 +2,9 @@ package credentials
 
 // Credentials respresent the field necessary to authenticate against the Twilio APIs
 type Credentials struct {
-	Username string
-	Password string
+	AccountSid string
+	Username   string
+	Password   string
 }
 
 // New creates a new instance of credentials using the supplied twilio credentials.
@@ -14,7 +15,8 @@ func New(creds TwilioCredentials) (*Credentials, error) {
 	}
 
 	return &Credentials{
-		Username: creds.username(),
-		Password: creds.password(),
+		AccountSid: creds.AccountSid(),
+		Username:   creds.username(),
+		Password:   creds.password(),
 	}, nil
 }

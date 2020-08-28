@@ -72,7 +72,8 @@ var _ = Describe("Credentials", func() {
 	Describe("When invalid Api Key credential are supplied", func() {
 		Context("No Sid supplied", func() {
 			creds, err := credentials.New(credentials.APIKey{
-				Value: "Test Api Key",
+				Account: "ACxxxxxxxxxxx",
+				Value:   "Test Api Key",
 			})
 
 			It("Then an error is returned", func() {
@@ -86,7 +87,23 @@ var _ = Describe("Credentials", func() {
 
 		Context("No Value supplied", func() {
 			creds, err := credentials.New(credentials.APIKey{
-				Sid: "SKxxxxxxxxxxx",
+				Account: "ACxxxxxxxxxxx",
+				Sid:     "SKxxxxxxxxxxx",
+			})
+
+			It("Then an error is returned", func() {
+				Expect(err).To(HaveOccurred())
+			})
+
+			It("Then credentials are nil", func() {
+				Expect(creds).To(BeNil())
+			})
+		})
+
+		Context("No Account SID supplied", func() {
+			creds, err := credentials.New(credentials.APIKey{
+				Sid:   "SKxxxxxxxxxxx",
+				Value: "Test Api Key",
 			})
 
 			It("Then an error is returned", func() {
@@ -100,8 +117,25 @@ var _ = Describe("Credentials", func() {
 
 		Context("A invalid sid format", func() {
 			creds, err := credentials.New(credentials.APIKey{
-				Sid:   "Test Sid",
-				Value: "Test API Key",
+				Account: "ACxxxxxxxxxxx",
+				Sid:     "Test Sid",
+				Value:   "Test API Key",
+			})
+
+			It("Then an error is returned", func() {
+				Expect(err).To(HaveOccurred())
+			})
+
+			It("Then credentials are nil", func() {
+				Expect(creds).To(BeNil())
+			})
+		})
+
+		Context("A invalid account sid format", func() {
+			creds, err := credentials.New(credentials.APIKey{
+				Account: "Test account",
+				Sid:     "SKxxxxxxxxxxx",
+				Value:   "Test API Key",
 			})
 
 			It("Then an error is returned", func() {
@@ -114,10 +148,11 @@ var _ = Describe("Credentials", func() {
 		})
 	})
 
-	Describe("When valid Api Key credential are supplied", func() {
+	Describe("When valid API Key credential are supplied", func() {
 		creds, err := credentials.New(credentials.APIKey{
-			Sid:   "SKxxxxxxxxxxx",
-			Value: "Test Api Key",
+			Account: "ACxxxxxxxxxxx",
+			Sid:     "SKxxxxxxxxxxx",
+			Value:   "Test Api Key",
 		})
 
 		It("Then err should be nil", func() {
@@ -126,6 +161,7 @@ var _ = Describe("Credentials", func() {
 
 		It("Then credentials are nil", func() {
 			Expect(creds).ToNot(BeNil())
+			Expect(creds.AccountSid).To(Equal("ACxxxxxxxxxxx"))
 			Expect(creds.Username).To(Equal("SKxxxxxxxxxxx"))
 			Expect(creds.Password).To(Equal("Test Api Key"))
 		})
