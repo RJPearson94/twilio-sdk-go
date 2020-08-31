@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	service, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&service.UpdateServiceInput{
 			FriendlyName: utils.String("Test"),
@@ -36,5 +36,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", service.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

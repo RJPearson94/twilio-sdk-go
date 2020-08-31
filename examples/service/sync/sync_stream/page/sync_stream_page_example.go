@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncStreamsPage, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncStreams.
 		Page(&sync_streams.SyncStreamsPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v sync stream(s) found on page", len(syncStreamsPage.SyncStreams))
+	log.Printf("%v sync stream(s) found on page", len(resp.SyncStreams))
 }

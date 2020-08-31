@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncListsPage, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Permissions.
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v sync list permission(s) found on page", len(syncListsPage.Permissions))
+	log.Printf("%v sync list permission(s) found on page", len(resp.Permissions))
 }

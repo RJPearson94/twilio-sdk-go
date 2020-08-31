@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncMapsPage, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncMaps.
 		Page(&sync_maps.SyncMapsPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v sync map(s) found on page", len(syncMapsPage.SyncMaps))
+	log.Printf("%v sync map(s) found on page", len(resp.SyncMaps))
 }

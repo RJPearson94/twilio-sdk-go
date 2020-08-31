@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncMap, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncMaps.
 		Create(&sync_maps.CreateSyncMapInput{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", syncMap.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

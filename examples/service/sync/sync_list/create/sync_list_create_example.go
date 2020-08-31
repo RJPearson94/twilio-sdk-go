@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncList, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncLists.
 		Create(&sync_lists.CreateSyncListInput{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", syncList.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncListPermission, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Permission("test").
@@ -39,5 +39,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Identity: %s", syncListPermission.Identity)
+	log.Printf("Identity: %s", resp.Identity)
 }

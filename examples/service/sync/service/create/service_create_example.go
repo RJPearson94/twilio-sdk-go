@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	service, err := syncSession.
+	resp, err := syncSession.
 		Services.
 		Create(&services.CreateServiceInput{})
 
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", service.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

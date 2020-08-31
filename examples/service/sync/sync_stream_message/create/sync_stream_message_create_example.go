@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	message, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncStream("TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Messages.
@@ -37,5 +37,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", message.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

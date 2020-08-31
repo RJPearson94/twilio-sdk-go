@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	documentsPage, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Documents.
 		Page(&documents.DocumentsPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v document(s) found on page", len(documentsPage.Documents))
+	log.Printf("%v document(s) found on page", len(resp.Documents))
 }

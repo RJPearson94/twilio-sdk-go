@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	syncMapItem, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Item("key").
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Key: %s", syncMapItem.Key)
+	log.Printf("Key: %s", resp.Key)
 }

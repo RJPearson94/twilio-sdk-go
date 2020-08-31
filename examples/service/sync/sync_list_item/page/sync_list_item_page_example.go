@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncListItemsPage, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Items.
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v sync list items(s) found on page", len(syncListItemsPage.SyncListItems))
+	log.Printf("%v sync list items(s) found on page", len(resp.SyncListItems))
 }

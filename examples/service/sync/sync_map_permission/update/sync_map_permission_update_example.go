@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncMap, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncMap("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Permission("test").
@@ -39,5 +39,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Identity: %s", syncMap.Identity)
+	log.Printf("Identity: %s", resp.Identity)
 }

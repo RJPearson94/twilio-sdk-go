@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	document, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Documents.
 		Create(&documents.CreateDocumentInput{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", document.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

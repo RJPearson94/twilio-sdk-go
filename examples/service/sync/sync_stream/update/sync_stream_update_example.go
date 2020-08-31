@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	syncStream, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncStream("TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&sync_stream.UpdateSyncStreamInput{
@@ -37,5 +37,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", syncStream.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

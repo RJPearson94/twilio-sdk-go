@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	documentPermission, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Permission("test").
@@ -39,5 +39,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Identity: %s", documentPermission.Identity)
+	log.Printf("Identity: %s", resp.Identity)
 }

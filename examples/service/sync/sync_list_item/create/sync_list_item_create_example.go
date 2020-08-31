@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	syncList, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		SyncList("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Items.
@@ -37,5 +37,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Index: %v", syncList.Index)
+	log.Printf("Index: %v", resp.Index)
 }

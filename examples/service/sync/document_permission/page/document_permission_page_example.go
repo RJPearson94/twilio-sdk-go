@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	documentsPage, err := syncSession.
+	resp, err := syncSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Document("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Permissions.
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v document permission(s) found on page", len(documentsPage.Permissions))
+	log.Printf("%v document permission(s) found on page", len(resp.Permissions))
 }
