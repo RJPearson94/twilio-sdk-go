@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	balance, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Balance().
 		Fetch()
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Balance: %v", balance.Balance)
+	log.Printf("Balance: %v", resp.Balance)
 }

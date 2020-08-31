@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	message, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&message.UpdateMessageInput{
@@ -36,5 +36,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", message.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

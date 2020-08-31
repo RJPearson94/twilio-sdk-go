@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	messagesPage, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Messages.
 		Page(&messages.MessagesPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v message(s) found on page", len(messagesPage.Messages))
+	log.Printf("%v message(s) found on page", len(resp.Messages))
 }

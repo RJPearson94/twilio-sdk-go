@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	keysPage, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Keys.
 		Page(&keys.KeysPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v key(s) found on page", len(keysPage.Keys))
+	log.Printf("%v key(s) found on page", len(resp.Keys))
 }

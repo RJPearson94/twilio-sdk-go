@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	accountsPage, err := apiSession.
+	resp, err := apiSession.
 		Accounts.
 		Page(&accounts.AccountsPageOptions{})
 
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v account(s) found on page", len(accountsPage.Accounts))
+	log.Printf("%v account(s) found on page", len(resp.Accounts))
 }

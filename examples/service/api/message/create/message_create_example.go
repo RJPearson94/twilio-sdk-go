@@ -8,6 +8,7 @@ import (
 	v2010 "github.com/RJPearson94/twilio-sdk-go/service/api/v2010"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var apiSession *v2010.V2010
@@ -25,14 +26,18 @@ func init() {
 }
 
 func main() {
-	message, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Messages.
-		Create(&messages.CreateMessageInput{})
+		Create(&messages.CreateMessageInput{
+			To:   "+10123456789",
+			From: utils.String("+19876543210"),
+			Body: utils.String("Hello World"),
+		})
 
 	if err != nil {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", message.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

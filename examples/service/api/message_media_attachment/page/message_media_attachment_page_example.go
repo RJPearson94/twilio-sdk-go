@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	mediaAttachmentsPage, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		MediaAttachments.
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v media attachments(s) found on page", len(mediaAttachmentsPage.Media))
+	log.Printf("%v media attachments(s) found on page", len(resp.Media))
 }

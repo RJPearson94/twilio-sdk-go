@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	key, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Keys.
 		Create(&keys.CreateKeyInput{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", key.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

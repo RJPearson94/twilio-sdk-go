@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	mediaAttachment, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		MediaAttachment("MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", mediaAttachment.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

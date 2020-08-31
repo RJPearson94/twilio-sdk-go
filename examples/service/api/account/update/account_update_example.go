@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	account, err := apiSession.
+	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&account.UpdateAccountInput{
 			Status: utils.String("closed"),
@@ -36,5 +36,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", account.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }
