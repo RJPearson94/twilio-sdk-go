@@ -613,7 +613,7 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the autopilot model build clients", func() {
+	Describe("Given the autopilot query and queries clients", func() {
 
 		var assistantSid string
 		var taskSid string
