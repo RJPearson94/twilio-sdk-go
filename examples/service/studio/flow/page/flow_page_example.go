@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	flowsPage, err := studioSession.
+	resp, err := studioSession.
 		Flows.
 		Page(&flows.FlowsPageOptions{})
 
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v flow(s) found on page", len(flowsPage.Flows))
+	log.Printf("%v flow(s) found on page", len(resp.Flows))
 }

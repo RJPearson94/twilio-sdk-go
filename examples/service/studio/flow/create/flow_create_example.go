@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	flow, err := studioSession.
+	resp, err := studioSession.
 		Flows.
 		Create(&flows.CreateFlowInput{
 			FriendlyName: "test",
@@ -57,5 +57,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", flow.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

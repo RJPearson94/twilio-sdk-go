@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	execution, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&execution.UpdateExecutionInput{
@@ -36,5 +36,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", execution.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	revisionsPage, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Revisions.
 		Page(&revisions.RevisionsPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v revision(s) found on page", len(revisionsPage.Revisions))
+	log.Printf("%v revision(s) found on page", len(resp.Revisions))
 }

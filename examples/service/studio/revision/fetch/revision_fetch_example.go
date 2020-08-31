@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	revision, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Revision(1).
 		Fetch()
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", revision.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

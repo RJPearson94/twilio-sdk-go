@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	stepContext, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Step("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", stepContext.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

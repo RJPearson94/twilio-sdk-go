@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	executionContext, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Context().
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("URL: %s", executionContext.URL)
+	log.Printf("URL: %s", resp.URL)
 }

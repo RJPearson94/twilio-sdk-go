@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	validation, err := studioSession.
+	resp, err := studioSession.
 		FlowValidation.
 		Validate(&flow_validation.ValidateFlowInput{
 			FriendlyName: "test",
@@ -57,5 +57,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("Valid: %v", validation.Valid)
+	log.Printf("Valid: %v", resp.Valid)
 }

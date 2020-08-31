@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	stepsPage, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Execution("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Steps.
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v step(s) found on page", len(stepsPage.Steps))
+	log.Printf("%v step(s) found on page", len(resp.Steps))
 }

@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	execution, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Executions.
 		Create(&executions.CreateExecutionInput{
@@ -39,5 +39,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", execution.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

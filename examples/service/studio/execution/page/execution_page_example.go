@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	executionsPage, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Executions.
 		Page(&executions.ExecutionsPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v execution(s) found on page", len(executionsPage.Executions))
+	log.Printf("%v execution(s) found on page", len(resp.Executions))
 }

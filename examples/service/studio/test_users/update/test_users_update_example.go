@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	testUsers, err := studioSession.
+	resp, err := studioSession.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TestUsers().
 		Update(&test_users.UpdateTestUsersInput{
@@ -36,5 +36,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", testUsers.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }
