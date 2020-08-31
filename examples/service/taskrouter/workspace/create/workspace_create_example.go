@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	workspace, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspaces.
 		Create(&workspaces.CreateWorkspaceInput{
 			FriendlyName: "Test",
@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", workspace.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

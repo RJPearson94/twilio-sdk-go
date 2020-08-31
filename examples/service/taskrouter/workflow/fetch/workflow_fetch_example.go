@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	workflow, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Workflow("WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Fetch()
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", workflow.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

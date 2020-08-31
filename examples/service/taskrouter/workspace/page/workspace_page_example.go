@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	workspacePage, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspaces.
 		Page(&workspaces.WorkspacesPageOptions{})
 
@@ -33,5 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v workspace(s) found on page", len(workspacePage.Workspaces))
+	log.Printf("%v workspace(s) found on page", len(resp.Workspaces))
 }

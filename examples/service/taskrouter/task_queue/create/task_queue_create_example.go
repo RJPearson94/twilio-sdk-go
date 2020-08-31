@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	taskQueue, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TaskQueues.
 		Create(&task_queues.CreateTaskQueueInput{
@@ -36,5 +36,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", taskQueue.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

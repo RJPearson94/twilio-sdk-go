@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	taskChannelPage, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TaskChannels.
 		Page(&task_channels.TaskChannelsPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v task channel(s) found on page", len(taskChannelPage.TaskChannels))
+	log.Printf("%v task channel(s) found on page", len(resp.TaskChannels))
 }

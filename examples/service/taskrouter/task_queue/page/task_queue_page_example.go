@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	taskQueuePage, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TaskQueues.
 		Page(&task_queues.TaskQueuesPageOptions{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v task queue(s) found on page", len(taskQueuePage.TaskQueues))
+	log.Printf("%v task queue(s) found on page", len(resp.TaskQueues))
 }

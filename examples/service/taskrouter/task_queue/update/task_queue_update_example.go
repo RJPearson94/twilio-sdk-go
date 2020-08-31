@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	taskQueue, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TaskQueue("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&task_queue.UpdateTaskQueueInput{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", taskQueue.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	worker, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&worker.UpdateWorkerInput{})
@@ -34,5 +34,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", worker.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

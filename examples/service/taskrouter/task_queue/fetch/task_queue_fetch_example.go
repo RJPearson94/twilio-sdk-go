@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	taskQueue, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TaskQueue("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Fetch()
@@ -33,6 +33,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", taskQueue.Sid)
-	log.Printf("Friendly Name: %s", taskQueue.FriendlyName)
+	log.Printf("SID: %s", resp.Sid)
 }

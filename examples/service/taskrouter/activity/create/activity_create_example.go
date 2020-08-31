@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	activity, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Activities.
 		Create(&activities.CreateActivityInput{
@@ -38,5 +38,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", activity.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }

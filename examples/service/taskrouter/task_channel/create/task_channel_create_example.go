@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	taskChannel, err := taskrouterSession.
+	resp, err := taskrouterSession.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		TaskChannels.
 		Create(&task_channels.CreateTaskChannelInput{
@@ -37,5 +37,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", taskChannel.Sid)
+	log.Printf("SID: %s", resp.Sid)
 }
