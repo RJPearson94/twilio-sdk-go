@@ -669,5 +669,5 @@ var _ = Describe("Chat Acceptance Tests", func() {
 		})
 	})
 
-	// TODO Add binfing & user binding tests
+	// TODO Add binding & user binding tests
 })
