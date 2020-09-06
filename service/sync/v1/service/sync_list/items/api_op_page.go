@@ -48,8 +48,8 @@ type PageSyncListItemResponse struct {
 
 // SyncListItemsPageResponse defines the response fields for the list items page
 type SyncListItemsPageResponse struct {
-	Meta          PageMetaResponse           `json:"meta"`
-	SyncListItems []PageSyncListItemResponse `json:"items"`
+	Items []PageSyncListItemResponse `json:"items"`
+	Meta  PageMetaResponse           `json:"meta"`
 }
 
 // Page retrieves a page of list items
@@ -80,11 +80,11 @@ func (c Client) PageWithContext(context context.Context, options *SyncListItemsP
 }
 
 // SyncListItemsPaginator defines the fields for makings paginated api calls
-// SyncListItems is an array of synclistitems that have been returned from all of the page calls
+// Items is an array of items that have been returned from all of the page calls
 type SyncListItemsPaginator struct {
-	options       *SyncListItemsPageOptions
-	Page          *SyncListItemsPage
-	SyncListItems []PageSyncListItemResponse
+	options *SyncListItemsPageOptions
+	Page    *SyncListItemsPage
+	Items   []PageSyncListItemResponse
 }
 
 // NewSyncListItemsPaginator creates a new instance of the paginator for Page.
@@ -101,7 +101,7 @@ func (c *Client) NewSyncListItemsPaginatorWithOptions(options *SyncListItemsPage
 			Error:       nil,
 			client:      c,
 		},
-		SyncListItems: make([]PageSyncListItemResponse, 0),
+		Items: make([]PageSyncListItemResponse, 0),
 	}
 }
 
@@ -175,7 +175,7 @@ func (p *SyncListItemsPaginator) NextWithContext(context context.Context) bool {
 	p.Page.Error = err
 
 	if p.Page.Error == nil {
-		p.SyncListItems = append(p.SyncListItems, resp.SyncListItems...)
+		p.Items = append(p.Items, resp.Items...)
 	}
 
 	return p.Page.Error == nil

@@ -226,14 +226,14 @@ var _ = Describe("Sync Acceptance Tests", func() {
 			pageResp, pageErr := syncListItemsClient.Page(&syncListItems.SyncListItemsPageOptions{})
 			Expect(pageErr).To(BeNil())
 			Expect(pageResp).ToNot(BeNil())
-			Expect(len(pageResp.SyncListItems)).Should(BeNumerically(">=", 1))
+			Expect(len(pageResp.Items)).Should(BeNumerically(">=", 1))
 
 			paginator := syncListItemsClient.NewSyncListItemsPaginator()
 			for paginator.Next() {
 			}
 
 			Expect(paginator.Error()).To(BeNil())
-			Expect(len(paginator.SyncListItems)).Should(BeNumerically(">=", 1))
+			Expect(len(paginator.Items)).Should(BeNumerically(">=", 1))
 
 			syncListItemClient := syncSession.Service(serviceSid).SyncList(syncListSid).Item(createResp.Index)
 
@@ -350,14 +350,14 @@ var _ = Describe("Sync Acceptance Tests", func() {
 			pageResp, pageErr := syncMapItemsClient.Page(&syncMapItems.SyncMapItemsPageOptions{})
 			Expect(pageErr).To(BeNil())
 			Expect(pageResp).ToNot(BeNil())
-			Expect(len(pageResp.SyncMapItems)).Should(BeNumerically(">=", 1))
+			Expect(len(pageResp.Items)).Should(BeNumerically(">=", 1))
 
 			paginator := syncMapItemsClient.NewSyncMapItemsPaginator()
 			for paginator.Next() {
 			}
 
 			Expect(paginator.Error()).To(BeNil())
-			Expect(len(paginator.SyncMapItems)).Should(BeNumerically(">=", 1))
+			Expect(len(paginator.Items)).Should(BeNumerically(">=", 1))
 
 			syncMapItemClient := syncSession.Service(serviceSid).SyncMap(syncMapSid).Item(createResp.Key)
 

@@ -862,7 +862,7 @@
                         "meta": true,
                         "property": "NextPageURL"
                       },
-                      "items": "SyncListItems",
+                      "items": "Items",
                       "structure": "PageSyncListItemResponse"
                     }
                   }
@@ -1658,7 +1658,7 @@
                         "meta": true,
                         "property": "NextPageURL"
                       },
-                      "items": "SyncMapItems",
+                      "items": "Items",
                       "structure": "PageSyncMapItemResponse"
                     }
                   }
@@ -3036,7 +3036,7 @@
           "required": true
         },
         {
-          "name": "SyncListItems",
+          "name": "Items",
           "type": "array",
           "items": {
             "structure": "SyncListItemResponse"
@@ -3364,7 +3364,7 @@
           "required": true
         },
         {
-          "name": "SyncMapItems",
+          "name": "Items",
           "type": "array",
           "items": {
             "structure": "SyncMapItemResponse"

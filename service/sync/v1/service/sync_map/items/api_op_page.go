@@ -48,8 +48,8 @@ type PageSyncMapItemResponse struct {
 
 // SyncMapItemsPageResponse defines the response fields for the map items page
 type SyncMapItemsPageResponse struct {
-	Meta         PageMetaResponse          `json:"meta"`
-	SyncMapItems []PageSyncMapItemResponse `json:"items"`
+	Items []PageSyncMapItemResponse `json:"items"`
+	Meta  PageMetaResponse          `json:"meta"`
 }
 
 // Page retrieves a page of map items
@@ -80,11 +80,11 @@ func (c Client) PageWithContext(context context.Context, options *SyncMapItemsPa
 }
 
 // SyncMapItemsPaginator defines the fields for makings paginated api calls
-// SyncMapItems is an array of syncmapitems that have been returned from all of the page calls
+// Items is an array of items that have been returned from all of the page calls
 type SyncMapItemsPaginator struct {
-	options      *SyncMapItemsPageOptions
-	Page         *SyncMapItemsPage
-	SyncMapItems []PageSyncMapItemResponse
+	options *SyncMapItemsPageOptions
+	Page    *SyncMapItemsPage
+	Items   []PageSyncMapItemResponse
 }
 
 // NewSyncMapItemsPaginator creates a new instance of the paginator for Page.
@@ -101,7 +101,7 @@ func (c *Client) NewSyncMapItemsPaginatorWithOptions(options *SyncMapItemsPageOp
 			Error:       nil,
 			client:      c,
 		},
-		SyncMapItems: make([]PageSyncMapItemResponse, 0),
+		Items: make([]PageSyncMapItemResponse, 0),
 	}
 }
 
@@ -175,7 +175,7 @@ func (p *SyncMapItemsPaginator) NextWithContext(context context.Context) bool {
 	p.Page.Error = err
 
 	if p.Page.Error == nil {
-		p.SyncMapItems = append(p.SyncMapItems, resp.SyncMapItems...)
+		p.Items = append(p.Items, resp.Items...)
 	}
 
 	return p.Page.Error == nil

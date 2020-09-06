@@ -1539,24 +1539,24 @@ var _ = Describe("Sync V1", func() {
 				Expect(meta.NextPageURL).To(BeNil())
 				Expect(meta.Key).To(Equal("items"))
 
-				syncListItems := resp.SyncListItems
-				Expect(syncListItems).ToNot(BeNil())
-				Expect(len(syncListItems)).To(Equal(1))
+				items := resp.Items
+				Expect(items).ToNot(BeNil())
+				Expect(len(items)).To(Equal(1))
 
-				Expect(syncListItems[0].Index).To(Equal(0))
-				Expect(syncListItems[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(syncListItems[0].ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(syncListItems[0].ListSid).To(Equal("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(syncListItems[0].CreatedBy).To(Equal("system"))
-				Expect(syncListItems[0].Revision).To(Equal("0"))
+				Expect(items[0].Index).To(Equal(0))
+				Expect(items[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(items[0].ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(items[0].ListSid).To(Equal("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(items[0].CreatedBy).To(Equal("system"))
+				Expect(items[0].Revision).To(Equal("0"))
 
 				data := make(map[string]interface{}, 0)
-				Expect(syncListItems[0].Data).To(Equal(data))
+				Expect(items[0].Data).To(Equal(data))
 
-				Expect(syncListItems[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
-				Expect(syncListItems[0].DateUpdated).To(BeNil())
-				Expect(syncListItems[0].DateExpires).To(BeNil())
-				Expect(syncListItems[0].URL).To(Equal("https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0"))
+				Expect(items[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(items[0].DateUpdated).To(BeNil())
+				Expect(items[0].DateExpires).To(BeNil())
+				Expect(items[0].URL).To(Equal("https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/0"))
 			})
 		})
 
@@ -1624,7 +1624,7 @@ var _ = Describe("Sync V1", func() {
 			})
 
 			It("Then the paginated sync list items results should be returned", func() {
-				Expect(len(paginator.SyncListItems)).To(Equal(3))
+				Expect(len(paginator.Items)).To(Equal(3))
 			})
 		})
 
@@ -2592,24 +2592,24 @@ var _ = Describe("Sync V1", func() {
 				Expect(meta.NextPageURL).To(BeNil())
 				Expect(meta.Key).To(Equal("items"))
 
-				syncMapItems := resp.SyncMapItems
-				Expect(syncMapItems).ToNot(BeNil())
-				Expect(len(syncMapItems)).To(Equal(1))
+				items := resp.Items
+				Expect(items).ToNot(BeNil())
+				Expect(len(items)).To(Equal(1))
 
-				Expect(syncMapItems[0].Key).To(Equal("key1"))
-				Expect(syncMapItems[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(syncMapItems[0].ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(syncMapItems[0].MapSid).To(Equal("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(syncMapItems[0].CreatedBy).To(Equal("system"))
-				Expect(syncMapItems[0].Revision).To(Equal("0"))
+				Expect(items[0].Key).To(Equal("key1"))
+				Expect(items[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(items[0].ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(items[0].MapSid).To(Equal("MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(items[0].CreatedBy).To(Equal("system"))
+				Expect(items[0].Revision).To(Equal("0"))
 
 				data := make(map[string]interface{}, 0)
-				Expect(syncMapItems[0].Data).To(Equal(data))
+				Expect(items[0].Data).To(Equal(data))
 
-				Expect(syncMapItems[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
-				Expect(syncMapItems[0].DateUpdated).To(BeNil())
-				Expect(syncMapItems[0].DateExpires).To(BeNil())
-				Expect(syncMapItems[0].URL).To(Equal("https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key1"))
+				Expect(items[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(items[0].DateUpdated).To(BeNil())
+				Expect(items[0].DateExpires).To(BeNil())
+				Expect(items[0].URL).To(Equal("https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key1"))
 			})
 		})
 
@@ -2677,7 +2677,7 @@ var _ = Describe("Sync V1", func() {
 			})
 
 			It("Then the paginated sync map items results should be returned", func() {
-				Expect(len(paginator.SyncMapItems)).To(Equal(3))
+				Expect(len(paginator.Items)).To(Equal(3))
 			})
 		})
 
