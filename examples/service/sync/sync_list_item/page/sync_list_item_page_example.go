@@ -35,5 +35,5 @@ func main() {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("%v sync list items(s) found on page", len(resp.SyncListItems))
+	log.Printf("%v sync list items(s) found on page", len(resp.Items))
 }

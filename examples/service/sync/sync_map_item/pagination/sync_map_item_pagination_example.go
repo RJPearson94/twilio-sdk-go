@@ -32,12 +32,12 @@ func main() {
 
 	for paginator.Next() {
 		currentPage := paginator.CurrentPage()
-		log.Printf("%v sync map item(s) found on page %v", len(currentPage.SyncMapItems), currentPage.Meta.Page)
+		log.Printf("%v sync map item(s) found on page %v", len(currentPage.Items), currentPage.Meta.Page)
 	}
 
 	if paginator.Error() != nil {
 		log.Panicf("%s", paginator.Error())
 	}
 
-	log.Printf("Total number of sync map item(s) found: %v", len(paginator.SyncMapItems))
+	log.Printf("Total number of sync map item(s) found: %v", len(paginator.Items))
 }
