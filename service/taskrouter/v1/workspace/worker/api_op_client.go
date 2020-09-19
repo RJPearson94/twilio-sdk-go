@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channels"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservation"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservations"
 )
 
 // Client for managing a specific worker resource
@@ -15,8 +17,10 @@ type Client struct {
 	sid          string
 	workspaceSid string
 
-	Channel  func(string) *channel.Client
-	Channels *channels.Client
+	Channel      func(string) *channel.Client
+	Channels     *channels.Client
+	Reservation  func(string) *reservation.Client
+	Reservations *reservations.Client
 }
 
 // ClientProperties are the properties required to manage the worker resources
@@ -41,6 +45,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Channels: channels.New(client, channels.ClientProperties{
+			WorkerSid:    properties.Sid,
+			WorkspaceSid: properties.WorkspaceSid,
+		}),
+		Reservation: func(channelSid string) *reservation.Client {
+			return reservation.New(client, reservation.ClientProperties{
+				Sid:          channelSid,
+				WorkerSid:    properties.Sid,
+				WorkspaceSid: properties.WorkspaceSid,
+			})
+		},
+		Reservations: reservations.New(client, reservations.ClientProperties{
 			WorkerSid:    properties.Sid,
 			WorkspaceSid: properties.WorkspaceSid,
 		}),

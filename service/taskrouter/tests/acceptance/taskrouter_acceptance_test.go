@@ -22,6 +22,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channels"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservation"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservations"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
@@ -320,6 +322,144 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 
 			updateResp, updateErr := channelClient.Update(&channel.UpdateChannelInput{
 				Capacity: utils.Int(5),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the TaskRouter Worker Reservation clients", func() {
+
+		var workspaceSid string
+		var taskQueueSid string
+		var workflowSid string
+		var activitySid string
+		var unavailableActivitySid string
+		var workerSid string
+		var taskSid string
+
+		BeforeEach(func() {
+			resp, err := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
+			}
+			workspaceSid = resp.Sid
+
+			taskQueueResp, taskQueueErr := taskrouterSession.Workspace(workspaceSid).TaskQueues.Create(&task_queues.CreateTaskQueueInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if taskQueueErr != nil {
+				Fail(fmt.Sprintf("Failed to create task queue. Error %s", taskQueueErr.Error()))
+			}
+			taskQueueSid = taskQueueResp.Sid
+
+			workflowResp, workflowErr := taskrouterSession.Workspace(workspaceSid).Workflows.Create(&workflows.CreateWorkflowInput{
+				FriendlyName:  uuid.New().String(),
+				Configuration: fmt.Sprintf(`{ "task_routing": { "default_filter": { "queue": "%s" } } }`, taskQueueSid),
+			})
+			if workflowErr != nil {
+				Fail(fmt.Sprintf("Failed to create workflow. Error %s", workflowErr.Error()))
+			}
+			workflowSid = workflowResp.Sid
+
+			activityResp, activityErr := taskrouterSession.Workspace(workspaceSid).Activities.Create(&activities.CreateActivityInput{
+				FriendlyName: uuid.New().String(),
+				Available:    utils.Bool(true),
+			})
+			if activityErr != nil {
+				Fail(fmt.Sprintf("Failed to create activity. Error %s", activityErr.Error()))
+			}
+			activitySid = activityResp.Sid
+
+			unavailableActivityResp, unavailableActivityErr := taskrouterSession.Workspace(workspaceSid).Activities.Create(&activities.CreateActivityInput{
+				FriendlyName: uuid.New().String(),
+				Available:    utils.Bool(false),
+			})
+			if unavailableActivityErr != nil {
+				Fail(fmt.Sprintf("Failed to create activity. Error %s", unavailableActivityErr.Error()))
+			}
+			unavailableActivitySid = unavailableActivityResp.Sid
+
+			workerResp, workerErr := taskrouterSession.Workspace(workspaceSid).Workers.Create(&workers.CreateWorkerInput{
+				FriendlyName: uuid.New().String(),
+				ActivitySid:  utils.String(activitySid),
+			})
+			if workerErr != nil {
+				Fail(fmt.Sprintf("Failed to create worker. Error %s", workerErr.Error()))
+			}
+			workerSid = workerResp.Sid
+
+			taskResp, takErr := taskrouterSession.Workspace(workspaceSid).Tasks.Create(&tasks.CreateTaskInput{
+				TaskChannel: utils.String("default"),
+			})
+			if takErr != nil {
+				Fail(fmt.Sprintf("Failed to create task. Error %s", takErr.Error()))
+			}
+			taskSid = taskResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := taskrouterSession.Workspace(workspaceSid).Task(taskSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete task. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Workflow(workflowSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete workflow. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete task queue. Error %s", err.Error()))
+			}
+
+			// Can't delete a worker until there are no longer able to accept tasks
+			if _, err := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Update(&worker.UpdateWorkerInput{
+				ActivitySid: utils.String(unavailableActivitySid),
+			}); err != nil {
+				Fail(fmt.Sprintf("Failed to update worker. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete worker. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Activity(activitySid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete activity. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Activity(unavailableActivitySid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete activity. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the reservation is fetched and updated", func() {
+			reservationsClient := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Reservations
+
+			pageResp, pageErr := reservationsClient.Page(&reservations.ReservationsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Reservations)).Should(BeNumerically(">=", 1))
+
+			paginator := reservationsClient.NewReservationsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Reservations)).Should(BeNumerically(">=", 1))
+
+			reservationClient := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Reservation(paginator.Reservations[0].Sid)
+
+			fetchResp, fetchErr := reservationClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := reservationClient.Update(&reservation.UpdateReservationInput{
+				ReservationStatus: "accepted",
 			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())

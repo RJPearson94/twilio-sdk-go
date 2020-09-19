@@ -970,6 +970,221 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Reservations",
+              "packageName": "reservations",
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "workerSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing worker reservation resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-reservation"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Reservations",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "ReservationStatus",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of worker reservations",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-reservation#read-multiple-workerreservation-resources"
+                  },
+                  "response": {
+                    "structure": "ReservationsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the worker reservations page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ReservationsPaginator",
+                    "page": {
+                      "name": "ReservationsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Reservations",
+                      "structure": "PageReservationResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Reservation",
+              "packageName": "reservation",
+              "function": {
+                "parameters": {
+                  "channelSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "workerSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "channelSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific worker reservation resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-reservation"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Reservations/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves an worker reservation resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-reservation#fetch-a-workerreservation-resource"
+                  },
+                  "response": {
+                    "name": "FetchReservationResponse",
+                    "structure": "ReservationResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved worker reservation"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Reservations/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a worker reservation resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-reservation#update-a-workerreservation-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateReservationInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a worker reservation resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateReservationResponse",
+                    "structure": "ReservationResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated worker reservation"
+                    }
+                  }
+                }
+              ]
             }
           ],
           "operations": [
@@ -2575,6 +2790,382 @@
           "name": "AvailableCapacityPercentage",
           "type": "int",
           "value": "available_capacity_percentage",
+          "required": true
+        }
+      ]
+    },
+    "UpdateReservationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ReservationStatus",
+          "type": "string",
+          "value": "ReservationStatus",
+          "required": true
+        },
+        {
+          "name": "WorkerActivitySid",
+          "type": "string",
+          "value": "WorkerActivitySid",
+          "required": false
+        },
+        {
+          "name": "Instruction",
+          "type": "string",
+          "value": "Instruction",
+          "required": false
+        },
+        {
+          "name": "DequeuePostWorkActivitySid",
+          "type": "string",
+          "value": "DequeuePostWorkActivitySid",
+          "required": false
+        },
+        {
+          "name": "DequeueFrom",
+          "type": "string",
+          "value": "DequeueFrom",
+          "required": false
+        },
+        {
+          "name": "DequeueRecord",
+          "type": "string",
+          "value": "DequeueRecord",
+          "required": false
+        },
+        {
+          "name": "DequeueTimeout",
+          "type": "int",
+          "value": "DequeueTimeout",
+          "required": false
+        },
+        {
+          "name": "DequeueTo",
+          "type": "string",
+          "value": "DequeueTo",
+          "required": false
+        },
+        {
+          "name": "DequeueStatusCallbackURL",
+          "type": "string",
+          "value": "DequeueStatusCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "CallFrom",
+          "type": "string",
+          "value": "CallFrom",
+          "required": false
+        },
+        {
+          "name": "CallRecord",
+          "type": "string",
+          "value": "CallRecord",
+          "required": false
+        },
+        {
+          "name": "CallTimeout",
+          "type": "int",
+          "value": "CallTimeout",
+          "required": false
+        },
+        {
+          "name": "CallTo",
+          "type": "string",
+          "value": "CallTo",
+          "required": false
+        },
+        {
+          "name": "CallURL",
+          "type": "string",
+          "value": "CallUrl",
+          "required": false
+        },
+        {
+          "name": "CallStatusCallbackURL",
+          "type": "string",
+          "value": "CallStatusCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "CallAccept",
+          "type": "bool",
+          "value": "CallAccept",
+          "required": false
+        },
+        {
+          "name": "RedirectCallSid",
+          "type": "string",
+          "value": "RedirectCallSid",
+          "required": false
+        },
+        {
+          "name": "RedirectAccept",
+          "type": "string",
+          "value": "RedirectAccept",
+          "required": false
+        },
+        {
+          "name": "RedirectURL",
+          "type": "string",
+          "value": "RedirectUrl",
+          "required": false
+        },
+        {
+          "name": "To",
+          "type": "string",
+          "value": "To",
+          "required": false
+        },
+        {
+          "name": "From",
+          "type": "string",
+          "value": "From",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "StatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "Timeout",
+          "type": "int",
+          "value": "Timeout",
+          "required": false
+        },
+        {
+          "name": "Record",
+          "type": "bool",
+          "value": "Record",
+          "required": false
+        },
+        {
+          "name": "Muted",
+          "type": "bool",
+          "value": "Muted",
+          "required": false
+        },
+        {
+          "name": "Beep",
+          "type": "string",
+          "value": "Beep",
+          "required": false
+        },
+        {
+          "name": "StartConferenceOnEnter",
+          "type": "bool",
+          "value": "StartConferenceOnEnter",
+          "required": false
+        },
+        {
+          "name": "EndConferenceOnExit",
+          "type": "bool",
+          "value": "EndConferenceOnExit",
+          "required": false
+        },
+        {
+          "name": "WaitURL",
+          "type": "string",
+          "value": "WaitUrl",
+          "required": false
+        },
+        {
+          "name": "WaitMethod",
+          "type": "string",
+          "value": "WaitMethod",
+          "required": false
+        },
+        {
+          "name": "EarlyMedia",
+          "type": "bool",
+          "value": "EarlyMedia",
+          "required": false
+        },
+        {
+          "name": "MaxParticipants",
+          "type": "int",
+          "value": "MaxParticipants",
+          "required": false
+        },
+        {
+          "name": "ConferenceStatusCallback",
+          "type": "string",
+          "value": "ConferenceStatusCallback",
+          "required": false
+        },
+        {
+          "name": "ConferenceStatusCallbackMethod",
+          "type": "string",
+          "value": "ConferenceStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "ConferenceStatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "ConferenceStatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecord",
+          "type": "string",
+          "value": "ConferenceRecord",
+          "required": false
+        },
+        {
+          "name": "ConferenceTrim",
+          "type": "string",
+          "value": "ConferenceTrim",
+          "required": false
+        },
+        {
+          "name": "RecordingChannels",
+          "type": "string",
+          "value": "RecordingChannels",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallback",
+          "type": "string",
+          "value": "RecordingStatusCallback",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallbackMethod",
+          "type": "string",
+          "value": "RecordingStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecordingStatusCallback",
+          "type": "string",
+          "value": "ConferenceRecordingStatusCallback",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecordingStatusCallbackMethod",
+          "type": "string",
+          "value": "ConferenceRecordingStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "Region",
+          "required": false
+        },
+        {
+          "name": "SipAuthUsername",
+          "type": "string",
+          "value": "SipAuthUsername",
+          "required": false
+        },
+        {
+          "name": "SipAuthPassword",
+          "type": "string",
+          "value": "SipAuthPassword",
+          "required": false
+        },
+        {
+          "name": "DequeueStatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "DequeueStatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "PostWorkActivitySid",
+          "type": "string",
+          "value": "PostWorkActivitySid",
+          "required": false
+        },
+        {
+          "name": "EndConferenceOnCustomerExit",
+          "type": "bool",
+          "value": "EndConferenceOnCustomerExit",
+          "required": false
+        },
+        {
+          "name": "BeepOnCustomerEntrance",
+          "type": "bool",
+          "value": "BeepOnCustomerEntrance",
+          "required": false
+        }
+      ]
+    },
+    "ReservationsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Reservations",
+          "type": "array",
+          "items": {
+            "structure": "ReservationResponse"
+          },
+          "value": "reservations",
+          "required": true
+        }
+      ]
+    },
+    "ReservationResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "WorkerSid",
+          "type": "string",
+          "value": "worker_sid",
+          "required": true
+        },
+        {
+          "name": "WorkerName",
+          "type": "string",
+          "value": "worker_name",
+          "required": true
+        },
+        {
+          "name": "TaskSid",
+          "type": "string",
+          "value": "task_sid",
+          "required": true
+        },
+        {
+          "name": "ReservationStatus",
+          "type": "string",
+          "value": "reservation_status",
           "required": true
         }
       ]
