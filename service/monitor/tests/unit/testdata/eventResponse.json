@@ -1,0 +1,39 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "actor_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "actor_type": "account",
+  "description": null,
+  "event_date": "2020-06-20T20:50:24Z",
+  "event_type": "account-api-keys.deleted",
+  "resource_sid": "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "resource_type": "account-api-keys",
+  "sid": "AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://monitor.twilio.com/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "source": "api",
+  "source_ip_address": "127.0.0.1",
+  "event_data": {
+    "resource_properties": {
+      "status": {
+        "updated": null,
+        "previous": "Active"
+      },
+      "friendly_name": {
+        "updated": null,
+        "previous": "autopilot_simulator_USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      },
+      "secret": {
+        "updated": null,
+        "previous": "[REDACTED]"
+      },
+      "flags": {
+        "updated": null,
+        "previous": "REST API, Signing"
+      }
+    },
+    "empty": false
+  },
+  "links": {
+    "actor": "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "resource": null
+  }
+}

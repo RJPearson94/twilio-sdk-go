@@ -9,6 +9,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/alerts"
+	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/events"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
@@ -47,4 +48,27 @@ var _ = Describe("Monitor Acceptance Tests", func() {
 		})
 	})
 
+	Describe("Given the monitor event clients", func() {
+		It("Then the events are fetched", func() {
+			eventsClient := monitorSession.Events
+
+			pageResp, pageErr := eventsClient.Page(&events.EventsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Events)).Should(BeNumerically(">=", 1))
+
+			paginator := eventsClient.NewEventsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Events)).Should(BeNumerically(">=", 1))
+
+			eventClient := monitorSession.Event(paginator.Events[0].Sid)
+
+			fetchResp, fetchErr := eventClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+		})
+	})
 })

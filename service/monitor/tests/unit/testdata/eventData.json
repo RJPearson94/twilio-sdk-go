@@ -1,0 +1,21 @@
+{
+  "resource_properties": {
+    "status": {
+      "updated": null,
+      "previous": "Active"
+    },
+    "friendly_name": {
+      "updated": null,
+      "previous": "autopilot_simulator_USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "secret": {
+      "updated": null,
+      "previous": "[REDACTED]"
+    },
+    "flags": {
+      "updated": null,
+      "previous": "REST API, Signing"
+    }
+  },
+  "empty": false
+}

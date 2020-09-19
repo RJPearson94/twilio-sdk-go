@@ -122,6 +122,136 @@
           }
         }
       ]
+    },
+    {
+      "name": "Events",
+      "packageName": "events",
+      "documentation": {
+        "description": "Client for managing event resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-events"
+      },
+      "operations": [
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Events",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "ActorSid",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "EventType",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "ResourceSid",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "SourceIPAddress",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "StartDate",
+                "type": "time.Time",
+                "required": false
+              },
+              {
+                "name": "EndDate",
+                "type": "time.Time",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of events",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-events#read-multiple-event-resources"
+          },
+          "response": {
+            "structure": "EventsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the events page"
+            }
+          },
+          "pagination": {
+            "name": "EventsPaginator",
+            "page": {
+              "name": "EventsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Events",
+              "structure": "PageEventResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "packageName": "event",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific event resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-events"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Events/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves an event resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-events#fetch-an-event-resource"
+          },
+          "response": {
+            "name": "FetchEventResponse",
+            "structure": "EventResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved event"
+            }
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -226,6 +356,113 @@
           "type": "string",
           "value": "service_sid",
           "required": true
+        },
+        {
+          "name": "DateGenerated",
+          "type": "time.Time",
+          "value": "date_generated",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        }
+      ]
+    },
+    "EventsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Events",
+          "type": "array",
+          "items": {
+            "structure": "EventResponse"
+          },
+          "value": "events",
+          "required": true
+        }
+      ]
+    },
+    "EventResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ActorSid",
+          "type": "string",
+          "value": "actor_sid",
+          "required": true
+        },
+        {
+          "name": "ActorType",
+          "type": "string",
+          "value": "actor_type",
+          "required": true
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "description",
+          "required": false
+        },
+        {
+          "name": "EventDate",
+          "type": "time.Time",
+          "value": "event_date",
+          "required": true
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "value": "event_type",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "type": "string",
+          "value": "resource_sid",
+          "required": true
+        },
+        {
+          "name": "ResourceType",
+          "type": "string",
+          "value": "resource_type",
+          "required": true
+        },
+        {
+          "name": "Source",
+          "type": "string",
+          "value": "source",
+          "required": true
+        },
+        {
+          "name": "SourceIPAddress",
+          "type": "string",
+          "value": "source_ip_address",
+          "required": true
+        },
+        {
+          "name": "EventData",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "event_data",
+          "required": true
         }
       ]
     },
@@ -290,24 +527,6 @@
           "type": "string",
           "value": "account_sid",
           "required": true
-        },
-        {
-          "name": "DateGenerated",
-          "type": "time.Time",
-          "value": "date_generated",
-          "required": true
-        },
-        {
-          "name": "DateCreated",
-          "type": "time.Time",
-          "value": "date_created",
-          "required": true
-        },
-        {
-          "name": "DateUpdated",
-          "type": "time.Time",
-          "value": "date_updated",
-          "required": false
         },
         {
           "name": "URL",

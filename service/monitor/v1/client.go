@@ -4,6 +4,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/alert"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/alerts"
+	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/event"
+	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/events"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
@@ -14,6 +16,8 @@ type Monitor struct {
 
 	Alert  func(string) *alert.Client
 	Alerts *alerts.Client
+	Event  func(string) *event.Client
+	Events *events.Client
 }
 
 // Used for testing purposes only
@@ -41,6 +45,12 @@ func NewWithClient(client *client.Client) *Monitor {
 			})
 		},
 		Alerts: alerts.New(client),
+		Event: func(sid string) *event.Client {
+			return event.New(client, event.ClientProperties{
+				Sid: sid,
+			})
+		},
+		Events: events.New(client),
 	}
 }
 

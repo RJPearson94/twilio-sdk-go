@@ -13,6 +13,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/alerts"
+	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/events"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -260,6 +261,237 @@ var _ = Describe("Monitor V1", func() {
 			})
 
 			It("Then the get alert response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the events client", func() {
+		eventsClient := monitorSession.Events
+
+		Describe("When the page of events are successfully retrieved", func() {
+			pageOptions := &events.EventsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/eventsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := eventsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the events page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://monitor.twilio.com/v1/Events?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://monitor.twilio.com/v1/Events?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("events"))
+
+				events := resp.Events
+				Expect(events).ToNot(BeNil())
+				Expect(len(events)).To(Equal(1))
+
+				Expect(events[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(events[0].ActorSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(events[0].ActorType).To(Equal("account"))
+				Expect(events[0].Description).To(BeNil())
+
+				eventDataFixture, _ := ioutil.ReadFile("testdata/eventData.json")
+				eventDataResp := make(map[string]interface{})
+				json.Unmarshal(eventDataFixture, &eventDataResp)
+
+				Expect(events[0].EventData).To(Equal(eventDataResp))
+				Expect(events[0].EventDate.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(events[0].EventType).To(Equal("account-api-keys.deleted"))
+				Expect(events[0].ResourceSid).To(Equal("SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(events[0].ResourceType).To(Equal("account-api-keys"))
+				Expect(events[0].Sid).To(Equal("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(events[0].Source).To(Equal("api"))
+				Expect(events[0].SourceIPAddress).To(Equal("127.0.0.1"))
+				Expect(events[0].URL).To(Equal("https://monitor.twilio.com/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of events api returns a 500 response", func() {
+			pageOptions := &events.EventsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := eventsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the events page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated events are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/eventsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/eventsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := eventsClient.NewEventsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated events current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated events results should be returned", func() {
+				Expect(len(paginator.Events)).To(Equal(3))
+			})
+		})
+
+		Describe("When the events api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/eventsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := eventsClient.NewEventsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated events current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a event sid", func() {
+		eventClient := monitorSession.Event("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the event is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/eventResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := eventClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get event response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ActorSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ActorType).To(Equal("account"))
+				Expect(resp.Description).To(BeNil())
+
+				eventDataFixture, _ := ioutil.ReadFile("testdata/eventData.json")
+				eventDataResp := make(map[string]interface{})
+				json.Unmarshal(eventDataFixture, &eventDataResp)
+
+				Expect(resp.EventData).To(Equal(eventDataResp))
+				Expect(resp.EventDate.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.EventType).To(Equal("account-api-keys.deleted"))
+				Expect(resp.ResourceSid).To(Equal("SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ResourceType).To(Equal("account-api-keys"))
+				Expect(resp.Sid).To(Equal("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Source).To(Equal("api"))
+				Expect(resp.SourceIPAddress).To(Equal("127.0.0.1"))
+				Expect(resp.URL).To(Equal("https://monitor.twilio.com/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the event api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://monitor.twilio.com/v1/Events/AE71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := monitorSession.Event("AE71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get event response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
