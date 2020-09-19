@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://monitor.twilio.com/v1/Alerts?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://monitor.twilio.com/v1/Alerts?PageSize=50&Page=0",
+    "next_page_url": "https://monitor.twilio.com/v1/Alerts?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "alerts"
+  },
+  "alerts": [
+    {
+      "log_level": "error",
+      "resource_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_updated": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://monitor.twilio.com/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "request_method": null,
+      "date_generated": "2020-06-20T20:50:24Z",
+      "alert_text": null,
+      "sid": "NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "request_url": null,
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "error_code": "80408",
+      "api_version": null,
+      "more_info": "https://www.twilio.com/docs/errors/80408"
+    },
+    {
+      "log_level": "error",
+      "resource_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_updated": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://monitor.twilio.com/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "request_method": null,
+      "date_generated": "2020-06-20T20:50:24Z",
+      "alert_text": null,
+      "sid": "NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2020-06-20T20:50:24Z",
+      "request_url": null,
+      "service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "error_code": "80408",
+      "api_version": null,
+      "more_info": "https://www.twilio.com/docs/errors/80408"
+    }
+  ]
+}

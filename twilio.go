@@ -8,6 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/fax"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging"
+	"github.com/RJPearson94/twilio-sdk-go/service/monitor"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
@@ -27,6 +28,7 @@ type Twilio struct {
 	Fax           *fax.Fax
 	Flex          *flex.Flex
 	Messaging     *messaging.Messaging
+	Monitor       *monitor.Monitor
 	Proxy         *proxy.Proxy
 	Serverless    *serverless.Serverless
 	Studio        *studio.Studio
@@ -45,6 +47,7 @@ func New(sess *session.Session) *Twilio {
 		Fax:           fax.New(sess),
 		Flex:          flex.New(sess),
 		Messaging:     messaging.New(sess),
+		Monitor:       monitor.New(sess),
 		Proxy:         proxy.New(sess),
 		Serverless:    serverless.New(sess),
 		Studio:        studio.New(sess),

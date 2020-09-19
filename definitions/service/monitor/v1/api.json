@@ -1,0 +1,321 @@
+{
+  "packageName": "v1",
+  "name": "Monitor",
+  "config": {
+    "includeDefaults": true,
+    "beta": true,
+    "subDomain": "monitor",
+    "apiVersion": "v1"
+  },
+  "subClients": [
+    {
+      "name": "Alerts",
+      "packageName": "alerts",
+      "documentation": {
+        "description": "Client for managing alert resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-alert"
+      },
+      "operations": [
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Alerts",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "LogLevel",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "StartDate",
+                "type": "time.Time",
+                "required": false
+              },
+              {
+                "name": "EndDate",
+                "type": "time.Time",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of alerts",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-alert#read-multiple-alert-resources"
+          },
+          "response": {
+            "structure": "AlertsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the alerts page"
+            }
+          },
+          "pagination": {
+            "name": "AlertsPaginator",
+            "page": {
+              "name": "AlertsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Alerts",
+              "structure": "PageAlertResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alert",
+      "packageName": "alert",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific alert resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-alert"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Alerts/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves an alert resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/monitor-alert#fetch-an-alert-resource"
+          },
+          "response": {
+            "name": "FetchAlertResponse",
+            "structure": "AlertResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved alert"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "structures": {
+    "AlertsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Alerts",
+          "type": "array",
+          "items": {
+            "structure": "AlertResponse"
+          },
+          "value": "alerts",
+          "required": true
+        }
+      ]
+    },
+    "AlertResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AlertText",
+          "type": "string",
+          "value": "alert_text",
+          "required": false
+        },
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": false
+        },
+        {
+          "name": "ErrorCode",
+          "type": "string",
+          "value": "error_code",
+          "required": true
+        },
+        {
+          "name": "LogLevel",
+          "type": "string",
+          "value": "log_level",
+          "required": true
+        },
+        {
+          "name": "MoreInfo",
+          "type": "string",
+          "value": "more_info",
+          "required": true
+        },
+        {
+          "name": "RequestHeaders",
+          "type": "string",
+          "value": "request_headers",
+          "required": false
+        },
+        {
+          "name": "RequestMethod",
+          "type": "string",
+          "value": "request_method",
+          "required": false
+        },
+        {
+          "name": "RequestURL",
+          "type": "string",
+          "value": "request_url",
+          "required": false
+        },
+        {
+          "name": "RequestVariables",
+          "type": "string",
+          "value": "request_variables",
+          "required": false
+        },
+        {
+          "name": "ResourceSid",
+          "type": "string",
+          "value": "resource_sid",
+          "required": true
+        },
+        {
+          "name": "ResponseBody",
+          "type": "string",
+          "value": "response_body",
+          "required": false
+        },
+        {
+          "name": "ResponseHeaders",
+          "type": "string",
+          "value": "response_headers",
+          "required": false
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateGenerated",
+          "type": "time.Time",
+          "value": "date_generated",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
+}
