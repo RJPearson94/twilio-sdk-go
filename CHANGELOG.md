@@ -1,3 +1,10 @@
+## v0.2.0 (unreleased)
+
+### Monitor
+
+- **New Resource:** Alert
+- **New Resource:** Events
+
 ## v0.1.0 (2020-09-06)
 
 Add first release of the Twilio Go SDK. The list of supported services can be seen in the features section below.
