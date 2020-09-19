@@ -21,10 +21,20 @@ fmt:
 
 tools:
 	@echo "==> installing required tooling..."
-	go install golang.org/x/tools/cmd/goimports
-	go install github.com/client9/misspell/cmd/misspell
+	GO111MODULE=off go get -u golang.org/x/tools/cmd/goimports
+	GO111MODULE=off go get -u github.com/client9/misspell/cmd/misspell
+	GO111MODULE=off go get -u github.com/gordonklaus/ineffassign
+	GO111MODULE=off go get -u github.com/gojp/goreportcard/cmd/goreportcard-cli
+
+reportcard:
+	@echo "==> running go report card"
+	goreportcard-cli
+
+goreportcard-refresh:
+	@echo "==> refresh goreportcard checks"
+	curl -X POST -F "repo=github.com/RJPearson94/twilio-sdk-go" https://goreportcard.com/checks
 
 generate:
 	go generate  ./...
 
-.PHONY: download build test fmt tools generate
+.PHONY: download build test fmt tools generate reportcard goreportcard-refresh
