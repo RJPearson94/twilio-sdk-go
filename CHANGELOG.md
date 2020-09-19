@@ -1,5 +1,14 @@
 ## v0.2.0 (unreleased)
 
+### Flex
+
+- **Fix:** CRM_Enabled json tag (on both input input and output) was incorrectly labelled `crm_type`, this has now been corrected to `crm_enabled`
+
+### TaskRouter
+
+- **New Resource:** Worker Channel
+- **New Resource:** Worker Reservation
+
 ### Monitor
 
 - **New Resource:** Alert
