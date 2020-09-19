@@ -20,6 +20,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/tasks"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
@@ -225,7 +227,7 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 			}
 		})
 
-		It("Then the worker is create, fetched, updated and deleted", func() {
+		It("Then the worker is created, fetched, updated and deleted", func() {
 			workersClient := taskrouterSession.Workspace(workspaceSid).Workers
 
 			createResp, createErr := workersClient.Create(&workers.CreateWorkerInput{
@@ -259,6 +261,68 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 
 			deleteErr := workerClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the TaskRouter Worker Channel clients", func() {
+
+		var workspaceSid string
+		var workerSid string
+
+		BeforeEach(func() {
+			resp, err := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
+			}
+			workspaceSid = resp.Sid
+
+			workerResp, workerErr := taskrouterSession.Workspace(workspaceSid).Workers.Create(&workers.CreateWorkerInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if workerErr != nil {
+				Fail(fmt.Sprintf("Failed to create worker. Error %s", workerErr.Error()))
+			}
+			workerSid = workerResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete worker. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the worker channel is fetched and updated", func() {
+			channelsClient := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Channels
+
+			pageResp, pageErr := channelsClient.Page(&channels.ChannelsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Channels)).Should(BeNumerically(">=", 1))
+
+			paginator := channelsClient.NewChannelsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Channels)).Should(BeNumerically(">=", 1))
+
+			channelClient := taskrouterSession.Workspace(workspaceSid).Worker(workerSid).Channel(paginator.Channels[0].Sid)
+
+			fetchResp, fetchErr := channelClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := channelClient.Update(&channel.UpdateChannelInput{
+				Capacity: utils.Int(5),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
 		})
 	})
 

@@ -760,6 +760,218 @@
             "description": "Client for managing a specific worker resource",
             "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker"
           },
+          "subClients": [
+            {
+              "name": "Channels",
+              "packageName": "channels",
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "workerSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing worker channel resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-channel"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Channels",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of worker channel",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-channel#read-multiple-workerchannel-resources"
+                  },
+                  "response": {
+                    "structure": "ChannelsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the worker channels page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ChannelsPaginator",
+                    "page": {
+                      "name": "ChannelsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Channels",
+                      "structure": "PageChannelResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Channel",
+              "packageName": "channel",
+              "function": {
+                "parameters": {
+                  "channelSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "workerSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "channelSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific worker channel resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-channel"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Channels/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves an worker channel resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-channel#fetch-a-workerchannel-resource"
+                  },
+                  "response": {
+                    "name": "FetchChannelResponse",
+                    "structure": "ChannelResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved worker channel"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Channels/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a worker channel resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker-channel#update-a-workerchannel-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateChannelInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a worker channel resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateChannelResponse",
+                    "structure": "ChannelResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated worker channel"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -2273,6 +2485,97 @@
           "type": "time.Time",
           "value": "date_status_changed",
           "required": false
+        }
+      ]
+    },
+    "UpdateChannelInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Capacity",
+          "type": "int",
+          "value": "Capacity",
+          "required": false
+        },
+        {
+          "name": "Available",
+          "type": "bool",
+          "value": "Available",
+          "required": false
+        }
+      ]
+    },
+    "ChannelsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Channels",
+          "type": "array",
+          "items": {
+            "structure": "ChannelResponse"
+          },
+          "value": "channels",
+          "required": true
+        }
+      ]
+    },
+    "ChannelResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "WorkerSid",
+          "type": "string",
+          "value": "worker_sid",
+          "required": true
+        },
+        {
+          "name": "TaskChannelSid",
+          "type": "string",
+          "value": "task_channel_sid",
+          "required": true
+        },
+        {
+          "name": "TaskChannelUniqueName",
+          "type": "string",
+          "value": "task_channel_unique_name",
+          "required": true
+        },
+        {
+          "name": "ConfiguredCapacity",
+          "type": "int",
+          "value": "configured_capacity",
+          "required": true
+        },
+        {
+          "name": "Available",
+          "type": "bool",
+          "value": "available",
+          "required": true
+        },
+        {
+          "name": "AssignedTasks",
+          "type": "int",
+          "value": "assigned_tasks",
+          "required": true
+        },
+        {
+          "name": "AvailableCapacityPercentage",
+          "type": "int",
+          "value": "available_capacity_percentage",
+          "required": true
         }
       ]
     },

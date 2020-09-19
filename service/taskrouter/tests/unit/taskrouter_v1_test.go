@@ -22,6 +22,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/tasks"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channel"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
@@ -1584,6 +1586,287 @@ var _ = Describe("Taskrouter V1", func() {
 			err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WK71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the worker channels client", func() {
+		channelsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channels
+
+		Describe("When the page of worker channels are successfully retrieved", func() {
+			pageOptions := &channels.ChannelsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workerChannelsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := channelsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the worker channels page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("channels"))
+
+				channels := resp.Channels
+				Expect(channels).ToNot(BeNil())
+				Expect(len(channels)).To(Equal(1))
+
+				Expect(channels[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].AssignedTasks).To(Equal(0))
+				Expect(channels[0].Available).To(Equal(true))
+				Expect(channels[0].AvailableCapacityPercentage).To(Equal(100))
+				Expect(channels[0].ConfiguredCapacity).To(Equal(10))
+				Expect(channels[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(channels[0].DateUpdated).To(BeNil())
+				Expect(channels[0].Sid).To(Equal("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].TaskChannelSid).To(Equal("TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].TaskChannelUniqueName).To(Equal("default"))
+				Expect(channels[0].URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].WorkerSid).To(Equal("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(channels[0].WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+			})
+		})
+
+		Describe("When the page of worker channels api returns a 500 response", func() {
+			pageOptions := &channels.ChannelsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := channelsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the worker channels page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated worker channels are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workerChannelsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workerChannelsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := channelsClient.NewChannelsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated worker channels current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated worker channels results should be returned", func() {
+				Expect(len(paginator.Channels)).To(Equal(3))
+			})
+		})
+
+		Describe("When the worker channels api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workerChannelsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := channelsClient.NewChannelsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated worker channels current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a worker channel sid", func() {
+		channelClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the worker is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workerChannelsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := channelClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get worker channel response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssignedTasks).To(Equal(0))
+				Expect(resp.Available).To(Equal(true))
+				Expect(resp.AvailableCapacityPercentage).To(Equal(100))
+				Expect(resp.ConfiguredCapacity).To(Equal(10))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.Sid).To(Equal("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskChannelSid).To(Equal("TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskChannelUniqueName).To(Equal("default"))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkerSid).To(Equal("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get worker channel api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WC71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("WC71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get worker channel response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the worker channel is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updatedWorkerChannelResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &channel.UpdateChannelInput{}
+
+			resp, err := channelClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update worker channel response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AssignedTasks).To(Equal(0))
+				Expect(resp.Available).To(Equal(true))
+				Expect(resp.AvailableCapacityPercentage).To(Equal(100))
+				Expect(resp.ConfiguredCapacity).To(Equal(10))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+				Expect(resp.Sid).To(Equal("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskChannelSid).To(Equal("TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskChannelUniqueName).To(Equal("default"))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkerSid).To(Equal("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update worker channel response returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WC71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &channel.UpdateChannelInput{
+				Capacity: utils.Int(5),
+			}
+
+			resp, err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Worker("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Channel("WC71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update worker channel response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

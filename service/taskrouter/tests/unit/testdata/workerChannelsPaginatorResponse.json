@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?PageSize=50&Page=0",
+    "next_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "channels"
+  },
+  "channels": [
+    {
+      "sid": "WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "worker_sid": "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "task_channel_sid": "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "task_channel_unique_name": "default",
+      "configured_capacity": 10,
+      "available": true,
+      "assigned_tasks": 0,
+      "available_capacity_percentage": 100,
+      "date_created": "2020-06-27T23:00:00Z",
+      "date_updated": null,
+      "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "sid": "WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "worker_sid": "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "task_channel_sid": "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "task_channel_unique_name": "default",
+      "configured_capacity": 10,
+      "available": true,
+      "assigned_tasks": 0,
+      "available_capacity_percentage": 100,
+      "date_created": "2020-06-27T23:00:00Z",
+      "date_updated": null,
+      "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}
