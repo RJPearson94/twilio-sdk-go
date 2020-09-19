@@ -45,7 +45,7 @@ type UpdateConfigurationInput struct {
 	ChatServiceInstanceSid       *string                                             `json:"chat_service_instance_sid,omitempty"`
 	CrmAttributes                *interface{}                                        `json:"crm_attributes,omitempty"`
 	CrmCallbackURL               *string                                             `json:"crm_callback_url,omitempty"`
-	CrmEnabled                   *bool                                               `json:"crm_type,omitempty"`
+	CrmEnabled                   *bool                                               `json:"crm_enabled,omitempty"`
 	CrmFallbackURL               *string                                             `json:"crm_fallback_url,omitempty"`
 	CrmType                      *string                                             `json:"crm_type,omitempty"`
 	Integrations                 *[]UpdateConfigurationInputIntegration              `json:"integrations,omitempty"`
@@ -105,7 +105,7 @@ type UpdateConfigurationResponse struct {
 	ChatServiceInstanceSid       *string                                                `json:"chat_service_instance_sid,omitempty"`
 	CrmAttributes                *interface{}                                           `json:"crm_attributes,omitempty"`
 	CrmCallbackURL               *string                                                `json:"crm_callback_url,omitempty"`
-	CrmEnabled                   *bool                                                  `json:"crm_type,omitempty"`
+	CrmEnabled                   *bool                                                  `json:"crm_enabled,omitempty"`
 	CrmFallbackURL               *string                                                `json:"crm_fallback_url,omitempty"`
 	CrmType                      *string                                                `json:"crm_type,omitempty"`
 	DateCreated                  time.Time                                              `json:"date_created"`

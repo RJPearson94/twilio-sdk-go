@@ -678,7 +678,7 @@
         {
           "name": "CrmEnabled",
           "type": "bool",
-          "value": "crm_type",
+          "value": "crm_enabled",
           "required": false
         },
         {
@@ -997,7 +997,7 @@
         {
           "name": "CrmEnabled",
           "type": "bool",
-          "value": "crm_type",
+          "value": "crm_enabled",
           "required": false
         },
         {
