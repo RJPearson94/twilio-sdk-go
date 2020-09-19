@@ -2951,12 +2951,12 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.Results).To(Equal(queries.CreateQueryResponseResult{
 					Task: "test",
 					Fields: []queries.CreateQueryResponseField{
-						queries.CreateQueryResponseField{
+						{
 							Name:  "intro",
 							Value: "hello",
 							Type:  "hello",
 						},
-						queries.CreateQueryResponseField{
+						{
 							Name:  "outro",
 							Value: "world",
 							Type:  "world",
@@ -3074,12 +3074,12 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(respQueries[0].Results).To(Equal(queries.PageQueryResponseResult{
 					Task: "test",
 					Fields: []queries.PageQueryResponseField{
-						queries.PageQueryResponseField{
+						{
 							Name:  "intro",
 							Value: "hello",
 							Type:  "hello",
 						},
-						queries.PageQueryResponseField{
+						{
 							Name:  "outro",
 							Value: "world",
 							Type:  "world",
@@ -3233,12 +3233,12 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.Results).To(Equal(query.FetchQueryResponseResult{
 					Task: "test",
 					Fields: []query.FetchQueryResponseField{
-						query.FetchQueryResponseField{
+						{
 							Name:  "intro",
 							Value: "hello",
 							Type:  "hello",
 						},
-						query.FetchQueryResponseField{
+						{
 							Name:  "outro",
 							Value: "world",
 							Type:  "world",
@@ -3305,12 +3305,12 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.Results).To(Equal(query.UpdateQueryResponseResult{
 					Task: "test",
 					Fields: []query.UpdateQueryResponseField{
-						query.UpdateQueryResponseField{
+						{
 							Name:  "intro",
 							Value: "hello",
 							Type:  "hello",
 						},
-						query.UpdateQueryResponseField{
+						{
 							Name:  "outro",
 							Value: "world",
 							Type:  "world",
