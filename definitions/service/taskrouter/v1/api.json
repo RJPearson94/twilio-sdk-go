@@ -1969,6 +1969,228 @@
             "description": "Client for managing a specific task resource",
             "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task"
           },
+          "subClients": [
+            {
+              "name": "Reservations",
+              "packageName": "reservations",
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing task reservation resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/reservations"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Tasks/{taskSid}/Reservations",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "WorkerSid",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "ReservationStatus",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of task reservations",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/reservations#reservations-list-resource"
+                  },
+                  "response": {
+                    "structure": "ReservationsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the task reservations page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ReservationsPaginator",
+                    "page": {
+                      "name": "ReservationsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Reservations",
+                      "structure": "PageReservationResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Reservation",
+              "packageName": "reservation",
+              "function": {
+                "parameters": {
+                  "channelSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "taskSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "channelSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific task reservation resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/reservations"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Tasks/{taskSid}/Reservations/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves an task reservation resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/reservations#action-get"
+                  },
+                  "response": {
+                    "name": "FetchReservationResponse",
+                    "structure": "ReservationResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved task reservation"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Tasks/{taskSid}/Reservations/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "taskSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a task reservation resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/reservations#action-update"
+                  },
+                  "input": {
+                    "structure": "UpdateReservationInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a task reservation resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateReservationResponse",
+                    "structure": "ReservationResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated task reservation"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
