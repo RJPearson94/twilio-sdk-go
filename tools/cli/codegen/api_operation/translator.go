@@ -191,7 +191,12 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 		}
 	} else if property.Exists("structure") {
 		structureName := property.Path("structure").Data().(string)
-		structName := apiOperationName + property.Path("structure").Data().(string)
+
+		var fieldNameSuffix = structureName
+		if property.Exists("structureName") {
+			fieldNameSuffix = property.Path("structureName").Data().(string)
+		}
+		structName := apiOperationName + fieldNameSuffix
 		typeName = structName
 
 		propertyStructure := structures[structureName]

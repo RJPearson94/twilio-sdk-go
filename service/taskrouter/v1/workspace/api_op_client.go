@@ -5,6 +5,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/cumulative_statistics"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/real_time_statistics"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/statistics"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channels"
@@ -24,18 +27,21 @@ type Client struct {
 
 	sid string
 
-	Activities   *activities.Client
-	Activity     func(string) *activity.Client
-	Task         func(string) *task.Client
-	TaskChannel  func(string) *task_channel.Client
-	TaskChannels *task_channels.Client
-	TaskQueue    func(string) *task_queue.Client
-	TaskQueues   *task_queues.Client
-	Tasks        *tasks.Client
-	Worker       func(string) *worker.Client
-	Workers      *workers.Client
-	Workflow     func(string) *workflow.Client
-	Workflows    *workflows.Client
+	Activities           *activities.Client
+	Activity             func(string) *activity.Client
+	CumulativeStatistics func() *cumulative_statistics.Client
+	RealTimeStatistics   func() *real_time_statistics.Client
+	Statistics           func() *statistics.Client
+	Task                 func(string) *task.Client
+	TaskChannel          func(string) *task_channel.Client
+	TaskChannels         *task_channels.Client
+	TaskQueue            func(string) *task_queue.Client
+	TaskQueues           *task_queues.Client
+	Tasks                *tasks.Client
+	Worker               func(string) *worker.Client
+	Workers              *workers.Client
+	Workflow             func(string) *workflow.Client
+	Workflows            *workflows.Client
 }
 
 // ClientProperties are the properties required to manage the workspace resources
@@ -56,6 +62,21 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		Activity: func(activitySid string) *activity.Client {
 			return activity.New(client, activity.ClientProperties{
 				Sid:          activitySid,
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		CumulativeStatistics: func() *cumulative_statistics.Client {
+			return cumulative_statistics.New(client, cumulative_statistics.ClientProperties{
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		RealTimeStatistics: func() *real_time_statistics.Client {
+			return real_time_statistics.New(client, real_time_statistics.ClientProperties{
+				WorkspaceSid: properties.Sid,
+			})
+		},
+		Statistics: func() *statistics.Client {
+			return statistics.New(client, statistics.ClientProperties{
 				WorkspaceSid: properties.Sid,
 			})
 		},
