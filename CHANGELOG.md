@@ -8,6 +8,7 @@
 
 - **New Resource:** Worker Channel
 - **New Resource:** Worker Reservation
+- **New Resource:** Task Reservation
 
 ### Monitor
 
