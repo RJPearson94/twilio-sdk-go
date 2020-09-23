@@ -1,0 +1,55 @@
+{
+  "cumulative": {
+    "wait_duration_until_accepted": {
+      "total": 0,
+      "max": 0,
+      "avg": 0,
+      "min": 0
+    },
+    "reservations_timed_out": 0,
+    "reservations_rejected": 0,
+    "reservations_created": 0,
+    "reservations_rescinded": 0,
+    "tasks_canceled": 0,
+    "tasks_assigned": 0,
+    "start_time": "2020-06-27T23:00:00Z",
+    "tasks_entered": 0,
+    "tasks_deleted": 0,
+    "avg_task_acceptance_time": 0,
+    "reservations_wrapup": 0,
+    "tasks_moved": 0,
+    "wait_duration_until_canceled": {
+      "total": 0,
+      "max": 0,
+      "avg": 0,
+      "min": 0
+    },
+    "end_time": "2020-06-27T23:10:00Z",
+    "reservations_accepted": 0,
+    "tasks_timed_out_in_workflow": 0,
+    "tasks_completed": 0,
+    "reservations_canceled": 0,
+    "reservations_completed": 0
+  },
+  "realtime": {
+    "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "longest_task_waiting_sid": null,
+    "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "tasks_by_status": {
+      "reserved": 0,
+      "completed": 0,
+      "wrapping": 0,
+      "assigned": 0,
+      "canceled": 0,
+      "pending": 0
+    },
+    "tasks_by_priority": {},
+    "longest_task_waiting_age": 0,
+    "workflow_sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "total_tasks": 0
+  },
+  "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+  "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "workflow_sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

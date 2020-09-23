@@ -7,11 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/cumulative_statistics"
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/statistics"
-
-	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/real_time_statistics"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -20,6 +15,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activity"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/cumulative_statistics"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/real_time_statistics"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/statistics"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task"
 	taskReservation "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task/reservation"
 	taskReservations "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task/reservations"
@@ -35,6 +33,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservations"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workers"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow"
+	workspaceCumulativeStatistics "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow/cumulative_statistics"
+	workflowStatistics "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow/statistics"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspaces"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -478,7 +478,7 @@ var _ = Describe("Taskrouter V1", func() {
 					},
 				}))
 				Expect(resp.LongestTaskWaitingAge).To(Equal(2807))
-				Expect(resp.LongestTaskWaitingSid).To(Equal("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.LongestTaskWaitingSid).To(Equal(utils.String("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.TasksByPriority).To(Equal(map[string]int{
 					"0": 1,
 				}))
@@ -684,7 +684,7 @@ var _ = Describe("Taskrouter V1", func() {
 					},
 				}))
 				Expect(resp.RealTime.LongestTaskWaitingAge).To(Equal(3393))
-				Expect(resp.RealTime.LongestTaskWaitingSid).To(Equal("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RealTime.LongestTaskWaitingSid).To(Equal(utils.String("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.RealTime.TasksByPriority).To(Equal(map[string]int{
 					"0": 1,
 				}))
@@ -1511,6 +1511,255 @@ var _ = Describe("Taskrouter V1", func() {
 			err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WF71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a workflow real time statistics client", func() {
+		realTimeStatisticsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RealTimeStatistics()
+
+		Describe("When the workflow real time statistics are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workflowRealTimeStatisticsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := realTimeStatisticsClient.Fetch(nil)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get workflow real time statistics response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.LongestTaskWaitingAge).To(Equal(0))
+				Expect(resp.LongestTaskWaitingSid).To(BeNil())
+				Expect(resp.TasksByPriority).To(Equal(map[string]int{}))
+				Expect(resp.TasksByStatus).To(Equal(map[string]int{
+					"reserved":  0,
+					"completed": 0,
+					"wrapping":  0,
+					"assigned":  0,
+					"canceled":  0,
+					"pending":   0,
+				}))
+				Expect(resp.TotalTasks).To(Equal(0))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkflowSid).To(Equal("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the workflow real time statistics api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := realTimeStatisticsClient.Fetch(nil)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create workflow real time statistics response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a workflow cumulative statistics client", func() {
+		cumulativeStatisticsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").CumulativeStatistics()
+
+		Describe("When the workflow cumulative statistics are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workflowCumulativeStatisticsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := cumulativeStatisticsClient.Fetch(&workspaceCumulativeStatistics.FetchCumulativeStatisticsOptions{
+				SplitByWaitTime: utils.String("5"),
+			})
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get workflow cumulative statistics response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AvgTaskAcceptanceTime).To(Equal(0))
+				Expect(resp.EndTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+				Expect(resp.ReservationsAccepted).To(Equal(0))
+				Expect(resp.ReservationsCanceled).To(Equal(0))
+				Expect(resp.ReservationsCompleted).To(BeNil())
+				Expect(resp.ReservationsCreated).To(Equal(0))
+				Expect(resp.ReservationsRejected).To(Equal(0))
+				Expect(resp.ReservationsRescinded).To(Equal(0))
+				Expect(resp.ReservationsTimedOut).To(Equal(0))
+				Expect(resp.ReservationsWrapUp).To(Equal(0))
+				Expect(resp.SplitByWaitTime).To(Equal(&map[string]workspaceCumulativeStatistics.FetchWaitTime{
+					"5": {
+						Below: workspaceCumulativeStatistics.FetchWaitTimeTasks{
+							ReservationsAccepted: 0,
+							TasksCanceled:        0,
+						},
+						Above: workspaceCumulativeStatistics.FetchWaitTimeTasks{
+							ReservationsAccepted: 0,
+							TasksCanceled:        0,
+						},
+					},
+				}))
+				Expect(resp.StartTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.TasksAssigned).To(BeNil())
+				Expect(resp.TasksCanceled).To(Equal(0))
+				Expect(resp.TasksCompleted).To(Equal(0))
+				Expect(resp.TasksEntered).To(Equal(0))
+				Expect(resp.TasksDeleted).To(Equal(0))
+				Expect(resp.TasksMoved).To(Equal(0))
+				Expect(resp.TasksTimedOutInWorkflow).To(Equal(0))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics"))
+				Expect(resp.WaitDurationUntilAccepted).To(Equal(workspaceCumulativeStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.WaitDurationUntilCanceled).To(Equal(workspaceCumulativeStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.WorkspaceSid).To(Equal(utils.String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.WorkflowSid).To(Equal("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the workflow cumulative statistics api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := cumulativeStatisticsClient.Fetch(nil)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get workflow cumulative statistics response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a workflow statistics client", func() {
+		statisticsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Workflow("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Statistics()
+
+		Describe("When the workflow statistics are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/workflowStatisticsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := statisticsClient.Fetch(nil)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get workflow statistics response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+
+				Expect(resp.Cumulative).ToNot(BeNil())
+				Expect(resp.Cumulative.AvgTaskAcceptanceTime).To(Equal(0))
+				Expect(resp.Cumulative.EndTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+				Expect(resp.Cumulative.ReservationsAccepted).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsCanceled).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsCompleted).To(Equal(utils.Int(0)))
+				Expect(resp.Cumulative.ReservationsCreated).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsRejected).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsRescinded).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsTimedOut).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsWrapUp).To(Equal(0))
+				Expect(resp.Cumulative.SplitByWaitTime).To(BeNil())
+				Expect(resp.Cumulative.StartTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.Cumulative.TasksAssigned).To(Equal(utils.Int(0)))
+				Expect(resp.Cumulative.TasksCanceled).To(Equal(0))
+				Expect(resp.Cumulative.TasksCompleted).To(Equal(0))
+				Expect(resp.Cumulative.TasksEntered).To(Equal(0))
+				Expect(resp.Cumulative.TasksDeleted).To(Equal(0))
+				Expect(resp.Cumulative.TasksMoved).To(Equal(0))
+				Expect(resp.Cumulative.TasksTimedOutInWorkflow).To(Equal(0))
+				Expect(resp.Cumulative.WaitDurationUntilAccepted).To(Equal(workflowStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.Cumulative.WaitDurationUntilCanceled).To(Equal(workflowStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+
+				Expect(resp.RealTime).ToNot(BeNil())
+				Expect(resp.RealTime.LongestTaskWaitingAge).To(Equal(0))
+				Expect(resp.RealTime.LongestTaskWaitingSid).To(BeNil())
+				Expect(resp.RealTime.TasksByPriority).To(Equal(map[string]int{}))
+				Expect(resp.RealTime.TasksByStatus).To(Equal(map[string]int{
+					"reserved":  0,
+					"completed": 0,
+					"wrapping":  0,
+					"assigned":  0,
+					"canceled":  0,
+					"pending":   0,
+				}))
+				Expect(resp.RealTime.TotalTasks).To(Equal(0))
+
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkflowSid).To(Equal("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the workflow statistics api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := statisticsClient.Fetch(nil)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get workflow statistics response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

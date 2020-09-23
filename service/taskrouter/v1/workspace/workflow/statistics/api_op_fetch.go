@@ -19,12 +19,6 @@ type FetchStatisticsOptions struct {
 	SplitByWaitTime *string
 }
 
-type FetchActivityStatistic struct {
-	FriendlyName string `json:"friendly_name"`
-	Sid          string `json:"sid"`
-	Workers      int    `json:"workers"`
-}
-
 type FetchCumulativeStatistics struct {
 	AvgTaskAcceptanceTime     int                       `json:"avg_task_acceptance_time"`
 	EndTime                   time.Time                 `json:"end_time"`
@@ -41,24 +35,20 @@ type FetchCumulativeStatistics struct {
 	TasksAssigned             *int                      `json:"tasks_assigned,omitempty"`
 	TasksCanceled             int                       `json:"tasks_canceled"`
 	TasksCompleted            int                       `json:"tasks_completed"`
-	TasksCreated              int                       `json:"tasks_created"`
 	TasksDeleted              int                       `json:"tasks_deleted"`
+	TasksEntered              int                       `json:"tasks_entered"`
 	TasksMoved                int                       `json:"tasks_moved"`
 	TasksTimedOutInWorkflow   int                       `json:"tasks_timed_out_in_workflow"`
 	WaitDurationUntilAccepted FetchStatisticsBreakdown  `json:"wait_duration_until_accepted"`
 	WaitDurationUntilCanceled FetchStatisticsBreakdown  `json:"wait_duration_until_canceled"`
-	WorkspaceSid              *string                   `json:"workspace_sid,omitempty"`
 }
 
 type FetchRealTimeStatistics struct {
-	ActivityStatistics    []FetchActivityStatistic `json:"activity_statistics"`
-	LongestTaskWaitingAge int                      `json:"longest_task_waiting_age"`
-	LongestTaskWaitingSid *string                  `json:"longest_task_waiting_sid,omitempty"`
-	TasksByPriority       map[string]int           `json:"tasks_by_priority"`
-	TasksByStatus         map[string]int           `json:"tasks_by_status"`
-	TotalTasks            int                      `json:"total_tasks"`
-	TotalWorkers          int                      `json:"total_workers"`
-	WorkspaceSid          string                   `json:"workspace_sid"`
+	LongestTaskWaitingAge int            `json:"longest_task_waiting_age"`
+	LongestTaskWaitingSid *string        `json:"longest_task_waiting_sid,omitempty"`
+	TasksByPriority       map[string]int `json:"tasks_by_priority"`
+	TasksByStatus         map[string]int `json:"tasks_by_status"`
+	TotalTasks            int            `json:"total_tasks"`
 }
 
 type FetchStatisticsBreakdown struct {
@@ -84,24 +74,26 @@ type FetchStatisticsResponse struct {
 	Cumulative   FetchCumulativeStatistics `json:"cumulative"`
 	RealTime     FetchRealTimeStatistics   `json:"realtime"`
 	URL          string                    `json:"url"`
+	WorkflowSid  string                    `json:"workflow_sid"`
 	WorkspaceSid string                    `json:"workspace_sid"`
 }
 
 // Fetch retrieves statistics
-// See https://www.twilio.com/docs/taskrouter/api/workspace-statistics#workspace-statistics for more details
+// See https://www.twilio.com/docs/taskrouter/api/workflow-statistics#workflow-statistics for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch(options *FetchStatisticsOptions) (*FetchStatisticsResponse, error) {
 	return c.FetchWithContext(context.Background(), options)
 }
 
 // FetchWithContext retrieves statistics
-// See https://www.twilio.com/docs/taskrouter/api/workspace-statistics#workspace-statistics for more details
+// See https://www.twilio.com/docs/taskrouter/api/workflow-statistics#workflow-statistics for more details
 func (c Client) FetchWithContext(context context.Context, options *FetchStatisticsOptions) (*FetchStatisticsResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
-		URI:    "/Workspaces/{workspaceSid}/Statistics",
+		URI:    "/Workspaces/{workspaceSid}/Workflows/{workflowSid}/Statistics",
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
+			"workflowSid":  c.workflowSid,
 		},
 		QueryParams: utils.StructToStringMap(options),
 	}
