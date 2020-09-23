@@ -227,6 +227,133 @@ var _ = Describe("Taskrouter Acceptance Tests", func() {
 		})
 	})
 
+	Describe("Given the TaskRouter Task Queue real time statistics clients", func() {
+
+		var workspaceSid string
+		var taskQueueSid string
+
+		BeforeEach(func() {
+			resp, err := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
+			}
+			workspaceSid = resp.Sid
+
+			taskQueueResp, taskQueueErr := taskrouterSession.Workspace(workspaceSid).TaskQueues.Create(&task_queues.CreateTaskQueueInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if taskQueueErr != nil {
+				Fail(fmt.Sprintf("Failed to create task queue. Error %s", taskQueueErr.Error()))
+			}
+			taskQueueSid = taskQueueResp.Sid
+		})
+
+		AfterEach(func() {
+
+			if err := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete task queue. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the real time statistics are fetched", func() {
+			realTimeStatisticsClient := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).RealTimeStatistics()
+
+			fetchResp, fetchErr := realTimeStatisticsClient.Fetch(nil)
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the TaskRouter Task Queue cumulative statistics clients", func() {
+
+		var workspaceSid string
+		var taskQueueSid string
+
+		BeforeEach(func() {
+			resp, err := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
+			}
+			workspaceSid = resp.Sid
+
+			taskQueueResp, taskQueueErr := taskrouterSession.Workspace(workspaceSid).TaskQueues.Create(&task_queues.CreateTaskQueueInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if taskQueueErr != nil {
+				Fail(fmt.Sprintf("Failed to create task queue. Error %s", taskQueueErr.Error()))
+			}
+			taskQueueSid = taskQueueResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete task queue. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the real time statistics are fetched", func() {
+			cumulativeStatisticsClient := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).CumulativeStatistics()
+
+			fetchResp, fetchErr := cumulativeStatisticsClient.Fetch(nil)
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the TaskRouter Task Queue statistics clients", func() {
+
+		var workspaceSid string
+		var taskQueueSid string
+
+		BeforeEach(func() {
+			resp, err := taskrouterSession.Workspaces.Create(&workspaces.CreateWorkspaceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create workspace. Error %s", err.Error()))
+			}
+			workspaceSid = resp.Sid
+
+			taskQueueResp, taskQueueErr := taskrouterSession.Workspace(workspaceSid).TaskQueues.Create(&task_queues.CreateTaskQueueInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if taskQueueErr != nil {
+				Fail(fmt.Sprintf("Failed to create task queue. Error %s", taskQueueErr.Error()))
+			}
+			taskQueueSid = taskQueueResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete task queue. Error %s", err.Error()))
+			}
+
+			if err := taskrouterSession.Workspace(workspaceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete workspace. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the real time statistics are fetched", func() {
+			statisticsClient := taskrouterSession.Workspace(workspaceSid).TaskQueue(taskQueueSid).Statistics()
+
+			fetchResp, fetchErr := statisticsClient.Fetch(nil)
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+		})
+	})
+
 	Describe("Given the TaskRouter Workflow clients", func() {
 
 		var workspaceSid string

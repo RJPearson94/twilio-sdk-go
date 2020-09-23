@@ -24,6 +24,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue"
+	taskQueueCumulativeStatistics "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue/cumulative_statistics"
+	taskQueueRealTimeStatistics "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue/real_time_statistics"
+	taskQueueStatistics "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queue/statistics"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/task_queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/tasks"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker"
@@ -1105,6 +1108,287 @@ var _ = Describe("Taskrouter V1", func() {
 			err := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQ71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a task queue real time statistics client", func() {
+		realTimeStatisticsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RealTimeStatistics()
+
+		Describe("When the task queue real time statistics are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/taskQueueRealTimeStatisticsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := realTimeStatisticsClient.Fetch(nil)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get task queue real time statistics response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ActivityStatistics).To(Equal([]taskQueueRealTimeStatistics.FetchActivityStatistic{
+					{
+						Workers:      0,
+						FriendlyName: "Available",
+						Sid:          "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+					},
+					{
+						Workers:      1,
+						FriendlyName: "Offline",
+						Sid:          "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+					},
+					{
+						Workers:      0,
+						FriendlyName: "Unavailable",
+						Sid:          "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+					},
+				}))
+				Expect(resp.LongestRelativeTaskAgeInQueue).To(Equal(0))
+				Expect(resp.LongestRelativeTaskSidInQueue).To(BeNil())
+				Expect(resp.LongestTaskWaitingAge).To(Equal(0))
+				Expect(resp.LongestTaskWaitingSid).To(BeNil())
+				Expect(resp.TaskQueueSid).To(Equal("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TasksByPriority).To(Equal(map[string]int{}))
+				Expect(resp.TasksByStatus).To(Equal(map[string]int{
+					"reserved":  0,
+					"completed": 0,
+					"wrapping":  0,
+					"assigned":  0,
+					"canceled":  0,
+					"pending":   0,
+				}))
+				Expect(resp.TotalAvailableWorkers).To(Equal(0))
+				Expect(resp.TotalEligibleWorkers).To(Equal(1))
+				Expect(resp.TotalTasks).To(Equal(0))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the task queue real time statistics api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := realTimeStatisticsClient.Fetch(nil)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create task queue real time statistics response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a task queue cumulative statistics client", func() {
+		cumulativeStatisticsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").CumulativeStatistics()
+
+		Describe("When the task queue cumulative statistics are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/taskQueueCumulativeStatisticsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := cumulativeStatisticsClient.Fetch(&taskQueueCumulativeStatistics.FetchCumulativeStatisticsOptions{
+				SplitByWaitTime: utils.String("5"),
+			})
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get task queue cumulative statistics response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AvgTaskAcceptanceTime).To(Equal(0))
+				Expect(resp.EndTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+				Expect(resp.ReservationsAccepted).To(Equal(0))
+				Expect(resp.ReservationsCanceled).To(Equal(0))
+				Expect(resp.ReservationsCreated).To(Equal(0))
+				Expect(resp.ReservationsRejected).To(Equal(0))
+				Expect(resp.ReservationsRescinded).To(Equal(0))
+				Expect(resp.ReservationsTimedOut).To(Equal(0))
+				Expect(resp.SplitByWaitTime).To(BeNil())
+				Expect(resp.StartTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.TaskQueueSid).To(Equal("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TasksCanceled).To(Equal(0))
+				Expect(resp.TasksCompleted).To(Equal(0))
+				Expect(resp.TasksDeleted).To(Equal(0))
+				Expect(resp.TasksEntered).To(Equal(0))
+				Expect(resp.TasksMoved).To(Equal(0))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics"))
+				Expect(resp.WaitDurationInQueueUntilAccepted).To(Equal(taskQueueCumulativeStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.WaitDurationUntilAccepted).To(Equal(taskQueueCumulativeStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.WaitDurationUntilCanceled).To(Equal(taskQueueCumulativeStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the task queue cumulative statistics api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := cumulativeStatisticsClient.Fetch(nil)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get task queue cumulative statistics response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a task queue statistics client", func() {
+		statisticsClient := taskrouterSession.Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").TaskQueue("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Statistics()
+
+		Describe("When the task queue statistics are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/taskQueueStatisticsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := statisticsClient.Fetch(nil)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get task queue statistics response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TaskQueueSid).To(Equal("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"))
+
+				Expect(resp.Cumulative.AvgTaskAcceptanceTime).To(Equal(0))
+				Expect(resp.Cumulative.EndTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+				Expect(resp.Cumulative.ReservationsAccepted).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsCanceled).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsCreated).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsRejected).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsRescinded).To(Equal(0))
+				Expect(resp.Cumulative.ReservationsTimedOut).To(Equal(0))
+				Expect(resp.Cumulative.SplitByWaitTime).To(BeNil())
+				Expect(resp.Cumulative.StartTime.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.Cumulative.TasksCanceled).To(Equal(0))
+				Expect(resp.Cumulative.TasksCompleted).To(Equal(0))
+				Expect(resp.Cumulative.TasksDeleted).To(Equal(0))
+				Expect(resp.Cumulative.TasksEntered).To(Equal(0))
+				Expect(resp.Cumulative.TasksMoved).To(Equal(0))
+				Expect(resp.Cumulative.WaitDurationInQueueUntilAccepted).To(Equal(taskQueueStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.Cumulative.WaitDurationUntilAccepted).To(Equal(taskQueueStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+				Expect(resp.Cumulative.WaitDurationUntilCanceled).To(Equal(taskQueueStatistics.FetchStatisticsBreakdown{
+					Total: 0,
+					Max:   0,
+					Avg:   0,
+					Min:   0,
+				}))
+
+				Expect(resp.RealTime.ActivityStatistics).To(Equal([]taskQueueStatistics.FetchActivityStatistic{
+					{
+						Workers:      0,
+						FriendlyName: "Available",
+						Sid:          "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+					},
+					{
+						Workers:      1,
+						FriendlyName: "Offline",
+						Sid:          "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+					},
+					{
+						Workers:      0,
+						FriendlyName: "Unavailable",
+						Sid:          "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+					},
+				}))
+				Expect(resp.RealTime.LongestRelativeTaskAgeInQueue).To(Equal(0))
+				Expect(resp.RealTime.LongestRelativeTaskSidInQueue).To(BeNil())
+				Expect(resp.RealTime.LongestTaskWaitingAge).To(Equal(0))
+				Expect(resp.RealTime.LongestTaskWaitingSid).To(BeNil())
+				Expect(resp.RealTime.TasksByPriority).To(Equal(map[string]int{}))
+				Expect(resp.RealTime.TasksByStatus).To(Equal(map[string]int{
+					"reserved":  0,
+					"completed": 0,
+					"wrapping":  0,
+					"assigned":  0,
+					"canceled":  0,
+					"pending":   0,
+				}))
+				Expect(resp.RealTime.TotalAvailableWorkers).To(Equal(0))
+				Expect(resp.RealTime.TotalEligibleWorkers).To(Equal(1))
+				Expect(resp.RealTime.TotalTasks).To(Equal(0))
+			})
+		})
+
+		Describe("When the task queue statistics api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := statisticsClient.Fetch(nil)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get task queue statistics response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

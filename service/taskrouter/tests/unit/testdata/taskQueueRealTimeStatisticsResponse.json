@@ -1,0 +1,39 @@
+{
+  "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "total_available_workers": 0,
+  "tasks_by_status": {
+    "reserved": 0,
+    "completed": 0,
+    "wrapping": 0,
+    "assigned": 0,
+    "canceled": 0,
+    "pending": 0
+  },
+  "longest_task_waiting_sid": null,
+  "longest_relative_task_age_in_queue": 0,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "total_eligible_workers": 1,
+  "task_queue_sid": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+  "activity_statistics": [
+    {
+      "workers": 0,
+      "friendly_name": "Available",
+      "sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "workers": 1,
+      "friendly_name": "Offline",
+      "sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    },
+    {
+      "workers": 0,
+      "friendly_name": "Unavailable",
+      "sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"
+    }
+  ],
+  "tasks_by_priority": {},
+  "longest_task_waiting_age": 0,
+  "longest_relative_task_sid_in_queue": null,
+  "total_tasks": 0
+}

@@ -238,6 +238,246 @@
             "description": "Client for managing a specific task queue resource",
             "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-queue"
           },
+          "subClients": [
+            {
+              "name": "Real Time Statistics",
+              "packageName": "real_time_statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "taskQueueSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing task queue real time statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/taskqueue-statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/TaskQueues/{taskQueueSid}/RealTimeStatistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "taskQueueSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskQueueSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves real time statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/taskqueue-statistics#taskqueue-realtime-statisticss"
+                  },
+                  "response": {
+                    "name": "FetchRealTimeStatisticsResponse",
+                    "structure": "TaskQueueRealTimeStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved real time statistics"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Cumulative Statistics",
+              "packageName": "cumulative_statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "taskQueueSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing task queue cumulative statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/taskqueue-statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/TaskQueues/{taskQueueSid}/CumulativeStatistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "taskQueueSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskQueueSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Minutes",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "StartDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "EndDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "SplitByWaitTime",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves cumulative statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/taskqueue-statistics#taskqueue-cumulative-statistics"
+                  },
+                  "response": {
+                    "name": "FetchCumulativeStatisticsResponse",
+                    "structure": "TaskQueueCumulativeStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved cumulative statistics"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Statistics",
+              "packageName": "statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "taskQueueSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing task queue statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/taskqueue-statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/TaskQueues/{taskQueueSid}/Statistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "taskQueueSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "taskQueueSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Minutes",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "StartDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "EndDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "SplitByWaitTime",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/taskqueue-statistics#taskqueue-instance-statistics"
+                  },
+                  "response": {
+                    "name": "FetchStatisticsResponse",
+                    "structure": "TaskQueueStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved statistics"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -3601,6 +3841,299 @@
           "name": "WorkflowSid",
           "type": "string",
           "value": "workflow_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "TaskQueueRealTimeStatisticsResponse": {
+      "type": "JSON",
+      "extends": "BaseTaskQueueRealTimeStatisticsResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "TaskQueueSid",
+          "type": "string",
+          "value": "task_queue_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "BaseTaskQueueRealTimeStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "TotalEligibleWorkers",
+          "type": "int",
+          "value": "total_eligible_workers",
+          "required": true
+        },
+        {
+          "name": "TotalAvailableWorkers",
+          "type": "int",
+          "value": "total_available_workers",
+          "required": true
+        },
+        {
+          "name": "TasksByStatus",
+          "type": "map",
+          "items": {
+            "type": "int"
+          },
+          "value": "tasks_by_status",
+          "required": true
+        },
+        {
+          "name": "TasksByPriority",
+          "type": "map",
+          "items": {
+            "type": "int"
+          },
+          "value": "tasks_by_priority",
+          "required": true
+        },
+        {
+          "name": "ActivityStatistics",
+          "type": "array",
+          "items": {
+            "structure": "ActivityStatistic"
+          },
+          "value": "activity_statistics",
+          "required": true
+        },
+        {
+          "name": "LongestTaskWaitingAge",
+          "type": "int",
+          "value": "longest_task_waiting_age",
+          "required": true
+        },
+        {
+          "name": "LongestTaskWaitingSid",
+          "type": "string",
+          "value": "longest_task_waiting_sid",
+          "required": false
+        },
+        {
+          "name": "LongestRelativeTaskAgeInQueue",
+          "type": "int",
+          "value": "longest_relative_task_age_in_queue",
+          "required": true
+        },
+        {
+          "name": "LongestRelativeTaskSidInQueue",
+          "type": "string",
+          "value": "longest_relative_task_sid_in_queue",
+          "required": false
+        },
+        {
+          "name": "TotalTasks",
+          "type": "int",
+          "value": "total_tasks",
+          "required": true
+        }
+      ]
+    },
+    "TaskQueueCumulativeStatisticsResponse": {
+      "type": "JSON",
+      "extends": "BaseTaskQueueCumulativeStatisticsResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "TaskQueueSid",
+          "type": "string",
+          "value": "task_queue_sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "BaseTaskQueueCumulativeStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "WaitDurationUntilAccepted",
+          "structure": "StatisticsBreakdown",
+          "value": "wait_duration_until_accepted",
+          "required": true
+        },
+        {
+          "name": "ReservationsTimedOut",
+          "type": "int",
+          "value": "reservations_timed_out",
+          "required": true
+        },
+        {
+          "name": "ReservationsRejected",
+          "type": "int",
+          "value": "reservations_rejected",
+          "required": true
+        },
+        {
+          "name": "ReservationsCreated",
+          "type": "int",
+          "value": "reservations_created",
+          "required": true
+        },
+        {
+          "name": "ReservationsRescinded",
+          "type": "int",
+          "value": "reservations_rescinded",
+          "required": true
+        },
+        {
+          "name": "TasksEntered",
+          "type": "int",
+          "value": "tasks_entered",
+          "required": true
+        },
+        {
+          "name": "StartTime",
+          "type": "time.Time",
+          "value": "start_time",
+          "required": true
+        },
+        {
+          "name": "TasksDeleted",
+          "type": "int",
+          "value": "tasks_deleted",
+          "required": true
+        },
+        {
+          "name": "AvgTaskAcceptanceTime",
+          "type": "int",
+          "value": "avg_task_acceptance_time",
+          "required": true
+        },
+        {
+          "name": "ReservationsAccepted",
+          "type": "int",
+          "value": "reservations_accepted",
+          "required": true
+        },
+        {
+          "name": "ReservationsCanceled",
+          "type": "int",
+          "value": "reservations_canceled",
+          "required": true
+        },
+        {
+          "name": "TasksMoved",
+          "type": "int",
+          "value": "tasks_moved",
+          "required": true
+        },
+        {
+          "name": "WaitDurationUntilCanceled",
+          "structure": "StatisticsBreakdown",
+          "value": "wait_duration_until_canceled",
+          "required": true
+        },
+        {
+          "name": "WaitDurationInQueueUntilAccepted",
+          "structure": "StatisticsBreakdown",
+          "value": "wait_duration_in_queue_until_accepted",
+          "required": true
+        },
+        {
+          "name": "EndTime",
+          "type": "time.Time",
+          "value": "end_time",
+          "required": true
+        },
+        {
+          "name": "TasksCompleted",
+          "type": "int",
+          "value": "tasks_completed",
+          "required": true
+        },
+        {
+          "name": "TasksCanceled",
+          "type": "int",
+          "value": "tasks_canceled",
+          "required": true
+        },
+        {
+          "name": "SplitByWaitTime",
+          "type": "map",
+          "items": {
+            "structure": "WaitTime"
+          },
+          "value": "split_by_wait_time",
+          "required": false
+        }
+      ]
+    },
+    "TaskQueueStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Cumulative",
+          "structureName": "CumulativeStatistics",
+          "structure": "BaseTaskQueueCumulativeStatisticsResponse",
+          "value": "cumulative",
+          "required": true
+        },
+        {
+          "name": "RealTime",
+          "structureName": "RealTimeStatistics",
+          "structure": "BaseTaskQueueRealTimeStatisticsResponse",
+          "value": "realtime",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "TaskQueueSid",
+          "type": "string",
+          "value": "task_queue_sid",
           "required": true
         },
         {
