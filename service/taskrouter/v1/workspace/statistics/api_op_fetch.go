@@ -47,7 +47,6 @@ type FetchCumulativeStatistics struct {
 	TasksTimedOutInWorkflow   int                       `json:"tasks_timed_out_in_workflow"`
 	WaitDurationUntilAccepted FetchStatisticsBreakdown  `json:"wait_duration_until_accepted"`
 	WaitDurationUntilCanceled FetchStatisticsBreakdown  `json:"wait_duration_until_canceled"`
-	WorkspaceSid              *string                   `json:"workspace_sid,omitempty"`
 }
 
 type FetchRealTimeStatistics struct {
@@ -58,7 +57,6 @@ type FetchRealTimeStatistics struct {
 	TasksByStatus         map[string]int           `json:"tasks_by_status"`
 	TotalTasks            int                      `json:"total_tasks"`
 	TotalWorkers          int                      `json:"total_workers"`
-	WorkspaceSid          string                   `json:"workspace_sid"`
 }
 
 type FetchStatisticsBreakdown struct {

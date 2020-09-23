@@ -587,7 +587,7 @@ var _ = Describe("Taskrouter V1", func() {
 					Avg:   0,
 					Min:   0,
 				}))
-				Expect(resp.WorkspaceSid).To(Equal(utils.String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
 
@@ -701,7 +701,6 @@ var _ = Describe("Taskrouter V1", func() {
 				}))
 				Expect(resp.RealTime.TotalTasks).To(Equal(1))
 				Expect(resp.RealTime.TotalWorkers).To(Equal(1))
-				Expect(resp.RealTime.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 
 				Expect(resp.URL).To(Equal("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"))
 				Expect(resp.WorkspaceSid).To(Equal("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))

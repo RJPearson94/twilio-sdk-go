@@ -3223,6 +3223,12 @@
           "required": true
         },
         {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
           "name": "URL",
           "type": "string",
           "value": "url",
@@ -3233,12 +3239,6 @@
     "BaseWorkspaceRealTimeStatistics": {
       "type": "JSON",
       "properties": [
-        {
-          "name": "WorkspaceSid",
-          "type": "string",
-          "value": "workspace_sid",
-          "required": true
-        },
         {
           "name": "LongestTaskWaitingSid",
           "type": "string",
@@ -3326,6 +3326,12 @@
           "required": true
         },
         {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
           "name": "URL",
           "type": "string",
           "value": "url",
@@ -3336,12 +3342,6 @@
     "BaseWorkspaceCumulativeStatistics": {
       "type": "JSON",
       "properties": [
-        {
-          "name": "WorkspaceSid",
-          "type": "string",
-          "value": "workspace_sid",
-          "required": false
-        },
         {
           "name": "WaitDurationUntilAccepted",
           "structure": "StatisticsBreakdown",

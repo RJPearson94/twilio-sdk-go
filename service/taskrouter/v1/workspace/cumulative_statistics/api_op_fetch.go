@@ -61,7 +61,7 @@ type FetchCumulativeStatisticsResponse struct {
 	URL                       string                    `json:"url"`
 	WaitDurationUntilAccepted FetchStatisticsBreakdown  `json:"wait_duration_until_accepted"`
 	WaitDurationUntilCanceled FetchStatisticsBreakdown  `json:"wait_duration_until_canceled"`
-	WorkspaceSid              *string                   `json:"workspace_sid,omitempty"`
+	WorkspaceSid              string                    `json:"workspace_sid"`
 }
 
 // Fetch retrieves cumulative statistics
