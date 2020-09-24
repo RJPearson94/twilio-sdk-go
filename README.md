@@ -24,10 +24,14 @@ The code is documented contains `go doc` style documentation with links to the r
 
 Example code snippets for all of the supported services & resources can be found [here](./examples)
 
+## Used By
+
+- [Twilio Terraform Provider](https://github.com/RJPearson94/terraform-provider-twilio)
+
 ## With Thanks
 
 This project is very heavily inspired and influenced by other open-source projects including:
 
-- Twilio Node SDK - <https://github.com/twilio/twilio-node>
-- AWS Go V2 SDK - <https://github.com/aws/aws-sdk-go-v2>
-- Kevin Burke's Twilio Go SDK - <https://github.com/kevinburke/twilio-go>
+- [Twilio Node SDK](https://github.com/twilio/twilio-node)
+- [AWS Go V2 SDK](https://github.com/aws/aws-sdk-go-v2)
+- [Kevin Burke's Twilio Go SDK](https://github.com/kevinburke/twilio-go)
