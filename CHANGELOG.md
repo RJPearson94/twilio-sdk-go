@@ -9,6 +9,10 @@
 - **New Resource:** Worker Channel
 - **New Resource:** Worker Reservation
 - **New Resource:** Task Reservation
+- **New Resource:** Workspace Statistics
+- **New Resource:** Workflow Statistics
+- **New Resource:** Worker Statistics
+- **New Resource:** Task Queue Statistics
 
 ### Monitor
 
