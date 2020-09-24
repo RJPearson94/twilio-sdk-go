@@ -1087,6 +1087,215 @@
             "description": "Client for managing worker resources",
             "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker"
           },
+          "subClients": [
+            {
+              "name": "Real Time Statistics",
+              "packageName": "real_time_statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing all workers real time statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/RealTimeStatistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves real time statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics#fetch-real-time-worker-statistics"
+                  },
+                  "response": {
+                    "name": "FetchRealTimeStatisticsResponse",
+                    "structure": "WorkersRealTimeStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved real time statistics"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Cumulative Statistics",
+              "packageName": "cumulative_statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing all workers cumulative statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/CumulativeStatistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Minutes",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "StartDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "EndDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves cumulative statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics#fetch-cumulative-worker-statistics"
+                  },
+                  "response": {
+                    "name": "FetchCumulativeStatisticsResponse",
+                    "structure": "WorkersCumulativeStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved cumulative statistics"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Statistics",
+              "packageName": "statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing all worker statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/Statistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Minutes",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "StartDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "EndDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskQueueSid",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskQueueName",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "FriendlyName",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics#fetch-all-worker-statistics"
+                  },
+                  "response": {
+                    "name": "FetchStatisticsResponse",
+                    "structure": "WorkersStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved statistics"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Create",
@@ -1661,6 +1870,87 @@
                     "structure": "ReservationResponse",
                     "documentation": {
                       "description": "defines the response fields for the updated worker reservation"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Statistics",
+              "packageName": "statistics",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "workspaceSid": {
+                  "dataType": "string",
+                  "parentProperty": "workspaceSid"
+                },
+                "workerSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing all worker statistics",
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Workspaces/{workspaceSid}/Workers/{workerSid}/Statistics",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "workspaceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workspaceSid"
+                        }
+                      },
+                      {
+                        "name": "workerSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "workerSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "Minutes",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "StartDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "EndDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "TaskChannel",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves statistics",
+                    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/worker/statistics#fetch-a-specific-workers-statistics"
+                  },
+                  "response": {
+                    "name": "FetchStatisticsResponse",
+                    "structure": "WorkerStatisticsResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved statistics"
                     }
                   }
                 }
@@ -4134,6 +4424,331 @@
           "name": "TaskQueueSid",
           "type": "string",
           "value": "task_queue_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "WorkersRealTimeStatisticsResponse": {
+      "type": "JSON",
+      "extends": "BaseWorkersRealTimeStatisticsResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        }
+      ]
+    },
+    "BaseWorkersRealTimeStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ActivityStatistics",
+          "type": "array",
+          "items": {
+            "structure": "ActivityStatistic"
+          },
+          "value": "activity_statistics",
+          "required": true
+        },
+        {
+          "name": "TotalWorkers",
+          "type": "int",
+          "value": "total_workers",
+          "required": true
+        }
+      ]
+    },
+
+    "WorkersCumulativeStatisticsResponse": {
+      "type": "JSON",
+      "extends": "BaseWorkersCumulativeStatisticsResponse",
+      "properties": [
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        }
+      ]
+    },
+    "BaseWorkersCumulativeStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ReservationsTimedOut",
+          "type": "int",
+          "value": "reservations_timed_out",
+          "required": true
+        },
+        {
+          "name": "ReservationsRejected",
+          "type": "int",
+          "value": "reservations_rejected",
+          "required": true
+        },
+        {
+          "name": "ReservationsCreated",
+          "type": "int",
+          "value": "reservations_created",
+          "required": true
+        },
+        {
+          "name": "ReservationsRescinded",
+          "type": "int",
+          "value": "reservations_rescinded",
+          "required": true
+        },
+        {
+          "name": "ReservationsAccepted",
+          "type": "int",
+          "value": "reservations_accepted",
+          "required": true
+        },
+        {
+          "name": "ReservationsCanceled",
+          "type": "int",
+          "value": "reservations_canceled",
+          "required": true
+        },
+        {
+          "name": "StartTime",
+          "type": "time.Time",
+          "value": "start_time",
+          "required": true
+        },
+        {
+          "name": "EndTime",
+          "type": "time.Time",
+          "value": "end_time",
+          "required": true
+        },
+        {
+          "name": "ActivityDurations",
+          "type": "array",
+          "items": {
+            "structure": "ActivityDuration"
+          },
+          "value": "activity_durations",
+          "required": true
+        }
+      ]
+    },
+    "ActivityDuration": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Avg",
+          "type": "int",
+          "value": "avg",
+          "required": true
+        },
+        {
+          "name": "Min",
+          "type": "int",
+          "value": "min",
+          "required": true
+        },
+        {
+          "name": "Max",
+          "type": "int",
+          "value": "max",
+          "required": true
+        },
+        {
+          "name": "Total",
+          "type": "int",
+          "value": "total",
+          "required": true
+        }
+      ]
+    },
+    "WorkersStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Cumulative",
+          "structureName": "CumulativeStatistics",
+          "structure": "BaseWorkersCumulativeStatisticsResponse",
+          "value": "cumulative",
+          "required": true
+        },
+        {
+          "name": "RealTime",
+          "structureName": "RealTimeStatistics",
+          "structure": "BaseWorkersRealTimeStatisticsResponse",
+          "value": "realtime",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "BaseWorkerCumulativeStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ReservationsTimedOut",
+          "type": "int",
+          "value": "reservations_timed_out",
+          "required": true
+        },
+        {
+          "name": "ReservationsRejected",
+          "type": "int",
+          "value": "reservations_rejected",
+          "required": true
+        },
+        {
+          "name": "ReservationsCreated",
+          "type": "int",
+          "value": "reservations_created",
+          "required": true
+        },
+        {
+          "name": "ReservationsRescinded",
+          "type": "int",
+          "value": "reservations_rescinded",
+          "required": true
+        },
+        {
+          "name": "ReservationsAccepted",
+          "type": "int",
+          "value": "reservations_accepted",
+          "required": true
+        },
+        {
+          "name": "ReservationsCanceled",
+          "type": "int",
+          "value": "reservations_canceled",
+          "required": true
+        },
+        {
+          "name": "ReservationsWrapUp",
+          "type": "int",
+          "value": "reservations_wrapup",
+          "required": true
+        },
+        {
+          "name": "ReservationsCompleted",
+          "type": "int",
+          "value": "reservations_completed",
+          "required": true
+        },
+        {
+          "name": "TasksAssigned",
+          "type": "int",
+          "value": "tasks_assigned",
+          "required": true
+        },
+        {
+          "name": "StartTime",
+          "type": "time.Time",
+          "value": "start_time",
+          "required": true
+        },
+        {
+          "name": "EndTime",
+          "type": "time.Time",
+          "value": "end_time",
+          "required": true
+        },
+        {
+          "name": "ActivityDurations",
+          "type": "array",
+          "items": {
+            "structure": "ActivityDuration"
+          },
+          "value": "activity_durations",
+          "required": true
+        }
+      ]
+    },
+    "WorkerStatisticsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Cumulative",
+          "structureName": "CumulativeStatistics",
+          "structure": "BaseWorkerCumulativeStatisticsResponse",
+          "value": "cumulative",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "workspace_sid",
+          "required": true
+        },
+        {
+          "name": "WorkerSid",
+          "type": "string",
+          "value": "worker_sid",
           "required": true
         },
         {

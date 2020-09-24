@@ -7,6 +7,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservation"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/reservations"
+	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/worker/statistics"
 )
 
 // Client for managing a specific worker resource
@@ -21,6 +22,7 @@ type Client struct {
 	Channels     *channels.Client
 	Reservation  func(string) *reservation.Client
 	Reservations *reservations.Client
+	Statistics   func() *statistics.Client
 }
 
 // ClientProperties are the properties required to manage the worker resources
@@ -59,5 +61,11 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			WorkerSid:    properties.Sid,
 			WorkspaceSid: properties.WorkspaceSid,
 		}),
+		Statistics: func() *statistics.Client {
+			return statistics.New(client, statistics.ClientProperties{
+				WorkerSid:    properties.Sid,
+				WorkspaceSid: properties.WorkspaceSid,
+			})
+		},
 	}
 }

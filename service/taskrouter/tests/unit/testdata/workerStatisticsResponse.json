@@ -1,0 +1,45 @@
+{
+  "url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+  "workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "cumulative": {
+    "reservations_timed_out": 0,
+    "reservations_rejected": 0,
+    "reservations_created": 0,
+    "reservations_rescinded": 0,
+    "tasks_assigned": 0,
+    "start_time": "2020-06-27T23:00:00Z",
+    "reservations_wrapup": 0,
+    "end_time": "2020-06-27T23:10:00Z",
+    "reservations_accepted": 0,
+    "activity_durations": [
+      {
+        "avg": 900,
+        "min": 900,
+        "max": 900,
+        "friendly_name": "Offline",
+        "sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+        "total": 900
+      },
+      {
+        "avg": 0,
+        "min": 0,
+        "max": 0,
+        "friendly_name": "Available",
+        "sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "total": 0
+      },
+      {
+        "avg": 0,
+        "min": 0,
+        "max": 0,
+        "friendly_name": "Unavailable",
+        "sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+        "total": 0
+      }
+    ],
+    "reservations_canceled": 0,
+    "reservations_completed": 0
+  },
+  "worker_sid": "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
