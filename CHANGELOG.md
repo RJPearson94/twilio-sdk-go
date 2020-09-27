@@ -1,8 +1,10 @@
+## v0.3.0 (unreleased)
+
 ## v0.2.0 (2020-09-27)
 
 ### Flex
 
-- **Fix:** CRM_Enabled json tag (on both input input and output) was incorrectly labelled `crm_type`, this has now been corrected to `crm_enabled`
+- **Fix:** CRM_Enabled json tag (on both input and output) was incorrectly labelled `crm_type`, this has now been corrected to `crm_enabled`
 
 ### TaskRouter
 
