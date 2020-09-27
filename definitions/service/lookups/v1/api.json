@@ -1,0 +1,196 @@
+{
+  "packageName": "v1",
+  "name": "Lookups",
+  "config": {
+    "includeDefaults": true,
+    "beta": false,
+    "subDomain": "lookups",
+    "apiVersion": "v1"
+  },
+  "subClients": [
+    {
+      "name": "Phone Number",
+      "packageName": "phone_number",
+      "properties": {
+        "phoneNumber": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a lookup resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/lookup/api"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/PhoneNumbers/{phoneNumber}",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "CountryCode",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "Type",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "required": false
+              },
+              {
+                "name": "AddOns",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "required": false
+              },
+              {
+                "name": "AddOnsData",
+                "type": "map",
+                "items": {
+                  "type": "interface{}"
+                },
+                "required": false
+              }
+            ],
+            "pathParams": [
+              {
+                "name": "phoneNumber",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "phoneNumber"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a phone number details",
+            "twilioDocsLink": "https://www.twilio.com/docs/lookup/api#lookup-a-phone-number"
+          },
+          "response": {
+            "name": "FetchPhoneNumberResponse",
+            "structure": "PhoneNumberResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved phone number"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "structures": {
+    "PhoneNumberResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "CountryCode",
+          "type": "string",
+          "value": "country_code",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "phone_number",
+          "required": true
+        },
+        {
+          "name": "NationalFormat",
+          "type": "string",
+          "value": "national_format",
+          "required": true
+        },
+        {
+          "name": "CallerName",
+          "structure": "CallerNameResponse",
+          "value": "caller_name",
+          "required": false
+        },
+        {
+          "name": "Carrier",
+          "structure": "CarrierResponse",
+          "value": "carrier",
+          "required": false
+        },
+        {
+          "name": "AddOns",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "add_ons",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CallerNameResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "CallerName",
+          "type": "string",
+          "value": "caller_name",
+          "required": false
+        },
+        {
+          "name": "CallerType",
+          "type": "string",
+          "value": "caller_type",
+          "required": false
+        },
+        {
+          "name": "ErrorCode",
+          "type": "string",
+          "value": "error_code",
+          "required": false
+        }
+      ]
+    },
+    "CarrierResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "MobileCountryCode",
+          "type": "string",
+          "value": "mobile_country_code",
+          "required": false
+        },
+        {
+          "name": "MobileNetworkCode",
+          "type": "string",
+          "value": "mobile_network_code",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": false
+        },
+        {
+          "name": "ErrorCode",
+          "type": "string",
+          "value": "error_code",
+          "required": false
+        }
+      ]
+    }
+  }
+}
