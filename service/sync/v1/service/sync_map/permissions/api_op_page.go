@@ -62,7 +62,7 @@ func (c Client) PageWithContext(context context.Context, options *SyncMapPermiss
 			"serviceSid": c.serviceSid,
 			"syncMapSid": c.syncMapSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &SyncMapPermissionsPageResponse{}

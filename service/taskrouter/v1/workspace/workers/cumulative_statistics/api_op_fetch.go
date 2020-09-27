@@ -59,7 +59,7 @@ func (c Client) FetchWithContext(context context.Context, options *FetchCumulati
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FetchCumulativeStatisticsResponse{}

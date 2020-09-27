@@ -57,7 +57,7 @@ func (c Client) PageWithContext(context context.Context, options *AccountsPageOp
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Accounts.json",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &AccountsPageResponse{}

@@ -101,7 +101,7 @@ func (c Client) FetchWithContext(context context.Context, options *FetchStatisti
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FetchStatisticsResponse{}

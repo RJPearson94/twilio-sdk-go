@@ -128,6 +128,10 @@ func mapOptions(structure *gabs.Container, name string, packageName string, stru
 			propertiesResponse.Set("[]"+property.Path("items.type").Data().(string), "type")
 		}
 
+		if typeName == "map" {
+			propertiesResponse.Set("map[string]"+property.Path("items.type").Data().(string), "type")
+		}
+
 		propertiesResponse.Set(property.Path("required").Data(), "required")
 
 		properties = append(properties, propertiesResponse.Data())

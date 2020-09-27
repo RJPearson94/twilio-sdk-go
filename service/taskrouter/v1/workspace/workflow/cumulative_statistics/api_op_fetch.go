@@ -82,7 +82,7 @@ func (c Client) FetchWithContext(context context.Context, options *FetchCumulati
 			"workspaceSid": c.workspaceSid,
 			"workflowSid":  c.workflowSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FetchCumulativeStatisticsResponse{}

@@ -62,7 +62,7 @@ func (c Client) PageWithContext(context context.Context, options *DocumentPermis
 			"serviceSid":  c.serviceSid,
 			"documentSid": c.documentSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &DocumentPermissionsPageResponse{}

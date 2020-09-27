@@ -72,7 +72,7 @@ func (c Client) PageWithContext(context context.Context, options *FaxesPageOptio
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Faxes",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FaxesPageResponse{}

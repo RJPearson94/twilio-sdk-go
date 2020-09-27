@@ -65,7 +65,7 @@ func (c Client) PageWithContext(context context.Context, options *ServicesPageOp
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Services",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ServicesPageResponse{}

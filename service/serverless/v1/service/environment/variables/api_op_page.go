@@ -64,7 +64,7 @@ func (c Client) PageWithContext(context context.Context, options *VariablesPageO
 			"serviceSid":     c.serviceSid,
 			"environmentSid": c.environmentSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &VariablesPageResponse{}

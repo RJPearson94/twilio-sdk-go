@@ -74,7 +74,7 @@ func (c Client) PageWithContext(context context.Context, options *InteractionsPa
 			"serviceSid": c.serviceSid,
 			"sessionSid": c.sessionSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &InteractionsPageResponse{}

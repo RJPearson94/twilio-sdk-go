@@ -66,7 +66,7 @@ func (c Client) PageWithContext(context context.Context, options *WorkspacesPage
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Workspaces",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &WorkspacesPageResponse{}

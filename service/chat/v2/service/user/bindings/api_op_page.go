@@ -68,7 +68,7 @@ func (c Client) PageWithContext(context context.Context, options *UserBindingsPa
 			"serviceSid": c.serviceSid,
 			"userSid":    c.userSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &UserBindingsPageResponse{}

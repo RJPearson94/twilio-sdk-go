@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/url"
 	"strings"
 
 	"github.com/RJPearson94/twilio-sdk-go/session"
@@ -55,7 +56,7 @@ type Operation struct {
 	URI             string
 	ContentType     string
 	PathParams      map[string]string
-	QueryParams     *map[string]string
+	QueryParams     *url.Values
 }
 
 func (c Client) Send(context context.Context, op Operation, input interface{}, output interface{}) error {
@@ -95,7 +96,7 @@ func configureRequest(context context.Context, client *resty.Client, op Operatio
 	}
 
 	if op.QueryParams != nil {
-		req = req.SetQueryParams(*op.QueryParams)
+		req = req.SetQueryParamsFromValues(*op.QueryParams)
 	}
 
 	if input != nil {

@@ -66,7 +66,7 @@ func (c Client) PageWithContext(context context.Context, options *FieldValuesPag
 			"assistantSid": c.assistantSid,
 			"fieldTypeSid": c.fieldTypeSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FieldValuesPageResponse{}

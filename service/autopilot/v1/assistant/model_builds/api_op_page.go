@@ -64,7 +64,7 @@ func (c Client) PageWithContext(context context.Context, options *ModelBuildsPag
 		PathParams: map[string]string{
 			"assistantSid": c.assistantSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ModelBuildsPageResponse{}

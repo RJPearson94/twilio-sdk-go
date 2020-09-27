@@ -82,7 +82,7 @@ func (c Client) PageWithContext(context context.Context, options *PhoneNumbersPa
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &PhoneNumbersPageResponse{}

@@ -62,7 +62,7 @@ func (c Client) PageWithContext(context context.Context, options *SyncListPermis
 			"serviceSid":  c.serviceSid,
 			"syncListSid": c.syncListSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &SyncListPermissionsPageResponse{}

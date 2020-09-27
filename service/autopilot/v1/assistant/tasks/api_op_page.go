@@ -63,7 +63,7 @@ func (c Client) PageWithContext(context context.Context, options *TasksPageOptio
 		PathParams: map[string]string{
 			"assistantSid": c.assistantSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &TasksPageResponse{}

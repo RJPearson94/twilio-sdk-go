@@ -56,7 +56,7 @@ func (c Client) PageWithContext(context context.Context, options *KeysPageOption
 		PathParams: map[string]string{
 			"accountSid": c.accountSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &KeysPageResponse{}

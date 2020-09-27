@@ -82,7 +82,7 @@ func (c Client) PageWithContext(context context.Context, options *TasksPageOptio
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &TasksPageResponse{}

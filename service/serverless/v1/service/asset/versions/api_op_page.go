@@ -63,7 +63,7 @@ func (c Client) PageWithContext(context context.Context, options *VersionsPageOp
 			"serviceSid": c.serviceSid,
 			"assetSid":   c.assetSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &VersionsPageResponse{}

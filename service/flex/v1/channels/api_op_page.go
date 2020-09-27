@@ -57,7 +57,7 @@ func (c Client) PageWithContext(context context.Context, options *ChannelsPageOp
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Channels",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ChannelsPageResponse{}

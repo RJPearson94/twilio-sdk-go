@@ -68,7 +68,7 @@ func (c Client) PageWithContext(context context.Context, options *ChannelsPageOp
 			"workspaceSid": c.workspaceSid,
 			"workerSid":    c.workerSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ChannelsPageResponse{}

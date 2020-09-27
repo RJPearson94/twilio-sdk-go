@@ -73,7 +73,7 @@ func (c Client) PageWithContext(context context.Context, options *ChannelWebhook
 			"serviceSid": c.serviceSid,
 			"channelSid": c.channelSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ChannelWebhooksPageResponse{}

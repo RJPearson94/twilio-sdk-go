@@ -63,7 +63,7 @@ func (c Client) PageWithContext(context context.Context, options *DeploymentsPag
 			"serviceSid":     c.serviceSid,
 			"environmentSid": c.environmentSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &DeploymentsPageResponse{}

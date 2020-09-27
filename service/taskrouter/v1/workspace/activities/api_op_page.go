@@ -64,7 +64,7 @@ func (c Client) PageWithContext(context context.Context, options *ActivitiesPage
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ActivitiesPageResponse{}

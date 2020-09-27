@@ -69,7 +69,7 @@ func (c Client) PageWithContext(context context.Context, options *SyncMapItemsPa
 			"serviceSid": c.serviceSid,
 			"syncMapSid": c.syncMapSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &SyncMapItemsPageResponse{}

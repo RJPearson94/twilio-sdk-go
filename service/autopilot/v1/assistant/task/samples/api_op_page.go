@@ -66,7 +66,7 @@ func (c Client) PageWithContext(context context.Context, options *SamplesPageOpt
 			"assistantSid": c.assistantSid,
 			"taskSid":      c.taskSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &SamplesPageResponse{}

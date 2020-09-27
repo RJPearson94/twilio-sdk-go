@@ -65,7 +65,7 @@ func (c Client) PageWithContext(context context.Context, options *ExecutionsPage
 		PathParams: map[string]string{
 			"flowSid": c.flowSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ExecutionsPageResponse{}

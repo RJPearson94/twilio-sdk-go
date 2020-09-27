@@ -61,7 +61,7 @@ func (c Client) PageWithContext(context context.Context, options *MediaPageOptio
 		PathParams: map[string]string{
 			"faxSid": c.faxSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &MediaPageResponse{}

@@ -61,7 +61,7 @@ func (c Client) PageWithContext(context context.Context, options *AssetsPageOpti
 		PathParams: map[string]string{
 			"serviceSid": c.serviceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &AssetsPageResponse{}

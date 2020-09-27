@@ -103,7 +103,7 @@ func (c Client) FetchWithContext(context context.Context, options *FetchStatisti
 			"workspaceSid": c.workspaceSid,
 			"taskQueueSid": c.taskQueueSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FetchStatisticsResponse{}

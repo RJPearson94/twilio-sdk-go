@@ -75,7 +75,7 @@ func (c Client) PageWithContext(context context.Context, options *FlexFlowsPageO
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/FlexFlows",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FlexFlowsPageResponse{}

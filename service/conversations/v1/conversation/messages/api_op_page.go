@@ -73,7 +73,7 @@ func (c Client) PageWithContext(context context.Context, options *MessagesPageOp
 		PathParams: map[string]string{
 			"conversationSid": c.conversationSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &MessagesPageResponse{}

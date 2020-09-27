@@ -171,7 +171,7 @@ PathParams: map[string]string{ {{ range $index, $pathParam := .http.pathParams }
 },{{ end }}`
 
 const addQueryParams = `{{ if .options }} 
-QueryParams: utils.StructToStringMap(options),{{ end }}`
+QueryParams: utils.StructToURLValues(options),{{ end }}`
 
 const inputTags = "`{{ if and $property.validation $property.validation.ignore }}{{ else }}{{ if and (ne $property.type \"bool\") (eq $property.required true) }}validate:\"required\" {{ end }}{{ end }}{{ template \"dataTypeTagsTemplate\" $ }}:\"{{ $property.value }}{{ if eq $property.required false}},omitempty{{ end }}\"`"
 

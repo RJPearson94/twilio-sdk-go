@@ -73,7 +73,7 @@ func (c Client) PageWithContext(context context.Context, options *AlertsPageOpti
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Alerts",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &AlertsPageResponse{}

@@ -69,7 +69,7 @@ func (c Client) PageWithContext(context context.Context, options *TaskQueuesPage
 		PathParams: map[string]string{
 			"workspaceSid": c.workspaceSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &TaskQueuesPageResponse{}

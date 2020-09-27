@@ -66,7 +66,7 @@ func (c Client) PageWithContext(context context.Context, options *StepsPageOptio
 			"flowSid":      c.flowSid,
 			"executionSid": c.executionSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &StepsPageResponse{}

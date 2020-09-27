@@ -72,7 +72,7 @@ func (c Client) PageWithContext(context context.Context, options *ChannelMessage
 			"serviceSid": c.serviceSid,
 			"channelSid": c.channelSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ChannelMessagesPageResponse{}

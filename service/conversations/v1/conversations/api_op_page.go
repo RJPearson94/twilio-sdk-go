@@ -67,7 +67,7 @@ func (c Client) PageWithContext(context context.Context, options *ConversationsP
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Conversations",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ConversationsPageResponse{}

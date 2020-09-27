@@ -69,7 +69,7 @@ func (c Client) PageWithContext(context context.Context, options *SyncListItemsP
 			"serviceSid":  c.serviceSid,
 			"syncListSid": c.syncListSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &SyncListItemsPageResponse{}

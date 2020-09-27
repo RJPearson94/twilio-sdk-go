@@ -65,7 +65,7 @@ func (c Client) PageWithContext(context context.Context, options *FlowsPageOptio
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Flows",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FlowsPageResponse{}

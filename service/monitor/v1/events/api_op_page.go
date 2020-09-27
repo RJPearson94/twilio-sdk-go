@@ -70,7 +70,7 @@ func (c Client) PageWithContext(context context.Context, options *EventsPageOpti
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Events",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &EventsPageResponse{}

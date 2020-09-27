@@ -58,7 +58,7 @@ func (c Client) PageWithContext(context context.Context, options *MediaPageOptio
 			"accountSid": c.accountSid,
 			"messageSid": c.messageSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &MediaPageResponse{}

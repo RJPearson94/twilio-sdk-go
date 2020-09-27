@@ -44,7 +44,7 @@ func (c Client) FetchWithContext(context context.Context, options *FetchRealTime
 			"workspaceSid": c.workspaceSid,
 			"workflowSid":  c.workflowSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &FetchRealTimeStatisticsResponse{}

@@ -59,7 +59,7 @@ func (c Client) PageWithContext(context context.Context, options *CredentialsPag
 	op := client.Operation{
 		Method:      http.MethodGet,
 		URI:         "/Credentials",
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &CredentialsPageResponse{}

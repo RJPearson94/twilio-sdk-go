@@ -66,7 +66,7 @@ func (c Client) PageWithContext(context context.Context, options *ReservationsPa
 			"workspaceSid": c.workspaceSid,
 			"workerSid":    c.workerSid,
 		},
-		QueryParams: utils.StructToStringMap(options),
+		QueryParams: utils.StructToURLValues(options),
 	}
 
 	response := &ReservationsPageResponse{}
