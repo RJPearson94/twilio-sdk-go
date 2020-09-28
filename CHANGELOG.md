@@ -1,5 +1,9 @@
 ## v0.3.0 (unreleased)
 
+## Lookups
+
+- **New Resource:** Phone Number
+
 ## v0.2.0 (2020-09-27)
 
 ### Flex
