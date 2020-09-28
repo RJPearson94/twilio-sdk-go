@@ -1,0 +1,14 @@
+{
+  "date_updated": "Sat, 27 Jun 2020 23:10:00 +0000",
+  "current_size": 0,
+  "friendly_name": "Test 2",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "average_wait_time": 0,
+  "sid": "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+  "max_size": 100,
+  "subresource_uris": {
+    "members": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members.json"
+  }
+}

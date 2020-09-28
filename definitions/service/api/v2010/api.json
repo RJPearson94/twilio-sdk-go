@@ -978,6 +978,247 @@
               }
             }
           ]
+        },
+        {
+          "name": "Queues",
+          "packageName": "queues",
+          "documentation": {
+            "description": "Client for managing queue resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Queues.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new queue resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource#create-a-queue-resource"
+              },
+              "input": {
+                "structure": "CreateQueueInput",
+                "documentation": {
+                  "description": "defines input fields for creating a new queue"
+                }
+              },
+              "response": {
+                "name": "CreateQueueResponse",
+                "structure": "QueueResponse",
+                "documentation": {
+                  "description": "defines the response fields for creating a new queue"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Queues.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of queues",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource#read-multiple-queue-resources"
+              },
+              "response": {
+                "structure": "QueuesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the queues page"
+                }
+              },
+              "pagination": {
+                "name": "QueuesPaginator",
+                "page": {
+                  "name": "QueuesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Queues",
+                  "structure": "PageQueueResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Queue",
+          "packageName": "queue",
+          "documentation": {
+            "description": "Client for managing a specific queue resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource"
+          },
+          "function": {
+            "parameters": {
+              "queueSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "queueSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Queues/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves the queue resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource#fetch-a-queue-resource"
+              },
+              "response": {
+                "name": "FetchQueueResponse",
+                "structure": "QueueResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving a queue"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Queues/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a queue resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource#update-a-queue-resource"
+              },
+              "input": {
+                "structure": "UpdateQueueInput",
+                "documentation": {
+                  "description": "defines input fields for updating a queue"
+                }
+              },
+              "response": {
+                "name": "UpdateQueueResponse",
+                "structure": "QueueResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated queue"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Queues/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a queue resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/queue-resource#delete-a-queue-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1645,6 +1886,91 @@
           "type": "string",
           "value": "credential",
           "required": false
+        }
+      ]
+    },
+    "CreateQueueInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "MaxSize",
+          "type": "int",
+          "value": "MaxSize",
+          "required": false
+        }
+      ]
+    },
+    "UpdateQueueInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "MaxSize",
+          "type": "int",
+          "value": "MaxSize",
+          "required": false
+        }
+      ]
+    },
+    "QueuesPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Queues",
+          "type": "array",
+          "items": {
+            "structure": "QueueResponse"
+          },
+          "value": "queues",
+          "required": true
+        }
+      ]
+    },
+    "QueueResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "CurrentSize",
+          "type": "int",
+          "value": "current_size",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "AverageWaitTime",
+          "type": "int",
+          "value": "average_wait_time",
+          "required": true
+        },
+        {
+          "name": "MaxSize",
+          "type": "int",
+          "value": "max_size",
+          "required": true
         }
       ]
     },

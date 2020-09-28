@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 )
 
@@ -23,6 +25,8 @@ type Client struct {
 	Keys     *keys.Client
 	Message  func(string) *message.Client
 	Messages *messages.Client
+	Queue    func(string) *queue.Client
+	Queues   *queues.Client
 	Tokens   *tokens.Client
 }
 
@@ -59,6 +63,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Messages: messages.New(client, messages.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		Queue: func(queueSid string) *queue.Client {
+			return queue.New(client, queue.ClientProperties{
+				AccountSid: properties.Sid,
+				Sid:        queueSid,
+			})
+		},
+		Queues: queues.New(client, queues.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Tokens: tokens.New(client, tokens.ClientProperties{

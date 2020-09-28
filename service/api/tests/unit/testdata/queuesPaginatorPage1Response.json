@@ -1,0 +1,26 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues.json?PageSize=50&Page=0",
+  "end": 1,
+  "previous_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues.json?PageSize=50&Page=0&PageToken=zyx9876",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues.json?PageSize=50&Page=1&PageToken=abc1234",
+  "page_size": 50,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 1,
+  "queues": [
+    {
+      "date_updated": null,
+      "current_size": 0,
+      "friendly_name": "Test",
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3.json",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "average_wait_time": 0,
+      "sid": "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "max_size": 100,
+      "subresource_uris": {
+        "members": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Members.json"
+      }
+    }
+  ]
+}

@@ -5,8 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
-
+	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -17,6 +16,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -191,6 +193,44 @@ var _ = Describe("API Acceptance Tests", func() {
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the queue clients", func() {
+		It("Then the queue is created, fetched, updated and deleted", func() {
+			queuesClient := apiSession.Account(accountSid).Queues
+
+			createResp, createErr := queuesClient.Create(&queues.CreateQueueInput{
+				FriendlyName: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := queuesClient.Page(&queues.QueuesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Queues)).Should(BeNumerically(">=", 1))
+
+			paginator := queuesClient.NewQueuesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Queues)).Should(BeNumerically(">=", 1))
+
+			queueClient := apiSession.Account(accountSid).Queue(createResp.Sid)
+
+			fetchResp, fetchErr := queueClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := queueClient.Update(&queue.UpdateQueueInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := queueClient.Delete()
+			Expect(deleteErr).To(BeNil())
 		})
 	})
 
