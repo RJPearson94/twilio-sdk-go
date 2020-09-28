@@ -5,6 +5,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -177,6 +179,18 @@ var _ = Describe("API Acceptance Tests", func() {
 
 			deleteErr := messageClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the token client", func() {
+		It("Then the token is created", func() {
+			tokensClient := apiSession.Account(accountSid).Tokens
+
+			createResp, createErr := tokensClient.Create(&tokens.CreateTokenInput{
+				Ttl: utils.Int(1),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
 		})
 	})
 

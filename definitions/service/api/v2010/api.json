@@ -930,6 +930,54 @@
               }
             }
           ]
+        },
+        {
+          "name": "Tokens",
+          "packageName": "tokens",
+          "documentation": {
+            "description": "Client for managing token resources"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Tokens.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "generate an account token"
+              },
+              "input": {
+                "structure": "CreateTokenInput",
+                "documentation": {
+                  "description": "defines the input fields for generating a token"
+                }
+              },
+              "response": {
+                "name": "CreateTokenResponse",
+                "structure": "TokenResponse",
+                "documentation": {
+                  "description": "defines the response fields for the generated token"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1507,6 +1555,96 @@
           "type": "int",
           "value": "end",
           "required": true
+        }
+      ]
+    },
+    "CreateTokenInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        }
+      ]
+    },
+    "TokenResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "Username",
+          "type": "string",
+          "value": "username",
+          "required": true
+        },
+        {
+          "name": "Password",
+          "type": "string",
+          "value": "password",
+          "required": true
+        },
+        {
+          "name": "Ttl",
+          "type": "string",
+          "value": "ttl",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "utils.RFC2822Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "utils.RFC2822Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "IceServers",
+          "type": "array",
+          "items": {
+            "structure": "IceServerResponse"
+          },
+          "value": "ice_servers",
+          "required": true
+        }
+      ]
+    },
+    "IceServerResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "URLs",
+          "type": "string",
+          "value": "urls",
+          "required": true
+        },
+        {
+          "name": "Username",
+          "type": "string",
+          "value": "username",
+          "required": false
+        },
+        {
+          "name": "Credential",
+          "type": "string",
+          "value": "credential",
+          "required": false
         }
       ]
     },

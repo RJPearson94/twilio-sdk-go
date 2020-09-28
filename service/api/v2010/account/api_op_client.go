@@ -8,6 +8,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 )
 
 // Client for managing a specific account resource
@@ -22,6 +23,7 @@ type Client struct {
 	Keys     *keys.Client
 	Message  func(string) *message.Client
 	Messages *messages.Client
+	Tokens   *tokens.Client
 }
 
 // ClientProperties are the properties required to manage the account resources
@@ -57,6 +59,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Messages: messages.New(client, messages.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		Tokens: tokens.New(client, tokens.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 	}
