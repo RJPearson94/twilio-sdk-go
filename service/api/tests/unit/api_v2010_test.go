@@ -755,7 +755,7 @@ var _ = Describe("API V2010", func() {
 				ExpectInvalidInputError(err)
 			})
 
-			It("Then the create fax response should be nil", func() {
+			It("Then the create message response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
