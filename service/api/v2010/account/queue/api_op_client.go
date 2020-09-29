@@ -1,7 +1,11 @@
 // Package queue contains auto-generated files. DO NOT MODIFY
 package queue
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue/member"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue/members"
+)
 
 // Client for managing a specific queue resource
 // See https://www.twilio.com/docs/voice/api/queue-resource for more details
@@ -10,6 +14,9 @@ type Client struct {
 
 	accountSid string
 	sid        string
+
+	Member  func(string) *member.Client
+	Members *members.Client
 }
 
 // ClientProperties are the properties required to manage the queue resources
@@ -25,5 +32,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		accountSid: properties.AccountSid,
 		sid:        properties.Sid,
+
+		Member: func(sid string) *member.Client {
+			return member.New(client, member.ClientProperties{
+				AccountSid: properties.AccountSid,
+				QueueSid:   properties.Sid,
+				Sid:        sid,
+			})
+		},
+		Members: members.New(client, members.ClientProperties{
+			AccountSid: properties.AccountSid,
+			QueueSid:   properties.Sid,
+		}),
 	}
 }

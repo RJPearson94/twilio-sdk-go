@@ -1110,6 +1110,218 @@
               "functionParameter": "queueSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Members",
+              "packageName": "members",
+              "documentation": {
+                "description": "Client for managing member resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/member-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "queueSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Queues/{queueSid}/Members.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "queueSid",
+                        "value": {
+                          "onService": true,
+                          "property": "queueSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of members",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/member-resource#read-multiple-member-resources"
+                  },
+                  "response": {
+                    "structure": "MembersPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the member page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "MembersPaginator",
+                    "page": {
+                      "name": "MembersPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "Members",
+                      "structure": "PageMemberResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Member",
+              "packageName": "member",
+              "documentation": {
+                "description": "Client for managing a specific member resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/member-resource"
+              },
+              "function": {
+                "parameters": {
+                  "sid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "queueSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Queues/{queueSid}/Members/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "queueSid",
+                        "value": {
+                          "onService": true,
+                          "property": "queueSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves the member resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/member-resource#fetch-a-member-resource"
+                  },
+                  "response": {
+                    "name": "FetchMemberResponse",
+                    "structure": "MemberResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a member"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Queues/{queueSid}/Members/{sid}.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "queueSid",
+                        "value": {
+                          "onService": true,
+                          "property": "queueSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a member resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/member-resource#update-a-member-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateMemberInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a member"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateMemberResponse",
+                    "structure": "MemberResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated member"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -1970,6 +2182,73 @@
           "name": "MaxSize",
           "type": "int",
           "value": "max_size",
+          "required": true
+        }
+      ]
+    },
+    "UpdateMemberInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "Url",
+          "required": true
+        },
+        {
+          "name": "Method",
+          "type": "string",
+          "value": "Method",
+          "required": false
+        }
+      ]
+    },
+    "MembersPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Members",
+          "type": "array",
+          "items": {
+            "structure": "MemberResponse"
+          },
+          "value": "queue_members",
+          "required": true
+        }
+      ]
+    },
+    "MemberResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "QueueSid",
+          "type": "string",
+          "value": "queue_sid",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "type": "string",
+          "value": "call_sid",
+          "required": true
+        },
+        {
+          "name": "Position",
+          "type": "int",
+          "value": "position",
+          "required": true
+        },
+        {
+          "name": "WaitTime",
+          "type": "int",
+          "value": "wait_time",
+          "required": true
+        },
+        {
+          "name": "DateEnqueued",
+          "type": "utils.RFC2822Time",
+          "value": "date_enqueued",
           "required": true
         }
       ]
