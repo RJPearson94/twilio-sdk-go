@@ -12,6 +12,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go"
 	v2010 "github.com/RJPearson94/twilio-sdk-go/service/api/v2010"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
@@ -21,6 +23,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/twiml/voice"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
@@ -230,6 +233,52 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := queueClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the call clients", func() {
+		It("Then the call is created, fetched, updated and deleted", func() {
+			callsClient := apiSession.Account(accountSid).Calls
+
+			twiMLResponse := voice.New()
+			twiMLResponse.Say("Hello World")
+			twiML, _ := twiMLResponse.ToTwiML()
+
+			createResp, createErr := callsClient.Create(&calls.CreateCallInput{
+				To:    os.Getenv("DESTINATION_PHONE_NUMBER"),
+				From:  os.Getenv("TWILIO_PHONE_NUMBER"),
+				TwiML: twiML,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := callsClient.Page(&calls.CallsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Calls)).Should(BeNumerically(">=", 1))
+
+			paginator := callsClient.NewCallsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Calls)).Should(BeNumerically(">=", 1))
+
+			callClient := apiSession.Account(accountSid).Call(createResp.Sid)
+
+			fetchResp, fetchErr := callClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := callClient.Update(&call.UpdateCallInput{
+				Status: utils.String("completed"),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := callClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

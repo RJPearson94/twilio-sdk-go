@@ -1,0 +1,44 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls.json?PageSize=50&Page=0",
+  "end": 1,
+  "previous_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls.json?PageSize=50&Page=0&PageToken=zyx9876",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls.json?PageSize=50&Page=1&PageToken=abc1234",
+  "page_size": 50,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 1,
+  "calls": [
+    {
+      "sid": "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "date_updated": null,
+      "parent_call_sid": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "to": "+10123456789",
+      "to_formatted": "+10123456789",
+      "from": "+19876543210",
+      "from_formatted": "+19876543210",
+      "phone_number_sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "status": "ringing",
+      "start_time": null,
+      "end_time": null,
+      "duration": "0",
+      "price": null,
+      "price_unit": "GBP",
+      "direction": "outbound-api",
+      "answered_by": null,
+      "annotation": null,
+      "api_version": "2010-04-01",
+      "forwarded_from": null,
+      "group_sid": null,
+      "caller_name": null,
+      "queue_time": "0",
+      "trunk_sid": null,
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3.json",
+      "subresource_uris": {
+        "notifications": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Notifications.json",
+        "recordings": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Recordings.json"
+      }
+    }
+  ]
+}
