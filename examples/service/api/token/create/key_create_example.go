@@ -35,5 +35,4 @@ func main() {
 	}
 
 	log.Printf("Username: %s", resp.Username)
-	log.Printf("Password: %s", resp.Password)
 }
