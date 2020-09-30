@@ -65,14 +65,14 @@ type CallsPageResponse struct {
 }
 
 // Page retrieves a page of calls
-// See https://www.twilio.com/docs/voice/api/call-resource#read-multiple-call-resourcess for more details
+// See https://www.twilio.com/docs/voice/api/call-resource#read-multiple-call-resources for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Page(options *CallsPageOptions) (*CallsPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of calls
-// See https://www.twilio.com/docs/voice/api/call-resource#read-multiple-call-resourcess for more details
+// See https://www.twilio.com/docs/voice/api/call-resource#read-multiple-call-resources for more details
 func (c Client) PageWithContext(context context.Context, options *CallsPageOptions) (*CallsPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

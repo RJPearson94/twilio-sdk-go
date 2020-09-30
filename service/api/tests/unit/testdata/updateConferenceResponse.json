@@ -1,0 +1,17 @@
+{
+  "status": "completed",
+  "reason_conference_ended": null,
+  "date_updated": "Sat, 27 Jun 2020 23:10:00 +0000",
+  "region": "us1",
+  "friendly_name": "Test",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "call_sid_ending_conference": null,
+  "sid": "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+  "api_version": "2010-04-01",
+  "subresource_uris": {
+    "participants": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json",
+    "recordings": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json"
+  }
+}

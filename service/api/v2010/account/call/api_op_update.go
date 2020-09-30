@@ -21,7 +21,7 @@ type UpdateCallInput struct {
 	URL                  *string `form:"Url,omitempty"`
 }
 
-// UpdateCallResponse defines the response fields for the updated queue
+// UpdateCallResponse defines the response fields for the updated call
 type UpdateCallResponse struct {
 	APIVersion     string             `json:"api_version"`
 	AccountSid     string             `json:"account_sid"`

@@ -1545,7 +1545,7 @@
               },
               "documentation": {
                 "description": "retrieves a page of calls",
-                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/call-resource#read-multiple-call-resourcess"
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/call-resource#read-multiple-call-resources"
               },
               "response": {
                 "structure": "CallsPageResponse",
@@ -1668,7 +1668,7 @@
                 "name": "UpdateCallResponse",
                 "structure": "CallResponse",
                 "documentation": {
-                  "description": "defines the response fields for the updated queue"
+                  "description": "defines the response fields for the updated call"
                 }
               }
             },
@@ -1699,6 +1699,204 @@
               "documentation": {
                 "description": "removes a call resource from the account",
                 "twilioDocsLink": "https://www.twilio.com/docs/voice/api/call-resource#delete-a-call-resource"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Conferences",
+          "packageName": "conferences",
+          "documentation": {
+            "description": "Client for managing conference resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-resource"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Conferences.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateUpdated",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of conferences",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-resource#read-multiple-conference-resources"
+              },
+              "response": {
+                "structure": "ConferencesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the conferences page"
+                }
+              },
+              "pagination": {
+                "name": "ConferencesPaginator",
+                "page": {
+                  "name": "ConferencesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Conferences",
+                  "structure": "PageConferenceResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Conference",
+          "packageName": "conference",
+          "documentation": {
+            "description": "Client for managing a specific conference resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-resource"
+          },
+          "function": {
+            "parameters": {
+              "conferenceSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "conferenceSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Conferences/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a conference resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-resource#fetch-a-conference-resource"
+              },
+              "response": {
+                "name": "FetchConferenceResponse",
+                "structure": "ConferenceResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving a conference"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Conferences/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a conference resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-resource#update-a-conference-resource"
+              },
+              "input": {
+                "structure": "UpdateConferenceInput",
+                "documentation": {
+                  "description": "defines input fields for updating a conference"
+                }
+              },
+              "response": {
+                "name": "UpdateConferenceResponse",
+                "structure": "ConferenceResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated conference"
+                }
               }
             }
           ]
@@ -2925,6 +3123,92 @@
           "type": "string",
           "value": "queue_time",
           "required": true
+        }
+      ]
+    },
+    "UpdateConferenceInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AnnounceURL",
+          "type": "string",
+          "value": "AnnounceUrl",
+          "required": false
+        },
+        {
+          "name": "AnnounceMethod",
+          "type": "string",
+          "value": "AnnounceMethod",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "ConferencesPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Conferences",
+          "type": "array",
+          "items": {
+            "structure": "ConferenceResponse"
+          },
+          "value": "conferences",
+          "required": true
+        }
+      ]
+    },
+    "ConferenceResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "ReasonConferenceEnded",
+          "type": "string",
+          "value": "reason_conference_ended",
+          "required": false
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "region",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "CallSidEndingConference",
+          "type": "string",
+          "value": "call_sid_ending_conference",
+          "required": false
         }
       ]
     },

@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/balance"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conferences"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
@@ -22,16 +24,18 @@ type Client struct {
 
 	sid string
 
-	Balance  func() *balance.Client
-	Call     func(string) *call.Client
-	Calls    *calls.Client
-	Key      func(string) *key.Client
-	Keys     *keys.Client
-	Message  func(string) *message.Client
-	Messages *messages.Client
-	Queue    func(string) *queue.Client
-	Queues   *queues.Client
-	Tokens   *tokens.Client
+	Balance     func() *balance.Client
+	Call        func(string) *call.Client
+	Calls       *calls.Client
+	Conference  func(string) *conference.Client
+	Conferences *conferences.Client
+	Key         func(string) *key.Client
+	Keys        *keys.Client
+	Message     func(string) *message.Client
+	Messages    *messages.Client
+	Queue       func(string) *queue.Client
+	Queues      *queues.Client
+	Tokens      *tokens.Client
 }
 
 // ClientProperties are the properties required to manage the account resources
@@ -58,6 +62,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Calls: calls.New(client, calls.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		Conference: func(conferenceSid string) *conference.Client {
+			return conference.New(client, conference.ClientProperties{
+				AccountSid: properties.Sid,
+				Sid:        conferenceSid,
+			})
+		},
+		Conferences: conferences.New(client, conferences.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Key: func(keySid string) *key.Client {
