@@ -3134,7 +3134,7 @@ var _ = Describe("API V2010", func() {
 		Describe("When the paginated addresses are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/AddressesPaginatorResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/addressesPaginatorResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
