@@ -250,7 +250,7 @@
               },
               "documentation": {
                 "description": "retrieves a page of keys",
-                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource?code-sample=code-read-keys"
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#read-a-key-resource"
               },
               "response": {
                 "structure": "KeysPageResponse",
@@ -1900,6 +1900,262 @@
               }
             }
           ]
+        },
+        {
+          "name": "Addresses",
+          "packageName": "addresses",
+          "documentation": {
+            "description": "Client for managing address resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Addresses.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new address resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address#create-an-address-resource"
+              },
+              "input": {
+                "structure": "CreateAddressInput",
+                "documentation": {
+                  "description": "defines input fields for creating a new address"
+                }
+              },
+              "response": {
+                "name": "CreateAddressResponse",
+                "structure": "AddressResponse",
+                "documentation": {
+                  "description": "defines the response fields for creating a new address"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Addresses.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "CustomerName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "IsoCountry",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of addresses",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address#read-multiple-address-resources"
+              },
+              "response": {
+                "structure": "AddressesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the addresses page"
+                }
+              },
+              "pagination": {
+                "name": "AddressesPaginator",
+                "page": {
+                  "name": "AddressesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Addresses",
+                  "structure": "PageAddressResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Address",
+          "packageName": "address",
+          "documentation": {
+            "description": "Client for managing a specific address resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address"
+          },
+          "function": {
+            "parameters": {
+              "addressSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "addressSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Addresses/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves the address resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address#fetch-an-address-resource"
+              },
+              "response": {
+                "name": "FetchAddressResponse",
+                "structure": "AddressResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving an address"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Addresses/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies an address resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address#update-an-address-resource"
+              },
+              "input": {
+                "structure": "UpdateAddressInput",
+                "documentation": {
+                  "description": "defines input fields for updating an addresses"
+                }
+              },
+              "response": {
+                "name": "UpdateAddressResponse",
+                "structure": "AddressResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated addresses"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Addresses/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a address resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address#delete-an-address-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -3209,6 +3465,223 @@
           "type": "string",
           "value": "call_sid_ending_conference",
           "required": false
+        }
+      ]
+    },
+    "CreateAddressInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "CustomerName",
+          "type": "string",
+          "value": "CustomerName",
+          "required": true
+        },
+        {
+          "name": "Street",
+          "type": "string",
+          "value": "Street",
+          "required": true
+        },
+        {
+          "name": "StreetSecondary",
+          "type": "string",
+          "value": "StreetSecondary",
+          "required": false
+        },
+        {
+          "name": "City",
+          "type": "string",
+          "value": "City",
+          "required": true
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "Region",
+          "required": true
+        },
+        {
+          "name": "PostalCode",
+          "type": "string",
+          "value": "PostalCode",
+          "required": true
+        },
+        {
+          "name": "IsoCountry",
+          "type": "string",
+          "value": "IsoCountry",
+          "required": true
+        },
+        {
+          "name": "EmergencyEnabled",
+          "type": "bool",
+          "value": "EmergencyEnabled",
+          "required": false
+        },
+        {
+          "name": "AutoCorrectAddress",
+          "type": "bool",
+          "value": "AutoCorrectAddress",
+          "required": false
+        }
+      ]
+    },
+    "UpdateAddressInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "CustomerName",
+          "type": "string",
+          "value": "CustomerName",
+          "required": false
+        },
+        {
+          "name": "Street",
+          "type": "string",
+          "value": "Street",
+          "required": false
+        },
+        {
+          "name": "StreetSecondary",
+          "type": "string",
+          "value": "StreetSecondary",
+          "required": false
+        },
+        {
+          "name": "City",
+          "type": "string",
+          "value": "City",
+          "required": false
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "Region",
+          "required": false
+        },
+        {
+          "name": "PostalCode",
+          "type": "string",
+          "value": "PostalCode",
+          "required": false
+        },
+        {
+          "name": "EmergencyEnabled",
+          "type": "bool",
+          "value": "EmergencyEnabled",
+          "required": false
+        },
+        {
+          "name": "AutoCorrectAddress",
+          "type": "bool",
+          "value": "AutoCorrectAddress",
+          "required": false
+        }
+      ]
+    },
+    "AddressesPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Addresses",
+          "type": "array",
+          "items": {
+            "structure": "AddressResponse"
+          },
+          "value": "addresses",
+          "required": true
+        }
+      ]
+    },
+    "AddressResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "City",
+          "type": "string",
+          "value": "City",
+          "required": true
+        },
+        {
+          "name": "CustomerName",
+          "type": "string",
+          "value": "customer_name",
+          "required": true
+        },
+        {
+          "name": "EmergencyEnabled",
+          "type": "bool",
+          "value": "emergency_enabled",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "IsoCountry",
+          "type": "string",
+          "value": "iso_country",
+          "required": true
+        },
+        {
+          "name": "PostalCode",
+          "type": "string",
+          "value": "postal_code",
+          "required": true
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "region",
+          "required": true
+        },
+        {
+          "name": "Street",
+          "type": "string",
+          "value": "street",
+          "required": true
+        },
+        {
+          "name": "StreetSecondary",
+          "type": "string",
+          "value": "street_secondary",
+          "required": false
+        },
+        {
+          "name": "Validated",
+          "type": "bool",
+          "value": "validated",
+          "required": true
+        },
+        {
+          "name": "Verified",
+          "type": "bool",
+          "value": "verified",
+          "required": true
         }
       ]
     },

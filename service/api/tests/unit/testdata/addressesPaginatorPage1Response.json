@@ -1,0 +1,30 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json?PageSize=50&Page=0",
+  "end": 1,
+  "previous_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json?PageSize=50&Page=0&PageToken=zyx9876",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json?PageSize=50&Page=1&PageToken=abc1234",
+  "page_size": 50,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 1,
+  "addresses": [
+    {
+      "sid": "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "friendly_name": null,
+      "customer_name": "Test User",
+      "street": "123 Fake Street",
+      "street_secondary": null,
+      "city": "Fake City",
+      "region": "Fake Region",
+      "postal_code": "AB12CD",
+      "iso_country": "GB",
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses/ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3.json",
+      "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "date_updated": null,
+      "emergency_enabled": false,
+      "validated": false,
+      "verified": false
+    }
+  ]
+}

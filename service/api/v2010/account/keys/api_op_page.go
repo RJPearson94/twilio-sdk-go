@@ -41,14 +41,14 @@ type KeysPageResponse struct {
 }
 
 // Page retrieves a page of keys
-// See https://www.twilio.com/docs/iam/keys/api-key-resource?code-sample=code-read-keys for more details
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#read-a-key-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Page(options *KeysPageOptions) (*KeysPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of keys
-// See https://www.twilio.com/docs/iam/keys/api-key-resource?code-sample=code-read-keys for more details
+// See https://www.twilio.com/docs/iam/keys/api-key-resource#read-a-key-resource for more details
 func (c Client) PageWithContext(context context.Context, options *KeysPageOptions) (*KeysPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

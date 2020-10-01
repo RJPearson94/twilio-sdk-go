@@ -12,6 +12,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go"
 	v2010 "github.com/RJPearson94/twilio-sdk-go/service/api/v2010"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
@@ -279,6 +281,50 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := callClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the address clients", func() {
+		It("Then the address is created, fetched, updated and deleted", func() {
+			addressesClient := apiSession.Account(accountSid).Addresses
+
+			createResp, createErr := addressesClient.Create(&addresses.CreateAddressInput{
+				CustomerName:       os.Getenv("TWILIO_CUSTOMER_NAME"),
+				Street:             os.Getenv("TWILIO_ADDRESS_STREET"),
+				City:               os.Getenv("TWILIO_ADDRESS_CITY"),
+				Region:             os.Getenv("TWILIO_ADDRESS_REGION"),
+				PostalCode:         os.Getenv("TWILIO_ADDRESS_POSTAL_CODE"),
+				IsoCountry:         os.Getenv("TWILIO_ADDRESS_ISO_COUNTRY"),
+				AutoCorrectAddress: utils.Bool(true),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := addressesClient.Page(&addresses.AddressesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Addresses)).Should(BeNumerically(">=", 1))
+
+			paginator := addressesClient.NewAddressesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Addresses)).Should(BeNumerically(">=", 1))
+
+			addressClient := apiSession.Account(accountSid).Address(createResp.Sid)
+
+			fetchResp, fetchErr := addressClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := addressClient.Update(&address.UpdateAddressInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := addressClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
