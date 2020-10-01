@@ -6,6 +6,7 @@
 - **New Resource:** Queue
 - **New Resource:** Queue Member
 - **New Resource:** Conference
+- **New Resource:** Address
 
 ## Lookups
 
