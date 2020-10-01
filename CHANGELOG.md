@@ -1,5 +1,12 @@
 ## v0.3.0 (unreleased)
 
+## API
+
+- **New Resource:** Call
+- **New Resource:** Queue
+- **New Resource:** Queue Member
+- **New Resource:** Conference
+
 ## Lookups
 
 - **New Resource:** Phone Number
