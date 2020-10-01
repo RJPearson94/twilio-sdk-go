@@ -12,6 +12,10 @@
 
 - **New Resource:** Phone Number
 
+## Serverless
+
+- **New Resource:** Build Status
+
 ## v0.2.0 (2020-09-27)
 
 ### Flex

@@ -1902,6 +1902,65 @@
             "description": "Client for managing a specific build resource",
             "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/build"
           },
+          "subClients": [
+            {
+              "name": "Status",
+              "packageName": "status",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "buildSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific build status resource"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Builds/{buildSid}/Status",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "buildSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "buildSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a build status resource"
+                  },
+                  "response": {
+                    "name": "FetchStatusResponse",
+                    "structure": "StatusResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved build status"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -2912,6 +2971,41 @@
           "name": "Status",
           "type": "string",
           "value": "status",
+          "required": true
+        }
+      ]
+    },
+    "StatusResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
           "required": true
         }
       ]

@@ -708,7 +708,7 @@ func createFunctionVersion(client *v1.Serverless, serviceSid string, functionSid
 
 func poll(maxAttempts int, delay int, client *v1.Serverless, serviceSid string, buildSid string) error {
 	for i := 0; i < maxAttempts; i++ {
-		resp, err := client.Service(serviceSid).Build(buildSid).Fetch()
+		resp, err := client.Service(serviceSid).Build(buildSid).Status().Fetch()
 		if err != nil {
 			return fmt.Errorf("Failed to poll serverless build: %s", err)
 		}
