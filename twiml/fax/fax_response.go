@@ -32,6 +32,11 @@ func (m *FaxResponse) Reject() {
 
 // ToTwiML generates the TwiML string or returns an error if the response cannot be marshalled
 func (m *FaxResponse) ToTwiML() (*string, error) {
+	return m.ToString()
+}
+
+// ToString generates the TwiML string or returns an error if the response cannot be marshalled
+func (m *FaxResponse) ToString() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {
 		return nil, err

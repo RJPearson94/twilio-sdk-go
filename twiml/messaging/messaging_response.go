@@ -7,7 +7,7 @@ import (
 )
 
 // MessagingResponse provides the structure and functions for generation TwiML that can be used
-// on Programmable SMS. See https://www.twilio.com/docs/sms/twiml more details
+// on Programmable SMS. See https://www.twilio.com/docs/sms/twiml for more details
 type MessagingResponse struct {
 	XMLName  xml.Name `xml:"Response"`
 	Children []interface{}
@@ -56,6 +56,11 @@ func (m *MessagingResponse) RedirectWithAttributes(attributes verbs.RedirectAttr
 
 // ToTwiML generates the TwiML string or returns an error if the response cannot be marshalled
 func (m *MessagingResponse) ToTwiML() (*string, error) {
+	return m.ToString()
+}
+
+// ToString generates the TwiML string or returns an error if the response cannot be marshalled
+func (m *MessagingResponse) ToString() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {
 		return nil, err

@@ -8,7 +8,7 @@ import (
 )
 
 // VoiceResponse provides the structure and functions for generation TwiML that can be used
-// on Programmable Voice. See https://www.twilio.com/docs/voice/twimlfor more details
+// on Programmable Voice. See https://www.twilio.com/docs/voice/twiml for more details
 type VoiceResponse struct {
 	XMLName  xml.Name `xml:"Response"`
 	Children []interface{}
@@ -285,6 +285,11 @@ func (m *VoiceResponse) StopWithAttributes(attributes verbs.StopAttributes) *ver
 
 // ToTwiML generates the TwiML string or returns an error if the response cannot be marshalled
 func (m *VoiceResponse) ToTwiML() (*string, error) {
+	return m.ToString()
+}
+
+// ToString generates the TwiML string or returns an error if the response cannot be marshalled
+func (m *VoiceResponse) ToString() (*string, error) {
 	output, err := xml.Marshal(m)
 	if err != nil {
 		return nil, err

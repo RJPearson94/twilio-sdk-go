@@ -1,5 +1,9 @@
 ## v0.3.0 (unreleased)
 
+## TwiML
+
+Add ToString() method to voice, messaging and fax responses to generate the TwiML sting
+
 ## API
 
 - **New Resource:** Call
