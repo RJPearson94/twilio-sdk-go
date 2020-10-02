@@ -1,0 +1,16 @@
+{
+  "status": "connected",
+  "conference_sid": "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "hold": false,
+  "date_updated": null,
+  "end_conference_on_exit": false,
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+  "label": null,
+  "muted": false,
+  "coaching": false,
+  "start_conference_on_enter": true,
+  "call_sid": "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "Sun, 27 Jun 2020 23:00:00 +0000",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "call_sid_to_coach": null
+}

@@ -1,7 +1,11 @@
 // Package conference contains auto-generated files. DO NOT MODIFY
 package conference
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participant"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participants"
+)
 
 // Client for managing a specific conference resource
 // See https://www.twilio.com/docs/voice/api/conference-resource for more details
@@ -10,6 +14,9 @@ type Client struct {
 
 	accountSid string
 	sid        string
+
+	Participant  func(string) *participant.Client
+	Participants *participants.Client
 }
 
 // ClientProperties are the properties required to manage the conference resources
@@ -25,5 +32,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		accountSid: properties.AccountSid,
 		sid:        properties.Sid,
+
+		Participant: func(callSid string) *participant.Client {
+			return participant.New(client, participant.ClientProperties{
+				AccountSid:     properties.AccountSid,
+				ConferencesSid: properties.Sid,
+				Sid:            callSid,
+			})
+		},
+		Participants: participants.New(client, participants.ClientProperties{
+			AccountSid:     properties.AccountSid,
+			ConferencesSid: properties.Sid,
+		}),
 	}
 }

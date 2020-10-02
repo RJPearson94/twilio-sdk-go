@@ -18,6 +18,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participant"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participants"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conferences"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
@@ -2862,10 +2864,409 @@ var _ = Describe("API V2010", func() {
 		})
 	})
 
+	Describe("Given the participants client", func() {
+		participantsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participants
+
+		Describe("When the participant is successfully created", func() {
+			createInput := &participants.CreateParticipantInput{
+				From: "+19876543210",
+				To:   "+10123456789",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := participantsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create participant response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Status).To(Equal("connected"))
+				Expect(resp.ConferenceSid).To(Equal("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Hold).To(Equal(false))
+				Expect(resp.EndConferenceOnExit).To(Equal(false))
+				Expect(resp.Label).To(BeNil())
+				Expect(resp.Muted).To(Equal(false))
+				Expect(resp.Coaching).To(Equal(false))
+				Expect(resp.StartConferenceOnEnter).To(Equal(true))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSidToCoach).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the participant request does not contain a From", func() {
+			createInput := &participants.CreateParticipantInput{
+				To: "+10123456789",
+			}
+
+			resp, err := participantsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create participants response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the participant request does not contain a To", func() {
+			createInput := &participants.CreateParticipantInput{
+				From: "+19876543210",
+			}
+
+			resp, err := participantsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create participants response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create participant api returns a 500 response", func() {
+			createInput := &participants.CreateParticipantInput{
+				From: "+19876543210",
+				To:   "+10123456789",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := participantsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create participant response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of participants are successfully retrieved", func() {
+			pageOptions := &participants.ParticipantsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := participantsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the participants page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				participants := resp.Participants
+				Expect(participants).ToNot(BeNil())
+				Expect(len(participants)).To(Equal(1))
+
+				Expect(participants[0].Status).To(Equal("connected"))
+				Expect(participants[0].ConferenceSid).To(Equal("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].Hold).To(Equal(false))
+				Expect(participants[0].EndConferenceOnExit).To(Equal(false))
+				Expect(participants[0].Label).To(BeNil())
+				Expect(participants[0].Muted).To(Equal(false))
+				Expect(participants[0].Coaching).To(Equal(false))
+				Expect(participants[0].StartConferenceOnEnter).To(Equal(true))
+				Expect(participants[0].CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].CallSidToCoach).To(BeNil())
+				Expect(participants[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(participants[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of participants api returns a 500 response", func() {
+			pageOptions := &participants.ParticipantsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := participantsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the participants page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated participants are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := participantsClient.NewParticipantsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated participants current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated participants results should be returned", func() {
+				Expect(len(paginator.Participants)).To(Equal(3))
+			})
+		})
+
+		Describe("When the participants api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := participantsClient.NewParticipantsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated participants current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a participant sid", func() {
+		participantClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the participant is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := participantClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get participant response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Status).To(Equal("connected"))
+				Expect(resp.ConferenceSid).To(Equal("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Hold).To(Equal(false))
+				Expect(resp.EndConferenceOnExit).To(Equal(false))
+				Expect(resp.Label).To(BeNil())
+				Expect(resp.Muted).To(Equal(false))
+				Expect(resp.Coaching).To(Equal(false))
+				Expect(resp.StartConferenceOnEnter).To(Equal(true))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSidToCoach).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the participant api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CA71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get participant response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the participant is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateParticipantResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &participant.UpdateParticipantInput{
+				Muted: utils.Bool(true),
+			}
+
+			resp, err := participantClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update participant response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Status).To(Equal("connected"))
+				Expect(resp.ConferenceSid).To(Equal("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Hold).To(Equal(false))
+				Expect(resp.EndConferenceOnExit).To(Equal(false))
+				Expect(resp.Label).To(BeNil())
+				Expect(resp.Muted).To(Equal(true))
+				Expect(resp.Coaching).To(Equal(false))
+				Expect(resp.StartConferenceOnEnter).To(Equal(true))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSidToCoach).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the participant api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CA71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &participant.UpdateParticipantInput{
+				Muted: utils.Bool(true),
+			}
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update participant response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the participant is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := participantClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the participant api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CA71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
 	Describe("Given the addresses client", func() {
 		addressesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Addresses
 
-		Describe("When the call is successfully created", func() {
+		Describe("When the address is successfully created", func() {
 			createInput := &addresses.CreateAddressInput{
 				CustomerName: "Test User",
 				Street:       "123 Fake Street",
@@ -3235,7 +3636,18 @@ var _ = Describe("API V2010", func() {
 			It("Then the get address response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Sid).To(Equal("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.CustomerName).To(Equal("Test User"))
+				Expect(resp.Street).To(Equal("123 Fake Street"))
+				Expect(resp.StreetSecondary).To(BeNil())
+				Expect(resp.City).To(Equal("Fake City"))
+				Expect(resp.Region).To(Equal("Fake Region"))
+				Expect(resp.PostalCode).To(Equal("AB12CD"))
+				Expect(resp.IsoCountry).To(Equal("GB"))
+				Expect(resp.EmergencyEnabled).To(Equal(false))
+				Expect(resp.Validated).To(Equal(false))
+				Expect(resp.Verified).To(Equal(false))
 				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 			})

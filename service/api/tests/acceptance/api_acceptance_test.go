@@ -332,6 +332,7 @@ var _ = Describe("API Acceptance Tests", func() {
 	// TODO SMS Media tests
 	// TODO Queue Members tests
 	// TODO Conference tests
+	// TODO Conference Participants tests
 })
 
 func poll(maxAttempts int, delay int, client *v2010.V2010, accountSid string, messageSid string) error {

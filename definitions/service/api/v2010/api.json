@@ -1820,6 +1820,312 @@
               "functionParameter": "conferenceSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Participants",
+              "packageName": "participants",
+              "documentation": {
+                "description": "Client for managing participant resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "conferencesSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferencesSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferencesSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new participant resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource#create-a-participant"
+                  },
+                  "input": {
+                    "structure": "CreateParticipantInput",
+                    "documentation": {
+                      "description": "defines input fields for adding a new participant"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateParticipantResponse",
+                    "structure": "ParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for adding a new participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferencesSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferencesSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Muted",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "Hold",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "Coaching",
+                        "type": "bool",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of participants",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource#read-multiple-participant-resources"
+                  },
+                  "response": {
+                    "structure": "ParticipantsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the participants page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ParticipantsPaginator",
+                    "page": {
+                      "name": "ParticipantsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "Participants",
+                      "structure": "PageParticipantResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Participant",
+              "packageName": "participant",
+              "documentation": {
+                "description": "Client for managing a specific participants resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource"
+              },
+              "function": {
+                "parameters": {
+                  "callSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "conferencesSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "callSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferencesSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferencesSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves the participant resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource#fetch-a-participant-resource"
+                  },
+                  "response": {
+                    "name": "FetchParticipantResponse",
+                    "structure": "ParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferencesSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferencesSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a participant resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource#update-a-participant-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateParticipantInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a participant"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateParticipantResponse",
+                    "structure": "ParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferencesSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferencesSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a address participant from the conference",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource#delete-a-participant-resource"
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -3682,6 +3988,420 @@
           "type": "bool",
           "value": "verified",
           "required": true
+        }
+      ]
+    },
+    "CreateParticipantInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "From",
+          "type": "string",
+          "value": "From",
+          "required": true
+        },
+        {
+          "name": "To",
+          "type": "string",
+          "value": "To",
+          "required": true
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "StatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "Label",
+          "type": "string",
+          "value": "Label",
+          "required": false
+        },
+        {
+          "name": "Timeout",
+          "type": "int",
+          "value": "Timeout",
+          "required": false
+        },
+        {
+          "name": "Record",
+          "type": "bool",
+          "value": "Record",
+          "required": false
+        },
+        {
+          "name": "Muted",
+          "type": "bool",
+          "value": "Muted",
+          "required": false
+        },
+        {
+          "name": "Beep",
+          "type": "string",
+          "value": "Beep",
+          "required": false
+        },
+        {
+          "name": "StartConferenceOnEnter",
+          "type": "bool",
+          "value": "StartConferenceOnEnter",
+          "required": false
+        },
+        {
+          "name": "EndConferenceOnExit",
+          "type": "bool",
+          "value": "EndConferenceOnExit",
+          "required": false
+        },
+        {
+          "name": "WaitURL",
+          "type": "string",
+          "value": "WaitUrl",
+          "required": false
+        },
+        {
+          "name": "WaitMethod",
+          "type": "string",
+          "value": "WaitMethod",
+          "required": false
+        },
+        {
+          "name": "EarlyMedia",
+          "type": "string",
+          "value": "EarlyMedia",
+          "required": false
+        },
+        {
+          "name": "MaxParticipants",
+          "type": "int",
+          "value": "MaxParticipants",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecord",
+          "type": "string",
+          "value": "ConferenceRecord",
+          "required": false
+        },
+        {
+          "name": "ConferenceTrim",
+          "type": "string",
+          "value": "ConferenceTrim",
+          "required": false
+        },
+        {
+          "name": "ConferenceStatusCallback",
+          "type": "string",
+          "value": "ConferenceStatusCallback",
+          "required": false
+        },
+        {
+          "name": "ConferenceStatusCallbackMethod",
+          "type": "string",
+          "value": "ConferenceStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "ConferenceStatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "ConferenceStatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "RecordingChannels",
+          "type": "string",
+          "value": "RecordingChannels",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallback",
+          "type": "string",
+          "value": "RecordingStatusCallback",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallbackMethod",
+          "type": "string",
+          "value": "RecordingStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "SipAuthUsername",
+          "type": "string",
+          "value": "SipAuthUsername",
+          "required": false
+        },
+        {
+          "name": "SipAuthPassword",
+          "type": "string",
+          "value": "SipAuthPassword",
+          "required": false
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "Region",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecordingStatusCallback",
+          "type": "string",
+          "value": "ConferenceRecordingStatusCallback",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecordingStatusCallbackMethod",
+          "type": "string",
+          "value": "ConferenceRecordingStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "RecordingStatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "ConferenceRecordingStatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "ConferenceRecordingStatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "Coaching",
+          "type": "bool",
+          "value": "Coaching",
+          "required": false
+        },
+        {
+          "name": "CallSidToCoach",
+          "type": "string",
+          "value": "CallSidToCoach",
+          "required": false
+        },
+        {
+          "name": "JitterBufferSize",
+          "type": "string",
+          "value": "JitterBufferSize",
+          "required": false
+        },
+        {
+          "name": "BYOC",
+          "type": "string",
+          "value": "Byoc",
+          "required": false
+        },
+        {
+          "name": "CallerID",
+          "type": "string",
+          "value": "CallerId",
+          "required": false
+        },
+        {
+          "name": "CallReason",
+          "type": "string",
+          "value": "CallReason",
+          "required": false
+        }
+      ]
+    },
+    "UpdateParticipantInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Muted",
+          "type": "bool",
+          "value": "Muted",
+          "required": false
+        },
+        {
+          "name": "Hold",
+          "type": "bool",
+          "value": "Hold",
+          "required": false
+        },
+        {
+          "name": "HoldURL",
+          "type": "string",
+          "value": "HoldUrl",
+          "required": false
+        },
+        {
+          "name": "HoldMethod",
+          "type": "string",
+          "value": "HoldMethod",
+          "required": false
+        },
+        {
+          "name": "AnnounceURL",
+          "type": "string",
+          "value": "AnnounceUrl",
+          "required": false
+        },
+        {
+          "name": "AnnounceMethod",
+          "type": "string",
+          "value": "AnnounceMethod",
+          "required": false
+        },
+        {
+          "name": "WaitURL",
+          "type": "string",
+          "value": "WaitUrl",
+          "required": false
+        },
+        {
+          "name": "WaitMethod",
+          "type": "string",
+          "value": "WaitMethod",
+          "required": false
+        },
+        {
+          "name": "BeepOnExit",
+          "type": "bool",
+          "value": "BeepOnExit",
+          "required": false
+        },
+        {
+          "name": "EndConferenceOnExit",
+          "type": "bool",
+          "value": "EndConferenceOnExit",
+          "required": false
+        },
+        {
+          "name": "Coaching",
+          "type": "bool",
+          "value": "Coaching",
+          "required": false
+        },
+        {
+          "name": "CallSidToCoach",
+          "type": "string",
+          "value": "CallSidToCoach",
+          "required": false
+        }
+      ]
+    },
+    "ParticipantsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Participants",
+          "type": "array",
+          "items": {
+            "structure": "ParticipantResponse"
+          },
+          "value": "participants",
+          "required": true
+        }
+      ]
+    },
+    "ParticipantResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "type": "string",
+          "value": "conference_sid",
+          "required": true
+        },
+        {
+          "name": "Hold",
+          "type": "bool",
+          "value": "hold",
+          "required": true
+        },
+        {
+          "name": "EndConferenceOnExit",
+          "type": "bool",
+          "value": "end_conference_on_exit",
+          "required": true
+        },
+        {
+          "name": "Label",
+          "type": "string",
+          "value": "label",
+          "required": false
+        },
+        {
+          "name": "Muted",
+          "type": "bool",
+          "value": "muted",
+          "required": true
+        },
+        {
+          "name": "Coaching",
+          "type": "bool",
+          "value": "coaching",
+          "required": true
+        },
+        {
+          "name": "StartConferenceOnEnter",
+          "type": "bool",
+          "value": "start_conference_on_enter",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "type": "string",
+          "value": "call_sid",
+          "required": true
+        },
+        {
+          "name": "CallSidToCoach",
+          "type": "string",
+          "value": "call_sid_to_coach",
+          "required": false
+        },
+        {
+          "name": "DateCreated",
+          "type": "utils.RFC2822Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "utils.RFC2822Time",
+          "value": "date_updated",
+          "required": false
         }
       ]
     },
