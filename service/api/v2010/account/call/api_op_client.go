@@ -1,7 +1,11 @@
 // Package call contains auto-generated files. DO NOT MODIFY
 package call
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/recording"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/recordings"
+)
 
 // Client for managing a specific call resource
 // See https://www.twilio.com/docs/voice/api/call-resource for more details
@@ -10,6 +14,9 @@ type Client struct {
 
 	accountSid string
 	sid        string
+
+	Recording  func(string) *recording.Client
+	Recordings *recordings.Client
 }
 
 // ClientProperties are the properties required to manage the call resources
@@ -25,5 +32,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		accountSid: properties.AccountSid,
 		sid:        properties.Sid,
+
+		Recording: func(recordingSid string) *recording.Client {
+			return recording.New(client, recording.ClientProperties{
+				AccountSid: properties.AccountSid,
+				CallSid:    properties.Sid,
+				Sid:        recordingSid,
+			})
+		},
+		Recordings: recordings.New(client, recordings.ClientProperties{
+			AccountSid: properties.AccountSid,
+			CallSid:    properties.Sid,
+		}),
 	}
 }

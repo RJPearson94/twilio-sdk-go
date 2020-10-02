@@ -333,6 +333,7 @@ var _ = Describe("API Acceptance Tests", func() {
 	// TODO Queue Members tests
 	// TODO Conference tests
 	// TODO Conference Participants tests
+	// TODO Recording & Call Recording & conference recording tests
 })
 
 func poll(maxAttempts int, delay int, client *v2010.V2010, accountSid string, messageSid string) error {

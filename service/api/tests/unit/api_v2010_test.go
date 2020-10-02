@@ -16,10 +16,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
+	callRecordings "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participant"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participants"
+	conferenceRecordings "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conferences"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
@@ -31,6 +33,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue/member"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue/members"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recording"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -3758,6 +3762,897 @@ var _ = Describe("API V2010", func() {
 			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the recordings client", func() {
+		recordingsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
+
+		Describe("When the page of recordings are successfully retrieved", func() {
+			pageOptions := &recordings.RecordingsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the recordings page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				recordings := resp.Recordings
+				Expect(recordings).ToNot(BeNil())
+				Expect(len(recordings)).To(Equal(1))
+
+				Expect(recordings[0].APIVersion).To(Equal("2010-04-01"))
+				Expect(recordings[0].Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(recordings[0].CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(recordings[0].ConferenceSid).To(BeNil())
+				Expect(recordings[0].Duration).To(BeNil())
+				Expect(recordings[0].Price).To(BeNil())
+				Expect(recordings[0].PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(recordings[0].Status).To(Equal("in-progress"))
+				Expect(recordings[0].Channels).To(Equal(1))
+				Expect(recordings[0].Source).To(Equal("OutboundAPI"))
+				Expect(recordings[0].ErrorCode).To(BeNil())
+				Expect(recordings[0].EncryptionDetails).To(BeNil())
+				Expect(recordings[0].StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(recordings[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(recordings[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of recordings api returns a 500 response", func() {
+			pageOptions := &recordings.RecordingsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the recordings page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated recordings are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := recordingsClient.NewRecordingsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated recordings current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated recordings results should be returned", func() {
+				Expect(len(paginator.Recordings)).To(Equal(3))
+			})
+		})
+
+		Describe("When the recordings api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := recordingsClient.NewRecordingsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated recordings current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a recording sid", func() {
+		recordingClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the recording is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get recording response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConferenceSid).To(BeNil())
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.Price).To(BeNil())
+				Expect(resp.PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(resp.Status).To(Equal("in-progress"))
+				Expect(resp.Channels).To(Equal(1))
+				Expect(resp.Source).To(Equal("OutboundAPI"))
+				Expect(resp.ErrorCode).To(BeNil())
+				Expect(resp.EncryptionDetails).To(BeNil())
+				Expect(resp.StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the recording api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RE71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get recording response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the recording is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateRecordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &recording.UpdateRecordingInput{
+				Status: "completed",
+			}
+
+			resp, err := recordingClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update recording response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConferenceSid).To(BeNil())
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.Price).To(BeNil())
+				Expect(resp.PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(resp.Status).To(Equal("completed"))
+				Expect(resp.Channels).To(Equal(1))
+				Expect(resp.Source).To(Equal("OutboundAPI"))
+				Expect(resp.ErrorCode).To(BeNil())
+				Expect(resp.EncryptionDetails).To(BeNil())
+				Expect(resp.StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the recording update request does not contain a status", func() {
+			updateInput := &recording.UpdateRecordingInput{}
+
+			resp, err := recordingClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create addresses response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the recording api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RE71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &recording.UpdateRecordingInput{
+				Status: "completed",
+			}
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update recording response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the recording is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := recordingClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the recording api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RE71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the call recordings client", func() {
+		recordingsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
+
+		Describe("When the recordings is successfully created", func() {
+			createInput := &callRecordings.CreateRecordingInput{}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create addresses response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConferenceSid).To(BeNil())
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.Price).To(BeNil())
+				Expect(resp.PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(resp.Status).To(Equal("in-progress"))
+				Expect(resp.Channels).To(Equal(1))
+				Expect(resp.Source).To(Equal("OutboundAPI"))
+				Expect(resp.ErrorCode).To(BeNil())
+				Expect(resp.EncryptionDetails).To(BeNil())
+				Expect(resp.StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the create recording api returns a 500 response", func() {
+			createInput := &callRecordings.CreateRecordingInput{}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create recording response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of recordings are successfully retrieved", func() {
+			pageOptions := &callRecordings.RecordingsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the recordings page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				recordings := resp.Recordings
+				Expect(recordings).ToNot(BeNil())
+				Expect(len(recordings)).To(Equal(1))
+
+				Expect(recordings[0].APIVersion).To(Equal("2010-04-01"))
+				Expect(recordings[0].Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(recordings[0].CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(recordings[0].ConferenceSid).To(BeNil())
+				Expect(recordings[0].Duration).To(BeNil())
+				Expect(recordings[0].Price).To(BeNil())
+				Expect(recordings[0].PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(recordings[0].Status).To(Equal("in-progress"))
+				Expect(recordings[0].Channels).To(Equal(1))
+				Expect(recordings[0].Source).To(Equal("OutboundAPI"))
+				Expect(recordings[0].ErrorCode).To(BeNil())
+				Expect(recordings[0].EncryptionDetails).To(BeNil())
+				Expect(recordings[0].StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(recordings[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(recordings[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of recordings api returns a 500 response", func() {
+			pageOptions := &callRecordings.RecordingsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the recordings page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated recordings are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := recordingsClient.NewRecordingsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated recordings current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated recordings results should be returned", func() {
+				Expect(len(paginator.Recordings)).To(Equal(3))
+			})
+		})
+
+		Describe("When the recordings api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := recordingsClient.NewRecordingsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated recordings current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a call recording sid", func() {
+		recordingClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the recording is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get recording response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConferenceSid).To(BeNil())
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.Price).To(BeNil())
+				Expect(resp.PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(resp.Status).To(Equal("in-progress"))
+				Expect(resp.Channels).To(Equal(1))
+				Expect(resp.Source).To(Equal("OutboundAPI"))
+				Expect(resp.ErrorCode).To(BeNil())
+				Expect(resp.EncryptionDetails).To(BeNil())
+				Expect(resp.StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the recording api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RE71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get recording response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the conference recordings client", func() {
+		recordingsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
+
+		Describe("When the recordings is successfully created", func() {
+			createInput := &conferenceRecordings.CreateRecordingInput{}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create addresses response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConferenceSid).To(BeNil())
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.Price).To(BeNil())
+				Expect(resp.PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(resp.Status).To(Equal("in-progress"))
+				Expect(resp.Channels).To(Equal(1))
+				Expect(resp.Source).To(Equal("OutboundAPI"))
+				Expect(resp.ErrorCode).To(BeNil())
+				Expect(resp.EncryptionDetails).To(BeNil())
+				Expect(resp.StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the create recording api returns a 500 response", func() {
+			createInput := &conferenceRecordings.CreateRecordingInput{}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create recording response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of recordings are successfully retrieved", func() {
+			pageOptions := &conferenceRecordings.RecordingsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the recordings page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				recordings := resp.Recordings
+				Expect(recordings).ToNot(BeNil())
+				Expect(len(recordings)).To(Equal(1))
+
+				Expect(recordings[0].APIVersion).To(Equal("2010-04-01"))
+				Expect(recordings[0].Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(recordings[0].CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(recordings[0].ConferenceSid).To(BeNil())
+				Expect(recordings[0].Duration).To(BeNil())
+				Expect(recordings[0].Price).To(BeNil())
+				Expect(recordings[0].PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(recordings[0].Status).To(Equal("in-progress"))
+				Expect(recordings[0].Channels).To(Equal(1))
+				Expect(recordings[0].Source).To(Equal("OutboundAPI"))
+				Expect(recordings[0].ErrorCode).To(BeNil())
+				Expect(recordings[0].EncryptionDetails).To(BeNil())
+				Expect(recordings[0].StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(recordings[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(recordings[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of recordings api returns a 500 response", func() {
+			pageOptions := &conferenceRecordings.RecordingsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the recordings page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated recordings are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := recordingsClient.NewRecordingsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated recordings current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated recordings results should be returned", func() {
+				Expect(len(paginator.Recordings)).To(Equal(3))
+			})
+		})
+
+		Describe("When the recordings api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := recordingsClient.NewRecordingsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated recordings current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a conference recording sid", func() {
+		recordingClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the recording is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get recording response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.Sid).To(Equal("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CallSid).To(Equal("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConferenceSid).To(BeNil())
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.Price).To(BeNil())
+				Expect(resp.PriceUnit).To(Equal(utils.String("GBP")))
+				Expect(resp.Status).To(Equal("in-progress"))
+				Expect(resp.Channels).To(Equal(1))
+				Expect(resp.Source).To(Equal("OutboundAPI"))
+				Expect(resp.ErrorCode).To(BeNil())
+				Expect(resp.EncryptionDetails).To(BeNil())
+				Expect(resp.StartTime.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the recording api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RE71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get recording response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

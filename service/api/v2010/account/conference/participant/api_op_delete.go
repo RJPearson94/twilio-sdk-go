@@ -20,11 +20,11 @@ func (c Client) Delete() error {
 func (c Client) DeleteWithContext(context context.Context) error {
 	op := client.Operation{
 		Method: http.MethodDelete,
-		URI:    "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+		URI:    "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants/{sid}.json",
 		PathParams: map[string]string{
-			"accountSid":     c.accountSid,
-			"conferencesSid": c.conferencesSid,
-			"sid":            c.sid,
+			"accountSid":    c.accountSid,
+			"conferenceSid": c.conferenceSid,
+			"sid":           c.sid,
 		},
 	}
 

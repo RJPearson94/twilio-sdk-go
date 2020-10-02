@@ -38,11 +38,11 @@ func (c Client) Fetch() (*FetchParticipantResponse, error) {
 func (c Client) FetchWithContext(context context.Context) (*FetchParticipantResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
-		URI:    "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+		URI:    "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants/{sid}.json",
 		PathParams: map[string]string{
-			"accountSid":     c.accountSid,
-			"conferencesSid": c.conferencesSid,
-			"sid":            c.sid,
+			"accountSid":    c.accountSid,
+			"conferenceSid": c.conferenceSid,
+			"sid":           c.sid,
 		},
 	}
 

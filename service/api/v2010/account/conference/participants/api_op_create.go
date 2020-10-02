@@ -79,11 +79,11 @@ func (c Client) Create(input *CreateParticipantInput) (*CreateParticipantRespons
 func (c Client) CreateWithContext(context context.Context, input *CreateParticipantInput) (*CreateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
-		URI:         "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants.json",
+		URI:         "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants.json",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
-			"accountSid":     c.accountSid,
-			"conferencesSid": c.conferencesSid,
+			"accountSid":    c.accountSid,
+			"conferenceSid": c.conferenceSid,
 		},
 	}
 

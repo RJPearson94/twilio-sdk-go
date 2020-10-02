@@ -1,0 +1,34 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0",
+  "end": 1,
+  "previous_page_uri": null,
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings.json?PageSize=50&Page=0",
+  "page_size": 50,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 0,
+  "recordings": [
+    {
+      "api_version": "2010-04-01",
+      "call_sid": "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "conference_sid": null,
+      "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "date_updated": null,
+      "start_time": "Sat, 27 Jun 2020 23:00:00 +0000",
+      "duration": null,
+      "sid": "REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "price": null,
+      "price_unit": "GBP",
+      "status": "in-progress",
+      "channels": 1,
+      "source": "OutboundAPI",
+      "error_code": null,
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "encryption_details": null,
+      "subresource_uris": {
+        "add_on_results": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AddOnResults.json",
+        "transcriptions": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Transcriptions.json"
+      }
+    }
+  ]
+}

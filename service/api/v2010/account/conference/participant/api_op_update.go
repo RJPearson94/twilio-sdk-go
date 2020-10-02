@@ -54,12 +54,12 @@ func (c Client) Update(input *UpdateParticipantInput) (*UpdateParticipantRespons
 func (c Client) UpdateWithContext(context context.Context, input *UpdateParticipantInput) (*UpdateParticipantResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
-		URI:         "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+		URI:         "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants/{sid}.json",
 		ContentType: client.URLEncoded,
 		PathParams: map[string]string{
-			"accountSid":     c.accountSid,
-			"conferencesSid": c.conferencesSid,
-			"sid":            c.sid,
+			"accountSid":    c.accountSid,
+			"conferenceSid": c.conferenceSid,
+			"sid":           c.sid,
 		},
 	}
 

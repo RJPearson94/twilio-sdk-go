@@ -62,10 +62,10 @@ func (c Client) Page(options *ParticipantsPageOptions) (*ParticipantsPageRespons
 func (c Client) PageWithContext(context context.Context, options *ParticipantsPageOptions) (*ParticipantsPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,
-		URI:    "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants.json",
+		URI:    "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants.json",
 		PathParams: map[string]string{
-			"accountSid":     c.accountSid,
-			"conferencesSid": c.conferencesSid,
+			"accountSid":    c.accountSid,
+			"conferenceSid": c.conferenceSid,
 		},
 		QueryParams: utils.StructToURLValues(options),
 	}

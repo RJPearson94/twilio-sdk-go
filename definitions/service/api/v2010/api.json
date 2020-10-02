@@ -1593,6 +1593,225 @@
               "functionParameter": "callSid"
             }
           },
+          "subClients": [
+            {
+              "name": "Recordings",
+              "packageName": "recordings",
+              "documentation": {
+                "description": "Client for managing recording resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "callSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/{callSid}/Recordings.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "callSid",
+                        "value": {
+                          "onService": true,
+                          "property": "callSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new recording resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#create-a-recording-resource"
+                  },
+                  "input": {
+                    "structure": "CreateRecordingInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new recording"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateRecordingResponse",
+                    "structure": "RecordingResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new recording resource"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/{callSid}/Recordings.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "callSid",
+                        "value": {
+                          "onService": true,
+                          "property": "callSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "CallSid",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "ConferenceSid",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of recordings",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#read-multiple-recording-resources"
+                  },
+                  "response": {
+                    "structure": "RecordingsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the recordings page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "RecordingsPaginator",
+                    "page": {
+                      "name": "RecordingsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "Recordings",
+                      "structure": "PageRecordingResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Recording",
+              "packageName": "recording",
+              "documentation": {
+                "description": "Client for managing a specific recording resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording"
+              },
+              "function": {
+                "parameters": {
+                  "recordingSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "callSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "recordingSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/{callSid}/Recordings/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "callSid",
+                        "value": {
+                          "onService": true,
+                          "property": "callSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a recording resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#fetch-a-recording-resource"
+                  },
+                  "response": {
+                    "name": "FetchRecordingResponse",
+                    "structure": "RecordingResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a recording"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -1833,7 +2052,7 @@
                   "dataType": "string",
                   "parentProperty": "accountSid"
                 },
-                "conferencesSid": {
+                "conferenceSid": {
                   "dataType": "string",
                   "parentProperty": "sid"
                 }
@@ -1842,7 +2061,7 @@
                 {
                   "name": "Create",
                   "http": {
-                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants.json",
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants.json",
                     "method": "Post",
                     "pathParams": [
                       {
@@ -1854,10 +2073,10 @@
                         }
                       },
                       {
-                        "name": "conferencesSid",
+                        "name": "conferenceSid",
                         "value": {
                           "onService": true,
-                          "property": "conferencesSid",
+                          "property": "conferenceSid",
                           "type": "string"
                         }
                       }
@@ -1884,7 +2103,7 @@
                 {
                   "name": "Page",
                   "http": {
-                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants.json",
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants.json",
                     "method": "Get",
                     "pathParams": [
                       {
@@ -1896,10 +2115,10 @@
                         }
                       },
                       {
-                        "name": "conferencesSid",
+                        "name": "conferenceSid",
                         "value": {
                           "onService": true,
-                          "property": "conferencesSid",
+                          "property": "conferenceSid",
                           "type": "string"
                         }
                       }
@@ -1982,7 +2201,7 @@
                   "dataType": "string",
                   "parentProperty": "accountSid"
                 },
-                "conferencesSid": {
+                "conferenceSid": {
                   "dataType": "string",
                   "parentProperty": "sid"
                 },
@@ -1995,7 +2214,7 @@
                 {
                   "name": "Fetch",
                   "http": {
-                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants/{sid}.json",
                     "method": "Get",
                     "pathParams": [
                       {
@@ -2007,10 +2226,10 @@
                         }
                       },
                       {
-                        "name": "conferencesSid",
+                        "name": "conferenceSid",
                         "value": {
                           "onService": true,
-                          "property": "conferencesSid",
+                          "property": "conferenceSid",
                           "type": "string"
                         }
                       },
@@ -2039,7 +2258,7 @@
                 {
                   "name": "Update",
                   "http": {
-                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants/{sid}.json",
                     "method": "Post",
                     "pathParams": [
                       {
@@ -2051,10 +2270,10 @@
                         }
                       },
                       {
-                        "name": "conferencesSid",
+                        "name": "conferenceSid",
                         "value": {
                           "onService": true,
-                          "property": "conferencesSid",
+                          "property": "conferenceSid",
                           "type": "string"
                         }
                       },
@@ -2089,7 +2308,7 @@
                 {
                   "name": "Delete",
                   "http": {
-                    "uri": "/Accounts/{accountSid}/Conferences/{conferencesSid}/Participants/{sid}.json",
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Participants/{sid}.json",
                     "method": "Delete",
                     "pathParams": [
                       {
@@ -2101,10 +2320,10 @@
                         }
                       },
                       {
-                        "name": "conferencesSid",
+                        "name": "conferenceSid",
                         "value": {
                           "onService": true,
-                          "property": "conferencesSid",
+                          "property": "conferenceSid",
                           "type": "string"
                         }
                       },
@@ -2121,6 +2340,223 @@
                   "documentation": {
                     "description": "removes a address participant from the conference",
                     "twilioDocsLink": "https://www.twilio.com/docs/voice/api/conference-participant-resource#delete-a-participant-resource"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Recordings",
+              "packageName": "recordings",
+              "documentation": {
+                "description": "Client for managing recording resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "conferenceSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Recordings.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferenceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferenceSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new recording resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#create-a-recording-resource"
+                  },
+                  "input": {
+                    "structure": "CreateRecordingInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new recording"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateRecordingResponse",
+                    "structure": "RecordingResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new recording resource"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Recordings.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferenceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferenceSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "DateCreated",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "CallSid",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "ConferenceSid",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of recordings",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#read-multiple-recording-resources"
+                  },
+                  "response": {
+                    "structure": "RecordingsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the recordings page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "RecordingsPaginator",
+                    "page": {
+                      "name": "RecordingsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "Recordings",
+                      "structure": "PageRecordingResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Recording",
+              "packageName": "recording",
+              "documentation": {
+                "description": "Client for managing a specific recording resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording"
+              },
+              "function": {
+                "parameters": {
+                  "recordingSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "conferenceSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "recordingSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Conferences/{conferenceSid}/Recordings/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "conferenceSid",
+                        "value": {
+                          "onService": true,
+                          "property": "conferenceSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a recording resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#fetch-a-recording-resource"
+                  },
+                  "response": {
+                    "name": "FetchRecordingResponse",
+                    "structure": "RecordingResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a recording"
+                    }
                   }
                 }
               ]
@@ -2459,6 +2895,228 @@
               "documentation": {
                 "description": "removes a address resource from the account",
                 "twilioDocsLink": "https://www.twilio.com/docs/usage/api/address#delete-an-address-resource"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Recordings",
+          "packageName": "recordings",
+          "documentation": {
+            "description": "Client for managing recording resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Recordings.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreated",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "CallSid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "ConferenceSid",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of recordings",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#read-multiple-recording-resources"
+              },
+              "response": {
+                "structure": "RecordingsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the recordings page"
+                }
+              },
+              "pagination": {
+                "name": "RecordingsPaginator",
+                "page": {
+                  "name": "RecordingsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Recordings",
+                  "structure": "PageRecordingResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Recording",
+          "packageName": "recording",
+          "documentation": {
+            "description": "Client for managing a specific recording resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording"
+          },
+          "function": {
+            "parameters": {
+              "recordingSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "recordingSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Recordings/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a recording resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#fetch-a-recording-resource"
+              },
+              "response": {
+                "name": "FetchRecordingResponse",
+                "structure": "RecordingResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving a recording"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Recordings/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a recording resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource"
+              },
+              "input": {
+                "structure": "UpdateRecordingInput",
+                "documentation": {
+                  "description": "defines input fields for updating a recording"
+                }
+              },
+              "response": {
+                "name": "UpdateRecordingResponse",
+                "structure": "RecordingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated recording"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Recordings/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a recording resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/recording#delete-a-recording-resource"
               }
             }
           ]
@@ -4401,6 +5059,157 @@
           "name": "DateUpdated",
           "type": "utils.RFC2822Time",
           "value": "date_updated",
+          "required": false
+        }
+      ]
+    },
+    "CreateRecordingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "RecordingStatusCallbackEvents",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "RecordingStatusCallbackEvent",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallback",
+          "type": "string",
+          "value": "RecordingStatusCallback",
+          "required": false
+        },
+        {
+          "name": "RecordingStatusCallbackMethod",
+          "type": "string",
+          "value": "RecordingStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "Trim",
+          "type": "string",
+          "value": "Trim",
+          "required": false
+        },
+        {
+          "name": "RecordingChannels",
+          "type": "string",
+          "value": "RecordingChannels",
+          "required": false
+        }
+      ]
+    },
+    "UpdateRecordingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": true
+        },
+        {
+          "name": "PauseBehavior",
+          "type": "string",
+          "value": "PauseBehavior",
+          "required": false
+        }
+      ]
+    },
+    "RecordingsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Recordings",
+          "type": "array",
+          "items": {
+            "structure": "RecordingResponse"
+          },
+          "value": "recordings",
+          "required": true
+        }
+      ]
+    },
+    "RecordingResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "type": "string",
+          "value": "call_sid",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "type": "string",
+          "value": "conference_sid",
+          "required": false
+        },
+        {
+          "name": "StartTime",
+          "type": "utils.RFC2822Time",
+          "value": "start_time",
+          "required": true
+        },
+        {
+          "name": "Duration",
+          "type": "string",
+          "value": "duration",
+          "required": false
+        },
+        {
+          "name": "Price",
+          "type": "string",
+          "value": "price",
+          "required": false
+        },
+        {
+          "name": "PriceUnit",
+          "type": "string",
+          "value": "price_unit",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "Channels",
+          "type": "int",
+          "value": "channels",
+          "required": true
+        },
+        {
+          "name": "Source",
+          "type": "string",
+          "value": "source",
+          "required": true
+        },
+        {
+          "name": "ErrorCode",
+          "type": "string",
+          "value": "error_code",
+          "required": false
+        },
+        {
+          "name": "EncryptionDetails",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "encryption_details",
           "required": false
         }
       ]
