@@ -15,6 +15,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedback"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedbacks"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls/feedback_summaries"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
@@ -350,6 +352,63 @@ var _ = Describe("API Acceptance Tests", func() {
 
 			deleteErr := feedbackSummaryClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the call feedback clients", func() {
+		var callSid string
+
+		BeforeEach(func() {
+			twiMLResponse := voice.New()
+			twiMLResponse.Say("Hello World")
+			twiML, _ := twiMLResponse.ToTwiML()
+
+			resp, err := apiSession.Account(accountSid).Calls.Create(&calls.CreateCallInput{
+				To:    os.Getenv("DESTINATION_PHONE_NUMBER"),
+				From:  os.Getenv("TWILIO_PHONE_NUMBER"),
+				TwiML: twiML,
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create call. Error %s", err.Error()))
+			}
+			callSid = resp.Sid
+
+			_, endCallErr := apiSession.Account(accountSid).Call(callSid).Update(&call.UpdateCallInput{
+				Status: utils.String("completed"),
+			})
+			if endCallErr != nil {
+				Fail(fmt.Sprintf("Failed to update call. Error %s", endCallErr.Error()))
+			}
+		})
+
+		AfterEach(func() {
+			if err := apiSession.Account(accountSid).Call(callSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete call. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the feedback is created, fetched and updated", func() {
+			feedbacksClient := apiSession.Account(accountSid).Call(callSid).Feedbacks
+
+			createResp, createErr := feedbacksClient.Create(&feedbacks.CreateFeedbackInput{
+				QualityScore: 5,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			feedbackClient := apiSession.Account(accountSid).Call(callSid).Feedback()
+
+			fetchResp, fetchErr := feedbackClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := feedbackClient.Update(&feedback.UpdateFeedbackInput{
+				QualityScore: 4,
+				Issues:       &[]string{"audio-latency"},
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
 		})
 	})
 

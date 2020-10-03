@@ -3,6 +3,8 @@ package call
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedback"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedbacks"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/recordings"
 )
@@ -15,6 +17,8 @@ type Client struct {
 	accountSid string
 	sid        string
 
+	Feedback   func() *feedback.Client
+	Feedbacks  *feedbacks.Client
 	Recording  func(string) *recording.Client
 	Recordings *recordings.Client
 }
@@ -33,6 +37,16 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		accountSid: properties.AccountSid,
 		sid:        properties.Sid,
 
+		Feedback: func() *feedback.Client {
+			return feedback.New(client, feedback.ClientProperties{
+				AccountSid: properties.AccountSid,
+				CallSid:    properties.Sid,
+			})
+		},
+		Feedbacks: feedbacks.New(client, feedbacks.ClientProperties{
+			AccountSid: properties.AccountSid,
+			CallSid:    properties.Sid,
+		}),
 		Recording: func(recordingSid string) *recording.Client {
 			return recording.New(client, recording.ClientProperties{
 				AccountSid: properties.AccountSid,

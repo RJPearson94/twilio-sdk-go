@@ -1450,7 +1450,7 @@
               "name": "Feedback Summaries",
               "packageName": "feedback_summaries",
               "documentation": {
-                "description": "Client for managing call resources",
+                "description": "Client for managing feedback summary resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedbacksummary-resource"
               },
               "properties": {
@@ -1738,6 +1738,171 @@
             }
           },
           "subClients": [
+            {
+              "name": "Feedbacks",
+              "packageName": "feedbacks",
+              "documentation": {
+                "description": "Client for managing feedback resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedback-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "callSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/{callSid}/Feedback.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "callSid",
+                        "value": {
+                          "onService": true,
+                          "property": "callSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new feedback resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedback-resource#create-a-call-feedback-resource"
+                  },
+                  "input": {
+                    "name": "CreateFeedbackInput",
+                    "structure": "CallFeedbackInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new feedback resource"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateFeedbackResponse",
+                    "structure": "CallFeedbackResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new feedback resource"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Feedback",
+              "packageName": "feedback",
+              "documentation": {
+                "description": "Client for managing a specific feedback resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedback-resource"
+              },
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "callSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/{callSid}/Feedback.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "callSid",
+                        "value": {
+                          "onService": true,
+                          "property": "callSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves the feedback resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedback-resource#fetch-a-call-feedback-resource"
+                  },
+                  "response": {
+                    "name": "FetchFeedbackResponse",
+                    "structure": "CallFeedbackResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving feedback"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/{callSid}/Feedback.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "callSid",
+                        "value": {
+                          "onService": true,
+                          "property": "callSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a feedback resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedback-resource#update-a-call-feedback-resource"
+                  },
+                  "input": {
+                    "name": "UpdateFeedbackInput",
+                    "structure": "CallFeedbackInput",
+                    "documentation": {
+                      "description": "defines input fields for updating feedback"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateFeedbackResponse",
+                    "structure": "CallFeedbackResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated feedback"
+                    }
+                  }
+                }
+              ]
+            },
             {
               "name": "Recordings",
               "packageName": "recordings",
@@ -5465,6 +5630,53 @@
           },
           "value": "issues",
           "required": false
+        }
+      ]
+    },
+    "CallFeedbackInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Issues",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Issue",
+          "required": false
+        },
+        {
+          "name": "QualityScore",
+          "type": "int",
+          "value": "QualityScore",
+          "required": true
+        }
+      ]
+    },
+    "CallFeedbackResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "Issues",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "issues",
+          "required": true
+        },
+        {
+          "name": "QualityScore",
+          "type": "int",
+          "value": "quality_score",
+          "required": true
         }
       ]
     },

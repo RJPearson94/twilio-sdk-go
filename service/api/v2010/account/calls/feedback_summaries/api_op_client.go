@@ -3,7 +3,7 @@ package feedback_summaries
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing call resources
+// Client for managing feedback summary resources
 // See https://www.twilio.com/docs/voice/api/feedbacksummary-resource for more details
 type Client struct {
 	client *client.Client
