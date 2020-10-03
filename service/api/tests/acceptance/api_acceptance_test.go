@@ -16,6 +16,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls/feedback_summaries"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
@@ -325,6 +326,29 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := addressClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the feedback summary clients", func() {
+		It("Then the feedback summary is created, fetched and deleted", func() {
+			feedbackSummariesClient := apiSession.Account(accountSid).Calls.FeedbackSummaries
+
+			createResp, createErr := feedbackSummariesClient.Create(&feedback_summaries.CreateFeedbackSummaryInput{
+				StartDate: "2019-10-03",
+				EndDate:   "2020-10-03",
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			feedbackSummaryClient := apiSession.Account(accountSid).Calls.FeedbackSummary(createResp.Sid)
+
+			fetchResp, fetchErr := feedbackSummaryClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			deleteErr := feedbackSummaryClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

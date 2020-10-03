@@ -1,0 +1,16 @@
+{
+  "sid": "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "start_date": "2019-10-03",
+  "end_date": "2020-10-03",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "include_subaccounts": false,
+  "status": "queued",
+  "call_count": 0,
+  "call_feedback_count": 0,
+  "quality_score_average": null,
+  "quality_score_median": null,
+  "quality_score_standard_deviation": null,
+  "issues": null,
+  "date_created": "Sat, 27 Jun 2020 23:00:00 +0000",
+  "date_updated": null
+}

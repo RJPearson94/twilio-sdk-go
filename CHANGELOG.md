@@ -15,6 +15,7 @@ Add ToString() method to voice, messaging and fax responses to generate the TwiM
 - **New Resource:** Recordings
 - **New Resource:** Call Recordings
 - **New Resource:** Conference Recordings
+- **New Resource:** Call Feedback Summary
 
 ## Lookups
 

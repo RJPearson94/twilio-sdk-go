@@ -1445,6 +1445,150 @@
               "parentProperty": "sid"
             }
           },
+          "subClients": [
+            {
+              "name": "Feedback Summaries",
+              "packageName": "feedback_summaries",
+              "documentation": {
+                "description": "Client for managing call resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedbacksummary-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/FeedbackSummary.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new feedback summary resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedbacksummary-resource#create-a-callfeedbacksummary-resource"
+                  },
+                  "input": {
+                    "structure": "CreateFeedbackSummaryInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new feedback summary"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateFeedbackSummaryResponse",
+                    "structure": "FeedbackSummaryResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new feedback summary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Feedback Summary",
+              "packageName": "feedback_summary",
+              "documentation": {
+                "description": "Client for managing a specific feedback summary resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedbacksummary-resource"
+              },
+              "function": {
+                "parameters": {
+                  "feedbackSummarySid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "feedbackSummarySid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/FeedbackSummary/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a feedback summary resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedbacksummary-resource#fetch-a-callfeedbacksummary-resource"
+                  },
+                  "response": {
+                    "name": "FetchFeedbackSummaryResponse",
+                    "structure": "FeedbackSummaryResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a feedback summary"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/Calls/FeedbackSummary/{sid}.json",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a feedback summary resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/api/feedbacksummary-resource#delete-a-callfeedbacksummary-resource"
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Create",
@@ -5210,6 +5354,116 @@
             "type": "interface{}"
           },
           "value": "encryption_details",
+          "required": false
+        }
+      ]
+    },
+    "CreateFeedbackSummaryInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "StartDate",
+          "type": "string",
+          "value": "StartDate",
+          "required": true
+        },
+        {
+          "name": "EndDate",
+          "type": "string",
+          "value": "EndDate",
+          "required": true
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "type": "bool",
+          "value": "IncludeSubaccounts",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        }
+      ]
+    },
+    "FeedbackSummaryResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "StartDate",
+          "type": "string",
+          "value": "start_date",
+          "required": true
+        },
+        {
+          "name": "EndDate",
+          "type": "string",
+          "value": "end_date",
+          "required": true
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "type": "bool",
+          "value": "include_subaccounts",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "CallCount",
+          "type": "int",
+          "value": "call_count",
+          "required": true
+        },
+        {
+          "name": "CallFeedbackCount",
+          "type": "int",
+          "value": "call_feedback_count",
+          "required": true
+        },
+        {
+          "name": "QualityScoreAverage",
+          "type": "float64",
+          "value": "quality_score_average",
+          "required": false
+        },
+        {
+          "name": "QualityScoreMedian",
+          "type": "float64",
+          "value": "quality_score_median",
+          "required": false
+        },
+        {
+          "name": "QualityScoreStandardDeviation",
+          "type": "float64",
+          "value": "quality_score_standard_deviation",
+          "required": false
+        },
+        {
+          "name": "Issues",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "issues",
           "required": false
         }
       ]

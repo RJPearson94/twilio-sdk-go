@@ -18,6 +18,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	callRecordings "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls/feedback_summaries"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participant"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participants"
@@ -4653,6 +4654,187 @@ var _ = Describe("API V2010", func() {
 
 			It("Then the get recording response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the feedback summaries client", func() {
+		feedbackSummariesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummaries
+
+		Describe("When the feedback summary is successfully created", func() {
+			createInput := &feedback_summaries.CreateFeedbackSummaryInput{
+				StartDate: "2019-10-03",
+				EndDate:   "2020-10-03",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/feedbackSummaryResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := feedbackSummariesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create feedback summary response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.StartDate).To(Equal("2019-10-03"))
+				Expect(resp.EndDate).To(Equal("2020-10-03"))
+				Expect(resp.IncludeSubaccounts).To(Equal(false))
+				Expect(resp.Status).To(Equal("queued"))
+				Expect(resp.CallCount).To(Equal(0))
+				Expect(resp.CallFeedbackCount).To(Equal(0))
+				Expect(resp.QualityScoreAverage).To(BeNil())
+				Expect(resp.QualityScoreMedian).To(BeNil())
+				Expect(resp.QualityScoreStandardDeviation).To(BeNil())
+				Expect(resp.Issues).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the feedback summary request does not contain a start date", func() {
+			createInput := &feedback_summaries.CreateFeedbackSummaryInput{
+				EndDate: "2020-10-03",
+			}
+
+			resp, err := feedbackSummariesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create feedback summary  response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the feedback summary request does not contain a end date", func() {
+			createInput := &feedback_summaries.CreateFeedbackSummaryInput{
+				StartDate: "2019-10-03",
+			}
+
+			resp, err := feedbackSummariesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create feedback summary response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create feedback summary api returns a 500 response", func() {
+			createInput := &feedback_summaries.CreateFeedbackSummaryInput{
+				StartDate: "2019-10-03",
+				EndDate:   "2020-10-03",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := feedbackSummariesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create feedback summary response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a feedback summary sid", func() {
+		feedbackSummaryClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the feedback summary is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/feedbackSummaryResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := feedbackSummaryClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get feedback summary response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.StartDate).To(Equal("2019-10-03"))
+				Expect(resp.EndDate).To(Equal("2020-10-03"))
+				Expect(resp.IncludeSubaccounts).To(Equal(false))
+				Expect(resp.Status).To(Equal("queued"))
+				Expect(resp.CallCount).To(Equal(0))
+				Expect(resp.CallFeedbackCount).To(Equal(0))
+				Expect(resp.QualityScoreAverage).To(BeNil())
+				Expect(resp.QualityScoreMedian).To(BeNil())
+				Expect(resp.QualityScoreStandardDeviation).To(BeNil())
+				Expect(resp.Issues).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the feedback summary api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FS71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FS71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get feedback summary response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the feedback summary is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := feedbackSummaryClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the feedback summary api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FS71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FS71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
 			})
 		})
 	})
