@@ -1,13 +1,14 @@
 ## v0.3.0 (unreleased)
 
+Add Additional Core API clients including: calls, queues conference, address and recording. Add lookup and add new build status endpoints
+
 ### TwiML
 
-Add ToString() method to voice, messaging and fax responses to generate the TwiML sting
+Add ToString() method to voice, messaging and fax responses to generate the TwiML string
 
 ### API
 
 - **Fix:** Update message feedback client to be feedbacks to ensure consistency with the call feedback client **breaking change**
-
 - **New Resource:** Call
 - **New Resource:** Queue
 - **New Resource:** Queue Member
@@ -52,8 +53,6 @@ Add ToString() method to voice, messaging and fax responses to generate the TwiM
 ## v0.1.0 (2020-09-06)
 
 Add first release of the Twilio Go SDK. The list of supported services can be seen in the features section below.
-
-FEATURES
 
 ### API
 
