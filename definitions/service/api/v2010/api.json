@@ -4893,7 +4893,7 @@
         {
           "name": "City",
           "type": "string",
-          "value": "City",
+          "value": "city",
           "required": true
         },
         {

@@ -25,7 +25,7 @@ type UpdateAddressInput struct {
 // UpdateAddressResponse defines the response fields for the updated addresses
 type UpdateAddressResponse struct {
 	AccountSid       string             `json:"account_sid"`
-	City             string             `json:"City"`
+	City             string             `json:"city"`
 	CustomerName     string             `json:"customer_name"`
 	DateCreated      utils.RFC2822Time  `json:"date_created"`
 	DateUpdated      *utils.RFC2822Time `json:"date_updated,omitempty"`

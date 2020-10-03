@@ -12,7 +12,7 @@ import (
 // FetchAddressResponse defines the response fields for retrieving an address
 type FetchAddressResponse struct {
 	AccountSid       string             `json:"account_sid"`
-	City             string             `json:"City"`
+	City             string             `json:"city"`
 	CustomerName     string             `json:"customer_name"`
 	DateCreated      utils.RFC2822Time  `json:"date_created"`
 	DateUpdated      *utils.RFC2822Time `json:"date_updated,omitempty"`
