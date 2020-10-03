@@ -6,6 +6,8 @@ Add ToString() method to voice, messaging and fax responses to generate the TwiM
 
 ## API
 
+- **Fix:** Update message feedback client to be feedbacks to ensure consistency with the call feedback client **breaking change**
+
 - **New Resource:** Call
 - **New Resource:** Queue
 - **New Resource:** Queue Member

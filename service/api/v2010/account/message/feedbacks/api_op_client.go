@@ -1,5 +1,5 @@
-// Package feedback contains auto-generated files. DO NOT MODIFY
-package feedback
+// Package feedbacks contains auto-generated files. DO NOT MODIFY
+package feedbacks
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
@@ -12,13 +12,13 @@ type Client struct {
 	messageSid string
 }
 
-// ClientProperties are the properties required to manage the feedback resources
+// ClientProperties are the properties required to manage the feedbacks resources
 type ClientProperties struct {
 	AccountSid string
 	MessageSid string
 }
 
-// New creates a new instance of the feedback client
+// New creates a new instance of the feedbacks client
 func New(client *client.Client, properties ClientProperties) *Client {
 	return &Client{
 		client: client,

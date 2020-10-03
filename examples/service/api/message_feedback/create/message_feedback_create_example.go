@@ -6,7 +6,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go"
 	v2010 "github.com/RJPearson94/twilio-sdk-go/service/api/v2010"
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedback"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedbacks"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -29,8 +29,8 @@ func main() {
 	resp, err := apiSession.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
-		Feedback.
-		Create(&feedback.CreateFeedbackInput{
+		Feedbacks.
+		Create(&feedbacks.CreateFeedbackInput{
 			Outcome: utils.String("confirmed"),
 		})
 

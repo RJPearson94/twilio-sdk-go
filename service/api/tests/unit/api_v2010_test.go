@@ -29,7 +29,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedback"
+	messageFeedbacks "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedbacks"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media_attachments"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue"
@@ -1121,11 +1121,11 @@ var _ = Describe("API V2010", func() {
 		})
 	})
 
-	Describe("Given the feedback client", func() {
-		feedbackClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedback
+	Describe("Given the feedbacks client", func() {
+		feedbacksClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedbacks
 
 		Describe("When the feedback is successfully created", func() {
-			createInput := &feedback.CreateFeedbackInput{
+			createInput := &messageFeedbacks.CreateFeedbackInput{
 				Outcome: utils.String("confirmed"),
 			}
 
@@ -1138,7 +1138,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := feedbackClient.Create(createInput)
+			resp, err := feedbacksClient.Create(createInput)
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
 			})
@@ -1153,8 +1153,8 @@ var _ = Describe("API V2010", func() {
 			})
 		})
 
-		Describe("When the create feedback api returns a 500 response", func() {
-			createInput := &feedback.CreateFeedbackInput{
+		Describe("When the create feedbacks api returns a 500 response", func() {
+			createInput := &messageFeedbacks.CreateFeedbackInput{
 				Outcome: utils.String("confirmed"),
 			}
 
@@ -1167,7 +1167,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := feedbackClient.Create(createInput)
+			resp, err := feedbacksClient.Create(createInput)
 			It("Then an error should be returned", func() {
 				ExpectInternalServerError(err)
 			})

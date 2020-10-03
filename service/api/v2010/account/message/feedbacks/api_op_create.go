@@ -1,5 +1,5 @@
-// Package feedback contains auto-generated files. DO NOT MODIFY
-package feedback
+// Package feedbacks contains auto-generated files. DO NOT MODIFY
+package feedbacks
 
 import (
 	"context"

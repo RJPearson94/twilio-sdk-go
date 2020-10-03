@@ -557,8 +557,8 @@
           },
           "subClients": [
             {
-              "name": "Feedback",
-              "packageName": "feedback",
+              "name": "Feedbacks",
+              "packageName": "feedbacks",
               "documentation": {
                 "description": "Client for managing message feedback resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/sms/api/message-feedback-resource"

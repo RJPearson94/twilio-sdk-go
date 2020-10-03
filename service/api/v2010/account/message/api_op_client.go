@@ -3,7 +3,7 @@ package message
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedback"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/feedbacks"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media_attachment"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message/media_attachments"
 )
@@ -16,7 +16,7 @@ type Client struct {
 	accountSid string
 	sid        string
 
-	Feedback         *feedback.Client
+	Feedbacks        *feedbacks.Client
 	MediaAttachment  func(string) *media_attachment.Client
 	MediaAttachments *media_attachments.Client
 }
@@ -35,7 +35,7 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		accountSid: properties.AccountSid,
 		sid:        properties.Sid,
 
-		Feedback: feedback.New(client, feedback.ClientProperties{
+		Feedbacks: feedbacks.New(client, feedbacks.ClientProperties{
 			AccountSid: properties.AccountSid,
 			MessageSid: properties.Sid,
 		}),
