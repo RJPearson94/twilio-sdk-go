@@ -1,10 +1,10 @@
 ## v0.3.0 (unreleased)
 
-## TwiML
+### TwiML
 
 Add ToString() method to voice, messaging and fax responses to generate the TwiML sting
 
-## API
+### API
 
 - **Fix:** Update message feedback client to be feedbacks to ensure consistency with the call feedback client **breaking change**
 
@@ -20,11 +20,11 @@ Add ToString() method to voice, messaging and fax responses to generate the TwiM
 - **New Resource:** Call Feedback Summary
 - **New Resource:** Call Feedback
 
-## Lookups
+### Lookups
 
 - **New Resource:** Phone Number
 
-## Serverless
+### Serverless
 
 - **New Resource:** Build Status
 
