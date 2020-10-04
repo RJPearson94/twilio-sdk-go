@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/application"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/applications"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/balance"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
@@ -28,22 +30,24 @@ type Client struct {
 
 	sid string
 
-	Address     func(string) *address.Client
-	Addresses   *addresses.Client
-	Balance     func() *balance.Client
-	Call        func(string) *call.Client
-	Calls       *calls.Client
-	Conference  func(string) *conference.Client
-	Conferences *conferences.Client
-	Key         func(string) *key.Client
-	Keys        *keys.Client
-	Message     func(string) *message.Client
-	Messages    *messages.Client
-	Queue       func(string) *queue.Client
-	Queues      *queues.Client
-	Recording   func(string) *recording.Client
-	Recordings  *recordings.Client
-	Tokens      *tokens.Client
+	Address      func(string) *address.Client
+	Addresses    *addresses.Client
+	Application  func(string) *application.Client
+	Applications *applications.Client
+	Balance      func() *balance.Client
+	Call         func(string) *call.Client
+	Calls        *calls.Client
+	Conference   func(string) *conference.Client
+	Conferences  *conferences.Client
+	Key          func(string) *key.Client
+	Keys         *keys.Client
+	Message      func(string) *message.Client
+	Messages     *messages.Client
+	Queue        func(string) *queue.Client
+	Queues       *queues.Client
+	Recording    func(string) *recording.Client
+	Recordings   *recordings.Client
+	Tokens       *tokens.Client
 }
 
 // ClientProperties are the properties required to manage the account resources
@@ -65,6 +69,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Addresses: addresses.New(client, addresses.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		Application: func(applicationSid string) *application.Client {
+			return application.New(client, application.ClientProperties{
+				AccountSid: properties.Sid,
+				Sid:        applicationSid,
+			})
+		},
+		Applications: applications.New(client, applications.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Balance: func() *balance.Client {

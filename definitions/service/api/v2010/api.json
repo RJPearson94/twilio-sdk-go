@@ -3429,6 +3429,254 @@
               }
             }
           ]
+        },
+        {
+          "name": "Applications",
+          "packageName": "applications",
+          "documentation": {
+            "description": "Client for managing application resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Applications.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new application resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications#create-an-application-resource"
+              },
+              "input": {
+                "name": "CreateApplicationInput",
+                "structure": "ApplicationInput",
+                "documentation": {
+                  "description": "defines input fields for creating a new application"
+                }
+              },
+              "response": {
+                "name": "CreateApplicationResponse",
+                "structure": "ApplicationResponse",
+                "documentation": {
+                  "description": "defines the response fields for creating a new application"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Applications.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of applications",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications#read-multiple-application-resources"
+              },
+              "response": {
+                "structure": "ApplicationsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the applications page"
+                }
+              },
+              "pagination": {
+                "name": "ApplicationsPaginator",
+                "page": {
+                  "name": "ApplicationsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "Applications",
+                  "structure": "PageApplicationResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Application",
+          "packageName": "application",
+          "documentation": {
+            "description": "Client for managing a specific application resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications"
+          },
+          "function": {
+            "parameters": {
+              "applicationSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "applicationSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Applications/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves the application resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications#fetch-an-application-resource"
+              },
+              "response": {
+                "name": "FetchApplicationResponse",
+                "structure": "ApplicationResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving an application"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Applications/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies an application resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications#update-an-application-resource"
+              },
+              "input": {
+                "name": "UpdateApplicationInput",
+                "structure": "ApplicationInput",
+                "documentation": {
+                  "description": "defines input fields for updating an application"
+                }
+              },
+              "response": {
+                "name": "UpdateApplicationResponse",
+                "structure": "ApplicationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated application"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/Applications/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes an application resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/usage/api/applications#delete-an-application-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -5677,6 +5925,218 @@
           "type": "int",
           "value": "quality_score",
           "required": true
+        }
+      ]
+    },
+    "ApplicationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "ApiVersion",
+          "required": false
+        },
+        {
+          "name": "VoiceURL",
+          "type": "string",
+          "value": "VoiceUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceMethod",
+          "type": "string",
+          "value": "VoiceMethod",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackURL",
+          "type": "string",
+          "value": "VoiceFallbackUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackMethod",
+          "type": "string",
+          "value": "VoiceFallbackMethod",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "VoiceCallerIDLookup",
+          "type": "bool",
+          "value": "VoiceCallerIdLookup",
+          "required": false
+        },
+        {
+          "name": "SmsURL",
+          "type": "string",
+          "value": "SmsUrl",
+          "required": false
+        },
+        {
+          "name": "SmsMethod",
+          "type": "string",
+          "value": "SmsMethod",
+          "required": false
+        },
+        {
+          "name": "SmsFallbackURL",
+          "type": "string",
+          "value": "SmsFallbackUrl",
+          "required": false
+        },
+        {
+          "name": "SmsFallbackMethod",
+          "type": "string",
+          "value": "SmsFallbackMethod",
+          "required": false
+        },
+        {
+          "name": "SmsStatusCallback",
+          "type": "string",
+          "value": "SmsStatusCallback",
+          "required": false
+        },
+        {
+          "name": "MessageStatusCallback",
+          "type": "string",
+          "value": "MessageStatusCallback",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "ApplicationsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Applications",
+          "type": "array",
+          "items": {
+            "structure": "ApplicationResponse"
+          },
+          "value": "applications",
+          "required": true
+        }
+      ]
+    },
+    "ApplicationResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "SmsStatusCallback",
+          "type": "string",
+          "value": "sms_status_callback",
+          "required": false
+        },
+        {
+          "name": "SmsURL",
+          "type": "string",
+          "value": "sms_url",
+          "required": false
+        },
+        {
+          "name": "SmsMethod",
+          "type": "string",
+          "value": "sms_method",
+          "required": true
+        },
+        {
+          "name": "SmsFallbackURL",
+          "type": "string",
+          "value": "sms_fallback_url",
+          "required": false
+        },
+        {
+          "name": "SmsFallbackMethod",
+          "type": "string",
+          "value": "sms_fallback_method",
+          "required": true
+        },
+        {
+          "name": "VoiceURL",
+          "type": "string",
+          "value": "voice_url",
+          "required": false
+        },
+        {
+          "name": "VoiceMethod",
+          "type": "string",
+          "value": "voice_method",
+          "required": true
+        },
+        {
+          "name": "VoiceFallbackURL",
+          "type": "string",
+          "value": "voice_fallback_url",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackMethod",
+          "type": "string",
+          "value": "voice_fallback_method",
+          "required": true
+        },
+        {
+          "name": "VoiceCallerIDLookup",
+          "type": "bool",
+          "value": "voice_caller_id_lookup",
+          "required": true
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "status_callback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "status_callback_method",
+          "required": true
+        },
+        {
+          "name": "MessageStatusCallback",
+          "type": "string",
+          "value": "message_status_callback",
+          "required": false
         }
       ]
     },

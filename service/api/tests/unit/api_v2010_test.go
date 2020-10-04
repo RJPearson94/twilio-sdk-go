@@ -15,6 +15,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/application"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/applications"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	callFeedback "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedback"
 	callFeedbacks "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedbacks"
@@ -5026,6 +5028,393 @@ var _ = Describe("API V2010", func() {
 
 			It("Then the update feedback response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the applications client", func() {
+		applicationsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Applications
+
+		Describe("When the application is successfully created", func() {
+			createInput := &applications.CreateApplicationInput{}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/applicationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := applicationsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create applications response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.MessageStatusCallback).To(BeNil())
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsStatusCallback).To(BeNil())
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the create applications api returns a 500 response", func() {
+			createInput := &applications.CreateApplicationInput{}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := applicationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create application response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of applications are successfully retrieved", func() {
+			pageOptions := &applications.ApplicationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/applicationsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := applicationsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the addresses page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				applications := resp.Applications
+				Expect(applications).ToNot(BeNil())
+				Expect(len(applications)).To(Equal(1))
+
+				Expect(applications[0].Sid).To(Equal("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(applications[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(applications[0].APIVersion).To(Equal("2010-04-01"))
+				Expect(applications[0].FriendlyName).To(BeNil())
+				Expect(applications[0].MessageStatusCallback).To(BeNil())
+				Expect(applications[0].SmsFallbackMethod).To(Equal("POST"))
+				Expect(applications[0].SmsFallbackURL).To(BeNil())
+				Expect(applications[0].SmsMethod).To(Equal("POST"))
+				Expect(applications[0].SmsStatusCallback).To(BeNil())
+				Expect(applications[0].SmsURL).To(BeNil())
+				Expect(applications[0].StatusCallback).To(BeNil())
+				Expect(applications[0].StatusCallbackMethod).To(Equal("POST"))
+				Expect(applications[0].VoiceCallerIDLookup).To(Equal(false))
+				Expect(applications[0].VoiceFallbackMethod).To(Equal("POST"))
+				Expect(applications[0].VoiceFallbackURL).To(BeNil())
+				Expect(applications[0].VoiceMethod).To(Equal("POST"))
+				Expect(applications[0].VoiceURL).To(BeNil())
+				Expect(applications[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(applications[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of applications api returns a 500 response", func() {
+			pageOptions := &applications.ApplicationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := applicationsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the applications page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated applications are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/applicationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/applicationsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := applicationsClient.NewApplicationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated applications current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated applications results should be returned", func() {
+				Expect(len(paginator.Applications)).To(Equal(3))
+			})
+		})
+
+		Describe("When the applications api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/applicationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := applicationsClient.NewApplicationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated applications current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a application sid", func() {
+		applicationClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the application is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/applicationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := applicationClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get application response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.MessageStatusCallback).To(BeNil())
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsStatusCallback).To(BeNil())
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the application api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/AP71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get application response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the application is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateApplicationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &application.UpdateApplicationInput{
+				FriendlyName: utils.String("Test"),
+			}
+
+			resp, err := applicationClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update application response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
+				Expect(resp.MessageStatusCallback).To(BeNil())
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsStatusCallback).To(BeNil())
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the application api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/AP71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &application.UpdateApplicationInput{
+				FriendlyName: utils.String("Test"),
+			}
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update application response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the application is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := applicationClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the application api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/AP71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
 			})
 		})
 	})

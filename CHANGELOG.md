@@ -1,3 +1,9 @@
+## v0.4.0 (unreleased)
+
+### API
+
+- **New Resource:** Application
+
 ## v0.3.1 (2020-10-03)
 
 FIXES

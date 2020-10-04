@@ -14,6 +14,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/application"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/applications"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedback"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedbacks"
@@ -409,6 +411,44 @@ var _ = Describe("API Acceptance Tests", func() {
 			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the application clients", func() {
+		It("Then the application is created, fetched, updated and deleted", func() {
+			applicationsClient := apiSession.Account(accountSid).Applications
+
+			createResp, createErr := applicationsClient.Create(&applications.CreateApplicationInput{})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := applicationsClient.Page(&applications.ApplicationsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Applications)).Should(BeNumerically(">=", 1))
+
+			paginator := applicationsClient.NewApplicationsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Applications)).Should(BeNumerically(">=", 1))
+
+			applicationClient := apiSession.Account(accountSid).Application(createResp.Sid)
+
+			fetchResp, fetchErr := applicationClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := applicationClient.Update(&application.UpdateApplicationInput{
+				FriendlyName: utils.String("Test"),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := applicationClient.Delete()
+			Expect(deleteErr).To(BeNil())
 		})
 	})
 
