@@ -1,5 +1,7 @@
 ## v0.4.0 (unreleased)
 
+FEATURES
+
 ### API
 
 - **New Resource:** Application
