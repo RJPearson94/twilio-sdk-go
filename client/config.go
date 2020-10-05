@@ -20,7 +20,7 @@ type Config struct {
 func GetDefaultConfig() Config {
 	return Config{
 		Beta:         false,
-		DebugEnabled: true,
+		DebugEnabled: false,
 		RetryConfig: RetryConfig{
 			Attempts: 3,
 			WaitTime: 5 * time.Second,
