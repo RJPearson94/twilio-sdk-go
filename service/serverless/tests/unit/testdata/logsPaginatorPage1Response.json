@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Logs?PageSize=50&Page=0",
+    "previous_page_url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Logs?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Logs?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "logs"
+  },
+  "logs": [
+    {
+      "request_sid": "RQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "level": "INFO",
+      "url": "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Logs/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "environment_sid": "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "deployment_sid": "ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2018-11-10T20:00:00Z",
+      "build_sid": "ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "function_sid": "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "message": "Test Log",
+      "service_sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

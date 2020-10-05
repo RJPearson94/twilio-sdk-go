@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/deployment"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/deployments"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/log"
+	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/logs"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/variable"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/environment/variables"
 )
@@ -19,6 +21,8 @@ type Client struct {
 
 	Deployment  func(string) *deployment.Client
 	Deployments *deployments.Client
+	Log         func(string) *log.Client
+	Logs        *logs.Client
 	Variable    func(string) *variable.Client
 	Variables   *variables.Client
 }
@@ -45,6 +49,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Deployments: deployments.New(client, deployments.ClientProperties{
+			EnvironmentSid: properties.Sid,
+			ServiceSid:     properties.ServiceSid,
+		}),
+		Log: func(logSid string) *log.Client {
+			return log.New(client, log.ClientProperties{
+				EnvironmentSid: properties.Sid,
+				ServiceSid:     properties.ServiceSid,
+				Sid:            logSid,
+			})
+		},
+		Logs: logs.New(client, logs.ClientProperties{
 			EnvironmentSid: properties.Sid,
 			ServiceSid:     properties.ServiceSid,
 		}),

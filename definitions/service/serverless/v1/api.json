@@ -724,6 +724,181 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Logs",
+              "packageName": "logs",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "environmentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing log resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/logs"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Logs",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "FunctionSid",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "StartDate",
+                        "type": "time.Time",
+                        "required": false
+                      },
+                      {
+                        "name": "EndDate",
+                        "type": "time.Time",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of logs",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/logs#read-multiple-log-resources"
+                  },
+                  "response": {
+                    "structure": "LogsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the logs page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "LogsPaginator",
+                    "page": {
+                      "name": "LogsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Logs",
+                      "structure": "PageLogResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Log",
+              "packageName": "log",
+              "function": {
+                "parameters": {
+                  "logSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "environmentSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "logSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific log resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/logs"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Environments/{environmentSid}/Logs/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "environmentSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "environmentSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a log resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/runtime/functions-assets-api/api/logs#fetch-a-log-resource"
+                  },
+                  "response": {
+                    "name": "FetchLogResponse",
+                    "structure": "LogResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved log entry"
+                    }
+                  }
+                }
+              ]
             }
           ],
           "operations": [
@@ -3000,6 +3175,103 @@
           "name": "Status",
           "type": "string",
           "value": "status",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "LogsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Logs",
+          "type": "array",
+          "items": {
+            "structure": "LogResponse"
+          },
+          "value": "logs",
+          "required": true
+        }
+      ]
+    },
+    "LogResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "RequestSid",
+          "type": "string",
+          "value": "request_sid",
+          "required": true
+        },
+        {
+          "name": "EnvironmentSid",
+          "type": "string",
+          "value": "environment_sid",
+          "required": true
+        },
+        {
+          "name": "DeploymentSid",
+          "type": "string",
+          "value": "deployment_sid",
+          "required": true
+        },
+        {
+          "name": "BuildSid",
+          "type": "string",
+          "value": "build_sid",
+          "required": true
+        },
+        {
+          "name": "FunctionSid",
+          "type": "string",
+          "value": "function_sid",
+          "required": true
+        },
+        {
+          "name": "Message",
+          "type": "string",
+          "value": "message",
+          "required": true
+        },
+        {
+          "name": "Level",
+          "type": "string",
+          "value": "level",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
           "required": true
         },
         {

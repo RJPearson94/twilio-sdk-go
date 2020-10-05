@@ -6,6 +6,10 @@ FEATURES
 
 - **New Resource:** Application
 
+### Serverless
+
+- **New Resource:** Logs
+
 ## v0.3.1 (2020-10-03)
 
 FIXES

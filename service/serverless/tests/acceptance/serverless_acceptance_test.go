@@ -680,6 +680,8 @@ var _ = Describe("Serverless Acceptance Tests", func() {
 			Expect(redeployResp.Sid).ToNot(BeNil())
 		})
 	})
+
+	// TODO Log tests
 })
 
 func createAssetVersion(client *v1.Serverless, serviceSid string, assetSid string) (*assetVersions.CreateVersionResponse, error) {
