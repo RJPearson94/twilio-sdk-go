@@ -250,4 +250,6 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(deleteErr).To(BeNil())
 		})
 	})
+
+	// TODO Add delivery receipt tests
 })

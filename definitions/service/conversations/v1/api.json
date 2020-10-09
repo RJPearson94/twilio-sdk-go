@@ -234,6 +234,168 @@
             "description": "Client for managing a specific message resource",
             "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource"
           },
+          "subClients": [
+            {
+              "name": "Delivery Receipts",
+              "packageName": "delivery_receipts",
+              "properties": {
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "conversationSid"
+                },
+                "messageSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing delivery receipt resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Conversations/{conversationSid}/Messages/{messageSid}/Receipts",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "messageSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "messageSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of delivery receipts",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource#read-multiple-conversationmessagereceipt-resources"
+                  },
+                  "response": {
+                    "structure": "DeliveryReceiptsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the delivery receipts page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "DeliveryReceiptsPaginator",
+                    "page": {
+                      "name": "DeliveryReceiptsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "DeliveryReceipts",
+                      "structure": "PageDeliveryReceiptResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Delivery Receipt",
+              "packageName": "delivery_receipt",
+              "function": {
+                "parameters": {
+                  "deliveryReceiptSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "conversationSid"
+                },
+                "messageSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "deliveryReceiptSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific delivery receipt resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Conversations/{conversationSid}/Messages/{messageSid}/Receipts/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "messageSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "messageSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a delivery receipt resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource#fetch-a-conversationmessagereceipt-resource"
+                  },
+                  "response": {
+                    "name": "FetchDeliveryReceiptResponse",
+                    "structure": "DeliveryReceiptResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved delivery receipt"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -1623,6 +1785,97 @@
           "name": "PostWebhookURL",
           "type": "string",
           "value": "post_webhook_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "DeliveryReceiptsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "DeliveryReceipts",
+          "type": "array",
+          "items": {
+            "structure": "DeliveryReceiptResponse"
+          },
+          "value": "delivery_receipts",
+          "required": true
+        }
+      ]
+    },
+    "DeliveryReceiptResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ConversationSid",
+          "type": "string",
+          "value": "conversation_sid",
+          "required": true
+        },
+        {
+          "name": "MessageSid",
+          "type": "string",
+          "value": "message_sid",
+          "required": true
+        },
+        {
+          "name": "ChannelMessageSid",
+          "type": "string",
+          "value": "channel_message_sid",
+          "required": true
+        },
+        {
+          "name": "ParticipantSid",
+          "type": "string",
+          "value": "participant_sid",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "ErrorCode",
+          "type": "int",
+          "value": "error_code",
+          "required": false
+        },
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": false
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
           "required": false
         },
         {

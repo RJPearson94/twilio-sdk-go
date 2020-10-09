@@ -1,0 +1,13 @@
+{
+  "status": "sent",
+  "channel_message_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_updated": null,
+  "sid": "DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": null,
+  "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts/DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "message_sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "participant_sid": "MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "error_code": 0
+}
