@@ -12,13 +12,12 @@ import (
 
 // CreateMessageInput defines the input fields for creating a new message resource
 type CreateMessageInput struct {
-	Attributes            *string            `form:"Attributes,omitempty"`
-	Author                *string            `form:"Author,omitempty"`
-	Body                  *string            `form:"Body,omitempty"`
-	DateCreated           *utils.RFC2822Time `form:"DateCreated,omitempty"`
-	DateUpdated           *utils.RFC2822Time `form:"DateUpdated,omitempty"`
-	MediaSid              *string            `form:"MediaSid,omitempty"`
-	XTwilioWebhookEnabled *string            `form:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes  *string            `form:"Attributes,omitempty"`
+	Author      *string            `form:"Author,omitempty"`
+	Body        *string            `form:"Body,omitempty"`
+	DateCreated *utils.RFC2822Time `form:"DateCreated,omitempty"`
+	DateUpdated *utils.RFC2822Time `form:"DateUpdated,omitempty"`
+	MediaSid    *string            `form:"MediaSid,omitempty"`
 }
 
 type CreateMessageResponseDelivery struct {

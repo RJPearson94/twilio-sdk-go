@@ -12,7 +12,6 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
-	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	conversationResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message/delivery_receipts"
@@ -23,6 +22,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"

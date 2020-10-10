@@ -1489,12 +1489,6 @@
           "type": "string",
           "value": "Attributes",
           "required": false
-        },
-        {
-          "name": "XTwilioWebhookEnabled",
-          "type": "string",
-          "value": "X-Twilio-Webhook-Enabled",
-          "required": false
         }
       ]
     },

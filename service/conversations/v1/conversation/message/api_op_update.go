@@ -12,12 +12,11 @@ import (
 
 // UpdateMessageInput defines input fields for updating a message resource
 type UpdateMessageInput struct {
-	Attributes            *string            `form:"Attributes,omitempty"`
-	Author                *string            `form:"Author,omitempty"`
-	Body                  *string            `form:"Body,omitempty"`
-	DateCreated           *utils.RFC2822Time `form:"DateCreated,omitempty"`
-	DateUpdated           *utils.RFC2822Time `form:"DateUpdated,omitempty"`
-	XTwilioWebhookEnabled *string            `form:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes  *string            `form:"Attributes,omitempty"`
+	Author      *string            `form:"Author,omitempty"`
+	Body        *string            `form:"Body,omitempty"`
+	DateCreated *utils.RFC2822Time `form:"DateCreated,omitempty"`
+	DateUpdated *utils.RFC2822Time `form:"DateUpdated,omitempty"`
 }
 
 type UpdateMessageResponseDelivery struct {
