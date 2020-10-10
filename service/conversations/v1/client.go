@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -19,6 +21,8 @@ type Conversations struct {
 	Conversation  func(string) *conversation.Client
 	Roles         *roles.Client
 	Role          func(string) *role.Client
+	Users         *users.Client
+	User          func(string) *user.Client
 	Webhook       func() *webhook.Client
 }
 
@@ -50,6 +54,12 @@ func NewWithClient(client *client.Client) *Conversations {
 		Roles: roles.New(client),
 		Role: func(sid string) *role.Client {
 			return role.New(client, role.ClientProperties{
+				Sid: sid,
+			})
+		},
+		Users: users.New(client),
+		User: func(sid string) *user.Client {
+			return user.New(client, user.ClientProperties{
 				Sid: sid,
 			})
 		},

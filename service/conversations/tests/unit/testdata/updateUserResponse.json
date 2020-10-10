@@ -1,0 +1,13 @@
+{
+  "date_updated": "2020-06-20T20:55:24Z",
+  "is_online": null,
+  "friendly_name": "Test",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "attributes": "{}",
+  "identity": "TestUser",
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
