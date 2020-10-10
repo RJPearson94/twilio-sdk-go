@@ -1529,6 +1529,89 @@
         "description": "Client for managing a specific service resource",
         "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource"
       },
+      "subClients": [
+        {
+          "name": "Configuration",
+          "packageName": "configuration",
+          "function": {
+            "parameters": {}
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing service configuration",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-configuration-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Configuration",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves service configuration resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-configuration-resource#fetch-a-serviceconfiguration-resource"
+              },
+              "response": {
+                "name": "FetchConfigurationResponse",
+                "structure": "ConfigurationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved service configuration"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Configuration",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a service configuration resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-configuration-resource#update-a-serviceconfiguration-resource"
+              },
+              "input": {
+                "structure": "UpdateConfigurationInput",
+                "documentation": {
+                  "description": "defines input fields for updating a service configuration resource"
+                }
+              },
+              "response": {
+                "name": "UpdateConfigurationResponse",
+                "structure": "ConfigurationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated service configuration"
+                }
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Fetch",
@@ -2711,6 +2794,64 @@
           "type": "time.Time",
           "value": "date_updated",
           "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "UpdateConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "DefaultConversationCreatorRoleSid",
+          "type": "string",
+          "value": "DefaultConversationCreatorRoleSid",
+          "required": false
+        },
+        {
+          "name": "DefaultConversationRoleSid",
+          "type": "string",
+          "value": "DefaultConversationRoleSid",
+          "required": false
+        },
+        {
+          "name": "DefaultChatServiceRoleSid",
+          "type": "string",
+          "value": "DefaultChatServiceRoleSid",
+          "required": false
+        }
+      ]
+    },
+    "ConfigurationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
+          "required": true
+        },
+        {
+          "name": "DefaultConversationRoleSid",
+          "type": "string",
+          "value": "default_conversation_role_sid",
+          "required": true
+        },
+        {
+          "name": "DefaultConversationCreatorRoleSid",
+          "type": "string",
+          "value": "default_conversation_creator_role_sid",
+          "required": true
+        },
+        {
+          "name": "DefaultChatServiceRoleSid",
+          "type": "string",
+          "value": "default_chat_service_role_sid",
+          "required": true
         },
         {
           "name": "URL",

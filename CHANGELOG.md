@@ -18,6 +18,7 @@ FEATURES
 - **New Resource:** Roles
 - **New Resource:** Users
 - **New Resource:** Service
+- **New Resource:** Service Configuration
 
 ### Serverless
 
