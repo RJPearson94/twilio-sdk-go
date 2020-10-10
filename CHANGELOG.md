@@ -16,6 +16,7 @@ FEATURES
 
 - Add XTwilioWebhookEnabled input field to message resources
 - Add Delivery response field and struct to message resources
+- **New Resource:** Roles
 
 ### Serverless
 
