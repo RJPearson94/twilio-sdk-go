@@ -17,6 +17,7 @@ FEATURES
 - Add Delivery response field and struct to message resources
 - **New Resource:** Roles
 - **New Resource:** Users
+- **New Resource:** Service
 
 ### Serverless
 

@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://conversations.twilio.com/v1/Services?PageSize=50&Page=0",
+    "previous_page_url": "https://conversations.twilio.com/v1/Services?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://conversations.twilio.com/v1/Services?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "services"
+  },
+  "services": [
+    {
+      "date_updated": null,
+      "friendly_name": "Flex Chat Service 3",
+      "account_sid": null,
+      "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "2020-06-20T20:50:24Z",
+      "links": {
+        "conversations": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Conversations",
+        "bindings": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Bindings",
+        "configuration": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Configuration",
+        "users": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Users",
+        "roles": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Roles"
+      }
+    }
+  ]
+}

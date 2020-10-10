@@ -1437,6 +1437,151 @@
       ]
     },
     {
+      "name": "Services",
+      "packageName": "services",
+      "documentation": {
+        "description": "Client for managing service resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Services",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new service",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource#create-a-service-resource"
+          },
+          "input": {
+            "structure": "CreateServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new service resource"
+            }
+          },
+          "response": {
+            "name": "CreateServiceResponse",
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created service"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "packageName": "service",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific service resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource#fetch-a-service-resource"
+          },
+          "response": {
+            "name": "FetchServiceResponse",
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved service"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a service resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-resource#delete-a-service-resource"
+          }
+        }
+      ]
+    },
+    {
       "name": "Webhook",
       "packageName": "webhook",
       "properties": {},
@@ -2499,6 +2644,78 @@
           "name": "Type",
           "type": "string",
           "value": "type",
+          "required": true
+        }
+      ]
+    },
+    "CreateServiceInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
+    "ServiceResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": false
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
           "required": true
         }
       ]

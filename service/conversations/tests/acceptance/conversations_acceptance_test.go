@@ -20,6 +20,7 @@ import (
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
@@ -359,6 +360,40 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := userClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the conversations service clients", func() {
+		It("Then the user is created, fetched and deleted", func() {
+			servicesClient := conversationsSession.Services
+
+			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := servicesClient.Page(&services.ServicesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Services)).Should(BeNumerically(">=", 1))
+
+			paginator := servicesClient.NewServicesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Services)).Should(BeNumerically(">=", 1))
+
+			serviceClient := conversationsSession.Service(createResp.Sid)
+
+			fetchResp, fetchErr := serviceClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			deleteErr := serviceClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
