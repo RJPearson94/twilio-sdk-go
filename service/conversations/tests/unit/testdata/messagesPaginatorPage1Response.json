@@ -18,6 +18,7 @@
       "participant_sid": null,
       "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "delivery": null,
       "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
       "date_created": "2020-06-20T20:50:24Z",
       "sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",

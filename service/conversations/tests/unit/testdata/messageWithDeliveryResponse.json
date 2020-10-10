@@ -7,7 +7,14 @@
   "participant_sid": null,
   "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "delivery": null,
+  "delivery": {
+    "delivered": "all",
+    "read": "none",
+    "undelivered": "none",
+    "failed": "none",
+    "total": 1,
+    "sent": "all"
+  },
   "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "date_created": "2020-06-20T20:50:24Z",
   "sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",

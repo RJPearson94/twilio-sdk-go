@@ -553,6 +553,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Index).To(Equal(0))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Media).To(BeNil())
+				Expect(resp.Delivery).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -629,6 +630,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(messages[0].Index).To(Equal(0))
 				Expect(messages[0].Attributes).To(Equal("{}"))
 				Expect(messages[0].Media).To(BeNil())
+				Expect(messages[0].Delivery).To(BeNil())
 				Expect(messages[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(messages[0].DateUpdated).To(BeNil())
 				Expect(messages[0].URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -772,6 +774,47 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Index).To(Equal(0))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Media).To(BeNil())
+				Expect(resp.Delivery).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the message with delivery is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messageWithDeliveryResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := messageClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get message response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ParticipantSid).To(BeNil())
+				Expect(resp.Body).To(Equal(utils.String("Hello World")))
+				Expect(resp.Author).To(Equal("system"))
+				Expect(resp.Index).To(Equal(0))
+				Expect(resp.Attributes).To(Equal("{}"))
+				Expect(resp.Media).To(BeNil())
+				Expect(resp.Delivery).To(Equal(&message.FetchMessageResponseDelivery{
+					Delivered: "all",
+					Failed: "none",
+					Read: "none",
+					Sent: "all",
+					Total: 1,
+					Undelivered: "none",
+				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -828,6 +871,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Index).To(Equal(0))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Media).To(BeNil())
+				Expect(resp.Delivery).To(BeNil())
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))

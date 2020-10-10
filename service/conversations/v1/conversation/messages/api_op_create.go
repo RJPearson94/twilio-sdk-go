@@ -12,12 +12,22 @@ import (
 
 // CreateMessageInput defines the input fields for creating a new message resource
 type CreateMessageInput struct {
-	Attributes  *string            `form:"Attributes.Filters,omitempty"`
-	Author      *string            `form:"Author,omitempty"`
-	Body        *string            `form:"Body,omitempty"`
-	DateCreated *utils.RFC2822Time `form:"DateCreated,omitempty"`
-	DateUpdated *utils.RFC2822Time `form:"DateUpdated,omitempty"`
-	MediaSid    *string            `form:"MediaSid,omitempty"`
+	Attributes            *string            `form:"Attributes,omitempty"`
+	Author                *string            `form:"Author,omitempty"`
+	Body                  *string            `form:"Body,omitempty"`
+	DateCreated           *utils.RFC2822Time `form:"DateCreated,omitempty"`
+	DateUpdated           *utils.RFC2822Time `form:"DateUpdated,omitempty"`
+	MediaSid              *string            `form:"MediaSid,omitempty"`
+	XTwilioWebhookEnabled *string            `form:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+type CreateMessageResponseDelivery struct {
+	Delivered   string `json:"delivered"`
+	Failed      string `json:"failed"`
+	Read        string `json:"read"`
+	Sent        string `json:"sent"`
+	Total       int    `json:"total"`
+	Undelivered string `json:"undelivered"`
 }
 
 type CreateMessageResponseMedia struct {
@@ -29,18 +39,19 @@ type CreateMessageResponseMedia struct {
 
 // CreateMessageResponse defines the response fields for the created message
 type CreateMessageResponse struct {
-	AccountSid      string                        `json:"account_sid"`
-	Attributes      string                        `json:"attributes"`
-	Author          string                        `json:"author"`
-	Body            *string                       `json:"body,omitempty"`
-	ConversationSid string                        `json:"conversation_sid"`
-	DateCreated     time.Time                     `json:"date_created"`
-	DateUpdated     *time.Time                    `json:"date_updated,omitempty"`
-	Index           int                           `json:"index"`
-	Media           *[]CreateMessageResponseMedia `json:"media,omitempty"`
-	ParticipantSid  *string                       `json:"participant_sid,omitempty"`
-	Sid             string                        `json:"sid"`
-	URL             string                        `json:"url"`
+	AccountSid      string                         `json:"account_sid"`
+	Attributes      string                         `json:"attributes"`
+	Author          string                         `json:"author"`
+	Body            *string                        `json:"body,omitempty"`
+	ConversationSid string                         `json:"conversation_sid"`
+	DateCreated     time.Time                      `json:"date_created"`
+	DateUpdated     *time.Time                     `json:"date_updated,omitempty"`
+	Delivery        *CreateMessageResponseDelivery `json:"delivery,omitempty"`
+	Index           int                            `json:"index"`
+	Media           *[]CreateMessageResponseMedia  `json:"media,omitempty"`
+	ParticipantSid  *string                        `json:"participant_sid,omitempty"`
+	Sid             string                         `json:"sid"`
+	URL             string                         `json:"url"`
 }
 
 // Create creates a new message

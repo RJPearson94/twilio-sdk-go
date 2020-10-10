@@ -1308,7 +1308,13 @@
         {
           "name": "Attributes",
           "type": "string",
-          "value": "Attributes.Filters",
+          "value": "Attributes",
+          "required": false
+        },
+        {
+          "name": "XTwilioWebhookEnabled",
+          "type": "string",
+          "value": "X-Twilio-Webhook-Enabled",
           "required": false
         }
       ]
@@ -1338,6 +1344,47 @@
           "name": "Size",
           "type": "int",
           "value": "size",
+          "required": true
+        }
+      ]
+    },
+    "MessageResponseDelivery": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Delivered",
+          "type": "string",
+          "value": "delivered",
+          "required": true
+        },
+        {
+          "name": "Read",
+          "type": "string",
+          "value": "read",
+          "required": true
+        },
+        {
+          "name": "Undelivered",
+          "type": "string",
+          "value": "undelivered",
+          "required": true
+        },
+        {
+          "name": "Failed",
+          "type": "string",
+          "value": "failed",
+          "required": true
+        },
+        {
+          "name": "Total",
+          "type": "int",
+          "value": "total",
+          "required": true
+        },
+        {
+          "name": "Sent",
+          "type": "string",
+          "value": "sent",
           "required": true
         }
       ]
@@ -1409,6 +1456,12 @@
             "structure": "MessageResponseMedia"
           },
           "value": "media",
+          "required": false
+        },
+        {
+          "name": "Delivery",
+          "structure": "MessageResponseDelivery",
+          "value": "delivery",
           "required": false
         }
       ]

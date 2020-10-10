@@ -12,11 +12,21 @@ import (
 
 // UpdateMessageInput defines input fields for updating a message resource
 type UpdateMessageInput struct {
-	Attributes  *string            `form:"Attributes.Filters,omitempty"`
-	Author      *string            `form:"Author,omitempty"`
-	Body        *string            `form:"Body,omitempty"`
-	DateCreated *utils.RFC2822Time `form:"DateCreated,omitempty"`
-	DateUpdated *utils.RFC2822Time `form:"DateUpdated,omitempty"`
+	Attributes            *string            `form:"Attributes,omitempty"`
+	Author                *string            `form:"Author,omitempty"`
+	Body                  *string            `form:"Body,omitempty"`
+	DateCreated           *utils.RFC2822Time `form:"DateCreated,omitempty"`
+	DateUpdated           *utils.RFC2822Time `form:"DateUpdated,omitempty"`
+	XTwilioWebhookEnabled *string            `form:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+type UpdateMessageResponseDelivery struct {
+	Delivered   string `json:"delivered"`
+	Failed      string `json:"failed"`
+	Read        string `json:"read"`
+	Sent        string `json:"sent"`
+	Total       int    `json:"total"`
+	Undelivered string `json:"undelivered"`
 }
 
 type UpdateMessageResponseMedia struct {
@@ -28,18 +38,19 @@ type UpdateMessageResponseMedia struct {
 
 // UpdateMessageResponse defines the response fields for the updated message
 type UpdateMessageResponse struct {
-	AccountSid      string                        `json:"account_sid"`
-	Attributes      string                        `json:"attributes"`
-	Author          string                        `json:"author"`
-	Body            *string                       `json:"body,omitempty"`
-	ConversationSid string                        `json:"conversation_sid"`
-	DateCreated     time.Time                     `json:"date_created"`
-	DateUpdated     *time.Time                    `json:"date_updated,omitempty"`
-	Index           int                           `json:"index"`
-	Media           *[]UpdateMessageResponseMedia `json:"media,omitempty"`
-	ParticipantSid  *string                       `json:"participant_sid,omitempty"`
-	Sid             string                        `json:"sid"`
-	URL             string                        `json:"url"`
+	AccountSid      string                         `json:"account_sid"`
+	Attributes      string                         `json:"attributes"`
+	Author          string                         `json:"author"`
+	Body            *string                        `json:"body,omitempty"`
+	ConversationSid string                         `json:"conversation_sid"`
+	DateCreated     time.Time                      `json:"date_created"`
+	DateUpdated     *time.Time                     `json:"date_updated,omitempty"`
+	Delivery        *UpdateMessageResponseDelivery `json:"delivery,omitempty"`
+	Index           int                            `json:"index"`
+	Media           *[]UpdateMessageResponseMedia  `json:"media,omitempty"`
+	ParticipantSid  *string                        `json:"participant_sid,omitempty"`
+	Sid             string                         `json:"sid"`
+	URL             string                         `json:"url"`
 }
 
 // Update modifies a message resource

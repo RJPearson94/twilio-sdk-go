@@ -9,6 +9,15 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type FetchMessageResponseDelivery struct {
+	Delivered   string `json:"delivered"`
+	Failed      string `json:"failed"`
+	Read        string `json:"read"`
+	Sent        string `json:"sent"`
+	Total       int    `json:"total"`
+	Undelivered string `json:"undelivered"`
+}
+
 type FetchMessageResponseMedia struct {
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
@@ -18,18 +27,19 @@ type FetchMessageResponseMedia struct {
 
 // FetchMessageResponse defines the response fields for the retrieved message
 type FetchMessageResponse struct {
-	AccountSid      string                       `json:"account_sid"`
-	Attributes      string                       `json:"attributes"`
-	Author          string                       `json:"author"`
-	Body            *string                      `json:"body,omitempty"`
-	ConversationSid string                       `json:"conversation_sid"`
-	DateCreated     time.Time                    `json:"date_created"`
-	DateUpdated     *time.Time                   `json:"date_updated,omitempty"`
-	Index           int                          `json:"index"`
-	Media           *[]FetchMessageResponseMedia `json:"media,omitempty"`
-	ParticipantSid  *string                      `json:"participant_sid,omitempty"`
-	Sid             string                       `json:"sid"`
-	URL             string                       `json:"url"`
+	AccountSid      string                        `json:"account_sid"`
+	Attributes      string                        `json:"attributes"`
+	Author          string                        `json:"author"`
+	Body            *string                       `json:"body,omitempty"`
+	ConversationSid string                        `json:"conversation_sid"`
+	DateCreated     time.Time                     `json:"date_created"`
+	DateUpdated     *time.Time                    `json:"date_updated,omitempty"`
+	Delivery        *FetchMessageResponseDelivery `json:"delivery,omitempty"`
+	Index           int                           `json:"index"`
+	Media           *[]FetchMessageResponseMedia  `json:"media,omitempty"`
+	ParticipantSid  *string                       `json:"participant_sid,omitempty"`
+	Sid             string                        `json:"sid"`
+	URL             string                        `json:"url"`
 }
 
 // Fetch retrieves a message resource
