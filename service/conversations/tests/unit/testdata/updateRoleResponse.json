@@ -1,0 +1,24 @@
+{
+  "date_updated": "2020-06-20T20:55:24Z",
+  "friendly_name": "channel admin",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "type": "conversation",
+  "permissions": [
+    "deleteConversation",
+    "removeParticipant",
+    "editConversationName",
+    "editConversationAttributes",
+    "addParticipant",
+    "sendMessage",
+    "sendMediaMessage",
+    "leaveConversation",
+    "editAnyMessage",
+    "editAnyMessageAttributes",
+    "editAnyParticipantAttributes",
+    "deleteAnyMessage"
+  ]
+}

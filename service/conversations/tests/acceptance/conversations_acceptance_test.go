@@ -17,6 +17,8 @@ import (
 	conversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhook"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -247,6 +249,76 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := webhookClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the conversations role clients", func() {
+		It("Then the role is created, fetched, updated and deleted", func() {
+			rolesClient := conversationsSession.Roles
+
+			createResp, createErr := rolesClient.Create(&roles.CreateRoleInput{
+				FriendlyName: uuid.New().String(),
+				Type:         "conversation",
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := rolesClient.Page(&roles.RolesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Roles)).Should(BeNumerically(">=", 1))
+
+			paginator := rolesClient.NewRolesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Roles)).Should(BeNumerically(">=", 1))
+
+			roleClient := conversationsSession.Role(createResp.Sid)
+
+			fetchResp, fetchErr := roleClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := roleClient.Update(&role.UpdateRoleInput{
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := roleClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

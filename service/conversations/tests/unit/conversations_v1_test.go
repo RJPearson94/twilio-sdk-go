@@ -12,6 +12,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	conversationResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message/delivery_receipts"
@@ -22,6 +23,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -808,11 +810,11 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.Media).To(BeNil())
 				Expect(resp.Delivery).To(Equal(&message.FetchMessageResponseDelivery{
-					Delivered: "all",
-					Failed: "none",
-					Read: "none",
-					Sent: "all",
-					Total: 1,
+					Delivered:   "all",
+					Failed:      "none",
+					Read:        "none",
+					Sent:        "all",
+					Total:       1,
 					Undelivered: "none",
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
@@ -1244,10 +1246,10 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(BeNil())
 				Expect(resp.MessagingBinding).To(Equal(&participant.FetchParticipantResponseMessageBinding{
-					Address: "+10123456789",
+					Address:          "+10123456789",
 					ProjectedAddress: nil,
-					ProxyAddress: "+19876543210",
-					Type: "sms",
+					ProxyAddress:     "+19876543210",
+					Type:             "sms",
 				}))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
@@ -1981,6 +1983,560 @@ var _ = Describe("Conversation V1", func() {
 
 			It("Then the get delivery receipt response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the roles client", func() {
+		rolesClient := conversationsSession.Roles
+
+		Describe("When the role resource is successfully created", func() {
+			createInput := &roles.CreateRoleInput{
+				FriendlyName: "channel admin",
+				Type:         "conversation",
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Roles",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/roleResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := rolesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create role resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("conversation"))
+				Expect(resp.FriendlyName).To(Equal("channel admin"))
+				Expect(resp.Permissions).To(Equal([]string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the role does not contain a friendly name", func() {
+			createInput := &roles.CreateRoleInput{
+				Type: "conversation",
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			}
+
+			resp, err := rolesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the role does not contain a type", func() {
+			createInput := &roles.CreateRoleInput{
+				FriendlyName: "channel admin",
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			}
+
+			resp, err := rolesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the role does not contain permissions", func() {
+			createInput := &roles.CreateRoleInput{
+				FriendlyName: "channel admin",
+				Type:         "conversation",
+			}
+
+			resp, err := rolesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create role resource api returns a 500 response", func() {
+			createInput := &roles.CreateRoleInput{
+				FriendlyName: "channel admin",
+				Type:         "conversation",
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Roles",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := rolesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of roles are successfully retrieved", func() {
+			pageOptions := &roles.RolesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/rolesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := rolesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the roles page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://conversations.twilio.com/v1/Roles?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://conversations.twilio.com/v1/Roles?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("roles"))
+
+				roles := resp.Roles
+				Expect(roles).ToNot(BeNil())
+				Expect(len(roles)).To(Equal(1))
+
+				Expect(roles[0].Sid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(roles[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(roles[0].ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(roles[0].Type).To(Equal("conversation"))
+				Expect(roles[0].FriendlyName).To(Equal("channel admin"))
+				Expect(roles[0].Permissions).To(Equal([]string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				}))
+				Expect(roles[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(roles[0].DateUpdated).To(BeNil())
+				Expect(roles[0].URL).To(Equal("https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of roles api returns a 500 response", func() {
+			pageOptions := &roles.RolesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := rolesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the roles page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated roles are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/rolesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/rolesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := rolesClient.NewRolesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated roles current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated roles results should be returned", func() {
+				Expect(len(paginator.Roles)).To(Equal(3))
+			})
+		})
+
+		Describe("When the roles api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/rolesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := rolesClient.NewRolesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated roles current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a role sid", func() {
+		roleClient := conversationsSession.Role("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the role resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/roleResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := roleClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get role resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("conversation"))
+				Expect(resp.FriendlyName).To(Equal("channel admin"))
+				Expect(resp.Permissions).To(Equal([]string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the role resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Roles/RL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := conversationsSession.Role("RL71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the role resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateRoleResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &role.UpdateRoleInput{
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+				},
+			}
+
+			resp, err := roleClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update role response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("conversation"))
+				Expect(resp.FriendlyName).To(Equal("channel admin"))
+				Expect(resp.Permissions).To(Equal([]string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the role does not contain permissions", func() {
+			updateInput := &role.UpdateRoleInput{}
+
+			resp, err := roleClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the update role resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Roles/RL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &role.UpdateRoleInput{
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+				},
+			}
+
+			resp, err := conversationsSession.Role("RL71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update role response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the role resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := roleClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the role resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Roles/RL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := conversationsSession.Role("RL71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
 			})
 		})
 	})

@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://conversations.twilio.com/v1/Roles?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://conversations.twilio.com/v1/Roles?PageSize=50&Page=0",
+    "next_page_url": "https://conversations.twilio.com/v1/Roles?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "roles"
+  },
+  "roles": [
+    {
+      "date_updated": null,
+      "friendly_name": "channel admin",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "type": "conversation",
+      "permissions": [
+        "deleteConversation",
+        "removeParticipant",
+        "editConversationName",
+        "editConversationAttributes",
+        "addParticipant",
+        "sendMessage",
+        "sendMediaMessage",
+        "leaveConversation",
+        "editAnyMessage",
+        "editAnyMessageAttributes",
+        "editAnyParticipantAttributes",
+        "deleteAnyMessage",
+        "editNotificationLevel"
+      ]
+    },
+    {
+      "date_updated": null,
+      "friendly_name": "channel admin 2",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://conversations.twilio.com/v1/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2020-06-20T20:50:24Z",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "type": "conversation",
+      "permissions": [
+        "deleteConversation",
+        "removeParticipant",
+        "editConversationName",
+        "editConversationAttributes",
+        "addParticipant",
+        "sendMessage",
+        "sendMediaMessage",
+        "leaveConversation",
+        "editAnyMessage",
+        "editAnyMessageAttributes",
+        "editAnyParticipantAttributes",
+        "deleteAnyMessage",
+        "editNotificationLevel"
+      ]
+    }
+  ]
+}

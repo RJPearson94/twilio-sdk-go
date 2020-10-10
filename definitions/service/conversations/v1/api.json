@@ -1080,6 +1080,185 @@
       ]
     },
     {
+      "name": "Roles",
+      "packageName": "roles",
+      "documentation": {
+        "description": "Client for managing role resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Roles",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new role",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#create-a-role-resource"
+          },
+          "input": {
+            "structure": "CreateRoleInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new role resource"
+            }
+          },
+          "response": {
+            "name": "CreateRoleResponse",
+            "structure": "RoleResponse",
+            "documentation": {
+              "description": "defines the response fields for the created role"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Roles",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of roles",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#read-multiple-role-resources"
+          },
+          "response": {
+            "structure": "RolesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the roles page"
+            }
+          },
+          "pagination": {
+            "name": "RolesPaginator",
+            "page": {
+              "name": "RolesPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Roles",
+              "structure": "PageRoleResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Role",
+      "packageName": "role",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific role resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Roles/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a role resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#fetch-a-role-resource"
+          },
+          "response": {
+            "name": "FetchRoleResponse",
+            "structure": "RoleResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved role"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Roles/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a role resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#update-a-role-resource"
+          },
+          "input": {
+            "structure": "UpdateRoleInput",
+            "documentation": {
+              "description": "defines input fields for updating a role resource"
+            }
+          },
+          "response": {
+            "name": "UpdateRoleResponse",
+            "structure": "RoleResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated role"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Roles/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a role resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#delete-a-role-resource"
+          }
+        }
+      ]
+    },
+    {
       "name": "Webhook",
       "packageName": "webhook",
       "properties": {},
@@ -1935,6 +2114,99 @@
           "name": "URL",
           "type": "string",
           "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "CreateRoleInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "Permissions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Permission",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": true
+        }
+      ]
+    },
+    "UpdateRoleInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Permissions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Permission",
+          "required": true
+        }
+      ]
+    },
+    "RolesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Roles",
+          "type": "array",
+          "items": {
+            "structure": "RoleResponse"
+          },
+          "value": "roles",
+          "required": true
+        }
+      ]
+    },
+    "RoleResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
+          "required": true
+        },
+        {
+          "name": "Permissions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "permissions",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
           "required": true
         }
       ]
