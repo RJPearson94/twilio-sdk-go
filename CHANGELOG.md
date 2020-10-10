@@ -1,10 +1,21 @@
 ## v0.4.0 (unreleased)
 
+FIXES
+
+### Conversations
+
+- **Fix:** Attributes json tag (on message input) was incorrectly labelled `Attributes.Filters`, this has now been corrected to `Attributes`
+
 FEATURES
 
 ### API
 
 - **New Resource:** Application
+
+### Conversations
+
+- Add XTwilioWebhookEnabled input field to message resources
+- Add Delivery response field and struct to message resources
 
 ### Serverless
 
