@@ -1546,6 +1546,89 @@
             "description": "Client for managing service configuration",
             "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-configuration-resource"
           },
+          "subClients": [
+            {
+              "name": "Notification",
+              "packageName": "notification",
+              "function": {
+                "parameters": {}
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing service notification",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-notification-resource"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Configuration/Notifications",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves service notification resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-notification-resource#fetch-a-servicenotification-resource"
+                  },
+                  "response": {
+                    "name": "FetchNotificationResponse",
+                    "structure": "NotificationResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved service notification"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Configuration/Notifications",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a service notification resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-notification-resource#update-a-servicenotification-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateNotificationInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a service notification resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateNotificationResponse",
+                    "structure": "NotificationResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated service notification"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -2851,6 +2934,176 @@
           "name": "DefaultChatServiceRoleSid",
           "type": "string",
           "value": "default_chat_service_role_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "UpdateNotificationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "LogEnabled",
+          "type": "bool",
+          "value": "LogEnabled",
+          "required": false
+        },
+        {
+          "name": "NewMessageEnabled",
+          "type": "bool",
+          "value": "NewMessage.Enabled",
+          "required": false
+        },
+        {
+          "name": "NewMessageTemplate",
+          "type": "string",
+          "value": "NewMessage.Template",
+          "required": false
+        },
+        {
+          "name": "NewMessageSound",
+          "type": "string",
+          "value": "NewMessage.Sound",
+          "required": false
+        },
+        {
+          "name": "NewMessageBadgeCountEnabled",
+          "type": "bool",
+          "value": "NewMessage.BadgeCountEnabled",
+          "required": false
+        },
+        {
+          "name": "AddedToConversationEnabled",
+          "type": "bool",
+          "value": "AddedToConversation.Enabled",
+          "required": false
+        },
+        {
+          "name": "AddedToConversationTemplate",
+          "type": "string",
+          "value": "AddedToConversation.Template",
+          "required": false
+        },
+        {
+          "name": "AddedToConversationSound",
+          "type": "string",
+          "value": "AddedToConversation.Sound",
+          "required": false
+        },
+        {
+          "name": "RemovedFromConversationEnabled",
+          "type": "bool",
+          "value": "RemovedFromConversation.Enabled",
+          "required": false
+        },
+        {
+          "name": "RemovedFromConversationTemplate",
+          "type": "string",
+          "value": "RemovedFromConversation.Template",
+          "required": false
+        },
+        {
+          "name": "RemovedFromConversationSound",
+          "type": "string",
+          "value": "RemovedFromConversation.Sound",
+          "required": false
+        }
+      ]
+    },
+    "NotificationResponseConversationAction": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "sound",
+          "required": false
+        }
+      ]
+    },
+    "NotificationResponseNewMessage": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "sound",
+          "required": false
+        },
+        {
+          "name": "BadgeCountEnabled",
+          "type": "bool",
+          "value": "badge_count_enabled",
+          "required": false
+        }
+      ]
+    },
+    "NotificationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "LogEnabled",
+          "type": "bool",
+          "value": "log_enabled",
+          "required": true
+        },
+        {
+          "name": "NewMessage",
+          "structure": "NotificationResponseNewMessage",
+          "value": "new_message",
+          "required": true
+        },
+        {
+          "name": "AddedToConversation",
+          "structure": "NotificationResponseConversationAction",
+          "value": "added_to_conversation",
+          "required": true
+        },
+        {
+          "name": "RemovedFromConversation",
+          "structure": "NotificationResponseConversationAction",
+          "value": "removed_from_conversation",
           "required": true
         },
         {

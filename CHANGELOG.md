@@ -19,6 +19,7 @@ FEATURES
 - **New Resource:** Users
 - **New Resource:** Service
 - **New Resource:** Service Configuration
+- **New Resource:** Service Notification
 
 ### Serverless
 

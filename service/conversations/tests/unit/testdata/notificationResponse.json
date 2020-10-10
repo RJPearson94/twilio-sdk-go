@@ -1,0 +1,15 @@
+{
+  "new_message": {
+    "enabled": false
+  },
+  "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration/Notifications",
+  "added_to_conversation": {
+    "enabled": false
+  },
+  "log_enabled": false,
+  "removed_from_conversation": {
+    "enabled": false
+  },
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
