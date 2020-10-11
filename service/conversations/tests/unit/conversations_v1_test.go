@@ -22,6 +22,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credential"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
@@ -30,12 +32,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	sessisonCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var _ = Describe("Conversation V1", func() {
-	creds, err := credentials.New(credentials.Account{
+	creds, err := sessisonCredentials.New(sessisonCredentials.Account{
 		Sid:       "ACxxx",
 		AuthToken: "Test",
 	})
@@ -3421,6 +3423,370 @@ var _ = Describe("Conversation V1", func() {
 
 			It("Then the update notification response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the credentials client", func() {
+		credentialsClient := conversationsSession.Credentials
+
+		Describe("When the credential resource is successfully created", func() {
+			createInput := &credentials.CreateCredentialInput{
+				Type:   "fcm",
+				Secret: utils.String("test"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Credentials",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create credential resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("fcm"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("TestCreds")))
+				Expect(resp.Sandbox).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the credential does not contain a type", func() {
+			createInput := &credentials.CreateCredentialInput{}
+
+			resp, err := credentialsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create credential resource api returns a 500 response", func() {
+			createInput := &credentials.CreateCredentialInput{
+				Type:   "fcm",
+				Secret: utils.String("test"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Credentials",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Create(createInput)
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of credentials are successfully retrieved", func() {
+			pageOptions := &credentials.CredentialsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the credentials page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://conversations.twilio.com/v1/Credentials?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://conversations.twilio.com/v1/Credentials?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("credentials"))
+
+				credentials := resp.Credentials
+				Expect(credentials).ToNot(BeNil())
+				Expect(len(credentials)).To(Equal(1))
+
+				Expect(credentials[0].Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentials[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentials[0].Type).To(Equal("fcm"))
+				Expect(credentials[0].FriendlyName).To(Equal(utils.String("TestCreds")))
+				Expect(credentials[0].Sandbox).To(BeNil())
+				Expect(credentials[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(credentials[0].DateUpdated).To(BeNil())
+				Expect(credentials[0].URL).To(Equal("https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of credentials api returns a 500 response", func() {
+			pageOptions := &credentials.CredentialsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the credentials page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated credentials are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialsClient.NewCredentialsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated credentials current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated credentials results should be returned", func() {
+				Expect(len(paginator.Credentials)).To(Equal(3))
+			})
+		})
+
+		Describe("When the credentials api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialsClient.NewCredentialsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated credentials current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a credential sid", func() {
+		credentialClient := conversationsSession.Credential("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the credential resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get credential resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("fcm"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("TestCreds")))
+				Expect(resp.Sandbox).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the credential resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Credentials/CR71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := conversationsSession.Credential("CR71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateCredentialResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &credential.UpdateCredentialInput{
+				FriendlyName: utils.String("New TestCreds"),
+			}
+
+			resp, err := credentialClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update credential response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Type).To(Equal("fcm"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("New TestCreds")))
+				Expect(resp.Sandbox).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update credential resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Credentials/CR71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &credential.UpdateCredentialInput{
+				FriendlyName: utils.String("New TestCreds"),
+			}
+
+			resp, err := conversationsSession.Credential("CR71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := credentialClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the credential resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Credentials/CR71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := conversationsSession.Credential("CR71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
 			})
 		})
 	})

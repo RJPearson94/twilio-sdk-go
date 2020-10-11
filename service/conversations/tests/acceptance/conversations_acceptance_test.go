@@ -18,6 +18,8 @@ import (
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credential"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
@@ -26,12 +28,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var _ = Describe("Conversations Acceptance Tests", func() {
-	creds, err := credentials.New(credentials.Account{
+	creds, err := sessionCredentials.New(sessionCredentials.Account{
 		Sid:       os.Getenv("TWILIO_ACCOUNT_SID"),
 		AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
 	})
@@ -463,6 +465,47 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			updateResp, updateErr := notificationClient.Update(&notification.UpdateNotificationInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the conversations credential clients", func() {
+		It("Then the credential is created, fetched, updated and deleted", func() {
+			credentialsClient := conversationsSession.Credentials
+
+			createResp, createErr := credentialsClient.Create(&credentials.CreateCredentialInput{
+				Type:   "fcm",
+				Secret: utils.String(uuid.New().String()),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := credentialsClient.Page(&credentials.CredentialsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Credentials)).Should(BeNumerically(">=", 1))
+
+			paginator := credentialsClient.NewCredentialsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Credentials)).Should(BeNumerically(">=", 1))
+
+			credentialClient := conversationsSession.Credential(createResp.Sid)
+
+			fetchResp, fetchErr := credentialClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := credentialClient.Update(&credential.UpdateCredentialInput{
+				FriendlyName: utils.String(uuid.New().String()),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := credentialClient.Delete()
+			Expect(deleteErr).To(BeNil())
 		})
 	})
 

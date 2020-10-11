@@ -4,6 +4,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credential"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service"
@@ -12,13 +14,15 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Conversations client is used to manage resources for Twilio Conversations
 // See https://www.twilio.com/docs/conversations for more details
 type Conversations struct {
 	client        *client.Client
+	Credentials   *credentials.Client
+	Credential    func(string) *credential.Client
 	Conversations *conversations.Client
 	Conversation  func(string) *conversation.Client
 	Roles         *roles.Client
@@ -55,6 +59,12 @@ func NewWithClient(client *client.Client) *Conversations {
 				Sid: sid,
 			})
 		},
+		Credentials: credentials.New(client),
+		Credential: func(sid string) *credential.Client {
+			return credential.New(client, credential.ClientProperties{
+				Sid: sid,
+			})
+		},
 		Roles: roles.New(client),
 		Role: func(sid string) *role.Client {
 			return role.New(client, role.ClientProperties{
@@ -78,6 +88,6 @@ func NewWithClient(client *client.Client) *Conversations {
 }
 
 // NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Conversations {
+func NewWithCredentials(creds *sessionCredentials.Credentials) *Conversations {
 	return New(session.New(creds))
 }

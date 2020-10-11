@@ -1799,6 +1799,185 @@
           }
         }
       ]
+    },
+    {
+      "name": "Credentials",
+      "packageName": "credentials",
+      "documentation": {
+        "description": "Client for managing credential resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Credentials",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new credential",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource#create-a-credential-resource"
+          },
+          "input": {
+            "structure": "CreateCredentialInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new credential resource"
+            }
+          },
+          "response": {
+            "name": "CreateCredentialResponse",
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the created credential"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Credentials",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of credentials",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource#read-multiple-credential-resources"
+          },
+          "response": {
+            "structure": "CredentialsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the credentials page"
+            }
+          },
+          "pagination": {
+            "name": "CredentialsPaginator",
+            "page": {
+              "name": "CredentialsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Credentials",
+              "structure": "PageCredentialResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Credential",
+      "packageName": "credential",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific role resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Credentials/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a credential resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource#fetch-a-credential-resource"
+          },
+          "response": {
+            "name": "FetchCredentialResponse",
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved credential"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Credentials/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a credentials resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource#update-a-credential-resource"
+          },
+          "input": {
+            "structure": "UpdateCredentialInput",
+            "documentation": {
+              "description": "defines input fields for updating a credential resource"
+            }
+          },
+          "response": {
+            "name": "UpdateCredentialResponse",
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated credential"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Credentials/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a credentials resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource#delete-a-credential-resource"
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -3111,6 +3290,115 @@
           "type": "string",
           "value": "url",
           "required": true
+        }
+      ]
+    },
+    "CreateCredentialInput": {
+      "type": "URLEncoded",
+      "extends": "CredentialInput",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": true
+        }
+      ]
+    },
+    "UpdateCredentialInput": {
+      "type": "URLEncoded",
+      "extends": "CredentialInput",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": false
+        }
+      ]
+    },
+    "CredentialInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Certificate",
+          "type": "string",
+          "value": "Certificate",
+          "required": false
+        },
+        {
+          "name": "PrivateKey",
+          "type": "string",
+          "value": "PrivateKey",
+          "required": false
+        },
+        {
+          "name": "Sandbox",
+          "type": "bool",
+          "value": "Sandbox",
+          "required": false
+        },
+        {
+          "name": "ApiKey",
+          "type": "string",
+          "value": "ApiKey",
+          "required": false
+        },
+        {
+          "name": "Secret",
+          "type": "string",
+          "value": "Secret",
+          "required": false
+        }
+      ]
+    },
+    "CredentialsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Credentials",
+          "type": "array",
+          "items": {
+            "structure": "CredentialResponse"
+          },
+          "value": "credentials",
+          "required": true
+        }
+      ]
+    },
+    "CredentialResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "Sandbox",
+          "type": "bool",
+          "value": "sandbox",
+          "required": false
         }
       ]
     },
