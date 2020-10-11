@@ -1991,6 +1991,299 @@
             "description": "Client for managing a specific conversation resource",
             "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource"
           },
+          "subClients": [
+            {
+              "name": "Webhooks",
+              "packageName": "webhooks",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing webhook resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource"
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Webhooks",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new webhook",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource"
+                  },
+                  "input": {
+                    "structure": "CreateConversationWebhookInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new webhook resource"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateConversationWebhookResponse",
+                    "structure": "ServiceConversationWebhookResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created webhook"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Webhooks",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of webhooks",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#read-multiple-conversationscopedwebhook-resources"
+                  },
+                  "response": {
+                    "name": "ConversationWebhooksPageResponse",
+                    "structure": "ServiceConversationWebhooksPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the webhooks page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ConversationWebhooksPaginator",
+                    "page": {
+                      "name": "ConversationWebhooksPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Webhooks",
+                      "structure": "PageConversationWebhookResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Webhook",
+              "packageName": "webhook",
+              "function": {
+                "parameters": {
+                  "webhookSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "webhookSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Webhooks/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves an webhook resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#fetch-a-conversationscopedwebhook-resource"
+                  },
+                  "response": {
+                    "name": "FetchConversationWebhookResponse",
+                    "structure": "ServiceConversationWebhookResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved webhook"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Webhooks/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a webhook resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#update-a-conversationscopedwebhook-resource"
+                  },
+                  "input": {
+                    "name": "UpdateConversationWebhookInput",
+                    "structure": "ConversationWebhookInput",
+                    "documentation": {
+                      "description": "defines input fields for updating an webhook resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateConversationWebhookResponse",
+                    "structure": "ServiceConversationWebhookResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated webhook"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Webhooks/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a webhook resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#delete-a-conversationscopedwebhook-resource"
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -3446,6 +3739,27 @@
         }
       ]
     },
+    "ServiceConversationWebhooksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Webhooks",
+          "type": "array",
+          "items": {
+            "structureName": "ConversationWebhookResponse",
+            "structure": "ServiceConversationWebhookResponse"
+          },
+          "value": "webhooks",
+          "required": true
+        }
+      ]
+    },
     "ConversationWebhooksPageResponse": {
       "type": "JSON",
       "properties": [
@@ -3462,6 +3776,18 @@
             "structure": "ConversationWebhookResponse"
           },
           "value": "webhooks",
+          "required": true
+        }
+      ]
+    },
+    "ServiceConversationWebhookResponse": {
+      "type": "JSON",
+      "extends": "ConversationWebhookResponse",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
           "required": true
         }
       ]

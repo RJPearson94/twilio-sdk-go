@@ -24,6 +24,7 @@ FEATURES
 - **New Resource:** Service Users
 - **New Resource:** Service Role
 - **New Resource:** Service Conversation
+- **New Resource:** Service Conversation Webhook
 - **New Resource:** Credential
 
 ### Serverless

@@ -24,6 +24,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
 	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
+	serviceConversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhook"
+	serviceConversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhooks"
 	serviceConversations "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversations"
 	serviceRole "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/role"
 	serviceRoles "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/roles"
@@ -374,7 +376,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 	})
 
 	Describe("Given the conversations service clients", func() {
-		It("Then the user is created, fetched and deleted", func() {
+		It("Then the service is created, fetched and deleted", func() {
 			servicesClient := conversationsSession.Services
 
 			createResp, createErr := servicesClient.Create(&services.CreateServiceInput{
@@ -711,6 +713,75 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := conversationClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the service conversation webhook client", func() {
+
+		var serviceSid string
+		var conversationSid string
+
+		BeforeEach(func() {
+			resp, err := conversationsSession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+
+			conversationResp, conversationErr := conversationsSession.Service(serviceSid).Conversations.Create(&serviceConversations.CreateConversationInput{})
+			if conversationErr != nil {
+				Fail(fmt.Sprintf("Failed to create conversation. Error %s", conversationErr.Error()))
+			}
+			conversationSid = conversationResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := conversationsSession.Service(serviceSid).Conversation(conversationSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete conversation. Error %s", err.Error()))
+			}
+			if err := conversationsSession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the webhook is created, fetched, updated and deleted", func() {
+			webhooksClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Webhooks
+
+			createResp, createErr := webhooksClient.Create(&serviceConversationWebhooks.CreateConversationWebhookInput{
+				Target:               "webhook",
+				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
+				ConfigurationFilters: &[]string{"onMessageAdded"},
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := webhooksClient.Page(&serviceConversationWebhooks.ConversationWebhooksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
+
+			paginator := webhooksClient.NewConversationWebhooksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Webhooks)).Should(BeNumerically(">=", 1))
+
+			webhookClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Webhook(createResp.Sid)
+
+			fetchResp, fetchErr := webhookClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := webhookClient.Update(&serviceConversationWebhook.UpdateConversationWebhookInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := webhookClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
