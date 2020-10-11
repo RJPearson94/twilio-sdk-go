@@ -24,6 +24,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
+	serviceUser "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/user"
+	serviceUsers "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
@@ -505,6 +507,63 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := credentialClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the service user client", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := conversationsSession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := conversationsSession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the user is fetched and updated", func() {
+			usersClient := conversationsSession.Service(serviceSid).Users
+
+			createResp, createErr := usersClient.Create(&serviceUsers.CreateUserInput{
+				Identity: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := usersClient.Page(&serviceUsers.UsersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Users)).Should(BeNumerically(">=", 1))
+
+			paginator := usersClient.NewUsersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Users)).Should(BeNumerically(">=", 1))
+
+			userClient := conversationsSession.Service(serviceSid).User(createResp.Sid)
+
+			fetchResp, fetchErr := userClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := userClient.Update(&serviceUser.UpdateUserInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := userClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

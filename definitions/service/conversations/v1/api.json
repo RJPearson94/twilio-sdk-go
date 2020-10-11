@@ -1858,6 +1858,246 @@
               }
             }
           ]
+        },
+        {
+          "name": "Users",
+          "packageName": "users",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing user resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/user-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Users",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new user",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/user-resource#create-a-conversations-user"
+              },
+              "input": {
+                "structure": "CreateUserInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new user resource"
+                }
+              },
+              "response": {
+                "name": "CreateUserResponse",
+                "structure": "UserResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created user"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Users",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of users",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/user-resource#read-multiple-conversationuser-resources"
+              },
+              "response": {
+                "structure": "UsersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the users page"
+                }
+              },
+              "pagination": {
+                "name": "UsersPaginator",
+                "page": {
+                  "name": "UsersPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Users",
+                  "structure": "PageUserResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "User",
+          "packageName": "user",
+          "function": {
+            "parameters": {
+              "userSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "userSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific user resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/user-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Users/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a user resource"
+              },
+              "response": {
+                "name": "FetchUserResponse",
+                "structure": "UserResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved user"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Users/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a user resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/user-resource#update-a-conversationuser-resource"
+              },
+              "input": {
+                "structure": "UpdateUserInput",
+                "documentation": {
+                  "description": "defines input fields for updating a user resource"
+                }
+              },
+              "response": {
+                "name": "UpdateUserResponse",
+                "structure": "UserResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated user"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Users/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a user resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/user-resource#delete-an-user-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [

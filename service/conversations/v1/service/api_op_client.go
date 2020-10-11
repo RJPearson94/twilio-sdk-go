@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/binding"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/bindings"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/user"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/users"
 )
 
 // Client for managing a specific service resource
@@ -18,6 +20,8 @@ type Client struct {
 	Binding       func(string) *binding.Client
 	Bindings      *bindings.Client
 	Configuration func() *configuration.Client
+	User          func(string) *user.Client
+	Users         *users.Client
 }
 
 // ClientProperties are the properties required to manage the service resources
@@ -46,5 +50,14 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				ServiceSid: properties.Sid,
 			})
 		},
+		User: func(userSid string) *user.Client {
+			return user.New(client, user.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        userSid,
+			})
+		},
+		Users: users.New(client, users.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
 	}
 }
