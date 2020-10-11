@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/binding"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/bindings"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/role"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/users"
 )
@@ -20,6 +22,8 @@ type Client struct {
 	Binding       func(string) *binding.Client
 	Bindings      *bindings.Client
 	Configuration func() *configuration.Client
+	Role          func(string) *role.Client
+	Roles         *roles.Client
 	User          func(string) *user.Client
 	Users         *users.Client
 }
@@ -50,6 +54,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				ServiceSid: properties.Sid,
 			})
 		},
+		Role: func(roleSid string) *role.Client {
+			return role.New(client, role.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        roleSid,
+			})
+		},
+		Roles: roles.New(client, roles.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
 		User: func(userSid string) *user.Client {
 			return user.New(client, user.ClientProperties{
 				ServiceSid: properties.Sid,

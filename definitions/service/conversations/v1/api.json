@@ -1860,6 +1860,247 @@
           ]
         },
         {
+          "name": "Roles",
+          "packageName": "roles",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing role resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Roles",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new role",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#create-a-role-resource"
+              },
+              "input": {
+                "structure": "CreateRoleInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new role resource"
+                }
+              },
+              "response": {
+                "name": "CreateRoleResponse",
+                "structure": "RoleResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created role"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Roles",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of roles",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#read-multiple-role-resources"
+              },
+              "response": {
+                "structure": "RolesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the roles page"
+                }
+              },
+              "pagination": {
+                "name": "RolesPaginator",
+                "page": {
+                  "name": "RolesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Roles",
+                  "structure": "PageRoleResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Role",
+          "packageName": "role",
+          "function": {
+            "parameters": {
+              "roleSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "roleSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific role resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Roles/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a role resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#fetch-a-role-resource"
+              },
+              "response": {
+                "name": "FetchRoleResponse",
+                "structure": "RoleResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved role"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Roles/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a role resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#update-a-role-resource"
+              },
+              "input": {
+                "structure": "UpdateRoleInput",
+                "documentation": {
+                  "description": "defines input fields for updating a role resource"
+                }
+              },
+              "response": {
+                "name": "UpdateRoleResponse",
+                "structure": "RoleResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated role"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Roles/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a role resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/role-resource#delete-a-role-resource"
+              }
+            }
+          ]
+        },
+        {
           "name": "Users",
           "packageName": "users",
           "properties": {

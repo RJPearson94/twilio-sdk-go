@@ -24,6 +24,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
+	serviceRole "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/role"
+	serviceRoles "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/roles"
 	serviceUser "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/user"
 	serviceUsers "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/services"
@@ -531,7 +533,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			}
 		})
 
-		It("Then the user is fetched and updated", func() {
+		It("Then the user is create, fetched, updated and deleted", func() {
 			usersClient := conversationsSession.Service(serviceSid).Users
 
 			createResp, createErr := usersClient.Create(&serviceUsers.CreateUserInput{
@@ -564,6 +566,95 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := userClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the service user client", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := conversationsSession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := conversationsSession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the role is create, fetched, updated and deleted", func() {
+			rolesClient := conversationsSession.Service(serviceSid).Roles
+
+			createResp, createErr := rolesClient.Create(&serviceRoles.CreateRoleInput{
+				FriendlyName: uuid.New().String(),
+				Type:         "conversation",
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := rolesClient.Page(&serviceRoles.RolesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Roles)).Should(BeNumerically(">=", 1))
+
+			paginator := rolesClient.NewRolesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Roles)).Should(BeNumerically(">=", 1))
+
+			roleClient := conversationsSession.Service(serviceSid).Role(createResp.Sid)
+
+			fetchResp, fetchErr := roleClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := roleClient.Update(&serviceRole.UpdateRoleInput{
+				Permissions: []string{
+					"deleteConversation",
+					"removeParticipant",
+					"editConversationName",
+					"editConversationAttributes",
+					"addParticipant",
+					"sendMessage",
+					"sendMediaMessage",
+					"leaveConversation",
+					"editAnyMessage",
+					"editAnyMessageAttributes",
+					"editAnyParticipantAttributes",
+					"deleteAnyMessage",
+					"editNotificationLevel",
+				},
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := roleClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
