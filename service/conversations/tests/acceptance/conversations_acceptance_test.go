@@ -9,7 +9,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go"
-	conversationResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/participant"
@@ -17,13 +17,14 @@ import (
 	conversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhook"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
-	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credential"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
+	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
+	serviceConversations "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversations"
 	serviceRole "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/role"
 	serviceRoles "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/roles"
 	serviceUser "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/user"
@@ -51,7 +52,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		It("Then the conversation is created, fetched, updated and deleted", func() {
 			conversationsClient := conversationsSession.Conversations
 
-			createResp, createErr := conversationsClient.Create(&conversationsResource.CreateConversationInput{})
+			createResp, createErr := conversationsClient.Create(&conversations.CreateConversationInput{})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
@@ -74,7 +75,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := conversationClient.Update(&conversationResource.UpdateConversationInput{})
+			updateResp, updateErr := conversationClient.Update(&conversation.UpdateConversationInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 
@@ -102,7 +103,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		var conversationSid string
 
 		BeforeEach(func() {
-			resp, err := conversationsSession.Conversations.Create(&conversationsResource.CreateConversationInput{})
+			resp, err := conversationsSession.Conversations.Create(&conversations.CreateConversationInput{})
 			if err != nil {
 				Fail(fmt.Sprintf("Failed to create conversation. Error %s", err.Error()))
 			}
@@ -157,7 +158,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		var conversationSid string
 
 		BeforeEach(func() {
-			resp, err := conversationsSession.Conversations.Create(&conversationsResource.CreateConversationInput{})
+			resp, err := conversationsSession.Conversations.Create(&conversations.CreateConversationInput{})
 			if err != nil {
 				Fail(fmt.Sprintf("Failed to create conversation. Error %s", err.Error()))
 			}
@@ -212,7 +213,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		var conversationSid string
 
 		BeforeEach(func() {
-			resp, err := conversationsSession.Conversations.Create(&conversationsResource.CreateConversationInput{})
+			resp, err := conversationsSession.Conversations.Create(&conversations.CreateConversationInput{})
 			if err != nil {
 				Fail(fmt.Sprintf("Failed to create conversation. Error %s", err.Error()))
 			}
@@ -655,6 +656,61 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := roleClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the service conversation client", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := conversationsSession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := conversationsSession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the conversation is create, fetched, updated and deleted", func() {
+			conversationsClient := conversationsSession.Service(serviceSid).Conversations
+
+			createResp, createErr := conversationsClient.Create(&serviceConversations.CreateConversationInput{})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := conversationsClient.Page(&serviceConversations.ConversationsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Conversations)).Should(BeNumerically(">=", 1))
+
+			paginator := conversationsClient.NewConversationsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Conversations)).Should(BeNumerically(">=", 1))
+
+			conversationClient := conversationsSession.Service(serviceSid).Conversation(createResp.Sid)
+
+			fetchResp, fetchErr := conversationClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := conversationClient.Update(&serviceConversation.UpdateConversationInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := conversationClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

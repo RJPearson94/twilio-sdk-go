@@ -1860,6 +1860,249 @@
           ]
         },
         {
+          "name": "Conversations",
+          "packageName": "conversations",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing conversation resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Conversations",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new conversation",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource#create-a-conversation-resource"
+              },
+              "input": {
+                "name": "CreateConversationInput",
+                "structure": "ConversationInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new conversation resource"
+                }
+              },
+              "response": {
+                "name": "CreateConversationResponse",
+                "structure": "ConversationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created conversation"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Conversations",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of conversations",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource#read-multiple-conversation-resources"
+              },
+              "response": {
+                "structure": "ConversationsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the conversations page"
+                }
+              },
+              "pagination": {
+                "name": "ConversationsPaginator",
+                "page": {
+                  "name": "ConversationsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Conversations",
+                  "structure": "PageConversationResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Conversation",
+          "packageName": "conversation",
+          "function": {
+            "parameters": {
+              "conversationSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "conversationSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific conversation resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Conversations/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a conversation resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource#fetch-a-conversation-resource"
+              },
+              "response": {
+                "name": "FetchConversationResponse",
+                "structure": "ConversationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved conversation"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Conversations/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a conversation resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource#update-conversation"
+              },
+              "input": {
+                "name": "UpdateConversationInput",
+                "structure": "ConversationInput",
+                "documentation": {
+                  "description": "defines input fields for updating a conversation resource"
+                }
+              },
+              "response": {
+                "name": "UpdateConversationResponse",
+                "structure": "ConversationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated conversation"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Conversations/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a conversation resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-resource#delete-a-conversation-resource"
+              }
+            }
+          ]
+        },
+        {
           "name": "Roles",
           "packageName": "roles",
           "properties": {

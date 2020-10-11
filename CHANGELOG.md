@@ -23,6 +23,7 @@ FEATURES
 - **New Resource:** Service Binding
 - **New Resource:** Service Users
 - **New Resource:** Service Role
+- **New Resource:** Service Conversation
 - **New Resource:** Credential
 
 ### Serverless

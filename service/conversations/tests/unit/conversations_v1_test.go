@@ -11,17 +11,16 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/conversations"
-	conversationResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
+	conversationsClient "github.com/RJPearson94/twilio-sdk-go/service/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message/delivery_receipts"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/participant"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/participants"
 	conversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhook"
-	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
 	conversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/webhooks"
-	conversationsResource "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credential"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
@@ -29,6 +28,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/bindings"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
+	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
+	serviceConversations "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversations"
 	serviceRole "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/role"
 	serviceRoles "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/roles"
 	serviceUser "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/user"
@@ -37,12 +38,12 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
-	sessisonCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var _ = Describe("Conversation V1", func() {
-	creds, err := sessisonCredentials.New(sessisonCredentials.Account{
+	creds, err := sessionCredentials.New(sessionCredentials.Account{
 		Sid:       "ACxxx",
 		AuthToken: "Test",
 	})
@@ -50,7 +51,7 @@ var _ = Describe("Conversation V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	conversationsSession := conversations.NewWithCredentials(creds).V1
+	conversationsSession := conversationsClient.NewWithCredentials(creds).V1
 
 	httpmock.ActivateNonDefault(conversationsSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()
@@ -59,7 +60,7 @@ var _ = Describe("Conversation V1", func() {
 		conversationsClient := conversationsSession.Conversations
 
 		Describe("When the conversation resource is successfully created", func() {
-			createInput := &conversationsResource.CreateConversationInput{
+			createInput := &conversations.CreateConversationInput{
 				FriendlyName: utils.String("Test"),
 			}
 
@@ -86,7 +87,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.State).To(Equal("active"))
-				Expect(resp.Timers).To(Equal(conversationsResource.CreateConversationResponseTimers{}))
+				Expect(resp.Timers).To(Equal(conversations.CreateConversationResponseTimers{}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -94,7 +95,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the create conversation resource api returns a 500 response", func() {
-			createInput := &conversationsResource.CreateConversationInput{
+			createInput := &conversations.CreateConversationInput{
 				FriendlyName: utils.String("Test"),
 			}
 
@@ -118,7 +119,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the page of conversations are successfully retrieved", func() {
-			pageOptions := &conversationsResource.ConversationsPageOptions{
+			pageOptions := &conversations.ConversationsPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
 			}
@@ -150,26 +151,26 @@ var _ = Describe("Conversation V1", func() {
 				Expect(meta.NextPageURL).To(BeNil())
 				Expect(meta.Key).To(Equal("conversations"))
 
-				conversations := resp.Conversations
-				Expect(conversations).ToNot(BeNil())
-				Expect(len(conversations)).To(Equal(1))
+				conversationsResp := resp.Conversations
+				Expect(conversationsResp).ToNot(BeNil())
+				Expect(len(conversationsResp)).To(Equal(1))
 
-				Expect(conversations[0].Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(conversations[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-				Expect(conversations[0].ChatServiceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
-				Expect(conversations[0].MessagingServiceSid).To(Equal(utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
-				Expect(conversations[0].FriendlyName).To(Equal(utils.String("Test")))
-				Expect(conversations[0].Attributes).To(Equal("{}"))
-				Expect(conversations[0].State).To(Equal("active"))
-				Expect(conversations[0].Timers).To(Equal(conversationsResource.PageConversationResponseTimers{}))
-				Expect(conversations[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
-				Expect(conversations[0].DateUpdated).To(BeNil())
-				Expect(conversations[0].URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(conversationsResp[0].Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(conversationsResp[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(conversationsResp[0].ChatServiceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(conversationsResp[0].MessagingServiceSid).To(Equal(utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(conversationsResp[0].FriendlyName).To(Equal(utils.String("Test")))
+				Expect(conversationsResp[0].Attributes).To(Equal("{}"))
+				Expect(conversationsResp[0].State).To(Equal("active"))
+				Expect(conversationsResp[0].Timers).To(Equal(conversations.PageConversationResponseTimers{}))
+				Expect(conversationsResp[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(conversationsResp[0].DateUpdated).To(BeNil())
+				Expect(conversationsResp[0].URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 			})
 		})
 
 		Describe("When the page of conversations api returns a 500 response", func() {
-			pageOptions := &conversationsResource.ConversationsPageOptions{
+			pageOptions := &conversations.ConversationsPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
 			}
@@ -303,7 +304,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.State).To(Equal("active"))
-				Expect(resp.Timers).To(Equal(conversationResource.FetchConversationResponseTimers{}))
+				Expect(resp.Timers).To(Equal(conversation.FetchConversationResponseTimers{}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -340,7 +341,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &conversationResource.UpdateConversationInput{
+			updateInput := &conversation.UpdateConversationInput{
 				FriendlyName:   utils.String("Test 2"),
 				TimersClosed:   utils.String("PT10M"),
 				TimersInactive: utils.String("PT1M"),
@@ -363,7 +364,7 @@ var _ = Describe("Conversation V1", func() {
 
 				dateClosed, _ := time.Parse(time.RFC3339, "2020-06-20T21:00:24Z")
 				dateInactive, _ := time.Parse(time.RFC3339, "2020-06-20T20:51:24Z")
-				Expect(resp.Timers).To(Equal(conversationResource.UpdateConversationResponseTimers{
+				Expect(resp.Timers).To(Equal(conversation.UpdateConversationResponseTimers{
 					DateClosed:   utils.Time(dateClosed),
 					DateInactive: utils.Time(dateInactive),
 				}))
@@ -383,7 +384,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &conversationResource.UpdateConversationInput{
+			updateInput := &conversation.UpdateConversationInput{
 				FriendlyName: utils.String("Test 2"),
 			}
 
@@ -1453,7 +1454,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the conversation webhook does not contain a target", func() {
-			createInput := &webhooks.CreateConversationWebhookInput{}
+			createInput := &conversationWebhooks.CreateConversationWebhookInput{}
 
 			resp, err := conversationWebhooksClient.Create(createInput)
 			It("Then an error should be returned", func() {
@@ -1466,7 +1467,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the conversation webhook api returns a 500 response", func() {
-			createInput := &webhooks.CreateConversationWebhookInput{
+			createInput := &conversationWebhooks.CreateConversationWebhookInput{
 				Target:               "studio",
 				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 			}
@@ -4963,6 +4964,374 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			err := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Role("RL71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the service conversations client", func() {
+		conversationsClient := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversations
+
+		Describe("When the conversation resource is successfully created", func() {
+			createInput := &serviceConversations.CreateConversationInput{
+				FriendlyName: utils.String("Test"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := conversationsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create conversation resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.MessagingServiceSid).To(Equal(utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
+				Expect(resp.Attributes).To(Equal("{}"))
+				Expect(resp.State).To(Equal("active"))
+				Expect(resp.Timers).To(Equal(serviceConversations.CreateConversationResponseTimers{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the create conversation resource api returns a 500 response", func() {
+			createInput := &serviceConversations.CreateConversationInput{
+				FriendlyName: utils.String("Test"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := conversationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create conversation response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of conversations are successfully retrieved", func() {
+			pageOptions := &serviceConversations.ConversationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := conversationsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the conversations page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://conversations.twilio.com/v1/Conversations?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://conversations.twilio.com/v1/Conversations?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("conversations"))
+
+				conversationsResp := resp.Conversations
+				Expect(conversationsResp).ToNot(BeNil())
+				Expect(len(conversationsResp)).To(Equal(1))
+
+				Expect(conversationsResp[0].Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(conversationsResp[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(conversationsResp[0].ChatServiceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(conversationsResp[0].MessagingServiceSid).To(Equal(utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(conversationsResp[0].FriendlyName).To(Equal(utils.String("Test")))
+				Expect(conversationsResp[0].Attributes).To(Equal("{}"))
+				Expect(conversationsResp[0].State).To(Equal("active"))
+				Expect(conversationsResp[0].Timers).To(Equal(serviceConversations.PageConversationResponseTimers{}))
+				Expect(conversationsResp[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(conversationsResp[0].DateUpdated).To(BeNil())
+				Expect(conversationsResp[0].URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of conversations api returns a 500 response", func() {
+			pageOptions := &serviceConversations.ConversationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := conversationsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the conversations page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated conversations are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := conversationsClient.NewConversationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated conversations current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated conversations results should be returned", func() {
+				Expect(len(paginator.Conversations)).To(Equal(3))
+			})
+		})
+
+		Describe("When the conversations api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := conversationsClient.NewConversationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated conversations current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a service conversation sid", func() {
+		conversationClient := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the conversation resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/conversationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := conversationClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get conversation resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.MessagingServiceSid).To(Equal(utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
+				Expect(resp.Attributes).To(Equal("{}"))
+				Expect(resp.State).To(Equal("active"))
+				Expect(resp.Timers).To(Equal(serviceConversation.FetchConversationResponseTimers{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the conversation resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversation("CH71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get conversation response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateConversationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &serviceConversation.UpdateConversationInput{
+				FriendlyName:   utils.String("Test 2"),
+				TimersClosed:   utils.String("PT10M"),
+				TimersInactive: utils.String("PT1M"),
+			}
+
+			resp, err := conversationClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update conversation response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal(utils.String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.MessagingServiceSid).To(Equal(utils.String("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.FriendlyName).To(Equal(utils.String("Test 2")))
+				Expect(resp.Attributes).To(Equal("{}"))
+				Expect(resp.State).To(Equal("active"))
+
+				dateClosed, _ := time.Parse(time.RFC3339, "2020-06-20T21:00:24Z")
+				dateInactive, _ := time.Parse(time.RFC3339, "2020-06-20T20:51:24Z")
+				Expect(resp.Timers).To(Equal(serviceConversation.UpdateConversationResponseTimers{
+					DateClosed:   utils.Time(dateClosed),
+					DateInactive: utils.Time(dateInactive),
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update conversation resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &serviceConversation.UpdateConversationInput{
+				FriendlyName: utils.String("Test 2"),
+			}
+
+			resp, err := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversation("CH71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update conversation response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := conversationClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the conversation resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CH71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversation("CH71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
