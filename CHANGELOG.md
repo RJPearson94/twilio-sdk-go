@@ -20,6 +20,7 @@ FEATURES
 - **New Resource:** Service
 - **New Resource:** Service Configuration
 - **New Resource:** Service Notification
+- **New Resource:** Service Binding
 - **New Resource:** Credential
 
 ### Serverless

@@ -1693,6 +1693,171 @@
               }
             }
           ]
+        },
+        {
+          "name": "Bindings",
+          "packageName": "bindings",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing service bindings resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-binding-resource"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of service bindings",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-binding-resource#read-multiple-servicebinding-resources"
+              },
+              "response": {
+                "structure": "BindingsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the service bindings page"
+                }
+              },
+              "pagination": {
+                "name": "BindingsPaginator",
+                "page": {
+                  "name": "BindingsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Bindings",
+                  "structure": "PageBindingResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Binding",
+          "packageName": "binding",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "bindingSid"
+            }
+          },
+          "function": {
+            "parameters": {
+              "bindingSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific service binding resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-binding-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a service binding resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-binding-resource#fetch-a-servicebinding-resource"
+              },
+              "response": {
+                "name": "FetchBindingResponse",
+                "structure": "BindingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved service binding"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a service binding resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-binding-resource#delete-a-servicebinding-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -3399,6 +3564,71 @@
           "type": "bool",
           "value": "sandbox",
           "required": false
+        }
+      ]
+    },
+    "BindingsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Bindings",
+          "type": "array",
+          "items": {
+            "structure": "BindingResponse"
+          },
+          "value": "bindings",
+          "required": true
+        }
+      ]
+    },
+    "BindingResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
+          "required": true
+        },
+        {
+          "name": "Endpoint",
+          "type": "string",
+          "value": "endpoint",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "BindingType",
+          "type": "string",
+          "value": "binding_type",
+          "required": true
+        },
+        {
+          "name": "CredentialSid",
+          "type": "string",
+          "value": "credential_sid",
+          "required": true
+        },
+        {
+          "name": "MessageTypes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "message_types",
+          "required": true
         }
       ]
     },

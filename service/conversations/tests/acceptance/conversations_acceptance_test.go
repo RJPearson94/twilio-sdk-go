@@ -510,4 +510,5 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 	})
 
 	// TODO Add delivery receipt tests
+	// TODO Add service binding tests
 })
