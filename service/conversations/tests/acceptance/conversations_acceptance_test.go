@@ -24,6 +24,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
 	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
+	serviceConversationMessage "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/message"
+	serviceConversationMessages "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/messages"
 	serviceConversationParticipant "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/participant"
 	serviceConversationParticipants "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/participants"
 	serviceConversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhook"
@@ -851,6 +853,73 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := participantClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the service conversation message clients", func() {
+
+		var serviceSid string
+		var conversationSid string
+
+		BeforeEach(func() {
+			resp, err := conversationsSession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+
+			conversationResp, conversationErr := conversationsSession.Service(serviceSid).Conversations.Create(&serviceConversations.CreateConversationInput{})
+			if conversationErr != nil {
+				Fail(fmt.Sprintf("Failed to create conversation. Error %s", conversationErr.Error()))
+			}
+			conversationSid = conversationResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := conversationsSession.Service(serviceSid).Conversation(conversationSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete conversation. Error %s", err.Error()))
+			}
+			if err := conversationsSession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the message is created, fetched, updated and deleted", func() {
+			messagesClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Messages
+
+			createResp, createErr := messagesClient.Create(&serviceConversationMessages.CreateMessageInput{
+				Body: utils.String("Hello World"),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := messagesClient.Page(&serviceConversationMessages.MessagesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Messages)).Should(BeNumerically(">=", 1))
+
+			paginator := messagesClient.NewMessagesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Messages)).Should(BeNumerically(">=", 1))
+
+			messageClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Message(createResp.Sid)
+
+			fetchResp, fetchErr := messageClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := messageClient.Update(&serviceConversationMessage.UpdateMessageInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := messageClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages?PageSize=50&Page=0",
+    "next_page_url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "messages"
+  },
+  "messages": [
+    {
+      "body": "Hello World",
+      "index": 0,
+      "author": "system",
+      "date_updated": null,
+      "media": null,
+      "participant_sid": null,
+      "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "delivery": null,
+      "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "date_created": "2020-06-20T20:50:24Z",
+      "sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "attributes": "{}",
+      "links": {
+        "delivery_receipts": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/Receipts"
+      }
+    },
+    {
+      "body": "Hello World",
+      "index": 0,
+      "author": "system",
+      "date_updated": null,
+      "media": null,
+      "participant_sid": null,
+      "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "delivery": null,
+      "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2020-06-20T20:50:24Z",
+      "sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "attributes": "{}",
+      "links": {
+        "delivery_receipts": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Receipts"
+      }
+    }
+  ]
+}

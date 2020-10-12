@@ -26,6 +26,8 @@ FEATURES
 - **New Resource:** Service Conversation
 - **New Resource:** Service Conversation Webhook
 - **New Resource:** Service Conversation Participant
+- **New Resource:** Service Conversation Message
+- **New Resource:** Service Conversation Message Delivery Receipt
 - **New Resource:** Credential
 
 ### Serverless

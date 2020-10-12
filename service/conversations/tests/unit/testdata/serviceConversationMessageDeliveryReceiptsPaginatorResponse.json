@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts?PageSize=50&Page=0",
+    "next_page_url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "delivery_receipts"
+  },
+  "delivery_receipts": [
+    {
+      "status": "sent",
+      "channel_message_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_updated": null,
+      "sid": "DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": null,
+      "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts/DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "message_sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "participant_sid": "MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "error_code": 0
+    },
+    {
+      "status": "sent",
+      "channel_message_sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_updated": null,
+      "sid": "DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": null,
+      "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts/DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2020-06-20T20:50:24Z",
+      "message_sid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "participant_sid": "MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "error_code": 0
+    }
+  ]
+}

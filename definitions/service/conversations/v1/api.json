@@ -1993,6 +1993,484 @@
           },
           "subClients": [
             {
+              "name": "Messages",
+              "packageName": "messages",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing message resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource"
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new message",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource#create-a-conversationmessage-resource"
+                  },
+                  "input": {
+                    "structure": "CreateMessageInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new message resource"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateMessageResponse",
+                    "structure": "ServiceMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created message"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of messages",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource#list-all-conversation-messages"
+                  },
+                  "response": {
+                    "name": "MessagesPageResponse",
+                    "structure": "ServiceMessagesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the messages page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "MessagesPaginator",
+                    "page": {
+                      "name": "MessagesPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Messages",
+                      "structure": "PageMessageResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Message",
+              "packageName": "message",
+              "function": {
+                "parameters": {
+                  "messageSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "messageSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific message resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource"
+              },
+              "subClients": [
+                {
+                  "name": "Delivery Receipts",
+                  "packageName": "delivery_receipts",
+                  "properties": {
+                    "serviceSid": {
+                      "dataType": "string",
+                      "parentProperty": "serviceSid"
+                    },
+                    "conversationSid": {
+                      "dataType": "string",
+                      "parentProperty": "conversationSid"
+                    },
+                    "messageSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    }
+                  },
+                  "documentation": {
+                    "description": "Client for managing delivery receipt resources",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource"
+                  },
+                  "operations": [
+                    {
+                      "name": "Page",
+                      "http": {
+                        "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages/{messageSid}/Receipts",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "serviceSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "serviceSid"
+                            }
+                          },
+                          {
+                            "name": "conversationSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "conversationSid"
+                            }
+                          },
+                          {
+                            "name": "messageSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "messageSid"
+                            }
+                          }
+                        ],
+                        "queryParams": [
+                          {
+                            "name": "PageSize",
+                            "type": "int",
+                            "required": false
+                          },
+                          {
+                            "name": "Page",
+                            "type": "int",
+                            "required": false
+                          },
+                          {
+                            "name": "PageToken",
+                            "type": "string",
+                            "required": false
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "retrieves a page of delivery receipts",
+                        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource#read-multiple-conversationmessagereceipt-resources"
+                      },
+                      "response": {
+                        "name": "DeliveryReceiptsPageResponse",
+                        "structure": "ServiceDeliveryReceiptsPageResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the delivery receipts page"
+                        }
+                      },
+                      "pagination": {
+                        "name": "DeliveryReceiptsPaginator",
+                        "page": {
+                          "name": "DeliveryReceiptsPage",
+                          "nextToken": "PageToken",
+                          "nextPage": {
+                            "meta": true,
+                            "property": "NextPageURL"
+                          },
+                          "items": "DeliveryReceipts",
+                          "structure": "PageDeliveryReceiptResponse"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Delivery Receipt",
+                  "packageName": "delivery_receipt",
+                  "function": {
+                    "parameters": {
+                      "deliveryReceiptSid": {
+                        "dataType": "string"
+                      }
+                    }
+                  },
+                  "properties": {
+                    "serviceSid": {
+                      "dataType": "string",
+                      "parentProperty": "serviceSid"
+                    },
+                    "conversationSid": {
+                      "dataType": "string",
+                      "parentProperty": "conversationSid"
+                    },
+                    "messageSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    },
+                    "sid": {
+                      "dataType": "string",
+                      "functionParameter": "deliveryReceiptSid"
+                    }
+                  },
+                  "documentation": {
+                    "description": "Client for managing a specific delivery receipt resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource"
+                  },
+                  "operations": [
+                    {
+                      "name": "Fetch",
+                      "http": {
+                        "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages/{messageSid}/Receipts/{sid}",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "serviceSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "serviceSid"
+                            }
+                          },
+                          {
+                            "name": "conversationSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "conversationSid"
+                            }
+                          },
+                          {
+                            "name": "messageSid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "messageSid"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "type": "string",
+                              "property": "sid"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "retrieves a delivery receipt resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/receipt-resource#fetch-a-conversationmessagereceipt-resource"
+                      },
+                      "response": {
+                        "name": "FetchDeliveryReceiptResponse",
+                        "structure": "ServiceDeliveryReceiptResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the retrieved delivery receipt"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a message resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource#fetch-a-conversationmessage-resource"
+                  },
+                  "response": {
+                    "name": "FetchMessageResponse",
+                    "structure": "ServiceMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved message"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a message resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource#update-a-conversationmessage-resource"
+                  },
+                  "input": {
+                    "name": "UpdateMessageInput",
+                    "structure": "MessageInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a message resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateMessageResponse",
+                    "structure": "ServiceMessageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated message"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Messages/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a message resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-message-resource#delete-a-conversationmessage-resource"
+                  }
+                }
+              ]
+            },
+            {
               "name": "Participants",
               "packageName": "participants",
               "properties": {
@@ -3703,6 +4181,27 @@
         }
       ]
     },
+    "ServiceMessagesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Messages",
+          "type": "array",
+          "items": {
+            "structureName": "MessageResponse",
+            "structure": "ServiceMessageResponse"
+          },
+          "value": "messages",
+          "required": true
+        }
+      ]
+    },
     "MessagesPageResponse": {
       "type": "JSON",
       "properties": [
@@ -3719,6 +4218,18 @@
             "structure": "MessageResponse"
           },
           "value": "messages",
+          "required": true
+        }
+      ]
+    },
+    "ServiceMessageResponse": {
+      "type": "JSON",
+      "extends": "MessageResponse",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
           "required": true
         }
       ]
@@ -4228,6 +4739,27 @@
         }
       ]
     },
+    "ServiceDeliveryReceiptsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "DeliveryReceipts",
+          "type": "array",
+          "items": {
+            "structureName": "DeliveryReceiptResponse",
+            "structure": "ServiceDeliveryReceiptResponse"
+          },
+          "value": "delivery_receipts",
+          "required": true
+        }
+      ]
+    },
     "DeliveryReceiptsPageResponse": {
       "type": "JSON",
       "properties": [
@@ -4244,6 +4776,18 @@
             "structure": "DeliveryReceiptResponse"
           },
           "value": "delivery_receipts",
+          "required": true
+        }
+      ]
+    },
+    "ServiceDeliveryReceiptResponse": {
+      "type": "JSON",
+      "extends": "DeliveryReceiptResponse",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
           "required": true
         }
       ]
