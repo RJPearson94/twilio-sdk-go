@@ -1993,6 +1993,297 @@
           },
           "subClients": [
             {
+              "name": "Participants",
+              "packageName": "participants",
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing participant resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource"
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Participants",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new participant",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#add-a-conversation-participant-sms"
+                  },
+                  "input": {
+                    "structure": "CreateParticipantInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new participant resource"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateParticipantResponse",
+                    "structure": "ServiceParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Participants",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of participants",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#read-multiple-conversationparticipant-resources"
+                  },
+                  "response": {
+                    "name": "ParticipantsPageResponse",
+                    "structure": "ServiceParticipantsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the participants page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ParticipantsPaginator",
+                    "page": {
+                      "name": "ParticipantsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Participants",
+                      "structure": "PageParticipantResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Participant",
+              "packageName": "participant",
+              "function": {
+                "parameters": {
+                  "participantSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "conversationSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "participantSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific participant resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Participants/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves an participant resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#fetch-a-conversationparticipant-resource"
+                  },
+                  "response": {
+                    "name": "FetchParticipantResponse",
+                    "structure": "ServiceParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Participants/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a participant resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#update-a-conversationparticipant-resource"
+                  },
+                  "input": {
+                    "name": "UpdateParticipantInput",
+                    "structure": "ParticipantInput",
+                    "documentation": {
+                      "description": "defines input fields for updating an participant resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateParticipantResponse",
+                    "structure": "ServiceParticipantResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated participant"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Conversations/{conversationSid}/Participants/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "conversationSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "conversationSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a participant resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#delete-a-conversationparticipant-resource"
+                  }
+                }
+              ]
+            },
+            {
               "name": "Webhooks",
               "packageName": "webhooks",
               "properties": {
@@ -3577,6 +3868,27 @@
         }
       ]
     },
+    "ServiceParticipantsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Participants",
+          "type": "array",
+          "items": {
+            "structureName": "ParticipantResponse",
+            "structure": "ServiceParticipantResponse"
+          },
+          "value": "participants",
+          "required": true
+        }
+      ]
+    },
     "ParticipantsPageResponse": {
       "type": "JSON",
       "properties": [
@@ -3593,6 +3905,18 @@
             "structure": "ParticipantResponse"
           },
           "value": "participants",
+          "required": true
+        }
+      ]
+    },
+    "ServiceParticipantResponse": {
+      "type": "JSON",
+      "extends": "ParticipantResponse",
+      "properties": [
+        {
+          "name": "ChatServiceSid",
+          "type": "string",
+          "value": "chat_service_sid",
           "required": true
         }
       ]

@@ -3,6 +3,8 @@ package conversation
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/participant"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/participants"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhooks"
 )
@@ -15,8 +17,10 @@ type Client struct {
 	serviceSid string
 	sid        string
 
-	Webhook  func(string) *webhook.Client
-	Webhooks *webhooks.Client
+	Participant  func(string) *participant.Client
+	Participants *participants.Client
+	Webhook      func(string) *webhook.Client
+	Webhooks     *webhooks.Client
 }
 
 // ClientProperties are the properties required to manage the conversation resources
@@ -33,6 +37,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		serviceSid: properties.ServiceSid,
 		sid:        properties.Sid,
 
+		Participant: func(participantSid string) *participant.Client {
+			return participant.New(client, participant.ClientProperties{
+				ConversationSid: properties.Sid,
+				ServiceSid:      properties.ServiceSid,
+				Sid:             participantSid,
+			})
+		},
+		Participants: participants.New(client, participants.ClientProperties{
+			ConversationSid: properties.Sid,
+			ServiceSid:      properties.ServiceSid,
+		}),
 		Webhook: func(webhookSid string) *webhook.Client {
 			return webhook.New(client, webhook.ClientProperties{
 				ConversationSid: properties.Sid,

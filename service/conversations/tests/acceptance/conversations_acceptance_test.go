@@ -24,6 +24,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
 	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
+	serviceConversationParticipant "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/participant"
+	serviceConversationParticipants "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/participants"
 	serviceConversationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhook"
 	serviceConversationWebhooks "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/webhooks"
 	serviceConversations "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversations"
@@ -516,7 +518,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the service user client", func() {
+	Describe("Given the service user clients", func() {
 
 		var serviceSid string
 
@@ -573,7 +575,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the service user client", func() {
+	Describe("Given the service user clients", func() {
 
 		var serviceSid string
 
@@ -662,7 +664,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the service conversation client", func() {
+	Describe("Given the service conversation clients", func() {
 
 		var serviceSid string
 
@@ -717,7 +719,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the service conversation webhook client", func() {
+	Describe("Given the service conversation webhook clients", func() {
 
 		var serviceSid string
 		var conversationSid string
@@ -782,6 +784,73 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := webhookClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the service conversation participant clients", func() {
+
+		var serviceSid string
+		var conversationSid string
+
+		BeforeEach(func() {
+			resp, err := conversationsSession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+
+			conversationResp, conversationErr := conversationsSession.Service(serviceSid).Conversations.Create(&serviceConversations.CreateConversationInput{})
+			if conversationErr != nil {
+				Fail(fmt.Sprintf("Failed to create conversation. Error %s", conversationErr.Error()))
+			}
+			conversationSid = conversationResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := conversationsSession.Service(serviceSid).Conversation(conversationSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete conversation. Error %s", err.Error()))
+			}
+			if err := conversationsSession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the participant is created, fetched, updated and deleted", func() {
+			participantsClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Participants
+
+			createResp, createErr := participantsClient.Create(&serviceConversationParticipants.CreateParticipantInput{
+				Identity: utils.String(uuid.New().String()),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := participantsClient.Page(&serviceConversationParticipants.ParticipantsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Participants)).Should(BeNumerically(">=", 1))
+
+			paginator := participantsClient.NewParticipantsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Participants)).Should(BeNumerically(">=", 1))
+
+			participantClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Participant(createResp.Sid)
+
+			fetchResp, fetchErr := participantClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := participantClient.Update(&serviceConversationParticipant.UpdateParticipantInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := participantClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

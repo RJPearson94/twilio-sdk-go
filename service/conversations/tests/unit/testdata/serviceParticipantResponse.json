@@ -1,0 +1,13 @@
+{
+  "date_updated": null,
+  "conversation_sid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "attributes": "{}",
+  "identity": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "messaging_binding": null,
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
