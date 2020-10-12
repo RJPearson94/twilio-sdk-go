@@ -29,7 +29,7 @@ func main() {
 	resp, err := conversationSession.
 		Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhooks.
-		Create(&webhooks.CreateConversationWebhookInput{
+		Create(&webhooks.CreateWebhookInput{
 			Target:               "webhook",
 			ConfigurationURL:     utils.String("https://localhost.com/webhook"),
 			ConfigurationFilters: &[]string{"onMessageAdded"},

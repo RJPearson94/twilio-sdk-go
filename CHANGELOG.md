@@ -5,6 +5,7 @@ FIXES
 ### Conversations
 
 - **Fix:** Attributes json tag (on message input) was incorrectly labelled `Attributes.Filters`, this has now been corrected to `Attributes`
+- **Refactor:** Rename Conversation Webhook to Webhook, this additional name provided little to no benefit so it has been removed. **Breaking Change**
 
 FEATURES
 

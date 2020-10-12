@@ -235,7 +235,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		It("Then the webhook is created, fetched, updated and deleted", func() {
 			webhooksClient := conversationsSession.Conversation(conversationSid).Webhooks
 
-			createResp, createErr := webhooksClient.Create(&conversationWebhooks.CreateConversationWebhookInput{
+			createResp, createErr := webhooksClient.Create(&conversationWebhooks.CreateWebhookInput{
 				Target:               "webhook",
 				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
 				ConfigurationFilters: &[]string{"onMessageAdded"},
@@ -244,12 +244,12 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			pageResp, pageErr := webhooksClient.Page(&conversationWebhooks.ConversationWebhooksPageOptions{})
+			pageResp, pageErr := webhooksClient.Page(&conversationWebhooks.WebhooksPageOptions{})
 			Expect(pageErr).To(BeNil())
 			Expect(pageResp).ToNot(BeNil())
 			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
 
-			paginator := webhooksClient.NewConversationWebhooksPaginator()
+			paginator := webhooksClient.NewWebhooksPaginator()
 			for paginator.Next() {
 			}
 
@@ -262,7 +262,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := webhookClient.Update(&conversationWebhook.UpdateConversationWebhookInput{})
+			updateResp, updateErr := webhookClient.Update(&conversationWebhook.UpdateWebhookInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 
@@ -754,7 +754,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		It("Then the webhook is created, fetched, updated and deleted", func() {
 			webhooksClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Webhooks
 
-			createResp, createErr := webhooksClient.Create(&serviceConversationWebhooks.CreateConversationWebhookInput{
+			createResp, createErr := webhooksClient.Create(&serviceConversationWebhooks.CreateWebhookInput{
 				Target:               "webhook",
 				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
 				ConfigurationFilters: &[]string{"onMessageAdded"},
@@ -763,12 +763,12 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			pageResp, pageErr := webhooksClient.Page(&serviceConversationWebhooks.ConversationWebhooksPageOptions{})
+			pageResp, pageErr := webhooksClient.Page(&serviceConversationWebhooks.WebhooksPageOptions{})
 			Expect(pageErr).To(BeNil())
 			Expect(pageResp).ToNot(BeNil())
 			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
 
-			paginator := webhooksClient.NewConversationWebhooksPaginator()
+			paginator := webhooksClient.NewWebhooksPaginator()
 			for paginator.Next() {
 			}
 
@@ -781,7 +781,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := webhookClient.Update(&serviceConversationWebhook.UpdateConversationWebhookInput{})
+			updateResp, updateErr := webhookClient.Update(&serviceConversationWebhook.UpdateWebhookInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 

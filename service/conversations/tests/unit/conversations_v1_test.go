@@ -1424,7 +1424,7 @@ var _ = Describe("Conversation V1", func() {
 		conversationWebhooksClient := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhooks
 
 		Describe("When the conversation webhook is successfully created", func() {
-			createInput := &conversationWebhooks.CreateConversationWebhookInput{
+			createInput := &conversationWebhooks.CreateWebhookInput{
 				Target:               "studio",
 				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 			}
@@ -1449,7 +1449,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhooks.CreateConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhooks.CreateWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -1459,7 +1459,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the conversation webhook does not contain a target", func() {
-			createInput := &conversationWebhooks.CreateConversationWebhookInput{}
+			createInput := &conversationWebhooks.CreateWebhookInput{}
 
 			resp, err := conversationWebhooksClient.Create(createInput)
 			It("Then an error should be returned", func() {
@@ -1472,7 +1472,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the conversation webhook api returns a 500 response", func() {
-			createInput := &conversationWebhooks.CreateConversationWebhookInput{
+			createInput := &conversationWebhooks.CreateWebhookInput{
 				Target:               "studio",
 				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 			}
@@ -1497,7 +1497,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the page of conversation webhooks are successfully retrieved", func() {
-			pageOptions := &conversationWebhooks.ConversationWebhooksPageOptions{
+			pageOptions := &conversationWebhooks.WebhooksPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
 			}
@@ -1537,7 +1537,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(webhooks[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(webhooks[0].ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(webhooks[0].Target).To(Equal("studio"))
-				Expect(webhooks[0].Configuration).To(Equal(conversationWebhooks.PageConversationWebhookResponseConfiguration{
+				Expect(webhooks[0].Configuration).To(Equal(conversationWebhooks.PageWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(webhooks[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -1547,7 +1547,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the page of conversation webhooks api returns a 500 response", func() {
-			pageOptions := &conversationWebhooks.ConversationWebhooksPageOptions{
+			pageOptions := &conversationWebhooks.WebhooksPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
 			}
@@ -1591,7 +1591,7 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			counter := 0
-			paginator := conversationWebhooksClient.NewConversationWebhooksPaginator()
+			paginator := conversationWebhooksClient.NewWebhooksPaginator()
 
 			for paginator.Next() {
 				counter++
@@ -1634,7 +1634,7 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			counter := 0
-			paginator := conversationWebhooksClient.NewConversationWebhooksPaginator()
+			paginator := conversationWebhooksClient.NewWebhooksPaginator()
 
 			for paginator.Next() {
 				counter++
@@ -1678,7 +1678,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhook.FetchConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhook.FetchWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -1717,7 +1717,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &conversationWebhook.UpdateConversationWebhookInput{}
+			updateInput := &conversationWebhook.UpdateWebhookInput{}
 
 			resp, err := conversationWebhookClient.Update(updateInput)
 			It("Then no error should be returned", func() {
@@ -1730,7 +1730,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(conversationWebhook.UpdateConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(conversationWebhook.UpdateWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -1749,7 +1749,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &conversationWebhook.UpdateConversationWebhookInput{}
+			updateInput := &conversationWebhook.UpdateWebhookInput{}
 
 			resp, err := conversationsSession.Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Update(updateInput)
 			It("Then an error should be returned", func() {
@@ -5347,7 +5347,7 @@ var _ = Describe("Conversation V1", func() {
 		conversationWebhooksClient := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhooks
 
 		Describe("When the conversation webhook is successfully created", func() {
-			createInput := &serviceConversationWebhooks.CreateConversationWebhookInput{
+			createInput := &serviceConversationWebhooks.CreateWebhookInput{
 				Target:               "studio",
 				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 			}
@@ -5373,7 +5373,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(serviceConversationWebhooks.CreateConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(serviceConversationWebhooks.CreateWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -5383,7 +5383,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the conversation webhook does not contain a target", func() {
-			createInput := &serviceConversationWebhooks.CreateConversationWebhookInput{}
+			createInput := &serviceConversationWebhooks.CreateWebhookInput{}
 
 			resp, err := conversationWebhooksClient.Create(createInput)
 			It("Then an error should be returned", func() {
@@ -5396,7 +5396,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the conversation webhook api returns a 500 response", func() {
-			createInput := &serviceConversationWebhooks.CreateConversationWebhookInput{
+			createInput := &serviceConversationWebhooks.CreateWebhookInput{
 				Target:               "studio",
 				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 			}
@@ -5421,7 +5421,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the page of conversation webhooks are successfully retrieved", func() {
-			pageOptions := &serviceConversationWebhooks.ConversationWebhooksPageOptions{
+			pageOptions := &serviceConversationWebhooks.WebhooksPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
 			}
@@ -5462,7 +5462,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(webhooks[0].ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(webhooks[0].ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(webhooks[0].Target).To(Equal("studio"))
-				Expect(webhooks[0].Configuration).To(Equal(serviceConversationWebhooks.PageConversationWebhookResponseConfiguration{
+				Expect(webhooks[0].Configuration).To(Equal(serviceConversationWebhooks.PageWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(webhooks[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -5472,7 +5472,7 @@ var _ = Describe("Conversation V1", func() {
 		})
 
 		Describe("When the page of conversation webhooks api returns a 500 response", func() {
-			pageOptions := &serviceConversationWebhooks.ConversationWebhooksPageOptions{
+			pageOptions := &serviceConversationWebhooks.WebhooksPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
 			}
@@ -5516,7 +5516,7 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			counter := 0
-			paginator := conversationWebhooksClient.NewConversationWebhooksPaginator()
+			paginator := conversationWebhooksClient.NewWebhooksPaginator()
 
 			for paginator.Next() {
 				counter++
@@ -5559,7 +5559,7 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			counter := 0
-			paginator := conversationWebhooksClient.NewConversationWebhooksPaginator()
+			paginator := conversationWebhooksClient.NewWebhooksPaginator()
 
 			for paginator.Next() {
 				counter++
@@ -5604,7 +5604,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(serviceConversationWebhook.FetchConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(serviceConversationWebhook.FetchWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -5643,7 +5643,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &serviceConversationWebhook.UpdateConversationWebhookInput{}
+			updateInput := &serviceConversationWebhook.UpdateWebhookInput{}
 
 			resp, err := conversationWebhookClient.Update(updateInput)
 			It("Then no error should be returned", func() {
@@ -5657,7 +5657,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Target).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(serviceConversationWebhook.UpdateConversationWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(serviceConversationWebhook.UpdateWebhookResponseConfiguration{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -5676,7 +5676,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &serviceConversationWebhook.UpdateConversationWebhookInput{}
+			updateInput := &serviceConversationWebhook.UpdateWebhookInput{}
 
 			resp, err := conversationsSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("WH71").Update(updateInput)
 			It("Then an error should be returned", func() {

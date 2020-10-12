@@ -29,7 +29,7 @@ func main() {
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhook("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
-		Update(&webhook.UpdateConversationWebhookInput{})
+		Update(&webhook.UpdateWebhookInput{})
 
 	if err != nil {
 		log.Panicf("%s", err.Error())

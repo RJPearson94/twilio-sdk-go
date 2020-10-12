@@ -28,7 +28,7 @@ func main() {
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhooks.
-		NewConversationWebhooksPaginator()
+		NewWebhooksPaginator()
 
 	for paginator.Next() {
 		currentPage := paginator.CurrentPage()

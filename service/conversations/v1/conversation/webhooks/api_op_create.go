@@ -9,8 +9,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateConversationWebhookInput defines the input fields for creating a new webhook resource
-type CreateConversationWebhookInput struct {
+// CreateWebhookInput defines the input fields for creating a new webhook resource
+type CreateWebhookInput struct {
 	ConfigurationFilters     *[]string `form:"Configuration.Filters,omitempty"`
 	ConfigurationFlowSid     *string   `form:"Configuration.FlowSid,omitempty"`
 	ConfigurationMethod      *string   `form:"Configuration.Method,omitempty"`
@@ -20,7 +20,7 @@ type CreateConversationWebhookInput struct {
 	Target                   string    `validate:"required" form:"Target"`
 }
 
-type CreateConversationWebhookResponseConfiguration struct {
+type CreateWebhookResponseConfiguration struct {
 	Filters     *[]string `json:"filters,omitempty"`
 	FlowSid     *string   `json:"flow_sid,omitempty"`
 	Method      *string   `json:"method,omitempty"`
@@ -29,28 +29,28 @@ type CreateConversationWebhookResponseConfiguration struct {
 	URL         *string   `json:"url,omitempty"`
 }
 
-// CreateConversationWebhookResponse defines the response fields for the created webhook
-type CreateConversationWebhookResponse struct {
-	AccountSid      string                                         `json:"account_sid"`
-	Configuration   CreateConversationWebhookResponseConfiguration `json:"configuration"`
-	ConversationSid string                                         `json:"conversation_sid"`
-	DateCreated     time.Time                                      `json:"date_created"`
-	DateUpdated     *time.Time                                     `json:"date_updated,omitempty"`
-	Sid             string                                         `json:"sid"`
-	Target          string                                         `json:"target"`
-	URL             string                                         `json:"url"`
+// CreateWebhookResponse defines the response fields for the created webhook
+type CreateWebhookResponse struct {
+	AccountSid      string                             `json:"account_sid"`
+	Configuration   CreateWebhookResponseConfiguration `json:"configuration"`
+	ConversationSid string                             `json:"conversation_sid"`
+	DateCreated     time.Time                          `json:"date_created"`
+	DateUpdated     *time.Time                         `json:"date_updated,omitempty"`
+	Sid             string                             `json:"sid"`
+	Target          string                             `json:"target"`
+	URL             string                             `json:"url"`
 }
 
 // Create creates a new webhook
 // See https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
-func (c Client) Create(input *CreateConversationWebhookInput) (*CreateConversationWebhookResponse, error) {
+func (c Client) Create(input *CreateWebhookInput) (*CreateWebhookResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
 // CreateWithContext creates a new webhook
 // See https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource for more details
-func (c Client) CreateWithContext(context context.Context, input *CreateConversationWebhookInput) (*CreateConversationWebhookResponse, error) {
+func (c Client) CreateWithContext(context context.Context, input *CreateWebhookInput) (*CreateWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
 		URI:         "/Conversations/{conversationSid}/Webhooks",
@@ -61,10 +61,10 @@ func (c Client) CreateWithContext(context context.Context, input *CreateConversa
 	}
 
 	if input == nil {
-		input = &CreateConversationWebhookInput{}
+		input = &CreateWebhookInput{}
 	}
 
-	response := &CreateConversationWebhookResponse{}
+	response := &CreateWebhookResponse{}
 	if err := c.client.Send(context, op, input, response); err != nil {
 		return nil, err
 	}

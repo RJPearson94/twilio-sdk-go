@@ -27,7 +27,7 @@ func main() {
 	paginator := conversationSession.
 		Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhooks.
-		NewConversationWebhooksPaginator()
+		NewWebhooksPaginator()
 
 	for paginator.Next() {
 		currentPage := paginator.CurrentPage()

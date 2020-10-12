@@ -28,7 +28,7 @@ func main() {
 	resp, err := conversationSession.
 		Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhooks.
-		Page(&webhooks.ConversationWebhooksPageOptions{})
+		Page(&webhooks.WebhooksPageOptions{})
 
 	if err != nil {
 		log.Panicf("%s", err.Error())

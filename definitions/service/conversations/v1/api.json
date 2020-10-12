@@ -784,13 +784,14 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource"
               },
               "input": {
+                "name": "CreateWebhookInput",
                 "structure": "CreateConversationWebhookInput",
                 "documentation": {
                   "description": "defines the input fields for creating a new webhook resource"
                 }
               },
               "response": {
-                "name": "CreateConversationWebhookResponse",
+                "name": "CreateWebhookResponse",
                 "structure": "ConversationWebhookResponse",
                 "documentation": {
                   "description": "defines the response fields for the created webhook"
@@ -835,22 +836,23 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#read-multiple-conversationscopedwebhook-resources"
               },
               "response": {
+                "name": "WebhooksPageResponse",
                 "structure": "ConversationWebhooksPageResponse",
                 "documentation": {
                   "description": "defines the response fields for the webhooks page"
                 }
               },
               "pagination": {
-                "name": "ConversationWebhooksPaginator",
+                "name": "WebhooksPaginator",
                 "page": {
-                  "name": "ConversationWebhooksPage",
+                  "name": "WebhooksPage",
                   "nextToken": "PageToken",
                   "nextPage": {
                     "meta": true,
                     "property": "NextPageURL"
                   },
                   "items": "Webhooks",
-                  "structure": "PageConversationWebhookResponse"
+                  "structure": "PageWebhookResponse"
                 }
               }
             }
@@ -910,7 +912,7 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#fetch-a-conversationscopedwebhook-resource"
               },
               "response": {
-                "name": "FetchConversationWebhookResponse",
+                "name": "FetchWebhookResponse",
                 "structure": "ConversationWebhookResponse",
                 "documentation": {
                   "description": "defines the response fields for the retrieved webhook"
@@ -946,14 +948,14 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#update-a-conversationscopedwebhook-resource"
               },
               "input": {
-                "name": "UpdateConversationWebhookInput",
+                "name": "UpdateWebhookInput",
                 "structure": "ConversationWebhookInput",
                 "documentation": {
                   "description": "defines input fields for updating an webhook resource"
                 }
               },
               "response": {
-                "name": "UpdateConversationWebhookResponse",
+                "name": "UpdateWebhookResponse",
                 "structure": "ConversationWebhookResponse",
                 "documentation": {
                   "description": "defines the response fields for the updated webhook"
@@ -2808,13 +2810,14 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#create-a-conversationscopedwebhook-resource"
                   },
                   "input": {
+                    "name": "CreateWebhookInput",
                     "structure": "CreateConversationWebhookInput",
                     "documentation": {
                       "description": "defines the input fields for creating a new webhook resource"
                     }
                   },
                   "response": {
-                    "name": "CreateConversationWebhookResponse",
+                    "name": "CreateWebhookResponse",
                     "structure": "ServiceConversationWebhookResponse",
                     "documentation": {
                       "description": "defines the response fields for the created webhook"
@@ -2867,23 +2870,23 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#read-multiple-conversationscopedwebhook-resources"
                   },
                   "response": {
-                    "name": "ConversationWebhooksPageResponse",
+                    "name": "WebhooksPageResponse",
                     "structure": "ServiceConversationWebhooksPageResponse",
                     "documentation": {
                       "description": "defines the response fields for the webhooks page"
                     }
                   },
                   "pagination": {
-                    "name": "ConversationWebhooksPaginator",
+                    "name": "WebhooksPaginator",
                     "page": {
-                      "name": "ConversationWebhooksPage",
+                      "name": "WebhooksPage",
                       "nextToken": "PageToken",
                       "nextPage": {
                         "meta": true,
                         "property": "NextPageURL"
                       },
                       "items": "Webhooks",
-                      "structure": "PageConversationWebhookResponse"
+                      "structure": "PageWebhookResponse"
                     }
                   }
                 }
@@ -2955,7 +2958,7 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#fetch-a-conversationscopedwebhook-resource"
                   },
                   "response": {
-                    "name": "FetchConversationWebhookResponse",
+                    "name": "FetchWebhookResponse",
                     "structure": "ServiceConversationWebhookResponse",
                     "documentation": {
                       "description": "defines the response fields for the retrieved webhook"
@@ -2999,14 +3002,14 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource#update-a-conversationscopedwebhook-resource"
                   },
                   "input": {
-                    "name": "UpdateConversationWebhookInput",
+                    "name": "UpdateWebhookInput",
                     "structure": "ConversationWebhookInput",
                     "documentation": {
                       "description": "defines input fields for updating an webhook resource"
                     }
                   },
                   "response": {
-                    "name": "UpdateConversationWebhookResponse",
+                    "name": "UpdateWebhookResponse",
                     "structure": "ServiceConversationWebhookResponse",
                     "documentation": {
                       "description": "defines the response fields for the updated webhook"
@@ -4587,7 +4590,7 @@
           "name": "Webhooks",
           "type": "array",
           "items": {
-            "structureName": "ConversationWebhookResponse",
+            "structureName": "WebhookResponse",
             "structure": "ServiceConversationWebhookResponse"
           },
           "value": "webhooks",
@@ -4608,6 +4611,7 @@
           "name": "Webhooks",
           "type": "array",
           "items": {
+            "structureName": "WebhookResponse",
             "structure": "ConversationWebhookResponse"
           },
           "value": "webhooks",
@@ -4645,6 +4649,7 @@
         },
         {
           "name": "Configuration",
+          "structureName": "WebhookResponseConfiguration",
           "structure": "ConversationWebhookResponseConfiguration",
           "value": "configuration",
           "required": true
