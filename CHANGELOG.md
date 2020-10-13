@@ -1,3 +1,14 @@
+## v0.5.0 (unreleased)
+
+FEATURES
+
+### API
+
+- **New Resource:** Available Phone Number
+- **New Resource:** Available Phone Number - Toll Free
+- **New Resource:** Available Phone Number - Mobile
+- **New Resource:** Available Phone Number - Local
+
 ## v0.4.0 (2020-10-13)
 
 FIXES

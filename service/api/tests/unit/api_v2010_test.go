@@ -17,6 +17,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/application"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/applications"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number/local"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number/mobile"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number/toll_free"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	callFeedback "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedback"
 	callFeedbacks "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedbacks"
@@ -5118,7 +5121,7 @@ var _ = Describe("API V2010", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the addresses page response should be returned", func() {
+			It("Then the applications page response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 
 				Expect(resp.Page).To(Equal(0))
@@ -5415,6 +5418,338 @@ var _ = Describe("API V2010", func() {
 			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the available phone number countries client", func() {
+		availablePhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumbers
+
+		Describe("When the page of available phone number countries are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/countriesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := availablePhoneNumbersClient.Page()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the available phone number countries page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers.json"))
+
+				countries := resp.Countries
+				Expect(countries).ToNot(BeNil())
+				Expect(len(countries)).To(Equal(1))
+
+				Expect(countries[0].CountryCode).To(Equal("GB"))
+				Expect(countries[0].Country).To(Equal("United Kingdom"))
+				Expect(countries[0].Beta).To(Equal(false))
+			})
+		})
+
+		Describe("When the page of available phone number countries api returns a 500 response", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := availablePhoneNumbersClient.Page()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the available phone number countries page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have an available phone number country code", func() {
+		availablePhoneNumberClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB")
+
+		Describe("When the available phone number country is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/countryResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := availablePhoneNumberClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get available phone number country response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.CountryCode).To(Equal("GB"))
+				Expect(resp.Country).To(Equal("United Kingdom"))
+				Expect(resp.Beta).To(Equal(false))
+			})
+		})
+
+		Describe("When the available phone number country api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/New.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("New").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get available phone number country response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the available local phone number countries client", func() {
+		availableLocalPhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").Local
+
+		Describe("When the page of available local phone number countries are successfully retrieved", func() {
+			pageOptions := &local.AvailablePhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Local.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/availableLocalPhoneNumberPageReponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := availableLocalPhoneNumbersClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the available local phone number countries page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Local.json"))
+
+				availablePhoneNumbers := resp.AvailablePhoneNumbers
+				Expect(availablePhoneNumbers).ToNot(BeNil())
+				Expect(len(availablePhoneNumbers)).To(Equal(1))
+
+				Expect(availablePhoneNumbers[0].FriendlyName).To(Equal("+441234567890"))
+				Expect(availablePhoneNumbers[0].PhoneNumber).To(Equal("+441234567890"))
+				Expect(availablePhoneNumbers[0].Lata).To(BeNil())
+				Expect(availablePhoneNumbers[0].RateCenter).To(BeNil())
+				Expect(availablePhoneNumbers[0].Latitude).To(Equal("0.000000"))
+				Expect(availablePhoneNumbers[0].Longitude).To(Equal("0.000000"))
+				Expect(availablePhoneNumbers[0].Locality).To(BeNil())
+				Expect(availablePhoneNumbers[0].Region).To(BeNil())
+				Expect(availablePhoneNumbers[0].PostalCode).To(BeNil())
+				Expect(availablePhoneNumbers[0].IsoCountry).To(Equal("GB"))
+				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
+				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
+				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(local.PageAvailablePhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+			})
+		})
+
+		Describe("When the page of available local phone number countries api returns a 500 response", func() {
+			pageOptions := &local.AvailablePhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Local.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := availableLocalPhoneNumbersClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the available local phone number countries page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the available toll free phone number countries client", func() {
+		availableTollFreePhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").TollFree
+
+		Describe("When the page of available toll free phone number countries are successfully retrieved", func() {
+			pageOptions := &toll_free.AvailablePhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/TollFree.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/availableTollFreePhoneNumberPageReponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := availableTollFreePhoneNumbersClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the available toll free phone number countries page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/TollFree.json"))
+
+				availablePhoneNumbers := resp.AvailablePhoneNumbers
+				Expect(availablePhoneNumbers).ToNot(BeNil())
+				Expect(len(availablePhoneNumbers)).To(Equal(1))
+
+				Expect(availablePhoneNumbers[0].FriendlyName).To(Equal("+441234567890"))
+				Expect(availablePhoneNumbers[0].PhoneNumber).To(Equal("+441234567890"))
+				Expect(availablePhoneNumbers[0].Lata).To(BeNil())
+				Expect(availablePhoneNumbers[0].RateCenter).To(BeNil())
+				Expect(availablePhoneNumbers[0].Latitude).To(Equal("0.000000"))
+				Expect(availablePhoneNumbers[0].Longitude).To(Equal("0.000000"))
+				Expect(availablePhoneNumbers[0].Locality).To(BeNil())
+				Expect(availablePhoneNumbers[0].Region).To(BeNil())
+				Expect(availablePhoneNumbers[0].PostalCode).To(BeNil())
+				Expect(availablePhoneNumbers[0].IsoCountry).To(Equal("GB"))
+				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
+				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
+				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(toll_free.PageAvailablePhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+			})
+		})
+
+		Describe("When the page of available toll free phone number countries api returns a 500 response", func() {
+			pageOptions := &toll_free.AvailablePhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/TollFree.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := availableTollFreePhoneNumbersClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the available toll free phone number countries page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the available mobile phone number countries client", func() {
+		availableMobilePhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").Mobile
+
+		Describe("When the page of available mobile phone number countries are successfully retrieved", func() {
+			pageOptions := &mobile.AvailablePhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Mobile.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/availableMobilePhoneNumberPageReponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := availableMobilePhoneNumbersClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the available mobile phone number countries page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Mobile.json"))
+
+				availablePhoneNumbers := resp.AvailablePhoneNumbers
+				Expect(availablePhoneNumbers).ToNot(BeNil())
+				Expect(len(availablePhoneNumbers)).To(Equal(1))
+
+				Expect(availablePhoneNumbers[0].FriendlyName).To(Equal("+441234567890"))
+				Expect(availablePhoneNumbers[0].PhoneNumber).To(Equal("+441234567890"))
+				Expect(availablePhoneNumbers[0].Lata).To(BeNil())
+				Expect(availablePhoneNumbers[0].RateCenter).To(BeNil())
+				Expect(availablePhoneNumbers[0].Latitude).To(Equal("0.000000"))
+				Expect(availablePhoneNumbers[0].Longitude).To(Equal("0.000000"))
+				Expect(availablePhoneNumbers[0].Locality).To(BeNil())
+				Expect(availablePhoneNumbers[0].Region).To(BeNil())
+				Expect(availablePhoneNumbers[0].PostalCode).To(BeNil())
+				Expect(availablePhoneNumbers[0].IsoCountry).To(Equal("GB"))
+				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
+				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
+				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(mobile.PageAvailablePhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+			})
+		})
+
+		Describe("When the page of available mobile phone number countries api returns a 500 response", func() {
+			pageOptions := &mobile.AvailablePhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Mobile.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := availableMobilePhoneNumbersClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the available mobile phone number countries page response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

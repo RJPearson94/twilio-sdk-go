@@ -1,0 +1,25 @@
+{
+  "available_phone_numbers": [
+    {
+      "friendly_name": "+441234567890",
+      "phone_number": "+441234567890",
+      "lata": null,
+      "rate_center": null,
+      "latitude": "0.000000",
+      "longitude": "0.000000",
+      "locality": null,
+      "region": null,
+      "postal_code": null,
+      "iso_country": "GB",
+      "address_requirements": "none",
+      "beta": false,
+      "capabilities": {
+        "voice": true,
+        "SMS": true,
+        "MMS": false,
+        "fax": true
+      }
+    }
+  ],
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/TollFree.json"
+}

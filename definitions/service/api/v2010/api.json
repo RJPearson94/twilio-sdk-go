@@ -3677,6 +3677,570 @@
               }
             }
           ]
+        },
+        {
+          "name": "Available Phone Numbers",
+          "packageName": "available_phone_numbers",
+          "documentation": {
+            "description": "Client for managing available phone number resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/AvailablePhoneNumbers.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of countries with available phone numbers",
+                "twilioDocsLink": "https://www.twilio.com/docs/iam/keys/api-key-resource#read-a-key-resource"
+              },
+              "response": {
+                "structure": "CountriesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the available phone number countries page"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Available Phone Number",
+          "packageName": "available_phone_number",
+          "documentation": {
+            "description": "Client for managing available phone numbers for a specific country",
+            "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource"
+          },
+          "function": {
+            "parameters": {
+              "countryCode": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "countryCode": {
+              "dataType": "string",
+              "functionParameter": "countryCode"
+            }
+          },
+          "subClients": [
+            {
+              "name": "Local",
+              "packageName": "local",
+              "documentation": {
+                "description": "Client for managing available local phone number resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "countryCode": {
+                  "dataType": "string",
+                  "parentProperty": "countryCode"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/AvailablePhoneNumbers/{countryCode}/Local.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "countryCode",
+                        "value": {
+                          "onService": true,
+                          "property": "countryCode",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "AreaCode",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Contains",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "SmsEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "MmsEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "VoiceEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeAllAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeLocalAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeForeignAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "Beta",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "NearNumber",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "NearLatLong",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Distance",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "InPostalCode",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InRegion",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InRateCenter",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InLata",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InLocality",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "FaxEnabled",
+                        "type": "bool",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of available local phone numbers",
+                    "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource#read-multiple-availablephonenumberlocal-resources"
+                  },
+                  "response": {
+                    "structure": "AvailablePhoneNumbersPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the available local phone numbers page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Toll Free",
+              "packageName": "toll_free",
+              "documentation": {
+                "description": "Client for managing available toll free phone number resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-tollfree-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "countryCode": {
+                  "dataType": "string",
+                  "parentProperty": "countryCode"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/AvailablePhoneNumbers/{countryCode}/TollFree.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "countryCode",
+                        "value": {
+                          "onService": true,
+                          "property": "countryCode",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "AreaCode",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Contains",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "SmsEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "MmsEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "VoiceEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeAllAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeLocalAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeForeignAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "Beta",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "NearNumber",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "NearLatLong",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Distance",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "InPostalCode",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InRegion",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InRateCenter",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InLata",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InLocality",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "FaxEnabled",
+                        "type": "bool",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of available toll free phone numbers",
+                    "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-tollfree-resource#read-multiple-availablephonenumbertollfree-resources"
+                  },
+                  "response": {
+                    "structure": "AvailablePhoneNumbersPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the available toll free phone numbers page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mobile",
+              "packageName": "mobile",
+              "documentation": {
+                "description": "Client for managing available mobile phone number resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-mobile-resource"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "countryCode": {
+                  "dataType": "string",
+                  "parentProperty": "countryCode"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/AvailablePhoneNumbers/{countryCode}/Mobile.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "countryCode",
+                        "value": {
+                          "onService": true,
+                          "property": "countryCode",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "AreaCode",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Contains",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "SmsEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "MmsEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "VoiceEnabled",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeAllAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeLocalAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "ExcludeForeignAddressRequired",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "Beta",
+                        "type": "bool",
+                        "required": false
+                      },
+                      {
+                        "name": "NearNumber",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "NearLatLong",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Distance",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "InPostalCode",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InRegion",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InRateCenter",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InLata",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "InLocality",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "FaxEnabled",
+                        "type": "bool",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of available mobile phone numbers",
+                    "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-mobile-resource#read-multiple-availablephonenumbermobile-resources"
+                  },
+                  "response": {
+                    "structure": "AvailablePhoneNumbersPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the available mobile phone numbers page"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/AvailablePhoneNumbers/{countryCode}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "countryCode",
+                    "value": {
+                      "onService": true,
+                      "property": "countryCode",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves the available phone number resource for a specific country",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#fetch-a-specific-country"
+              },
+              "response": {
+                "name": "FetchCountryResponse",
+                "structure": "CountryResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving available phone numbers for a specific country"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -6137,6 +6701,181 @@
           "type": "string",
           "value": "message_status_callback",
           "required": false
+        }
+      ]
+    },
+    "AvailablePhoneNumbersPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AvailablePhoneNumbers",
+          "type": "array",
+          "items": {
+            "structure": "AvailablePhoneNumberResponse"
+          },
+          "value": "available_phone_numbers",
+          "required": true
+        },
+        {
+          "name": "URI",
+          "type": "string",
+          "value": "uri",
+          "required": true
+        }
+      ]
+    },
+    "AvailablePhoneNumberResponseCapabilities": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Voice",
+          "type": "bool",
+          "value": "voice",
+          "required": true
+        },
+        {
+          "name": "Sms",
+          "type": "bool",
+          "value": "SMS",
+          "required": true
+        },
+        {
+          "name": "Mms",
+          "type": "bool",
+          "value": "MMS",
+          "required": true
+        },
+        {
+          "name": "Fax",
+          "type": "bool",
+          "value": "fax",
+          "required": true
+        }
+      ]
+    },
+    "AvailablePhoneNumberResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "phone_number",
+          "required": true
+        },
+        {
+          "name": "Lata",
+          "type": "string",
+          "value": "lata",
+          "required": false
+        },
+        {
+          "name": "RateCenter",
+          "type": "string",
+          "value": "rate_center",
+          "required": false
+        },
+        {
+          "name": "Latitude",
+          "type": "string",
+          "value": "latitude",
+          "required": true
+        },
+        {
+          "name": "Longitude",
+          "type": "string",
+          "value": "longitude",
+          "required": true
+        },
+        {
+          "name": "Locality",
+          "type": "string",
+          "value": "locality",
+          "required": false
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "value": "region",
+          "required": false
+        },
+        {
+          "name": "PostalCode",
+          "type": "string",
+          "value": "postal_code",
+          "required": false
+        },
+        {
+          "name": "IsoCountry",
+          "type": "string",
+          "value": "iso_country",
+          "required": true
+        },
+        {
+          "name": "AddressRequirements",
+          "type": "string",
+          "value": "address_requirements",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "type": "bool",
+          "value": "beta",
+          "required": true
+        },
+        {
+          "name": "Capabilities",
+          "structure": "AvailablePhoneNumberResponseCapabilities",
+          "value": "capabilities",
+          "required": true
+        }
+      ]
+    },
+    "CountriesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Countries",
+          "type": "array",
+          "items": {
+            "structure": "CountryResponse"
+          },
+          "value": "countries",
+          "required": true
+        },
+        {
+          "name": "URI",
+          "type": "string",
+          "value": "uri",
+          "required": true
+        }
+      ]
+    },
+    "CountryResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "CountryCode",
+          "type": "string",
+          "value": "country_code",
+          "required": true
+        },
+        {
+          "name": "Country",
+          "type": "string",
+          "value": "country",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "type": "bool",
+          "value": "beta",
+          "required": true
         }
       ]
     },

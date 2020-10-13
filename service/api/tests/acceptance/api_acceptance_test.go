@@ -16,6 +16,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/application"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/applications"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number/local"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number/mobile"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number/toll_free"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedback"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call/feedbacks"
@@ -449,6 +452,56 @@ var _ = Describe("API Acceptance Tests", func() {
 
 			deleteErr := applicationClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the available phone number countries clients", func() {
+		It("Then the countries are fetched", func() {
+			countriesClient := apiSession.Account(accountSid).AvailablePhoneNumbers
+
+			pageResp, pageErr := countriesClient.Page()
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Countries)).Should(BeNumerically(">=", 1))
+
+			countryClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB")
+
+			fetchResp, fetchErr := countryClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the available toll free phone numbers clients", func() {
+		It("Then the available phone numbers are fetched", func() {
+			availablePhoneNumbersClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB").TollFree
+
+			pageResp, pageErr := availablePhoneNumbersClient.Page(&toll_free.AvailablePhoneNumbersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.AvailablePhoneNumbers)).Should(BeNumerically(">=", 1))
+		})
+	})
+
+	Describe("Given the available local phone numbers clients", func() {
+		It("Then the available phone numbers are fetched", func() {
+			availablePhoneNumbersClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB").Local
+
+			pageResp, pageErr := availablePhoneNumbersClient.Page(&local.AvailablePhoneNumbersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.AvailablePhoneNumbers)).Should(BeNumerically(">=", 1))
+		})
+	})
+
+	Describe("Given the available mobile phone numbers clients", func() {
+		It("Then the available phone numbers are fetched", func() {
+			availablePhoneNumbersClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB").Mobile
+
+			pageResp, pageErr := availablePhoneNumbersClient.Page(&mobile.AvailablePhoneNumbersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.AvailablePhoneNumbers)).Should(BeNumerically(">=", 1))
 		})
 	})
 

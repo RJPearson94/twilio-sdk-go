@@ -7,6 +7,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/addresses"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/application"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/applications"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_number"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/available_phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/balance"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/call"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
@@ -30,24 +32,26 @@ type Client struct {
 
 	sid string
 
-	Address      func(string) *address.Client
-	Addresses    *addresses.Client
-	Application  func(string) *application.Client
-	Applications *applications.Client
-	Balance      func() *balance.Client
-	Call         func(string) *call.Client
-	Calls        *calls.Client
-	Conference   func(string) *conference.Client
-	Conferences  *conferences.Client
-	Key          func(string) *key.Client
-	Keys         *keys.Client
-	Message      func(string) *message.Client
-	Messages     *messages.Client
-	Queue        func(string) *queue.Client
-	Queues       *queues.Client
-	Recording    func(string) *recording.Client
-	Recordings   *recordings.Client
-	Tokens       *tokens.Client
+	Address               func(string) *address.Client
+	Addresses             *addresses.Client
+	Application           func(string) *application.Client
+	Applications          *applications.Client
+	AvailablePhoneNumber  func(string) *available_phone_number.Client
+	AvailablePhoneNumbers *available_phone_numbers.Client
+	Balance               func() *balance.Client
+	Call                  func(string) *call.Client
+	Calls                 *calls.Client
+	Conference            func(string) *conference.Client
+	Conferences           *conferences.Client
+	Key                   func(string) *key.Client
+	Keys                  *keys.Client
+	Message               func(string) *message.Client
+	Messages              *messages.Client
+	Queue                 func(string) *queue.Client
+	Queues                *queues.Client
+	Recording             func(string) *recording.Client
+	Recordings            *recordings.Client
+	Tokens                *tokens.Client
 }
 
 // ClientProperties are the properties required to manage the account resources
@@ -78,6 +82,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Applications: applications.New(client, applications.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		AvailablePhoneNumber: func(countryCode string) *available_phone_number.Client {
+			return available_phone_number.New(client, available_phone_number.ClientProperties{
+				AccountSid:  properties.Sid,
+				CountryCode: countryCode,
+			})
+		},
+		AvailablePhoneNumbers: available_phone_numbers.New(client, available_phone_numbers.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Balance: func() *balance.Client {
