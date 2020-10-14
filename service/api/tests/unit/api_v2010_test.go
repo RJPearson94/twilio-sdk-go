@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_number"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_numbers"
+
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -5750,6 +5753,465 @@ var _ = Describe("API V2010", func() {
 
 			It("Then the available mobile phone number countries page response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the incoming phone numbers client", func() {
+		incomingPhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumbers
+
+		Describe("When the incoming phone number is successfully created", func() {
+			createInput := &incoming_phone_numbers.CreateIncomingPhoneNumberInput{
+				PhoneNumber: utils.String("+441234567890"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/incomingPhoneNumberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := incomingPhoneNumbersClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create incoming phone number response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("441234567890")))
+				Expect(resp.PhoneNumber).To(Equal("+441234567890"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.SmsApplicationSid).To(BeNil())
+				Expect(resp.VoiceApplicationSid).To(BeNil())
+				Expect(resp.VoiceReceiveMode).To(Equal("voice"))
+				Expect(resp.AddressSid).To(BeNil())
+				Expect(resp.IdentitySid).To(BeNil())
+				Expect(resp.BundleSid).To(BeNil())
+				Expect(resp.TrunkSid).To(BeNil())
+				Expect(resp.EmergencyAddressSid).To(BeNil())
+				Expect(resp.EmergencyStatus).To(Equal("Inactive"))
+				Expect(resp.Origin).To(Equal("twilio"))
+				Expect(resp.Beta).To(Equal(false))
+				Expect(resp.Status).To(Equal("in-use"))
+				Expect(resp.Capabilities).To(Equal(incoming_phone_numbers.CreateIncomingPhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the create incoming phone number api returns a 500 response", func() {
+			createInput := &incoming_phone_numbers.CreateIncomingPhoneNumberInput{
+				PhoneNumber: utils.String("+441234567890"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := incomingPhoneNumbersClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create incoming phone number response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of incoming phone numbers are successfully retrieved", func() {
+			pageOptions := &incoming_phone_numbers.IncomingPhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/incomingPhoneNumbersPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := incomingPhoneNumbersClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the incoming phone numbers page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				phoneNumbers := resp.PhoneNumbers
+				Expect(phoneNumbers).ToNot(BeNil())
+				Expect(len(phoneNumbers)).To(Equal(1))
+
+				Expect(phoneNumbers[0].Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(phoneNumbers[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(phoneNumbers[0].FriendlyName).To(Equal(utils.String("441234567890")))
+				Expect(phoneNumbers[0].PhoneNumber).To(Equal("+441234567890"))
+				Expect(phoneNumbers[0].APIVersion).To(Equal("2010-04-01"))
+				Expect(phoneNumbers[0].SmsFallbackMethod).To(Equal("POST"))
+				Expect(phoneNumbers[0].SmsFallbackURL).To(BeNil())
+				Expect(phoneNumbers[0].SmsMethod).To(Equal("POST"))
+				Expect(phoneNumbers[0].SmsURL).To(BeNil())
+				Expect(phoneNumbers[0].SmsApplicationSid).To(BeNil())
+				Expect(phoneNumbers[0].VoiceApplicationSid).To(BeNil())
+				Expect(phoneNumbers[0].VoiceReceiveMode).To(Equal("voice"))
+				Expect(phoneNumbers[0].AddressSid).To(BeNil())
+				Expect(phoneNumbers[0].IdentitySid).To(BeNil())
+				Expect(phoneNumbers[0].BundleSid).To(BeNil())
+				Expect(phoneNumbers[0].TrunkSid).To(BeNil())
+				Expect(phoneNumbers[0].EmergencyAddressSid).To(BeNil())
+				Expect(phoneNumbers[0].EmergencyStatus).To(Equal("Inactive"))
+				Expect(phoneNumbers[0].Origin).To(Equal("twilio"))
+				Expect(phoneNumbers[0].Beta).To(Equal(false))
+				Expect(phoneNumbers[0].Status).To(Equal("in-use"))
+				Expect(phoneNumbers[0].Capabilities).To(Equal(incoming_phone_numbers.PageIncomingPhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+				Expect(phoneNumbers[0].StatusCallback).To(BeNil())
+				Expect(phoneNumbers[0].StatusCallbackMethod).To(Equal("POST"))
+				Expect(phoneNumbers[0].VoiceCallerIDLookup).To(Equal(false))
+				Expect(phoneNumbers[0].VoiceFallbackMethod).To(Equal("POST"))
+				Expect(phoneNumbers[0].VoiceFallbackURL).To(BeNil())
+				Expect(phoneNumbers[0].VoiceMethod).To(Equal("POST"))
+				Expect(phoneNumbers[0].VoiceURL).To(BeNil())
+				Expect(phoneNumbers[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(phoneNumbers[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of incoming phone numbers api returns a 500 response", func() {
+			pageOptions := &incoming_phone_numbers.IncomingPhoneNumbersPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := incomingPhoneNumbersClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the incoming phone numbers page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated incoming phone numbers are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/incomingPhoneNumbersPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/incomingPhoneNumbersPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := incomingPhoneNumbersClient.NewIncomingPhoneNumbersPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated incoming phone numbers current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated incoming phone numbers results should be returned", func() {
+				Expect(len(paginator.PhoneNumbers)).To(Equal(3))
+			})
+		})
+
+		Describe("When the incoming phone numbers api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/incomingPhoneNumbersPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := incomingPhoneNumbersClient.NewIncomingPhoneNumbersPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated incoming phone numbers current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a incoming phone number sid", func() {
+		incomingPhoneNumberClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the incoming phone number is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/incomingPhoneNumberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := incomingPhoneNumberClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get incoming phone number response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("441234567890")))
+				Expect(resp.PhoneNumber).To(Equal("+441234567890"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.SmsApplicationSid).To(BeNil())
+				Expect(resp.VoiceApplicationSid).To(BeNil())
+				Expect(resp.VoiceReceiveMode).To(Equal("voice"))
+				Expect(resp.AddressSid).To(BeNil())
+				Expect(resp.IdentitySid).To(BeNil())
+				Expect(resp.BundleSid).To(BeNil())
+				Expect(resp.TrunkSid).To(BeNil())
+				Expect(resp.EmergencyAddressSid).To(BeNil())
+				Expect(resp.EmergencyStatus).To(Equal("Inactive"))
+				Expect(resp.Origin).To(Equal("twilio"))
+				Expect(resp.Beta).To(Equal(false))
+				Expect(resp.Status).To(Equal("in-use"))
+				Expect(resp.Capabilities).To(Equal(incoming_phone_number.FetchIncomingPhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the incoming phone number api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PN71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get incoming phone number response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the incoming phone number is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateIncomingPhoneNumberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &incoming_phone_number.UpdateIncomingPhoneNumberInput{
+				AddressSid: utils.String("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+			}
+
+			resp, err := incomingPhoneNumberClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update incoming phone number response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("441234567890")))
+				Expect(resp.PhoneNumber).To(Equal("+441234567890"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.SmsApplicationSid).To(BeNil())
+				Expect(resp.VoiceApplicationSid).To(BeNil())
+				Expect(resp.VoiceReceiveMode).To(Equal("voice"))
+				Expect(resp.AddressSid).To(Equal(utils.String("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.IdentitySid).To(BeNil())
+				Expect(resp.BundleSid).To(BeNil())
+				Expect(resp.TrunkSid).To(BeNil())
+				Expect(resp.EmergencyAddressSid).To(BeNil())
+				Expect(resp.EmergencyStatus).To(Equal("Inactive"))
+				Expect(resp.Origin).To(Equal("twilio"))
+				Expect(resp.Beta).To(Equal(false))
+				Expect(resp.Status).To(Equal("in-use"))
+				Expect(resp.Capabilities).To(Equal(incoming_phone_number.UpdateIncomingPhoneNumberResponseCapabilities{
+					Fax:   true,
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the incoming phone number api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PN71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &incoming_phone_number.UpdateIncomingPhoneNumberInput{
+				AddressSid: utils.String("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+			}
+
+			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update incoming phone number response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the incoming phone number is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := incomingPhoneNumberClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the incoming phone number api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PN71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
 			})
 		})
 	})

@@ -14,6 +14,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/calls"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conferences"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_number"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
@@ -43,6 +45,8 @@ type Client struct {
 	Calls                 *calls.Client
 	Conference            func(string) *conference.Client
 	Conferences           *conferences.Client
+	IncomingPhoneNumber   func(string) *incoming_phone_number.Client
+	IncomingPhoneNumbers  *incoming_phone_numbers.Client
 	Key                   func(string) *key.Client
 	Keys                  *keys.Client
 	Message               func(string) *message.Client
@@ -114,6 +118,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Conferences: conferences.New(client, conferences.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		IncomingPhoneNumber: func(phoneNumberSid string) *incoming_phone_number.Client {
+			return incoming_phone_number.New(client, incoming_phone_number.ClientProperties{
+				AccountSid: properties.Sid,
+				Sid:        phoneNumberSid,
+			})
+		},
+		IncomingPhoneNumbers: incoming_phone_numbers.New(client, incoming_phone_numbers.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Key: func(keySid string) *key.Client {

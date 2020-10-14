@@ -4241,6 +4241,268 @@
               }
             }
           ]
+        },
+        {
+          "name": "Incoming Phone Numbers",
+          "packageName": "incoming_phone_numbers",
+          "documentation": {
+            "description": "Client for managing phone number resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Accounts/{accountSid}/IncomingPhoneNumbers.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new phone number resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource#create-an-incomingphonenumber-resource"
+              },
+              "input": {
+                "structure": "CreateIncomingPhoneNumberInput",
+                "documentation": {
+                  "description": "defines input fields for creating a new phone number"
+                }
+              },
+              "response": {
+                "name": "CreateIncomingPhoneNumberResponse",
+                "structure": "IncomingPhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for creating a new phone number"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Accounts/{accountSid}/IncomingPhoneNumbers.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "FriendlyName",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Beta",
+                    "type": "bool",
+                    "required": false
+                  },
+                  {
+                    "name": "PhoneNumber",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Origin",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of phone numbers",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource#read-multiple-incomingphonenumber-resources"
+              },
+              "response": {
+                "structure": "IncomingPhoneNumbersPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the phone numbers page"
+                }
+              },
+              "pagination": {
+                "name": "IncomingPhoneNumbersPaginator",
+                "page": {
+                  "name": "IncomingPhoneNumbersPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": false,
+                    "property": "NextPageURI"
+                  },
+                  "items": "PhoneNumbers",
+                  "structure": "PageIncomingPhoneNumberResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Incoming Phone Number",
+          "packageName": "incoming_phone_number",
+          "documentation": {
+            "description": "Client for managing a specific phone number resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource"
+          },
+          "function": {
+            "parameters": {
+              "phoneNumberSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "phoneNumberSid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Accounts/{accountSid}/IncomingPhoneNumbers/{sid}.json",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a phone number resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource#fetch-an-incomingphonenumber-resource"
+              },
+              "response": {
+                "name": "FetchIncomingPhoneNumberResponse",
+                "structure": "IncomingPhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for retrieving a phone number"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Accounts/{accountSid}/IncomingPhoneNumbers/{sid}.json",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a phone number resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource#update-an-incomingphonenumber-resource"
+              },
+              "input": {
+                "name": "UpdateIncomingPhoneNumberInput",
+                "structure": "IncomingPhoneNumberInput",
+                "documentation": {
+                  "description": "defines input fields for updating a phone number"
+                }
+              },
+              "response": {
+                "name": "UpdateIncomingPhoneNumberResponse",
+                "structure": "IncomingPhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated phone number"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Accounts/{accountSid}/IncomingPhoneNumbers/{sid}.json",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "accountSid",
+                    "value": {
+                      "onService": true,
+                      "property": "accountSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "property": "sid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a phone number from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource#delete-an-incomingphonenumber-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -6875,6 +7137,385 @@
           "name": "Beta",
           "type": "bool",
           "value": "beta",
+          "required": true
+        }
+      ]
+    },
+    "CreateIncomingPhoneNumberInput": {
+      "type": "URLEncoded",
+      "extends": "IncomingPhoneNumberInput",
+      "properties": [
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "PhoneNumber",
+          "required": false
+        },
+        {
+          "name": "AreaCode",
+          "type": "string",
+          "value": "AreaCode",
+          "required": false
+        }
+      ]
+    },
+    "IncomingPhoneNumberInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "ApiVersion",
+          "required": false
+        },
+        {
+          "name": "VoiceURL",
+          "type": "string",
+          "value": "VoiceUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceMethod",
+          "type": "string",
+          "value": "VoiceMethod",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackURL",
+          "type": "string",
+          "value": "VoiceFallbackUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackMethod",
+          "type": "string",
+          "value": "VoiceFallbackMethod",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "VoiceCallerIDLookup",
+          "type": "bool",
+          "value": "VoiceCallerIdLookup",
+          "required": false
+        },
+        {
+          "name": "SmsURL",
+          "type": "string",
+          "value": "SmsUrl",
+          "required": false
+        },
+        {
+          "name": "SmsMethod",
+          "type": "string",
+          "value": "SmsMethod",
+          "required": false
+        },
+        {
+          "name": "SmsFallbackURL",
+          "type": "string",
+          "value": "SmsFallbackUrl",
+          "required": false
+        },
+        {
+          "name": "SmsFallbackMethod",
+          "type": "string",
+          "value": "SmsFallbackMethod",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "SmsApplicationSid",
+          "type": "string",
+          "value": "SmsApplicationSid",
+          "required": false
+        },
+        {
+          "name": "VoiceApplicationSid",
+          "type": "string",
+          "value": "VoiceApplicationSid",
+          "required": false
+        },
+        {
+          "name": "EmergencyStatus",
+          "type": "string",
+          "value": "EmergencyStatus",
+          "required": false
+        },
+        {
+          "name": "EmergencyAddressSid",
+          "type": "string",
+          "value": "EmergencyAddressSid",
+          "required": false
+        },
+        {
+          "name": "TrunkSid",
+          "type": "string",
+          "value": "TrunkSid",
+          "required": false
+        },
+        {
+          "name": "IdentitySid",
+          "type": "string",
+          "value": "IdentitySid",
+          "required": false
+        },
+        {
+          "name": "AddressSid",
+          "type": "string",
+          "value": "AddressSid",
+          "required": false
+        },
+        {
+          "name": "VoiceReceiveMode",
+          "type": "string",
+          "value": "VoiceReceiveMode",
+          "required": false
+        },
+        {
+          "name": "BundleSid",
+          "type": "string",
+          "value": "BundleSid",
+          "required": false
+        }
+      ]
+    },
+    "IncomingPhoneNumbersPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "PhoneNumbers",
+          "type": "array",
+          "items": {
+            "structure": "IncomingPhoneNumberResponse"
+          },
+          "value": "incoming_phone_numbers",
+          "required": true
+        }
+      ]
+    },
+    "IncomingPhoneNumberResponseCapabilities": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Voice",
+          "type": "bool",
+          "value": "voice",
+          "required": true
+        },
+        {
+          "name": "Sms",
+          "type": "bool",
+          "value": "SMS",
+          "required": true
+        },
+        {
+          "name": "Mms",
+          "type": "bool",
+          "value": "MMS",
+          "required": true
+        },
+        {
+          "name": "Fax",
+          "type": "bool",
+          "value": "fax",
+          "required": true
+        }
+      ]
+    },
+    "IncomingPhoneNumberResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "APIVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "SmsURL",
+          "type": "string",
+          "value": "sms_url",
+          "required": false
+        },
+        {
+          "name": "SmsMethod",
+          "type": "string",
+          "value": "sms_method",
+          "required": true
+        },
+        {
+          "name": "SmsFallbackURL",
+          "type": "string",
+          "value": "sms_fallback_url",
+          "required": false
+        },
+        {
+          "name": "SmsFallbackMethod",
+          "type": "string",
+          "value": "sms_fallback_method",
+          "required": true
+        },
+        {
+          "name": "VoiceURL",
+          "type": "string",
+          "value": "voice_url",
+          "required": false
+        },
+        {
+          "name": "VoiceMethod",
+          "type": "string",
+          "value": "voice_method",
+          "required": true
+        },
+        {
+          "name": "VoiceFallbackURL",
+          "type": "string",
+          "value": "voice_fallback_url",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackMethod",
+          "type": "string",
+          "value": "voice_fallback_method",
+          "required": true
+        },
+        {
+          "name": "VoiceCallerIDLookup",
+          "type": "bool",
+          "value": "voice_caller_id_lookup",
+          "required": true
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "status_callback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "status_callback_method",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "BundleSid",
+          "type": "string",
+          "value": "bundle_sid",
+          "required": false
+        },
+        {
+          "name": "IdentitySid",
+          "type": "string",
+          "value": "identity_sid",
+          "required": false
+        },
+        {
+          "name": "AddressSid",
+          "type": "string",
+          "value": "address_sid",
+          "required": false
+        },
+        {
+          "name": "EmergencyAddressSid",
+          "type": "string",
+          "value": "emergency_address_sid",
+          "required": false
+        },
+        {
+          "name": "EmergencyStatus",
+          "type": "string",
+          "value": "emergency_status",
+          "required": true
+        },
+        {
+          "name": "TrunkSid",
+          "type": "string",
+          "value": "trunk_sid",
+          "required": false
+        },
+        {
+          "name": "Origin",
+          "type": "string",
+          "value": "origin",
+          "required": true
+        },
+        {
+          "name": "SmsApplicationSid",
+          "type": "string",
+          "value": "sms_application_sid",
+          "required": false
+        },
+        {
+          "name": "VoiceApplicationSid",
+          "type": "string",
+          "value": "voice_application_sid",
+          "required": false
+        },
+        {
+          "name": "VoiceReceiveMode",
+          "type": "string",
+          "value": "voice_receive_mode",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "type": "bool",
+          "value": "beta",
+          "required": true
+        },
+        {
+          "name": "AddressRequirements",
+          "type": "string",
+          "value": "address_requirements",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "type": "string",
+          "value": "phone_number",
+          "required": true
+        },
+        {
+          "name": "Capabilities",
+          "structure": "IncomingPhoneNumberResponseCapabilities",
+          "value": "capabilities",
           "required": true
         }
       ]

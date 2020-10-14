@@ -4,6 +4,7 @@ FEATURES
 
 ### API
 
+- **New Resource:** Incoming Phone Number
 - **New Resource:** Available Phone Number
 - **New Resource:** Available Phone Number - Toll Free
 - **New Resource:** Available Phone Number - Mobile
