@@ -1,4 +1,4 @@
-## v0.5.0 (unreleased)
+## v0.5.0 (2020-10-16)
 
 FEATURES
 
