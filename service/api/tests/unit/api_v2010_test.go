@@ -7,9 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_number"
-	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_numbers"
-
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -34,6 +31,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/participants"
 	conferenceRecordings "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conference/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/conferences"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_number"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/incoming_phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/key"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/keys"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/message"
