@@ -489,7 +489,7 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			createResp, createErr := rolesClient.Create(&roles.CreateRoleInput{
 				FriendlyName: uuid.New().String(),
 				Type:         "channel",
-				Permission:   []string{"sendMessage"},
+				Permissions:  []string{"sendMessage"},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
@@ -514,7 +514,7 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			Expect(fetchResp).ToNot(BeNil())
 
 			updateResp, updateErr := roleClient.Update(&role.UpdateRoleInput{
-				Permission: []string{"sendMessage", "leaveChannel"},
+				Permissions: []string{"sendMessage", "leaveChannel"},
 			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())

@@ -3879,7 +3879,7 @@
           "required": true
         },
         {
-          "name": "Permission",
+          "name": "Permissions",
           "type": "array",
           "items": {
             "type": "string"
@@ -3893,7 +3893,7 @@
       "type": "URLEncoded",
       "properties": [
         {
-          "name": "Permission",
+          "name": "Permissions",
           "type": "array",
           "items": {
             "type": "string"

@@ -11,7 +11,7 @@ import (
 
 // UpdateRoleInput defines input fields for updating a role resource
 type UpdateRoleInput struct {
-	Permission []string `validate:"required" form:"Permission"`
+	Permissions []string `validate:"required" form:"Permission"`
 }
 
 // UpdateRoleResponse defines the response fields for the updated role

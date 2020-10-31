@@ -1498,7 +1498,7 @@ var _ = Describe("Chat V2", func() {
 			createInput := &roles.CreateRoleInput{
 				FriendlyName: "Test",
 				Type:         "channel",
-				Permission:   []string{"sendMessage"},
+				Permissions:  []string{"sendMessage"},
 			}
 
 			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles",
@@ -1531,8 +1531,8 @@ var _ = Describe("Chat V2", func() {
 
 		Describe("When the role does not contain a friendly name", func() {
 			createInput := &roles.CreateRoleInput{
-				Type:       "channel",
-				Permission: []string{"sendMessage"},
+				Type:        "channel",
+				Permissions: []string{"sendMessage"},
 			}
 
 			resp, err := rolesClient.Create(createInput)
@@ -1548,7 +1548,7 @@ var _ = Describe("Chat V2", func() {
 		Describe("When the role does not contain a type", func() {
 			createInput := &roles.CreateRoleInput{
 				FriendlyName: "Test",
-				Permission:   []string{"sendMessage"},
+				Permissions:  []string{"sendMessage"},
 			}
 
 			resp, err := rolesClient.Create(createInput)
@@ -1581,7 +1581,7 @@ var _ = Describe("Chat V2", func() {
 			createInput := &roles.CreateRoleInput{
 				FriendlyName: "Test",
 				Type:         "channel",
-				Permission:   []string{"sendMessage"},
+				Permissions:  []string{"sendMessage"},
 			}
 
 			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles",
@@ -1823,7 +1823,7 @@ var _ = Describe("Chat V2", func() {
 			)
 
 			updateInput := &role.UpdateRoleInput{
-				Permission: []string{"sendMessage", "leaveChannel"},
+				Permissions: []string{"sendMessage", "leaveChannel"},
 			}
 
 			resp, err := roleClient.Update(updateInput)
@@ -1856,7 +1856,7 @@ var _ = Describe("Chat V2", func() {
 			)
 
 			updateInput := &role.UpdateRoleInput{
-				Permission: []string{"sendMessage", "leaveChannel"},
+				Permissions: []string{"sendMessage", "leaveChannel"},
 			}
 
 			resp, err := chatSession.Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Role("RL71").Update(updateInput)

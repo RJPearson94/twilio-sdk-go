@@ -1,3 +1,11 @@
+## v0.6.0 (unreleased)
+
+FIXES
+
+### Chat
+
+- **Fix:** Update Chat Role Permissions field from `Permission` to `Permissions`. **Breaking Change**
+
 ## v0.5.0 (2020-10-16)
 
 FEATURES

@@ -12,7 +12,7 @@ import (
 // CreateRoleInput defines the input fields for creating a new role resource
 type CreateRoleInput struct {
 	FriendlyName string   `validate:"required" form:"FriendlyName"`
-	Permission   []string `validate:"required" form:"Permission"`
+	Permissions  []string `validate:"required" form:"Permission"`
 	Type         string   `validate:"required" form:"Type"`
 }
 

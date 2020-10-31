@@ -28,7 +28,11 @@ func main() {
 	resp, err := chatSession.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Roles.
-		Create(&roles.CreateRoleInput{})
+		Create(&roles.CreateRoleInput{
+			FriendlyName: "Test Role",
+			Type:         "channel",
+			Permissions:  []string{"sendMessage"},
+		})
 
 	if err != nil {
 		log.Panicf("%s", err.Error())

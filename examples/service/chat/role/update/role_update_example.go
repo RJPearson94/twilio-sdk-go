@@ -29,7 +29,7 @@ func main() {
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Role("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&role.UpdateRoleInput{
-			Permission: []string{"sendMessage", "leaveChannel"},
+			Permissions: []string{"sendMessage", "leaveChannel"},
 		})
 
 	if err != nil {
