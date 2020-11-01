@@ -15,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/twiml"
@@ -37,6 +38,7 @@ type Twilio struct {
 	Sync          *sync.Sync
 	TaskRouter    *taskrouter.TaskRouter
 	TwiML         *twiml.TwiML
+	Verify        *verify.Verify
 }
 
 // New create a new instance of the client using session data
@@ -57,6 +59,7 @@ func New(sess *session.Session) *Twilio {
 		Sync:          sync.New(sess),
 		TaskRouter:    taskrouter.New(sess),
 		TwiML:         twiml.New(),
+		Verify:        verify.New(sess),
 	}
 }
 

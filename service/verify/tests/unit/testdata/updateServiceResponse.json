@@ -1,0 +1,31 @@
+{
+  "tts_name": null,
+  "psd2_enabled": false,
+  "do_not_share_warning_enabled": false,
+  "mailer_sid": null,
+  "friendly_name": "Test Service",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_updated": "2020-06-20T20:55:24Z",
+  "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "code_length": 6,
+  "custom_code_enabled": false,
+  "sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "push": {
+    "apn_credential_sid": null,
+    "include_date": true,
+    "fcm_credential_sid": null
+  },
+  "date_created": "2020-06-20T20:50:24Z",
+  "dtmf_input_required": true,
+  "skip_sms_to_landlines": true,
+  "lookup_enabled": true,
+  "links": {
+    "verification_checks": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck",
+    "rate_limits": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits",
+    "entities": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities",
+    "access_tokens": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AccessTokens",
+    "verifications": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications",
+    "webhooks": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
+    "messaging_configurations": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations"
+  }
+}

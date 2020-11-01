@@ -13,6 +13,10 @@ FEATURES
 - **New Resource:** Configuration
 - **New Resource:** Configuration Webhook
 
+### Verify
+
+- **New Resource:** Service
+
 ## v0.5.0 (2020-10-16)
 
 FEATURES
