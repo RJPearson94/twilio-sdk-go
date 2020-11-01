@@ -17,6 +17,9 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification_check"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verifications"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -1176,6 +1179,365 @@ var _ = Describe("Verify V2", func() {
 			err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Bucket("BL71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a verifications client", func() {
+		verificationsClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Verifications
+
+		Describe("When the verification resource is successfully created", func() {
+			createInput := &verifications.CreateVerificationInput{
+				To:      "+123456789",
+				Channel: "sms",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/verificationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := verificationsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create verification response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.To).To(Equal("+123456789"))
+				Expect(resp.Valid).To(Equal(false))
+
+				sendAttemptTime, _ := time.Parse(time.RFC3339, "2020-06-20T20:51:24Z")
+				Expect(resp.SendCodeAttempts).To(Equal([]verifications.CreateVerificationSendCodeAttemptResponse{
+					{
+						Channel:   "sms",
+						Time:      sendAttemptTime,
+						ChannelId: nil,
+					},
+				}))
+				Expect(resp.Lookup).To(Equal(verifications.CreateVerificationLookupResponse{
+					Carrier: &verifications.CreateVerificationCarrierLookupResponse{
+						MobileCountryCode: nil,
+						Type:              nil,
+						ErrorCode:         nil,
+						MobileNetworkCode: nil,
+						Name:              nil,
+					},
+				}))
+				Expect(resp.Channel).To(Equal("sms"))
+				Expect(resp.Status).To(Equal("pending"))
+				Expect(resp.Payee).To(BeNil())
+				Expect(resp.Amount).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the verification request does not contain a to", func() {
+			createInput := &verifications.CreateVerificationInput{
+				Channel: "sms",
+			}
+
+			resp, err := verificationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create bucket response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the verification request does not contain an channel", func() {
+			createInput := &verifications.CreateVerificationInput{
+				To: "+123456789",
+			}
+
+			resp, err := verificationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create verification response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create verification api returns a 500 response", func() {
+			createInput := &verifications.CreateVerificationInput{
+				To:      "+123456789",
+				Channel: "sms",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := verificationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create verification response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a verification sid", func() {
+		verificationClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Verification("VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the verification resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/verificationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := verificationClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get verification resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.To).To(Equal("+123456789"))
+				Expect(resp.Valid).To(Equal(false))
+
+				sendAttemptTime, _ := time.Parse(time.RFC3339, "2020-06-20T20:51:24Z")
+				Expect(resp.SendCodeAttempts).To(Equal([]verification.FetchVerificationSendCodeAttemptResponse{
+					{
+						Channel:   "sms",
+						Time:      sendAttemptTime,
+						ChannelId: nil,
+					},
+				}))
+				Expect(resp.Lookup).To(Equal(verification.FetchVerificationLookupResponse{
+					Carrier: &verification.FetchVerificationCarrierLookupResponse{
+						MobileCountryCode: nil,
+						Type:              nil,
+						ErrorCode:         nil,
+						MobileNetworkCode: nil,
+						Name:              nil,
+					},
+				}))
+				Expect(resp.Channel).To(Equal("sms"))
+				Expect(resp.Status).To(Equal("pending"))
+				Expect(resp.Payee).To(BeNil())
+				Expect(resp.Amount).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the verification resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VE71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Verification("VE71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get verification response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the verification resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateVerificationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &verification.UpdateVerificationInput{
+				Status: "canceled",
+			}
+
+			resp, err := verificationClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update verification response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.To).To(Equal("+123456789"))
+				Expect(resp.Valid).To(Equal(false))
+
+				sendAttemptTime, _ := time.Parse(time.RFC3339, "2020-06-20T20:51:24Z")
+				Expect(resp.SendCodeAttempts).To(Equal([]verification.UpdateVerificationSendCodeAttemptResponse{
+					{
+						Channel:   "sms",
+						Time:      sendAttemptTime,
+						ChannelId: nil,
+					},
+				}))
+				Expect(resp.Lookup).To(Equal(verification.UpdateVerificationLookupResponse{
+					Carrier: &verification.UpdateVerificationCarrierLookupResponse{
+						MobileCountryCode: nil,
+						Type:              nil,
+						ErrorCode:         nil,
+						MobileNetworkCode: nil,
+						Name:              nil,
+					},
+				}))
+				Expect(resp.Channel).To(Equal("sms"))
+				Expect(resp.Status).To(Equal("canceled"))
+				Expect(resp.Payee).To(BeNil())
+				Expect(resp.Amount).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update verification request does not contain a status", func() {
+			updateInput := &verification.UpdateVerificationInput{}
+
+			resp, err := verificationClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update verification response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the update verification resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VE71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &verification.UpdateVerificationInput{
+				Status: "canceled",
+			}
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Verification("VE71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update verification response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a verification check client", func() {
+		verificationCheckClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").VerificationCheck
+
+		Describe("When the verification check resource is successfully created", func() {
+			createInput := &verification_check.CreateVerificationCheckInput{
+				To:   utils.String("+123456789"),
+				Code: "9876",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/verificationCheckResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := verificationCheckClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create verification check response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Status).To(Equal("approved"))
+				Expect(resp.To).To(Equal("+123456789"))
+				Expect(resp.Channel).To(Equal("sms"))
+				Expect(resp.Valid).To(Equal(true))
+				Expect(resp.Payee).To(BeNil())
+				Expect(resp.Amount).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the verification check request does not contain a code", func() {
+			createInput := &verification_check.CreateVerificationCheckInput{
+				To: utils.String("+123456789"),
+			}
+
+			resp, err := verificationCheckClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create verification check response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create verification check api returns a 500 response", func() {
+			createInput := &verification_check.CreateVerificationCheckInput{
+				To:   utils.String("+123456789"),
+				Code: "9876",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := verificationCheckClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create verification check response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

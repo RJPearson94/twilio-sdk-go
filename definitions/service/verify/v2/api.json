@@ -634,6 +634,213 @@
               }
             }
           ]
+        },
+        {
+          "name": "Verifications",
+          "packageName": "verifications",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing verification resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Verifications",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+
+              "documentation": {
+                "description": "creates/ starts a new verification",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification#start-new-verification"
+              },
+              "input": {
+                "structure": "CreateVerificationInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new verification"
+                }
+              },
+              "response": {
+                "name": "CreateVerificationResponse",
+                "structure": "VerificationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created verification"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verification",
+          "packageName": "verification",
+          "function": {
+            "parameters": {
+              "verificationSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "verificationSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific verification resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Verifications/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a verification resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification#fetch-a-verification"
+              },
+              "response": {
+                "name": "FetchVerificationResponse",
+                "structure": "VerificationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved verification"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Verifications/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a verification resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification#update-a-verification-status"
+              },
+              "input": {
+                "structure": "UpdateVerificationInput",
+                "documentation": {
+                  "description": "defines input fields for updating a verification resource"
+                }
+              },
+              "response": {
+                "name": "UpdateVerificationResponse",
+                "structure": "VerificationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated verification"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verification Check",
+          "packageName": "verification_check",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing verification check resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification-check"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/VerificationCheck",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+
+              "documentation": {
+                "description": "creates/ performs a verification check",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/verification-check#check-a-verification"
+              },
+              "input": {
+                "structure": "CreateVerificationCheckInput",
+                "documentation": {
+                  "description": "defines the input fields for performing a new verification check"
+                }
+              },
+              "response": {
+                "name": "CreateVerificationCheckResponse",
+                "structure": "VerificationCheckResponse",
+                "documentation": {
+                  "description": "defines the response fields for the performed verification check"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1086,6 +1293,326 @@
           "name": "Interval",
           "type": "int",
           "value": "interval",
+          "required": true
+        }
+      ]
+    },
+    "CreateVerificationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "To",
+          "type": "string",
+          "value": "To",
+          "required": true
+        },
+        {
+          "name": "Channel",
+          "type": "string",
+          "value": "Channel",
+          "required": true
+        },
+        {
+          "name": "CustomFriendlyName",
+          "type": "string",
+          "value": "CustomFriendlyName",
+          "required": false
+        },
+        {
+          "name": "SendDigits",
+          "type": "string",
+          "value": "SendDigits",
+          "required": false
+        },
+        {
+          "name": "Locale",
+          "type": "string",
+          "value": "Locale",
+          "required": false
+        },
+        {
+          "name": "CustomCode",
+          "type": "string",
+          "value": "CustomCode",
+          "required": false
+        },
+        {
+          "name": "Amount",
+          "type": "string",
+          "value": "Amount",
+          "required": false
+        },
+        {
+          "name": "Payee",
+          "type": "string",
+          "value": "Payee",
+          "required": false
+        },
+        {
+          "name": "RateLimits",
+          "type": "string",
+          "value": "RateLimits",
+          "required": false
+        },
+        {
+          "name": "ChannelConfiguration",
+          "type": "string",
+          "value": "ChannelConfiguration",
+          "required": false
+        },
+        {
+          "name": "AppHash",
+          "type": "string",
+          "value": "AppHash",
+          "required": false
+        }
+      ]
+    },
+    "UpdateVerificationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": true
+        }
+      ]
+    },
+    "VerificationCarrierLookupResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "MobileCountryCode",
+          "type": "string",
+          "value": "mobile_country_code",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": false
+        },
+        {
+          "name": "ErrorCode",
+          "type": "string",
+          "value": "error_code",
+          "required": false
+        },
+        {
+          "name": "MobileNetworkCode",
+          "type": "string",
+          "value": "mobile_network_code",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": false
+        }
+      ]
+    },
+    "VerificationLookupResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Carrier",
+          "structure": "VerificationCarrierLookupResponse",
+          "value": "carrier",
+          "required": false
+        }
+      ]
+    },
+    "VerificationSendCodeAttemptResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Channel",
+          "type": "string",
+          "value": "channel",
+          "required": true
+        },
+        {
+          "name": "Time",
+          "type": "time.Time",
+          "value": "time",
+          "required": true
+        },
+        {
+          "name": "ChannelId",
+          "type": "string",
+          "value": "channel_id",
+          "required": false
+        }
+      ]
+    },
+    "VerificationResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "To",
+          "type": "string",
+          "value": "to",
+          "required": true
+        },
+        {
+          "name": "Channel",
+          "type": "string",
+          "value": "channel",
+          "required": true
+        },
+        {
+          "name": "Valid",
+          "type": "bool",
+          "value": "valid",
+          "required": true
+        },
+        {
+          "name": "Amount",
+          "type": "string",
+          "value": "amount",
+          "required": false
+        },
+        {
+          "name": "Payee",
+          "type": "string",
+          "value": "payee",
+          "required": false
+        },
+        {
+          "name": "Lookup",
+          "structure": "VerificationLookupResponse",
+          "value": "lookup",
+          "required": true
+        },
+        {
+          "name": "SendCodeAttempts",
+          "type": "array",
+          "items": {
+            "structure": "VerificationSendCodeAttemptResponse"
+          },
+          "value": "send_code_attempts",
+          "required": true
+        }
+      ]
+    },
+    "CreateVerificationCheckInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Code",
+          "type": "string",
+          "value": "Code",
+          "required": true
+        },
+        {
+          "name": "To",
+          "type": "string",
+          "value": "To",
+          "required": false
+        },
+        {
+          "name": "VerificationSid",
+          "type": "string",
+          "value": "VerificationSid",
+          "required": false
+        },
+        {
+          "name": "Amount",
+          "type": "string",
+          "value": "Amount",
+          "required": false
+        },
+        {
+          "name": "Payee",
+          "type": "string",
+          "value": "Payee",
+          "required": false
+        }
+      ]
+    },
+    "VerificationCheckResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "Payee",
+          "type": "string",
+          "value": "payee",
+          "required": false
+        },
+        {
+          "name": "To",
+          "type": "string",
+          "value": "to",
+          "required": true
+        },
+        {
+          "name": "Amount",
+          "type": "string",
+          "value": "amount",
+          "required": false
+        },
+        {
+          "name": "Channel",
+          "type": "string",
+          "value": "channel",
+          "required": true
+        },
+        {
+          "name": "Valid",
+          "type": "bool",
+          "value": "valid",
           "required": true
         }
       ]

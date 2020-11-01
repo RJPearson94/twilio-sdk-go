@@ -1,0 +1,13 @@
+{
+  "status": "approved",
+  "payee": null,
+  "date_updated": null,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "to": "+123456789",
+  "amount": null,
+  "valid": true,
+  "sid": "VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "channel": "sms"
+}

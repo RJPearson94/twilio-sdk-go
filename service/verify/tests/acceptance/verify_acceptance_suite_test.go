@@ -15,6 +15,7 @@ import (
 
 // 1) Twilio Account SID set as an environment variable - TWILIO_ACCOUNT_SID
 // 2) Twilio Auth Token set as an environment variable - TWILIO_AUTH_TOKEN
+// 3) Phone Number to verification codes to, set as an environment variable - DESTINATION_PHONE_NUMBER
 
 func TestAcceptance(t *testing.T) {
 	RegisterFailHandler(Fail)
@@ -25,6 +26,7 @@ var _ = BeforeSuite(func() {
 	variables := []string{
 		"TWILIO_ACCOUNT_SID",
 		"TWILIO_AUTH_TOKEN",
+		"DESTINATION_PHONE_NUMBER",
 	}
 
 	for _, variable := range variables {

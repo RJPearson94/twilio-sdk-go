@@ -1,0 +1,29 @@
+{
+  "status": "canceled",
+  "payee": null,
+  "date_updated": "2020-06-20T20:55:24Z",
+  "send_code_attempts": [
+    {
+      "channel": "sms",
+      "time": "2020-06-20T20:51:24Z"
+    }
+  ],
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "to": "+123456789",
+  "amount": null,
+  "valid": false,
+  "lookup": {
+    "carrier": {
+      "mobile_country_code": null,
+      "type": null,
+      "error_code": null,
+      "mobile_network_code": null,
+      "name": null
+    }
+  },
+  "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "channel": "sms"
+}

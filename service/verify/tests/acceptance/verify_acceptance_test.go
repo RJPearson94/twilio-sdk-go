@@ -14,6 +14,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verifications"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
@@ -194,4 +196,51 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			Expect(deleteErr).To(BeNil())
 		})
 	})
+
+	Describe("Given the verify verification clients", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := verifySession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: "Test Service",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := verifySession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the verification is created, fetched and updated", func() {
+			verificationsClient := verifySession.Service(serviceSid).Verifications
+
+			createResp, createErr := verificationsClient.Create(&verifications.CreateVerificationInput{
+				To:      os.Getenv("DESTINATION_PHONE_NUMBER"),
+				Channel: "sms",
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			verificationClient := verifySession.Service(serviceSid).Verification(createResp.Sid)
+
+			fetchResp, fetchErr := verificationClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := verificationClient.Update(&verification.UpdateVerificationInput{
+				Status: "canceled",
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	// TODO Add Verification Check tests
 })
