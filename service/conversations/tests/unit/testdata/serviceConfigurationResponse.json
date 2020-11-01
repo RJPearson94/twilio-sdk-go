@@ -1,0 +1,10 @@
+{
+  "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration",
+  "default_conversation_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+  "default_conversation_creator_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+  "default_chat_service_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "links": {
+    "notifications": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration/Notifications"
+  }
+}

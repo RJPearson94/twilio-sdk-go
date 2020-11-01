@@ -1,10 +1,12 @@
 {
-  "url": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration",
-  "default_conversation_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
-  "default_conversation_creator_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
-  "default_chat_service_role_sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://conversations.twilio.com/v1/Configuration",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "default_closed_timer": "PT15M",
+  "default_chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "default_inactive_timer": "PT10M",
+  "default_messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "links": {
-    "notifications": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration/Notifications"
+    "webhooks": "https://conversations.twilio.com/v1/Configuration/Webhooks",
+    "service": "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration"
   }
 }

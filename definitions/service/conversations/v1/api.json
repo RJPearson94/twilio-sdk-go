@@ -1654,7 +1654,7 @@
               },
               "response": {
                 "name": "FetchConfigurationResponse",
-                "structure": "ConfigurationResponse",
+                "structure": "ServiceConfigurationResponse",
                 "documentation": {
                   "description": "defines the response fields for the retrieved service configuration"
                 }
@@ -1681,14 +1681,15 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/service-configuration-resource#update-a-serviceconfiguration-resource"
               },
               "input": {
-                "structure": "UpdateConfigurationInput",
+                "name": "UpdateConfigurationInput",
+                "structure": "UpdateServiceConfigurationInput",
                 "documentation": {
                   "description": "defines input fields for updating a service configuration resource"
                 }
               },
               "response": {
                 "name": "UpdateConfigurationResponse",
-                "structure": "ConfigurationResponse",
+                "structure": "ServiceConfigurationResponse",
                 "documentation": {
                   "description": "defines the response fields for the updated service configuration"
                 }
@@ -3704,6 +3705,9 @@
     {
       "name": "Webhook",
       "packageName": "webhook",
+      "function": {
+        "parameters": {}
+      },
       "properties": {},
       "documentation": {
         "description": "Client for managing webhook resources",
@@ -3929,6 +3933,113 @@
           "documentation": {
             "description": "removes a credentials resource from the account",
             "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/credential-resource#delete-a-credential-resource"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Configuration",
+      "packageName": "configuration",
+      "function": {
+        "parameters": {}
+      },
+      "documentation": {
+        "description": "Client for managing conversation configuration"
+      },
+      "subClients": [
+        {
+          "name": "Webhook",
+          "packageName": "webhook",
+          "function": {
+            "parameters": {}
+          },
+          "documentation": {
+            "description": "Client for managing conversation configuration webhook resources"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Configuration/Webhooks",
+                "method": "Get"
+              },
+              "documentation": {
+                "description": "retrieves a webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-webhook-resource#fetch-a-conversationwebhook-resource"
+              },
+              "response": {
+                "name": "FetchWebhookResponse",
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved webhook"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Configuration/Webhooks",
+                "method": "Post"
+              },
+              "documentation": {
+                "description": "modifies a webhook resource"
+              },
+              "input": {
+                "structure": "UpdateWebhookInput",
+                "documentation": {
+                  "description": "defines input fields for updating a webhook resource"
+                }
+              },
+              "response": {
+                "name": "UpdateWebhookResponse",
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated webhook"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Configuration",
+            "method": "Get"
+          },
+          "documentation": {
+            "description": "retrieves configuration resource"
+          },
+          "response": {
+            "name": "FetchConfigurationResponse",
+            "structure": "ConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved configuration"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Configuration",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "modifies a configuration resource"
+          },
+          "input": {
+            "structure": "UpdateConfigurationInput",
+            "documentation": {
+              "description": "defines input fields for updating a configuration resource"
+            }
+          },
+          "response": {
+            "name": "UpdateConfigurationResponse",
+            "structure": "ConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated configuration"
+            }
           }
         }
       ]
@@ -5153,7 +5264,7 @@
         }
       ]
     },
-    "UpdateConfigurationInput": {
+    "UpdateServiceConfigurationInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -5176,7 +5287,7 @@
         }
       ]
     },
-    "ConfigurationResponse": {
+    "ServiceConfigurationResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -5201,6 +5312,76 @@
           "name": "DefaultChatServiceRoleSid",
           "type": "string",
           "value": "default_chat_service_role_sid",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "UpdateConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "DefaultClosedTimer",
+          "type": "string",
+          "value": "DefaultClosedTimer",
+          "required": false
+        },
+        {
+          "name": "DefaultInactiveTimer",
+          "type": "string",
+          "value": "DefaultInactiveTimer",
+          "required": false
+        },
+        {
+          "name": "DefaultMessagingServiceSid",
+          "type": "string",
+          "value": "DefaultMessagingServiceSid",
+          "required": false
+        },
+        {
+          "name": "DefaultChatServiceSid",
+          "type": "string",
+          "value": "DefaultChatServiceSid",
+          "required": false
+        }
+      ]
+    },
+    "ConfigurationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DefaultClosedTimer",
+          "type": "string",
+          "value": "default_closed_timer",
+          "required": false
+        },
+        {
+          "name": "DefaultMessagingServiceSid",
+          "type": "string",
+          "value": "default_messaging_service_sid",
+          "required": true
+        },
+        {
+          "name": "DefaultInactiveTimer",
+          "type": "string",
+          "value": "default_inactive_timer",
+          "required": false
+        },
+        {
+          "name": "DefaultChatServiceSid",
+          "type": "string",
+          "value": "default_chat_service_sid",
           "required": true
         },
         {

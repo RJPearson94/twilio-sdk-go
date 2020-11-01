@@ -6,6 +6,13 @@ FIXES
 
 - **Fix:** Update Chat Role Permissions field from `Permission` to `Permissions`. **Breaking Change**
 
+FEATURES
+
+### Conversation
+
+- **New Resource:** Configuration
+- **New Resource:** Configuration Webhook
+
 ## v0.5.0 (2020-10-16)
 
 FEATURES

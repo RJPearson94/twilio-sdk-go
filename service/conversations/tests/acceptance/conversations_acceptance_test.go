@@ -9,6 +9,8 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration"
+	configurationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/messages"
@@ -21,7 +23,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
-	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
+	serviceConfiguration "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
 	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
 	serviceConversationMessage "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/message"
@@ -440,7 +442,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := configurationClient.Update(&configuration.UpdateConfigurationInput{})
+			updateResp, updateErr := configurationClient.Update(&serviceConfiguration.UpdateConfigurationInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 		})
@@ -921,6 +923,34 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 
 			deleteErr := messageClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the configuration client", func() {
+		It("Then the configuration is fetched and updated", func() {
+			configurationClient := conversationsSession.Configuration()
+
+			fetchResp, fetchErr := configurationClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := configurationClient.Update(&configuration.UpdateConfigurationInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the configuration webhook client", func() {
+		It("Then the webhook is fetched and updated", func() {
+			webhookClient := conversationsSession.Configuration().Webhook()
+
+			fetchResp, fetchErr := webhookClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := webhookClient.Update(&configurationWebhook.UpdateWebhookInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
 		})
 	})
 

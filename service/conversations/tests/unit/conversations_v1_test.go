@@ -12,6 +12,8 @@ import (
 	. "github.com/onsi/gomega"
 
 	conversationsClient "github.com/RJPearson94/twilio-sdk-go/service/conversations"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration"
+	configurationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message/delivery_receipts"
@@ -26,7 +28,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/role"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/roles"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/bindings"
-	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
+	serviceConfiguration "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/configuration/notification"
 	serviceConversation "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation"
 	serviceConversationMessage "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/service/conversation/message"
@@ -3237,7 +3239,7 @@ var _ = Describe("Conversation V1", func() {
 		Describe("When the configuration resource is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/configurationResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/serviceConfigurationResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
@@ -3282,14 +3284,14 @@ var _ = Describe("Conversation V1", func() {
 		Describe("When the configuration is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/configurationResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/serviceConfigurationResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
 				},
 			)
 
-			updateInput := &configuration.UpdateConfigurationInput{}
+			updateInput := &serviceConfiguration.UpdateConfigurationInput{}
 
 			resp, err := configurationClient.Update(updateInput)
 			It("Then no error should be returned", func() {
@@ -3316,7 +3318,7 @@ var _ = Describe("Conversation V1", func() {
 				},
 			)
 
-			updateInput := &configuration.UpdateConfigurationInput{}
+			updateInput := &serviceConfiguration.UpdateConfigurationInput{}
 
 			resp, err := configurationClient.Update(updateInput)
 			It("Then an error should be returned", func() {
@@ -6661,6 +6663,217 @@ var _ = Describe("Conversation V1", func() {
 			})
 
 			It("Then the get delivery receipt response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a configuration client", func() {
+		configurationClient := conversationsSession.Configuration()
+
+		Describe("When the configuration resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/configurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := configurationClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DefaultChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DefaultMessagingServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DefaultClosedTimer).To(Equal(utils.String("PT15M")))
+				Expect(resp.DefaultInactiveTimer).To(Equal(utils.String("PT10M")))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration"))
+			})
+		})
+
+		Describe("When the configuration api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := configurationClient.Fetch()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the configuration is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/configurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &configuration.UpdateConfigurationInput{}
+
+			resp, err := configurationClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DefaultChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DefaultMessagingServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DefaultClosedTimer).To(Equal(utils.String("PT15M")))
+				Expect(resp.DefaultInactiveTimer).To(Equal(utils.String("PT10M")))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration"))
+			})
+		})
+
+		Describe("When the update configuration response returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			updateInput := &configuration.UpdateConfigurationInput{}
+
+			resp, err := configurationClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the update configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a configuration webhook client", func() {
+		webhookClient := conversationsSession.Configuration().Webhook()
+
+		Describe("When the webhook resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/configurationWebhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := webhookClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("webhook"))
+				Expect(resp.Method).To(Equal("POST"))
+				Expect(resp.PreWebhookURL).To(BeNil())
+				Expect(resp.PostWebhookURL).To(BeNil())
+				Expect(len(resp.Filters)).To(Equal(0))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Webhooks"))
+			})
+		})
+
+		Describe("When the webhook api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := webhookClient.Fetch()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get webhook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the webhook is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateConfigurationWebhookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			filters := []string{"onMessageAdded"}
+			updateInput := &configurationWebhook.UpdateWebhookInput{
+				PostWebhookURL: utils.String("http://localhost/pre"),
+				Filters:        &filters,
+			}
+
+			resp, err := webhookClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update webhook response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Target).To(Equal("webhook"))
+				Expect(resp.Method).To(Equal("POST"))
+				Expect(resp.PreWebhookURL).To(Equal(utils.String("http://localhost/pre")))
+				Expect(resp.PostWebhookURL).To(BeNil())
+				Expect(len(resp.Filters)).To(Equal(1))
+				Expect(resp.Filters[0]).To(Equal("onMessageAdded"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Webhooks"))
+			})
+		})
+
+		Describe("When the update webhook response returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration/Webhooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			filters := []string{"onMessageAdded"}
+			updateInput := &configurationWebhook.UpdateWebhookInput{
+				PostWebhookURL: utils.String("http://localhost/pre"),
+				Filters:        &filters,
+			}
+
+			resp, err := webhookClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the update webhook response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})

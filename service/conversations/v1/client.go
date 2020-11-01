@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/credential"
@@ -21,10 +22,11 @@ import (
 // See https://www.twilio.com/docs/conversations for more details
 type Conversations struct {
 	client        *client.Client
-	Credentials   *credentials.Client
-	Credential    func(string) *credential.Client
+	Configuration func() *configuration.Client
 	Conversations *conversations.Client
 	Conversation  func(string) *conversation.Client
+	Credentials   *credentials.Client
+	Credential    func(string) *credential.Client
 	Roles         *roles.Client
 	Role          func(string) *role.Client
 	Services      *services.Client
@@ -52,7 +54,10 @@ func New(sess *session.Session) *Conversations {
 // NewWithClient creates a new instance of the client with a HTTP client
 func NewWithClient(client *client.Client) *Conversations {
 	return &Conversations{
-		client:        client,
+		client: client,
+		Configuration: func() *configuration.Client {
+			return configuration.New(client)
+		},
 		Conversations: conversations.New(client),
 		Conversation: func(sid string) *conversation.Client {
 			return conversation.New(client, conversation.ClientProperties{
