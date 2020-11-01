@@ -1,0 +1,30 @@
+{
+  "name": "Service",
+  "packageName": "service",
+  "imports": [
+    "github.com/RJPearson94/twilio-sdk-go/client",
+    "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_number",
+    "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_numbers"
+  ],
+  "subClients": [
+    {
+      "name": "Phone Numbers"
+    },
+    {
+      "name": "Phone Number",
+      "functionParams": [
+        {
+          "name": "phoneNumberSid",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "sid",
+          "type": "string",
+          "functionParameter": "phoneNumberSid"
+        }
+      ]
+    }
+  ]
+}

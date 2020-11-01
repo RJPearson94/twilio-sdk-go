@@ -47,10 +47,10 @@ const addSubClientsToClientInitialisation = `{{ if .subClients }} {{ range $inde
 	{{ $subClient.name | ToCamelCase }}: ${addSubClientPropertyDetails}, {{ end }} {{ end }}
 `
 
-const addSubClientPropertyDetails = `{{ if .functionParams | IsDefined }} ${addSubClientFunction} {{ else }} {{ $subClient.name | ToSnakeCase }}.New(client, ${addClientPropertiesToSubClientInitialisations}) {{ end }}`
+const addSubClientPropertyDetails = `{{ if .functionParams | IsDefined }} ${addSubClientFunction} {{ else }} {{ $subClient.name | ToSnakeCase }}.New(client {{ if $subClient.properties }}, ${addClientPropertiesToSubClientInitialisations} {{ end }} ) {{ end }}`
 
-const addSubClientFunction = `func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.name }} {{ $functionParam.type }}, {{ end }}) *{{ $subClient.name | ToSnakeCase }}.Client { return {{ $subClient.name | ToSnakeCase }}.New(client, ${addClientPropertiesToSubClientInitialisations}) }`
+const addSubClientFunction = `func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.name }} {{ $functionParam.type }}, {{ end }}) *{{ $subClient.name | ToSnakeCase }}.Client { return {{ $subClient.name | ToSnakeCase }}.New(client {{ if $subClient.properties | IsDefined }}, ${addClientPropertiesToSubClientInitialisations} {{ end }} ) }`
 
-const addClientPropertiesToSubClientInitialisations = `{{ $subClient.name | ToSnakeCase }}.ClientProperties{ {{if $subClient.properties}} {{range $key, $value := $subClient.properties }} 
-	{{ $value.name | ToCamelCase }}: {{ if $value.parentProperty }} properties.{{ $value.parentProperty | ToCamelCase }} {{ else }} {{ $value.functionParameter }} {{ end }}, {{end}} {{end}}
+const addClientPropertiesToSubClientInitialisations = `{{ $subClient.name | ToSnakeCase }}.ClientProperties{ {{range $key, $value := $subClient.properties }} 
+	{{ $value.name | ToCamelCase }}: {{ if $value.parentProperty }} properties.{{ $value.parentProperty | ToCamelCase }} {{ else }} {{ $value.functionParameter }} {{ end }}, {{ end }}
 }`

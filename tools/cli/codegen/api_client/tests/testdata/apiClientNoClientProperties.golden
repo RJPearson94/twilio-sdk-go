@@ -1,0 +1,27 @@
+// Package service contains auto-generated files. DO NOT MODIFY
+package service
+
+import "github.com/RJPearson94/twilio-sdk-go/client"
+import "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_number"
+import "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_numbers"
+
+type Client struct {
+	client *client.Client
+
+	PhoneNumbers *phone_numbers.Client
+	PhoneNumber  func(string) *phone_number.Client
+}
+
+// New creates a new instance of the service client
+func New(client *client.Client) *Client {
+	return &Client{
+		client: client,
+
+		PhoneNumbers: phone_numbers.New(client),
+		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
+			return phone_number.New(client, phone_number.ClientProperties{
+				Sid: phoneNumberSid,
+			})
+		},
+	}
+}

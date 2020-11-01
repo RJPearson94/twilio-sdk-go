@@ -29,6 +29,23 @@ var _ = Describe("API Client CodeGen", func() {
 				Expect(string(*resp)).To(Equal(string(goldenData)))
 			})
 		})
+
+		Describe("When the api client with no client properties is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/apiClientNoClientProperties.golden")
+			apiClientJSON, _ := ioutil.ReadFile("testdata/apiClientNoClientProperties.json")
+			var apiClientData interface{}
+			_ = json.Unmarshal(apiClientJSON, &apiClientData)
+
+			resp, err := apiclient.Generate(apiClientData, true)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the response should match the golden data", func() {
+				Expect(string(*resp)).To(Equal(string(goldenData)))
+			})
+		})
 	})
 
 	Describe("Given the api json", func() {
