@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
@@ -58,6 +61,63 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := serviceClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the verify rate limit clients", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := verifySession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: "Test Service",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := verifySession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the rate limit is created, fetched, updated and deleted", func() {
+			rateLimitsClient := verifySession.Service(serviceSid).RateLimits
+
+			createResp, createErr := rateLimitsClient.Create(&rate_limits.CreateRateLimitInput{
+				UniqueName: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := rateLimitsClient.Page(&rate_limits.RateLimitsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.RateLimits)).Should(BeNumerically(">=", 1))
+
+			paginator := rateLimitsClient.NewRateLimitsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.RateLimits)).Should(BeNumerically(">=", 1))
+
+			rateLimitClient := verifySession.Service(serviceSid).RateLimit(createResp.Sid)
+
+			fetchResp, fetchErr := rateLimitClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := rateLimitClient.Update(&rate_limit.UpdateRateLimitInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := rateLimitClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

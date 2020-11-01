@@ -2,10 +2,10 @@
   "meta": {
     "page": 0,
     "page_size": 50,
-    "first_page_url": "https://verify.twilio.com/v1/Services?PageSize=50&Page=0",
+    "first_page_url": "https://verify.twilio.com/v2/Services?PageSize=50&Page=0",
     "previous_page_url": null,
-    "url": "https://verify.twilio.com/v1/Services?PageSize=50&Page=0",
-    "next_page_url": "https://verify.twilio.com/v1/Services?PageSize=50&Page=1&PageToken=abc1234",
+    "url": "https://verify.twilio.com/v2/Services?PageSize=50&Page=0",
+    "next_page_url": "https://verify.twilio.com/v2/Services?PageSize=50&Page=1&PageToken=abc1234",
     "key": "services"
   },
   "services": [

@@ -102,6 +102,249 @@
         "description": "Client for managing a specific service resource",
         "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service"
       },
+      "subClients": [
+        {
+          "name": "Rate Limits",
+          "packageName": "rate_limits",
+          "documentation": {
+            "description": "Client for managing rate limit resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits"
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/RateLimits",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new rate limit",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits#create-a-rate-limit"
+              },
+              "input": {
+                "structure": "CreateRateLimitInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new rate limit"
+                }
+              },
+              "response": {
+                "name": "CreateRateLimitResponse",
+                "structure": "RateLimitResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created rate limit"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/RateLimits",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of rate limits",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits#list-all-rate-limits"
+              },
+              "response": {
+                "structure": "RateLimitsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the rate limits page"
+                }
+              },
+              "pagination": {
+                "name": "RateLimitsPaginator",
+                "page": {
+                  "name": "RateLimitsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "RateLimits",
+                  "structure": "PageRateLimitResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rate Limit",
+          "packageName": "rate_limit",
+          "function": {
+            "parameters": {
+              "rateLimitSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "rateLimitSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific rate limit resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/RateLimits/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a rate limit resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits#fetch-a-rate-limit"
+              },
+              "response": {
+                "name": "FetchRateLimitResponse",
+                "structure": "RateLimitResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved rate limit"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/RateLimits/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a rate limit resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits#update-a-rate-limit"
+              },
+              "input": {
+                "structure": "UpdateRateLimitInput",
+                "documentation": {
+                  "description": "defines input fields for updating a rate limit resource"
+                }
+              },
+              "response": {
+                "name": "UpdateRateLimitResponse",
+                "structure": "RateLimitResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated rate limit"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/RateLimits/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a rate limit resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits#delete-a-rate-limit"
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Fetch",
@@ -397,6 +640,78 @@
           "type": "string",
           "value": "fcm_credential_sid",
           "required": false
+        }
+      ]
+    },
+    "CreateRateLimitInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "Description",
+          "required": false
+        }
+      ]
+    },
+    "UpdateRateLimitInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "Description",
+          "required": false
+        }
+      ]
+    },
+    "RateLimitsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "RateLimits",
+          "type": "array",
+          "items": {
+            "structure": "RateLimitResponse"
+          },
+          "value": "rate_limits",
+          "required": true
+        }
+      ]
+    },
+    "RateLimitResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "description",
+          "required": false
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
         }
       ]
     },

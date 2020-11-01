@@ -16,6 +16,7 @@ FEATURES
 ### Verify
 
 - **New Resource:** Service
+- **New Resource:** Service Rate Limits
 
 ## v0.5.0 (2020-10-16)
 
