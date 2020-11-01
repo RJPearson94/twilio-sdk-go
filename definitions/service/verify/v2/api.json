@@ -234,6 +234,297 @@
             "description": "Client for managing a specific rate limit resource",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limits"
           },
+          "subClients": [
+            {
+              "name": "Buckets",
+              "packageName": "buckets",
+              "documentation": {
+                "description": "Client for managing rate limit bucket resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets"
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "rateLimitSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/RateLimits/{rateLimitSid}/Buckets",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "rateLimitSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "rateLimitSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new rate limit bucket",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets#create-a-bucket"
+                  },
+                  "input": {
+                    "structure": "CreateBucketInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new rate limit bucket"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateBucketResponse",
+                    "structure": "BucketResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created rate limit bucket"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/RateLimits/{rateLimitSid}/Buckets",
+                    "method": "Get",
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ],
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "rateLimitSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "rateLimitSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of rate limit buckets",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets#list-all-buckets"
+                  },
+                  "response": {
+                    "structure": "BucketsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the rate limit buckets page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "BucketsPaginator",
+                    "page": {
+                      "name": "BucketsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Buckets",
+                      "structure": "PageBucketResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Bucket",
+              "packageName": "bucket",
+              "function": {
+                "parameters": {
+                  "bucketSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "rateLimitSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "bucketSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific rate limit bucket resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/RateLimits/{rateLimitSid}/Buckets/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "rateLimitSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "rateLimitSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a rate limit bucket resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets#fetch-a-bucket"
+                  },
+                  "response": {
+                    "name": "FetchBucketResponse",
+                    "structure": "BucketResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved rate limit bucket"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/RateLimits/{rateLimitSid}/Buckets/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "rateLimitSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "rateLimitSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a rate limit bucket resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets#update-a-bucket"
+                  },
+                  "input": {
+                    "structure": "UpdateBucketInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a rate limit bucket resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateBucketResponse",
+                    "structure": "BucketResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated rate limit bucket"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/RateLimits/{rateLimitSid}/Buckets/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "rateLimitSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "rateLimitSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a rate limit bucket resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/service-rate-limit-buckets#delete-a-bucket"
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -711,6 +1002,90 @@
           "name": "ServiceSid",
           "type": "string",
           "value": "service_sid",
+          "required": true
+        }
+      ]
+    },
+    "CreateBucketInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Max",
+          "type": "int",
+          "value": "Max",
+          "required": true
+        },
+        {
+          "name": "Interval",
+          "type": "int",
+          "value": "Interval",
+          "required": true
+        }
+      ]
+    },
+    "UpdateBucketInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Max",
+          "type": "int",
+          "value": "Max",
+          "required": false
+        },
+        {
+          "name": "Interval",
+          "type": "int",
+          "value": "Interval",
+          "required": false
+        }
+      ]
+    },
+    "BucketsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Buckets",
+          "type": "array",
+          "items": {
+            "structure": "BucketResponse"
+          },
+          "value": "buckets",
+          "required": true
+        }
+      ]
+    },
+    "BucketResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "RateLimitSid",
+          "type": "string",
+          "value": "rate_limit_sid",
+          "required": true
+        },
+        {
+          "name": "Max",
+          "type": "int",
+          "value": "max",
+          "required": true
+        },
+        {
+          "name": "Interval",
+          "type": "int",
+          "value": "interval",
           "required": true
         }
       ]

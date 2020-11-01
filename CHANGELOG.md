@@ -17,6 +17,7 @@ FEATURES
 
 - **New Resource:** Service
 - **New Resource:** Service Rate Limits
+- **New Resource:** Service Rate Limit Bucket
 
 ## v0.5.0 (2020-10-16)
 

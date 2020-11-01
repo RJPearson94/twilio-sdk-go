@@ -14,6 +14,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -792,6 +794,386 @@ var _ = Describe("Verify V2", func() {
 			)
 
 			err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RK71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a buckets client", func() {
+		bucketsClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Buckets
+
+		Describe("When the bucket resource is successfully created", func() {
+			createInput := &buckets.CreateBucketInput{
+				Max:      4,
+				Interval: 10,
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/bucketResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := bucketsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create bucket response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RateLimitSid).To(Equal("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Interval).To(Equal(10))
+				Expect(resp.Max).To(Equal(4))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the bucket request does not contain a max", func() {
+			createInput := &buckets.CreateBucketInput{
+				Interval: 10,
+			}
+
+			resp, err := bucketsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create bucket response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the bucket request does not contain an interval", func() {
+			createInput := &buckets.CreateBucketInput{
+				Max: 4,
+			}
+
+			resp, err := bucketsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create bucket response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create buckets api returns a 500 response", func() {
+			createInput := &buckets.CreateBucketInput{
+				Max:      4,
+				Interval: 10,
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := bucketsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create bucket response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of buckets are successfully retrieved", func() {
+			pageOptions := &buckets.BucketsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/bucketsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := bucketsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the buckets page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("buckets"))
+
+				buckets := resp.Buckets
+				Expect(buckets).ToNot(BeNil())
+				Expect(len(buckets)).To(Equal(1))
+
+				Expect(buckets[0].Sid).To(Equal("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(buckets[0].RateLimitSid).To(Equal("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(buckets[0].ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(buckets[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(buckets[0].Interval).To(Equal(10))
+				Expect(buckets[0].Max).To(Equal(4))
+				Expect(buckets[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(buckets[0].DateUpdated).To(BeNil())
+				Expect(buckets[0].URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of services api returns a 500 response", func() {
+			pageOptions := &buckets.BucketsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := bucketsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the buckets page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated buckets are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/bucketsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/bucketsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := bucketsClient.NewBucketsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated buckets current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated buckets results should be returned", func() {
+				Expect(len(paginator.Buckets)).To(Equal(3))
+			})
+		})
+
+		Describe("When the buckets api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/bucketsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := bucketsClient.NewBucketsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated buckets current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a bucket sid", func() {
+		bucketClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Bucket("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the bucket resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/bucketResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := bucketClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get bucket resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RateLimitSid).To(Equal("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Interval).To(Equal(10))
+				Expect(resp.Max).To(Equal(4))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the bucket resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Bucket("BL71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get bucket response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the bucket resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateBucketResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &bucket.UpdateBucketInput{}
+
+			resp, err := bucketClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update bucket response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.RateLimitSid).To(Equal("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Interval).To(Equal(10))
+				Expect(resp.Max).To(Equal(4))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update bucket resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &bucket.UpdateBucketInput{}
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Bucket("BL71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update bucket response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the bucket resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := bucketClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the bucket resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").RateLimit("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Bucket("BL71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

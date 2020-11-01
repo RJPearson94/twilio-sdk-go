@@ -11,6 +11,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -118,6 +120,77 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := rateLimitClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the verify rate limit bucket clients", func() {
+
+		var serviceSid string
+		var rateLimitSid string
+
+		BeforeEach(func() {
+			resp, err := verifySession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: "Test Service",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+
+			rateLimitResp, rateLimitErr := verifySession.Service(serviceSid).RateLimits.Create(&rate_limits.CreateRateLimitInput{
+				UniqueName: uuid.New().String(),
+			})
+			if rateLimitErr != nil {
+				Fail(fmt.Sprintf("Failed to create rate limit. Error %s", rateLimitErr.Error()))
+			}
+			rateLimitSid = rateLimitResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := verifySession.Service(serviceSid).RateLimit(rateLimitSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete rate limit. Error %s", err.Error()))
+			}
+
+			if err := verifySession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the bucket is created, fetched, updated and deleted", func() {
+			bucketsClient := verifySession.Service(serviceSid).RateLimit(rateLimitSid).Buckets
+
+			createResp, createErr := bucketsClient.Create(&buckets.CreateBucketInput{
+				Max:      4,
+				Interval: 10,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := bucketsClient.Page(&buckets.BucketsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Buckets)).Should(BeNumerically(">=", 1))
+
+			paginator := bucketsClient.NewBucketsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Buckets)).Should(BeNumerically(">=", 1))
+
+			bucketClient := verifySession.Service(serviceSid).RateLimit(rateLimitSid).Bucket(createResp.Sid)
+
+			fetchResp, fetchErr := bucketClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := bucketClient.Update(&bucket.UpdateBucketInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := bucketClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
