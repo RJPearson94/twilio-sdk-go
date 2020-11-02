@@ -18,6 +18,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verifications"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
@@ -326,6 +328,65 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			Expect(fetchResp).ToNot(BeNil())
 
 			deleteErr := entityClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the verify webhook clients", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := verifySession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: "Test Service",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := verifySession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the webhook is created, fetched, updated and deleted", func() {
+			webhooksClient := verifySession.Service(serviceSid).Webhooks
+
+			createResp, createErr := webhooksClient.Create(&webhooks.CreateWebhookInput{
+				FriendlyName: uuid.New().String(),
+				EventTypes:   []string{"*"},
+				WebhookURL:   "http://localhost/webhook",
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := webhooksClient.Page(&webhooks.WebhooksPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Webhooks)).Should(BeNumerically(">=", 1))
+
+			paginator := webhooksClient.NewWebhooksPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Webhooks)).Should(BeNumerically(">=", 1))
+
+			webhookClient := verifySession.Service(serviceSid).Webhook(createResp.Sid)
+
+			fetchResp, fetchErr := webhookClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := webhookClient.Update(&webhook.UpdateWebhookInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := webhookClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

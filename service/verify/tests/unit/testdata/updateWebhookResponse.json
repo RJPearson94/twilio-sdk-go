@@ -1,0 +1,13 @@
+{
+  "status": "enabled",
+  "date_updated": "2020-06-20T20:55:24Z",
+  "friendly_name": "Test Webhook",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "webhook_method": "POST",
+  "event_types": ["*"],
+  "sid": "YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-20T20:50:24Z",
+  "webhook_url": "http://localhost/webhook",
+  "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

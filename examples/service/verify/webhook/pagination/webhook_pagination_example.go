@@ -26,17 +26,17 @@ func init() {
 func main() {
 	paginator := verifySession.
 		Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
-		RateLimits.
-		NewRateLimitsPaginator()
+		Webhooks.
+		NewWebhooksPaginator()
 
 	for paginator.Next() {
 		currentPage := paginator.CurrentPage()
-		log.Printf("%v rate limit(s) found on page %v", len(currentPage.RateLimits), currentPage.Meta.Page)
+		log.Printf("%v webhook(s) found on page %v", len(currentPage.Webhooks), currentPage.Meta.Page)
 	}
 
 	if paginator.Error() != nil {
 		log.Panicf("%s", paginator.Error())
 	}
 
-	log.Printf("Total number of rate limit(s) found: %v", len(paginator.RateLimits))
+	log.Printf("Total number of webhook(s) found: %v", len(paginator.Webhooks))
 }

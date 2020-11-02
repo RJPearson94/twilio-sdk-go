@@ -1091,6 +1091,247 @@
               }
             }
           ]
+        },
+        {
+          "name": "Webhooks",
+          "packageName": "webhooks",
+          "documentation": {
+            "description": "Client for managing webhook resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks"
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Webhooks",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new webhook",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks#create-a-webhook"
+              },
+              "input": {
+                "structure": "CreateWebhookInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new webhook"
+                }
+              },
+              "response": {
+                "name": "CreateWebhookResponse",
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created webhook"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Webhooks",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of webhooks",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks#read-multiple-webhook-resources"
+              },
+              "response": {
+                "structure": "WebhooksPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the webhooks page"
+                }
+              },
+              "pagination": {
+                "name": "WebhooksPaginator",
+                "page": {
+                  "name": "WebhooksPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Webhooks",
+                  "structure": "PageWebhookResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Webhook",
+          "packageName": "webhook",
+          "function": {
+            "parameters": {
+              "webhookSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "webhookSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific webhook resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Webhooks/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks#fetch-a-webhook-resource"
+              },
+              "response": {
+                "name": "FetchWebhookResponse",
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved webhook"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/Webhooks/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a webhook resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks#update-a-webhook-resource"
+              },
+              "input": {
+                "structure": "UpdateWebhookInput",
+                "documentation": {
+                  "description": "defines input fields for updating a webhook resource"
+                }
+              },
+              "response": {
+                "name": "UpdateWebhookResponse",
+                "structure": "WebhookResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated webhook"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Webhooks/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a webhook resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks#delete-a-webhook-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1940,6 +2181,135 @@
           "name": "ServiceSid",
           "type": "string",
           "value": "service_sid",
+          "required": true
+        }
+      ]
+    },
+    "CreateWebhookInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "EventTypes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "EventTypes",
+          "required": true
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "WebhookUrl",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "UpdateWebhookInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "EventTypes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "EventTypes",
+          "required": false
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "WebhookUrl",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "WebhooksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Webhooks",
+          "type": "array",
+          "items": {
+            "structure": "WebhookResponse"
+          },
+          "value": "webhooks",
+          "required": true
+        }
+      ]
+    },
+    "WebhookResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "EventTypes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "event_types",
+          "required": true
+        },
+        {
+          "name": "WebhookURL",
+          "type": "string",
+          "value": "webhook_url",
+          "required": true
+        },
+        {
+          "name": "WebhookMethod",
+          "type": "string",
+          "value": "webhook_method",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
           "required": true
         }
       ]

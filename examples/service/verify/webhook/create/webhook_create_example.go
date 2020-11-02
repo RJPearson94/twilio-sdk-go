@@ -6,6 +6,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go"
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/verify/v2"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
@@ -24,19 +25,18 @@ func init() {
 }
 
 func main() {
-	paginator := verifySession.
+	resp, err := verifySession.
 		Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
-		RateLimits.
-		NewRateLimitsPaginator()
+		Webhooks.
+		Create(&webhooks.CreateWebhookInput{
+			FriendlyName: "Test Rate Limit",
+			EventTypes:   []string{"*"},
+			WebhookURL:   "http://localhost/webhook",
+		})
 
-	for paginator.Next() {
-		currentPage := paginator.CurrentPage()
-		log.Printf("%v rate limit(s) found on page %v", len(currentPage.RateLimits), currentPage.Meta.Page)
+	if err != nil {
+		log.Panicf("%s", err.Error())
 	}
 
-	if paginator.Error() != nil {
-		log.Panicf("%s", paginator.Error())
-	}
-
-	log.Printf("Total number of rate limit(s) found: %v", len(paginator.RateLimits))
+	log.Printf("SID: %s", resp.Sid)
 }

@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "webhooks"
+  },
+  "webhooks": [
+    {
+      "status": "enabled",
+      "date_updated": null,
+      "friendly_name": "Test Webhook",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "webhook_method": "POST",
+      "event_types": ["*"],
+      "sid": "YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "webhook_url": "http://localhost/webhook",
+      "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

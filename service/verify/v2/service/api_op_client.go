@@ -11,6 +11,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification_check"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verifications"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhooks"
 )
 
 // Client for managing a specific service resource
@@ -28,6 +30,8 @@ type Client struct {
 	Verification      func(string) *verification.Client
 	VerificationCheck *verification_check.Client
 	Verifications     *verifications.Client
+	Webhook           func(string) *webhook.Client
+	Webhooks          *webhooks.Client
 }
 
 // ClientProperties are the properties required to manage the service resources
@@ -73,6 +77,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			ServiceSid: properties.Sid,
 		}),
 		Verifications: verifications.New(client, verifications.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Webhook: func(webhookSid string) *webhook.Client {
+			return webhook.New(client, webhook.ClientProperties{
+				ServiceSid: properties.Sid,
+				Sid:        webhookSid,
+			})
+		},
+		Webhooks: webhooks.New(client, webhooks.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
 	}

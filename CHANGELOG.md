@@ -22,6 +22,7 @@ FEATURES
 - **New Resource:** Verification Check
 - **New Resource:** Access Tokens
 - **New Resource:** Entity
+- **New Resource:** Webhook
 
 ## v0.5.0 (2020-10-16)
 
