@@ -21,6 +21,7 @@ FEATURES
 - **New Resource:** Verification
 - **New Resource:** Verification Check
 - **New Resource:** Access Tokens
+- **New Resource:** Entity
 
 ## v0.5.0 (2020-10-16)
 

@@ -892,6 +892,205 @@
               }
             }
           ]
+        },
+        {
+          "name": "Entities",
+          "packageName": "entities",
+          "documentation": {
+            "description": "Client for managing entity resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity"
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Entities",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new entity",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity#create-an-entity-resource"
+              },
+              "input": {
+                "structure": "CreateEntityInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new entity"
+                }
+              },
+              "response": {
+                "name": "CreateEntityResponse",
+                "structure": "EntityResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created entity"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Entities",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of entities",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity#read-multiple-entity-resources"
+              },
+              "response": {
+                "structure": "EntitiesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the entities page"
+                }
+              },
+              "pagination": {
+                "name": "EntitiesPaginator",
+                "page": {
+                  "name": "EntitiesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Entities",
+                  "structure": "PageEntityResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Entity",
+          "packageName": "entity",
+          "function": {
+            "parameters": {
+              "identity": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "identity": {
+              "dataType": "string",
+              "functionParameter": "identity"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific entity resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Entities/{identity}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "identity",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "identity"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves an entity resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity#fetch-an-entity-resource"
+              },
+              "response": {
+                "name": "FetchEntityResponse",
+                "structure": "EntityResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved entity"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Entities/{identity}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "identity",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "identity"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a entity resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity#delete-an-entity-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1692,6 +1891,55 @@
           "name": "Token",
           "type": "string",
           "value": "token",
+          "required": true
+        }
+      ]
+    },
+    "CreateEntityInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "Identity",
+          "required": true
+        }
+      ]
+    },
+    "EntitiesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Entities",
+          "type": "array",
+          "items": {
+            "structure": "EntityResponse"
+          },
+          "value": "entities",
+          "required": true
+        }
+      ]
+    },
+    "EntityResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
           "required": true
         }
       ]

@@ -4,6 +4,8 @@ package service
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entities"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification"
@@ -19,6 +21,8 @@ type Client struct {
 	sid string
 
 	AccessTokens      *access_tokens.Client
+	Entities          *entities.Client
+	Entity            func(string) *entity.Client
 	RateLimit         func(string) *rate_limit.Client
 	RateLimits        *rate_limits.Client
 	Verification      func(string) *verification.Client
@@ -41,6 +45,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		AccessTokens: access_tokens.New(client, access_tokens.ClientProperties{
 			ServiceSid: properties.Sid,
 		}),
+		Entities: entities.New(client, entities.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
+		Entity: func(identity string) *entity.Client {
+			return entity.New(client, entity.ClientProperties{
+				Identity:   identity,
+				ServiceSid: properties.Sid,
+			})
+		},
 		RateLimit: func(rateLimitSid string) *rate_limit.Client {
 			return rate_limit.New(client, rate_limit.ClientProperties{
 				ServiceSid: properties.Sid,

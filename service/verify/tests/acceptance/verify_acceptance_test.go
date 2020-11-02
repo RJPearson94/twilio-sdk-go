@@ -11,6 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entities"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
@@ -273,6 +274,59 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Token).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the verify entities clients", func() {
+
+		var serviceSid string
+
+		BeforeEach(func() {
+			resp, err := verifySession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: "Test Service",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := verifySession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the entity is created, fetched and deleted", func() {
+			entitiesClient := verifySession.Service(serviceSid).Entities
+
+			createResp, createErr := entitiesClient.Create(&entities.CreateEntityInput{
+				Identity: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := entitiesClient.Page(&entities.EntitiesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Entities)).Should(BeNumerically(">=", 1))
+
+			paginator := entitiesClient.NewEntitiesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Entities)).Should(BeNumerically(">=", 1))
+
+			entityClient := verifySession.Service(serviceSid).Entity(createResp.Identity)
+
+			fetchResp, fetchErr := entityClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			deleteErr := entityClient.Delete()
+			Expect(deleteErr).To(BeNil())
 		})
 	})
 
