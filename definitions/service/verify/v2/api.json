@@ -841,6 +841,57 @@
               }
             }
           ]
+        },
+        {
+          "name": "Access Tokens",
+          "packageName": "access_tokens",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing access token resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/verify/api/access-token"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/AccessTokens",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+
+              "documentation": {
+                "description": "creates an access token",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/access-token#create-an-accesstoken-resource"
+              },
+              "input": {
+                "structure": "CreateAccessTokenInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new access token"
+                }
+              },
+              "response": {
+                "name": "CreateAccessTokenResponse",
+                "structure": "AccessTokenResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created access token"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1613,6 +1664,34 @@
           "name": "Valid",
           "type": "bool",
           "value": "valid",
+          "required": true
+        }
+      ]
+    },
+    "CreateAccessTokenInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "Identity",
+          "required": true
+        },
+        {
+          "name": "FactorType",
+          "type": "string",
+          "value": "FactorType",
+          "required": true
+        }
+      ]
+    },
+    "AccessTokenResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Token",
+          "type": "string",
+          "value": "token",
           "required": true
         }
       ]

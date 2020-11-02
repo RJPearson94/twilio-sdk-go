@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
+
 	"github.com/jarcoal/httpmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -1537,6 +1539,91 @@ var _ = Describe("Verify V2", func() {
 			})
 
 			It("Then the create verification check response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a access token client", func() {
+		accessTokensClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AccessTokens
+
+		Describe("When the access token resource is successfully created", func() {
+			createInput := &access_tokens.CreateAccessTokenInput{
+				Identity:   "Test User",
+				FactorType: "push",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AccessTokens",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/accessTokenResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := accessTokensClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create access token response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Token).To(Equal("abc1234"))
+			})
+		})
+
+		Describe("When the access token request does not contain a identity", func() {
+			createInput := &access_tokens.CreateAccessTokenInput{
+				FactorType: "push",
+			}
+
+			resp, err := accessTokensClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create access token  response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the access token request does not contain a factor type", func() {
+			createInput := &access_tokens.CreateAccessTokenInput{
+				Identity: "Test User",
+			}
+
+			resp, err := accessTokensClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create access token  response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create access token api returns a 500 response", func() {
+			createInput := &access_tokens.CreateAccessTokenInput{
+				Identity:   "Test User",
+				FactorType: "push",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AccessTokens",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := accessTokensClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create access token response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
