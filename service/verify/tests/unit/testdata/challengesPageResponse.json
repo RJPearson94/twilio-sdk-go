@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Challenges?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Challenges?PageSize=50&Page=0",
+    "next_page_url": null,
+    "key": "challenges"
+  },
+  "challenges": [
+    {
+      "sid": "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "entity_sid": "YEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "identity": "test",
+      "factor_sid": "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "date_updated": null,
+      "date_responded": "2020-06-20T20:50:24Z",
+      "expiration_date": "2020-06-20T20:51:24Z",
+      "status": "pending",
+      "responded_reason": "none",
+      "details": null,
+      "hidden_details": null,
+      "factor_type": "push",
+      "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

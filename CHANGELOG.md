@@ -24,6 +24,7 @@ FEATURES
 - **New Resource:** Entity
 - **New Resource:** Webhook
 - **New Resource:** Factor
+- **New Resource:** Challenge
 
 ## v0.5.0 (2020-10-16)
 

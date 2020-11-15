@@ -1313,6 +1313,268 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Challenges",
+              "packageName": "challenges",
+              "documentation": {
+                "description": "Client for managing challenge resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge"
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "parentProperty": "identity"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Challenges",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new challenge",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge#create-a-challenge-resource"
+                  },
+                  "input": {
+                    "structure": "CreateChallengeInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new challenge"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateChallengeResponse",
+                    "structure": "ChallengeResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created challenge"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Challenges",
+                    "method": "Get",
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "FactorSid",
+                        "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "Status",
+                        "type": "string",
+                        "required": false
+                      }
+                    ],
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of challenges",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge#read-multiple-challenge-resources"
+                  },
+                  "response": {
+                    "structure": "ChallengesPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the challenges page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "ChallengesPaginator",
+                    "page": {
+                      "name": "ChallengesPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Challenges",
+                      "structure": "PageChallengeResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Challenge",
+              "packageName": "challenge",
+              "function": {
+                "parameters": {
+                  "challengeSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "parentProperty": "identity"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "challengeSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific challenge resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Challenges/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a challenge resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge#fetch-a-challenge-resource"
+                  },
+                  "response": {
+                    "name": "FetchChallengeResponse",
+                    "structure": "ChallengeResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved challenge"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Challenges/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a challenge resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge#update-a-challenge-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateChallengeInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a challenge resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateChallengeResponse",
+                    "structure": "ChallengeResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated challenge"
+                    }
+                  }
+                }
+              ]
             }
           ],
           "operations": [
@@ -2781,6 +3043,176 @@
           "structure": "FactorConfigResponse",
           "value": "config",
           "required": true
+        }
+      ]
+    },
+    "CreateChallengeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FactorSid",
+          "type": "string",
+          "value": "FactorSid",
+          "required": true
+        },
+        {
+          "name": "ExpirationDate",
+          "type": "time.Time",
+          "value": "ExpirationDate",
+          "required": false
+        },
+        {
+          "name": "DetailsMessage",
+          "type": "string",
+          "value": "Details.Message",
+          "required": false
+        },
+        {
+          "name": "DetailsFields",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Details.Fields",
+          "required": false
+        },
+        {
+          "name": "HiddenDetails",
+          "type": "string",
+          "value": "HiddenDetails",
+          "required": false
+        }
+      ]
+    },
+    "UpdateChallengeInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AuthPayload",
+          "type": "string",
+          "value": "AuthPayload",
+          "required": false
+        }
+      ]
+    },
+    "ChallengesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Challenges",
+          "type": "array",
+          "items": {
+            "structure": "ChallengeResponse"
+          },
+          "value": "challenges",
+          "required": true
+        }
+      ]
+    },
+    "ChallengeDetailsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Message",
+          "type": "string",
+          "value": "message",
+          "required": false
+        },
+        {
+          "name": "Date",
+          "type": "time.Time",
+          "value": "date",
+          "required": false
+        },
+        {
+          "name": "Fields",
+          "type": "array",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "fields",
+          "required": false
+        }
+      ]
+    },
+    "ChallengeResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "EntitySid",
+          "type": "string",
+          "value": "entity_sid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "FactorSid",
+          "type": "string",
+          "value": "factor_sid",
+          "required": true
+        },
+        {
+          "name": "FactorType",
+          "type": "string",
+          "value": "factor_type",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "RespondedReason",
+          "type": "string",
+          "value": "responded_reason",
+          "required": false
+        },
+        {
+          "name": "DateResponded",
+          "type": "time.Time",
+          "value": "date_responded",
+          "required": false
+        },
+        {
+          "name": "ExpirationDate",
+          "type": "time.Time",
+          "value": "expiration_date",
+          "required": true
+        },
+        {
+          "name": "HiddenDetails",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "hidden_details",
+          "required": false
+        },
+        {
+          "name": "Details",
+          "structure": "ChallengeDetailsResponse",
+          "value": "details",
+          "required": false
         }
       ]
     },
