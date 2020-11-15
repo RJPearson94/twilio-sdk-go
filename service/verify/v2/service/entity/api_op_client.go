@@ -1,7 +1,11 @@
 // Package entity contains auto-generated files. DO NOT MODIFY
 package entity
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/factor"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/factors"
+)
 
 // Client for managing a specific entity resource
 // See https://www.twilio.com/docs/verify/api/entity for more details
@@ -10,6 +14,9 @@ type Client struct {
 
 	identity   string
 	serviceSid string
+
+	Factor  func(string) *factor.Client
+	Factors *factors.Client
 }
 
 // ClientProperties are the properties required to manage the entity resources
@@ -25,5 +32,17 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		identity:   properties.Identity,
 		serviceSid: properties.ServiceSid,
+
+		Factor: func(factorSid string) *factor.Client {
+			return factor.New(client, factor.ClientProperties{
+				Identity:   properties.Identity,
+				ServiceSid: properties.ServiceSid,
+				Sid:        factorSid,
+			})
+		},
+		Factors: factors.New(client, factors.ClientProperties{
+			Identity:   properties.Identity,
+			ServiceSid: properties.ServiceSid,
+		}),
 	}
 }

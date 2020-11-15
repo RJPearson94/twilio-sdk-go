@@ -1,0 +1,19 @@
+{
+  "sid": "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "entity_sid": "YEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "identity": "test",
+  "date_created": "2020-06-20T20:50:24Z",
+  "date_updated": "2020-06-20T20:55:24Z",
+  "friendly_name": "test factor",
+  "status": "unverified",
+  "factor_type": "push",
+  "config": {
+    "sdk_version": null,
+    "app_id": "test",
+    "notification_platform": "fcm",
+    "notification_token": "notification_token"
+  },
+  "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

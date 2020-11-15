@@ -1024,6 +1024,297 @@
             "description": "Client for managing a specific entity resource",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity"
           },
+          "subClients": [
+            {
+              "name": "Factors",
+              "packageName": "factors",
+              "documentation": {
+                "description": "Client for managing factor resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor"
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "parentProperty": "identity"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Factors",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a new factor",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor#create-a-factor-resource"
+                  },
+                  "input": {
+                    "structure": "CreateFactorInput",
+                    "documentation": {
+                      "description": "defines the input fields for creating a new factor"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateFactorResponse",
+                    "structure": "FactorResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the created factor"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Factors",
+                    "method": "Get",
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ],
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of factors",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor#read-multiple-factor-resources"
+                  },
+                  "response": {
+                    "structure": "FactorsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the factors page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "FactorsPaginator",
+                    "page": {
+                      "name": "FactorsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "Factors",
+                      "structure": "PageFactorResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Factor",
+              "packageName": "factor",
+              "function": {
+                "parameters": {
+                  "factorSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "serviceSid": {
+                  "dataType": "string",
+                  "parentProperty": "serviceSid"
+                },
+                "identity": {
+                  "dataType": "string",
+                  "parentProperty": "identity"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "factorSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific factor resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Factors/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a factor resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor#fetch-a-factor-resource"
+                  },
+                  "response": {
+                    "name": "FetchFactorResponse",
+                    "structure": "FactorResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved factor"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Factors/{sid}",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a factor resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor#update-a-factor-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateFactorInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a factor resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateFactorResponse",
+                    "structure": "FactorResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated factor"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Services/{serviceSid}/Entities/{identity}/Factors/{sid}",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "serviceSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "serviceSid"
+                        }
+                      },
+                      {
+                        "name": "identity",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "identity"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a factor resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor#delete-a-factor-resource"
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -2310,6 +2601,185 @@
           "name": "Status",
           "type": "string",
           "value": "status",
+          "required": true
+        }
+      ]
+    },
+    "CreateFactorInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "FactorType",
+          "type": "string",
+          "value": "FactorType",
+          "required": true
+        },
+        {
+          "name": "BindingAlg",
+          "type": "string",
+          "value": "Binding.Alg",
+          "required": true
+        },
+        {
+          "name": "BindingPublicKey",
+          "type": "string",
+          "value": "Binding.PublicKey",
+          "required": true
+        },
+        {
+          "name": "ConfigAppId",
+          "type": "string",
+          "value": "Config.AppId",
+          "required": true
+        },
+        {
+          "name": "ConfigNotificationPlatform",
+          "type": "string",
+          "value": "Config.NotificationPlatform",
+          "required": true
+        },
+        {
+          "name": "ConfigNotificationToken",
+          "type": "string",
+          "value": "Config.NotificationToken",
+          "required": true
+        },
+        {
+          "name": "ConfigSdkVersion",
+          "type": "string",
+          "value": "Config.SdkVersion",
+          "required": false
+        }
+      ]
+    },
+    "UpdateFactorInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AuthPayload",
+          "type": "string",
+          "value": "AuthPayload",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "ConfigNotificationToken",
+          "type": "string",
+          "value": "Config.NotificationToken",
+          "required": false
+        },
+        {
+          "name": "ConfigSdkVersion",
+          "type": "string",
+          "value": "Config.SdkVersion",
+          "required": false
+        }
+      ]
+    },
+    "FactorsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Factors",
+          "type": "array",
+          "items": {
+            "structure": "FactorResponse"
+          },
+          "value": "factors",
+          "required": true
+        }
+      ]
+    },
+    "FactorConfigResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AppId",
+          "type": "string",
+          "value": "app_id",
+          "required": true
+        },
+        {
+          "name": "NotificationPlatform",
+          "type": "string",
+          "value": "notification_platform",
+          "required": true
+        },
+        {
+          "name": "NotificationToken",
+          "type": "string",
+          "value": "notification_token",
+          "required": true
+        },
+        {
+          "name": "SdkVersion",
+          "type": "string",
+          "value": "sdk_version",
+          "required": false
+        }
+      ]
+    },
+    "FactorResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "EntitySid",
+          "type": "string",
+          "value": "entity_sid",
+          "required": true
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "FactorType",
+          "type": "string",
+          "value": "factor_type",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "Config",
+          "structure": "FactorConfigResponse",
+          "value": "config",
           "required": true
         }
       ]

@@ -15,6 +15,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entities"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/factor"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/factors"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
@@ -2335,6 +2337,539 @@ var _ = Describe("Verify V2", func() {
 			)
 
 			err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Webhook("YW71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a factors client", func() {
+		factorsClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Entity("test").Factors
+
+		Describe("When the factor resource is successfully created", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				BindingPublicKey:           "TestKey",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FactorType:                 "push",
+				FriendlyName:               "test factor",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/factorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create factor response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.EntitySid).To(Equal("YEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Identity).To(Equal("test"))
+				Expect(resp.FriendlyName).To(Equal("test factor"))
+				Expect(resp.Status).To(Equal("unverified"))
+				Expect(resp.FactorType).To(Equal("push"))
+				Expect(resp.Config).To(Equal(factors.CreateFactorConfigResponse{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+					SdkVersion:           nil,
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the factor request does not contain a binding alg", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingPublicKey:           "TestKey",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FactorType:                 "push",
+				FriendlyName:               "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a binding public key", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FactorType:                 "push",
+				FriendlyName:               "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+		Describe("When the factor request does not contain a config app id", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				BindingPublicKey:           "TestKey",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FactorType:                 "push",
+				FriendlyName:               "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a config notification platform", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:              "ES256",
+				BindingPublicKey:        "TestKey",
+				ConfigAppId:             "test",
+				ConfigNotificationToken: "notification_token",
+				FactorType:              "push",
+				FriendlyName:            "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a config notification token", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				BindingPublicKey:           "TestKey",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				FactorType:                 "push",
+				FriendlyName:               "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a factor type", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				BindingPublicKey:           "TestKey",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FriendlyName:               "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a friendly name", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				BindingPublicKey:           "TestKey",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FactorType:                 "push",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create factor api returns a 500 response", func() {
+			createInput := &factors.CreateFactorInput{
+				BindingAlg:                 "ES256",
+				BindingPublicKey:           "TestKey",
+				ConfigAppId:                "test",
+				ConfigNotificationPlatform: "fcm",
+				ConfigNotificationToken:    "notification_token",
+				FactorType:                 "push",
+				FriendlyName:               "test factor",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of factors are successfully retrieved", func() {
+			pageOptions := &factors.FactorsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/factorsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := factorsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the factors page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("factors"))
+
+				factorConfig := factors.PageFactorConfigResponse{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+					SdkVersion:           nil,
+				}
+
+				factors := resp.Factors
+				Expect(factors).ToNot(BeNil())
+				Expect(len(factors)).To(Equal(1))
+
+				Expect(factors[0].Sid).To(Equal("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(factors[0].ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(factors[0].EntitySid).To(Equal("YEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(factors[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(factors[0].Identity).To(Equal("test"))
+				Expect(factors[0].FriendlyName).To(Equal("test factor"))
+				Expect(factors[0].Status).To(Equal("unverified"))
+				Expect(factors[0].FactorType).To(Equal("push"))
+				Expect(factors[0].Config).To(Equal(factorConfig))
+				Expect(factors[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(factors[0].DateUpdated).To(BeNil())
+				Expect(factors[0].URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of factors api returns a 500 response", func() {
+			pageOptions := &factors.FactorsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := factorsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the factors page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated factors are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/factorsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/factorsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := factorsClient.NewFactorsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated factors current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated factors results should be returned", func() {
+				Expect(len(paginator.Factors)).To(Equal(3))
+			})
+		})
+
+		Describe("When the factors api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/factorsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := factorsClient.NewFactorsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated factors current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a factor sid", func() {
+		factorClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Entity("test").Factor("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the factor resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/factorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := factorClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get factor resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.EntitySid).To(Equal("YEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Identity).To(Equal("test"))
+				Expect(resp.FriendlyName).To(Equal("test factor"))
+				Expect(resp.Status).To(Equal("unverified"))
+				Expect(resp.FactorType).To(Equal("push"))
+				Expect(resp.Config).To(Equal(factor.FetchFactorConfigResponse{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+					SdkVersion:           nil,
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the factor resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YF71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Entity("test").Factor("YF71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateFactorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &factor.UpdateFactorInput{}
+
+			resp, err := factorClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update factor response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.EntitySid).To(Equal("YEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Identity).To(Equal("test"))
+				Expect(resp.FriendlyName).To(Equal("test factor"))
+				Expect(resp.Status).To(Equal("unverified"))
+				Expect(resp.FactorType).To(Equal("push"))
+				Expect(resp.Config).To(Equal(factor.UpdateFactorConfigResponse{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+					SdkVersion:           nil,
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update factor resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YF71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &factor.UpdateFactorInput{}
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Entity("test").Factor("YF71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := factorClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the factor resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors/YF71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Entity("test").Factor("YF71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

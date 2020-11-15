@@ -23,6 +23,7 @@ FEATURES
 - **New Resource:** Access Tokens
 - **New Resource:** Entity
 - **New Resource:** Webhook
+- **New Resource:** Factor
 
 ## v0.5.0 (2020-10-16)
 

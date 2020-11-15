@@ -392,4 +392,5 @@ var _ = Describe("Verify Acceptance Tests", func() {
 	})
 
 	// TODO Add Verification Check tests
+	// TODO Add Factor tests
 })
