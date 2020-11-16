@@ -9,25 +9,29 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type CreateFlexFlowIntegrationInput struct {
+	Channel           *string `form:"Channel,omitempty"`
+	CreationOnMessage *bool   `form:"CreationOnMessage,omitempty"`
+	FlowSid           *string `form:"FlowSid,omitempty"`
+	Priority          *int    `form:"Priority,omitempty"`
+	RetryCount        *int    `form:"RetryCount,omitempty"`
+	Timeout           *int    `form:"Timeout,omitempty"`
+	URL               *string `form:"Url,omitempty"`
+	WorkflowSid       *string `form:"WorkflowSid,omitempty"`
+	WorkspaceSid      *string `form:"WorkspaceSid,omitempty"`
+}
+
 // CreateFlexFlowInput defines the input fields for creating a new flex flow resource
 type CreateFlexFlowInput struct {
-	ChannelType                  string  `validate:"required" form:"ChannelType"`
-	ChatServiceSid               string  `validate:"required" form:"ChatServiceSid"`
-	ContactIdentity              *string `form:"ContactIdentity,omitempty"`
-	Enabled                      *bool   `form:"Enabled,omitempty"`
-	FriendlyName                 string  `validate:"required" form:"FriendlyName"`
-	IntegrationChannel           *string `form:"Integration.Channel,omitempty"`
-	IntegrationCreationOnMessage *bool   `form:"Integration.CreationOnMessage,omitempty"`
-	IntegrationFlowSid           *string `form:"Integration.FlowSid,omitempty"`
-	IntegrationPriority          *int    `form:"Integration.Priority,omitempty"`
-	IntegrationRetryCount        *int    `form:"Integration.RetryCount,omitempty"`
-	IntegrationTimeout           *int    `form:"Integration.Timeout,omitempty"`
-	IntegrationType              *string `form:"IntegrationType,omitempty"`
-	IntegrationURL               *string `form:"Integration.Url,omitempty"`
-	IntegrationWorkflowSid       *string `form:"Integration.WorkflowSid,omitempty"`
-	IntegrationWorkspaceSid      *string `form:"Integration.WorkspaceSid,omitempty"`
-	JanitorEnabled               *bool   `form:"JanitorEnabled,omitempty"`
-	LongLived                    *bool   `form:"LongLived,omitempty"`
+	ChannelType     string                          `validate:"required" form:"ChannelType"`
+	ChatServiceSid  string                          `validate:"required" form:"ChatServiceSid"`
+	ContactIdentity *string                         `form:"ContactIdentity,omitempty"`
+	Enabled         *bool                           `form:"Enabled,omitempty"`
+	FriendlyName    string                          `validate:"required" form:"FriendlyName"`
+	Integration     *CreateFlexFlowIntegrationInput `form:"Integration,omitempty"`
+	IntegrationType *string                         `form:"IntegrationType,omitempty"`
+	JanitorEnabled  *bool                           `form:"JanitorEnabled,omitempty"`
+	LongLived       *bool                           `form:"LongLived,omitempty"`
 }
 
 type CreateFlexFlowResponseIntegration struct {
