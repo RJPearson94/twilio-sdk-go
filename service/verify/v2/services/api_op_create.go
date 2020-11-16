@@ -9,20 +9,24 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type CreateServicePushInput struct {
+	ApnCredentialSid *string `form:"ApnCredentialSid,omitempty"`
+	FcmCredentialSid *string `form:"FcmCredentialSid,omitempty"`
+	IncludeDate      *bool   `form:"IncludeDate,omitempty"`
+}
+
 // CreateServiceInput defines the input fields for creating a new service
 type CreateServiceInput struct {
-	CodeLength               *int    `form:"CodeLength,omitempty"`
-	CustomCodeEnabled        *bool   `form:"CustomCodeEnabled,omitempty"`
-	DoNotShareWarningEnabled *bool   `form:"DoNotShareWarningEnabled,omitempty"`
-	DtmfInputRequired        *bool   `form:"DtmfInputRequired,omitempty"`
-	FriendlyName             string  `validate:"required" form:"FriendlyName"`
-	LookupEnabled            *bool   `form:"LookupEnabled,omitempty"`
-	Psd2Enabled              *bool   `form:"Psd2Enabled,omitempty"`
-	PushApnCredentialSid     *string `form:"Push.ApnCredentialSid,omitempty"`
-	PushFcmCredentialSid     *string `form:"Push.FcmCredentialSid,omitempty"`
-	PushIncludeDate          *bool   `form:"Push.IncludeDate,omitempty"`
-	SkipSmsToLandlines       *bool   `form:"SkipSmsToLandlines,omitempty"`
-	TtsName                  *string `form:"TtsName,omitempty"`
+	CodeLength               *int                    `form:"CodeLength,omitempty"`
+	CustomCodeEnabled        *bool                   `form:"CustomCodeEnabled,omitempty"`
+	DoNotShareWarningEnabled *bool                   `form:"DoNotShareWarningEnabled,omitempty"`
+	DtmfInputRequired        *bool                   `form:"DtmfInputRequired,omitempty"`
+	FriendlyName             string                  `validate:"required" form:"FriendlyName"`
+	LookupEnabled            *bool                   `form:"LookupEnabled,omitempty"`
+	Psd2Enabled              *bool                   `form:"Psd2Enabled,omitempty"`
+	Push                     *CreateServicePushInput `form:"Push,omitempty"`
+	SkipSmsToLandlines       *bool                   `form:"SkipSmsToLandlines,omitempty"`
+	TtsName                  *string                 `form:"TtsName,omitempty"`
 }
 
 type CreateServicePushResponse struct {

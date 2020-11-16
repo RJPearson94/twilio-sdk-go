@@ -9,12 +9,16 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type UpdateFactorConfigInput struct {
+	NotificationToken *string `form:"NotificationToken,omitempty"`
+	SdkVersion        *string `form:"SdkVersion,omitempty"`
+}
+
 // UpdateFactorInput defines input fields for updating a factor resource
 type UpdateFactorInput struct {
-	AuthPayload             *string `form:"AuthPayload,omitempty"`
-	ConfigNotificationToken *string `form:"Config.NotificationToken,omitempty"`
-	ConfigSdkVersion        *string `form:"Config.SdkVersion,omitempty"`
-	FriendlyName            *string `form:"FriendlyName,omitempty"`
+	AuthPayload  *string                  `form:"AuthPayload,omitempty"`
+	Config       *UpdateFactorConfigInput `form:"Config,omitempty"`
+	FriendlyName *string                  `form:"FriendlyName,omitempty"`
 }
 
 type UpdateFactorConfigResponse struct {

@@ -2350,13 +2350,17 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor resource is successfully created", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				BindingPublicKey:           "TestKey",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FactorType:                 "push",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors",
@@ -2397,12 +2401,37 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor request does not contain a binding alg", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingPublicKey:           "TestKey",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FactorType:                 "push",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a binding struct", func() {
+			createInput := &factors.CreateFactorInput{
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2417,12 +2446,16 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor request does not contain a binding public key", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FactorType:                 "push",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg: "ES256",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2436,12 +2469,16 @@ var _ = Describe("Verify V2", func() {
 		})
 		Describe("When the factor request does not contain a config app id", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				BindingPublicKey:           "TestKey",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FactorType:                 "push",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2456,12 +2493,16 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor request does not contain a config notification platform", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:              "ES256",
-				BindingPublicKey:        "TestKey",
-				ConfigAppId:             "test",
-				ConfigNotificationToken: "notification_token",
-				FactorType:              "push",
-				FriendlyName:            "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:             "test",
+					NotificationToken: "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2476,12 +2517,36 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor request does not contain a config notification token", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				BindingPublicKey:           "TestKey",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				FactorType:                 "push",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
+			}
+
+			resp, err := factorsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create factor response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the factor request does not contain a config struct", func() {
+			createInput := &factors.CreateFactorInput{
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2496,12 +2561,16 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor request does not contain a factor type", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				BindingPublicKey:           "TestKey",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FriendlyName: "test factor",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2516,12 +2585,16 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the factor request does not contain a friendly name", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				BindingPublicKey:           "TestKey",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FactorType:                 "push",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType: "push",
 			}
 
 			resp, err := factorsClient.Create(createInput)
@@ -2536,13 +2609,17 @@ var _ = Describe("Verify V2", func() {
 
 		Describe("When the create factor api returns a 500 response", func() {
 			createInput := &factors.CreateFactorInput{
-				BindingAlg:                 "ES256",
-				BindingPublicKey:           "TestKey",
-				ConfigAppId:                "test",
-				ConfigNotificationPlatform: "fcm",
-				ConfigNotificationToken:    "notification_token",
-				FactorType:                 "push",
-				FriendlyName:               "test factor",
+				Binding: factors.CreateFactorBindingInput{
+					Alg:       "ES256",
+					PublicKey: "TestKey",
+				},
+				Config: factors.CreateFactorConfigInput{
+					AppId:                "test",
+					NotificationPlatform: "fcm",
+					NotificationToken:    "notification_token",
+				},
+				FactorType:   "push",
+				FriendlyName: "test factor",
 			}
 
 			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/test/Factors",

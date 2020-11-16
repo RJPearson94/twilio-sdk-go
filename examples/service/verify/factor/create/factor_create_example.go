@@ -30,13 +30,17 @@ func main() {
 		Entity("test").
 		Factors.
 		Create(&factors.CreateFactorInput{
-			BindingAlg:                 "ES256",
-			BindingPublicKey:           "TestKey",
-			ConfigAppId:                "test",
-			ConfigNotificationPlatform: "fcm",
-			ConfigNotificationToken:    "notification_token",
-			FactorType:                 "push",
-			FriendlyName:               "test factor",
+			Binding: factors.CreateFactorBindingInput{
+				Alg:       "ES256",
+				PublicKey: "TestKey",
+			},
+			Config: factors.CreateFactorConfigInput{
+				AppId:                "test",
+				NotificationPlatform: "fcm",
+				NotificationToken:    "notification_token",
+			},
+			FactorType:   "push",
+			FriendlyName: "test factor",
 		})
 
 	if err != nil {
