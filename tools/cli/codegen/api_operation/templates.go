@@ -29,13 +29,15 @@ import "{{ $import }}" {{ end }} {{ end }}
 
 {{ if .documentation }} // {{ .name }} {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
 // See {{ .documentation.twilioDocsLink }} for more details {{ end }} 
-// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information {{ end }}
+// Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information {{ end }} {{ if .config }} {{ if .config.beta }}
+// This resource is currently in beta and subject to change. Please use with caution {{ end }} {{ end }}
 func (c Client) {{ .name }} ({{ if .options }}options *{{ .options.name }}, {{ end }} {{ if .input }}input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
 	return c.{{.name}}WithContext(context.Background() {{ if .options }}, options {{ end }} {{ if .input }}, input {{ end }})
 }
 
 {{ if .documentation }} // {{ .name }}WithContext {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
-// See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }}
+// See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }} {{ if .config }} {{ if .config.beta }}
+// This resource is currently in beta and subject to change. Please use with caution {{ end }} {{ end }}
 func (c Client) {{ .name }}WithContext(context context.Context {{ if .options }}, options *{{ .options.name }} {{ end }} {{ if .input }}, input *{{ .input.name }} {{ end }}) ({{ if .response }} *{{ .response.name }}, {{ end }} error) {
 	op := client.Operation{ ${overrideBaseURL}
 		Method: http.Method{{ .http.method }},

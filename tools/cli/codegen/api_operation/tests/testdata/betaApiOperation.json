@@ -1,0 +1,85 @@
+{
+  "packageName": "entity",
+  "name": "Fetch",
+  "imports": ["github.com/RJPearson94/twilio-sdk-go/client"],
+  "http": {
+    "uri": "/Services/{serviceSid}/Entities/{identity}",
+    "method": "Get",
+    "pathParams": [
+      {
+        "name": "serviceSid",
+        "value": {
+          "onService": true,
+          "type": "string",
+          "property": "serviceSid"
+        }
+      },
+      {
+        "name": "identity",
+        "value": {
+          "onService": true,
+          "type": "string",
+          "property": "identity"
+        }
+      }
+    ]
+  },
+  "documentation": {
+    "description": "retrieves an entity resource",
+    "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity#fetch-an-entity-resource"
+  },
+  "config": {
+    "beta": true
+  },
+  "response": {
+    "name": "FetchEntityResponse",
+    "type": "JSON",
+    "properties": [
+      {
+        "name": "AccountSid",
+        "type": "string",
+        "value": "account_sid",
+        "required": true
+      },
+      {
+        "name": "DateCreated",
+        "type": "time.Time",
+        "value": "date_created",
+        "required": true
+      },
+      {
+        "name": "DateUpdated",
+        "type": "time.Time",
+        "value": "date_updated",
+        "required": false
+      },
+      {
+        "name": "Identity",
+        "type": "string",
+        "value": "identity",
+        "required": true
+      },
+      {
+        "name": "ServiceSid",
+        "type": "string",
+        "value": "service_sid",
+        "required": true
+      },
+      {
+        "name": "Sid",
+        "type": "string",
+        "value": "sid",
+        "required": true
+      },
+      {
+        "name": "URL",
+        "type": "string",
+        "value": "url",
+        "required": true
+      }
+    ],
+    "documentation": {
+      "description": "defines the response fields for the retrieved entity"
+    }
+  }
+}

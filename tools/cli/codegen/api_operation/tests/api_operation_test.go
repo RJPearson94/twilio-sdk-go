@@ -46,6 +46,23 @@ var _ = Describe("API Operation CodeGen", func() {
 				Expect(string(*resp)).To(Equal(string(goldenData)))
 			})
 		})
+
+		Describe("When the api operation is generated with beta config", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/betaApiOperation.golden")
+			apiOperationJSON, _ := ioutil.ReadFile("testdata/betaApiOperation.json")
+			var apiOperationData interface{}
+			_ = json.Unmarshal(apiOperationJSON, &apiOperationData)
+
+			resp, err := apioperation.Generate(apiOperationData, true)
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the response should match the golden data", func() {
+				Expect(string(*resp)).To(Equal(string(goldenData)))
+			})
+		})
 	})
 
 	Describe("Given a snippet of api json", func() {

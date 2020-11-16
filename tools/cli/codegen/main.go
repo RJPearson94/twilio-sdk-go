@@ -56,6 +56,7 @@ func generateApiClients(apiClients []interface{}, structures map[string]interfac
 		for _, operation := range apiClientMap["operations"].([]interface{}) {
 			operationMap := operation.(map[string]interface{})
 			operationMap["packageName"] = apiClientMap["packageName"]
+			operationMap["config"] = apiClientMap["config"]
 			operationMap["structures"] = structures
 
 			bytes, err := json.Marshal(operation)

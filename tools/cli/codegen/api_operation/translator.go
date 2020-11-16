@@ -24,6 +24,9 @@ func Translate(content []byte) (*interface{}, error) {
 	if jsonParsed.Exists("documentation") {
 		response.Set(jsonParsed.Path("documentation").Data(), "documentation")
 	}
+	if jsonParsed.Exists("config") {
+		response.Set(jsonParsed.Path("config").Data(), "config")
+	}
 	response.Set(apiOperationName, "name")
 	response.Set(jsonParsed.Path("http").Data(), "http")
 
