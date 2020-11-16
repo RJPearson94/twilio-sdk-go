@@ -9,16 +9,24 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type CreateFactorBindingInput struct {
+	Alg       string `validate:"required" form:"Alg"`
+	PublicKey string `validate:"required" form:"PublicKey"`
+}
+
+type CreateFactorConfigInput struct {
+	AppId                string  `validate:"required" form:"AppId"`
+	NotificationPlatform string  `validate:"required" form:"NotificationPlatform"`
+	NotificationToken    string  `validate:"required" form:"NotificationToken"`
+	SdkVersion           *string `form:"SdkVersion,omitempty"`
+}
+
 // CreateFactorInput defines the input fields for creating a new factor
 type CreateFactorInput struct {
-	BindingAlg                 string  `validate:"required" form:"Binding.Alg"`
-	BindingPublicKey           string  `validate:"required" form:"Binding.PublicKey"`
-	ConfigAppId                string  `validate:"required" form:"Config.AppId"`
-	ConfigNotificationPlatform string  `validate:"required" form:"Config.NotificationPlatform"`
-	ConfigNotificationToken    string  `validate:"required" form:"Config.NotificationToken"`
-	ConfigSdkVersion           *string `form:"Config.SdkVersion,omitempty"`
-	FactorType                 string  `validate:"required" form:"FactorType"`
-	FriendlyName               string  `validate:"required" form:"FriendlyName"`
+	Binding      CreateFactorBindingInput `validate:"required" form:"Binding"`
+	Config       CreateFactorConfigInput  `validate:"required" form:"Config"`
+	FactorType   string                   `validate:"required" form:"FactorType"`
+	FriendlyName string                   `validate:"required" form:"FriendlyName"`
 }
 
 type CreateFactorConfigResponse struct {

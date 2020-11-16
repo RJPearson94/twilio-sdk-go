@@ -2026,6 +2026,29 @@
         }
       ]
     },
+    "ServicePushInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "IncludeDate",
+          "type": "bool",
+          "value": "IncludeDate",
+          "required": false
+        },
+        {
+          "name": "ApnCredentialSid",
+          "type": "string",
+          "value": "ApnCredentialSid",
+          "required": false
+        },
+        {
+          "name": "FcmCredentialSid",
+          "type": "string",
+          "value": "FcmCredentialSid",
+          "required": false
+        }
+      ]
+    },
     "BaseServiceInput": {
       "type": "URLEncoded",
       "properties": [
@@ -2078,21 +2101,9 @@
           "required": false
         },
         {
-          "name": "PushIncludeDate",
-          "type": "bool",
-          "value": "Push.IncludeDate",
-          "required": false
-        },
-        {
-          "name": "PushApnCredentialSid",
-          "type": "string",
-          "value": "Push.ApnCredentialSid",
-          "required": false
-        },
-        {
-          "name": "PushFcmCredentialSid",
-          "type": "string",
-          "value": "Push.FcmCredentialSid",
+          "name": "Push",
+          "structure": "ServicePushInput",
+          "value": "Push",
           "required": false
         }
       ]
@@ -2894,6 +2905,52 @@
         }
       ]
     },
+    "CreateFactorBindingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Alg",
+          "type": "string",
+          "value": "Alg",
+          "required": true
+        },
+        {
+          "name": "PublicKey",
+          "type": "string",
+          "value": "PublicKey",
+          "required": true
+        }
+      ]
+    },
+    "CreateFactorConfigInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "AppId",
+          "type": "string",
+          "value": "AppId",
+          "required": true
+        },
+        {
+          "name": "NotificationPlatform",
+          "type": "string",
+          "value": "NotificationPlatform",
+          "required": true
+        },
+        {
+          "name": "NotificationToken",
+          "type": "string",
+          "value": "NotificationToken",
+          "required": true
+        },
+        {
+          "name": "SdkVersion",
+          "type": "string",
+          "value": "SdkVersion",
+          "required": false
+        }
+      ]
+    },
     "CreateFactorInput": {
       "type": "URLEncoded",
       "properties": [
@@ -2910,39 +2967,34 @@
           "required": true
         },
         {
-          "name": "BindingAlg",
-          "type": "string",
-          "value": "Binding.Alg",
+          "name": "Binding",
+          "structure": "CreateFactorBindingInput",
+          "structureName": "FactorBindingInput",
+          "value": "Binding",
           "required": true
         },
         {
-          "name": "BindingPublicKey",
-          "type": "string",
-          "value": "Binding.PublicKey",
+          "name": "Config",
+          "structure": "CreateFactorConfigInput",
+          "structureName": "FactorConfigInput",
+          "value": "Config",
           "required": true
+        }
+      ]
+    },
+    "UpdateFactorConfigInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "NotificationToken",
+          "type": "string",
+          "value": "NotificationToken",
+          "required": false
         },
         {
-          "name": "ConfigAppId",
+          "name": "SdkVersion",
           "type": "string",
-          "value": "Config.AppId",
-          "required": true
-        },
-        {
-          "name": "ConfigNotificationPlatform",
-          "type": "string",
-          "value": "Config.NotificationPlatform",
-          "required": true
-        },
-        {
-          "name": "ConfigNotificationToken",
-          "type": "string",
-          "value": "Config.NotificationToken",
-          "required": true
-        },
-        {
-          "name": "ConfigSdkVersion",
-          "type": "string",
-          "value": "Config.SdkVersion",
+          "value": "SdkVersion",
           "required": false
         }
       ]
@@ -2963,15 +3015,10 @@
           "required": false
         },
         {
-          "name": "ConfigNotificationToken",
-          "type": "string",
-          "value": "Config.NotificationToken",
-          "required": false
-        },
-        {
-          "name": "ConfigSdkVersion",
-          "type": "string",
-          "value": "Config.SdkVersion",
+          "name": "Config",
+          "structure": "UpdateFactorConfigInput",
+          "structureName": "FactorConfigInput",
+          "value": "Config",
           "required": false
         }
       ]
@@ -3073,6 +3120,26 @@
         }
       ]
     },
+    "ChallengeDetailsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Message",
+          "type": "string",
+          "value": "Message",
+          "required": false
+        },
+        {
+          "name": "Fields",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Fields",
+          "required": false
+        }
+      ]
+    },
     "CreateChallengeInput": {
       "type": "URLEncoded",
       "properties": [
@@ -3089,18 +3156,9 @@
           "required": false
         },
         {
-          "name": "DetailsMessage",
-          "type": "string",
-          "value": "Details.Message",
-          "required": false
-        },
-        {
-          "name": "DetailsFields",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "value": "Details.Fields",
+          "name": "Details",
+          "structure": "ChallengeDetailsInput",
+          "value": "Details",
           "required": false
         },
         {

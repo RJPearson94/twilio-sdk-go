@@ -9,13 +9,17 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type CreateChallengeDetailsInput struct {
+	Fields  *[]string `form:"Fields,omitempty"`
+	Message *string   `form:"Message,omitempty"`
+}
+
 // CreateChallengeInput defines the input fields for creating a new challenge
 type CreateChallengeInput struct {
-	DetailsFields  *[]string  `form:"Details.Fields,omitempty"`
-	DetailsMessage *string    `form:"Details.Message,omitempty"`
-	ExpirationDate *time.Time `form:"ExpirationDate,omitempty"`
-	FactorSid      string     `validate:"required" form:"FactorSid"`
-	HiddenDetails  *string    `form:"HiddenDetails,omitempty"`
+	Details        *CreateChallengeDetailsInput `form:"Details,omitempty"`
+	ExpirationDate *time.Time                   `form:"ExpirationDate,omitempty"`
+	FactorSid      string                       `validate:"required" form:"FactorSid"`
+	HiddenDetails  *string                      `form:"HiddenDetails,omitempty"`
 }
 
 type CreateChallengeDetailsResponse struct {
