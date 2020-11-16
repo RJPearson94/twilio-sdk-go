@@ -5,6 +5,7 @@ import "github.com/RJPearson94/twilio-sdk-go/client"
 
 // Client for managing challenge resources
 // See https://www.twilio.com/docs/verify/api/challenge for more details
+// This client is currently in beta and subject to change. Please use with caution
 type Client struct {
 	client *client.Client
 

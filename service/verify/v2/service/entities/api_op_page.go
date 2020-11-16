@@ -48,12 +48,14 @@ type EntitiesPageResponse struct {
 // Page retrieves a page of entities
 // See https://www.twilio.com/docs/verify/api/entity#read-multiple-entity-resources for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Page(options *EntitiesPageOptions) (*EntitiesPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of entities
 // See https://www.twilio.com/docs/verify/api/entity#read-multiple-entity-resources for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) PageWithContext(context context.Context, options *EntitiesPageOptions) (*EntitiesPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

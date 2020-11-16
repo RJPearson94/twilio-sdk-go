@@ -47,12 +47,14 @@ type CreateFactorResponse struct {
 // Create creates a new factor
 // See https://www.twilio.com/docs/verify/api/factor#create-a-factor-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Create(input *CreateFactorInput) (*CreateFactorResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
 // CreateWithContext creates a new factor
 // See https://www.twilio.com/docs/verify/api/factor#create-a-factor-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) CreateWithContext(context context.Context, input *CreateFactorInput) (*CreateFactorResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

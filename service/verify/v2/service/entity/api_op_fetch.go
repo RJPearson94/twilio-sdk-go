@@ -23,12 +23,14 @@ type FetchEntityResponse struct {
 // Fetch retrieves an entity resource
 // See https://www.twilio.com/docs/verify/api/entity#fetch-an-entity-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Fetch() (*FetchEntityResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
 // FetchWithContext retrieves an entity resource
 // See https://www.twilio.com/docs/verify/api/entity#fetch-an-entity-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) FetchWithContext(context context.Context) (*FetchEntityResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

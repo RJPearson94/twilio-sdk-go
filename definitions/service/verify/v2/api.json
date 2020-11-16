@@ -855,6 +855,9 @@
             "description": "Client for managing access token resources",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/access-token"
           },
+          "config": {
+            "beta": true
+          },
           "operations": [
             {
               "name": "Create",
@@ -899,6 +902,9 @@
           "documentation": {
             "description": "Client for managing entity resources",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity"
+          },
+          "config": {
+            "beta": true
           },
           "properties": {
             "serviceSid": {
@@ -1024,6 +1030,9 @@
             "description": "Client for managing a specific entity resource",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/entity"
           },
+          "config": {
+            "beta": true
+          },
           "subClients": [
             {
               "name": "Factors",
@@ -1031,6 +1040,9 @@
               "documentation": {
                 "description": "Client for managing factor resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor"
+              },
+              "config": {
+                "beta": true
               },
               "properties": {
                 "serviceSid": {
@@ -1180,6 +1192,9 @@
                 "description": "Client for managing a specific factor resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/verify/api/factor"
               },
+              "config": {
+                "beta": true
+              },
               "operations": [
                 {
                   "name": "Fetch",
@@ -1320,6 +1335,9 @@
               "documentation": {
                 "description": "Client for managing challenge resources",
                 "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge"
+              },
+              "config": {
+                "beta": true
               },
               "properties": {
                 "serviceSid": {
@@ -1478,6 +1496,9 @@
               "documentation": {
                 "description": "Client for managing a specific challenge resource",
                 "twilioDocsLink": "https://www.twilio.com/docs/verify/api/challenge"
+              },
+              "config": {
+                "beta": true
               },
               "operations": [
                 {
@@ -1652,6 +1673,9 @@
             "description": "Client for managing webhook resources",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks"
           },
+          "config": {
+            "beta": true
+          },
           "properties": {
             "serviceSid": {
               "dataType": "string",
@@ -1775,6 +1799,9 @@
           "documentation": {
             "description": "Client for managing a specific webhook resource",
             "twilioDocsLink": "https://www.twilio.com/docs/verify/api/webhooks"
+          },
+          "config": {
+            "beta": true
           },
           "operations": [
             {

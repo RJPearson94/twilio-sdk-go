@@ -11,6 +11,7 @@ import (
 
 // Client for managing a specific entity resource
 // See https://www.twilio.com/docs/verify/api/entity for more details
+// This client is currently in beta and subject to change. Please use with caution
 type Client struct {
 	client *client.Client
 

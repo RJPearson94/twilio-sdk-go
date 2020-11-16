@@ -47,12 +47,14 @@ type CreateChallengeResponse struct {
 // Create creates a new challenge
 // See https://www.twilio.com/docs/verify/api/challenge#create-a-challenge-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Create(input *CreateChallengeInput) (*CreateChallengeResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
 // CreateWithContext creates a new challenge
 // See https://www.twilio.com/docs/verify/api/challenge#create-a-challenge-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) CreateWithContext(context context.Context, input *CreateChallengeInput) (*CreateChallengeResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -35,12 +35,14 @@ type FetchFactorResponse struct {
 // Fetch retrieves a factor resource
 // See https://www.twilio.com/docs/verify/api/factor#fetch-a-factor-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Fetch() (*FetchFactorResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
 // FetchWithContext retrieves a factor resource
 // See https://www.twilio.com/docs/verify/api/factor#fetch-a-factor-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) FetchWithContext(context context.Context) (*FetchFactorResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

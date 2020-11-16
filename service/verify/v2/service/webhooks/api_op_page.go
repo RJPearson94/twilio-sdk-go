@@ -52,12 +52,14 @@ type WebhooksPageResponse struct {
 // Page retrieves a page of webhooks
 // See https://www.twilio.com/docs/verify/api/webhooks#read-multiple-webhook-resources for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Page(options *WebhooksPageOptions) (*WebhooksPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of webhooks
 // See https://www.twilio.com/docs/verify/api/webhooks#read-multiple-webhook-resources for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) PageWithContext(context context.Context, options *WebhooksPageOptions) (*WebhooksPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

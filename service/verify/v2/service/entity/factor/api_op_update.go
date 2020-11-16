@@ -43,12 +43,14 @@ type UpdateFactorResponse struct {
 // Update modifies a factor resource
 // See https://www.twilio.com/docs/verify/api/factor#update-a-factor-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Update(input *UpdateFactorInput) (*UpdateFactorResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
 // UpdateWithContext modifies a factor resource
 // See https://www.twilio.com/docs/verify/api/factor#update-a-factor-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) UpdateWithContext(context context.Context, input *UpdateFactorInput) (*UpdateFactorResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

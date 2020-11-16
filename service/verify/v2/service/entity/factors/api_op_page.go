@@ -60,12 +60,14 @@ type FactorsPageResponse struct {
 // Page retrieves a page of factors
 // See https://www.twilio.com/docs/verify/api/factor#read-multiple-factor-resources for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Page(options *FactorsPageOptions) (*FactorsPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of factors
 // See https://www.twilio.com/docs/verify/api/factor#read-multiple-factor-resources for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) PageWithContext(context context.Context, options *FactorsPageOptions) (*FactorsPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

@@ -43,12 +43,14 @@ type UpdateChallengeResponse struct {
 // Update modifies a challenge resource
 // See https://www.twilio.com/docs/verify/api/challenge#update-a-challenge-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Update(input *UpdateChallengeInput) (*UpdateChallengeResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
 // UpdateWithContext modifies a challenge resource
 // See https://www.twilio.com/docs/verify/api/challenge#update-a-challenge-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) UpdateWithContext(context context.Context, input *UpdateChallengeInput) (*UpdateChallengeResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

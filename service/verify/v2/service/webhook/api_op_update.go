@@ -35,12 +35,14 @@ type UpdateWebhookResponse struct {
 // Update modifies a webhook resource
 // See https://www.twilio.com/docs/verify/api/webhooks#update-a-webhook-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Update(input *UpdateWebhookInput) (*UpdateWebhookResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
 // UpdateWithContext modifies a webhook resource
 // See https://www.twilio.com/docs/verify/api/webhooks#update-a-webhook-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) UpdateWithContext(context context.Context, input *UpdateWebhookInput) (*UpdateWebhookResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

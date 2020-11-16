@@ -28,12 +28,14 @@ type CreateEntityResponse struct {
 // Create creates a new entity
 // See https://www.twilio.com/docs/verify/api/entity#create-an-entity-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Create(input *CreateEntityInput) (*CreateEntityResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
 // CreateWithContext creates a new entity
 // See https://www.twilio.com/docs/verify/api/entity#create-an-entity-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) CreateWithContext(context context.Context, input *CreateEntityInput) (*CreateEntityResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,
