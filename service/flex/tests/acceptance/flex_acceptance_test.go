@@ -54,7 +54,9 @@ var _ = Describe("Flex Acceptance Tests", func() {
 				ChatServiceSid:  os.Getenv("TWILIO_FLEX_CHANNEL_SERVICE_SID"),
 				ChannelType:     "web",
 				IntegrationType: utils.String("external"),
-				IntegrationURL:  utils.String("https://test.com/external"),
+				Integration: &flex_flows.CreateFlexFlowIntegrationInput{
+					URL: utils.String("https://test.com/external"),
+				},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
@@ -97,7 +99,9 @@ var _ = Describe("Flex Acceptance Tests", func() {
 				ChatServiceSid:  os.Getenv("TWILIO_FLEX_CHANNEL_SERVICE_SID"),
 				ChannelType:     "web",
 				IntegrationType: utils.String("external"),
-				IntegrationURL:  utils.String("https://test.com/external"),
+				Integration: &flex_flows.CreateFlexFlowIntegrationInput{
+					URL: utils.String("https://test.com/external"),
+				},
 			})
 			if flexFlowErr != nil {
 				Fail(fmt.Sprintf("Failed to create flex flow. Error %s", flexFlowErr.Error()))

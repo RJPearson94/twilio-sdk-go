@@ -34,7 +34,9 @@ func main() {
 			ChatServiceSid:  "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 			ChannelType:     "web",
 			IntegrationType: utils.String("external"),
-			IntegrationURL:  utils.String("https://test.com/external"),
+			Integration: &flex_flows.CreateFlexFlowIntegrationInput{
+				URL: utils.String("https://test.com/external"),
+			},
 		})
 
 	if err != nil {

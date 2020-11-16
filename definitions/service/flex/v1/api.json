@@ -1272,6 +1272,65 @@
         }
       ]
     },
+    "FlexFlowIntegrationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "FlowSid",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "Url",
+          "required": false
+        },
+        {
+          "name": "WorkspaceSid",
+          "type": "string",
+          "value": "WorkspaceSid",
+          "required": false
+        },
+        {
+          "name": "WorkflowSid",
+          "type": "string",
+          "value": "WorkflowSid",
+          "required": false
+        },
+        {
+          "name": "Channel",
+          "type": "string",
+          "value": "Channel",
+          "required": false
+        },
+        {
+          "name": "Timeout",
+          "type": "int",
+          "value": "Timeout",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "Priority",
+          "required": false
+        },
+        {
+          "name": "CreationOnMessage",
+          "type": "bool",
+          "value": "CreationOnMessage",
+          "required": false
+        },
+        {
+          "name": "RetryCount",
+          "type": "int",
+          "value": "RetryCount",
+          "required": false
+        }
+      ]
+    },
     "BaseFlexFlowInput": {
       "type": "URLEncoded",
       "properties": [
@@ -1294,57 +1353,9 @@
           "required": false
         },
         {
-          "name": "IntegrationFlowSid",
-          "type": "string",
-          "value": "Integration.FlowSid",
-          "required": false
-        },
-        {
-          "name": "IntegrationURL",
-          "type": "string",
-          "value": "Integration.Url",
-          "required": false
-        },
-        {
-          "name": "IntegrationWorkspaceSid",
-          "type": "string",
-          "value": "Integration.WorkspaceSid",
-          "required": false
-        },
-        {
-          "name": "IntegrationWorkflowSid",
-          "type": "string",
-          "value": "Integration.WorkflowSid",
-          "required": false
-        },
-        {
-          "name": "IntegrationChannel",
-          "type": "string",
-          "value": "Integration.Channel",
-          "required": false
-        },
-        {
-          "name": "IntegrationTimeout",
-          "type": "int",
-          "value": "Integration.Timeout",
-          "required": false
-        },
-        {
-          "name": "IntegrationPriority",
-          "type": "int",
-          "value": "Integration.Priority",
-          "required": false
-        },
-        {
-          "name": "IntegrationCreationOnMessage",
-          "type": "bool",
-          "value": "Integration.CreationOnMessage",
-          "required": false
-        },
-        {
-          "name": "IntegrationRetryCount",
-          "type": "int",
-          "value": "Integration.RetryCount",
+          "name": "Integration",
+          "structure": "FlexFlowIntegrationInput",
+          "value": "Integration",
           "required": false
         },
         {
