@@ -23,14 +23,14 @@ type FetchTaskChannelResponse struct {
 }
 
 // Fetch retrieves an task channel resource
-// See twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource for more details
+// See https://www.twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Fetch() (*FetchTaskChannelResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
 // FetchWithContext retrieves an task channel resource
-// See twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource for more details
+// See https://www.twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource for more details
 func (c Client) FetchWithContext(context context.Context) (*FetchTaskChannelResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

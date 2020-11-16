@@ -2447,7 +2447,7 @@
           },
           "documentation": {
             "description": "Client for managing a specific task channel resource",
-            "twilioDocsLink": "twilio.com/docs/taskrouter/api/task-channel"
+            "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel"
           },
           "operations": [
             {
@@ -2476,7 +2476,7 @@
               },
               "documentation": {
                 "description": "retrieves an task channel resource",
-                "twilioDocsLink": "twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource"
+                "twilioDocsLink": "https://www.twilio.com/docs/taskrouter/api/task-channel#fetch-a-taskchannel-resource"
               },
               "response": {
                 "name": "FetchTaskChannelResponse",

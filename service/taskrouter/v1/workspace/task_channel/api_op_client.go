@@ -4,7 +4,7 @@ package task_channel
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 // Client for managing a specific task channel resource
-// See twilio.com/docs/taskrouter/api/task-channel for more details
+// See https://www.twilio.com/docs/taskrouter/api/task-channel for more details
 type Client struct {
 	client *client.Client
 
