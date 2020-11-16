@@ -7,7 +7,8 @@ package {{ .packageName | ToLowerCase }} ${defineConstants}
 import "{{ $import }}" {{ end }} {{ end }}
 
 {{ if .documentation }} // {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
-// See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }}
+// See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }} {{ if .config }} {{ if .config.beta }}
+// This client is currently in beta and subject to change. Please use with caution {{ end }} {{ end }}
 type Client struct {
 	client *client.Client 
 	${addPropertiesToStruct}

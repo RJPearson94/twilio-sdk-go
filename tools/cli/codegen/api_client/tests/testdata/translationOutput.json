@@ -2,6 +2,9 @@
   "packageName": "service",
   "name": "Service",
   "properties": [{ "type": "string", "name": "sid" }],
+  "config": {
+    "beta": true
+  },
   "subClients": [
     {
       "name": "Phone Number",

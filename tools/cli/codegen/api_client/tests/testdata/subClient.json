@@ -6,6 +6,9 @@
       "dataType": "string"
     }
   },
+  "config": {
+    "beta": true
+  },
   "subClients": [
     {
       "name": "Phone Numbers",
