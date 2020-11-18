@@ -10,16 +10,20 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+type UpdateConversationTimersInput struct {
+	Closed   *string `form:"Closed,omitempty"`
+	Inactive *string `form:"Inactive,omitempty"`
+}
+
 // UpdateConversationInput defines input fields for updating a conversation resource
 type UpdateConversationInput struct {
-	Attributes          *string            `form:"Attributes,omitempty"`
-	DateCreated         *utils.RFC2822Time `form:"DateCreated,omitempty"`
-	DateUpdated         *utils.RFC2822Time `form:"DateUpdated,omitempty"`
-	FriendlyName        *string            `form:"FriendlyName,omitempty"`
-	MessagingServiceSid *string            `form:"MessagingServiceSid,omitempty"`
-	State               *string            `form:"State,omitempty"`
-	TimersClosed        *string            `form:"Timers.Closed,omitempty"`
-	TimersInactive      *string            `form:"Timers.Inactive,omitempty"`
+	Attributes          *string                        `form:"Attributes,omitempty"`
+	DateCreated         *utils.RFC2822Time             `form:"DateCreated,omitempty"`
+	DateUpdated         *utils.RFC2822Time             `form:"DateUpdated,omitempty"`
+	FriendlyName        *string                        `form:"FriendlyName,omitempty"`
+	MessagingServiceSid *string                        `form:"MessagingServiceSid,omitempty"`
+	State               *string                        `form:"State,omitempty"`
+	Timers              *UpdateConversationTimersInput `form:"Timers,omitempty"`
 }
 
 type UpdateConversationResponseTimers struct {

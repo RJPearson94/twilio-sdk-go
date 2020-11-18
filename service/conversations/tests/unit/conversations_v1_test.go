@@ -351,9 +351,11 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			updateInput := &conversation.UpdateConversationInput{
-				FriendlyName:   utils.String("Test 2"),
-				TimersClosed:   utils.String("PT10M"),
-				TimersInactive: utils.String("PT1M"),
+				FriendlyName: utils.String("Test 2"),
+				Timers: &conversation.UpdateConversationTimersInput{
+					Closed:   utils.String("PT10M"),
+					Inactive: utils.String("PT1M"),
+				},
 			}
 
 			resp, err := conversationClient.Update(updateInput)
@@ -991,8 +993,10 @@ var _ = Describe("Conversation V1", func() {
 
 		Describe("When the participant is successfully created with messaging binding", func() {
 			createInput := &participants.CreateParticipantInput{
-				MessagingBindingAddress:      utils.String("+123456789"),
-				MessagingBindingProxyAddress: utils.String("+987654321"),
+				MessagingBinding: &participants.CreateParticipantMessageBindingInput{
+					Address:      utils.String("+123456789"),
+					ProxyAddress: utils.String("+987654321"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
@@ -1427,8 +1431,10 @@ var _ = Describe("Conversation V1", func() {
 
 		Describe("When the conversation webhook is successfully created", func() {
 			createInput := &conversationWebhooks.CreateWebhookInput{
-				Target:               "studio",
-				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Target: "studio",
+				Configuration: &conversationWebhooks.CreateWebhookConfigurationInput{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
@@ -1475,8 +1481,10 @@ var _ = Describe("Conversation V1", func() {
 
 		Describe("When the conversation webhook api returns a 500 response", func() {
 			createInput := &conversationWebhooks.CreateWebhookInput{
-				Target:               "studio",
-				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Target: "studio",
+				Configuration: &conversationWebhooks.CreateWebhookConfigurationInput{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
@@ -5263,9 +5271,11 @@ var _ = Describe("Conversation V1", func() {
 			)
 
 			updateInput := &serviceConversation.UpdateConversationInput{
-				FriendlyName:   utils.String("Test 2"),
-				TimersClosed:   utils.String("PT10M"),
-				TimersInactive: utils.String("PT1M"),
+				FriendlyName: utils.String("Test 2"),
+				Timers: &serviceConversation.UpdateConversationTimersInput{
+					Closed:   utils.String("PT10M"),
+					Inactive: utils.String("PT1M"),
+				},
 			}
 
 			resp, err := conversationClient.Update(updateInput)
@@ -5350,8 +5360,10 @@ var _ = Describe("Conversation V1", func() {
 
 		Describe("When the conversation webhook is successfully created", func() {
 			createInput := &serviceConversationWebhooks.CreateWebhookInput{
-				Target:               "studio",
-				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Target: "studio",
+				Configuration: &serviceConversationWebhooks.CreateWebhookConfigurationInput{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
@@ -5399,8 +5411,10 @@ var _ = Describe("Conversation V1", func() {
 
 		Describe("When the conversation webhook api returns a 500 response", func() {
 			createInput := &serviceConversationWebhooks.CreateWebhookInput{
-				Target:               "studio",
-				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Target: "studio",
+				Configuration: &serviceConversationWebhooks.CreateWebhookConfigurationInput{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",

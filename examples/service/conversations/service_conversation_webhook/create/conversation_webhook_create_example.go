@@ -31,9 +31,11 @@ func main() {
 		Conversation("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhooks.
 		Create(&webhooks.CreateWebhookInput{
-			Target:               "webhook",
-			ConfigurationURL:     utils.String("https://localhost.com/webhook"),
-			ConfigurationFilters: &[]string{"onMessageAdded"},
+			Target: "webhook",
+			Configuration: &webhooks.CreateWebhookConfigurationInput{
+				URL:     utils.String("https://localhost.com/webhook"),
+				Filters: &[]string{"onMessageAdded"},
+			},
 		})
 
 	if err != nil {
