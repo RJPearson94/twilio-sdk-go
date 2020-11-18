@@ -451,7 +451,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.PhoneNumber).To(Equal(utils.String("+123456789")))
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
-				Expect(resp.Capabilities).To(Equal(&phone_numbers.CreatePhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&phone_numbers.CreatePhoneNumberCapabilitiesResponse{
 					VoiceInbound:             utils.Bool(true),
 					SmsInbound:               utils.Bool(true),
 					RestrictionVoiceDomestic: utils.Bool(false),
@@ -541,7 +541,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(phoneNumbers[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(phoneNumbers[0].PhoneNumber).To(Equal(utils.String("+123456789")))
 				Expect(phoneNumbers[0].FriendlyName).To(Equal(utils.String("Test")))
-				Expect(phoneNumbers[0].Capabilities).To(Equal(&phone_numbers.PagePhoneNumberResponseCapabilities{
+				Expect(phoneNumbers[0].Capabilities).To(Equal(&phone_numbers.PagePhoneNumberCapabilitiesResponse{
 					VoiceInbound:             utils.Bool(true),
 					SmsInbound:               utils.Bool(true),
 					RestrictionVoiceDomestic: utils.Bool(false),
@@ -698,7 +698,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.PhoneNumber).To(Equal(utils.String("+123456789")))
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
-				Expect(resp.Capabilities).To(Equal(&phone_number.FetchPhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&phone_number.FetchPhoneNumberCapabilitiesResponse{
 					VoiceInbound:             utils.Bool(true),
 					SmsInbound:               utils.Bool(true),
 					RestrictionVoiceDomestic: utils.Bool(false),
@@ -768,7 +768,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.PhoneNumber).To(Equal(utils.String("+123456789")))
 				Expect(resp.FriendlyName).To(Equal(utils.String("Test")))
-				Expect(resp.Capabilities).To(Equal(&phone_number.UpdatePhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&phone_number.UpdatePhoneNumberCapabilitiesResponse{
 					VoiceInbound:             utils.Bool(true),
 					SmsInbound:               utils.Bool(true),
 					RestrictionVoiceDomestic: utils.Bool(false),
@@ -870,7 +870,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ShortCode).To(Equal(utils.String("12345")))
-				Expect(resp.Capabilities).To(Equal(&short_codes.CreateShortCodeResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&short_codes.CreateShortCodeCapabilitiesResponse{
 					VoiceInbound: utils.Bool(false),
 					SmsOutbound:  utils.Bool(true),
 				}))
@@ -960,7 +960,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(shortCodes[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(shortCodes[0].ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(shortCodes[0].ShortCode).To(Equal(utils.String("12345")))
-				Expect(shortCodes[0].Capabilities).To(Equal(&short_codes.PageShortCodeResponseCapabilities{
+				Expect(shortCodes[0].Capabilities).To(Equal(&short_codes.PageShortCodeCapabilitiesResponse{
 					VoiceInbound: utils.Bool(false),
 					SmsOutbound:  utils.Bool(true),
 				}))
@@ -1104,7 +1104,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ShortCode).To(Equal(utils.String("12345")))
-				Expect(resp.Capabilities).To(Equal(&short_code.FetchShortCodeResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&short_code.FetchShortCodeCapabilitiesResponse{
 					VoiceInbound: utils.Bool(false),
 					SmsOutbound:  utils.Bool(true),
 				}))
@@ -1161,7 +1161,7 @@ var _ = Describe("Proxy V1", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ServiceSid).To(Equal("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ShortCode).To(Equal(utils.String("12345")))
-				Expect(resp.Capabilities).To(Equal(&short_code.UpdateShortCodeResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(&short_code.UpdateShortCodeCapabilitiesResponse{
 					VoiceInbound: utils.Bool(false),
 					SmsOutbound:  utils.Bool(true),
 				}))

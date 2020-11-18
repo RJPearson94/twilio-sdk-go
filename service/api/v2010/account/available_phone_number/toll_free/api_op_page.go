@@ -32,10 +32,17 @@ type AvailablePhoneNumbersPageOptions struct {
 	FaxEnabled                    *bool
 }
 
+type PageAvailablePhoneNumberCapabilitiesResponse struct {
+	Fax   bool `json:"fax"`
+	Mms   bool `json:"MMS"`
+	Sms   bool `json:"SMS"`
+	Voice bool `json:"voice"`
+}
+
 type PageAvailablePhoneNumberResponse struct {
 	AddressRequirements string                                       `json:"address_requirements"`
 	Beta                bool                                         `json:"beta"`
-	Capabilities        PageAvailablePhoneNumberResponseCapabilities `json:"capabilities"`
+	Capabilities        PageAvailablePhoneNumberCapabilitiesResponse `json:"capabilities"`
 	FriendlyName        string                                       `json:"friendly_name"`
 	IsoCountry          string                                       `json:"iso_country"`
 	Lata                *string                                      `json:"lata,omitempty"`
@@ -46,13 +53,6 @@ type PageAvailablePhoneNumberResponse struct {
 	PostalCode          *string                                      `json:"postal_code,omitempty"`
 	RateCenter          *string                                      `json:"rate_center,omitempty"`
 	Region              *string                                      `json:"region,omitempty"`
-}
-
-type PageAvailablePhoneNumberResponseCapabilities struct {
-	Fax   bool `json:"fax"`
-	Mms   bool `json:"MMS"`
-	Sms   bool `json:"SMS"`
-	Voice bool `json:"voice"`
 }
 
 // AvailablePhoneNumbersPageResponse defines the response fields for the available toll free phone numbers page

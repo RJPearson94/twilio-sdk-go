@@ -3431,7 +3431,7 @@
         }
       ]
     },
-    "QueryResponseField": {
+    "QueryFieldResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -3454,7 +3454,7 @@
         }
       ]
     },
-    "QueryResponseResult": {
+    "QueryResultResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -3467,7 +3467,7 @@
           "name": "Fields",
           "type": "array",
           "items": {
-            "structure": "QueryResponseField"
+            "structure": "QueryFieldResponse"
           },
           "value": "fields",
           "required": true
@@ -3536,7 +3536,7 @@
         },
         {
           "name": "Results",
-          "structure": "QueryResponseResult",
+          "structure": "QueryResultResponse",
           "value": "results",
           "required": true
         },

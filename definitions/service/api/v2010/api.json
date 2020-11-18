@@ -6986,7 +6986,7 @@
         }
       ]
     },
-    "AvailablePhoneNumberResponseCapabilities": {
+    "AvailablePhoneNumberCapabilitiesResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -7092,7 +7092,7 @@
         },
         {
           "name": "Capabilities",
-          "structure": "AvailablePhoneNumberResponseCapabilities",
+          "structure": "AvailablePhoneNumberCapabilitiesResponse",
           "value": "capabilities",
           "required": true
         }
@@ -7311,7 +7311,7 @@
         }
       ]
     },
-    "IncomingPhoneNumberResponseCapabilities": {
+    "IncomingPhoneNumberCapabilitiesResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -7514,7 +7514,7 @@
         },
         {
           "name": "Capabilities",
-          "structure": "IncomingPhoneNumberResponseCapabilities",
+          "structure": "IncomingPhoneNumberCapabilitiesResponse",
           "value": "capabilities",
           "required": true
         }

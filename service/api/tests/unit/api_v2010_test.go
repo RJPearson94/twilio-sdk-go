@@ -5568,7 +5568,7 @@ var _ = Describe("API V2010", func() {
 				Expect(availablePhoneNumbers[0].IsoCountry).To(Equal("GB"))
 				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
 				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
-				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(local.PageAvailablePhoneNumberResponseCapabilities{
+				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(local.PageAvailablePhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,
@@ -5645,7 +5645,7 @@ var _ = Describe("API V2010", func() {
 				Expect(availablePhoneNumbers[0].IsoCountry).To(Equal("GB"))
 				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
 				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
-				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(toll_free.PageAvailablePhoneNumberResponseCapabilities{
+				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(toll_free.PageAvailablePhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,
@@ -5722,7 +5722,7 @@ var _ = Describe("API V2010", func() {
 				Expect(availablePhoneNumbers[0].IsoCountry).To(Equal("GB"))
 				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
 				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
-				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(mobile.PageAvailablePhoneNumberResponseCapabilities{
+				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(mobile.PageAvailablePhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,
@@ -5801,7 +5801,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.Origin).To(Equal("twilio"))
 				Expect(resp.Beta).To(Equal(false))
 				Expect(resp.Status).To(Equal("in-use"))
-				Expect(resp.Capabilities).To(Equal(incoming_phone_numbers.CreateIncomingPhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(incoming_phone_numbers.CreateIncomingPhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,
@@ -5900,7 +5900,7 @@ var _ = Describe("API V2010", func() {
 				Expect(phoneNumbers[0].Origin).To(Equal("twilio"))
 				Expect(phoneNumbers[0].Beta).To(Equal(false))
 				Expect(phoneNumbers[0].Status).To(Equal("in-use"))
-				Expect(phoneNumbers[0].Capabilities).To(Equal(incoming_phone_numbers.PageIncomingPhoneNumberResponseCapabilities{
+				Expect(phoneNumbers[0].Capabilities).To(Equal(incoming_phone_numbers.PageIncomingPhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,
@@ -6067,7 +6067,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.Origin).To(Equal("twilio"))
 				Expect(resp.Beta).To(Equal(false))
 				Expect(resp.Status).To(Equal("in-use"))
-				Expect(resp.Capabilities).To(Equal(incoming_phone_number.FetchIncomingPhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(incoming_phone_number.FetchIncomingPhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,
@@ -6147,7 +6147,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.Origin).To(Equal("twilio"))
 				Expect(resp.Beta).To(Equal(false))
 				Expect(resp.Status).To(Equal("in-use"))
-				Expect(resp.Capabilities).To(Equal(incoming_phone_number.UpdateIncomingPhoneNumberResponseCapabilities{
+				Expect(resp.Capabilities).To(Equal(incoming_phone_number.UpdateIncomingPhoneNumberCapabilitiesResponse{
 					Fax:   true,
 					Mms:   false,
 					Sms:   true,

@@ -19,25 +19,25 @@ type ChannelWebhooksPageOptions struct {
 	PageToken *string
 }
 
-type PageChannelWebhookResponse struct {
-	AccountSid    string                                  `json:"account_sid"`
-	ChannelSid    string                                  `json:"channel_sid"`
-	Configuration PageChannelWebhookResponseConfiguration `json:"configuration"`
-	DateCreated   time.Time                               `json:"date_created"`
-	DateUpdated   *time.Time                              `json:"date_updated,omitempty"`
-	ServiceSid    string                                  `json:"service_sid"`
-	Sid           string                                  `json:"sid"`
-	Type          string                                  `json:"type"`
-	URL           string                                  `json:"url"`
-}
-
-type PageChannelWebhookResponseConfiguration struct {
+type PageChannelWebhookConfigurationResponse struct {
 	Filters    *[]string `json:"filters,omitempty"`
 	FlowSid    *string   `json:"flow_sid,omitempty"`
 	Method     *string   `json:"method,omitempty"`
 	RetryCount *int      `json:"retry_count,omitempty"`
 	Triggers   *[]string `json:"triggers,omitempty"`
 	URL        *string   `json:"url,omitempty"`
+}
+
+type PageChannelWebhookResponse struct {
+	AccountSid    string                                  `json:"account_sid"`
+	ChannelSid    string                                  `json:"channel_sid"`
+	Configuration PageChannelWebhookConfigurationResponse `json:"configuration"`
+	DateCreated   time.Time                               `json:"date_created"`
+	DateUpdated   *time.Time                              `json:"date_updated,omitempty"`
+	ServiceSid    string                                  `json:"service_sid"`
+	Sid           string                                  `json:"sid"`
+	Type          string                                  `json:"type"`
+	URL           string                                  `json:"url"`
 }
 
 type PageMetaResponse struct {

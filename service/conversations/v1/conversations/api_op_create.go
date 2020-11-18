@@ -26,7 +26,7 @@ type CreateConversationInput struct {
 	Timers              *CreateConversationTimersInput `form:"Timers,omitempty"`
 }
 
-type CreateConversationResponseTimers struct {
+type CreateConversationTimersResponse struct {
 	DateClosed   *time.Time `json:"date_closed,omitempty"`
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 }
@@ -42,7 +42,7 @@ type CreateConversationResponse struct {
 	MessagingServiceSid *string                          `json:"messaging_service_sid,omitempty"`
 	Sid                 string                           `json:"sid"`
 	State               string                           `json:"state"`
-	Timers              CreateConversationResponseTimers `json:"timers"`
+	Timers              CreateConversationTimersResponse `json:"timers"`
 	URL                 string                           `json:"url"`
 }
 

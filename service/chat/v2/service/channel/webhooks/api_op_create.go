@@ -24,7 +24,7 @@ type CreateChannelWebhookInput struct {
 	Type          string                                  `validate:"required" form:"Type"`
 }
 
-type CreateChannelWebhookResponseConfiguration struct {
+type CreateChannelWebhookConfigurationResponse struct {
 	Filters    *[]string `json:"filters,omitempty"`
 	FlowSid    *string   `json:"flow_sid,omitempty"`
 	Method     *string   `json:"method,omitempty"`
@@ -37,7 +37,7 @@ type CreateChannelWebhookResponseConfiguration struct {
 type CreateChannelWebhookResponse struct {
 	AccountSid    string                                    `json:"account_sid"`
 	ChannelSid    string                                    `json:"channel_sid"`
-	Configuration CreateChannelWebhookResponseConfiguration `json:"configuration"`
+	Configuration CreateChannelWebhookConfigurationResponse `json:"configuration"`
 	DateCreated   time.Time                                 `json:"date_created"`
 	DateUpdated   *time.Time                                `json:"date_updated,omitempty"`
 	ServiceSid    string                                    `json:"service_sid"`

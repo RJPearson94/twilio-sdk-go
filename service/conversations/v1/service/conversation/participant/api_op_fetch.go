@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchParticipantResponseMessageBinding struct {
+type FetchParticipantMessageBindingResponse struct {
 	Address          string  `json:"address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
 	ProxyAddress     string  `json:"proxy_address"`
@@ -25,7 +25,7 @@ type FetchParticipantResponse struct {
 	DateCreated      time.Time                               `json:"date_created"`
 	DateUpdated      *time.Time                              `json:"date_updated,omitempty"`
 	Identity         *string                                 `json:"identity,omitempty"`
-	MessagingBinding *FetchParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	MessagingBinding *FetchParticipantMessageBindingResponse `json:"messaging_binding,omitempty"`
 	RoleSid          *string                                 `json:"role_sid,omitempty"`
 	Sid              string                                  `json:"sid"`
 	URL              string                                  `json:"url"`

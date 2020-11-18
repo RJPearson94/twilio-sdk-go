@@ -2948,9 +2948,9 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.SampleSid).To(Equal("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.SourceChannel).To(Equal("voice"))
 				Expect(resp.DialogueSid).To(BeNil())
-				Expect(resp.Results).To(Equal(queries.CreateQueryResponseResult{
+				Expect(resp.Results).To(Equal(queries.CreateQueryResultResponse{
 					Task: "test",
-					Fields: []queries.CreateQueryResponseField{
+					Fields: []queries.CreateQueryFieldResponse{
 						{
 							Name:  "intro",
 							Value: "hello",
@@ -3071,9 +3071,9 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(respQueries[0].SampleSid).To(Equal("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(respQueries[0].SourceChannel).To(Equal("voice"))
 				Expect(respQueries[0].DialogueSid).To(BeNil())
-				Expect(respQueries[0].Results).To(Equal(queries.PageQueryResponseResult{
+				Expect(respQueries[0].Results).To(Equal(queries.PageQueryResultResponse{
 					Task: "test",
-					Fields: []queries.PageQueryResponseField{
+					Fields: []queries.PageQueryFieldResponse{
 						{
 							Name:  "intro",
 							Value: "hello",
@@ -3230,9 +3230,9 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.SampleSid).To(Equal("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.SourceChannel).To(Equal("voice"))
 				Expect(resp.DialogueSid).To(BeNil())
-				Expect(resp.Results).To(Equal(query.FetchQueryResponseResult{
+				Expect(resp.Results).To(Equal(query.FetchQueryResultResponse{
 					Task: "test",
-					Fields: []query.FetchQueryResponseField{
+					Fields: []query.FetchQueryFieldResponse{
 						{
 							Name:  "intro",
 							Value: "hello",
@@ -3302,9 +3302,9 @@ var _ = Describe("Autopilot V1", func() {
 				Expect(resp.SampleSid).To(Equal("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.SourceChannel).To(Equal("voice"))
 				Expect(resp.DialogueSid).To(BeNil())
-				Expect(resp.Results).To(Equal(query.UpdateQueryResponseResult{
+				Expect(resp.Results).To(Equal(query.UpdateQueryResultResponse{
 					Task: "test",
-					Fields: []query.UpdateQueryResponseField{
+					Fields: []query.UpdateQueryFieldResponse{
 						{
 							Name:  "intro",
 							Value: "hello",

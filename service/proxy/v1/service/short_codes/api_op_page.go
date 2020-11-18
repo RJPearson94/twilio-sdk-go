@@ -29,20 +29,7 @@ type PageMetaResponse struct {
 	URL             string  `json:"url"`
 }
 
-type PageShortCodeResponse struct {
-	AccountSid   string                             `json:"account_sid"`
-	Capabilities *PageShortCodeResponseCapabilities `json:"capabilities,omitempty"`
-	DateCreated  time.Time                          `json:"date_created"`
-	DateUpdated  *time.Time                         `json:"date_updated,omitempty"`
-	IsReserved   *bool                              `json:"is_reserved,omitempty"`
-	IsoCountry   *string                            `json:"iso_country,omitempty"`
-	ServiceSid   string                             `json:"service_sid"`
-	ShortCode    *string                            `json:"short_code,omitempty"`
-	Sid          string                             `json:"sid"`
-	URL          string                             `json:"url"`
-}
-
-type PageShortCodeResponseCapabilities struct {
+type PageShortCodeCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -56,6 +43,19 @@ type PageShortCodeResponseCapabilities struct {
 	SmsOutbound              *bool `json:"sms_outbound,omitempty"`
 	VoiceInbound             *bool `json:"voice_inbound,omitempty"`
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
+}
+
+type PageShortCodeResponse struct {
+	AccountSid   string                             `json:"account_sid"`
+	Capabilities *PageShortCodeCapabilitiesResponse `json:"capabilities,omitempty"`
+	DateCreated  time.Time                          `json:"date_created"`
+	DateUpdated  *time.Time                         `json:"date_updated,omitempty"`
+	IsReserved   *bool                              `json:"is_reserved,omitempty"`
+	IsoCountry   *string                            `json:"iso_country,omitempty"`
+	ServiceSid   string                             `json:"service_sid"`
+	ShortCode    *string                            `json:"short_code,omitempty"`
+	Sid          string                             `json:"sid"`
+	URL          string                             `json:"url"`
 }
 
 // ShortCodesPageResponse defines the response fields for the short codes page

@@ -20,7 +20,7 @@ type CreateMessageInput struct {
 	MediaSid    *string            `form:"MediaSid,omitempty"`
 }
 
-type CreateMessageResponseDelivery struct {
+type CreateMessageDeliveryResponse struct {
 	Delivered   string `json:"delivered"`
 	Failed      string `json:"failed"`
 	Read        string `json:"read"`
@@ -29,7 +29,7 @@ type CreateMessageResponseDelivery struct {
 	Undelivered string `json:"undelivered"`
 }
 
-type CreateMessageResponseMedia struct {
+type CreateMessageMediaResponse struct {
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Sid         string `json:"sid"`
@@ -46,9 +46,9 @@ type CreateMessageResponse struct {
 	ConversationSid string                         `json:"conversation_sid"`
 	DateCreated     time.Time                      `json:"date_created"`
 	DateUpdated     *time.Time                     `json:"date_updated,omitempty"`
-	Delivery        *CreateMessageResponseDelivery `json:"delivery,omitempty"`
+	Delivery        *CreateMessageDeliveryResponse `json:"delivery,omitempty"`
 	Index           int                            `json:"index"`
-	Media           *[]CreateMessageResponseMedia  `json:"media,omitempty"`
+	Media           *[]CreateMessageMediaResponse  `json:"media,omitempty"`
 	ParticipantSid  *string                        `json:"participant_sid,omitempty"`
 	Sid             string                         `json:"sid"`
 	URL             string                         `json:"url"`

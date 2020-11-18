@@ -257,7 +257,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flows.CreateFlexFlowResponseIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flows.CreateFlexFlowIntegrationResponse{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -388,7 +388,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(flexFlows[0].ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(flexFlows[0].Enabled).To(Equal(true))
 				Expect(flexFlows[0].IntegrationType).To(Equal(utils.String("studio")))
-				Expect(flexFlows[0].Integration).To(Equal(&flex_flows.PageFlexFlowResponseIntegration{
+				Expect(flexFlows[0].Integration).To(Equal(&flex_flows.PageFlexFlowIntegrationResponse{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -536,7 +536,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flow.FetchFlexFlowResponseIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flow.FetchFlexFlowIntegrationResponse{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
@@ -597,7 +597,7 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.ContactIdentity).To(Equal(utils.String("12345")))
 				Expect(resp.Enabled).To(Equal(true))
 				Expect(resp.IntegrationType).To(Equal(utils.String("studio")))
-				Expect(resp.Integration).To(Equal(&flex_flow.UpdateFlexFlowResponseIntegration{
+				Expect(resp.Integration).To(Equal(&flex_flow.UpdateFlexFlowIntegrationResponse{
 					RetryCount: utils.Int(1),
 					FlowSid:    utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))

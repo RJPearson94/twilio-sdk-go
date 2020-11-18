@@ -19,6 +19,22 @@ type MessagesPageOptions struct {
 	PageToken *string
 }
 
+type PageMessageDeliveryResponse struct {
+	Delivered   string `json:"delivered"`
+	Failed      string `json:"failed"`
+	Read        string `json:"read"`
+	Sent        string `json:"sent"`
+	Total       int    `json:"total"`
+	Undelivered string `json:"undelivered"`
+}
+
+type PageMessageMediaResponse struct {
+	ContentType string `json:"content_type"`
+	Filename    string `json:"filename"`
+	Sid         string `json:"sid"`
+	Size        int    `json:"size"`
+}
+
 type PageMessageResponse struct {
 	AccountSid      string                       `json:"account_sid"`
 	Attributes      string                       `json:"attributes"`
@@ -28,28 +44,12 @@ type PageMessageResponse struct {
 	ConversationSid string                       `json:"conversation_sid"`
 	DateCreated     time.Time                    `json:"date_created"`
 	DateUpdated     *time.Time                   `json:"date_updated,omitempty"`
-	Delivery        *PageMessageResponseDelivery `json:"delivery,omitempty"`
+	Delivery        *PageMessageDeliveryResponse `json:"delivery,omitempty"`
 	Index           int                          `json:"index"`
-	Media           *[]PageMessageResponseMedia  `json:"media,omitempty"`
+	Media           *[]PageMessageMediaResponse  `json:"media,omitempty"`
 	ParticipantSid  *string                      `json:"participant_sid,omitempty"`
 	Sid             string                       `json:"sid"`
 	URL             string                       `json:"url"`
-}
-
-type PageMessageResponseDelivery struct {
-	Delivered   string `json:"delivered"`
-	Failed      string `json:"failed"`
-	Read        string `json:"read"`
-	Sent        string `json:"sent"`
-	Total       int    `json:"total"`
-	Undelivered string `json:"undelivered"`
-}
-
-type PageMessageResponseMedia struct {
-	ContentType string `json:"content_type"`
-	Filename    string `json:"filename"`
-	Sid         string `json:"sid"`
-	Size        int    `json:"size"`
 }
 
 type PageMetaResponse struct {

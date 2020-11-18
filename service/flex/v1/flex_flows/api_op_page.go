@@ -19,24 +19,7 @@ type FlexFlowsPageOptions struct {
 	PageToken *string
 }
 
-type PageFlexFlowResponse struct {
-	AccountSid      string                           `json:"account_sid"`
-	ChannelType     string                           `json:"channel_type"`
-	ChatServiceSid  string                           `json:"chat_service_sid"`
-	ContactIdentity *string                          `json:"contact_identity,omitempty"`
-	DateCreated     time.Time                        `json:"date_created"`
-	DateUpdated     *time.Time                       `json:"date_updated,omitempty"`
-	Enabled         bool                             `json:"enabled"`
-	FriendlyName    string                           `json:"friendly_name"`
-	Integration     *PageFlexFlowResponseIntegration `json:"integration,omitempty"`
-	IntegrationType *string                          `json:"integration_type,omitempty"`
-	JanitorEnabled  *bool                            `json:"janitor_enabled,omitempty"`
-	LongLived       *bool                            `json:"long_lived,omitempty"`
-	Sid             string                           `json:"sid"`
-	URL             string                           `json:"url"`
-}
-
-type PageFlexFlowResponseIntegration struct {
+type PageFlexFlowIntegrationResponse struct {
 	Channel           *string `json:"channel,omitempty"`
 	CreationOnMessage *bool   `json:"creation_on_message,omitempty"`
 	FlowSid           *string `json:"flow_sid,omitempty"`
@@ -46,6 +29,23 @@ type PageFlexFlowResponseIntegration struct {
 	URL               *string `json:"url,omitempty"`
 	WorkflowSid       *string `json:"workflow_sid,omitempty"`
 	WorkspaceSid      *string `json:"workspace_sid,omitempty"`
+}
+
+type PageFlexFlowResponse struct {
+	AccountSid      string                           `json:"account_sid"`
+	ChannelType     string                           `json:"channel_type"`
+	ChatServiceSid  string                           `json:"chat_service_sid"`
+	ContactIdentity *string                          `json:"contact_identity,omitempty"`
+	DateCreated     time.Time                        `json:"date_created"`
+	DateUpdated     *time.Time                       `json:"date_updated,omitempty"`
+	Enabled         bool                             `json:"enabled"`
+	FriendlyName    string                           `json:"friendly_name"`
+	Integration     *PageFlexFlowIntegrationResponse `json:"integration,omitempty"`
+	IntegrationType *string                          `json:"integration_type,omitempty"`
+	JanitorEnabled  *bool                            `json:"janitor_enabled,omitempty"`
+	LongLived       *bool                            `json:"long_lived,omitempty"`
+	Sid             string                           `json:"sid"`
+	URL             string                           `json:"url"`
 }
 
 type PageMetaResponse struct {

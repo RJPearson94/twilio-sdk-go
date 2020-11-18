@@ -26,7 +26,7 @@ type CreateParticipantInput struct {
 	RoleSid          *string                               `form:"RoleSid,omitempty"`
 }
 
-type CreateParticipantResponseMessageBinding struct {
+type CreateParticipantMessageBindingResponse struct {
 	Address          string  `json:"address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
 	ProxyAddress     string  `json:"proxy_address"`
@@ -41,7 +41,7 @@ type CreateParticipantResponse struct {
 	DateCreated      time.Time                                `json:"date_created"`
 	DateUpdated      *time.Time                               `json:"date_updated,omitempty"`
 	Identity         *string                                  `json:"identity,omitempty"`
-	MessagingBinding *CreateParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	MessagingBinding *CreateParticipantMessageBindingResponse `json:"messaging_binding,omitempty"`
 	RoleSid          *string                                  `json:"role_sid,omitempty"`
 	Sid              string                                   `json:"sid"`
 	URL              string                                   `json:"url"`

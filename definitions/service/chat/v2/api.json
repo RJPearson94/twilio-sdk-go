@@ -3815,7 +3815,7 @@
         }
       ]
     },
-    "ChannelWebhookResponseConfiguration": {
+    "ChannelWebhookConfigurationResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -3906,7 +3906,7 @@
         },
         {
           "name": "Configuration",
-          "structure": "ChannelWebhookResponseConfiguration",
+          "structure": "ChannelWebhookConfigurationResponse",
           "value": "configuration",
           "required": true
         }

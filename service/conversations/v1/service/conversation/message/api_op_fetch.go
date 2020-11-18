@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchMessageResponseDelivery struct {
+type FetchMessageDeliveryResponse struct {
 	Delivered   string `json:"delivered"`
 	Failed      string `json:"failed"`
 	Read        string `json:"read"`
@@ -18,7 +18,7 @@ type FetchMessageResponseDelivery struct {
 	Undelivered string `json:"undelivered"`
 }
 
-type FetchMessageResponseMedia struct {
+type FetchMessageMediaResponse struct {
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Sid         string `json:"sid"`
@@ -35,9 +35,9 @@ type FetchMessageResponse struct {
 	ConversationSid string                        `json:"conversation_sid"`
 	DateCreated     time.Time                     `json:"date_created"`
 	DateUpdated     *time.Time                    `json:"date_updated,omitempty"`
-	Delivery        *FetchMessageResponseDelivery `json:"delivery,omitempty"`
+	Delivery        *FetchMessageDeliveryResponse `json:"delivery,omitempty"`
 	Index           int                           `json:"index"`
-	Media           *[]FetchMessageResponseMedia  `json:"media,omitempty"`
+	Media           *[]FetchMessageMediaResponse  `json:"media,omitempty"`
 	ParticipantSid  *string                       `json:"participant_sid,omitempty"`
 	Sid             string                        `json:"sid"`
 	URL             string                        `json:"url"`

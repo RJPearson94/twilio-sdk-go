@@ -4108,7 +4108,7 @@
         }
       ]
     },
-    "ConversationResponseTimers": {
+    "ConversationTimersResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -4181,7 +4181,7 @@
         },
         {
           "name": "Timers",
-          "structure": "ConversationResponseTimers",
+          "structure": "ConversationTimersResponse",
           "value": "timers",
           "required": true
         }
@@ -4234,7 +4234,7 @@
         }
       ]
     },
-    "MessageResponseMedia": {
+    "MessageMediaResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -4263,7 +4263,7 @@
         }
       ]
     },
-    "MessageResponseDelivery": {
+    "MessageDeliveryResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -4401,14 +4401,14 @@
           "name": "Media",
           "type": "array",
           "items": {
-            "structure": "MessageResponseMedia"
+            "structure": "MessageMediaResponse"
           },
           "value": "media",
           "required": false
         },
         {
           "name": "Delivery",
-          "structure": "MessageResponseDelivery",
+          "structure": "MessageDeliveryResponse",
           "value": "delivery",
           "required": false
         }
@@ -4515,7 +4515,7 @@
         }
       ]
     },
-    "ParticipantResponseMessageBinding": {
+    "ParticipantMessageBindingResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -4621,7 +4621,7 @@
         },
         {
           "name": "MessagingBinding",
-          "structure": "ParticipantResponseMessageBinding",
+          "structure": "ParticipantMessageBindingResponse",
           "value": "messaging_binding",
           "required": false
         },
@@ -4709,7 +4709,7 @@
         }
       ]
     },
-    "ConversationWebhookResponseConfiguration": {
+    "ConversationWebhookConfigurationResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -4828,8 +4828,8 @@
         },
         {
           "name": "Configuration",
-          "structureName": "WebhookResponseConfiguration",
-          "structure": "ConversationWebhookResponseConfiguration",
+          "structureName": "WebhookConfigurationResponse",
+          "structure": "ConversationWebhookConfigurationResponse",
           "value": "configuration",
           "required": true
         }
@@ -5544,7 +5544,7 @@
         }
       ]
     },
-    "NotificationResponseConversationAction": {
+    "NotificationConversationActionResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -5567,7 +5567,7 @@
         }
       ]
     },
-    "NotificationResponseNewMessage": {
+    "NotificationNewMessageResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -5619,19 +5619,19 @@
         },
         {
           "name": "NewMessage",
-          "structure": "NotificationResponseNewMessage",
+          "structure": "NotificationNewMessageResponse",
           "value": "new_message",
           "required": true
         },
         {
           "name": "AddedToConversation",
-          "structure": "NotificationResponseConversationAction",
+          "structure": "NotificationConversationActionResponse",
           "value": "added_to_conversation",
           "required": true
         },
         {
           "name": "RemovedFromConversation",
-          "structure": "NotificationResponseConversationAction",
+          "structure": "NotificationConversationActionResponse",
           "value": "removed_from_conversation",
           "required": true
         },

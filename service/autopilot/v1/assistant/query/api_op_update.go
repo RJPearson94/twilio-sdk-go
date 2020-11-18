@@ -15,14 +15,14 @@ type UpdateQueryInput struct {
 	Status    *string `form:"Status,omitempty"`
 }
 
-type UpdateQueryResponseField struct {
+type UpdateQueryFieldResponse struct {
 	Name  string `json:"name"`
 	Type  string `json:"type"`
 	Value string `json:"value"`
 }
 
-type UpdateQueryResponseResult struct {
-	Fields []UpdateQueryResponseField `json:"fields"`
+type UpdateQueryResultResponse struct {
+	Fields []UpdateQueryFieldResponse `json:"fields"`
 	Task   string                     `json:"task"`
 }
 
@@ -36,7 +36,7 @@ type UpdateQueryResponse struct {
 	Language      string                    `json:"language"`
 	ModelBuildSid string                    `json:"model_build_sid"`
 	Query         string                    `json:"query"`
-	Results       UpdateQueryResponseResult `json:"results"`
+	Results       UpdateQueryResultResponse `json:"results"`
 	SampleSid     string                    `json:"sample_sid"`
 	Sid           string                    `json:"sid"`
 	SourceChannel string                    `json:"source_channel"`

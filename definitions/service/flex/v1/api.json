@@ -857,7 +857,7 @@
         }
       ]
     },
-    "ConfigurationResponseTaskQueue": {
+    "ConfigurationTaskQueueResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -874,7 +874,7 @@
         }
       ]
     },
-    "ConfigurationResponseSkill": {
+    "ConfigurationSkillResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -903,7 +903,7 @@
         }
       ]
     },
-    "ConfigurationResponseWorkerChannel": {
+    "ConfigurationWorkerChannelResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -926,7 +926,7 @@
         }
       ]
     },
-    "ConfigurationResponseIntegration": {
+    "ConfigurationIntegrationResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -1070,7 +1070,7 @@
           "name": "TaskRouterTaskQueues",
           "type": "array",
           "items": {
-            "structure": "ConfigurationResponseTaskQueue"
+            "structure": "ConfigurationTaskQueueResponse"
           },
           "value": "taskrouter_taskqueues",
           "required": false
@@ -1079,7 +1079,7 @@
           "name": "TaskRouterSkills",
           "type": "array",
           "items": {
-            "structure": "ConfigurationResponseSkill"
+            "structure": "ConfigurationSkillResponse"
           },
           "value": "taskrouter_skills",
           "required": false
@@ -1090,7 +1090,7 @@
           "items": {
             "type": "array",
             "items": {
-              "structure": "ConfigurationResponseWorkerChannel"
+              "structure": "ConfigurationWorkerChannelResponse"
             }
           },
           "value": "taskrouter_worker_channels",
@@ -1169,7 +1169,7 @@
           "name": "Integrations",
           "type": "array",
           "items": {
-            "structure": "ConfigurationResponseIntegration"
+            "structure": "ConfigurationIntegrationResponse"
           },
           "value": "integrations",
           "required": false
@@ -1178,7 +1178,7 @@
           "name": "WfmIntegrations",
           "type": "array",
           "items": {
-            "structure": "ConfigurationResponseIntegration"
+            "structure": "ConfigurationIntegrationResponse"
           },
           "value": "wfm_integrations",
           "required": false
@@ -1372,7 +1372,7 @@
         }
       ]
     },
-    "FlexFlowResponseIntegration": {
+    "FlexFlowIntegrationResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -1493,7 +1493,7 @@
         },
         {
           "name": "Integration",
-          "structure": "FlexFlowResponseIntegration",
+          "structure": "FlexFlowIntegrationResponse",
           "value": "integration",
           "required": false
         },

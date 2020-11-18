@@ -3883,7 +3883,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Type).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(webhooks.CreateChannelWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(webhooks.CreateChannelWebhookConfigurationResponse{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -3974,7 +3974,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(channelWebhooks[0].ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(channelWebhooks[0].ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(channelWebhooks[0].Type).To(Equal("studio"))
-				Expect(channelWebhooks[0].Configuration).To(Equal(webhooks.PageChannelWebhookResponseConfiguration{
+				Expect(channelWebhooks[0].Configuration).To(Equal(webhooks.PageChannelWebhookConfigurationResponse{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(channelWebhooks[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -4116,7 +4116,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Type).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(webhook.FetchChannelWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(webhook.FetchChannelWebhookConfigurationResponse{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))
@@ -4169,7 +4169,7 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.ServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.ChannelSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.Type).To(Equal("studio"))
-				Expect(resp.Configuration).To(Equal(webhook.UpdateChannelWebhookResponseConfiguration{
+				Expect(resp.Configuration).To(Equal(webhook.UpdateChannelWebhookConfigurationResponse{
 					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T22:19:51Z"))

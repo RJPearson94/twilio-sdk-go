@@ -1614,7 +1614,7 @@
         }
       ]
     },
-    "PhoneNumberResponseCapabilities": {
+    "PhoneNumberCapabilitiesResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -1747,7 +1747,7 @@
         },
         {
           "name": "Capabilities",
-          "structure": "PhoneNumberResponseCapabilities",
+          "structure": "PhoneNumberCapabilitiesResponse",
           "value": "capabilities",
           "required": false
         },
@@ -1787,7 +1787,7 @@
         }
       ]
     },
-    "ShortCodeResponseCapabilities": {
+    "ShortCodeCapabilitiesResponse": {
       "type": "JSON",
       "properties": [
         {
@@ -1914,7 +1914,7 @@
         },
         {
           "name": "Capabilities",
-          "structure": "ShortCodeResponseCapabilities",
+          "structure": "ShortCodeCapabilitiesResponse",
           "value": "capabilities",
           "required": false
         },

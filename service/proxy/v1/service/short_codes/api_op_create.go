@@ -14,7 +14,7 @@ type CreateShortCodeInput struct {
 	Sid string `validate:"required" form:"Sid"`
 }
 
-type CreateShortCodeResponseCapabilities struct {
+type CreateShortCodeCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -33,7 +33,7 @@ type CreateShortCodeResponseCapabilities struct {
 // CreateShortCodeResponse defines the response fields for the created short code
 type CreateShortCodeResponse struct {
 	AccountSid   string                               `json:"account_sid"`
-	Capabilities *CreateShortCodeResponseCapabilities `json:"capabilities,omitempty"`
+	Capabilities *CreateShortCodeCapabilitiesResponse `json:"capabilities,omitempty"`
 	DateCreated  time.Time                            `json:"date_created"`
 	DateUpdated  *time.Time                           `json:"date_updated,omitempty"`
 	IsReserved   *bool                                `json:"is_reserved,omitempty"`

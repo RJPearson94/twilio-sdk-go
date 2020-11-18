@@ -14,7 +14,7 @@ type UpdatePhoneNumberInput struct {
 	IsReserved *bool `form:"IsReserved,omitempty"`
 }
 
-type UpdatePhoneNumberResponseCapabilities struct {
+type UpdatePhoneNumberCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -33,7 +33,7 @@ type UpdatePhoneNumberResponseCapabilities struct {
 // UpdatePhoneNumberResponse defines the response fields for the updated phone number
 type UpdatePhoneNumberResponse struct {
 	AccountSid   string                                 `json:"account_sid"`
-	Capabilities *UpdatePhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
+	Capabilities *UpdatePhoneNumberCapabilitiesResponse `json:"capabilities,omitempty"`
 	DateCreated  time.Time                              `json:"date_created"`
 	DateUpdated  *time.Time                             `json:"date_updated,omitempty"`
 	FriendlyName *string                                `json:"friendly_name,omitempty"`

@@ -19,23 +19,7 @@ type MessagesPageOptions struct {
 	PageToken *string
 }
 
-type PageMessageResponse struct {
-	AccountSid      string                       `json:"account_sid"`
-	Attributes      string                       `json:"attributes"`
-	Author          string                       `json:"author"`
-	Body            *string                      `json:"body,omitempty"`
-	ConversationSid string                       `json:"conversation_sid"`
-	DateCreated     time.Time                    `json:"date_created"`
-	DateUpdated     *time.Time                   `json:"date_updated,omitempty"`
-	Delivery        *PageMessageResponseDelivery `json:"delivery,omitempty"`
-	Index           int                          `json:"index"`
-	Media           *[]PageMessageResponseMedia  `json:"media,omitempty"`
-	ParticipantSid  *string                      `json:"participant_sid,omitempty"`
-	Sid             string                       `json:"sid"`
-	URL             string                       `json:"url"`
-}
-
-type PageMessageResponseDelivery struct {
+type PageMessageDeliveryResponse struct {
 	Delivered   string `json:"delivered"`
 	Failed      string `json:"failed"`
 	Read        string `json:"read"`
@@ -44,11 +28,27 @@ type PageMessageResponseDelivery struct {
 	Undelivered string `json:"undelivered"`
 }
 
-type PageMessageResponseMedia struct {
+type PageMessageMediaResponse struct {
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Sid         string `json:"sid"`
 	Size        int    `json:"size"`
+}
+
+type PageMessageResponse struct {
+	AccountSid      string                       `json:"account_sid"`
+	Attributes      string                       `json:"attributes"`
+	Author          string                       `json:"author"`
+	Body            *string                      `json:"body,omitempty"`
+	ConversationSid string                       `json:"conversation_sid"`
+	DateCreated     time.Time                    `json:"date_created"`
+	DateUpdated     *time.Time                   `json:"date_updated,omitempty"`
+	Delivery        *PageMessageDeliveryResponse `json:"delivery,omitempty"`
+	Index           int                          `json:"index"`
+	Media           *[]PageMessageMediaResponse  `json:"media,omitempty"`
+	ParticipantSid  *string                      `json:"participant_sid,omitempty"`
+	Sid             string                       `json:"sid"`
+	URL             string                       `json:"url"`
 }
 
 type PageMetaResponse struct {
