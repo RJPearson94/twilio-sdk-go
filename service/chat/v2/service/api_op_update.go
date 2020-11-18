@@ -9,38 +9,54 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type UpdateServiceLimitsInput struct {
+	ChannelMembers *int `form:"ChannelMembers,omitempty"`
+	UserChannels   *int `form:"UserChannels,omitempty"`
+}
+
+type UpdateServiceMediaInput struct {
+	CompatibilityMessage *string `form:"CompatibilityMessage,omitempty"`
+}
+
+type UpdateServiceNotificationActionInput struct {
+	Enabled  *bool   `form:"Enabled,omitempty"`
+	Sound    *string `form:"Sound,omitempty"`
+	Template *string `form:"Template,omitempty"`
+}
+
+type UpdateServiceNotificationInput struct {
+	AddedToChannel     *UpdateServiceNotificationActionInput     `form:"AddedToChannel,omitempty"`
+	InvitedToChannel   *UpdateServiceNotificationActionInput     `form:"InvitedToChannel,omitempty"`
+	LogEnabled         *bool                                     `form:"LogEnabled,omitempty"`
+	NewMessage         *UpdateServiceNotificationNewMessageInput `form:"NewMessage,omitempty"`
+	RemovedFromChannel *UpdateServiceNotificationActionInput     `form:"RemovedFromChannel,omitempty"`
+}
+
+type UpdateServiceNotificationNewMessageInput struct {
+	BadgeCountEnabled *bool   `form:"BadgeCountEnabled,omitempty"`
+	Enabled           *bool   `form:"Enabled,omitempty"`
+	Sound             *string `form:"Sound,omitempty"`
+	Template          *string `form:"Template,omitempty"`
+}
+
 // UpdateServiceInput defines the input fields for updating a service resource
 type UpdateServiceInput struct {
-	ConsumptionReportInterval                *int      `form:"ConsumptionReportInterval,omitempty"`
-	DefaultChannelCreatorRoleSid             *string   `form:"DefaultChannelCreatorRoleSid,omitempty"`
-	DefaultChannelRoleSid                    *string   `form:"DefaultChannelRoleSid,omitempty"`
-	DefaultServiceRoleSid                    *string   `form:"DefaultServiceRoleSid,omitempty"`
-	FriendlyName                             *string   `form:"FriendlyName,omitempty"`
-	LimitsChannelMembers                     *int      `form:"Limits.ChannelMembers,omitempty"`
-	LimitsUserChannels                       *int      `form:"Limits.UserChannels,omitempty"`
-	MediaCompatibilityMessage                *string   `form:"Media.CompatibilityMessage,omitempty"`
-	NotificationsAddedToChannelEnabled       *bool     `form:"Notifications.AddedToChannel.Enabled,omitempty"`
-	NotificationsAddedToChannelSound         *string   `form:"Notifications.AddedToChannel.Sound,omitempty"`
-	NotificationsAddedToChannelTemplate      *string   `form:"Notifications.AddedToChannel.Template,omitempty"`
-	NotificationsInvitedToChannelEnabled     *bool     `form:"Notifications.InvitedToChannel.Enabled,omitempty"`
-	NotificationsInvitedToChannelSound       *string   `form:"Notifications.InvitedToChannel.Sound,omitempty"`
-	NotificationsInvitedToChannelTemplate    *string   `form:"Notifications.InvitedToChannel.Template,omitempty"`
-	NotificationsLogEnabled                  *bool     `form:"Notifications.LogEnabled,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled *bool     `form:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-	NotificationsNewMessageEnabled           *bool     `form:"Notifications.NewMessage.Enabled,omitempty"`
-	NotificationsNewMessageSound             *string   `form:"Notifications.NewMessage.Sound,omitempty"`
-	NotificationsNewMessageTemplate          *string   `form:"Notifications.NewMessage.Template,omitempty"`
-	NotificationsRemovedFromChannelEnabled   *bool     `form:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-	NotificationsRemovedFromChannelSound     *string   `form:"Notifications.RemovedFromChannel.Sound,omitempty"`
-	NotificationsRemovedFromChannelTemplate  *string   `form:"Notifications.RemovedFromChannel.Template,omitempty"`
-	PostWebhookRetryCount                    *int      `form:"PostWebhookRetryCount,omitempty"`
-	PostWebhookURL                           *string   `form:"PostWebhookUrl,omitempty"`
-	PreWebhookRetryCount                     *int      `form:"PreWebhookRetryCount,omitempty"`
-	PreWebhookURL                            *string   `form:"PreWebhookUrl,omitempty"`
-	ReadStatusEnabled                        *bool     `form:"ReadStatusEnabled,omitempty"`
-	TypingIndicatorTimeout                   *int      `form:"TypingIndicatorTimeout,omitempty"`
-	WebhookFilters                           *[]string `form:"WebhookFilters,omitempty"`
-	WebhookMethod                            *string   `form:"WebhookMethod,omitempty"`
+	ConsumptionReportInterval    *int                            `form:"ConsumptionReportInterval,omitempty"`
+	DefaultChannelCreatorRoleSid *string                         `form:"DefaultChannelCreatorRoleSid,omitempty"`
+	DefaultChannelRoleSid        *string                         `form:"DefaultChannelRoleSid,omitempty"`
+	DefaultServiceRoleSid        *string                         `form:"DefaultServiceRoleSid,omitempty"`
+	FriendlyName                 *string                         `form:"FriendlyName,omitempty"`
+	Limits                       *UpdateServiceLimitsInput       `form:"Limits,omitempty"`
+	Media                        *UpdateServiceMediaInput        `form:"Media,omitempty"`
+	Notifications                *UpdateServiceNotificationInput `form:"Notifications,omitempty"`
+	PostWebhookRetryCount        *int                            `form:"PostWebhookRetryCount,omitempty"`
+	PostWebhookURL               *string                         `form:"PostWebhookUrl,omitempty"`
+	PreWebhookRetryCount         *int                            `form:"PreWebhookRetryCount,omitempty"`
+	PreWebhookURL                *string                         `form:"PreWebhookUrl,omitempty"`
+	ReadStatusEnabled            *bool                           `form:"ReadStatusEnabled,omitempty"`
+	TypingIndicatorTimeout       *int                            `form:"TypingIndicatorTimeout,omitempty"`
+	WebhookFilters               *[]string                       `form:"WebhookFilters,omitempty"`
+	WebhookMethod                *string                         `form:"WebhookMethod,omitempty"`
 }
 
 // UpdateServiceResponse defines the response fields for the updated service

@@ -31,9 +31,11 @@ func main() {
 		Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhooks.
 		Create(&webhooks.CreateChannelWebhookInput{
-			Type:                 "webhook",
-			ConfigurationURL:     utils.String("https://localhost.com/webhook"),
-			ConfigurationFilters: &[]string{"onMessageSent"},
+			Type: "webhook",
+			Configuration: &webhooks.CreateChannelWebhookConfigurationInput{
+				URL:     utils.String("https://localhost.com/webhook"),
+				Filters: &[]string{"onMessageSent"},
+			},
 		})
 
 	if err != nil {

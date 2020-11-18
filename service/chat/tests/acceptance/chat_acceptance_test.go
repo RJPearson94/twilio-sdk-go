@@ -428,9 +428,11 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			webhooksClient := chatSession.Service(serviceSid).Channel(channelSid).Webhooks
 
 			createResp, createErr := webhooksClient.Create(&webhooks.CreateChannelWebhookInput{
-				Type:                 "webhook",
-				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
-				ConfigurationFilters: &[]string{"onMessageSent"},
+				Type: "webhook",
+				Configuration: &webhooks.CreateChannelWebhookConfigurationInput{
+					URL:     utils.String("https://localhost.com/webhook"),
+					Filters: &[]string{"onMessageSent"},
+				},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())

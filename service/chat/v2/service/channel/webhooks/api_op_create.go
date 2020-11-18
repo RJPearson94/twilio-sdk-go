@@ -9,15 +9,19 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type CreateChannelWebhookConfigurationInput struct {
+	Filters    *[]string `form:"Filters,omitempty"`
+	FlowSid    *string   `form:"FlowSid,omitempty"`
+	Method     *string   `form:"Method,omitempty"`
+	RetryCount *int      `form:"RetryCount,omitempty"`
+	Triggers   *[]string `form:"Triggers,omitempty"`
+	URL        *string   `form:"Url,omitempty"`
+}
+
 // CreateChannelWebhookInput defines the input fields for creating a new webhook resource
 type CreateChannelWebhookInput struct {
-	ConfigurationFilters    *[]string `form:"Configuration.Filters,omitempty"`
-	ConfigurationFlowSid    *string   `form:"Configuration.FlowSid,omitempty"`
-	ConfigurationMethod     *string   `form:"Configuration.Method,omitempty"`
-	ConfigurationRetryCount *int      `form:"Configuration.RetryCount,omitempty"`
-	ConfigurationTriggers   *[]string `form:"Configuration.Triggers,omitempty"`
-	ConfigurationURL        *string   `form:"Configuration.Url,omitempty"`
-	Type                    string    `validate:"required" form:"Type"`
+	Configuration *CreateChannelWebhookConfigurationInput `form:"Configuration,omitempty"`
+	Type          string                                  `validate:"required" form:"Type"`
 }
 
 type CreateChannelWebhookResponseConfiguration struct {
