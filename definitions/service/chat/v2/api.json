@@ -2844,6 +2844,125 @@
         }
       ]
     },
+    "UpdateServiceNotificationNewMessageInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "Template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "Sound",
+          "required": false
+        },
+        {
+          "name": "BadgeCountEnabled",
+          "type": "bool",
+          "value": "BadgeCountEnabled",
+          "required": false
+        }
+      ]
+    },
+    "UpdateServiceNotificationActionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "Template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "Sound",
+          "required": false
+        }
+      ]
+    },
+    "UpdateServiceNotificationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "NewMessage",
+          "structure": "UpdateServiceNotificationNewMessageInput",
+          "structureName": "ServiceNotificationNewMessageInput",
+          "value": "NewMessage",
+          "required": false
+        },
+        {
+          "name": "AddedToChannel",
+          "structure": "UpdateServiceNotificationActionInput",
+          "structureName": "ServiceNotificationActionInput",
+          "value": "AddedToChannel",
+          "required": false
+        },
+        {
+          "name": "RemovedFromChannel",
+          "structure": "UpdateServiceNotificationActionInput",
+          "structureName": "ServiceNotificationActionInput",
+          "value": "RemovedFromChannel",
+          "required": false
+        },
+        {
+          "name": "InvitedToChannel",
+          "structure": "UpdateServiceNotificationActionInput",
+          "structureName": "ServiceNotificationActionInput",
+          "value": "InvitedToChannel",
+          "required": false
+        },
+        {
+          "name": "LogEnabled",
+          "type": "bool",
+          "value": "LogEnabled",
+          "required": false
+        }
+      ]
+    },
+    "UpdateServiceLimitsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ChannelMembers",
+          "type": "int",
+          "value": "ChannelMembers",
+          "required": false
+        },
+        {
+          "name": "UserChannels",
+          "type": "int",
+          "value": "UserChannels",
+          "required": false
+        }
+      ]
+    },
+    "UpdateServiceMediaInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "CompatibilityMessage",
+          "type": "string",
+          "value": "CompatibilityMessage",
+          "required": false
+        }
+      ]
+    },
     "UpdateServiceInput": {
       "type": "URLEncoded",
       "properties": [
@@ -2890,81 +3009,10 @@
           "required": false
         },
         {
-          "name": "NotificationsNewMessageEnabled",
-          "type": "bool",
-          "value": "Notifications.NewMessage.Enabled",
-          "required": false
-        },
-        {
-          "name": "NotificationsNewMessageTemplate",
-          "type": "string",
-          "value": "Notifications.NewMessage.Template",
-          "required": false
-        },
-        {
-          "name": "NotificationsNewMessageSound",
-          "type": "string",
-          "value": "Notifications.NewMessage.Sound",
-          "required": false
-        },
-        {
-          "name": "NotificationsNewMessageBadgeCountEnabled",
-          "type": "bool",
-          "value": "Notifications.NewMessage.BadgeCountEnabled",
-          "required": false
-        },
-        {
-          "name": "NotificationsAddedToChannelEnabled",
-          "type": "bool",
-          "value": "Notifications.AddedToChannel.Enabled",
-          "required": false
-        },
-        {
-          "name": "NotificationsAddedToChannelTemplate",
-          "type": "string",
-          "value": "Notifications.AddedToChannel.Template",
-          "required": false
-        },
-        {
-          "name": "NotificationsAddedToChannelSound",
-          "type": "string",
-          "value": "Notifications.AddedToChannel.Sound",
-          "required": false
-        },
-        {
-          "name": "NotificationsRemovedFromChannelEnabled",
-          "type": "bool",
-          "value": "Notifications.RemovedFromChannel.Enabled",
-          "required": false
-        },
-        {
-          "name": "NotificationsRemovedFromChannelTemplate",
-          "type": "string",
-          "value": "Notifications.RemovedFromChannel.Template",
-          "required": false
-        },
-        {
-          "name": "NotificationsRemovedFromChannelSound",
-          "type": "string",
-          "value": "Notifications.RemovedFromChannel.Sound",
-          "required": false
-        },
-        {
-          "name": "NotificationsInvitedToChannelEnabled",
-          "type": "bool",
-          "value": "Notifications.InvitedToChannel.Enabled",
-          "required": false
-        },
-        {
-          "name": "NotificationsInvitedToChannelTemplate",
-          "type": "string",
-          "value": "Notifications.InvitedToChannel.Template",
-          "required": false
-        },
-        {
-          "name": "NotificationsInvitedToChannelSound",
-          "type": "string",
-          "value": "Notifications.InvitedToChannel.Sound",
+          "name": "Notifications",
+          "structure": "UpdateServiceNotificationInput",
+          "structureName": "ServiceNotificationInput",
+          "value": "Notifications",
           "required": false
         },
         {
@@ -3007,27 +3055,17 @@
           "required": false
         },
         {
-          "name": "LimitsChannelMembers",
-          "type": "int",
-          "value": "Limits.ChannelMembers",
+          "name": "Limits",
+          "structure": "UpdateServiceLimitsInput",
+          "structureName": "ServiceLimitsInput",
+          "value": "Limits",
           "required": false
         },
         {
-          "name": "LimitsUserChannels",
-          "type": "int",
-          "value": "Limits.UserChannels",
-          "required": false
-        },
-        {
-          "name": "MediaCompatibilityMessage",
-          "type": "string",
-          "value": "Media.CompatibilityMessage",
-          "required": false
-        },
-        {
-          "name": "NotificationsLogEnabled",
-          "type": "bool",
-          "value": "Notifications.LogEnabled",
+          "name": "Media",
+          "structure": "UpdateServiceMediaInput",
+          "structureName": "ServiceMediaInput",
+          "value": "Media",
           "required": false
         }
       ]
@@ -3719,49 +3757,60 @@
         }
       ]
     },
+    "ChannelWebhookConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "Url",
+          "required": false
+        },
+        {
+          "name": "Method",
+          "type": "string",
+          "value": "Method",
+          "required": false
+        },
+        {
+          "name": "Filters",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Filters",
+          "required": false
+        },
+        {
+          "name": "Triggers",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Triggers",
+          "required": false
+        },
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "FlowSid",
+          "required": false
+        },
+        {
+          "name": "RetryCount",
+          "type": "int",
+          "value": "RetryCount",
+          "required": false
+        }
+      ]
+    },
     "ChannelWebhookInput": {
       "type": "URLEncoded",
       "properties": [
         {
-          "name": "ConfigurationURL",
-          "type": "string",
-          "value": "Configuration.Url",
-          "required": false
-        },
-        {
-          "name": "ConfigurationMethod",
-          "type": "string",
-          "value": "Configuration.Method",
-          "required": false
-        },
-        {
-          "name": "ConfigurationFilters",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "value": "Configuration.Filters",
-          "required": false
-        },
-        {
-          "name": "ConfigurationTriggers",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "value": "Configuration.Triggers",
-          "required": false
-        },
-        {
-          "name": "ConfigurationFlowSid",
-          "type": "string",
-          "value": "Configuration.FlowSid",
-          "required": false
-        },
-        {
-          "name": "ConfigurationRetryCount",
-          "type": "int",
-          "value": "Configuration.RetryCount",
+          "name": "Configuration",
+          "structure": "ChannelWebhookConfigurationInput",
+          "value": "Configuration",
           "required": false
         }
       ]

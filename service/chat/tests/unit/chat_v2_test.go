@@ -3856,8 +3856,10 @@ var _ = Describe("Chat V2", func() {
 
 		Describe("When the channel webhook is successfully created", func() {
 			createInput := &webhooks.CreateChannelWebhookInput{
-				Type:                 "studio",
-				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Type: "studio",
+				Configuration: &webhooks.CreateChannelWebhookConfigurationInput{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
@@ -3905,8 +3907,10 @@ var _ = Describe("Chat V2", func() {
 
 		Describe("When the channel webhook api returns a 500 response", func() {
 			createInput := &webhooks.CreateChannelWebhookInput{
-				Type:                 "studio",
-				ConfigurationFlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				Type: "studio",
+				Configuration: &webhooks.CreateChannelWebhookConfigurationInput{
+					FlowSid: utils.String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+				},
 			}
 
 			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
