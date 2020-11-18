@@ -9,13 +9,17 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type UpdateWebhookConfigurationInput struct {
+	Filters  *[]string `form:"Filters,omitempty"`
+	FlowSid  *string   `form:"FlowSid,omitempty"`
+	Method   *string   `form:"Method,omitempty"`
+	Triggers *[]string `form:"Triggers,omitempty"`
+	URL      *string   `form:"Url,omitempty"`
+}
+
 // UpdateWebhookInput defines input fields for updating an webhook resource
 type UpdateWebhookInput struct {
-	ConfigurationFilters  *[]string `form:"Configuration.Filters,omitempty"`
-	ConfigurationFlowSid  *string   `form:"Configuration.FlowSid,omitempty"`
-	ConfigurationMethod   *string   `form:"Configuration.Method,omitempty"`
-	ConfigurationTriggers *[]string `form:"Configuration.Triggers,omitempty"`
-	ConfigurationURL      *string   `form:"Configuration.Url,omitempty"`
+	Configuration *UpdateWebhookConfigurationInput `form:"Configuration,omitempty"`
 }
 
 type UpdateWebhookResponseConfiguration struct {

@@ -8,19 +8,25 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
+type UpdateNotificationConversationActionInput struct {
+	Enabled  *bool   `form:"Enabled,omitempty"`
+	Sound    *string `form:"Sound,omitempty"`
+	Template *string `form:"Template,omitempty"`
+}
+
+type UpdateNotificationNewMessageInput struct {
+	BadgeCountEnabled *bool   `form:"BadgeCountEnabled,omitempty"`
+	Enabled           *bool   `form:"Enabled,omitempty"`
+	Sound             *string `form:"Sound,omitempty"`
+	Template          *string `form:"Template,omitempty"`
+}
+
 // UpdateNotificationInput defines input fields for updating a service notification resource
 type UpdateNotificationInput struct {
-	AddedToConversationEnabled      *bool   `form:"AddedToConversation.Enabled,omitempty"`
-	AddedToConversationSound        *string `form:"AddedToConversation.Sound,omitempty"`
-	AddedToConversationTemplate     *string `form:"AddedToConversation.Template,omitempty"`
-	LogEnabled                      *bool   `form:"LogEnabled,omitempty"`
-	NewMessageBadgeCountEnabled     *bool   `form:"NewMessage.BadgeCountEnabled,omitempty"`
-	NewMessageEnabled               *bool   `form:"NewMessage.Enabled,omitempty"`
-	NewMessageSound                 *string `form:"NewMessage.Sound,omitempty"`
-	NewMessageTemplate              *string `form:"NewMessage.Template,omitempty"`
-	RemovedFromConversationEnabled  *bool   `form:"RemovedFromConversation.Enabled,omitempty"`
-	RemovedFromConversationSound    *string `form:"RemovedFromConversation.Sound,omitempty"`
-	RemovedFromConversationTemplate *string `form:"RemovedFromConversation.Template,omitempty"`
+	AddedToConversation     *UpdateNotificationConversationActionInput `form:"AddedToConversation,omitempty"`
+	LogEnabled              *bool                                      `form:"LogEnabled,omitempty"`
+	NewMessage              *UpdateNotificationNewMessageInput         `form:"NewMessage,omitempty"`
+	RemovedFromConversation *UpdateNotificationConversationActionInput `form:"RemovedFromConversation,omitempty"`
 }
 
 type UpdateNotificationResponseConversationAction struct {

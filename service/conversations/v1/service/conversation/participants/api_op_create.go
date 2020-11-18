@@ -10,16 +10,20 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
+type CreateParticipantMessageBindingInput struct {
+	Address          *string `form:"Address,omitempty"`
+	ProjectedAddress *string `form:"ProjectedAddress,omitempty"`
+	ProxyAddress     *string `form:"ProxyAddress,omitempty"`
+}
+
 // CreateParticipantInput defines the input fields for creating a new participant resource
 type CreateParticipantInput struct {
-	Attributes                       *string            `form:"Attributes,omitempty"`
-	DateCreated                      *utils.RFC2822Time `form:"DateCreated,omitempty"`
-	DateUpdated                      *utils.RFC2822Time `form:"DateUpdated,omitempty"`
-	Identity                         *string            `form:"Identity,omitempty"`
-	MessagingBindingAddress          *string            `form:"MessagingBinding.Address,omitempty"`
-	MessagingBindingProjectedAddress *string            `form:"MessagingBinding.ProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress     *string            `form:"MessagingBinding.ProxyAddress,omitempty"`
-	RoleSid                          *string            `form:"RoleSid,omitempty"`
+	Attributes       *string                               `form:"Attributes,omitempty"`
+	DateCreated      *utils.RFC2822Time                    `form:"DateCreated,omitempty"`
+	DateUpdated      *utils.RFC2822Time                    `form:"DateUpdated,omitempty"`
+	Identity         *string                               `form:"Identity,omitempty"`
+	MessagingBinding *CreateParticipantMessageBindingInput `form:"MessagingBinding,omitempty"`
+	RoleSid          *string                               `form:"RoleSid,omitempty"`
 }
 
 type CreateParticipantResponseMessageBinding struct {

@@ -704,8 +704,7 @@
                 "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#update-a-conversationparticipant-resource"
               },
               "input": {
-                "name": "UpdateParticipantInput",
-                "structure": "ParticipantInput",
+                "structure": "UpdateParticipantInput",
                 "documentation": {
                   "description": "defines input fields for updating an participant resource"
                 }
@@ -2711,8 +2710,7 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-participant-resource#update-a-conversationparticipant-resource"
                   },
                   "input": {
-                    "name": "UpdateParticipantInput",
-                    "structure": "ParticipantInput",
+                    "structure": "UpdateParticipantInput",
                     "documentation": {
                       "description": "defines input fields for updating an participant resource"
                     }
@@ -4046,6 +4044,23 @@
     }
   ],
   "structures": {
+    "ConversationTimersInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Inactive",
+          "type": "string",
+          "value": "Inactive",
+          "required": false
+        },
+        {
+          "name": "Closed",
+          "type": "string",
+          "value": "Closed",
+          "required": false
+        }
+      ]
+    },
     "ConversationInput": {
       "type": "URLEncoded",
       "properties": [
@@ -4086,15 +4101,9 @@
           "required": false
         },
         {
-          "name": "TimersInactive",
-          "type": "string",
-          "value": "Timers.Inactive",
-          "required": false
-        },
-        {
-          "name": "TimersClosed",
-          "type": "string",
-          "value": "Timers.Closed",
+          "name": "Timers",
+          "structure": "ConversationTimersInput",
+          "value": "Timers",
           "required": false
         }
       ]
@@ -4405,20 +4414,74 @@
         }
       ]
     },
+    "CreateParticipantMessageBindingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Address",
+          "type": "string",
+          "value": "Address",
+          "required": false
+        },
+        {
+          "name": "ProxyAddress",
+          "type": "string",
+          "value": "ProxyAddress",
+          "required": false
+        },
+        {
+          "name": "ProjectedAddress",
+          "type": "string",
+          "value": "ProjectedAddress",
+          "required": false
+        }
+      ]
+    },
     "CreateParticipantInput": {
       "type": "URLEncoded",
       "extends": "ParticipantInput",
       "properties": [
         {
-          "name": "MessagingBindingAddress",
-          "type": "string",
-          "value": "MessagingBinding.Address",
+          "name": "MessagingBinding",
+          "structure": "CreateParticipantMessageBindingInput",
+          "structureName": "ParticipantMessageBindingInput",
+          "value": "MessagingBinding",
           "required": false
         },
         {
           "name": "Identity",
           "type": "string",
           "value": "Identity",
+          "required": false
+        }
+      ]
+    },
+    "UpdateParticipantMessageBindingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ProxyAddress",
+          "type": "string",
+          "value": "ProxyAddress",
+          "required": false
+        },
+        {
+          "name": "ProjectedAddress",
+          "type": "string",
+          "value": "ProjectedAddress",
+          "required": false
+        }
+      ]
+    },
+    "UpdateParticipantInput": {
+      "type": "URLEncoded",
+      "extends": "ParticipantInput",
+      "properties": [
+        {
+          "name": "MessagingBinding",
+          "structure": "UpdateParticipantMessageBindingInput",
+          "structureName": "ParticipantMessageBindingInput",
+          "value": "MessagingBinding",
           "required": false
         }
       ]
@@ -4448,18 +4511,6 @@
           "name": "RoleSid",
           "type": "string",
           "value": "RoleSid",
-          "required": false
-        },
-        {
-          "name": "MessagingBindingProxyAddress",
-          "type": "string",
-          "value": "MessagingBinding.ProxyAddress",
-          "required": false
-        },
-        {
-          "name": "MessagingBindingProjectedAddress",
-          "type": "string",
-          "value": "MessagingBinding.ProjectedAddress",
           "required": false
         }
       ]
@@ -4582,6 +4633,17 @@
         }
       ]
     },
+    "CreateConversationWebhookConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ReplayAfter",
+          "type": "int",
+          "value": "ReplayAfter",
+          "required": false
+        }
+      ]
+    },
     "CreateConversationWebhookInput": {
       "type": "URLEncoded",
       "extends": "ConversationWebhookInput",
@@ -4591,11 +4653,46 @@
           "type": "string",
           "value": "Target",
           "required": true
+        }
+      ]
+    },
+    "ConversationWebhookConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "Url",
+          "required": false
         },
         {
-          "name": "ConfigurationReplayAfter",
-          "type": "int",
-          "value": "Configuration.ReplayAfter",
+          "name": "Method",
+          "type": "string",
+          "value": "Method",
+          "required": false
+        },
+        {
+          "name": "Filters",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Filters",
+          "required": false
+        },
+        {
+          "name": "Triggers",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Triggers",
+          "required": false
+        },
+        {
+          "name": "FlowSid",
+          "type": "string",
+          "value": "FlowSid",
           "required": false
         }
       ]
@@ -4604,39 +4701,10 @@
       "type": "URLEncoded",
       "properties": [
         {
-          "name": "ConfigurationURL",
-          "type": "string",
-          "value": "Configuration.Url",
-          "required": false
-        },
-        {
-          "name": "ConfigurationMethod",
-          "type": "string",
-          "value": "Configuration.Method",
-          "required": false
-        },
-        {
-          "name": "ConfigurationFilters",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "value": "Configuration.Filters",
-          "required": false
-        },
-        {
-          "name": "ConfigurationTriggers",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "value": "Configuration.Triggers",
-          "required": false
-        },
-        {
-          "name": "ConfigurationFlowSid",
-          "type": "string",
-          "value": "Configuration.FlowSid",
+          "name": "Configuration",
+          "structure": "ConversationWebhookConfigurationInput",
+          "structureName": "WebhookConfigurationInput",
+          "value": "Configuration",
           "required": false
         }
       ]
@@ -5392,6 +5460,58 @@
         }
       ]
     },
+    "UpdateNotificationNewMessageInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "Template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "Sound",
+          "required": false
+        },
+        {
+          "name": "BadgeCountEnabled",
+          "type": "bool",
+          "value": "BadgeCountEnabled",
+          "required": false
+        }
+      ]
+    },
+    "UpdateNotificationConversationActionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "Template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "Sound",
+          "required": false
+        }
+      ]
+    },
     "UpdateNotificationInput": {
       "type": "URLEncoded",
       "properties": [
@@ -5402,63 +5522,24 @@
           "required": false
         },
         {
-          "name": "NewMessageEnabled",
-          "type": "bool",
-          "value": "NewMessage.Enabled",
+          "name": "NewMessage",
+          "structure": "UpdateNotificationNewMessageInput",
+          "structureName": "NotificationNewMessageInput",
+          "value": "NewMessage",
           "required": false
         },
         {
-          "name": "NewMessageTemplate",
-          "type": "string",
-          "value": "NewMessage.Template",
+          "name": "AddedToConversation",
+          "structure": "UpdateNotificationConversationActionInput",
+          "structureName": "NotificationConversationActionInput",
+          "value": "AddedToConversation",
           "required": false
         },
         {
-          "name": "NewMessageSound",
-          "type": "string",
-          "value": "NewMessage.Sound",
-          "required": false
-        },
-        {
-          "name": "NewMessageBadgeCountEnabled",
-          "type": "bool",
-          "value": "NewMessage.BadgeCountEnabled",
-          "required": false
-        },
-        {
-          "name": "AddedToConversationEnabled",
-          "type": "bool",
-          "value": "AddedToConversation.Enabled",
-          "required": false
-        },
-        {
-          "name": "AddedToConversationTemplate",
-          "type": "string",
-          "value": "AddedToConversation.Template",
-          "required": false
-        },
-        {
-          "name": "AddedToConversationSound",
-          "type": "string",
-          "value": "AddedToConversation.Sound",
-          "required": false
-        },
-        {
-          "name": "RemovedFromConversationEnabled",
-          "type": "bool",
-          "value": "RemovedFromConversation.Enabled",
-          "required": false
-        },
-        {
-          "name": "RemovedFromConversationTemplate",
-          "type": "string",
-          "value": "RemovedFromConversation.Template",
-          "required": false
-        },
-        {
-          "name": "RemovedFromConversationSound",
-          "type": "string",
-          "value": "RemovedFromConversation.Sound",
+          "name": "RemovedFromConversation",
+          "structure": "UpdateNotificationConversationActionInput",
+          "structureName": "NotificationConversationActionInput",
+          "value": "RemovedFromConversation",
           "required": false
         }
       ]

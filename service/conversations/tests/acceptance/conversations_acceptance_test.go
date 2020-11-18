@@ -238,9 +238,11 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			webhooksClient := conversationsSession.Conversation(conversationSid).Webhooks
 
 			createResp, createErr := webhooksClient.Create(&conversationWebhooks.CreateWebhookInput{
-				Target:               "webhook",
-				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
-				ConfigurationFilters: &[]string{"onMessageAdded"},
+				Target: "webhook",
+				Configuration: &conversationWebhooks.CreateWebhookConfigurationInput{
+					URL:     utils.String("https://localhost.com/webhook"),
+					Filters: &[]string{"onMessageAdded"},
+				},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
@@ -757,9 +759,11 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			webhooksClient := conversationsSession.Service(serviceSid).Conversation(conversationSid).Webhooks
 
 			createResp, createErr := webhooksClient.Create(&serviceConversationWebhooks.CreateWebhookInput{
-				Target:               "webhook",
-				ConfigurationURL:     utils.String("https://localhost.com/webhook"),
-				ConfigurationFilters: &[]string{"onMessageAdded"},
+				Target: "webhook",
+				Configuration: &serviceConversationWebhooks.CreateWebhookConfigurationInput{
+					URL:     utils.String("https://localhost.com/webhook"),
+					Filters: &[]string{"onMessageAdded"},
+				},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
