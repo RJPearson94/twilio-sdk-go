@@ -69,7 +69,7 @@ type UpdateConfigurationInput struct {
 	WfmIntegrations              *[]UpdateConfigurationInputIntegration              `json:"wfm_integrations,omitempty"`
 }
 
-type UpdateConfigurationResponseIntegration struct {
+type UpdateConfigurationIntegrationResponse struct {
 	Active bool    `json:"active"`
 	Author *string `json:"author,omitempty"`
 	Config string  `json:"config"`
@@ -78,19 +78,19 @@ type UpdateConfigurationResponseIntegration struct {
 	Type   string  `json:"type"`
 }
 
-type UpdateConfigurationResponseSkill struct {
+type UpdateConfigurationSkillResponse struct {
 	Maximum    bool   `json:"maximum"`
 	Minimum    int    `json:"minimum"`
 	MultiValue bool   `json:"multivalue"`
 	Name       string `json:"name"`
 }
 
-type UpdateConfigurationResponseTaskQueue struct {
+type UpdateConfigurationTaskQueueResponse struct {
 	Sid         string `json:"sid"`
 	Targettable bool   `json:"targettable"`
 }
 
-type UpdateConfigurationResponseWorkerChannel struct {
+type UpdateConfigurationWorkerChannelResponse struct {
 	Availability bool   `json:"availability"`
 	Capacity     int    `json:"capacity"`
 	Name         string `json:"name"`
@@ -111,7 +111,7 @@ type UpdateConfigurationResponse struct {
 	DateCreated                  time.Time                                              `json:"date_created"`
 	DateUpdated                  *time.Time                                             `json:"date_updated,omitempty"`
 	FlexServiceInstanceSid       string                                                 `json:"flex_service_instance_sid"`
-	Integrations                 *[]UpdateConfigurationResponseIntegration              `json:"integrations,omitempty"`
+	Integrations                 *[]UpdateConfigurationIntegrationResponse              `json:"integrations,omitempty"`
 	MessagingServiceInstanceSid  *string                                                `json:"messaging_service_instance_sid,omitempty"`
 	OutboundCallFlows            *interface{}                                           `json:"outbound_call_flows,omitempty"`
 	PluginServiceAttributes      *interface{}                                           `json:"plugin_service_attributes,omitempty"`
@@ -123,19 +123,19 @@ type UpdateConfigurationResponse struct {
 	ServiceVersion               *string                                                `json:"service_version,omitempty"`
 	Status                       string                                                 `json:"status"`
 	TaskRouterOfflineActivitySid string                                                 `json:"taskrouter_offline_activity_sid"`
-	TaskRouterSkills             *[]UpdateConfigurationResponseSkill                    `json:"taskrouter_skills,omitempty"`
+	TaskRouterSkills             *[]UpdateConfigurationSkillResponse                    `json:"taskrouter_skills,omitempty"`
 	TaskRouterTargetTaskQueueSid string                                                 `json:"taskrouter_target_taskqueue_sid"`
 	TaskRouterTargetWorkflowSid  string                                                 `json:"taskrouter_target_workflow_sid"`
-	TaskRouterTaskQueues         *[]UpdateConfigurationResponseTaskQueue                `json:"taskrouter_taskqueues,omitempty"`
+	TaskRouterTaskQueues         *[]UpdateConfigurationTaskQueueResponse                `json:"taskrouter_taskqueues,omitempty"`
 	TaskRouterWorkerAttributes   *map[string]interface{}                                `json:"taskrouter_worker_attributes,omitempty"`
-	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationResponseWorkerChannel `json:"taskrouter_worker_channels,omitempty"`
+	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationWorkerChannelResponse `json:"taskrouter_worker_channels,omitempty"`
 	TaskRouterWorkspaceSid       string                                                 `json:"taskrouter_workspace_sid"`
 	URL                          string                                                 `json:"url"`
 	UiAttributes                 *interface{}                                           `json:"ui_attributes,omitempty"`
 	UiDependencies               *interface{}                                           `json:"ui_dependencies,omitempty"`
 	UiLanguage                   *string                                                `json:"ui_language,omitempty"`
 	UiVersion                    string                                                 `json:"ui_version"`
-	WfmIntegrations              *[]UpdateConfigurationResponseIntegration              `json:"wfm_integrations,omitempty"`
+	WfmIntegrations              *[]UpdateConfigurationIntegrationResponse              `json:"wfm_integrations,omitempty"`
 }
 
 // Update modifies a configuration resource

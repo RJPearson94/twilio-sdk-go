@@ -29,22 +29,7 @@ type PageMetaResponse struct {
 	URL             string  `json:"url"`
 }
 
-type PagePhoneNumberResponse struct {
-	AccountSid   string                               `json:"account_sid"`
-	Capabilities *PagePhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
-	DateCreated  time.Time                            `json:"date_created"`
-	DateUpdated  *time.Time                           `json:"date_updated,omitempty"`
-	FriendlyName *string                              `json:"friendly_name,omitempty"`
-	InUse        *int                                 `json:"in_use,omitempty"`
-	IsReserved   *bool                                `json:"is_reserved,omitempty"`
-	IsoCountry   *string                              `json:"iso_country,omitempty"`
-	PhoneNumber  *string                              `json:"phone_number,omitempty"`
-	ServiceSid   string                               `json:"service_sid"`
-	Sid          string                               `json:"sid"`
-	URL          string                               `json:"url"`
-}
-
-type PagePhoneNumberResponseCapabilities struct {
+type PagePhoneNumberCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -58,6 +43,21 @@ type PagePhoneNumberResponseCapabilities struct {
 	SmsOutbound              *bool `json:"sms_outbound,omitempty"`
 	VoiceInbound             *bool `json:"voice_inbound,omitempty"`
 	VoiceOutbound            *bool `json:"voice_outbound,omitempty"`
+}
+
+type PagePhoneNumberResponse struct {
+	AccountSid   string                               `json:"account_sid"`
+	Capabilities *PagePhoneNumberCapabilitiesResponse `json:"capabilities,omitempty"`
+	DateCreated  time.Time                            `json:"date_created"`
+	DateUpdated  *time.Time                           `json:"date_updated,omitempty"`
+	FriendlyName *string                              `json:"friendly_name,omitempty"`
+	InUse        *int                                 `json:"in_use,omitempty"`
+	IsReserved   *bool                                `json:"is_reserved,omitempty"`
+	IsoCountry   *string                              `json:"iso_country,omitempty"`
+	PhoneNumber  *string                              `json:"phone_number,omitempty"`
+	ServiceSid   string                               `json:"service_sid"`
+	Sid          string                               `json:"sid"`
+	URL          string                               `json:"url"`
 }
 
 // PhoneNumbersPageResponse defines the response fields for the phone numbers page

@@ -9,14 +9,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchQueryResponseField struct {
+type FetchQueryFieldResponse struct {
 	Name  string `json:"name"`
 	Type  string `json:"type"`
 	Value string `json:"value"`
 }
 
-type FetchQueryResponseResult struct {
-	Fields []FetchQueryResponseField `json:"fields"`
+type FetchQueryResultResponse struct {
+	Fields []FetchQueryFieldResponse `json:"fields"`
 	Task   string                    `json:"task"`
 }
 
@@ -30,7 +30,7 @@ type FetchQueryResponse struct {
 	Language      string                   `json:"language"`
 	ModelBuildSid string                   `json:"model_build_sid"`
 	Query         string                   `json:"query"`
-	Results       FetchQueryResponseResult `json:"results"`
+	Results       FetchQueryResultResponse `json:"results"`
 	SampleSid     string                   `json:"sample_sid"`
 	Sid           string                   `json:"sid"`
 	SourceChannel string                   `json:"source_channel"`

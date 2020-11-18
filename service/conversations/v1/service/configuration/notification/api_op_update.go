@@ -29,13 +29,13 @@ type UpdateNotificationInput struct {
 	RemovedFromConversation *UpdateNotificationConversationActionInput `form:"RemovedFromConversation,omitempty"`
 }
 
-type UpdateNotificationResponseConversationAction struct {
+type UpdateNotificationConversationActionResponse struct {
 	Enabled  bool    `json:"enabled"`
 	Sound    *string `json:"sound,omitempty"`
 	Template *string `json:"template,omitempty"`
 }
 
-type UpdateNotificationResponseNewMessage struct {
+type UpdateNotificationNewMessageResponse struct {
 	BadgeCountEnabled *bool   `json:"badge_count_enabled,omitempty"`
 	Enabled           bool    `json:"enabled"`
 	Sound             *string `json:"sound,omitempty"`
@@ -45,11 +45,11 @@ type UpdateNotificationResponseNewMessage struct {
 // UpdateNotificationResponse defines the response fields for the updated service notification
 type UpdateNotificationResponse struct {
 	AccountSid              string                                       `json:"account_sid"`
-	AddedToConversation     UpdateNotificationResponseConversationAction `json:"added_to_conversation"`
+	AddedToConversation     UpdateNotificationConversationActionResponse `json:"added_to_conversation"`
 	ChatServiceSid          string                                       `json:"chat_service_sid"`
 	LogEnabled              bool                                         `json:"log_enabled"`
-	NewMessage              UpdateNotificationResponseNewMessage         `json:"new_message"`
-	RemovedFromConversation UpdateNotificationResponseConversationAction `json:"removed_from_conversation"`
+	NewMessage              UpdateNotificationNewMessageResponse         `json:"new_message"`
+	RemovedFromConversation UpdateNotificationConversationActionResponse `json:"removed_from_conversation"`
 	URL                     string                                       `json:"url"`
 }
 

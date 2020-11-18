@@ -33,6 +33,12 @@ type PageMetaResponse struct {
 	URL             string  `json:"url"`
 }
 
+type PageQueryFieldResponse struct {
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	Value string `json:"value"`
+}
+
 type PageQueryResponse struct {
 	AccountSid    string                  `json:"account_sid"`
 	AssistantSid  string                  `json:"assistant_sid"`
@@ -42,7 +48,7 @@ type PageQueryResponse struct {
 	Language      string                  `json:"language"`
 	ModelBuildSid string                  `json:"model_build_sid"`
 	Query         string                  `json:"query"`
-	Results       PageQueryResponseResult `json:"results"`
+	Results       PageQueryResultResponse `json:"results"`
 	SampleSid     string                  `json:"sample_sid"`
 	Sid           string                  `json:"sid"`
 	SourceChannel string                  `json:"source_channel"`
@@ -50,14 +56,8 @@ type PageQueryResponse struct {
 	URL           string                  `json:"url"`
 }
 
-type PageQueryResponseField struct {
-	Name  string `json:"name"`
-	Type  string `json:"type"`
-	Value string `json:"value"`
-}
-
-type PageQueryResponseResult struct {
-	Fields []PageQueryResponseField `json:"fields"`
+type PageQueryResultResponse struct {
+	Fields []PageQueryFieldResponse `json:"fields"`
 	Task   string                   `json:"task"`
 }
 

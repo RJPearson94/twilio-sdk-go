@@ -22,6 +22,13 @@ type IncomingPhoneNumbersPageOptions struct {
 	Origin       *string
 }
 
+type PageIncomingPhoneNumberCapabilitiesResponse struct {
+	Fax   bool `json:"fax"`
+	Mms   bool `json:"MMS"`
+	Sms   bool `json:"SMS"`
+	Voice bool `json:"voice"`
+}
+
 type PageIncomingPhoneNumberResponse struct {
 	APIVersion           string                                      `json:"api_version"`
 	AccountSid           string                                      `json:"account_sid"`
@@ -29,7 +36,7 @@ type PageIncomingPhoneNumberResponse struct {
 	AddressSid           *string                                     `json:"address_sid,omitempty"`
 	Beta                 bool                                        `json:"beta"`
 	BundleSid            *string                                     `json:"bundle_sid,omitempty"`
-	Capabilities         PageIncomingPhoneNumberResponseCapabilities `json:"capabilities"`
+	Capabilities         PageIncomingPhoneNumberCapabilitiesResponse `json:"capabilities"`
 	DateCreated          utils.RFC2822Time                           `json:"date_created"`
 	DateUpdated          *utils.RFC2822Time                          `json:"date_updated,omitempty"`
 	EmergencyAddressSid  *string                                     `json:"emergency_address_sid,omitempty"`
@@ -55,13 +62,6 @@ type PageIncomingPhoneNumberResponse struct {
 	VoiceMethod          string                                      `json:"voice_method"`
 	VoiceReceiveMode     string                                      `json:"voice_receive_mode"`
 	VoiceURL             *string                                     `json:"voice_url,omitempty"`
-}
-
-type PageIncomingPhoneNumberResponseCapabilities struct {
-	Fax   bool `json:"fax"`
-	Mms   bool `json:"MMS"`
-	Sms   bool `json:"SMS"`
-	Voice bool `json:"voice"`
 }
 
 // IncomingPhoneNumbersPageResponse defines the response fields for the phone numbers page

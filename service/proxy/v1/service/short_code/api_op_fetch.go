@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchShortCodeResponseCapabilities struct {
+type FetchShortCodeCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -28,7 +28,7 @@ type FetchShortCodeResponseCapabilities struct {
 // FetchShortCodeResponse defines the response fields for the retrieved short code
 type FetchShortCodeResponse struct {
 	AccountSid   string                              `json:"account_sid"`
-	Capabilities *FetchShortCodeResponseCapabilities `json:"capabilities,omitempty"`
+	Capabilities *FetchShortCodeCapabilitiesResponse `json:"capabilities,omitempty"`
 	DateCreated  time.Time                           `json:"date_created"`
 	DateUpdated  *time.Time                          `json:"date_updated,omitempty"`
 	IsReserved   *bool                               `json:"is_reserved,omitempty"`

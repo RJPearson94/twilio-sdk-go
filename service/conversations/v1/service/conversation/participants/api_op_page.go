@@ -29,6 +29,13 @@ type PageMetaResponse struct {
 	URL             string  `json:"url"`
 }
 
+type PageParticipantMessageBindingResponse struct {
+	Address          string  `json:"address"`
+	ProjectedAddress *string `json:"projected_address,omitempty"`
+	ProxyAddress     string  `json:"proxy_address"`
+	Type             string  `json:"type"`
+}
+
 type PageParticipantResponse struct {
 	AccountSid       string                                 `json:"account_sid"`
 	Attributes       string                                 `json:"attributes"`
@@ -37,17 +44,10 @@ type PageParticipantResponse struct {
 	DateCreated      time.Time                              `json:"date_created"`
 	DateUpdated      *time.Time                             `json:"date_updated,omitempty"`
 	Identity         *string                                `json:"identity,omitempty"`
-	MessagingBinding *PageParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	MessagingBinding *PageParticipantMessageBindingResponse `json:"messaging_binding,omitempty"`
 	RoleSid          *string                                `json:"role_sid,omitempty"`
 	Sid              string                                 `json:"sid"`
 	URL              string                                 `json:"url"`
-}
-
-type PageParticipantResponseMessageBinding struct {
-	Address          string  `json:"address"`
-	ProjectedAddress *string `json:"projected_address,omitempty"`
-	ProxyAddress     string  `json:"proxy_address"`
-	Type             string  `json:"type"`
 }
 
 // ParticipantsPageResponse defines the response fields for the participants page

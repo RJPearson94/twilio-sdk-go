@@ -8,13 +8,13 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchNotificationResponseConversationAction struct {
+type FetchNotificationConversationActionResponse struct {
 	Enabled  bool    `json:"enabled"`
 	Sound    *string `json:"sound,omitempty"`
 	Template *string `json:"template,omitempty"`
 }
 
-type FetchNotificationResponseNewMessage struct {
+type FetchNotificationNewMessageResponse struct {
 	BadgeCountEnabled *bool   `json:"badge_count_enabled,omitempty"`
 	Enabled           bool    `json:"enabled"`
 	Sound             *string `json:"sound,omitempty"`
@@ -24,11 +24,11 @@ type FetchNotificationResponseNewMessage struct {
 // FetchNotificationResponse defines the response fields for the retrieved service notification
 type FetchNotificationResponse struct {
 	AccountSid              string                                      `json:"account_sid"`
-	AddedToConversation     FetchNotificationResponseConversationAction `json:"added_to_conversation"`
+	AddedToConversation     FetchNotificationConversationActionResponse `json:"added_to_conversation"`
 	ChatServiceSid          string                                      `json:"chat_service_sid"`
 	LogEnabled              bool                                        `json:"log_enabled"`
-	NewMessage              FetchNotificationResponseNewMessage         `json:"new_message"`
-	RemovedFromConversation FetchNotificationResponseConversationAction `json:"removed_from_conversation"`
+	NewMessage              FetchNotificationNewMessageResponse         `json:"new_message"`
+	RemovedFromConversation FetchNotificationConversationActionResponse `json:"removed_from_conversation"`
 	URL                     string                                      `json:"url"`
 }
 

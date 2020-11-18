@@ -35,7 +35,7 @@ type UpdateIncomingPhoneNumberInput struct {
 	VoiceURL             *string `form:"VoiceUrl,omitempty"`
 }
 
-type UpdateIncomingPhoneNumberResponseCapabilities struct {
+type UpdateIncomingPhoneNumberCapabilitiesResponse struct {
 	Fax   bool `json:"fax"`
 	Mms   bool `json:"MMS"`
 	Sms   bool `json:"SMS"`
@@ -50,7 +50,7 @@ type UpdateIncomingPhoneNumberResponse struct {
 	AddressSid           *string                                       `json:"address_sid,omitempty"`
 	Beta                 bool                                          `json:"beta"`
 	BundleSid            *string                                       `json:"bundle_sid,omitempty"`
-	Capabilities         UpdateIncomingPhoneNumberResponseCapabilities `json:"capabilities"`
+	Capabilities         UpdateIncomingPhoneNumberCapabilitiesResponse `json:"capabilities"`
 	DateCreated          utils.RFC2822Time                             `json:"date_created"`
 	DateUpdated          *utils.RFC2822Time                            `json:"date_updated,omitempty"`
 	EmergencyAddressSid  *string                                       `json:"emergency_address_sid,omitempty"`

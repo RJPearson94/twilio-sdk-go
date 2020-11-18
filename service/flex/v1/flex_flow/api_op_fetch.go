@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchFlexFlowResponseIntegration struct {
+type FetchFlexFlowIntegrationResponse struct {
 	Channel           *string `json:"channel,omitempty"`
 	CreationOnMessage *bool   `json:"creation_on_message,omitempty"`
 	FlowSid           *string `json:"flow_sid,omitempty"`
@@ -31,7 +31,7 @@ type FetchFlexFlowResponse struct {
 	DateUpdated     *time.Time                        `json:"date_updated,omitempty"`
 	Enabled         bool                              `json:"enabled"`
 	FriendlyName    string                            `json:"friendly_name"`
-	Integration     *FetchFlexFlowResponseIntegration `json:"integration,omitempty"`
+	Integration     *FetchFlexFlowIntegrationResponse `json:"integration,omitempty"`
 	IntegrationType *string                           `json:"integration_type,omitempty"`
 	JanitorEnabled  *bool                             `json:"janitor_enabled,omitempty"`
 	LongLived       *bool                             `json:"long_lived,omitempty"`

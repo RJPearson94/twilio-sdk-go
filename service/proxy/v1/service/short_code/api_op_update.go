@@ -14,7 +14,7 @@ type UpdateShortCodeInput struct {
 	IsReserved *bool `form:"IsReserved,omitempty"`
 }
 
-type UpdateShortCodeResponseCapabilities struct {
+type UpdateShortCodeCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -33,7 +33,7 @@ type UpdateShortCodeResponseCapabilities struct {
 // UpdateShortCodeResponse defines the response fields for the updated short code
 type UpdateShortCodeResponse struct {
 	AccountSid   string                               `json:"account_sid"`
-	Capabilities *UpdateShortCodeResponseCapabilities `json:"capabilities,omitempty"`
+	Capabilities *UpdateShortCodeCapabilitiesResponse `json:"capabilities,omitempty"`
 	DateCreated  time.Time                            `json:"date_created"`
 	DateUpdated  *time.Time                           `json:"date_updated,omitempty"`
 	IsReserved   *bool                                `json:"is_reserved,omitempty"`

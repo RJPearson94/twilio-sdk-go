@@ -34,7 +34,7 @@ type UpdateFlexFlowInput struct {
 	LongLived       *bool                           `form:"LongLived,omitempty"`
 }
 
-type UpdateFlexFlowResponseIntegration struct {
+type UpdateFlexFlowIntegrationResponse struct {
 	Channel           *string `json:"channel,omitempty"`
 	CreationOnMessage *bool   `json:"creation_on_message,omitempty"`
 	FlowSid           *string `json:"flow_sid,omitempty"`
@@ -56,7 +56,7 @@ type UpdateFlexFlowResponse struct {
 	DateUpdated     *time.Time                         `json:"date_updated,omitempty"`
 	Enabled         bool                               `json:"enabled"`
 	FriendlyName    string                             `json:"friendly_name"`
-	Integration     *UpdateFlexFlowResponseIntegration `json:"integration,omitempty"`
+	Integration     *UpdateFlexFlowIntegrationResponse `json:"integration,omitempty"`
 	IntegrationType *string                            `json:"integration_type,omitempty"`
 	JanitorEnabled  *bool                              `json:"janitor_enabled,omitempty"`
 	LongLived       *bool                              `json:"long_lived,omitempty"`

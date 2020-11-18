@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchWebhookResponseConfiguration struct {
+type FetchWebhookConfigurationResponse struct {
 	Filters     *[]string `json:"filters,omitempty"`
 	FlowSid     *string   `json:"flow_sid,omitempty"`
 	Method      *string   `json:"method,omitempty"`
@@ -21,7 +21,7 @@ type FetchWebhookResponseConfiguration struct {
 // FetchWebhookResponse defines the response fields for the retrieved webhook
 type FetchWebhookResponse struct {
 	AccountSid      string                            `json:"account_sid"`
-	Configuration   FetchWebhookResponseConfiguration `json:"configuration"`
+	Configuration   FetchWebhookConfigurationResponse `json:"configuration"`
 	ConversationSid string                            `json:"conversation_sid"`
 	DateCreated     time.Time                         `json:"date_created"`
 	DateUpdated     *time.Time                        `json:"date_updated,omitempty"`

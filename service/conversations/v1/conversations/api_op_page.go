@@ -29,11 +29,11 @@ type PageConversationResponse struct {
 	MessagingServiceSid *string                        `json:"messaging_service_sid,omitempty"`
 	Sid                 string                         `json:"sid"`
 	State               string                         `json:"state"`
-	Timers              PageConversationResponseTimers `json:"timers"`
+	Timers              PageConversationTimersResponse `json:"timers"`
 	URL                 string                         `json:"url"`
 }
 
-type PageConversationResponseTimers struct {
+type PageConversationTimersResponse struct {
 	DateClosed   *time.Time `json:"date_closed,omitempty"`
 	DateInactive *time.Time `json:"date_inactive,omitempty"`
 }

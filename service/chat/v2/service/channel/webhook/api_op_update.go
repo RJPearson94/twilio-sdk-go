@@ -23,7 +23,7 @@ type UpdateChannelWebhookInput struct {
 	Configuration *UpdateChannelWebhookConfigurationInput `form:"Configuration,omitempty"`
 }
 
-type UpdateChannelWebhookResponseConfiguration struct {
+type UpdateChannelWebhookConfigurationResponse struct {
 	Filters    *[]string `json:"filters,omitempty"`
 	FlowSid    *string   `json:"flow_sid,omitempty"`
 	Method     *string   `json:"method,omitempty"`
@@ -36,7 +36,7 @@ type UpdateChannelWebhookResponseConfiguration struct {
 type UpdateChannelWebhookResponse struct {
 	AccountSid    string                                    `json:"account_sid"`
 	ChannelSid    string                                    `json:"channel_sid"`
-	Configuration UpdateChannelWebhookResponseConfiguration `json:"configuration"`
+	Configuration UpdateChannelWebhookConfigurationResponse `json:"configuration"`
 	DateCreated   time.Time                                 `json:"date_created"`
 	DateUpdated   *time.Time                                `json:"date_updated,omitempty"`
 	ServiceSid    string                                    `json:"service_sid"`

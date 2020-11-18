@@ -19,7 +19,7 @@ type UpdateMessageInput struct {
 	DateUpdated *utils.RFC2822Time `form:"DateUpdated,omitempty"`
 }
 
-type UpdateMessageResponseDelivery struct {
+type UpdateMessageDeliveryResponse struct {
 	Delivered   string `json:"delivered"`
 	Failed      string `json:"failed"`
 	Read        string `json:"read"`
@@ -28,7 +28,7 @@ type UpdateMessageResponseDelivery struct {
 	Undelivered string `json:"undelivered"`
 }
 
-type UpdateMessageResponseMedia struct {
+type UpdateMessageMediaResponse struct {
 	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Sid         string `json:"sid"`
@@ -44,9 +44,9 @@ type UpdateMessageResponse struct {
 	ConversationSid string                         `json:"conversation_sid"`
 	DateCreated     time.Time                      `json:"date_created"`
 	DateUpdated     *time.Time                     `json:"date_updated,omitempty"`
-	Delivery        *UpdateMessageResponseDelivery `json:"delivery,omitempty"`
+	Delivery        *UpdateMessageDeliveryResponse `json:"delivery,omitempty"`
 	Index           int                            `json:"index"`
-	Media           *[]UpdateMessageResponseMedia  `json:"media,omitempty"`
+	Media           *[]UpdateMessageMediaResponse  `json:"media,omitempty"`
 	ParticipantSid  *string                        `json:"participant_sid,omitempty"`
 	Sid             string                         `json:"sid"`
 	URL             string                         `json:"url"`

@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchConfigurationResponseIntegration struct {
+type FetchConfigurationIntegrationResponse struct {
 	Active bool    `json:"active"`
 	Author *string `json:"author,omitempty"`
 	Config string  `json:"config"`
@@ -18,19 +18,19 @@ type FetchConfigurationResponseIntegration struct {
 	Type   string  `json:"type"`
 }
 
-type FetchConfigurationResponseSkill struct {
+type FetchConfigurationSkillResponse struct {
 	Maximum    bool   `json:"maximum"`
 	Minimum    int    `json:"minimum"`
 	MultiValue bool   `json:"multivalue"`
 	Name       string `json:"name"`
 }
 
-type FetchConfigurationResponseTaskQueue struct {
+type FetchConfigurationTaskQueueResponse struct {
 	Sid         string `json:"sid"`
 	Targettable bool   `json:"targettable"`
 }
 
-type FetchConfigurationResponseWorkerChannel struct {
+type FetchConfigurationWorkerChannelResponse struct {
 	Availability bool   `json:"availability"`
 	Capacity     int    `json:"capacity"`
 	Name         string `json:"name"`
@@ -51,7 +51,7 @@ type FetchConfigurationResponse struct {
 	DateCreated                  time.Time                                             `json:"date_created"`
 	DateUpdated                  *time.Time                                            `json:"date_updated,omitempty"`
 	FlexServiceInstanceSid       string                                                `json:"flex_service_instance_sid"`
-	Integrations                 *[]FetchConfigurationResponseIntegration              `json:"integrations,omitempty"`
+	Integrations                 *[]FetchConfigurationIntegrationResponse              `json:"integrations,omitempty"`
 	MessagingServiceInstanceSid  *string                                               `json:"messaging_service_instance_sid,omitempty"`
 	OutboundCallFlows            *interface{}                                          `json:"outbound_call_flows,omitempty"`
 	PluginServiceAttributes      *interface{}                                          `json:"plugin_service_attributes,omitempty"`
@@ -63,19 +63,19 @@ type FetchConfigurationResponse struct {
 	ServiceVersion               *string                                               `json:"service_version,omitempty"`
 	Status                       string                                                `json:"status"`
 	TaskRouterOfflineActivitySid string                                                `json:"taskrouter_offline_activity_sid"`
-	TaskRouterSkills             *[]FetchConfigurationResponseSkill                    `json:"taskrouter_skills,omitempty"`
+	TaskRouterSkills             *[]FetchConfigurationSkillResponse                    `json:"taskrouter_skills,omitempty"`
 	TaskRouterTargetTaskQueueSid string                                                `json:"taskrouter_target_taskqueue_sid"`
 	TaskRouterTargetWorkflowSid  string                                                `json:"taskrouter_target_workflow_sid"`
-	TaskRouterTaskQueues         *[]FetchConfigurationResponseTaskQueue                `json:"taskrouter_taskqueues,omitempty"`
+	TaskRouterTaskQueues         *[]FetchConfigurationTaskQueueResponse                `json:"taskrouter_taskqueues,omitempty"`
 	TaskRouterWorkerAttributes   *map[string]interface{}                               `json:"taskrouter_worker_attributes,omitempty"`
-	TaskRouterWorkerChannels     *map[string][]FetchConfigurationResponseWorkerChannel `json:"taskrouter_worker_channels,omitempty"`
+	TaskRouterWorkerChannels     *map[string][]FetchConfigurationWorkerChannelResponse `json:"taskrouter_worker_channels,omitempty"`
 	TaskRouterWorkspaceSid       string                                                `json:"taskrouter_workspace_sid"`
 	URL                          string                                                `json:"url"`
 	UiAttributes                 *interface{}                                          `json:"ui_attributes,omitempty"`
 	UiDependencies               *interface{}                                          `json:"ui_dependencies,omitempty"`
 	UiLanguage                   *string                                               `json:"ui_language,omitempty"`
 	UiVersion                    string                                                `json:"ui_version"`
-	WfmIntegrations              *[]FetchConfigurationResponseIntegration              `json:"wfm_integrations,omitempty"`
+	WfmIntegrations              *[]FetchConfigurationIntegrationResponse              `json:"wfm_integrations,omitempty"`
 }
 
 // Fetch retrieves a configuration resource

@@ -24,7 +24,7 @@ type UpdateParticipantInput struct {
 	RoleSid          *string                               `form:"RoleSid,omitempty"`
 }
 
-type UpdateParticipantResponseMessageBinding struct {
+type UpdateParticipantMessageBindingResponse struct {
 	Address          string  `json:"address"`
 	ProjectedAddress *string `json:"projected_address,omitempty"`
 	ProxyAddress     string  `json:"proxy_address"`
@@ -39,7 +39,7 @@ type UpdateParticipantResponse struct {
 	DateCreated      time.Time                                `json:"date_created"`
 	DateUpdated      *time.Time                               `json:"date_updated,omitempty"`
 	Identity         *string                                  `json:"identity,omitempty"`
-	MessagingBinding *UpdateParticipantResponseMessageBinding `json:"messaging_binding,omitempty"`
+	MessagingBinding *UpdateParticipantMessageBindingResponse `json:"messaging_binding,omitempty"`
 	RoleSid          *string                                  `json:"role_sid,omitempty"`
 	Sid              string                                   `json:"sid"`
 	URL              string                                   `json:"url"`

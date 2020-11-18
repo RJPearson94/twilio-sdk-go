@@ -16,7 +16,7 @@ type CreatePhoneNumberInput struct {
 	Sid         *string `form:"Sid,omitempty"`
 }
 
-type CreatePhoneNumberResponseCapabilities struct {
+type CreatePhoneNumberCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -35,7 +35,7 @@ type CreatePhoneNumberResponseCapabilities struct {
 // CreatePhoneNumberResponse defines the response fields for the created phone number
 type CreatePhoneNumberResponse struct {
 	AccountSid   string                                 `json:"account_sid"`
-	Capabilities *CreatePhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
+	Capabilities *CreatePhoneNumberCapabilitiesResponse `json:"capabilities,omitempty"`
 	DateCreated  time.Time                              `json:"date_created"`
 	DateUpdated  *time.Time                             `json:"date_updated,omitempty"`
 	FriendlyName *string                                `json:"friendly_name,omitempty"`

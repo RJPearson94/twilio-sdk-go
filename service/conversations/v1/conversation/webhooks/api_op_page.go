@@ -29,24 +29,24 @@ type PageMetaResponse struct {
 	URL             string  `json:"url"`
 }
 
-type PageWebhookResponse struct {
-	AccountSid      string                           `json:"account_sid"`
-	Configuration   PageWebhookResponseConfiguration `json:"configuration"`
-	ConversationSid string                           `json:"conversation_sid"`
-	DateCreated     time.Time                        `json:"date_created"`
-	DateUpdated     *time.Time                       `json:"date_updated,omitempty"`
-	Sid             string                           `json:"sid"`
-	Target          string                           `json:"target"`
-	URL             string                           `json:"url"`
-}
-
-type PageWebhookResponseConfiguration struct {
+type PageWebhookConfigurationResponse struct {
 	Filters     *[]string `json:"filters,omitempty"`
 	FlowSid     *string   `json:"flow_sid,omitempty"`
 	Method      *string   `json:"method,omitempty"`
 	ReplayAfter *int      `json:"replay_after,omitempty"`
 	Triggers    *[]string `json:"triggers,omitempty"`
 	URL         *string   `json:"url,omitempty"`
+}
+
+type PageWebhookResponse struct {
+	AccountSid      string                           `json:"account_sid"`
+	Configuration   PageWebhookConfigurationResponse `json:"configuration"`
+	ConversationSid string                           `json:"conversation_sid"`
+	DateCreated     time.Time                        `json:"date_created"`
+	DateUpdated     *time.Time                       `json:"date_updated,omitempty"`
+	Sid             string                           `json:"sid"`
+	Target          string                           `json:"target"`
+	URL             string                           `json:"url"`
 }
 
 // WebhooksPageResponse defines the response fields for the webhooks page

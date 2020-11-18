@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type FetchPhoneNumberResponseCapabilities struct {
+type FetchPhoneNumberCapabilitiesResponse struct {
 	FaxInbound               *bool `json:"fax_inbound,omitempty"`
 	FaxOutbound              *bool `json:"fax_outbound,omitempty"`
 	MmsInbound               *bool `json:"mms_inbound,omitempty"`
@@ -28,7 +28,7 @@ type FetchPhoneNumberResponseCapabilities struct {
 // FetchPhoneNumberResponse defines the response fields for the retrieved phone number
 type FetchPhoneNumberResponse struct {
 	AccountSid   string                                `json:"account_sid"`
-	Capabilities *FetchPhoneNumberResponseCapabilities `json:"capabilities,omitempty"`
+	Capabilities *FetchPhoneNumberCapabilitiesResponse `json:"capabilities,omitempty"`
 	DateCreated  time.Time                             `json:"date_created"`
 	DateUpdated  *time.Time                            `json:"date_updated,omitempty"`
 	FriendlyName *string                               `json:"friendly_name,omitempty"`
