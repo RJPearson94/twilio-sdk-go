@@ -82,22 +82,29 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.DefaultChannelRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.DefaultServiceRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.FriendlyName).To(Equal("Test"))
-
-				limitsFixture, _ := ioutil.ReadFile("testdata/limitsResponse.json")
-				limitsResp := make(map[string]interface{})
-				json.Unmarshal(limitsFixture, &limitsResp)
-				Expect(resp.Limits).To(Equal(limitsResp))
-
-				mediaFixture, _ := ioutil.ReadFile("testdata/mediaResponse.json")
-				mediaResp := make(map[string]interface{})
-				json.Unmarshal(mediaFixture, &mediaResp)
-				Expect(resp.Media).To(Equal(mediaResp))
-
-				notificationFixture, _ := ioutil.ReadFile("testdata/notificationResponse.json")
-				notificationResp := make(map[string]interface{})
-				json.Unmarshal(notificationFixture, &notificationResp)
-				Expect(resp.Notifications).To(Equal(notificationResp))
-
+				Expect(resp.Limits).To(Equal(services.CreateServiceLimitsResponse{
+					UserChannels:   250,
+					ChannelMembers: 100,
+				}))
+				Expect(resp.Media).To(Equal(services.CreateServiceMediaResponse{
+					CompatibilityMessage: "Media messages are not supported by your client",
+					SizeLimitMB:          150,
+				}))
+				Expect(resp.Notifications).To(Equal(services.CreateServiceNotificationsResponse{
+					LogEnabled: false,
+					AddedToChannel: services.CreateServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					InvitedToChannel: services.CreateServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					RemovedFromChannel: services.CreateServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					NewMessage: services.CreateServiceNotificationsNewMessageResponse{
+						Enabled: false,
+					},
+				}))
 				Expect(resp.PostWebhookRetryCount).To(Equal(utils.Int(0)))
 				Expect(resp.PostWebhookURL).To(BeNil())
 				Expect(resp.PreWebhookRetryCount).To(Equal(utils.Int(0)))
@@ -128,7 +135,7 @@ var _ = Describe("Chat V2", func() {
 
 		Describe("When the create service api returns a 500 response", func() {
 			createInput := &services.CreateServiceInput{
-				FriendlyName: "TesFriendlyNamet",
+				FriendlyName: "TestFriendlyName",
 			}
 
 			httpmock.RegisterResponder("POST", "https://chat.twilio.com/v2/Services",
@@ -183,6 +190,32 @@ var _ = Describe("Chat V2", func() {
 				Expect(meta.NextPageURL).To(BeNil())
 				Expect(meta.Key).To(Equal("services"))
 
+				serviceLimits := services.PageServiceLimitsResponse{
+					UserChannels:   250,
+					ChannelMembers: 100,
+				}
+
+				serviceMedia := services.PageServiceMediaResponse{
+					CompatibilityMessage: "Media messages are not supported by your client",
+					SizeLimitMB:          150,
+				}
+
+				serviceNotifications := services.PageServiceNotificationsResponse{
+					LogEnabled: false,
+					AddedToChannel: services.PageServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					InvitedToChannel: services.PageServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					RemovedFromChannel: services.PageServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					NewMessage: services.PageServiceNotificationsNewMessageResponse{
+						Enabled: false,
+					},
+				}
+
 				services := resp.Services
 				Expect(services).ToNot(BeNil())
 				Expect(len(services)).To(Equal(1))
@@ -194,22 +227,9 @@ var _ = Describe("Chat V2", func() {
 				Expect(services[0].DefaultChannelRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(services[0].DefaultServiceRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(services[0].FriendlyName).To(Equal("Test"))
-
-				limitsFixture, _ := ioutil.ReadFile("testdata/limitsResponse.json")
-				limitsResp := make(map[string]interface{})
-				json.Unmarshal(limitsFixture, &limitsResp)
-				Expect(services[0].Limits).To(Equal(limitsResp))
-
-				mediaFixture, _ := ioutil.ReadFile("testdata/mediaResponse.json")
-				mediaResp := make(map[string]interface{})
-				json.Unmarshal(mediaFixture, &mediaResp)
-				Expect(services[0].Media).To(Equal(mediaResp))
-
-				notificationFixture, _ := ioutil.ReadFile("testdata/notificationResponse.json")
-				notificationResp := make(map[string]interface{})
-				json.Unmarshal(notificationFixture, &notificationResp)
-				Expect(services[0].Notifications).To(Equal(notificationResp))
-
+				Expect(services[0].Limits).To(Equal(serviceLimits))
+				Expect(services[0].Media).To(Equal(serviceMedia))
+				Expect(services[0].Notifications).To(Equal(serviceNotifications))
 				Expect(services[0].PostWebhookRetryCount).To(Equal(utils.Int(0)))
 				Expect(services[0].PostWebhookURL).To(BeNil())
 				Expect(services[0].PreWebhookRetryCount).To(Equal(utils.Int(0)))
@@ -360,22 +380,29 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.DefaultChannelRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.DefaultServiceRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.FriendlyName).To(Equal("Test"))
-
-				limitsFixture, _ := ioutil.ReadFile("testdata/limitsResponse.json")
-				limitsResp := make(map[string]interface{})
-				json.Unmarshal(limitsFixture, &limitsResp)
-				Expect(resp.Limits).To(Equal(limitsResp))
-
-				mediaFixture, _ := ioutil.ReadFile("testdata/mediaResponse.json")
-				mediaResp := make(map[string]interface{})
-				json.Unmarshal(mediaFixture, &mediaResp)
-				Expect(resp.Media).To(Equal(mediaResp))
-
-				notificationFixture, _ := ioutil.ReadFile("testdata/notificationResponse.json")
-				notificationResp := make(map[string]interface{})
-				json.Unmarshal(notificationFixture, &notificationResp)
-				Expect(resp.Notifications).To(Equal(notificationResp))
-
+				Expect(resp.Limits).To(Equal(service.FetchServiceLimitsResponse{
+					UserChannels:   250,
+					ChannelMembers: 100,
+				}))
+				Expect(resp.Media).To(Equal(service.FetchServiceMediaResponse{
+					CompatibilityMessage: "Media messages are not supported by your client",
+					SizeLimitMB:          150,
+				}))
+				Expect(resp.Notifications).To(Equal(service.FetchServiceNotificationsResponse{
+					LogEnabled: false,
+					AddedToChannel: service.FetchServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					InvitedToChannel: service.FetchServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					RemovedFromChannel: service.FetchServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					NewMessage: service.FetchServiceNotificationsNewMessageResponse{
+						Enabled: false,
+					},
+				}))
 				Expect(resp.PostWebhookRetryCount).To(Equal(utils.Int(0)))
 				Expect(resp.PostWebhookURL).To(BeNil())
 				Expect(resp.PreWebhookRetryCount).To(Equal(utils.Int(0)))
@@ -439,22 +466,29 @@ var _ = Describe("Chat V2", func() {
 				Expect(resp.DefaultChannelRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.DefaultServiceRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.FriendlyName).To(Equal("Test 2"))
-
-				limitsFixture, _ := ioutil.ReadFile("testdata/limitsResponse.json")
-				limitsResp := make(map[string]interface{})
-				json.Unmarshal(limitsFixture, &limitsResp)
-				Expect(resp.Limits).To(Equal(limitsResp))
-
-				mediaFixture, _ := ioutil.ReadFile("testdata/mediaResponse.json")
-				mediaResp := make(map[string]interface{})
-				json.Unmarshal(mediaFixture, &mediaResp)
-				Expect(resp.Media).To(Equal(mediaResp))
-
-				notificationFixture, _ := ioutil.ReadFile("testdata/notificationResponse.json")
-				notificationResp := make(map[string]interface{})
-				json.Unmarshal(notificationFixture, &notificationResp)
-				Expect(resp.Notifications).To(Equal(notificationResp))
-
+				Expect(resp.Limits).To(Equal(service.UpdateServiceLimitsResponse{
+					UserChannels:   250,
+					ChannelMembers: 100,
+				}))
+				Expect(resp.Media).To(Equal(service.UpdateServiceMediaResponse{
+					CompatibilityMessage: "Media messages are not supported by your client",
+					SizeLimitMB:          150,
+				}))
+				Expect(resp.Notifications).To(Equal(service.UpdateServiceNotificationsResponse{
+					LogEnabled: false,
+					AddedToChannel: service.UpdateServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					InvitedToChannel: service.UpdateServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					RemovedFromChannel: service.UpdateServiceNotificationsActionResponse{
+						Enabled: false,
+					},
+					NewMessage: service.UpdateServiceNotificationsNewMessageResponse{
+						Enabled: false,
+					},
+				}))
 				Expect(resp.PostWebhookRetryCount).To(Equal(utils.Int(0)))
 				Expect(resp.PostWebhookURL).To(BeNil())
 				Expect(resp.PreWebhookRetryCount).To(Equal(utils.Int(0)))

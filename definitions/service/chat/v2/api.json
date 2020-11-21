@@ -1209,8 +1209,7 @@
                     "twilioDocsLink": "https://www.twilio.com/docs/chat/rest/message-resource#update-a-message-resource"
                   },
                   "input": {
-                    "name": "UpdateChannelMessageInput",
-                    "structure": "ChannelMessageInput",
+                    "structure": "UpdateChannelMessageInput",
                     "documentation": {
                       "description": "defines input fields for updating a message resource"
                     }
@@ -2844,7 +2843,7 @@
         }
       ]
     },
-    "UpdateServiceNotificationNewMessageInput": {
+    "UpdateServiceNotificationsNewMessageInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -2873,7 +2872,7 @@
         }
       ]
     },
-    "UpdateServiceNotificationActionInput": {
+    "UpdateServiceNotificationsActionInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -2896,34 +2895,34 @@
         }
       ]
     },
-    "UpdateServiceNotificationInput": {
+    "UpdateServiceNotificationsInput": {
       "type": "URLEncoded",
       "properties": [
         {
           "name": "NewMessage",
-          "structure": "UpdateServiceNotificationNewMessageInput",
-          "structureName": "ServiceNotificationNewMessageInput",
+          "structure": "UpdateServiceNotificationsNewMessageInput",
+          "structureName": "ServiceNotificationsNewMessageInput",
           "value": "NewMessage",
           "required": false
         },
         {
           "name": "AddedToChannel",
-          "structure": "UpdateServiceNotificationActionInput",
-          "structureName": "ServiceNotificationActionInput",
+          "structure": "UpdateServiceNotificationsActionInput",
+          "structureName": "ServiceNotificationsActionInput",
           "value": "AddedToChannel",
           "required": false
         },
         {
           "name": "RemovedFromChannel",
-          "structure": "UpdateServiceNotificationActionInput",
-          "structureName": "ServiceNotificationActionInput",
+          "structure": "UpdateServiceNotificationsActionInput",
+          "structureName": "ServiceNotificationsActionInput",
           "value": "RemovedFromChannel",
           "required": false
         },
         {
           "name": "InvitedToChannel",
-          "structure": "UpdateServiceNotificationActionInput",
-          "structureName": "ServiceNotificationActionInput",
+          "structure": "UpdateServiceNotificationsActionInput",
+          "structureName": "ServiceNotificationsActionInput",
           "value": "InvitedToChannel",
           "required": false
         },
@@ -3010,8 +3009,8 @@
         },
         {
           "name": "Notifications",
-          "structure": "UpdateServiceNotificationInput",
-          "structureName": "ServiceNotificationInput",
+          "structure": "UpdateServiceNotificationsInput",
+          "structureName": "ServiceNotificationsInput",
           "value": "Notifications",
           "required": false
         },
@@ -3090,6 +3089,127 @@
         }
       ]
     },
+    "ServiceNotificationsNewMessageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "sound",
+          "required": false
+        },
+        {
+          "name": "BadgeCountEnabled",
+          "type": "bool",
+          "value": "badge_count_enabled",
+          "required": false
+        }
+      ]
+    },
+    "ServiceNotificationsActionResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "template",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "sound",
+          "required": false
+        }
+      ]
+    },
+    "ServiceNotificationsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "NewMessage",
+          "structure": "ServiceNotificationsNewMessageResponse",
+          "value": "new_message",
+          "required": true
+        },
+        {
+          "name": "AddedToChannel",
+          "structure": "ServiceNotificationsActionResponse",
+          "value": "added_to_channel",
+          "required": true
+        },
+        {
+          "name": "RemovedFromChannel",
+          "structure": "ServiceNotificationsActionResponse",
+          "value": "removed_from_channel",
+          "required": true
+        },
+        {
+          "name": "InvitedToChannel",
+          "structure": "ServiceNotificationsActionResponse",
+          "value": "invited_to_channel",
+          "required": true
+        },
+        {
+          "name": "LogEnabled",
+          "type": "bool",
+          "value": "log_enabled",
+          "required": true
+        }
+      ]
+    },
+    "ServiceLimitsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "UserChannels",
+          "type": "int",
+          "value": "user_channels",
+          "required": true
+        },
+        {
+          "name": "ChannelMembers",
+          "type": "int",
+          "value": "channel_members",
+          "required": true
+        }
+      ]
+    },
+    "ServiceMediaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "CompatibilityMessage",
+          "type": "string",
+          "value": "compatibility_message",
+          "required": true
+        },
+        {
+          "name": "SizeLimitMB",
+          "type": "int",
+          "value": "size_limit_mb",
+          "required": true
+        }
+      ]
+    },
     "ServiceResponse": {
       "type": "JSON",
       "extends": "BaseResponse",
@@ -3126,28 +3246,19 @@
         },
         {
           "name": "Limits",
-          "type": "map",
-          "items": {
-            "type": "interface{}"
-          },
+          "structure": "ServiceLimitsResponse",
           "value": "limits",
           "required": true
         },
         {
           "name": "Media",
-          "type": "map",
-          "items": {
-            "type": "interface{}"
-          },
+          "structure": "ServiceMediaResponse",
           "value": "media",
           "required": true
         },
         {
           "name": "Notifications",
-          "type": "map",
-          "items": {
-            "type": "interface{}"
-          },
+          "structure": "ServiceNotificationsResponse",
           "value": "notifications",
           "required": true
         },
@@ -3598,7 +3709,7 @@
     },
     "CreateChannelMessageInput": {
       "type": "URLEncoded",
-      "extends": "ChannelMessageInput",
+      "extends": "UpdateChannelMessageInput",
       "properties": [
         {
           "name": "MediaSid",
@@ -3608,8 +3719,7 @@
         }
       ]
     },
-    "ChannelMessageInput": {
-      "name": "UpdateChannelMessageInput",
+    "UpdateChannelMessageInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -3666,6 +3776,35 @@
             "structure": "ChannelMessageResponse"
           },
           "value": "messages",
+          "required": true
+        }
+      ]
+    },
+    "ChannelMessageMediaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "ContentType",
+          "type": "string",
+          "value": "content_type",
+          "required": true
+        },
+        {
+          "name": "FileName",
+          "type": "string",
+          "value": "filename",
+          "required": true
+        },
+        {
+          "name": "Size",
+          "type": "int",
+          "value": "size",
           "required": true
         }
       ]
@@ -3736,10 +3875,7 @@
         },
         {
           "name": "Media",
-          "type": "map",
-          "items": {
-            "type": "interface{}"
-          },
+          "structure": "ChannelMessageMediaResponse",
           "value": "media",
           "required": false
         }
