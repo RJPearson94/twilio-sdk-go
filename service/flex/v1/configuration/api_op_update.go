@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-type UpdateConfigurationInputIntegration struct {
+type UpdateConfigurationIntegrationInput struct {
 	Active bool    `json:"active"`
 	Author *string `json:"author,omitempty"`
 	Config string  `validate:"required" json:"config"`
@@ -18,19 +18,19 @@ type UpdateConfigurationInputIntegration struct {
 	Type   string  `validate:"required" json:"type"`
 }
 
-type UpdateConfigurationInputSkill struct {
+type UpdateConfigurationSkillInput struct {
 	Maximum    bool   `json:"maximum"`
 	Minimum    int    `validate:"required" json:"minimum"`
 	MultiValue bool   `json:"multivalue"`
 	Name       string `validate:"required" json:"name"`
 }
 
-type UpdateConfigurationInputTaskQueue struct {
+type UpdateConfigurationTaskQueueInput struct {
 	Sid         string `validate:"required" json:"sid"`
 	Targettable bool   `json:"targettable"`
 }
 
-type UpdateConfigurationInputWorkerChannel struct {
+type UpdateConfigurationWorkerChannelInput struct {
 	Availability bool   `json:"availability"`
 	Capacity     int    `validate:"required" json:"capacity"`
 	Name         string `validate:"required" json:"name"`
@@ -48,7 +48,7 @@ type UpdateConfigurationInput struct {
 	CrmEnabled                   *bool                                               `json:"crm_enabled,omitempty"`
 	CrmFallbackURL               *string                                             `json:"crm_fallback_url,omitempty"`
 	CrmType                      *string                                             `json:"crm_type,omitempty"`
-	Integrations                 *[]UpdateConfigurationInputIntegration              `json:"integrations,omitempty"`
+	Integrations                 *[]UpdateConfigurationIntegrationInput              `json:"integrations,omitempty"`
 	MessagingServiceInstanceSid  *string                                             `json:"messaging_service_instance_sid,omitempty"`
 	OutboundCallFlows            *interface{}                                        `json:"outbound_call_flows,omitempty"`
 	PluginServiceAttributes      *interface{}                                        `json:"plugin_service_attributes,omitempty"`
@@ -56,17 +56,17 @@ type UpdateConfigurationInput struct {
 	PublicAttributes             *interface{}                                        `json:"public_attributes,omitempty"`
 	QueueStatsConfiguration      *interface{}                                        `json:"queue_stats_configuration,omitempty"`
 	ServerlessServiceSids        *[]string                                           `json:"serverless_service_sids,omitempty"`
-	TaskRouterSkills             *[]UpdateConfigurationInputSkill                    `json:"taskrouter_skills,omitempty"`
+	TaskRouterSkills             *[]UpdateConfigurationSkillInput                    `json:"taskrouter_skills,omitempty"`
 	TaskRouterTargetTaskQueueSid *string                                             `json:"taskrouter_target_taskqueue_sid,omitempty"`
 	TaskRouterTargetWorkflowSid  *string                                             `json:"taskrouter_target_workflow_sid,omitempty"`
-	TaskRouterTaskQueues         *[]UpdateConfigurationInputTaskQueue                `json:"taskrouter_taskqueues,omitempty"`
+	TaskRouterTaskQueues         *[]UpdateConfigurationTaskQueueInput                `json:"taskrouter_taskqueues,omitempty"`
 	TaskRouterWorkerAttributes   *map[string]interface{}                             `json:"taskrouter_worker_attributes,omitempty"`
-	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationInputWorkerChannel `json:"taskrouter_worker_channels,omitempty"`
+	TaskRouterWorkerChannels     *map[string][]UpdateConfigurationWorkerChannelInput `json:"taskrouter_worker_channels,omitempty"`
 	UiAttributes                 *interface{}                                        `json:"ui_attributes,omitempty"`
 	UiDependencies               *interface{}                                        `json:"ui_dependencies,omitempty"`
 	UiLanguage                   *string                                             `json:"ui_language,omitempty"`
 	UiVersion                    *string                                             `json:"ui_version,omitempty"`
-	WfmIntegrations              *[]UpdateConfigurationInputIntegration              `json:"wfm_integrations,omitempty"`
+	WfmIntegrations              *[]UpdateConfigurationIntegrationInput              `json:"wfm_integrations,omitempty"`
 }
 
 type UpdateConfigurationIntegrationResponse struct {

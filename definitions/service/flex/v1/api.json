@@ -544,7 +544,7 @@
     }
   ],
   "structures": {
-    "ConfigurationInputTaskQueue": {
+    "ConfigurationTaskQueueInput": {
       "type": "JSON",
       "properties": [
         {
@@ -561,7 +561,7 @@
         }
       ]
     },
-    "ConfigurationInputSkill": {
+    "ConfigurationSkillInput": {
       "type": "JSON",
       "properties": [
         {
@@ -590,7 +590,7 @@
         }
       ]
     },
-    "ConfigurationInputWorkerChannel": {
+    "ConfigurationWorkerChannelInput": {
       "type": "JSON",
       "properties": [
         {
@@ -613,7 +613,7 @@
         }
       ]
     },
-    "ConfigurationInputIntegration": {
+    "ConfigurationIntegrationInput": {
       "type": "JSON",
       "properties": [
         {
@@ -745,7 +745,7 @@
           "name": "TaskRouterTaskQueues",
           "type": "array",
           "items": {
-            "structure": "ConfigurationInputTaskQueue"
+            "structure": "ConfigurationTaskQueueInput"
           },
           "value": "taskrouter_taskqueues",
           "required": false
@@ -754,7 +754,7 @@
           "name": "TaskRouterSkills",
           "type": "array",
           "items": {
-            "structure": "ConfigurationInputSkill"
+            "structure": "ConfigurationSkillInput"
           },
           "value": "taskrouter_skills",
           "required": false
@@ -765,7 +765,7 @@
           "items": {
             "type": "array",
             "items": {
-              "structure": "ConfigurationInputWorkerChannel"
+              "structure": "ConfigurationWorkerChannelInput"
             }
           },
           "value": "taskrouter_worker_channels",
@@ -820,7 +820,7 @@
           "name": "Integrations",
           "type": "array",
           "items": {
-            "structure": "ConfigurationInputIntegration"
+            "structure": "ConfigurationIntegrationInput"
           },
           "value": "integrations",
           "required": false
@@ -829,7 +829,7 @@
           "name": "WfmIntegrations",
           "type": "array",
           "items": {
-            "structure": "ConfigurationInputIntegration"
+            "structure": "ConfigurationIntegrationInput"
           },
           "value": "wfm_integrations",
           "required": false
