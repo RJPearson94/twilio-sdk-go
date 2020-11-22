@@ -207,6 +207,9 @@ func mapType(property *gabs.Container, dataType string, apiOperationName string,
 		typeName = structName
 
 		propertyStructure := structures[structureName]
+		if propertyStructure == nil {
+			panic(structureName + " cannot be found in structures")
+		}
 
 		structureResponse := gabs.New()
 		structureResponse.Set(structName, "name")
