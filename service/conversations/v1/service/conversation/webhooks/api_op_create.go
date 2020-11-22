@@ -10,11 +10,12 @@ import (
 )
 
 type CreateWebhookConfigurationInput struct {
-	Filters  *[]string `form:"Filters,omitempty"`
-	FlowSid  *string   `form:"FlowSid,omitempty"`
-	Method   *string   `form:"Method,omitempty"`
-	Triggers *[]string `form:"Triggers,omitempty"`
-	URL      *string   `form:"Url,omitempty"`
+	Filters     *[]string `form:"Filters,omitempty"`
+	FlowSid     *string   `form:"FlowSid,omitempty"`
+	Method      *string   `form:"Method,omitempty"`
+	ReplayAfter *int      `form:"ReplayAfter,omitempty"`
+	Triggers    *[]string `form:"Triggers,omitempty"`
+	URL         *string   `form:"Url,omitempty"`
 }
 
 // CreateWebhookInput defines the input fields for creating a new webhook resource

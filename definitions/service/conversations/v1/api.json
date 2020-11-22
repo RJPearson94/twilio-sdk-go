@@ -948,7 +948,7 @@
               },
               "input": {
                 "name": "UpdateWebhookInput",
-                "structure": "ConversationWebhookInput",
+                "structure": "UpdateConversationWebhookInput",
                 "documentation": {
                   "description": "defines input fields for updating an webhook resource"
                 }
@@ -3002,7 +3002,7 @@
                   },
                   "input": {
                     "name": "UpdateWebhookInput",
-                    "structure": "ConversationWebhookInput",
+                    "structure": "UpdateConversationWebhookInput",
                     "documentation": {
                       "description": "defines input fields for updating an webhook resource"
                     }
@@ -4633,8 +4633,27 @@
         }
       ]
     },
+    "CreateConversationWebhookInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Target",
+          "type": "string",
+          "value": "Target",
+          "required": true
+        },
+        {
+          "name": "Configuration",
+          "structure": "CreateConversationWebhookConfigurationInput",
+          "structureName": "WebhookConfigurationInput",
+          "value": "Configuration",
+          "required": false
+        }
+      ]
+    },
     "CreateConversationWebhookConfigurationInput": {
       "type": "URLEncoded",
+      "extends": "UpdateConversationWebhookConfigurationInput",
       "properties": [
         {
           "name": "ReplayAfter",
@@ -4644,19 +4663,7 @@
         }
       ]
     },
-    "CreateConversationWebhookInput": {
-      "type": "URLEncoded",
-      "extends": "ConversationWebhookInput",
-      "properties": [
-        {
-          "name": "Target",
-          "type": "string",
-          "value": "Target",
-          "required": true
-        }
-      ]
-    },
-    "ConversationWebhookConfigurationInput": {
+    "UpdateConversationWebhookConfigurationInput": {
       "type": "URLEncoded",
       "properties": [
         {
@@ -4697,12 +4704,12 @@
         }
       ]
     },
-    "ConversationWebhookInput": {
+    "UpdateConversationWebhookInput": {
       "type": "URLEncoded",
       "properties": [
         {
           "name": "Configuration",
-          "structure": "ConversationWebhookConfigurationInput",
+          "structure": "UpdateConversationWebhookConfigurationInput",
           "structureName": "WebhookConfigurationInput",
           "value": "Configuration",
           "required": false
