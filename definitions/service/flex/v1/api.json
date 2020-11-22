@@ -826,15 +826,6 @@
           "required": false
         },
         {
-          "name": "WfmIntegrations",
-          "type": "array",
-          "items": {
-            "structure": "ConfigurationIntegrationInput"
-          },
-          "value": "wfm_integrations",
-          "required": false
-        },
-        {
           "name": "OutboundCallFlows",
           "type": "interface{}",
           "value": "outbound_call_flows",
@@ -1172,15 +1163,6 @@
             "structure": "ConfigurationIntegrationResponse"
           },
           "value": "integrations",
-          "required": false
-        },
-        {
-          "name": "WfmIntegrations",
-          "type": "array",
-          "items": {
-            "structure": "ConfigurationIntegrationResponse"
-          },
-          "value": "wfm_integrations",
           "required": false
         },
         {

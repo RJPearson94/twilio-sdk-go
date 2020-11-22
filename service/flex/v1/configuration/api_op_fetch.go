@@ -75,7 +75,6 @@ type FetchConfigurationResponse struct {
 	UiDependencies               *interface{}                                          `json:"ui_dependencies,omitempty"`
 	UiLanguage                   *string                                               `json:"ui_language,omitempty"`
 	UiVersion                    string                                                `json:"ui_version"`
-	WfmIntegrations              *[]FetchConfigurationIntegrationResponse              `json:"wfm_integrations,omitempty"`
 }
 
 // Fetch retrieves a configuration resource

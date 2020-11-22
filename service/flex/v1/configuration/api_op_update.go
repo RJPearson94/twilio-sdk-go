@@ -66,7 +66,6 @@ type UpdateConfigurationInput struct {
 	UiDependencies               *interface{}                                        `json:"ui_dependencies,omitempty"`
 	UiLanguage                   *string                                             `json:"ui_language,omitempty"`
 	UiVersion                    *string                                             `json:"ui_version,omitempty"`
-	WfmIntegrations              *[]UpdateConfigurationIntegrationInput              `json:"wfm_integrations,omitempty"`
 }
 
 type UpdateConfigurationIntegrationResponse struct {
@@ -135,7 +134,6 @@ type UpdateConfigurationResponse struct {
 	UiDependencies               *interface{}                                           `json:"ui_dependencies,omitempty"`
 	UiLanguage                   *string                                                `json:"ui_language,omitempty"`
 	UiVersion                    string                                                 `json:"ui_version"`
-	WfmIntegrations              *[]UpdateConfigurationIntegrationResponse              `json:"wfm_integrations,omitempty"`
 }
 
 // Update modifies a configuration resource
