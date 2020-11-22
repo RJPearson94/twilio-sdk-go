@@ -1,10 +1,50 @@
-## v0.6.0 (unreleased)
+## v0.6.0 (2020-11-22)
 
 FIXES
+
+### API
+
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
+
+### Autopilot
+
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
 
 ### Chat
 
 - **Fix:** Update Chat Role Permissions field from `Permission` to `Permissions`. **Breaking Change**
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
+- **Fix:** Replace map[string]interface{} with structs for Service field(s) - Limits, Media & Notifications **Breaking Change**
+- **Fix:** Replace map[string]interface{} with structs for Channel Messages field(s) - Media **Breaking Change**
+- **Fix:** Expand flattened service inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened webhook inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened channel webhook inputs fields to structs **Breaking Change**
+
+### Conversation
+
+- **Fix:** Expand flattened conversation inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened participant inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened webhook inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened notification inputs fields to structs **Breaking Change**
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
+
+### Flex
+
+- **Fix:** Expand flattened flex flow inputs fields to structs **Breaking Change**
+- **Fix:** Remove wfm integration input and response fields from configuration operations as this cannot be configured via the api anymore **Breaking Change**
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
+- **Refactor:** Rename nested input structs from Input... to ...Input to introduce a consistent naming convention across the SDK **Breaking Change**
+
+### Proxy
+
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
+
+### Verify
+
+- **Fix:** Expand flattened service inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened challenge inputs fields to structs **Breaking Change**
+- **Fix:** Expand flattened factor inputs fields to structs **Breaking Change**
+- **Refactor:** Rename nested response structs from Response... to ...Response to introduce a consistent naming convention across the SDK **Breaking Change**
 
 FEATURES
 
