@@ -98,7 +98,6 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.PluginServiceEnabled).To(BeNil())
 				Expect(resp.PluginServiceAttributes).To(BeNil())
 				Expect(resp.Integrations).To(BeNil())
-				Expect(resp.WfmIntegrations).To(BeNil())
 				Expect(resp.OutboundCallFlows).To(BeNil())
 				Expect(resp.QueueStatsConfiguration).To(BeNil())
 
@@ -199,7 +198,6 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp.PluginServiceEnabled).To(BeNil())
 				Expect(resp.PluginServiceAttributes).To(BeNil())
 				Expect(resp.Integrations).To(BeNil())
-				Expect(resp.WfmIntegrations).To(BeNil())
 				Expect(resp.OutboundCallFlows).To(BeNil())
 				Expect(resp.QueueStatsConfiguration).To(BeNil())
 				Expect(resp.ServerlessServiceSids).To(BeNil())
