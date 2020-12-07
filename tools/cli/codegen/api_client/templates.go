@@ -41,17 +41,17 @@ const addPropertiesToClientInitialisation = `{{if $Properties}} {{range $key, $v
 `
 
 const addSubClientsToStruct = `{{ if .subClients }} {{ range $index, $subClient := .subClients }}
-	{{ $subClient.name | ToCamelCase }} {{ if .functionParams | IsDefined }} func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.type }}, {{ end }}) {{ end }} *{{ $subClient.name | ToSnakeCase }}.Client {{ end }} {{ end }}
+	{{ $subClient.name | ToCamelCase }} {{ if .functionParams | IsDefined }} func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.type }}, {{ end }}) {{ end }} *{{ $subClient.packageName }}.Client {{ end }} {{ end }}
 `
 
 const addSubClientsToClientInitialisation = `{{ if .subClients }} {{ range $index, $subClient := .subClients }}
 	{{ $subClient.name | ToCamelCase }}: ${addSubClientPropertyDetails}, {{ end }} {{ end }}
 `
 
-const addSubClientPropertyDetails = `{{ if .functionParams | IsDefined }} ${addSubClientFunction} {{ else }} {{ $subClient.name | ToSnakeCase }}.New(client {{ if $subClient.properties }}, ${addClientPropertiesToSubClientInitialisations} {{ end }} ) {{ end }}`
+const addSubClientPropertyDetails = `{{ if .functionParams | IsDefined }} ${addSubClientFunction} {{ else }} {{ $subClient.packageName }}.New(client {{ if $subClient.properties }}, ${addClientPropertiesToSubClientInitialisations} {{ end }} ) {{ end }}`
 
-const addSubClientFunction = `func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.name }} {{ $functionParam.type }}, {{ end }}) *{{ $subClient.name | ToSnakeCase }}.Client { return {{ $subClient.name | ToSnakeCase }}.New(client {{ if $subClient.properties | IsDefined }}, ${addClientPropertiesToSubClientInitialisations} {{ end }} ) }`
+const addSubClientFunction = `func({{ range $index, $functionParam := .functionParams }} {{ $functionParam.name }} {{ $functionParam.type }}, {{ end }}) *{{ $subClient.packageName }}.Client { return {{ $subClient.packageName }}.New(client {{ if $subClient.properties | IsDefined }}, ${addClientPropertiesToSubClientInitialisations} {{ end }} ) }`
 
-const addClientPropertiesToSubClientInitialisations = `{{ $subClient.name | ToSnakeCase }}.ClientProperties{ {{range $key, $value := $subClient.properties }} 
+const addClientPropertiesToSubClientInitialisations = `{{ $subClient.packageName }}.ClientProperties{ {{range $key, $value := $subClient.properties }} 
 	{{ $value.name | ToCamelCase }}: {{ if $value.parentProperty }} properties.{{ $value.parentProperty | ToCamelCase }} {{ else }} {{ $value.functionParameter }} {{ end }}, {{ end }}
 }`

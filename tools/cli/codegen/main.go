@@ -41,7 +41,7 @@ func generateApiClients(apiClients []interface{}, structures map[string]interfac
 	for _, apiClient := range apiClients {
 		apiClientMap := apiClient.(map[string]interface{})
 
-		filePath := fmt.Sprintf("%s/%s", path, strcase.ToSnake(apiClientMap["name"].(string)))
+		filePath := fmt.Sprintf("%s/%s", path, apiClientMap["packageName"].(string))
 
 		if apiClientMap["subClients"] != nil {
 			if err := generateApiClients(apiClientMap["subClients"].([]interface{}), structures, filePath); err != nil {

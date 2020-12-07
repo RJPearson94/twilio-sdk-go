@@ -8,6 +8,7 @@
   "subClients": [
     {
       "name": "Phone Number",
+      "packageName": "phone_number",
       "functionParams": [
         {
           "type": "string",
@@ -29,6 +30,7 @@
     },
     {
       "name": "Phone Numbers",
+      "packageName": "phone_numbers",
       "properties": [
         {
           "type": "string",

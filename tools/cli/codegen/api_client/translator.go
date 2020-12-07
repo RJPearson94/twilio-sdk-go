@@ -46,6 +46,7 @@ func Translate(content []byte) (*interface{}, error) {
 		for _, subClient := range subClients {
 			subClientResponse := gabs.New()
 			subClientResponse.Set(subClient.Path("name").Data(), "name")
+			subClientResponse.Set(subClient.Path("packageName").Data(), "packageName")
 
 			if subClient.Exists("function") {
 				subClientResponse.Array("functionParams")

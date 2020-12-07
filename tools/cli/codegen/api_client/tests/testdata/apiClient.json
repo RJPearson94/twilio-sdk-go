@@ -18,6 +18,7 @@
   "subClients": [
     {
       "name": "Phone Numbers",
+      "packageName": "phone_numbers",
       "properties": [
         {
           "name": "serviceSid",
@@ -28,6 +29,7 @@
     },
     {
       "name": "Phone Number",
+      "packageName": "phone_number",
       "functionParams": [
         {
           "name": "phoneNumberSid",

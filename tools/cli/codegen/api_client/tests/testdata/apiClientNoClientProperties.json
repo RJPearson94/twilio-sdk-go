@@ -8,10 +8,12 @@
   ],
   "subClients": [
     {
-      "name": "Phone Numbers"
+      "name": "Phone Numbers",
+      "packageName": "phone_numbers"
     },
     {
       "name": "Phone Number",
+      "packageName": "phone_number",
       "functionParams": [
         {
           "name": "phoneNumberSid",
