@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0",
+    "next_page_url": "https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "trunks"
+  },
+  "trunks": [
+    {
+      "auth_type": "",
+      "transfer_mode": "disable-all",
+      "secure": false,
+      "date_updated": null,
+      "friendly_name": null,
+      "domain_name": null,
+      "disaster_recovery_url": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "recording": {
+        "trim": "do-not-trim",
+        "mode": "do-not-record"
+      },
+      "auth_type_set": [],
+      "disaster_recovery_method": null,
+      "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-27T23:00:00Z",
+      "cnam_lookup_enabled": false,
+      "links": {
+        "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
+        "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+        "origination_urls": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls",
+        "credential_lists": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists"
+      }
+    },
+    {
+      "auth_type": "",
+      "transfer_mode": "disable-all",
+      "secure": false,
+      "date_updated": null,
+      "friendly_name": null,
+      "domain_name": null,
+      "disaster_recovery_url": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "recording": {
+        "trim": "do-not-trim",
+        "mode": "do-not-record"
+      },
+      "auth_type_set": [],
+      "disaster_recovery_method": null,
+      "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "sid": "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "date_created": "2020-06-27T23:00:00Z",
+      "cnam_lookup_enabled": false,
+      "links": {
+        "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/PhoneNumbers",
+        "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/IpAccessControlLists",
+        "origination_urls": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/OriginationUrls",
+        "credential_lists": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1/CredentialLists"
+      }
+    }
+  ]
+}

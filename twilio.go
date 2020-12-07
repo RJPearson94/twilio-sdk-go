@@ -15,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -37,6 +38,7 @@ type Twilio struct {
 	Studio        *studio.Studio
 	Sync          *sync.Sync
 	TaskRouter    *taskrouter.TaskRouter
+	Trunking      *trunking.Trunking
 	TwiML         *twiml.TwiML
 	Verify        *verify.Verify
 }
@@ -58,6 +60,7 @@ func New(sess *session.Session) *Twilio {
 		Studio:        studio.New(sess),
 		Sync:          sync.New(sess),
 		TaskRouter:    taskrouter.New(sess),
+		Trunking:      trunking.New(sess),
 		TwiML:         twiml.New(),
 		Verify:        verify.New(sess),
 	}

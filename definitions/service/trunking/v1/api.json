@@ -1,0 +1,430 @@
+{
+  "packageName": "v1",
+  "name": "Trunking",
+  "config": {
+    "includeDefaults": true,
+    "beta": true,
+    "subDomain": "trunking",
+    "apiVersion": "v1"
+  },
+  "subClients": [
+    {
+      "name": "Trunks",
+      "packageName": "trunks",
+      "documentation": {
+        "description": "Client for managing trunk resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Trunks",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new trunk resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource#create-a-trunk-resource"
+          },
+          "input": {
+            "name": "CreateTrunkInput",
+            "structure": "TrunkInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new trunk resource"
+            }
+          },
+          "response": {
+            "name": "CreateTrunkResponse",
+            "structure": "TrunkResponse",
+            "documentation": {
+              "description": "defines the response fields for the created trunk resource"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Trunks",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of trunk resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource#read-multiple-trunk-resources"
+          },
+          "response": {
+            "structure": "TrunksPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the trunks page"
+            }
+          },
+          "pagination": {
+            "name": "TrunksPaginator",
+            "page": {
+              "name": "TrunksPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Trunks",
+              "structure": "PageTrunkResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trunk",
+      "packageName": "trunk",
+      "properties": {
+        "sid": {
+          "dataType": "string"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific trunk resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Trunks/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a trunk resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource#fetch-a-trunk-resource"
+          },
+          "response": {
+            "name": "FetchTrunkResponse",
+            "structure": "TrunkResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved trunk resource"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Trunks/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a trunk resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource#update-a-trunk-resource"
+          },
+          "input": {
+            "name": "UpdateTrunkInput",
+            "structure": "TrunkInput",
+            "documentation": {
+              "description": "defines input fields for updating a trunk resource"
+            }
+          },
+          "response": {
+            "name": "UpdateTrunkResponse",
+            "structure": "TrunkResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated trunk"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Trunks/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a trunk resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource#delete-a-trunk-resource"
+          }
+        }
+      ]
+    }
+  ],
+  "structures": {
+    "TrunkInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "DomainName",
+          "type": "string",
+          "value": "DomainName",
+          "required": false
+        },
+        {
+          "name": "DisasterRecoveryURL",
+          "type": "string",
+          "value": "DisasterRecoveryUrl",
+          "required": false
+        },
+        {
+          "name": "DisasterRecoveryMethod",
+          "type": "string",
+          "value": "DisasterRecoveryMethod",
+          "required": false
+        },
+        {
+          "name": "TransferMode",
+          "type": "string",
+          "value": "TransferMode",
+          "required": false
+        },
+        {
+          "name": "Secure",
+          "type": "bool",
+          "value": "Secure",
+          "required": false
+        },
+        {
+          "name": "CnamLookupEnabled",
+          "type": "bool",
+          "value": "CnamLookupEnabled",
+          "required": false
+        }
+      ]
+    },
+    "TrunksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Trunks",
+          "type": "array",
+          "items": {
+            "structure": "TrunkResponse"
+          },
+          "value": "trunks",
+          "required": true
+        }
+      ]
+    },
+    "TrunkRecordingResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Trim",
+          "type": "string",
+          "value": "trim",
+          "required": true
+        },
+        {
+          "name": "Mode",
+          "type": "string",
+          "value": "mode",
+          "required": true
+        }
+      ]
+    },
+    "TrunkResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "DomainName",
+          "type": "string",
+          "value": "domain_name",
+          "required": false
+        },
+        {
+          "name": "DisasterRecoveryURL",
+          "type": "string",
+          "value": "disaster_recovery_url",
+          "required": false
+        },
+        {
+          "name": "DisasterRecoveryMethod",
+          "type": "string",
+          "value": "disaster_recovery_method",
+          "required": false
+        },
+        {
+          "name": "TransferMode",
+          "type": "string",
+          "value": "transfer_mode",
+          "required": true
+        },
+        {
+          "name": "Secure",
+          "type": "bool",
+          "value": "secure",
+          "required": true
+        },
+        {
+          "name": "CnamLookupEnabled",
+          "type": "bool",
+          "value": "cnam_lookup_enabled",
+          "required": true
+        },
+        {
+          "name": "Recording",
+          "structure": "TrunkRecordingResponse",
+          "value": "recording",
+          "required": true
+        },
+        {
+          "name": "AuthType",
+          "type": "string",
+          "value": "auth_type",
+          "required": false
+        },
+        {
+          "name": "AuthTypeSet",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "auth_type_set",
+          "required": false
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
+}
