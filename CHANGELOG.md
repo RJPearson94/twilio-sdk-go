@@ -1,3 +1,12 @@
+## v0.7.0 (unreleased)
+
+FEATURES
+
+### Trunking
+
+- **New Resource:** Trunk
+- **New Resource:** Origination URL
+
 ## v0.6.0 (2020-11-22)
 
 FIXES
