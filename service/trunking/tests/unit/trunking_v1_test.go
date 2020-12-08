@@ -604,7 +604,7 @@ var _ = Describe("Trunking V1", func() {
 		Describe("When the paginated origination urls are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/originationURLsPaginatorResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/originationUrlsPaginatorResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
@@ -613,7 +613,7 @@ var _ = Describe("Trunking V1", func() {
 
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?Page=1&PageSize=50&PageToken=abc1234",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/originationURLsPaginatorPage1Response.json")
+					fixture, _ := ioutil.ReadFile("testdata/originationUrlsPaginatorPage1Response.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
@@ -647,7 +647,7 @@ var _ = Describe("Trunking V1", func() {
 		Describe("When the origination urls api returns a 500 response when making a paginated request", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/originationURLsPaginatorResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/originationUrlsPaginatorResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
@@ -741,7 +741,7 @@ var _ = Describe("Trunking V1", func() {
 		Describe("When the origination url is successfully updated", func() {
 			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
-					fixture, _ := ioutil.ReadFile("testdata/updateOriginationURLResponse.json")
+					fixture, _ := ioutil.ReadFile("testdata/updateOriginationUrlResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
 					return httpmock.NewJsonResponse(200, resp)
