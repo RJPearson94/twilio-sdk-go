@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "hhttps://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "hhttps://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=0",
+    "next_page_url": "hhttps://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "origination_urls"
+  },
+  "origination_urls": [
+    {
+      "weight": 0,
+      "date_updated": null,
+      "friendly_name": "test",
+      "enabled": true,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "priority": 0,
+      "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sip_url": "sip:test@test.com",
+      "sid": "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-27T23:00:00Z",
+      "trunk_sid": "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "weight": 0,
+      "date_updated": null,
+      "friendly_name": "test",
+      "enabled": true,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "priority": 0,
+      "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "sip_url": "sip:test@test.com",
+      "sid": "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "date_created": "2020-06-27T23:00:00Z",
+      "trunk_sid": "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

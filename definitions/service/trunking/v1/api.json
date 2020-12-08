@@ -93,15 +93,266 @@
     {
       "name": "Trunk",
       "packageName": "trunk",
+      "function": {
+        "parameters": {
+          "trunkSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "trunkSid"
         }
       },
       "documentation": {
         "description": "Client for managing a specific trunk resource",
         "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/trunk-resource"
       },
+      "subClients": [
+        {
+          "name": "Origination URLs",
+          "packageName": "origination_urls",
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing Origination URL resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/OriginationUrls",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new origination url resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource#create-an-originationurl-resource"
+              },
+              "input": {
+                "structure": "CreateOriginationURLInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new origination url resource"
+                }
+              },
+              "response": {
+                "name": "CreateOriginationURLResponse",
+                "structure": "OriginationURLResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created origination url resource"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/OriginationUrls",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of origination url resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource#read-multiple-originationurl-resources"
+              },
+              "response": {
+                "structure": "OriginationURLsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the origination urls page"
+                }
+              },
+              "pagination": {
+                "name": "OriginationURLsPaginator",
+                "page": {
+                  "name": "OriginationURLsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "OriginationURLs",
+                  "structure": "PageOriginationURLResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Origination URL",
+          "packageName": "origination_url",
+          "function": {
+            "parameters": {
+              "originationURLSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "originationURLSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific origination url resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/OriginationUrls/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves an origination url resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource#fetch-an-originationurl-resource"
+              },
+              "response": {
+                "name": "FetchOriginationURLResponse",
+                "structure": "OriginationURLResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved origination url resource"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/OriginationUrls/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies an origination url resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource#update-an-originationurl-resource"
+              },
+              "input": {
+                "structure": "UpdateOriginationURLInput",
+                "documentation": {
+                  "description": "defines input fields for updating an origination url resource"
+                }
+              },
+              "response": {
+                "name": "UpdateOriginationURLResponse",
+                "structure": "OriginationURLResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated origination url"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/OriginationUrls/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a origination url resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/originationurl-resource#delete-an-originationurl-resource"
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Fetch",
@@ -341,6 +592,144 @@
           },
           "value": "auth_type_set",
           "required": false
+        }
+      ]
+    },
+    "CreateOriginationURLInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Weight",
+          "type": "int",
+          "value": "Weight",
+          "required": true,
+          "validation": {
+            "ignore": true
+          }
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "Priority",
+          "required": true,
+          "validation": {
+            "ignore": true
+          }
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "SipURL",
+          "type": "string",
+          "value": "SipUrl",
+          "required": true
+        }
+      ]
+    },
+    "UpdateOriginationURLInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Weight",
+          "type": "int",
+          "value": "Weight",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "Priority",
+          "required": false
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "SipURL",
+          "type": "string",
+          "value": "SipUrl",
+          "required": false
+        }
+      ]
+    },
+    "OriginationURLsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "OriginationURLs",
+          "type": "array",
+          "items": {
+            "structure": "OriginationURLResponse"
+          },
+          "value": "origination_urls",
+          "required": true
+        }
+      ]
+    },
+    "OriginationURLResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Weight",
+          "type": "int",
+          "value": "weight",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Priority",
+          "type": "int",
+          "value": "priority",
+          "required": true
+        },
+        {
+          "name": "SipURL",
+          "type": "string",
+          "value": "sip_url",
+          "required": true
+        },
+        {
+          "name": "TrunkSid",
+          "type": "string",
+          "value": "trunk_sid",
+          "required": true
         }
       ]
     },
