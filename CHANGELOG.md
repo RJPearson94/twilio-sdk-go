@@ -1,11 +1,21 @@
 ## v0.7.0 (unreleased)
 
+FIXES
+
+### API
+
+- **Fix:** Update Voice Receive Mode and Fax Capability to be optional in the IncomingPhoneNumbers response payload as these are no longer returned from the API call since Programmable Fax has been disabled for some accounts **Breaking Change**
+- **Fix:** Update Voice Receive Mode and Fax Capability to be optional in the Local AvailablePhoneNumber response payload as these are no longer returned from the API call since Programmable Fax has been disabled for some accounts **Breaking Change**
+- **Fix:** Update Voice Receive Mode and Fax Capability to be optional in the Mobile AvailablePhoneNumber response payload as these are no longer returned from the API call since Programmable Fax has been disabled for some accounts **Breaking Change**
+- **Fix:** Update Voice Receive Mode and Fax Capability to be optional in the Toll Free AvailablePhoneNumber response payload as these are no longer returned from the API call since Programmable Fax has been disabled for some accounts **Breaking Change**
+
 FEATURES
 
 ### Trunking
 
 - **New Resource:** Trunk
 - **New Resource:** Origination URL
+- **New Resource:** Phone Number
 
 ## v0.6.0 (2020-11-22)
 
