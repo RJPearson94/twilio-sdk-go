@@ -10,10 +10,10 @@ import (
 )
 
 type FetchIncomingPhoneNumberCapabilitiesResponse struct {
-	Fax   bool `json:"fax"`
-	Mms   bool `json:"MMS"`
-	Sms   bool `json:"SMS"`
-	Voice bool `json:"voice"`
+	Fax   *bool `json:"fax,omitempty"`
+	Mms   bool  `json:"MMS"`
+	Sms   bool  `json:"SMS"`
+	Voice bool  `json:"voice"`
 }
 
 // FetchIncomingPhoneNumberResponse defines the response fields for retrieving a phone number
@@ -48,7 +48,7 @@ type FetchIncomingPhoneNumberResponse struct {
 	VoiceFallbackMethod  string                                       `json:"voice_fallback_method"`
 	VoiceFallbackURL     *string                                      `json:"voice_fallback_url,omitempty"`
 	VoiceMethod          string                                       `json:"voice_method"`
-	VoiceReceiveMode     string                                       `json:"voice_receive_mode"`
+	VoiceReceiveMode     *string                                      `json:"voice_receive_mode,omitempty"`
 	VoiceURL             *string                                      `json:"voice_url,omitempty"`
 }
 

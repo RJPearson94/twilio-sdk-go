@@ -33,10 +33,10 @@ type AvailablePhoneNumbersPageOptions struct {
 }
 
 type PageAvailablePhoneNumberCapabilitiesResponse struct {
-	Fax   bool `json:"fax"`
-	Mms   bool `json:"MMS"`
-	Sms   bool `json:"SMS"`
-	Voice bool `json:"voice"`
+	Fax   *bool `json:"fax,omitempty"`
+	Mms   bool  `json:"MMS"`
+	Sms   bool  `json:"SMS"`
+	Voice bool  `json:"voice"`
 }
 
 type PageAvailablePhoneNumberResponse struct {

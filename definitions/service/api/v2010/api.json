@@ -7011,7 +7011,7 @@
           "name": "Fax",
           "type": "bool",
           "value": "fax",
-          "required": true
+          "required": false
         }
       ]
     },
@@ -7336,7 +7336,7 @@
           "name": "Fax",
           "type": "bool",
           "value": "fax",
-          "required": true
+          "required": false
         }
       ]
     },
@@ -7492,7 +7492,7 @@
           "name": "VoiceReceiveMode",
           "type": "string",
           "value": "voice_receive_mode",
-          "required": true
+          "required": false
         },
         {
           "name": "Beta",

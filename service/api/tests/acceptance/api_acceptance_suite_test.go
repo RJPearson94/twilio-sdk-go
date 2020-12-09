@@ -26,7 +26,7 @@ import (
 
 func TestAcceptance(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Autopilot Acceptance Test Suite")
+	RunSpecs(t, "API Acceptance Test Suite")
 }
 
 var _ = BeforeSuite(func() {

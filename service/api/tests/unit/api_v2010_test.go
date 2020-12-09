@@ -5569,7 +5569,7 @@ var _ = Describe("API V2010", func() {
 				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
 				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
 				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(local.PageAvailablePhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
@@ -5646,7 +5646,7 @@ var _ = Describe("API V2010", func() {
 				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
 				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
 				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(toll_free.PageAvailablePhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
@@ -5723,7 +5723,7 @@ var _ = Describe("API V2010", func() {
 				Expect(availablePhoneNumbers[0].AddressRequirements).To(Equal("none"))
 				Expect(availablePhoneNumbers[0].Beta).To(Equal(false))
 				Expect(availablePhoneNumbers[0].Capabilities).To(Equal(mobile.PageAvailablePhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
@@ -5791,7 +5791,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.SmsURL).To(BeNil())
 				Expect(resp.SmsApplicationSid).To(BeNil())
 				Expect(resp.VoiceApplicationSid).To(BeNil())
-				Expect(resp.VoiceReceiveMode).To(Equal("voice"))
+				Expect(resp.VoiceReceiveMode).To(Equal(utils.String("voice")))
 				Expect(resp.AddressSid).To(BeNil())
 				Expect(resp.IdentitySid).To(BeNil())
 				Expect(resp.BundleSid).To(BeNil())
@@ -5802,7 +5802,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.Beta).To(Equal(false))
 				Expect(resp.Status).To(Equal("in-use"))
 				Expect(resp.Capabilities).To(Equal(incoming_phone_numbers.CreateIncomingPhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
@@ -5890,7 +5890,7 @@ var _ = Describe("API V2010", func() {
 				Expect(phoneNumbers[0].SmsURL).To(BeNil())
 				Expect(phoneNumbers[0].SmsApplicationSid).To(BeNil())
 				Expect(phoneNumbers[0].VoiceApplicationSid).To(BeNil())
-				Expect(phoneNumbers[0].VoiceReceiveMode).To(Equal("voice"))
+				Expect(phoneNumbers[0].VoiceReceiveMode).To(Equal(utils.String("voice")))
 				Expect(phoneNumbers[0].AddressSid).To(BeNil())
 				Expect(phoneNumbers[0].IdentitySid).To(BeNil())
 				Expect(phoneNumbers[0].BundleSid).To(BeNil())
@@ -5901,7 +5901,7 @@ var _ = Describe("API V2010", func() {
 				Expect(phoneNumbers[0].Beta).To(Equal(false))
 				Expect(phoneNumbers[0].Status).To(Equal("in-use"))
 				Expect(phoneNumbers[0].Capabilities).To(Equal(incoming_phone_numbers.PageIncomingPhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
@@ -6057,7 +6057,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.SmsURL).To(BeNil())
 				Expect(resp.SmsApplicationSid).To(BeNil())
 				Expect(resp.VoiceApplicationSid).To(BeNil())
-				Expect(resp.VoiceReceiveMode).To(Equal("voice"))
+				Expect(resp.VoiceReceiveMode).To(Equal(utils.String("voice")))
 				Expect(resp.AddressSid).To(BeNil())
 				Expect(resp.IdentitySid).To(BeNil())
 				Expect(resp.BundleSid).To(BeNil())
@@ -6068,7 +6068,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.Beta).To(Equal(false))
 				Expect(resp.Status).To(Equal("in-use"))
 				Expect(resp.Capabilities).To(Equal(incoming_phone_number.FetchIncomingPhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
@@ -6137,7 +6137,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.SmsURL).To(BeNil())
 				Expect(resp.SmsApplicationSid).To(BeNil())
 				Expect(resp.VoiceApplicationSid).To(BeNil())
-				Expect(resp.VoiceReceiveMode).To(Equal("voice"))
+				Expect(resp.VoiceReceiveMode).To(Equal(utils.String("voice")))
 				Expect(resp.AddressSid).To(Equal(utils.String("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.IdentitySid).To(BeNil())
 				Expect(resp.BundleSid).To(BeNil())
@@ -6148,7 +6148,7 @@ var _ = Describe("API V2010", func() {
 				Expect(resp.Beta).To(Equal(false))
 				Expect(resp.Status).To(Equal("in-use"))
 				Expect(resp.Capabilities).To(Equal(incoming_phone_number.UpdateIncomingPhoneNumberCapabilitiesResponse{
-					Fax:   true,
+					Fax:   utils.Bool(true),
 					Mms:   false,
 					Sms:   true,
 					Voice: true,
