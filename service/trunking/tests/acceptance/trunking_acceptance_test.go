@@ -12,6 +12,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_url"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_urls"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
@@ -118,6 +119,53 @@ var _ = Describe("Trunking Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := originationURLClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the Elastic SIP Phone Number clients", func() {
+
+		var trunkSid string
+
+		BeforeEach(func() {
+			resp, err := trunkingSession.Trunks.Create(&trunks.CreateTrunkInput{})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create trunk. Error %s", err.Error()))
+			}
+			trunkSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := trunkingSession.Trunk(trunkSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete trunk. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the phone number is created, fetched and deleted", func() {
+			phoneNumbersClient := trunkingSession.Trunk(trunkSid).PhoneNumbers
+
+			createResp, createErr := phoneNumbersClient.Create(&phone_numbers.CreatePhoneNumberInput{
+				PhoneNumberSid: os.Getenv("TWILIO_PHONE_NUMBER_SID"),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := phoneNumbersClient.Page(&phone_numbers.PhoneNumbersPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.PhoneNumbers)).Should(BeNumerically(">=", 1))
+
+			paginator := phoneNumbersClient.NewPhoneNumbersPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.PhoneNumbers)).Should(BeNumerically(">=", 1))
+
+			phoneNumberClient := trunkingSession.Trunk(trunkSid).PhoneNumber(createResp.Sid)
+
+			deleteErr := phoneNumberClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

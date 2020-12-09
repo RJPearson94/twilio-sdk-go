@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_url"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_urls"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_number"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_numbers"
 )
 
 // Client for managing a specific trunk resource
@@ -16,6 +18,8 @@ type Client struct {
 
 	OriginationURL  func(string) *origination_url.Client
 	OriginationURLs *origination_urls.Client
+	PhoneNumber     func(string) *phone_number.Client
+	PhoneNumbers    *phone_numbers.Client
 }
 
 // ClientProperties are the properties required to manage the trunk resources
@@ -37,6 +41,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		OriginationURLs: origination_urls.New(client, origination_urls.ClientProperties{
+			TrunkSid: properties.Sid,
+		}),
+		PhoneNumber: func(phoneNumberSid string) *phone_number.Client {
+			return phone_number.New(client, phone_number.ClientProperties{
+				Sid:      phoneNumberSid,
+				TrunkSid: properties.Sid,
+			})
+		},
+		PhoneNumbers: phone_numbers.New(client, phone_numbers.ClientProperties{
 			TrunkSid: properties.Sid,
 		}),
 	}

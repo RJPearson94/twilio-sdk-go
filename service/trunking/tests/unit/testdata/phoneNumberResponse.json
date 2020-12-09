@@ -1,0 +1,34 @@
+{
+  "sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-27T23:00:00Z",
+  "date_updated": null,
+  "friendly_name": "441234567890",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "phone_number": "+441234567890",
+  "api_version": "2010-04-01",
+  "voice_caller_id_lookup": null,
+  "voice_url": null,
+  "voice_method": "POST",
+  "voice_fallback_url": null,
+  "voice_fallback_method": "POST",
+  "status_callback": null,
+  "status_callback_method": "POST",
+  "voice_application_sid": null,
+  "trunk_sid": "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sms_url": null,
+  "sms_method": "POST",
+  "sms_fallback_url": null,
+  "sms_fallback_method": "POST",
+  "sms_application_sid": null,
+  "address_requirements": "none",
+  "beta": false,
+  "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "capabilities": {
+    "voice": true,
+    "sms": true,
+    "mms": false
+  },
+  "links": {
+    "phone_number": "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  }
+}

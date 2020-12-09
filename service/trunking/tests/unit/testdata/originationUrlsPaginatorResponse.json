@@ -2,10 +2,10 @@
   "meta": {
     "page": 0,
     "page_size": 50,
-    "first_page_url": "hhttps://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=0",
+    "first_page_url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=0",
     "previous_page_url": null,
-    "url": "hhttps://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=0",
-    "next_page_url": "hhttps://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=1&PageToken=abc1234",
+    "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=0",
+    "next_page_url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls?PageSize=50&Page=1&PageToken=abc1234",
     "key": "origination_urls"
   },
   "origination_urls": [
