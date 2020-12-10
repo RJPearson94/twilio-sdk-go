@@ -1,3 +1,12 @@
+## v0.8.0 (2020-12-10)
+
+FEATURES
+
+### Trunking
+
+- **New Resource:** Recording
+- **New Resource:** Phone Number (Fetch API Operation)
+
 ## v0.7.0 (2020-12-09)
 
 FIXES
