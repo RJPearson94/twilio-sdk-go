@@ -549,6 +549,83 @@
               }
             }
           ]
+        },
+        {
+          "name": "Recording",
+          "packageName": "recording",
+          "function": {},
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific recording resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/Recording",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a recording resource"
+              },
+              "response": {
+                "name": "FetchRecordingResponse",
+                "structure": "RecordingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved recording resource"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/Recording",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a recording resource"
+              },
+              "input": {
+                "name": "UpdateRecordingInput",
+                "structure": "RecordingInput",
+                "documentation": {
+                  "description": "defines input fields for updating a recording resource"
+                }
+              },
+              "response": {
+                "name": "UpdateRecordingResponse",
+                "structure": "RecordingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated recording"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1119,6 +1196,40 @@
           "name": "Capabilities",
           "structure": "PhoneNumberCapabilitiesResponse",
           "value": "capabilities",
+          "required": true
+        }
+      ]
+    },
+    "RecordingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Trim",
+          "type": "string",
+          "value": "Trim",
+          "required": false
+        },
+        {
+          "name": "Mode",
+          "type": "string",
+          "value": "Mode",
+          "required": false
+        }
+      ]
+    },
+    "RecordingResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Trim",
+          "type": "string",
+          "value": "trim",
+          "required": true
+        },
+        {
+          "name": "Mode",
+          "type": "string",
+          "value": "mode",
           "required": true
         }
       ]

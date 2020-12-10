@@ -13,8 +13,10 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_url"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_urls"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_numbers"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var _ = Describe("Trunking Acceptance Tests", func() {
@@ -171,6 +173,39 @@ var _ = Describe("Trunking Acceptance Tests", func() {
 
 			deleteErr := phoneNumberClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the Elastic SIP Recording client", func() {
+
+		var trunkSid string
+
+		BeforeEach(func() {
+			resp, err := trunkingSession.Trunks.Create(&trunks.CreateTrunkInput{})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create trunk. Error %s", err.Error()))
+			}
+			trunkSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := trunkingSession.Trunk(trunkSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete trunk. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the recording is fetched and updated", func() {
+			recordingClient := trunkingSession.Trunk(trunkSid).Recording()
+
+			fetchResp, fetchErr := recordingClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := recordingClient.Update(&recording.UpdateRecordingInput{
+				Trim: utils.String("trim-silence"),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
 		})
 	})
 })

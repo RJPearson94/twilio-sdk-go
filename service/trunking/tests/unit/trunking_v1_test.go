@@ -17,6 +17,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_urls"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_numbers"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -1185,6 +1186,98 @@ var _ = Describe("Trunking V1", func() {
 			err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a Recording client", func() {
+		recordingClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording()
+
+		Describe("When the phone number is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get recording response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Trim).To(Equal("do-not-trim"))
+				Expect(resp.Mode).To(Equal("do-not-record"))
+			})
+		})
+
+		Describe("When the get recording response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording().Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get recording response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the recording is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateRecordingResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &recording.UpdateRecordingInput{}
+
+			resp, err := recordingClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update recording response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Trim).To(Equal("trim-silence"))
+				Expect(resp.Mode).To(Equal("do-not-record"))
+			})
+		})
+
+		Describe("When the update recording response returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &recording.UpdateRecordingInput{}
+
+			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording().Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update recording response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})
