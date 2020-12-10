@@ -485,6 +485,41 @@
           },
           "operations": [
             {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/PhoneNumbers/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a phone number resource"
+              },
+              "response": {
+                "name": "FetchPhoneNumberResponse",
+                "structure": "PhoneNumberResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved phone number resource"
+                }
+              }
+            },
+            {
               "name": "Delete",
               "http": {
                 "uri": "/Trunks/{trunkSid}/PhoneNumbers/{sid}",

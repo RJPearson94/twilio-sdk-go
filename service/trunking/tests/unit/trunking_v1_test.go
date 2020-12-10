@@ -15,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_url"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_urls"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -1092,6 +1093,75 @@ var _ = Describe("Trunking V1", func() {
 
 	Describe("Given I have a Phone Number SID", func() {
 		phoneNumberClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the phone number is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumberResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := phoneNumberClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get phone number response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("441234567890")))
+				Expect(resp.PhoneNumber).To(Equal("+441234567890"))
+				Expect(resp.APIVersion).To(Equal("2010-04-01"))
+				Expect(resp.SmsFallbackMethod).To(Equal("POST"))
+				Expect(resp.SmsFallbackURL).To(BeNil())
+				Expect(resp.SmsMethod).To(Equal("POST"))
+				Expect(resp.SmsURL).To(BeNil())
+				Expect(resp.SmsApplicationSid).To(BeNil())
+				Expect(resp.VoiceApplicationSid).To(BeNil())
+				Expect(resp.VoiceReceiveMode).To(BeNil())
+				Expect(resp.TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Beta).To(Equal(false))
+				Expect(resp.Capabilities).To(Equal(phone_number.FetchPhoneNumberCapabilitiesResponse{
+					Mms:   false,
+					Sms:   true,
+					Voice: true,
+				}))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceCallerIDLookup).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(Equal("POST"))
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(Equal("POST"))
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get phone number response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PN71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get phone number response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
 
 		Describe("When the phone number is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))

@@ -165,6 +165,10 @@ var _ = Describe("Trunking Acceptance Tests", func() {
 
 			phoneNumberClient := trunkingSession.Trunk(trunkSid).PhoneNumber(createResp.Sid)
 
+			fetchResp, fetchErr := phoneNumberClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
 			deleteErr := phoneNumberClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
