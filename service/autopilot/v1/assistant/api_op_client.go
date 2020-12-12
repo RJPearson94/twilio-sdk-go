@@ -4,6 +4,7 @@ package assistant
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
+	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/dialogue"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_type"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/field_types"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/model_build"
@@ -25,6 +26,7 @@ type Client struct {
 	sid string
 
 	Defaults    func() *defaults.Client
+	Dialogue    func(string) *dialogue.Client
 	FieldType   func(string) *field_type.Client
 	FieldTypes  *field_types.Client
 	ModelBuild  func(string) *model_build.Client
@@ -53,6 +55,12 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		Defaults: func() *defaults.Client {
 			return defaults.New(client, defaults.ClientProperties{
 				AssistantSid: properties.Sid,
+			})
+		},
+		Dialogue: func(dialogueSid string) *dialogue.Client {
+			return dialogue.New(client, dialogue.ClientProperties{
+				AssistantSid: properties.Sid,
+				Sid:          dialogueSid,
 			})
 		},
 		FieldType: func(fieldTypeSid string) *field_type.Client {

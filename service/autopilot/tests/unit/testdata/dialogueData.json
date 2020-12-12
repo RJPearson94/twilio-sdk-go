@@ -1,0 +1,31 @@
+{
+  "twilio": {
+    "collected_data": {
+      "schedule_appt": {
+        "status": "in-progress",
+        "date_started": "2020-06-27T23:00:00Z",
+        "date_completed": "",
+        "answers": {
+          "appt_date": {
+            "confirmed": false,
+            "attempts": 1,
+            "confirm_attempts": 0,
+            "answer": "2020-06-27",
+            "validate_attempts": 1,
+            "type": "Twilio.DATE",
+            "filled": true
+          }
+        }
+      }
+    },
+    "chat": {
+      "Index": 0,
+      "From": "user",
+      "ServiceSid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "MessageSid": "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "AssistantName": "",
+      "ChannelSid": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "Attributes": {}
+    }
+  }
+}

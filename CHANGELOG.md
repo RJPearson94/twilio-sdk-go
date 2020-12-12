@@ -12,6 +12,10 @@ FEATURES
 
 - Add RecordingTrack to call, call recording, conference recording and conference participants input structs
 
+### Autopilot
+
+- **New Resource:** Dialogue
+
 ### Sync
 
 - Add HideExpired query parameter to sync list, sync list item, sync map, sync map item, sync stream and document page requests

@@ -2432,6 +2432,69 @@
               }
             }
           ]
+        },
+        {
+          "name": "Dialogue",
+          "packageName": "dialogue",
+          "function": {
+            "parameters": {
+              "dialogueSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "assistantSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "dialogueSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific dialogue resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/dialogue"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Assistants/{assistantSid}/Dialogues/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "assistantSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "assistantSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a dialogue resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/autopilot/api/dialogue#fetch-a-dialogue-resource"
+              },
+              "response": {
+                "name": "FetchDialogueResponse",
+                "structure": "DialogueResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved dialogue"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -3664,6 +3727,44 @@
           "name": "WebhookMethod",
           "type": "string",
           "value": "webhook_method",
+          "required": true
+        }
+      ]
+    },
+    "DialogueResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "AssistantSid",
+          "type": "string",
+          "value": "assistant_sid",
+          "required": true
+        },
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
           "required": true
         }
       ]

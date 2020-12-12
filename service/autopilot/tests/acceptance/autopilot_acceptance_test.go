@@ -769,6 +769,8 @@ var _ = Describe("Autopilot Acceptance Tests", func() {
 			Expect(deleteErr).To(BeNil())
 		})
 	})
+
+	// TODO Dialogue acceptance tests
 })
 
 func poll(maxAttempts int, delay int, client *v1.Autopilot, assistantSid string, modelBuildSid string) error {
