@@ -1,3 +1,16 @@
+## v0.9.0 (unreleased)
+
+FIXES
+
+### TwiML
+
+- Rename `DialRecord` attribute to `Record` on dial verb to keep consistency with other Twilio SDKs
+
+FEATURES
+### TwiML
+
+- **New Attribute:** Add recording track to dial verb
+
 ## v0.8.0 (2020-12-10)
 
 FEATURES

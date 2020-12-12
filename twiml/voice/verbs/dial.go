@@ -13,10 +13,11 @@ type DialAttributes struct {
 	CallReason                    *string `xml:"callReason,attr,omitempty"`
 	HangupOnStar                  *bool   `xml:"hangupOnStar,attr,omitempty"`
 	Method                        *string `xml:"method,attr,omitempty"`
-	DialRecord                    *string `xml:"record,attr,omitempty"`
+	Record                        *string `xml:"record,attr,omitempty"`
 	RecordingStatusCallback       *string `xml:"recordingStatusCallback,attr,omitempty"`
 	RecordingStatusCallbackEvent  *string `xml:"recordingStatusCallbackEvent,attr,omitempty"`
 	RecordingStatusCallbackMethod *string `xml:"recordingStatusCallbackMethod,attr,omitempty"`
+	RecordingTrack                *string `xml:"recordingTrack,attr,omitempty"`
 	RingTone                      *string `xml:"ringTone,attr,omitempty"`
 	TimeLimit                     *int    `xml:"timeLimit,attr,omitempty"`
 	Timeout                       *int    `xml:"timeout,attr,omitempty"`
