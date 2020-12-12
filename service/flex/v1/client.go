@@ -7,6 +7,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
 	"github.com/RJPearson94/twilio-sdk-go/session"
@@ -20,6 +22,8 @@ type Flex struct {
 	Configuration func() *configuration.Client
 	FlexFlows     *flex_flows.Client
 	FlexFlow      func(string) *flex_flow.Client
+	Plugin        func(string) *plugin.Client
+	Plugins       *plugins.Client
 	Channels      *channels.Client
 	Channel       func(string) *channel.Client
 	WebChannels   *web_channels.Client
@@ -58,6 +62,12 @@ func NewWithClient(client *client.Client) *Flex {
 				Sid: sid,
 			})
 		},
+		Plugin: func(pluginSid string) *plugin.Client {
+			return plugin.New(client, plugin.ClientProperties{
+				Sid: pluginSid,
+			})
+		},
+		Plugins:     plugins.New(client),
 		WebChannels: web_channels.New(client),
 		WebChannel: func(sid string) *web_channel.Client {
 			return web_channel.New(client, web_channel.ClientProperties{

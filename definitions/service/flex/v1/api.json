@@ -541,6 +541,173 @@
           }
         }
       ]
+    },
+    {
+      "name": "Plugins",
+      "packageName": "plugins",
+      "documentation": {
+        "description": "Client for managing plugin resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/PluginService/Plugins",
+            "method": "Post"
+          },
+
+          "documentation": {
+            "description": "creates a new plugin resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin#create-a-plugin-resource"
+          },
+          "input": {
+            "structure": "CreatePluginInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new plugin resource"
+            }
+          },
+          "response": {
+            "name": "CreatePluginResponse",
+            "structure": "PluginResponse",
+            "documentation": {
+              "description": "defines the response fields for the created plugin"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/PluginService/Plugins",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of plugins",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin#read-multiple-plugin-resources"
+          },
+          "response": {
+            "structure": "PluginsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the plugins page"
+            }
+          },
+          "pagination": {
+            "name": "PluginsPaginator",
+            "page": {
+              "name": "PluginsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Plugins",
+              "structure": "PagePluginResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plugin",
+      "packageName": "plugin",
+      "function": {
+        "parameters": {
+          "pluginSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "pluginSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific plugin resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/PluginService/Plugins/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a plugin resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin#fetch-a-plugin-resource"
+          },
+          "response": {
+            "name": "FetchPluginResponse",
+            "structure": "PluginResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved plugin resource"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/PluginService/Plugins/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a plugin resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin#update-a-plugin-resource"
+          },
+          "input": {
+            "structure": "UpdatePluginInput",
+            "documentation": {
+              "description": "defines input fields for updating a plugin resource"
+            }
+          },
+          "response": {
+            "name": "UpdatePluginResponse",
+            "structure": "PluginResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated plugin"
+            }
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -1688,6 +1855,96 @@
           "name": "FlexFlowSid",
           "type": "string",
           "value": "flex_flow_sid",
+          "required": true
+        }
+      ]
+    },
+    "CreatePluginInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "Description",
+          "required": false
+        }
+      ]
+    },
+    "UpdatePluginInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "Description",
+          "required": false
+        }
+      ]
+    },
+    "PluginsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Plugins",
+          "type": "array",
+          "items": {
+            "structure": "PluginResponse"
+          },
+          "value": "plugins",
+          "required": true
+        }
+      ]
+    },
+    "PluginResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "description",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Disabled",
+          "type": "bool",
+          "value": "disabled",
           "required": true
         }
       ]

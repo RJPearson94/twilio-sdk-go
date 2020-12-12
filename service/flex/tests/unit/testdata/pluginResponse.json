@@ -1,0 +1,14 @@
+{
+  "unique_name": "test",
+  "description": null,
+  "date_updated": null,
+  "friendly_name": "test",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "disabled": false,
+  "url": "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2016-08-01T22:10:40Z",
+  "links": {
+    "plugin_versions": "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions"
+  }
+}

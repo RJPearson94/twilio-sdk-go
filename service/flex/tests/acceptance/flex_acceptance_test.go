@@ -13,6 +13,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -148,6 +150,41 @@ var _ = Describe("Flex Acceptance Tests", func() {
 
 			deleteErr := channelClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the plugin clients", func() {
+		It("Then the plugin is created, fetched and updated", func() {
+			pluginsClient := flexSession.Plugins
+
+			createResp, createErr := pluginsClient.Create(&plugins.CreatePluginInput{
+				UniqueName: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := pluginsClient.Page(&plugins.PluginsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Plugins)).Should(BeNumerically(">=", 1))
+
+			paginator := pluginsClient.NewPluginsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Plugins)).Should(BeNumerically(">=", 1))
+
+			pluginClient := flexSession.Plugin(createResp.Sid)
+
+			fetchResp, fetchErr := pluginClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := pluginClient.Update(&plugin.UpdatePluginInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
 		})
 	})
 

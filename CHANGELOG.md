@@ -16,6 +16,10 @@ FEATURES
 
 - **New Resource:** Dialogue
 
+### Flex
+
+- **New Resource:** Plugin
+
 ### Sync
 
 - Add HideExpired query parameter to sync list, sync list item, sync map, sync map item, sync stream and document page requests
