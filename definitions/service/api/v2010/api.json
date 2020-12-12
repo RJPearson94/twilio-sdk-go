@@ -5526,6 +5526,12 @@
           "type": "string",
           "value": "Twiml",
           "required": false
+        },
+        {
+          "name": "RecordingTrack",
+          "type": "string",
+          "value": "RecordingTrack",
+          "required": false
         }
       ]
     },
@@ -6268,6 +6274,12 @@
           "type": "string",
           "value": "CallReason",
           "required": false
+        },
+        {
+          "name": "RecordingTrack",
+          "type": "string",
+          "value": "RecordingTrack",
+          "required": false
         }
       ]
     },
@@ -6480,6 +6492,12 @@
           "name": "RecordingChannels",
           "type": "string",
           "value": "RecordingChannels",
+          "required": false
+        },
+        {
+          "name": "RecordingTrack",
+          "type": "string",
+          "value": "RecordingTrack",
           "required": false
         }
       ]

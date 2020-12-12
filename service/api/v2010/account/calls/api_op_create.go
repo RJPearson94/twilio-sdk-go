@@ -32,6 +32,7 @@ type CreateCallInput struct {
 	RecordingStatusCallback            *string   `form:"RecordingStatusCallback,omitempty"`
 	RecordingStatusCallbackEvents      *[]string `form:"RecordingStatusCallbackEvent,omitempty"`
 	RecordingStatusCallbackMethod      *string   `form:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack                     *string   `form:"RecordingTrack,omitempty"`
 	SendDigits                         *string   `form:"SendDigits,omitempty"`
 	SipAuthPassword                    *string   `form:"SipAuthPassword,omitempty"`
 	SipAuthUsername                    *string   `form:"SipAuthUsername,omitempty"`

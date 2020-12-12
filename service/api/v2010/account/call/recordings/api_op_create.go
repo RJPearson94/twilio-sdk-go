@@ -15,6 +15,7 @@ type CreateRecordingInput struct {
 	RecordingStatusCallback       *string   `form:"RecordingStatusCallback,omitempty"`
 	RecordingStatusCallbackEvents *[]string `form:"RecordingStatusCallbackEvent,omitempty"`
 	RecordingStatusCallbackMethod *string   `form:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack                *string   `form:"RecordingTrack,omitempty"`
 	Trim                          *string   `form:"Trim,omitempty"`
 }
 

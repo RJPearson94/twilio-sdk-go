@@ -37,6 +37,7 @@ type CreateParticipantInput struct {
 	RecordingStatusCallback                 *string   `form:"RecordingStatusCallback,omitempty"`
 	RecordingStatusCallbackEvents           *[]string `form:"RecordingStatusCallbackEvent,omitempty"`
 	RecordingStatusCallbackMethod           *string   `form:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack                          *string   `form:"RecordingTrack,omitempty"`
 	Region                                  *string   `form:"Region,omitempty"`
 	SipAuthPassword                         *string   `form:"SipAuthPassword,omitempty"`
 	SipAuthUsername                         *string   `form:"SipAuthUsername,omitempty"`

@@ -7,6 +7,11 @@ FIXES
 - Rename `DialRecord` attribute to `Record` on dial verb to keep consistency with other Twilio SDKs
 
 FEATURES
+
+### API
+
+- Add RecordingTrack to call, call recording, conference recording and conference participants input structs
+
 ### TwiML
 
 - **New Attribute:** Add recording track to dial verb
