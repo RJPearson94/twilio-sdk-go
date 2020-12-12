@@ -4,7 +4,7 @@ FIXES
 
 ### TwiML
 
-- Rename `DialRecord` attribute to `Record` on dial verb to keep consistency with other Twilio SDKs
+- Rename `DialRecord` attribute to `Record` on dial verb to keep consistency with other Twilio SDKs **Breaking Change**
 
 FEATURES
 
