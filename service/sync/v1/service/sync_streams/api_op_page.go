@@ -14,9 +14,10 @@ import (
 
 // SyncStreamsPageOptions defines the query options for the api operation
 type SyncStreamsPageOptions struct {
-	PageSize  *int
-	Page      *int
-	PageToken *string
+	PageSize    *int
+	Page        *int
+	PageToken   *string
+	HideExpired *bool
 }
 
 type PageMetaResponse struct {

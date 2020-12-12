@@ -181,6 +181,11 @@
                     "name": "PageToken",
                     "type": "string",
                     "required": false
+                  },
+                  {
+                    "name": "HideExpired",
+                    "type": "bool",
+                    "required": false
                   }
                 ]
               },
@@ -673,6 +678,11 @@
                     "name": "PageToken",
                     "type": "string",
                     "required": false
+                  },
+                  {
+                    "name": "HideExpired",
+                    "type": "bool",
+                    "required": false
                   }
                 ]
               },
@@ -839,6 +849,11 @@
                       {
                         "name": "Bounds",
                         "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "HideExpired",
+                        "type": "bool",
                         "required": false
                       }
                     ]
@@ -1469,6 +1484,11 @@
                     "name": "PageToken",
                     "type": "string",
                     "required": false
+                  },
+                  {
+                    "name": "HideExpired",
+                    "type": "bool",
+                    "required": false
                   }
                 ]
               },
@@ -1635,6 +1655,11 @@
                       {
                         "name": "Bounds",
                         "type": "string",
+                        "required": false
+                      },
+                      {
+                        "name": "HideExpired",
+                        "type": "bool",
                         "required": false
                       }
                     ]
@@ -2264,6 +2289,11 @@
                   {
                     "name": "PageToken",
                     "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "HideExpired",
+                    "type": "bool",
                     "required": false
                   }
                 ]

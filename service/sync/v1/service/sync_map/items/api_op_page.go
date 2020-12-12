@@ -14,12 +14,13 @@ import (
 
 // SyncMapItemsPageOptions defines the query options for the api operation
 type SyncMapItemsPageOptions struct {
-	PageSize  *int
-	Page      *int
-	PageToken *string
-	Order     *string
-	From      *string
-	Bounds    *string
+	PageSize    *int
+	Page        *int
+	PageToken   *string
+	Order       *string
+	From        *string
+	Bounds      *string
+	HideExpired *bool
 }
 
 type PageMetaResponse struct {

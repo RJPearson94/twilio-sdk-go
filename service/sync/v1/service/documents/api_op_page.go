@@ -14,9 +14,10 @@ import (
 
 // DocumentsPageOptions defines the query options for the api operation
 type DocumentsPageOptions struct {
-	PageSize  *int
-	Page      *int
-	PageToken *string
+	PageSize    *int
+	Page        *int
+	PageToken   *string
+	HideExpired *bool
 }
 
 type PageDocumentResponse struct {
