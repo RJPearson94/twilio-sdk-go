@@ -4,7 +4,8 @@ package v1
 import "github.com/RJPearson94/twilio-sdk-go/client"
 import "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service"
 import "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/services"
-import "github.com/RJPearson94/twilio-sdk-go/session" 
+import "github.com/RJPearson94/twilio-sdk-go/session"
+
 import sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 
 // Proxy client is used to manage resources for Proxy
