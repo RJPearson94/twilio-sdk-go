@@ -20,6 +20,7 @@ FEATURES
 
 - **New Resource:** Plugin
 - **New Resource:** Plugin Version
+- **New Resource:** Plugin Configuration
 
 ### Sync
 

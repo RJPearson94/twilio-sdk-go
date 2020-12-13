@@ -8,6 +8,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configurations"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
@@ -18,16 +20,18 @@ import (
 // Flex client is used to manage resources for Twilio Flex
 // See https://www.twilio.com/docs/flex for more details
 type Flex struct {
-	client        *client.Client
-	Configuration func() *configuration.Client
-	FlexFlows     *flex_flows.Client
-	FlexFlow      func(string) *flex_flow.Client
-	Plugin        func(string) *plugin.Client
-	Plugins       *plugins.Client
-	Channels      *channels.Client
-	Channel       func(string) *channel.Client
-	WebChannels   *web_channels.Client
-	WebChannel    func(string) *web_channel.Client
+	client               *client.Client
+	Configuration        func() *configuration.Client
+	FlexFlows            *flex_flows.Client
+	FlexFlow             func(string) *flex_flow.Client
+	Plugin               func(string) *plugin.Client
+	Plugins              *plugins.Client
+	PluginConfiguration  func(string) *plugin_configuration.Client
+	PluginConfigurations *plugin_configurations.Client
+	Channels             *channels.Client
+	Channel              func(string) *channel.Client
+	WebChannels          *web_channels.Client
+	WebChannel           func(string) *web_channel.Client
 }
 
 // Used for testing purposes only
@@ -67,8 +71,14 @@ func NewWithClient(client *client.Client) *Flex {
 				Sid: pluginSid,
 			})
 		},
-		Plugins:     plugins.New(client),
-		WebChannels: web_channels.New(client),
+		Plugins: plugins.New(client),
+		PluginConfiguration: func(configurationSid string) *plugin_configuration.Client {
+			return plugin_configuration.New(client, plugin_configuration.ClientProperties{
+				Sid: configurationSid,
+			})
+		},
+		PluginConfigurations: plugin_configurations.New(client),
+		WebChannels:          web_channels.New(client),
 		WebChannel: func(sid string) *web_channel.Client {
 			return web_channel.New(client, web_channel.ClientProperties{
 				Sid: sid,

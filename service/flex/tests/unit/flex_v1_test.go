@@ -18,6 +18,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin/versions"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configurations"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
@@ -1771,6 +1772,7 @@ var _ = Describe("Flex V1", func() {
 			})
 		})
 	})
+
 	Describe("Given the plugin versions client", func() {
 		versionsClient := flexSession.Plugin("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Versions
 
@@ -2022,7 +2024,7 @@ var _ = Describe("Flex V1", func() {
 		})
 	})
 
-	Describe("Given I have a plugin sid", func() {
+	Describe("Given I have a plugin version sid", func() {
 		versionClient := flexSession.Plugin("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the plugin version is successfully retrieved", func() {
@@ -2071,6 +2073,289 @@ var _ = Describe("Flex V1", func() {
 			})
 
 			It("Then the get plugin version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the plugin configurations client", func() {
+		pluginConfigurationsClient := flexSession.PluginConfigurations
+
+		Describe("When the plugin configuration is successfully created", func() {
+			createInput := &plugin_configurations.CreateConfigurationInput{
+				Name: "test",
+				Plugins: &[]string{
+					`{"plugin_version":"FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}`,
+				},
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Configurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pluginConfigurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := pluginConfigurationsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create plugin configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Disabled).To(Equal(false))
+				Expect(resp.Description).To(BeNil())
+				Expect(resp.Name).To(Equal("test"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the plugin configuration request does not contain a name", func() {
+			createInput := &plugin_configurations.CreateConfigurationInput{}
+
+			resp, err := pluginConfigurationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create plugin configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the plugin configuration api returns a 500 response", func() {
+			createInput := &plugin_configurations.CreateConfigurationInput{
+				Name: "test",
+				Plugins: &[]string{
+					`{"plugin_version":"FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}`,
+				},
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Configurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := pluginConfigurationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create plugin configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of plugin configurations are successfully retrieved", func() {
+			pageOptions := &plugin_configurations.ConfigurationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pluginConfigurationsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := pluginConfigurationsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the plugin configurations page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Configurations?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Configurations?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("configurations"))
+
+				configurations := resp.Configurations
+				Expect(configurations).ToNot(BeNil())
+				Expect(len(configurations)).To(Equal(1))
+
+				Expect(configurations[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(configurations[0].Sid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(configurations[0].Disabled).To(Equal(false))
+				Expect(configurations[0].Description).To(BeNil())
+				Expect(configurations[0].Name).To(Equal("test"))
+				Expect(configurations[0].DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(configurations[0].URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of plugin configurations api returns a 500 response", func() {
+			pageOptions := &plugin_configurations.ConfigurationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := pluginConfigurationsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the plugin configurations page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated plugin configurations are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pluginConfigurationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pluginConfigurationsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := pluginConfigurationsClient.NewConfigurationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated plugin configurations current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated plugin configurations results should be returned", func() {
+				Expect(len(paginator.Configurations)).To(Equal(3))
+			})
+		})
+
+		Describe("When the plugin configurations api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pluginConfigurationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := pluginConfigurationsClient.NewConfigurationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated plugin configurations current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a plugin configuration sid", func() {
+		configurationClient := flexSession.PluginConfiguration("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the plugin configuration is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/pluginConfigurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := configurationClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get plugin configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Disabled).To(Equal(false))
+				Expect(resp.Description).To(BeNil())
+				Expect(resp.Name).To(Equal("test"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get plugin configuration response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Configurations/FJ71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := flexSession.PluginConfiguration("FJ71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get plugin configuration response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})

@@ -880,6 +880,140 @@
           }
         }
       ]
+    },
+    {
+      "name": "Plugin Configurations",
+      "packageName": "plugin_configurations",
+      "documentation": {
+        "description": "Client for managing plugin configuration resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/PluginService/Configurations",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new plugin configuration resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration#create-a-pluginconfiguration-resource"
+          },
+          "input": {
+            "name": "CreateConfigurationInput",
+            "structure": "CreatePluginConfigurationInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new plugin configuration resource"
+            }
+          },
+          "response": {
+            "name": "CreateConfigurationResponse",
+            "structure": "PluginConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the created plugin configuration"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/PluginService/Configurations",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of plugin configuration resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration#read-multiple-pluginconfiguration-resources"
+          },
+          "response": {
+            "name": "ConfigurationsPageResponse",
+            "structure": "PluginConfigurationsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the plugin configurations page"
+            }
+          },
+          "pagination": {
+            "name": "ConfigurationsPaginator",
+            "page": {
+              "name": "ConfigurationsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Configurations",
+              "structure": "PageConfigurationResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plugin Configuration",
+      "packageName": "plugin_configuration",
+      "function": {
+        "parameters": {
+          "configurationSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "configurationSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific plugin configuration resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/PluginService/Configurations/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a plugin configuration resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration#fetch-a-pluginconfiguration-resource"
+          },
+          "response": {
+            "name": "FetchConfigurationResponse",
+            "structure": "PluginConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved plugin configuration resource"
+            }
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -2231,6 +2365,100 @@
           "name": "PluginSid",
           "type": "string",
           "value": "plugin_sid",
+          "required": true
+        }
+      ]
+    },
+    "CreatePluginConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "Name",
+          "required": true
+        },
+        {
+          "name": "Plugins",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Plugins",
+          "required": false
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "Description",
+          "required": false
+        }
+      ]
+    },
+    "PluginConfigurationsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Configurations",
+          "type": "array",
+          "items": {
+            "structureName": "ConfigurationResponse",
+            "structure": "PluginConfigurationResponse"
+          },
+          "value": "configurations",
+          "required": true
+        }
+      ]
+    },
+    "PluginConfigurationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "value": "description",
+          "required": false
+        },
+        {
+          "name": "Disabled",
+          "type": "bool",
+          "value": "disabled",
+          "required": true
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
           "required": true
         }
       ]

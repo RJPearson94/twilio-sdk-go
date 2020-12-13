@@ -15,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin/versions"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configurations"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -229,6 +230,63 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			versionClient := flexSession.Plugin(pluginSid).Version(createResp.Sid)
 
 			fetchResp, fetchErr := versionClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the flex plugin configuration clients", func() {
+
+		var pluginSid string
+		var pluginVersionSid string
+
+		BeforeEach(func() {
+			pluginResp, pluginErr := flexSession.Plugins.Create(&plugins.CreatePluginInput{
+				UniqueName: uuid.New().String(),
+			})
+			if pluginErr != nil {
+				Fail(fmt.Sprintf("Failed to create flex plugin. Error %s", pluginErr.Error()))
+			}
+			pluginSid = pluginResp.Sid
+
+			versionResp, versionErr := flexSession.Plugin(pluginSid).Versions.Create(&versions.CreateVersionInput{
+				Version:   "1.0.0",
+				PluginURL: "https://example.com",
+			})
+			if versionErr != nil {
+				Fail(fmt.Sprintf("Failed to create flex plugin version. Error %s", versionErr.Error()))
+			}
+			pluginVersionSid = versionResp.Sid
+		})
+
+		It("Then the plugin configuration is created and fetched", func() {
+			pluginConfigurationsClient := flexSession.PluginConfigurations
+
+			createResp, createErr := pluginConfigurationsClient.Create(&plugin_configurations.CreateConfigurationInput{
+				Name: uuid.New().String(),
+				Plugins: &[]string{
+					fmt.Sprintf(`{"plugin_version": "%s"}`, pluginVersionSid),
+				},
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := pluginConfigurationsClient.Page(&plugin_configurations.ConfigurationsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Configurations)).Should(BeNumerically(">=", 1))
+
+			paginator := pluginConfigurationsClient.NewConfigurationsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Configurations)).Should(BeNumerically(">=", 1))
+
+			pluginConfigurationClient := flexSession.PluginConfiguration(createResp.Sid)
+
+			fetchResp, fetchErr := pluginConfigurationClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 		})
