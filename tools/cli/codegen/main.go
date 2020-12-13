@@ -9,6 +9,7 @@ import (
 
 	apiclient "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/api_client"
 	apioperation "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/api_operation"
+	client "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/client"
 
 	"github.com/iancoleman/strcase"
 )
@@ -30,6 +31,11 @@ func main() {
 	fixture, _ := ioutil.ReadFile(fmt.Sprintf("%s/api.json", definitionPath))
 	var api map[string]interface{}
 	json.Unmarshal(fixture, &api)
+
+	if err := translateAndGenerateClient(outputPath, api); err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	if err := generateApiClients(api["subClients"].([]interface{}), api["structures"].(map[string]interface{}), outputPath); err != nil {
 		fmt.Println(err)
@@ -94,6 +100,25 @@ func translateAndGenerateApiClient(path string, content map[string]interface{}) 
 		return err
 	}
 	if err := createAndWriteFile(path, "api_op_client.go", string(*contents)); err != nil {
+		return err
+	}
+	return nil
+}
+
+func translateAndGenerateClient(path string, content map[string]interface{}) error {
+	bytes, err := json.Marshal(content)
+	if err != nil {
+		return err
+	}
+	translationResp, err := client.Translate(bytes)
+	if err != nil {
+		return err
+	}
+	contents, err := client.Generate(translationResp, false)
+	if err != nil {
+		return err
+	}
+	if err := createAndWriteFile(path, "client.go", string(*contents)); err != nil {
 		return err
 	}
 	return nil

@@ -37,4 +37,10 @@ goreportcard-refresh:
 generate:
 	go generate  ./...
 
-.PHONY: download build test fmt tools generate reportcard goreportcard-refresh
+generate-service-api-version:
+	@echo "==> regenerating $(SERVICE) $(API_VERSION)"
+	go run ./tools/cli/codegen --definition ./definitions/service/$(SERVICE)/$(API_VERSION) --target ./service/$(SERVICE)/$(API_VERSION)
+	goimports -w ./service/$(SERVICE)/$(API_VERSION)
+
+
+.PHONY: download build test fmt tools generate generate-service-api-version reportcard goreportcard-refresh

@@ -44,6 +44,22 @@ $GOPATH/bin/twilio-sdk-go
 ...
 ```
 
+## Code Generation
+
+A significant amount of the SDK is auto-generated from API definition JSON files, these files are the source of truth and should be updated instead of the API clients and API operations.
+
+To regenerate and format an service using it's corresponding API definition can be done via the following command:
+
+```sh
+make generate-service-api-version SERVICE=<<service_name>> API_VERSION=<<api_version>>
+```
+
+An example usage can be seen below
+
+```sh
+make generate-service-api-version SERVICE=flex API_VERSION=v1
+```
+
 ## Testing
 
 In order to test all of the SDK, run the following command

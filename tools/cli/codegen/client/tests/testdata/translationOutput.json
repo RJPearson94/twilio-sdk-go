@@ -1,0 +1,29 @@
+{
+  "packageName": "v1",
+  "name": "Proxy",
+  "config": {
+    "beta": true,
+    "subDomain": "proxy",
+    "apiVersion": "v1"
+  },
+  "imports": [
+    "github.com/RJPearson94/twilio-sdk-go/client",
+    "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service",
+    "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/services"
+  ],
+  "documentation": {
+    "description": "Proxy client is used to manage resources for Proxy",
+    "twilioDocsLink": "https://www.twilio.com/docs/proxy"
+  },
+  "subClients": [
+    {
+      "packageName": "service",
+      "name": "Service",
+      "properties": []
+    },
+    {
+      "name": "Services",
+      "packageName": "services"
+    }
+  ]
+}
