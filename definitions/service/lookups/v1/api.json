@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "Lookups",
+  "documentation": {
+    "description": "Lookups client is used to manage resources for Lookups",
+    "twilioDocsLink": "https://www.twilio.com/docs/lookup"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "lookups",
     "apiVersion": "v1"
@@ -11,9 +14,17 @@
     {
       "name": "Phone Number",
       "packageName": "phone_number",
+      "function": {
+        "parameters": {
+          "phoneNumber": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "phoneNumber": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "phoneNumber"
         }
       },
       "documentation": {

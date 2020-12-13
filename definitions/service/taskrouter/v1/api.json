@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "TaskRouter",
+  "documentation": {
+    "description": "TaskRouter client is used to manage resources for Twilio TaskRouter",
+    "twilioDocsLink": "https://www.twilio.com/docs/taskrouter"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "taskrouter",
     "apiVersion": "v1"
@@ -97,9 +100,17 @@
     {
       "name": "Workspace",
       "packageName": "workspace",
+      "function": {
+        "parameters": {
+          "workspaceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "workspaceSid"
         }
       },
       "documentation": {

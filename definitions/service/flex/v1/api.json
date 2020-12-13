@@ -1,16 +1,22 @@
 {
   "packageName": "v1",
   "name": "Flex",
+  "documentation": {
+    "description": "Flex client is used to manage resources for Twilio Flex",
+    "twilioDocsLink": "https://www.twilio.com/docs/flex"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
-    "subDomain": "flex",
+    "subDomain": "flex-api",
     "apiVersion": "v1"
   },
   "subClients": [
     {
       "name": "Configuration",
       "packageName": "configuration",
+      "function": {
+        "parameters": {}
+      },
       "documentation": {
         "description": "Client for managing a specific configuration resource",
         "twilioDocsLink": "https://www.twilio.com/docs/flex/ui/configuration"
@@ -139,9 +145,17 @@
     {
       "name": "Flex Flow",
       "packageName": "flex_flow",
+      "function": {
+        "parameters": {
+          "flexFlowSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "flexFlowSid"
         }
       },
       "documentation": {
@@ -312,9 +326,17 @@
     {
       "name": "Channel",
       "packageName": "channel",
+      "function": {
+        "parameters": {
+          "channelSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "channelSid"
         }
       },
       "documentation": {
@@ -451,9 +473,17 @@
     {
       "name": "Web Channel",
       "packageName": "web_channel",
+      "function": {
+        "parameters": {
+          "webChannelSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "webChannelSid"
         }
       },
       "documentation": {

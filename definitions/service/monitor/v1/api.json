@@ -1,9 +1,11 @@
 {
   "packageName": "v1",
   "name": "Monitor",
+  "documentation": {
+    "description": "Monitor client is used to manage resources for Twilio Monitor"
+  },
   "config": {
-    "includeDefaults": true,
-    "beta": true,
+    "beta": false,
     "subDomain": "monitor",
     "apiVersion": "v1"
   },
@@ -83,9 +85,17 @@
     {
       "name": "Alert",
       "packageName": "alert",
+      "function": {
+        "parameters": {
+          "alertSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "alertSid"
         }
       },
       "documentation": {
@@ -213,9 +223,17 @@
     {
       "name": "Event",
       "packageName": "event",
+      "function": {
+        "parameters": {
+          "eventSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "eventSid"
         }
       },
       "documentation": {

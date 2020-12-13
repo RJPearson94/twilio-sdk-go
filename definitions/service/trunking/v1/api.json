@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "Trunking",
+  "documentation": {
+    "description": "Trunking client is used to manage resources for Twilio SIP Trunking",
+    "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": true,
     "subDomain": "trunking",
     "apiVersion": "v1"

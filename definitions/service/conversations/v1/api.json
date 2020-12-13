@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
-  "name": "conversations",
+  "name": "Conversations",
+  "documentation": {
+    "description": "Conversations client is used to manage resources for Twilio Conversations",
+    "twilioDocsLink": "https://www.twilio.com/docs/conversations"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": true,
     "subDomain": "conversations",
     "apiVersion": "v1"
@@ -93,9 +96,17 @@
     {
       "name": "Conversation",
       "packageName": "conversation",
+      "function": {
+        "parameters": {
+          "conversationSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "conversationSid"
         }
       },
       "documentation": {
@@ -1164,9 +1175,17 @@
     {
       "name": "Role",
       "packageName": "role",
+      "function": {
+        "parameters": {
+          "roleSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "roleSid"
         }
       },
       "documentation": {
@@ -1343,9 +1362,17 @@
     {
       "name": "User",
       "packageName": "user",
+      "function": {
+        "parameters": {
+          "userSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "userSid"
         }
       },
       "documentation": {
@@ -1521,9 +1548,17 @@
     {
       "name": "Service",
       "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "serviceSid"
         }
       },
       "documentation": {
@@ -3706,7 +3741,6 @@
       "function": {
         "parameters": {}
       },
-      "properties": {},
       "documentation": {
         "description": "Client for managing webhook resources",
         "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/conversation-webhook-resource"
@@ -3840,9 +3874,17 @@
     {
       "name": "Credential",
       "packageName": "credential",
+      "function": {
+        "parameters": {
+          "credentialSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "credentialSid"
         }
       },
       "documentation": {

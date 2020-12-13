@@ -1,8 +1,11 @@
 {
   "packageName": "v2",
   "name": "Chat",
+  "documentation": {
+    "description": "Chat client is used to manage resources for Programmable Chat",
+    "twilioDocsLink": "https://www.twilio.com/docs/chat"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "chat",
     "apiVersion": "v2"
@@ -92,9 +95,17 @@
     {
       "name": "Service",
       "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "serviceSid"
         }
       },
       "documentation": {
@@ -2734,9 +2745,17 @@
     {
       "name": "Credential",
       "packageName": "credential",
+      "function": {
+        "parameters": {
+          "credentialSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "credentialSid"
         }
       },
       "documentation": {

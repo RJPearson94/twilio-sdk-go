@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
-  "name": "V1",
+  "name": "Autopilot",
+  "documentation": {
+    "description": "Autopilot client is used to manage resources for Twilio Autopilot",
+    "twilioDocsLink": "https://www.twilio.com/docs/autopilot"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "autopilot",
     "apiVersion": "v1"
@@ -93,9 +96,17 @@
     {
       "name": "Assistant",
       "packageName": "assistant",
+      "function": {
+        "parameters": {
+          "assistantSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "assistantSid"
         }
       },
       "documentation": {

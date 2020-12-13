@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "Fax",
+  "documentation": {
+    "description": "Fax client is used to manage resources for Programmable Fax",
+    "twilioDocsLink": "https://www.twilio.com/docs/fax"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "fax",
     "apiVersion": "v1"
@@ -113,9 +116,17 @@
     {
       "name": "Fax",
       "packageName": "fax",
+      "function": {
+        "parameters": {
+          "faxSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "faxSid"
         }
       },
       "documentation": {

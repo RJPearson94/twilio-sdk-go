@@ -1,3 +1,4 @@
+// Package v1 contains auto-generated files. DO NOT MODIFY
 package v1
 
 import (
@@ -20,25 +21,72 @@ import (
 
 // Conversations client is used to manage resources for Twilio Conversations
 // See https://www.twilio.com/docs/conversations for more details
+// This client is currently in beta and subject to change. Please use with caution
 type Conversations struct {
-	client        *client.Client
+	client *client.Client
+
 	Configuration func() *configuration.Client
-	Conversations *conversations.Client
 	Conversation  func(string) *conversation.Client
-	Credentials   *credentials.Client
+	Conversations *conversations.Client
 	Credential    func(string) *credential.Client
-	Roles         *roles.Client
+	Credentials   *credentials.Client
 	Role          func(string) *role.Client
-	Services      *services.Client
+	Roles         *roles.Client
 	Service       func(string) *service.Client
-	Users         *users.Client
+	Services      *services.Client
 	User          func(string) *user.Client
+	Users         *users.Client
 	Webhook       func() *webhook.Client
 }
 
-// Used for testing purposes only
+// NewWithClient creates a new instance of the client with a HTTP client
+func NewWithClient(client *client.Client) *Conversations {
+	return &Conversations{
+		client: client,
+
+		Configuration: func() *configuration.Client { return configuration.New(client) },
+		Conversation: func(conversationSid string) *conversation.Client {
+			return conversation.New(client, conversation.ClientProperties{
+				Sid: conversationSid,
+			})
+		},
+		Conversations: conversations.New(client),
+		Credential: func(credentialSid string) *credential.Client {
+			return credential.New(client, credential.ClientProperties{
+				Sid: credentialSid,
+			})
+		},
+		Credentials: credentials.New(client),
+		Role: func(roleSid string) *role.Client {
+			return role.New(client, role.ClientProperties{
+				Sid: roleSid,
+			})
+		},
+		Roles: roles.New(client),
+		Service: func(serviceSid string) *service.Client {
+			return service.New(client, service.ClientProperties{
+				Sid: serviceSid,
+			})
+		},
+		Services: services.New(client),
+		User: func(userSid string) *user.Client {
+			return user.New(client, user.ClientProperties{
+				Sid: userSid,
+			})
+		},
+		Users:   users.New(client),
+		Webhook: func() *webhook.Client { return webhook.New(client) },
+	}
+}
+
+// GetClient is used for testing purposes only
 func (s Conversations) GetClient() *client.Client {
 	return s.client
+}
+
+// NewWithCredentials creates a new instance of the client with credentials
+func NewWithCredentials(creds *sessionCredentials.Credentials) *Conversations {
+	return New(session.New(creds))
 }
 
 // New creates a new instance of the client using session data
@@ -49,50 +97,4 @@ func New(sess *session.Session) *Conversations {
 	config.APIVersion = "v1"
 
 	return NewWithClient(client.New(sess, config))
-}
-
-// NewWithClient creates a new instance of the client with a HTTP client
-func NewWithClient(client *client.Client) *Conversations {
-	return &Conversations{
-		client: client,
-		Configuration: func() *configuration.Client {
-			return configuration.New(client)
-		},
-		Conversations: conversations.New(client),
-		Conversation: func(sid string) *conversation.Client {
-			return conversation.New(client, conversation.ClientProperties{
-				Sid: sid,
-			})
-		},
-		Credentials: credentials.New(client),
-		Credential: func(sid string) *credential.Client {
-			return credential.New(client, credential.ClientProperties{
-				Sid: sid,
-			})
-		},
-		Roles: roles.New(client),
-		Role: func(sid string) *role.Client {
-			return role.New(client, role.ClientProperties{
-				Sid: sid,
-			})
-		},
-		Services: services.New(client),
-		Service: func(sid string) *service.Client {
-			return service.New(client, service.ClientProperties{
-				Sid: sid,
-			})
-		},
-		Users: users.New(client),
-		User: func(sid string) *user.Client {
-			return user.New(client, user.ClientProperties{
-				Sid: sid,
-			})
-		},
-		Webhook: func() *webhook.Client { return webhook.New(client) },
-	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Conversations {
-	return New(session.New(creds))
 }

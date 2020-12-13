@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "Sync",
+  "documentation": {
+    "description": "Sync client is used to manage resources for Twilio Sync",
+    "twilioDocsLink": "https://www.twilio.com/docs/sync"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": true,
     "subDomain": "sync",
     "apiVersion": "v1"
@@ -93,9 +96,17 @@
     {
       "name": "Service",
       "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "serviceSid"
         }
       },
       "documentation": {

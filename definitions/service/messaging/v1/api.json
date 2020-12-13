@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "Messaging",
+  "documentation": {
+    "description": "Messaging client is used to manage resources for Twilio Messaging",
+    "twilioDocsLink": "https://www.twilio.com/docs/messaging"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": true,
     "subDomain": "messaging",
     "apiVersion": "v1"
@@ -92,9 +95,17 @@
     {
       "name": "Service",
       "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "serviceSid"
         }
       },
       "documentation": {

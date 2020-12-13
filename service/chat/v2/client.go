@@ -1,28 +1,55 @@
+// Package v2 contains auto-generated files. DO NOT MODIFY
 package v2
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
-	v2Credential "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/credential"
-	v2Credentials "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/credential"
+	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Chat client is used to manage resources for Programmable Chat
 // See https://www.twilio.com/docs/chat for more details
 type Chat struct {
-	client      *client.Client
-	Services    *services.Client
+	client *client.Client
+
+	Credential  func(string) *credential.Client
+	Credentials *credentials.Client
 	Service     func(string) *service.Client
-	Credentials *v2Credentials.Client
-	Credential  func(string) *v2Credential.Client
+	Services    *services.Client
 }
 
-// Used for testing purposes only
+// NewWithClient creates a new instance of the client with a HTTP client
+func NewWithClient(client *client.Client) *Chat {
+	return &Chat{
+		client: client,
+
+		Credential: func(credentialSid string) *credential.Client {
+			return credential.New(client, credential.ClientProperties{
+				Sid: credentialSid,
+			})
+		},
+		Credentials: credentials.New(client),
+		Service: func(serviceSid string) *service.Client {
+			return service.New(client, service.ClientProperties{
+				Sid: serviceSid,
+			})
+		},
+		Services: services.New(client),
+	}
+}
+
+// GetClient is used for testing purposes only
 func (s Chat) GetClient() *client.Client {
 	return s.client
+}
+
+// NewWithCredentials creates a new instance of the client with credentials
+func NewWithCredentials(creds *sessionCredentials.Credentials) *Chat {
+	return New(session.New(creds))
 }
 
 // New creates a new instance of the client using session data
@@ -33,28 +60,4 @@ func New(sess *session.Session) *Chat {
 	config.APIVersion = "v2"
 
 	return NewWithClient(client.New(sess, config))
-}
-
-// NewWithClient creates a new instance of the client with a HTTP client
-func NewWithClient(client *client.Client) *Chat {
-	return &Chat{
-		client:   client,
-		Services: services.New(client),
-		Service: func(sid string) *service.Client {
-			return service.New(client, service.ClientProperties{
-				Sid: sid,
-			})
-		},
-		Credentials: v2Credentials.New(client),
-		Credential: func(sid string) *v2Credential.Client {
-			return v2Credential.New(client, v2Credential.ClientProperties{
-				Sid: sid,
-			})
-		},
-	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Chat {
-	return New(session.New(creds))
 }

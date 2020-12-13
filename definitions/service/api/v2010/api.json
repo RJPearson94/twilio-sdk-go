@@ -1,8 +1,10 @@
 {
   "packageName": "v2010",
   "name": "V2010",
+  "documentation": {
+    "description": "V2010 client to manage resources that are part of the Twilio API"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "api",
     "apiVersion": "2010-04-01"
@@ -106,9 +108,17 @@
         "description": "Client for managing a specific account resource",
         "twilioDocsLink": "https://www.twilio.com/docs/iam/api/account"
       },
+      "function": {
+        "parameters": {
+          "accountSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "accountSid"
         }
       },
       "subClients": [

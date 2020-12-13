@@ -1,8 +1,11 @@
 {
   "packageName": "v2",
   "name": "Verify",
+  "documentation": {
+    "description": "Verify client is used to manage resources for Twilio Verify",
+    "twilioDocsLink": "https://www.twilio.com/docs/verify"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": false,
     "subDomain": "verify",
     "apiVersion": "v2"
@@ -93,9 +96,17 @@
     {
       "name": "Service",
       "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "serviceSid"
         }
       },
       "documentation": {

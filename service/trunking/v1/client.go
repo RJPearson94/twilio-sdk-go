@@ -1,3 +1,4 @@
+// Package v1 contains auto-generated files. DO NOT MODIFY
 package v1
 
 import (
@@ -5,20 +6,41 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-// Trunking client is used to manage resources for Twilio Trunking
+// Trunking client is used to manage resources for Twilio SIP Trunking
 // See https://www.twilio.com/docs/sip-trunking for more details
+// This client is currently in beta and subject to change. Please use with caution
 type Trunking struct {
 	client *client.Client
+
 	Trunk  func(string) *trunk.Client
 	Trunks *trunks.Client
 }
 
-// Used for testing purposes only
+// NewWithClient creates a new instance of the client with a HTTP client
+func NewWithClient(client *client.Client) *Trunking {
+	return &Trunking{
+		client: client,
+
+		Trunk: func(trunkSid string) *trunk.Client {
+			return trunk.New(client, trunk.ClientProperties{
+				Sid: trunkSid,
+			})
+		},
+		Trunks: trunks.New(client),
+	}
+}
+
+// GetClient is used for testing purposes only
 func (s Trunking) GetClient() *client.Client {
 	return s.client
+}
+
+// NewWithCredentials creates a new instance of the client with credentials
+func NewWithCredentials(creds *sessionCredentials.Credentials) *Trunking {
+	return New(session.New(creds))
 }
 
 // New creates a new instance of the client using session data
@@ -29,22 +51,4 @@ func New(sess *session.Session) *Trunking {
 	config.APIVersion = "v1"
 
 	return NewWithClient(client.New(sess, config))
-}
-
-// NewWithClient creates a new instance of the client with a HTTP client
-func NewWithClient(client *client.Client) *Trunking {
-	return &Trunking{
-		client: client,
-		Trunks: trunks.New(client),
-		Trunk: func(sid string) *trunk.Client {
-			return trunk.New(client, trunk.ClientProperties{
-				Sid: sid,
-			})
-		},
-	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Trunking {
-	return New(session.New(creds))
 }

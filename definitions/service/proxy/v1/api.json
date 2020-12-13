@@ -1,8 +1,11 @@
 {
   "packageName": "v1",
   "name": "Proxy",
+  "documentation": {
+    "description": "Proxy client is used to manage resources for Twilio Proxy",
+    "twilioDocsLink": "https://www.twilio.com/docs/proxy"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": true,
     "subDomain": "proxy",
     "apiVersion": "v1"
@@ -92,9 +95,17 @@
     {
       "name": "Service",
       "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "serviceSid"
         }
       },
       "documentation": {

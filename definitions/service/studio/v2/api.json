@@ -1,8 +1,11 @@
 {
   "packageName": "v2",
   "name": "Studio",
+  "documentation": {
+    "description": "Studio client is used to manage resources for Twilio Studio",
+    "twilioDocsLink": "https://www.twilio.com/docs/studio"
+  },
   "config": {
-    "includeDefaults": true,
     "beta": true,
     "subDomain": "studio",
     "apiVersion": "v2"
@@ -92,9 +95,17 @@
     {
       "name": "Flow",
       "packageName": "flow",
+      "function": {
+        "parameters": {
+          "flowSid": {
+            "dataType": "string"
+          }
+        }
+      },
       "properties": {
         "sid": {
-          "dataType": "string"
+          "dataType": "string",
+          "functionParameter": "flowSid"
         }
       },
       "documentation": {
