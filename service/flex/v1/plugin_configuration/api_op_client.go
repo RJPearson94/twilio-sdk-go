@@ -1,7 +1,11 @@
 // Package plugin_configuration contains auto-generated files. DO NOT MODIFY
 package plugin_configuration
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configuration/plugin"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configuration/plugins"
+)
 
 // Client for managing a specific plugin configuration resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration for more details
@@ -9,6 +13,9 @@ type Client struct {
 	client *client.Client
 
 	sid string
+
+	Plugin  func(string) *plugin.Client
+	Plugins *plugins.Client
 }
 
 // ClientProperties are the properties required to manage the plugin configuration resources
@@ -22,5 +29,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 		client: client,
 
 		sid: properties.Sid,
+
+		Plugin: func(pluginSid string) *plugin.Client {
+			return plugin.New(client, plugin.ClientProperties{
+				ConfigurationSid: properties.Sid,
+				Sid:              pluginSid,
+			})
+		},
+		Plugins: plugins.New(client, plugins.ClientProperties{
+			ConfigurationSid: properties.Sid,
+		}),
 	}
 }

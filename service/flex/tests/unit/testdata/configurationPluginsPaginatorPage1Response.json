@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Plugins?PageSize=50&Page=0",
+    "previous_page_url": "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Plugins?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Plugins?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "plugins"
+  },
+  "plugins": [
+    {
+      "unique_name": "test",
+      "plugin_version_sid": "FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "private": false,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "version": "1.0.1",
+      "plugin_url": "https://example.com",
+      "phase": 3,
+      "date_created": "2016-08-01T22:10:40Z",
+      "configuration_sid": "FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "plugin_sid": "FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}

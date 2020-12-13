@@ -984,6 +984,141 @@
         "description": "Client for managing a specific plugin configuration resource",
         "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration"
       },
+      "subClients": [
+        {
+          "name": "Plugins",
+          "packageName": "plugins",
+          "properties": {
+            "configurationSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing plugin resources"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/PluginService/Configurations/{configurationSid}/Plugins",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "configurationSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "configurationSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of plugin resources"
+              },
+              "response": {
+                "name": "PluginsPageResponse",
+                "structure": "ConfigurationPluginsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the plugins page"
+                }
+              },
+              "pagination": {
+                "name": "PluginsPaginator",
+                "page": {
+                  "name": "PluginsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Plugins",
+                  "structure": "PagePluginResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Plugin",
+          "packageName": "plugin",
+          "function": {
+            "parameters": {
+              "pluginSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "configurationSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "pluginSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific plugin resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/PluginService/Configurations/{configurationSid}/Plugins/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "configurationSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "configurationSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a plugin resource"
+              },
+              "response": {
+                "name": "FetchPluginResponse",
+                "structure": "ConfigurationPluginResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved plugin resource"
+                }
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Fetch",
@@ -2459,6 +2594,98 @@
           "name": "Name",
           "type": "string",
           "value": "name",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationPluginsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Plugins",
+          "type": "array",
+          "items": {
+            "structureName": "PluginResponse",
+            "structure": "ConfigurationPluginResponse"
+          },
+          "value": "plugins",
+          "required": true
+        }
+      ]
+    },
+    "ConfigurationPluginResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "Private",
+          "type": "bool",
+          "value": "private",
+          "required": true
+        },
+        {
+          "name": "PluginVersionSid",
+          "type": "string",
+          "value": "plugin_version_sid",
+          "required": true
+        },
+        {
+          "name": "PluginSid",
+          "type": "string",
+          "value": "plugin_sid",
+          "required": true
+        },
+        {
+          "name": "ConfigurationSid",
+          "type": "string",
+          "value": "configuration_sid",
+          "required": true
+        },
+        {
+          "name": "Phase",
+          "type": "int",
+          "value": "phase",
+          "required": true
+        },
+        {
+          "name": "PluginURL",
+          "type": "string",
+          "value": "plugin_url",
+          "required": true
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "version",
           "required": true
         }
       ]
