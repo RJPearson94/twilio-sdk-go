@@ -14,6 +14,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin/versions"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -185,6 +186,51 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			updateResp, updateErr := pluginClient.Update(&plugin.UpdatePluginInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the flex plugin version clients", func() {
+
+		var pluginSid string
+
+		BeforeEach(func() {
+			pluginResp, pluginErr := flexSession.Plugins.Create(&plugins.CreatePluginInput{
+				UniqueName: uuid.New().String(),
+			})
+			if pluginErr != nil {
+				Fail(fmt.Sprintf("Failed to create flex plugin. Error %s", pluginErr.Error()))
+			}
+			pluginSid = pluginResp.Sid
+		})
+
+		It("Then the version is created and fetched", func() {
+			versionsClient := flexSession.Plugin(pluginSid).Versions
+
+			createResp, createErr := versionsClient.Create(&versions.CreateVersionInput{
+				Version:   "1.0.0",
+				PluginURL: "https://example.com",
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := versionsClient.Page(&versions.VersionsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Versions)).Should(BeNumerically(">=", 1))
+
+			paginator := versionsClient.NewVersionsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Versions)).Should(BeNumerically(">=", 1))
+
+			versionClient := flexSession.Plugin(pluginSid).Version(createResp.Sid)
+
+			fetchResp, fetchErr := versionClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
 		})
 	})
 

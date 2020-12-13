@@ -644,6 +644,178 @@
         "description": "Client for managing a specific plugin resource",
         "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin"
       },
+      "subClients": [
+        {
+          "name": "Versions",
+          "packageName": "versions",
+          "properties": {
+            "pluginSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing plugin version resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-version"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/PluginService/Plugins/{pluginSid}/Versions",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "pluginSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "pluginSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new plugin version resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-version#create-a-pluginversion-resource"
+              },
+              "input": {
+                "structure": "CreateVersionInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new plugin version resource"
+                }
+              },
+              "response": {
+                "name": "CreateVersionResponse",
+                "structure": "VersionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created plugin version"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/PluginService/Plugins/{pluginSid}/Versions",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "pluginSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "pluginSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of plugin versions",
+                "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-version#read-multiple-pluginversion-resources"
+              },
+              "response": {
+                "structure": "VersionsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the plugin versions page"
+                }
+              },
+              "pagination": {
+                "name": "VersionsPaginator",
+                "page": {
+                  "name": "VersionsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Versions",
+                  "structure": "PageVersionResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Version",
+          "packageName": "version",
+          "function": {
+            "parameters": {
+              "versionSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "pluginSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "versionSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific plugin resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/PluginService/Plugins/{pluginSid}/Versions/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "pluginSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "pluginSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a plugin version resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-version#fetch-a-pluginversion-resource"
+              },
+              "response": {
+                "name": "FetchVersionResponse",
+                "structure": "VersionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved plugin version resource"
+                }
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Fetch",
@@ -1945,6 +2117,120 @@
           "name": "Disabled",
           "type": "bool",
           "value": "disabled",
+          "required": true
+        }
+      ]
+    },
+    "CreateVersionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "Version",
+          "required": true
+        },
+        {
+          "name": "PluginURL",
+          "type": "string",
+          "value": "PluginUrl",
+          "required": true
+        },
+        {
+          "name": "Changelog",
+          "type": "string",
+          "value": "Changelog",
+          "required": false
+        },
+        {
+          "name": "Private",
+          "type": "bool",
+          "value": "Private",
+          "required": false
+        }
+      ]
+    },
+    "VersionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Versions",
+          "type": "array",
+          "items": {
+            "structure": "VersionResponse"
+          },
+          "value": "plugin_versions",
+          "required": true
+        }
+      ]
+    },
+    "VersionResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "Changelog",
+          "type": "string",
+          "value": "changelog",
+          "required": false
+        },
+        {
+          "name": "Private",
+          "type": "bool",
+          "value": "private",
+          "required": true
+        },
+        {
+          "name": "Disabled",
+          "type": "bool",
+          "value": "disabled",
+          "required": true
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "version",
+          "required": true
+        },
+        {
+          "name": "PluginURL",
+          "type": "string",
+          "value": "plugin_url",
+          "required": true
+        },
+        {
+          "name": "PluginSid",
+          "type": "string",
+          "value": "plugin_sid",
           "required": true
         }
       ]

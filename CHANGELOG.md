@@ -19,6 +19,7 @@ FEATURES
 ### Flex
 
 - **New Resource:** Plugin
+- **New Resource:** Plugin Version
 
 ### Sync
 

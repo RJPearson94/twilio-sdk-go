@@ -17,6 +17,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flow"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/flex_flows"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin/versions"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
@@ -1766,6 +1767,310 @@ var _ = Describe("Flex V1", func() {
 			})
 
 			It("Then the update plugin response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+	Describe("Given the plugin versions client", func() {
+		versionsClient := flexSession.Plugin("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Versions
+
+		Describe("When the plugin version is successfully created", func() {
+			createInput := &versions.CreateVersionInput{
+				Version:   "1.0.0",
+				PluginURL: "https://example.com",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/versionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := versionsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create plugin version response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.PluginSid).To(Equal("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.PluginURL).To(Equal("https://example.com"))
+				Expect(resp.Version).To(Equal("1.0.0"))
+				Expect(resp.Changelog).To(BeNil())
+				Expect(resp.Private).To(Equal(false))
+				Expect(resp.Disabled).To(Equal(false))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the plugin version request does not contain a version", func() {
+			createInput := &versions.CreateVersionInput{
+				PluginURL: "https://example.com",
+			}
+
+			resp, err := versionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create plugin version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the plugin version request does not contain a plugin url", func() {
+			createInput := &versions.CreateVersionInput{
+				Version: "1.0.0",
+			}
+
+			resp, err := versionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create plugin version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the plugin version api returns a 500 response", func() {
+			createInput := &versions.CreateVersionInput{
+				Version:   "1.0.0",
+				PluginURL: "https://example.com",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := versionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create plugin version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of plugin versions are successfully retrieved", func() {
+			pageOptions := &versions.VersionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/versionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := versionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the plugin versions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("plugin_versions"))
+
+				versions := resp.Versions
+				Expect(versions).ToNot(BeNil())
+				Expect(len(versions)).To(Equal(1))
+
+				Expect(versions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(versions[0].Sid).To(Equal("FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(versions[0].PluginSid).To(Equal("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(versions[0].PluginURL).To(Equal("https://example.com"))
+				Expect(versions[0].Version).To(Equal("1.0.0"))
+				Expect(versions[0].Changelog).To(BeNil())
+				Expect(versions[0].Private).To(Equal(false))
+				Expect(versions[0].Disabled).To(Equal(false))
+				Expect(versions[0].DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(versions[0].URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of plugin versions api returns a 500 response", func() {
+			pageOptions := &versions.VersionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := versionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the plugin versions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated plugin versions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/versionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/versionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := versionsClient.NewVersionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated plugin versions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated plugin versions results should be returned", func() {
+				Expect(len(paginator.Versions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the plugin versions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/versionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := versionsClient.NewVersionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated plugin versions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a plugin sid", func() {
+		versionClient := flexSession.Plugin("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the plugin version is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/versionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := versionClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get plugin version response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.PluginSid).To(Equal("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.PluginURL).To(Equal("https://example.com"))
+				Expect(resp.Version).To(Equal("1.0.0"))
+				Expect(resp.Changelog).To(BeNil())
+				Expect(resp.Private).To(Equal(false))
+				Expect(resp.Disabled).To(Equal(false))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get plugin version response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FV71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := flexSession.Plugin("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Version("FV71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get plugin version response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
