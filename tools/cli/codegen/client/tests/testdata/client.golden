@@ -1,12 +1,13 @@
 // Package v1 contains auto-generated files. DO NOT MODIFY
 package v1
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
-import "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service"
-import "github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/services"
-import "github.com/RJPearson94/twilio-sdk-go/session"
-
-import sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service"
+	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/services"
+	"github.com/RJPearson94/twilio-sdk-go/session"
+	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
+)
 
 // Proxy client is used to manage resources for Proxy
 // See https://www.twilio.com/docs/proxy for more details

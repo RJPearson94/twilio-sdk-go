@@ -3,9 +3,9 @@ package client
 const apiClientContent = `// Package {{ .packageName }} contains auto-generated files. DO NOT MODIFY 
 package {{ .packageName | ToLowerCase }}
 
+import sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 {{ if .imports }} {{ range $index, $import := .imports }}
 import "{{ $import }}" {{ end }} {{ end }}
-import sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 
 {{ if .documentation }} // {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
 // See {{ .documentation.twilioDocsLink }} for more details {{ end }} {{ end }} {{ if .config }} {{ if .config.beta }}

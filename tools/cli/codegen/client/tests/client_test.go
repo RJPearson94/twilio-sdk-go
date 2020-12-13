@@ -2,6 +2,7 @@ package tests
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 
 	"github.com/Jeffail/gabs/v2"
@@ -20,6 +21,8 @@ var _ = Describe("Client CodeGen", func() {
 			_ = json.Unmarshal(clientJSON, &clientData)
 
 			resp, err := client.Generate(clientData, true)
+
+			fmt.Println(string(*resp))
 
 			It("Then no error should be returned", func() {
 				Expect(err).To(BeNil())
