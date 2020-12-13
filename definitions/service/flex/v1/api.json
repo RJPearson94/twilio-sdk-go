@@ -1149,6 +1149,138 @@
           }
         }
       ]
+    },
+    {
+      "name": "Plugin Releases",
+      "packageName": "plugin_releases",
+      "documentation": {
+        "description": "Client for managing plugin release resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/release"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/PluginService/Releases",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new plugin release resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/release#create-a-pluginrelease-resource"
+          },
+          "input": {
+            "structure": "CreateReleaseInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new plugin release resource"
+            }
+          },
+          "response": {
+            "name": "CreateReleaseResponse",
+            "structure": "ReleaseResponse",
+            "documentation": {
+              "description": "defines the response fields for the created plugin release"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/PluginService/Releases",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of plugin release resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/release#read-multiple-pluginrelease-resources"
+          },
+          "response": {
+            "structure": "ReleasesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the plugin releases page"
+            }
+          },
+          "pagination": {
+            "name": "ReleasesPaginator",
+            "page": {
+              "name": "ReleasesPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Releases",
+              "structure": "PageReleaseResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plugin Release",
+      "packageName": "plugin_release",
+      "function": {
+        "parameters": {
+          "releaseSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "releaseSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific plugin release resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/release"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/PluginService/Releases/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a plugin release resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/release#fetch-a-pluginrelease-resource"
+          },
+          "response": {
+            "name": "FetchReleaseResponse",
+            "structure": "ReleaseResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved plugin release resource"
+            }
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -2686,6 +2818,72 @@
           "name": "Version",
           "type": "string",
           "value": "version",
+          "required": true
+        }
+      ]
+    },
+    "CreateReleaseInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "ConfigurationId",
+          "type": "string",
+          "value": "ConfigurationId",
+          "required": true
+        }
+      ]
+    },
+    "ReleasesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Releases",
+          "type": "array",
+          "items": {
+            "structure": "ReleaseResponse"
+          },
+          "value": "releases",
+          "required": true
+        }
+      ]
+    },
+    "ReleaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "ConfigurationSid",
+          "type": "string",
+          "value": "configuration_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
           "required": true
         }
       ]

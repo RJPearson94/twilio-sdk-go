@@ -20,6 +20,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin/versions"
 	configurationPlugins "github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configuration/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configurations"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_releases"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
@@ -2574,6 +2575,277 @@ var _ = Describe("Flex V1", func() {
 			})
 
 			It("Then the get plugin response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given the plugin releases client", func() {
+		releasesClient := flexSession.PluginReleases
+
+		Describe("When the plugin release is successfully created", func() {
+			createInput := &plugin_releases.CreateReleaseInput{
+				ConfigurationId: "FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Releases",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/releaseResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := releasesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create plugin release response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConfigurationSid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Releases/FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the plugin release request does not contain a name", func() {
+			createInput := &plugin_releases.CreateReleaseInput{}
+
+			resp, err := releasesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create plugin release response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the plugin release api returns a 500 response", func() {
+			createInput := &plugin_releases.CreateReleaseInput{
+				ConfigurationId: "FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Releases",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := releasesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create plugin release response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of plugin releases are successfully retrieved", func() {
+			pageOptions := &plugin_releases.ReleasesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/releasesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := releasesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the plugin releases page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Releases?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Releases?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("releases"))
+
+				releases := resp.Releases
+				Expect(releases).ToNot(BeNil())
+				Expect(len(releases)).To(Equal(1))
+
+				Expect(releases[0].Sid).To(Equal("FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(releases[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(releases[0].ConfigurationSid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(releases[0].DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(releases[0].URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Releases/FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of plugin releases api returns a 500 response", func() {
+			pageOptions := &plugin_releases.ReleasesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := releasesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the plugin releases page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated plugin releases are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/releasesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/releasesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := releasesClient.NewReleasesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated plugin releases current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated plugin releases results should be returned", func() {
+				Expect(len(paginator.Releases)).To(Equal(3))
+			})
+		})
+
+		Describe("When the plugin releases api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/releasesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := releasesClient.NewReleasesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated plugin releases current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a plugin release sid", func() {
+		releaseClient := flexSession.PluginRelease("FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the plugin release is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases/FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/releaseResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := releaseClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get plugin release response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ConfigurationSid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Releases/FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get plugin release response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://flex-api.twilio.com/v1/PluginService/Releases/FK71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := flexSession.PluginRelease("FK71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get plugin release response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})

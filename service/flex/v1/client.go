@@ -10,6 +10,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configuration"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_configurations"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_release"
+	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugin_releases"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
@@ -28,6 +30,8 @@ type Flex struct {
 	Plugins              *plugins.Client
 	PluginConfiguration  func(string) *plugin_configuration.Client
 	PluginConfigurations *plugin_configurations.Client
+	PluginRelease        func(string) *plugin_release.Client
+	PluginReleases       *plugin_releases.Client
 	Channels             *channels.Client
 	Channel              func(string) *channel.Client
 	WebChannels          *web_channels.Client
@@ -78,7 +82,13 @@ func NewWithClient(client *client.Client) *Flex {
 			})
 		},
 		PluginConfigurations: plugin_configurations.New(client),
-		WebChannels:          web_channels.New(client),
+		PluginRelease: func(releaseSid string) *plugin_release.Client {
+			return plugin_release.New(client, plugin_release.ClientProperties{
+				Sid: releaseSid,
+			})
+		},
+		PluginReleases: plugin_releases.New(client),
+		WebChannels:    web_channels.New(client),
 		WebChannel: func(sid string) *web_channel.Client {
 			return web_channel.New(client, web_channel.ClientProperties{
 				Sid: sid,

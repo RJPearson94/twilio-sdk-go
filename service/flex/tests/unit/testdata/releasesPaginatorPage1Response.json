@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://flex-api.twilio.com/v1/PluginService/Releases?PageSize=50&Page=0",
+    "previous_page_url": "https://flex-api.twilio.com/v1/PluginService/Releases?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://flex-api.twilio.com/v1/PluginService/Releases?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "releases"
+  },
+  "releases": [
+    {
+      "url": "https://flex-api.twilio.com/v1/PluginService/Releases/FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2016-08-01T22:10:40Z",
+      "configuration_sid": "FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "FKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"
+    }
+  ]
+}
