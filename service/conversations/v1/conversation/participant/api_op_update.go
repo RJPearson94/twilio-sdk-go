@@ -33,16 +33,18 @@ type UpdateParticipantMessageBindingResponse struct {
 
 // UpdateParticipantResponse defines the response fields for the updated participant
 type UpdateParticipantResponse struct {
-	AccountSid       string                                   `json:"account_sid"`
-	Attributes       string                                   `json:"attributes"`
-	ConversationSid  string                                   `json:"conversation_sid"`
-	DateCreated      time.Time                                `json:"date_created"`
-	DateUpdated      *time.Time                               `json:"date_updated,omitempty"`
-	Identity         *string                                  `json:"identity,omitempty"`
-	MessagingBinding *UpdateParticipantMessageBindingResponse `json:"messaging_binding,omitempty"`
-	RoleSid          *string                                  `json:"role_sid,omitempty"`
-	Sid              string                                   `json:"sid"`
-	URL              string                                   `json:"url"`
+	AccountSid           string                                   `json:"account_sid"`
+	Attributes           string                                   `json:"attributes"`
+	ConversationSid      string                                   `json:"conversation_sid"`
+	DateCreated          time.Time                                `json:"date_created"`
+	DateUpdated          *time.Time                               `json:"date_updated,omitempty"`
+	Identity             *string                                  `json:"identity,omitempty"`
+	LastReadMessageIndex *int                                     `json:"last_read_message_index,omitempty"`
+	LastReadTimestamp    *time.Time                               `json:"last_read_timestamp,omitempty"`
+	MessagingBinding     *UpdateParticipantMessageBindingResponse `json:"messaging_binding,omitempty"`
+	RoleSid              *string                                  `json:"role_sid,omitempty"`
+	Sid                  string                                   `json:"sid"`
+	URL                  string                                   `json:"url"`
 }
 
 // Update modifies a participant resource

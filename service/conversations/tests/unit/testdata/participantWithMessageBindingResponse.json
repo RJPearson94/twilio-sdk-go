@@ -12,5 +12,7 @@
     "proxy_address": "+19876543210",
     "type": "sms",
     "address": "+10123456789"
-  }
+  },
+  "last_read_message_index": null,
+  "last_read_timestamp": null
 }

@@ -4672,6 +4672,18 @@
           "type": "string",
           "value": "role_sid",
           "required": false
+        },
+        {
+          "name": "LastReadMessageIndex",
+          "type": "int",
+          "value": "last_read_message_index",
+          "required": false
+        },
+        {
+          "name": "LastReadTimestamp",
+          "type": "time.Time",
+          "value": "last_read_timestamp",
+          "required": false
         }
       ]
     },

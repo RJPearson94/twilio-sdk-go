@@ -12,5 +12,7 @@
     "type": "sms",
     "address": "+123456789",
     "proxy_address": "+987654321"
-  }
+  },
+  "last_read_message_index": null,
+  "last_read_timestamp": null
 }

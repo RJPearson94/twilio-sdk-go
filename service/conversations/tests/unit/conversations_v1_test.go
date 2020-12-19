@@ -984,6 +984,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.MessagingBinding).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -1020,13 +1022,13 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(BeNil())
-
-				messagingBinding := participants.CreateParticipantMessageBindingResponse{
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
+				Expect(resp.MessagingBinding).To(Equal(&participants.CreateParticipantMessageBindingResponse{
 					Type:         "sms",
 					Address:      "+123456789",
 					ProxyAddress: "+987654321",
-				}
-				Expect(resp.MessagingBinding).To(Equal(&messagingBinding))
+				}))
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -1101,6 +1103,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(participants[0].RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(participants[0].Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(participants[0].MessagingBinding).To(BeNil())
+				Expect(participants[0].LastReadMessageIndex).To(BeNil())
+				Expect(participants[0].LastReadTimestamp).To(BeNil())
 				Expect(participants[0].Attributes).To(Equal("{}"))
 				Expect(participants[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(participants[0].DateUpdated).To(BeNil())
@@ -1242,6 +1246,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.MessagingBinding).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -1271,6 +1277,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.MessagingBinding).To(Equal(&participant.FetchParticipantMessageBindingResponse{
 					Address:          "+10123456789",
 					ProjectedAddress: nil,
@@ -1331,6 +1339,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.MessagingBinding).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.Attributes).To(Equal("{\"Test\": \"Test\"}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
@@ -1364,6 +1374,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.ConversationSid).To(Equal("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.RoleSid).To(Equal(utils.String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.Identity).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.MessagingBinding).To(Equal(&participant.UpdateParticipantMessageBindingResponse{
 					Type:         "sms",
 					Address:      "+123456789",
@@ -5761,6 +5773,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.MessagingBinding).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -5836,6 +5850,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(participants[0].Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(participants[0].ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(participants[0].MessagingBinding).To(BeNil())
+				Expect(participants[0].LastReadMessageIndex).To(BeNil())
+				Expect(participants[0].LastReadTimestamp).To(BeNil())
 				Expect(participants[0].Attributes).To(Equal("{}"))
 				Expect(participants[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(participants[0].DateUpdated).To(BeNil())
@@ -5978,6 +5994,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.MessagingBinding).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.Attributes).To(Equal("{}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -6033,6 +6051,8 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.Identity).To(Equal(utils.String("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
 				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.MessagingBinding).To(BeNil())
+				Expect(resp.LastReadMessageIndex).To(BeNil())
+				Expect(resp.LastReadTimestamp).To(BeNil())
 				Expect(resp.Attributes).To(Equal("{\"Test\": \"Test\"}"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))

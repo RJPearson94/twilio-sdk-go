@@ -19,7 +19,9 @@
       "sid": "MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
       "attributes": "{}",
       "identity": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      "messaging_binding": null
+      "messaging_binding": null,
+      "last_read_message_index": null,
+      "last_read_timestamp": null
     },
     {
       "date_updated": null,
@@ -31,7 +33,9 @@
       "sid": "MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
       "attributes": "{}",
       "identity": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      "messaging_binding": null
+      "messaging_binding": null,
+      "last_read_message_index": null,
+      "last_read_timestamp": null
     }
   ]
 }

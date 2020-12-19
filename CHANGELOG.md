@@ -16,6 +16,10 @@ FEATURES
 
 - **New Resource:** Dialogue
 
+### Conversations
+
+- Add LastReadMessageIndex and LastReadTimestamp to participant and service participant create, fetch and update response structs
+
 ### Flex
 
 - **New Resource:** Plugin

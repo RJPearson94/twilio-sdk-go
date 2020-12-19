@@ -9,5 +9,7 @@
   "attributes": "{}",
   "identity": "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "messaging_binding": null,
-  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "last_read_message_index": null,
+  "last_read_timestamp": null
 }
