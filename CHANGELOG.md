@@ -31,6 +31,7 @@ FEATURES
 ### TwiML
 
 - **New Attribute:** Add recording track to dial verb
+- **New Attribute:** Add sequential to dial verb
 
 ## v0.8.0 (2020-12-10)
 
