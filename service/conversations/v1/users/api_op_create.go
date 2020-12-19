@@ -26,10 +26,10 @@ type CreateUserResponse struct {
 	DateUpdated    *time.Time `json:"date_updated,omitempty"`
 	FriendlyName   *string    `json:"friendly_name,omitempty"`
 	Identity       string     `json:"identity"`
+	IsNotifiable   *bool      `json:"is_notifiable,omitempty"`
 	IsOnline       *bool      `json:"is_online,omitempty"`
 	RoleSid        string     `json:"role_sid"`
 	Sid            string     `json:"sid"`
-	Type           string     `json:"type"`
 	URL            string     `json:"url"`
 }
 

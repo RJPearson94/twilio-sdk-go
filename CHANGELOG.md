@@ -2,6 +2,10 @@
 
 FIXES
 
+### Conversations
+
+- Remove `Type` response field from user and service user create, fetch and update response structs as this value is not returned from the API **Breaking Change**
+
 ### TwiML
 
 - Rename `DialRecord` attribute to `Record` on dial verb to keep consistency with other Twilio SDKs **Breaking Change**
@@ -10,7 +14,7 @@ FEATURES
 
 ### API
 
-- Add RecordingTrack to call, call recording, conference recording and conference participants input structs
+- Add `RecordingTrack` to call, call recording, conference recording and conference participants input structs
 
 ### Autopilot
 
@@ -18,7 +22,8 @@ FEATURES
 
 ### Conversations
 
-- Add LastReadMessageIndex and LastReadTimestamp to participant and service participant create, fetch and update response structs
+- Add `LastReadMessageIndex` and `LastReadTimestamp` to participant and service participant create, fetch and update response structs
+- Add `IsNotifiable` response field to user and service user create, fetch and update response structs
 
 ### Flex
 

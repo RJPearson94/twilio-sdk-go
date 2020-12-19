@@ -20,7 +20,8 @@
       "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
       "attributes": "{}",
       "identity": "TestUser3",
-      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "isNotifiable": null
     }
   ]
 }

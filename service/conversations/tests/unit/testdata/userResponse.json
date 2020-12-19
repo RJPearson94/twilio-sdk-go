@@ -9,5 +9,6 @@
   "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "attributes": "{}",
   "identity": "TestUser",
-  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "isNotifiable": null
 }

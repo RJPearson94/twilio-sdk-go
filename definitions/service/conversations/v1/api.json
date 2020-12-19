@@ -5314,10 +5314,10 @@
           "required": false
         },
         {
-          "name": "Type",
-          "type": "string",
-          "value": "type",
-          "required": true
+          "name": "IsNotifiable",
+          "type": "bool",
+          "value": "is_notifiable",
+          "required": false
         }
       ]
     },

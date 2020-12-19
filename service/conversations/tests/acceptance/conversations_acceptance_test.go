@@ -581,7 +581,7 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 		})
 	})
 
-	Describe("Given the service user clients", func() {
+	Describe("Given the service role clients", func() {
 
 		var serviceSid string
 

@@ -20,7 +20,8 @@
       "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "attributes": "{}",
       "identity": "TestUser",
-      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "isNotifiable": null
     },
     {
       "date_updated": null,
@@ -33,7 +34,8 @@
       "sid": "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
       "attributes": "{}",
       "identity": "TestUser",
-      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "isNotifiable": null
     }
   ]
 }
