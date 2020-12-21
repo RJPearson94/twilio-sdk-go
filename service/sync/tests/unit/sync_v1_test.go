@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/document"
@@ -33,6 +34,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_stream/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service/sync_streams"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/services"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -46,7 +48,9 @@ var _ = Describe("Sync V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	syncSession := sync.NewWithCredentials(creds).V1
+	syncSession := sync.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(syncSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

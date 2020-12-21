@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/defaults"
@@ -31,6 +32,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistants"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -44,7 +46,9 @@ var _ = Describe("Autopilot V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	autopilotSession := autopilot.NewWithCredentials(creds).V1
+	autopilotSession := autopilot.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(autopilotSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

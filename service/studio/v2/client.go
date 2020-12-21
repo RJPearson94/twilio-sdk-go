@@ -7,7 +7,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow_validation"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Studio client is used to manage resources for Twilio Studio
@@ -41,14 +40,9 @@ func (s Studio) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Studio {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Studio {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Studio {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = true
 	config.SubDomain = "studio"
 	config.APIVersion = "v2"

@@ -1,9 +1,9 @@
 package serverless
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	v1 "github.com/RJPearson94/twilio-sdk-go/service/serverless/v1"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Serverless client is used to manage versioned resources for Twilio Serverless
@@ -13,14 +13,9 @@ type Serverless struct {
 	V1 *v1.Serverless
 }
 
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Serverless {
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, config *client.Config) *Serverless {
 	return &Serverless{
-		V1: v1.New(sess),
+		V1: v1.New(sess, config),
 	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Serverless {
-	return New(session.New(creds))
 }

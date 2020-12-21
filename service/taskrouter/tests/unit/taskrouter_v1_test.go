@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/activities"
@@ -44,6 +45,7 @@ import (
 	workflowStatistics "github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflow/statistics"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspace/workflows"
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter/v1/workspaces"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -57,7 +59,9 @@ var _ = Describe("Taskrouter V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	taskrouterSession := taskrouter.NewWithCredentials(creds).V1
+	taskrouterSession := taskrouter.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(taskrouterSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

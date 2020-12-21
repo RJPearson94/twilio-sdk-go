@@ -6,7 +6,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistant"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot/v1/assistants"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Autopilot client is used to manage resources for Twilio Autopilot
@@ -37,14 +36,9 @@ func (s Autopilot) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Autopilot {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Autopilot {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Autopilot {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = false
 	config.SubDomain = "autopilot"
 	config.APIVersion = "v1"

@@ -6,7 +6,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/sync/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Sync client is used to manage resources for Twilio Sync
@@ -38,14 +37,9 @@ func (s Sync) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Sync {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Sync {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Sync {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = true
 	config.SubDomain = "sync"
 	config.APIVersion = "v1"

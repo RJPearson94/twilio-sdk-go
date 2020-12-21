@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat"
 	v2Credential "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/credential"
 	v2Credentials "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/credentials"
@@ -33,6 +34,7 @@ import (
 	v2UserChannels "github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/user/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/services"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -46,7 +48,9 @@ var _ = Describe("Chat V2", func() {
 		log.Panicf("%s", err)
 	}
 
-	chatSession := chat.NewWithCredentials(creds).V2
+	chatSession := chat.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V2
 
 	httpmock.ActivateNonDefault(chatSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

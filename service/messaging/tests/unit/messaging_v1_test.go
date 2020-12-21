@@ -11,12 +11,14 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/alpha_senders"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_codes"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/services"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -30,7 +32,9 @@ var _ = Describe("Messaging V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	messagingSession := messaging.NewWithCredentials(creds).V1
+	messagingSession := messaging.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(messagingSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

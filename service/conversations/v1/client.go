@@ -16,7 +16,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Conversations client is used to manage resources for Twilio Conversations
@@ -84,14 +83,9 @@ func (s Conversations) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Conversations {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Conversations {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Conversations {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = true
 	config.SubDomain = "conversations"
 	config.APIVersion = "v1"

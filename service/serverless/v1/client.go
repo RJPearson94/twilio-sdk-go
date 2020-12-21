@@ -6,7 +6,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Serverless client is used to manage resources for Twilio Serverless/ Runtime
@@ -37,14 +36,9 @@ func (s Serverless) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Serverless {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Serverless {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Serverless {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = false
 	config.SubDomain = "serverless"
 	config.APIVersion = "v1"

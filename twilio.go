@@ -1,6 +1,7 @@
 package twilio
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat"
@@ -45,24 +46,29 @@ type Twilio struct {
 
 // New create a new instance of the client using session data
 func New(sess *session.Session) *Twilio {
+	return NewWithConfig(sess, nil)
+}
+
+// NewWithConfig create a new instance of the client using session data and config
+func NewWithConfig(sess *session.Session, config *client.Config) *Twilio {
 	return &Twilio{
-		API:           api.New(sess),
-		Autopilot:     autopilot.New(sess),
-		Chat:          chat.New(sess),
-		Conversations: conversations.New(sess),
-		Fax:           fax.New(sess),
-		Flex:          flex.New(sess),
-		Lookups:       lookups.New(sess),
-		Messaging:     messaging.New(sess),
-		Monitor:       monitor.New(sess),
-		Proxy:         proxy.New(sess),
-		Serverless:    serverless.New(sess),
-		Studio:        studio.New(sess),
-		Sync:          sync.New(sess),
-		TaskRouter:    taskrouter.New(sess),
-		Trunking:      trunking.New(sess),
+		API:           api.New(sess, config),
+		Autopilot:     autopilot.New(sess, config),
+		Chat:          chat.New(sess, config),
+		Conversations: conversations.New(sess, config),
+		Fax:           fax.New(sess, config),
+		Flex:          flex.New(sess, config),
+		Lookups:       lookups.New(sess, config),
+		Messaging:     messaging.New(sess, config),
+		Monitor:       monitor.New(sess, config),
+		Proxy:         proxy.New(sess, config),
+		Serverless:    serverless.New(sess, config),
+		Studio:        studio.New(sess, config),
+		Sync:          sync.New(sess, config),
+		TaskRouter:    taskrouter.New(sess, config),
+		Trunking:      trunking.New(sess, config),
 		TwiML:         twiml.New(),
-		Verify:        verify.New(sess),
+		Verify:        verify.New(sess, config),
 	}
 }
 

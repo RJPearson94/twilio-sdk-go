@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/channels"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/configuration"
@@ -24,6 +25,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/plugins"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -37,7 +39,9 @@ var _ = Describe("Flex V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	flexSession := flex.NewWithCredentials(creds).V1
+	flexSession := flex.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(flexSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

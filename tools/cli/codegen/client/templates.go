@@ -3,7 +3,7 @@ package client
 const apiClientContent = `// Package {{ .packageName }} contains auto-generated files. DO NOT MODIFY 
 package {{ .packageName | ToLowerCase }}
 
-import sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials" {{ if .imports }} {{ range $index, $import := .imports }}
+{{ if .imports }} {{ range $index, $import := .imports }}
 import "{{ $import }}" {{ end }} {{ end }}
 
 {{ if .documentation }} // {{ .documentation.description }} {{ if .documentation.twilioDocsLink }} 
@@ -27,14 +27,9 @@ func (s {{ .name | ToCamelCase }}) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *{{ .name | ToCamelCase }} {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *{{ .name | ToCamelCase }} {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *{{ .name | ToCamelCase }} {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = {{ .config.beta }}
 	config.SubDomain = "{{ .config.subDomain }}"
 	config.APIVersion = "{{ .config.apiVersion }}"

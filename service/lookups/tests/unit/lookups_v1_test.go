@@ -10,8 +10,10 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/lookups"
 	"github.com/RJPearson94/twilio-sdk-go/service/lookups/v1/phone_number"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -25,7 +27,9 @@ var _ = Describe("Lookups V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	lookupsSession := lookups.NewWithCredentials(creds).V1
+	lookupsSession := lookups.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(lookupsSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

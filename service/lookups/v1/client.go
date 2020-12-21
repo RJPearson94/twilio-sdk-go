@@ -5,7 +5,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/lookups/v1/phone_number"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Lookups client is used to manage resources for Lookups
@@ -34,14 +33,9 @@ func (s Lookups) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Lookups {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Lookups {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Lookups {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = false
 	config.SubDomain = "lookups"
 	config.APIVersion = "v1"

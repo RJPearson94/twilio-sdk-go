@@ -1,9 +1,9 @@
 package verify
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/verify/v2"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Verify client is used to manage versioned resources for Twilio Verify
@@ -13,14 +13,9 @@ type Verify struct {
 	V2 *v2.Verify
 }
 
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Verify {
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, config *client.Config) *Verify {
 	return &Verify{
-		V2: v2.New(sess),
+		V2: v2.New(sess, config),
 	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Verify {
-	return New(session.New(creds))
 }

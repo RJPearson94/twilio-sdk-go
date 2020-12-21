@@ -1,3 +1,11 @@
+## v0.10.0 (unreleased)
+
+NOTES
+
+- Refactor of internal clients to allow user defined config i.e. enabling debug mode to be more easily passed into the SDK.
+- Remove `NewWithCredentials` functions from api clients **Breaking Change**
+- Add `Config` parameter to New function of each api client **Breaking Change**
+
 ## v0.9.0 (2020-12-20)
 
 FIXES

@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	conversationsClient "github.com/RJPearson94/twilio-sdk-go/service/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration"
 	configurationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/webhook"
@@ -47,6 +48,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/user"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/users"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/webhook"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -60,7 +62,9 @@ var _ = Describe("Conversation V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	conversationsSession := conversationsClient.NewWithCredentials(creds).V1
+	conversationsSession := conversationsClient.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(conversationsSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

@@ -6,7 +6,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Verify client is used to manage resources for Twilio Verify
@@ -37,14 +36,9 @@ func (s Verify) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Verify {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Verify {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Verify {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = false
 	config.SubDomain = "verify"
 	config.APIVersion = "v2"

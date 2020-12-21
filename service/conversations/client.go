@@ -1,9 +1,9 @@
 package conversations
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	v1 "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Conversations client is used to manage versioned resources for Twilio Conversations
@@ -13,14 +13,9 @@ type Conversations struct {
 	V1 *v1.Conversations
 }
 
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Conversations {
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, config *client.Config) *Conversations {
 	return &Conversations{
-		V1: v1.New(sess),
+		V1: v1.New(sess, config),
 	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Conversations {
-	return New(session.New(creds))
 }

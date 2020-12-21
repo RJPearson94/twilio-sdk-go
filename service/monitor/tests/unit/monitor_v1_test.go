@@ -11,9 +11,11 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/alerts"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor/v1/events"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -27,7 +29,9 @@ var _ = Describe("Monitor V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	monitorSession := monitor.NewWithCredentials(creds).V1
+	monitorSession := monitor.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(monitorSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

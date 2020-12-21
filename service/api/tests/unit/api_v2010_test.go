@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/address"
@@ -47,6 +48,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -60,7 +62,9 @@ var _ = Describe("API V2010", func() {
 		log.Panicf("%s", err)
 	}
 
-	apiSession := api.NewWithCredentials(creds).V2010
+	apiSession := api.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V2010
 
 	httpmock.ActivateNonDefault(apiSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

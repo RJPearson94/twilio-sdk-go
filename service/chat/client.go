@@ -1,9 +1,9 @@
 package chat
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/chat/v2"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Chat client is used to manage versioned resources for Programmable Chat
@@ -13,14 +13,9 @@ type Chat struct {
 	V2 *v2.Chat
 }
 
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Chat {
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, config *client.Config) *Chat {
 	return &Chat{
-		V2: v2.New(sess),
+		V2: v2.New(sess, config),
 	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Chat {
-	return New(session.New(creds))
 }

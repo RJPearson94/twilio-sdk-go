@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/phone_number"
@@ -23,6 +24,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/short_code"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/service/short_codes"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy/v1/services"
+	clientSession "github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -36,7 +38,9 @@ var _ = Describe("Proxy V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	proxySession := proxy.NewWithCredentials(creds).V1
+	proxySession := proxy.New(clientSession.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(proxySession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

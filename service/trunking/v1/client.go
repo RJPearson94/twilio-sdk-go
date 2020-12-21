@@ -6,7 +6,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Trunking client is used to manage resources for Twilio SIP Trunking
@@ -38,14 +37,9 @@ func (s Trunking) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Trunking {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Trunking {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Trunking {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = true
 	config.SubDomain = "trunking"
 	config.APIVersion = "v1"

@@ -32,7 +32,7 @@ func (c Client) GetRestyClient() *resty.Client {
 	return c.client
 }
 
-func New(sess *session.Session, config Config) *Client {
+func New(sess *session.Session, config *APIClientConfig) *Client {
 	retryConfig := config.RetryConfig
 	credentials := sess.Credentials
 

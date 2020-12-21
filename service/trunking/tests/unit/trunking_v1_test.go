@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_url"
@@ -19,6 +20,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_numbers"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunks"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -32,7 +34,9 @@ var _ = Describe("Trunking V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	trunkingSession := trunking.NewWithCredentials(creds).V1
+	trunkingSession := trunking.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(trunkingSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

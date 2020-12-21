@@ -17,7 +17,6 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channel"
 	"github.com/RJPearson94/twilio-sdk-go/service/flex/v1/web_channels"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	sessionCredentials "github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Flex client is used to manage resources for Twilio Flex
@@ -90,14 +89,9 @@ func (s Flex) GetClient() *client.Client {
 	return s.client
 }
 
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *sessionCredentials.Credentials) *Flex {
-	return New(session.New(creds))
-}
-
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Flex {
-	config := client.GetDefaultConfig()
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, clientConfig *client.Config) *Flex {
+	config := client.NewAPIClientConfig(clientConfig)
 	config.Beta = false
 	config.SubDomain = "flex-api"
 	config.APIVersion = "v1"

@@ -9,7 +9,7 @@ type Session struct {
 	*credentials.Credentials
 }
 
-// NewWithCredentials creates a new session instance using the credentials supplied
+// New creates a new session instance using the credentials supplied
 func New(creds *credentials.Credentials) *Session {
 	return &Session{
 		Credentials: creds,

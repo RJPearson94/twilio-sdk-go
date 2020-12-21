@@ -1,9 +1,9 @@
 package flex
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	v1 "github.com/RJPearson94/twilio-sdk-go/service/flex/v1"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Flex client is used to manage versioned resources for Twilio Flex
@@ -13,14 +13,9 @@ type Flex struct {
 	V1 *v1.Flex
 }
 
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Flex {
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, config *client.Config) *Flex {
 	return &Flex{
-		V1: v1.New(sess),
+		V1: v1.New(sess, config),
 	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Flex {
-	return New(session.New(creds))
 }

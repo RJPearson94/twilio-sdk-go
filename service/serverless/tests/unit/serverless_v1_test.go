@@ -12,6 +12,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/asset"
@@ -27,6 +28,7 @@ import (
 	functionVersions "github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/function/versions"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/service/functions"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless/v1/services"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -40,7 +42,9 @@ var _ = Describe("Serverless V1", func() {
 		Fail(fmt.Sprintf("%s", err.Error()))
 	}
 
-	serverlessSession := serverless.NewWithCredentials(creds).V1
+	serverlessSession := serverless.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V1
 
 	httpmock.ActivateNonDefault(serverlessSession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()

@@ -18,7 +18,7 @@ import (
 
 var _ = Describe("Client", func() {
 	Describe("Given the client", func() {
-		config := client.Config{
+		apiClientConfig := &client.APIClientConfig{
 			Beta:         false,
 			DebugEnabled: false,
 			RetryConfig: client.RetryConfig{
@@ -34,7 +34,7 @@ var _ = Describe("Client", func() {
 			Password: "Test Password",
 		}
 
-		twilioClient := client.New(session.New(credentials), config)
+		twilioClient := client.New(session.New(credentials), apiClientConfig)
 
 		httpmock.ActivateNonDefault(twilioClient.GetRestyClient().GetClient())
 		defer httpmock.DeactivateAndReset()

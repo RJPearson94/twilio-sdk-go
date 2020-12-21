@@ -1,9 +1,9 @@
 package studio
 
 import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/studio/v2"
 	"github.com/RJPearson94/twilio-sdk-go/session"
-	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
 // Studio client is used to manage versioned resources for Twilio Studio
@@ -13,14 +13,9 @@ type Studio struct {
 	V2 *v2.Studio
 }
 
-// New creates a new instance of the client using session data
-func New(sess *session.Session) *Studio {
+// New creates a new instance of the client using session data and config
+func New(sess *session.Session, config *client.Config) *Studio {
 	return &Studio{
-		V2: v2.New(sess),
+		V2: v2.New(sess, config),
 	}
-}
-
-// NewWithCredentials creates a new instance of the client with credentials
-func NewWithCredentials(creds *credentials.Credentials) *Studio {
-	return New(session.New(creds))
 }

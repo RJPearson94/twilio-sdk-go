@@ -11,6 +11,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
@@ -29,6 +30,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/services"
+	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -42,7 +44,9 @@ var _ = Describe("Verify V2", func() {
 		log.Panicf("%s", err)
 	}
 
-	verifySession := verify.NewWithCredentials(creds).V2
+	verifySession := verify.New(session.New(creds), &client.Config{
+		RetryAttempts: utils.Int(0),
+	}).V2
 
 	httpmock.ActivateNonDefault(verifySession.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()
