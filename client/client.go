@@ -45,7 +45,7 @@ func New(sess *session.Session, config *APIClientConfig) *Client {
 		SetHeader("Accept", "application/json")
 
 	return &Client{
-		baseURL: CreateBaseURL(config.SubDomain, config.APIVersion),
+		baseURL: CreateBaseURL(config.SubDomain, config.APIVersion, config.Edge, config.Region),
 		client:  restyClient,
 	}
 }
@@ -82,7 +82,17 @@ func (c Client) Send(context context.Context, op Operation, input interface{}, o
 	return nil
 }
 
-func CreateBaseURL(subDomain string, apiVersion string) string {
+func CreateBaseURL(subDomain string, apiVersion string, edge *string, region *string) string {
+	if edge != nil {
+		requestRegion := region
+		if region == nil {
+			requestRegion = utils.String("us1")
+		}
+		return fmt.Sprintf("https://%s.%s.%s.twilio.com/%s", subDomain, *edge, *requestRegion, apiVersion)
+	}
+	if region != nil {
+		return fmt.Sprintf("https://%s.%s.twilio.com/%s", subDomain, *region, apiVersion)
+	}
 	return fmt.Sprintf("https://%s.twilio.com/%s", subDomain, apiVersion)
 }
 

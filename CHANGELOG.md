@@ -6,6 +6,11 @@ NOTES
 - Remove `NewWithCredentials` functions from api clients **Breaking Change**
 - Add `Config` parameter to New function of each api client **Breaking Change**
 
+FEATURES
+
+- Add support for edge and region configuration for all api operations except Serverless create asset version and Serverless create function version
+- Default region to `us1` if an edge is specified but the region is nil
+
 ## v0.9.0 (2020-12-20)
 
 FIXES

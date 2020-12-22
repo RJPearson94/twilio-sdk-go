@@ -47,7 +47,7 @@ func (c Client) Create(input *CreateVersionInput) (*CreateVersionResponse, error
 // See https://www.twilio.com/docs/runtime/functions-assets-api/api/asset#create-an-asset-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateVersionInput) (*CreateVersionResponse, error) {
 	op := client.Operation{
-		OverrideBaseURL: utils.String(client.CreateBaseURL("serverless-upload", "v1")),
+		OverrideBaseURL: utils.String(client.CreateBaseURL("serverless-upload", "v1", nil, nil)),
 		Method:          http.MethodPost,
 		URI:             "/Services/{serviceSid}/Assets/{assetSid}/Versions",
 		ContentType:     client.FormData,

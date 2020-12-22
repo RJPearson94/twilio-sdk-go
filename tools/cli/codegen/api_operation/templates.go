@@ -162,7 +162,7 @@ func (p *{{ .pagination.name }}) NextWithContext(context context.Context) bool {
 `
 
 const overrideBaseURL = `{{if .http.overrides}} 
-OverrideBaseURL: utils.String(client.CreateBaseURL("{{ .http.overrides.subDomain }}", "{{ .http.overrides.apiVersion }}")),{{ end }}`
+OverrideBaseURL: utils.String(client.CreateBaseURL("{{ .http.overrides.subDomain }}", "{{ .http.overrides.apiVersion }}", nil, nil)),{{ end }}`
 
 const addContentType = `{{ if .input }} 
 ContentType: client.{{ .input.type }},{{ end }}`

@@ -4,12 +4,14 @@ import (
 	"time"
 )
 
-// Config is the user defined configuration for the Twilio Client. This can be used to enable debugging, configuring the number of retry attempts
-// and setting the time in milliseconds between retry attempts
+// Config is the user defined configuration for the Twilio Client. This can be used to enable debugging, configuring the number of retry attempts,
+// setting the time in milliseconds between retry attempts, edge location and region details
 type Config struct {
-	RetryAttempts   *int
 	BackoffInterval *int
 	DebugEnabled    *bool
+	Edge            *string
+	Region          *string
+	RetryAttempts   *int
 }
 
 // RetryConfig defines the retry configuration for the HTTP client
@@ -23,6 +25,8 @@ type APIClientConfig struct {
 	APIVersion   string
 	Beta         bool
 	DebugEnabled bool
+	Edge         *string
+	Region       *string
 	RetryConfig  RetryConfig
 	SubDomain    string
 }
@@ -38,6 +42,9 @@ func NewAPIClientConfig(config *Config) *APIClientConfig {
 	}
 
 	if config != nil {
+		apiClientConfig.Edge = config.Edge
+		apiClientConfig.Region = config.Region
+
 		if config.DebugEnabled != nil {
 			apiClientConfig.DebugEnabled = *config.DebugEnabled
 		}
