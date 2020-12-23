@@ -18,11 +18,88 @@ This SDK is designed to allow you to interact with Twilio API's using Golang.
 
 ## Documentation
 
-The code is documented contains `go doc` style documentation with links to the relevant Twilio API documentation/ guides where appropriate.
+The code uses `go doc` style documentation with links to the relevant Twilio API documentation/ guides where appropriate.
 
 ## Examples
 
 Example code snippets for all of the supported services & resources can be found [here](./examples)
+
+## Initialising the Twilio Client
+
+There are many ways to initialise and configure the Twilio Client. See below for examples:
+
+### With Credentials
+
+```go
+creds, err := credentials.New(credentials.Account{
+    Sid:       os.Getenv("TWILIO_ACCOUNT_SID"),
+    AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
+})
+if err != nil {
+    log.Panicf("%s", err.Error())
+}
+
+twilioClient := twilio.NewWithCredentials(creds)
+```
+
+### With Session
+
+```go
+creds, err := credentials.New(credentials.Account{
+    Sid:       os.Getenv("TWILIO_ACCOUNT_SID"),
+    AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
+})
+if err != nil {
+    log.Panicf("%s", err.Error())
+}
+
+twilioClient := twilio.New(session.New(creds))
+```
+
+### With Session & Config
+
+The Twilio Client allows the user to supply configuration to alter the default behaviour of the SDK.
+
+The SDK supports the following configuration:
+
+- BackoffInterval - The time taken in milliseconds between retries
+- DebugEnabled - This logs out the request and response details for each call to the Twilio API
+- Edge - Specify a public edge or private interconnect to connect to Twilio via. See [Global Infrastructure - Edge Locations](https://www.twilio.com/docs/global-infrastructure/edge-locations) for more information
+- Region - Specify a public region or private interconnect region to connect to Twilio via. See [Global Infrastructure - Legacy Regions](https://www.twilio.com/docs/global-infrastructure/edge-locations/legacy-regions) for more information
+- RetryAttempts - The number of retry attempts before an error is returned
+
+#### Enabling debug mode
+
+```go
+creds, err := credentials.New(credentials.Account{
+    Sid:       os.Getenv("TWILIO_ACCOUNT_SID"),
+    AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
+})
+if err != nil {
+    log.Panicf("%s", err.Error())
+}
+
+twilioClient := twilio.New(session.New(creds), &client.Config{
+   DebugEnabled: true,
+})
+```
+
+#### Specifying Edge & Region configuration
+
+```go
+creds, err := credentials.New(credentials.Account{
+    Sid:       os.Getenv("TWILIO_ACCOUNT_SID"),
+    AuthToken: os.Getenv("TWILIO_AUTH_TOKEN"),
+})
+if err != nil {
+    log.Panicf("%s", err.Error())
+}
+
+twilioClient := twilio.New(session.New(creds), &client.Config{
+    Edge:       utils.String("dublin"),
+    Region:     utils.String("ie1"),
+})
+```
 
 ## Used By
 
