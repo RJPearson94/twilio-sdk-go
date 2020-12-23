@@ -6,12 +6,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
+	"runtime"
 
-	apiclient "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/api_client"
-	apioperation "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/api_operation"
-	client "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/client"
+	apiclient "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/api_client"
+	apioperation "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/api_operation"
+	client "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/client"
 
 	"github.com/iancoleman/strcase"
+	"github.com/santhosh-tekuri/jsonschema/v2"
 )
 
 func main() {
@@ -28,9 +31,17 @@ func main() {
 
 	flag.Parse()
 
+	_, filename, _, _ := runtime.Caller(0)
+	schema, _ := jsonschema.Compile(fmt.Sprintf("%s/schema.json", path.Dir(filename)))
 	fixture, _ := ioutil.ReadFile(fmt.Sprintf("%s/api.json", definitionPath))
+
 	var api map[string]interface{}
 	json.Unmarshal(fixture, &api)
+
+	if err := schema.ValidateInterface(api); err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	if err := translateAndGenerateClient(outputPath, api); err != nil {
 		fmt.Println(err)

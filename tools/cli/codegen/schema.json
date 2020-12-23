@@ -1,0 +1,477 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Service Definition Schema",
+  "description": "The service definition schema is the definition which all api.json files must comply with in order to be generated via the codegen tooling",
+  "required": [
+    "packageName",
+    "name",
+    "documentation",
+    "config",
+    "subClients",
+    "structures"
+  ],
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "title": "The package name",
+      "description": "The name of the package which the client or operation is apart of"
+    },
+    "name": {
+      "type": "string",
+      "title": "The client name",
+      "description": "The name of the client"
+    },
+    "documentation": {
+      "type": "object",
+      "title": "The client or api operation documentation",
+      "description": "The documentation which is included with the client or api operation",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "title": "The client description",
+          "description": "A description of the client"
+        },
+        "twilioDocsLink": {
+          "type": "string",
+          "title": "Twilio documentation link",
+          "description": "A link to the Twilio documentation"
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "title": "The client configuration",
+      "description": "The configuration for the client",
+      "required": ["beta", "subDomain", "apiVersion"],
+      "properties": {
+        "beta": {
+          "type": "boolean",
+          "title": "Is the client in beta",
+          "description": "Whether the client and api operation are currently in beta"
+        },
+        "subDomain": {
+          "type": "string",
+          "title": "Twilio subdomain",
+          "description": "Twilio subdomain for the client"
+        },
+        "apiVersion": {
+          "type": "string",
+          "title": "Twilio api version",
+          "description": "Version of the Twilio API the client uses"
+        }
+      }
+    },
+    "subClients": {
+      "type": "array",
+      "title": "Array of service sub clients",
+      "description": "An array of sub clients for the service",
+      "items": {
+        "type": "object",
+        "title": "Service sub client",
+        "description": "Sub clients for the service",
+        "required": ["packageName", "name", "documentation", "operations"],
+        "properties": {
+          "packageName": {
+            "$ref": "#/properties/packageName"
+          },
+          "name": {
+            "$ref": "#/properties/name"
+          },
+          "documentation": {
+            "$ref": "#/properties/documentation"
+          },
+          "subClients": {
+            "$ref": "#/properties/subClients"
+          },
+          "function": {
+            "type": "object",
+            "title": "Function configuration",
+            "description": "Whether the parent client should include a function to initialise the sub client",
+            "required": ["parameters"],
+            "properties": {
+              "parameters": {
+                "type": "object",
+                "title": "The function parameters",
+                "description": "The function parameters which need to be supplied to initialise the sub client",
+                "patternProperties": {
+                  ".{1,}": {
+                    "type": "object",
+                    "required": ["dataType"],
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "title": "The property data type",
+                        "description": "The property data type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "properties": {
+            "type": "object",
+            "title": "The client fields",
+            "description": "A map of fields to include on the client",
+            "patternProperties": {
+              ".{1,}": {
+                "type": "object",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": ["dataType", "parentProperty"],
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "title": "The property data type",
+                        "description": "The property data type"
+                      },
+                      "parentProperty": {
+                        "type": "string",
+                        "title": "The parent property name",
+                        "description": "The name of the parent property used to set the field"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": ["dataType", "functionParameter"],
+                    "properties": {
+                      "dataType": {
+                        "type": "string",
+                        "title": "The property data type",
+                        "description": "The property data type"
+                      },
+                      "functionParameter": {
+                        "type": "string",
+                        "title": "The function parameter",
+                        "description": "The name of the function parameter used to set the field"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "operations": {
+            "type": "array",
+            "title": "Array of API operations",
+            "description": "An array of API operations",
+            "items": {
+              "type": "object",
+              "required": ["name", "http", "documentation"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "API operation name",
+                  "description": "The name of the API operation"
+                },
+                "http": {
+                  "type": "object",
+                  "title": "The HTTP client configuration",
+                  "description": "The configuration for the HTTP client",
+                  "required": ["uri", "method"],
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "title": "The operation URI",
+                      "description": "The URI of the operation"
+                    },
+                    "method": {
+                      "type": "string",
+                      "title": "HTTP method",
+                      "description": "The HTTP method to call the Twilio API with"
+                    },
+                    "pathParams": {
+                      "type": "array",
+                      "title": "Path parameters array",
+                      "description": "Array of path parameters",
+                      "items": {
+                        "type": "object",
+                        "required": ["name", "value"],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "title": "Path parameter name",
+                            "description": "The name of the path parameter"
+                          },
+                          "value": {
+                            "type": "object",
+                            "title": "Path parameter value",
+                            "description": "Path parameter value configuration",
+                            "required": ["onService", "property", "type"],
+                            "properties": {
+                              "onService": {
+                                "type": "boolean",
+                                "title": "Path parameter on parent client",
+                                "description": "Whether the path parameter is on the parent client"
+                              },
+                              "property": {
+                                "type": "string",
+                                "title": "Name of path parameter property/ field",
+                                "description": "Name of path parameter property/ field"
+                              },
+                              "type": {
+                                "type": "string",
+                                "title": "Path parameter data type",
+                                "description": "The data type of the path parameter"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "queryParams": {
+                      "type": "array",
+                      "title": "Query string parameters array",
+                      "description": "Array of query string parameters which can be included in the API call",
+                      "items": {
+                        "type": "object",
+                        "title": "Query string parameter configuration",
+                        "description": "Query string parameter configuration",
+                        "required": ["name", "type", "required"],
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "title": "Query string parameter name",
+                            "description": "The name of the query string parameter"
+                          },
+                          "type": {
+                            "type": "string",
+                            "title": "Query string parameter data type",
+                            "description": "The data type of the query string parameter"
+                          },
+                          "required": {
+                            "type": "boolean",
+                            "title": "Required query string parameter",
+                            "description": "Whether the query string parameter is required"
+                          }
+                        }
+                      }
+                    },
+                    "overrides": {
+                      "type": "object",
+                      "title": "HTTP override configuration",
+                      "description": "Override client base url",
+                      "required": ["subDomain", "apiVersion"],
+                      "properties": {
+                        "subDomain": {
+                          "type": "string",
+                          "title": "Twilio subdomain",
+                          "description": "Twilio subdomain for the API operation"
+                        },
+                        "apiVersion": {
+                          "type": "string",
+                          "title": "Twilio api version",
+                          "description": "Version of the Twilio API the API operation uses"
+                        }
+                      }
+                    }
+                  }
+                },
+                "documentation": {
+                  "$ref": "#/properties/documentation"
+                },
+                "input": {
+                  "type": "object",
+                  "title": "Input struct configuration",
+                  "description": "The configuration for the input struct",
+                  "required": ["structure", "documentation"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Struct name override",
+                      "description": "The name override of the input struct, if this is not supplied the structure name is prefixed with the operation name"
+                    },
+                    "structure": {
+                      "type": "string",
+                      "title": "Structure reference",
+                      "description": "The reference to a structure"
+                    },
+                    "documentation": {
+                      "$ref": "#/properties/documentation"
+                    }
+                  }
+                },
+                "response": {
+                  "type": "object",
+                  "title": "Response struct configuration",
+                  "description": "The configuration for the response struct",
+                  "required": ["structure", "documentation"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Struct name override",
+                      "description": "The name override of the response struct, if this is not supplied the structure name is prefixed with the operation name"
+                    },
+                    "structure": {
+                      "type": "string",
+                      "title": "Structure reference",
+                      "description": "The reference to a structure"
+                    },
+                    "documentation": {
+                      "$ref": "#/properties/documentation"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "structures": {
+      "type": "object",
+      "title": "The map of structure",
+      "description": "The map of input and response structures",
+      "patternProperties": {
+        ".{1,}": {
+          "type": "object",
+          "required": ["type", "properties"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "title": "The input or response format type",
+              "description": "The input or response format type"
+            },
+            "properties": {
+              "type": "array",
+              "title": "Input or response fields",
+              "description": "Array of input or response fields",
+              "items": {
+                "type": "object",
+                "title": "Input or response field",
+                "description": "Input or response field configuration",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": ["name", "type", "value", "required"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "title": "Field name",
+                        "description": "The name of the field"
+                      },
+                      "type": {
+                        "type": "string",
+                        "title": "Field data type",
+                        "description": "The data type of the field",
+                        "not": {
+                          "enum": ["map", "array"]
+                        }
+                      },
+                      "value": {
+                        "type": "string",
+                        "title": "API mapping value",
+                        "description": "API mapping for the field"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "title": "Required field",
+                        "description": "Whether the field is required"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": ["name", "structure", "value", "required"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "title": "Field name",
+                        "description": "The name of the field"
+                      },
+                      "structure": {
+                        "type": "string",
+                        "title": "Structure reference",
+                        "description": "The reference to another structure"
+                      },
+                      "structureName": {
+                        "type": "string",
+                        "title": "Structure name override",
+                        "description": "Override the name of the structure"
+                      },
+                      "value": {
+                        "type": "string",
+                        "title": "API mapping value",
+                        "description": "API mapping for the field"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "title": "Required field",
+                        "description": "Whether the field is required"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": ["name", "type", "items", "value", "required"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "title": "Field name",
+                        "description": "The name of the field"
+                      },
+                      "type": {
+                        "type": "string",
+                        "title": "Field data type",
+                        "description": "The data type of the field",
+                        "enum": ["map", "array"]
+                      },
+                      "items": {
+                        "type": "object",
+                        "title": "The structure of each item",
+                        "description": "The structure of each item in the array",
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "required": ["type"],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "title": "Field data type",
+                                "description": "The data type of the field"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "required": ["structure"],
+                            "properties": {
+                              "structure": {
+                                "type": "string",
+                                "title": "Structure reference",
+                                "description": "The reference to another structure"
+                              },
+                              "structureName": {
+                                "type": "string",
+                                "title": "Structure name override",
+                                "description": "Override the name of the structure"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "value": {
+                        "type": "string",
+                        "title": "API mapping value",
+                        "description": "API mapping for the field"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "title": "Required field",
+                        "description": "Whether the field is required"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

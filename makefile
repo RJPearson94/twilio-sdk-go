@@ -21,6 +21,7 @@ fmt:
 
 tools:
 	@echo "==> installing required tooling..."
+	cd tools && go mod vendor
 	GO111MODULE=off go get -u golang.org/x/tools/cmd/goimports
 	GO111MODULE=off go get -u github.com/client9/misspell/cmd/misspell
 	GO111MODULE=off go get -u github.com/gordonklaus/ineffassign
@@ -40,8 +41,7 @@ generate:
 generate-service-api-version:
 	@echo "==> regenerating $(SERVICE) $(API_VERSION)"
 	rm -rf ./service/$(SERVICE)/$(API_VERSION)
-	go run ./tools/cli/codegen --definition ./definitions/service/$(SERVICE)/$(API_VERSION) --target ./service/$(SERVICE)/$(API_VERSION)
+	cd tools && go run ./cli/codegen --definition ../definitions/service/$(SERVICE)/$(API_VERSION) --target ../service/$(SERVICE)/$(API_VERSION)
 	goimports -w ./service/$(SERVICE)/$(API_VERSION)
-
 
 .PHONY: download build test fmt tools generate generate-service-api-version reportcard goreportcard-refresh

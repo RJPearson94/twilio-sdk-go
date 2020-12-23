@@ -556,7 +556,9 @@
         {
           "name": "Recording",
           "packageName": "recording",
-          "function": {},
+          "function": {
+            "parameters": {}
+          },
           "properties": {
             "trunkSid": {
               "dataType": "string",

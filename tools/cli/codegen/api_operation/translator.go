@@ -4,7 +4,6 @@ import (
 	"sort"
 
 	"github.com/Jeffail/gabs/v2"
-	"github.com/RJPearson94/twilio-sdk-go/utils"
 	"github.com/iancoleman/strcase"
 )
 
@@ -35,7 +34,7 @@ func Translate(content []byte) (*interface{}, error) {
 	if jsonParsed.Exists("input") {
 		inputStructure := mapStructure(jsonParsed.Path("input"), apiOperationName, structures)
 		inputName := inputStructure.Path("name").Data().(string)
-		structPrefix = utils.String(inputName[0 : len(inputName)-len("input")])
+		structPrefix = toPointer(inputName[0 : len(inputName)-len("input")])
 
 		response.Set(inputStructure.Data(), "input")
 	}
@@ -43,7 +42,7 @@ func Translate(content []byte) (*interface{}, error) {
 	if jsonParsed.Exists("response") {
 		responseStructure := mapStructure(jsonParsed.Path("response"), apiOperationName, structures)
 		responseName := responseStructure.Path("name").Data().(string)
-		structPrefix = utils.String(responseName[0 : len(responseName)-len("response")])
+		structPrefix = toPointer(responseName[0 : len(responseName)-len("response")])
 
 		response.Set(responseStructure.Data(), "response")
 	}
@@ -113,7 +112,7 @@ func mapOptions(structure *gabs.Container, name string, packageName string, stru
 	structureResponse := gabs.New()
 
 	if structPrefix == nil {
-		structPrefix = utils.String(strcase.ToCamel(packageName) + name)
+		structPrefix = toPointer(strcase.ToCamel(packageName) + name)
 	}
 
 	structureResponse.Set(*structPrefix+"Options", "name")
@@ -241,4 +240,8 @@ func sortArrayByName(array []interface{}) {
 	sort.Slice(array[:], func(i, j int) bool {
 		return array[i].(map[string]interface{})["name"].(string) < array[j].(map[string]interface{})["name"].(string)
 	})
+}
+
+func toPointer(str string) *string {
+	return &str
 }

@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	apiclient "github.com/RJPearson94/twilio-sdk-go/tools/cli/codegen/api_client"
+	apiclient "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/api_client"
 )
 
 var _ = Describe("API Client CodeGen", func() {
