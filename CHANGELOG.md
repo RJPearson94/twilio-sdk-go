@@ -1,3 +1,10 @@
+## v0.11.0 (unreleased)
+
+### Conversations
+
+- Add `ReachabilityEnabled` response field to service configuration  fetch and update response structs
+- Add `ReachabilityEnabled` input field to service configuration update input structs
+
 ## v0.10.0 (2020-12-23)
 
 NOTES

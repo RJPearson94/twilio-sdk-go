@@ -5413,6 +5413,12 @@
           "type": "string",
           "value": "DefaultChatServiceRoleSid",
           "required": false
+        },
+        {
+          "name": "ReachabilityEnabled",
+          "type": "bool",
+          "value": "ReachabilityEnabled",
+          "required": false
         }
       ]
     },
@@ -5441,6 +5447,12 @@
           "name": "DefaultChatServiceRoleSid",
           "type": "string",
           "value": "default_chat_service_role_sid",
+          "required": true
+        },
+        {
+          "name": "ReachabilityEnabled",
+          "type": "bool",
+          "value": "reachability_enabled",
           "required": true
         },
         {

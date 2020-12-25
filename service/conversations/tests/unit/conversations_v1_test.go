@@ -3285,6 +3285,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.DefaultConversationRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"))
 				Expect(resp.DefaultConversationCreatorRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"))
 				Expect(resp.DefaultChatServiceRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ReachabilityEnabled).To(Equal(false))
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration"))
 			})
 		})
@@ -3332,6 +3333,7 @@ var _ = Describe("Conversation V1", func() {
 				Expect(resp.DefaultConversationRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2"))
 				Expect(resp.DefaultConversationCreatorRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3"))
 				Expect(resp.DefaultChatServiceRoleSid).To(Equal("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ReachabilityEnabled).To(Equal(false))
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration"))
 			})
 		})
@@ -3379,7 +3381,24 @@ var _ = Describe("Conversation V1", func() {
 
 			It("Then the get notification response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
-
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ChatServiceSid).To(Equal("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.NewMessage).To(Equal(notification.FetchNotificationNewMessageResponse{
+					Enabled:           false,
+					BadgeCountEnabled: nil,
+					Sound:             nil,
+					Template:          nil,
+				}))
+				Expect(resp.AddedToConversation).To(Equal(notification.FetchNotificationConversationActionResponse{
+					Enabled:  false,
+					Sound:    nil,
+					Template: nil,
+				}))
+				Expect(resp.RemovedFromConversation).To(Equal(notification.FetchNotificationConversationActionResponse{
+					Enabled:  false,
+					Sound:    nil,
+					Template: nil,
+				}))
 				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Configuration/Notifications"))
 			})
 		})
