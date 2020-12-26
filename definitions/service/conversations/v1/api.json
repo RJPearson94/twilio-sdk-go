@@ -4113,6 +4113,12 @@
           "required": false
         },
         {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
           "name": "DateCreated",
           "type": "utils.RFC2822Time",
           "value": "DateCreated",
@@ -4207,6 +4213,12 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
           "required": false
         },
         {

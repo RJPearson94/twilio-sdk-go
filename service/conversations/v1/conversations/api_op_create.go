@@ -24,6 +24,7 @@ type CreateConversationInput struct {
 	MessagingServiceSid *string                        `form:"MessagingServiceSid,omitempty"`
 	State               *string                        `form:"State,omitempty"`
 	Timers              *CreateConversationTimersInput `form:"Timers,omitempty"`
+	UniqueName          *string                        `form:"UniqueName,omitempty"`
 }
 
 type CreateConversationTimersResponse struct {
@@ -44,6 +45,7 @@ type CreateConversationResponse struct {
 	State               string                           `json:"state"`
 	Timers              CreateConversationTimersResponse `json:"timers"`
 	URL                 string                           `json:"url"`
+	UniqueName          *string                          `json:"unique_name,omitempty"`
 }
 
 // Create creates a new conversation

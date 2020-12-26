@@ -12,6 +12,7 @@
     {
       "date_updated": null,
       "friendly_name": "Test",
+      "unique_name": null,
       "timers": {},
       "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "url": "https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",

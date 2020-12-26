@@ -31,6 +31,7 @@ type PageConversationResponse struct {
 	State               string                         `json:"state"`
 	Timers              PageConversationTimersResponse `json:"timers"`
 	URL                 string                         `json:"url"`
+	UniqueName          *string                        `json:"unique_name,omitempty"`
 }
 
 type PageConversationTimersResponse struct {

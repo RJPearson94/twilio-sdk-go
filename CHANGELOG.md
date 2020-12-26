@@ -2,8 +2,10 @@
 
 ### Conversations
 
-- Add `ReachabilityEnabled` response field to service configuration  fetch and update response structs
+- Add `ReachabilityEnabled` response field to service configuration fetch and update response structs
 - Add `ReachabilityEnabled` input field to service configuration update input structs
+- Add `UniqueName` response field to conversation & service conversation create, fetch and update response structs
+- Add `UniqueName` input field to conversation & service conversation create and update input structs
 
 ## v0.10.0 (2020-12-23)
 

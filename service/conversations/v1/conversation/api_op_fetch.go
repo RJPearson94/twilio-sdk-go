@@ -27,6 +27,7 @@ type FetchConversationResponse struct {
 	State               string                          `json:"state"`
 	Timers              FetchConversationTimersResponse `json:"timers"`
 	URL                 string                          `json:"url"`
+	UniqueName          *string                         `json:"unique_name,omitempty"`
 }
 
 // Fetch retrieves a conversation resource

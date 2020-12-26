@@ -24,6 +24,7 @@ type UpdateConversationInput struct {
 	MessagingServiceSid *string                        `form:"MessagingServiceSid,omitempty"`
 	State               *string                        `form:"State,omitempty"`
 	Timers              *UpdateConversationTimersInput `form:"Timers,omitempty"`
+	UniqueName          *string                        `form:"UniqueName,omitempty"`
 }
 
 type UpdateConversationTimersResponse struct {
@@ -44,6 +45,7 @@ type UpdateConversationResponse struct {
 	State               string                           `json:"state"`
 	Timers              UpdateConversationTimersResponse `json:"timers"`
 	URL                 string                           `json:"url"`
+	UniqueName          *string                          `json:"unique_name,omitempty"`
 }
 
 // Update modifies a conversation resource

@@ -1,6 +1,7 @@
 {
   "date_updated": "2020-06-20T20:55:24Z",
   "friendly_name": "Test 2",
+  "unique_name": null,
   "timers": {
     "date_closed": "2020-06-20T21:00:24Z",
     "date_inactive": "2020-06-20T20:51:24Z"
