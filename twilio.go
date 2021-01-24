@@ -11,6 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/lookups"
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging"
 	"github.com/RJPearson94/twilio-sdk-go/service/monitor"
+	"github.com/RJPearson94/twilio-sdk-go/service/notify"
 	"github.com/RJPearson94/twilio-sdk-go/service/proxy"
 	"github.com/RJPearson94/twilio-sdk-go/service/serverless"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio"
@@ -34,6 +35,7 @@ type Twilio struct {
 	Lookups       *lookups.Lookups
 	Messaging     *messaging.Messaging
 	Monitor       *monitor.Monitor
+	Notify        *notify.Notify
 	Proxy         *proxy.Proxy
 	Serverless    *serverless.Serverless
 	Studio        *studio.Studio
@@ -61,6 +63,7 @@ func NewWithConfig(sess *session.Session, config *client.Config) *Twilio {
 		Lookups:       lookups.New(sess, config),
 		Messaging:     messaging.New(sess, config),
 		Monitor:       monitor.New(sess, config),
+		Notify:        notify.New(sess, config),
 		Proxy:         proxy.New(sess, config),
 		Serverless:    serverless.New(sess, config),
 		Studio:        studio.New(sess, config),

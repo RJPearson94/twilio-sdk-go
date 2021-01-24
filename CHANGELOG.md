@@ -1,3 +1,18 @@
+## v0.12.0 (unreleased)
+
+NOTES
+
+New notify resources do not support Twilio deprecated channels (Alexa & Facebook Messenger), Twilio deprecated resources i.e. segments, etc. and Google Cloud Messaging (GCM) which is a deprecated by Google
+
+FEATURES
+
+### Notify
+
+- **New Resource:** Service
+- **New Resource:** Credentials
+- **New Resource:** Bindings
+- **New Resource:** Notification
+
 ## v0.11.0 (2021-01-23)
 
 ### Conversations

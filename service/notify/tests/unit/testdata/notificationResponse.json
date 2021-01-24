@@ -1,0 +1,18 @@
+{
+  "body": "Hello World",
+  "sound": null,
+  "sms": null,
+  "tags": [],
+  "title": null,
+  "ttl": 2419200,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "priority": "high",
+  "apn": null,
+  "data": null,
+  "sid": "NTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "action": null,
+  "date_created": "2021-01-24T01:56:08Z",
+  "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "identities": [],
+  "fcm": null
+}

@@ -11,7 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/service/short_codes"
 )
 
-// Client for managing a specific messaging resource
+// Client for managing a specific service resource
 // See https://www.twilio.com/docs/sms/services/api for more details
 type Client struct {
 	client *client.Client

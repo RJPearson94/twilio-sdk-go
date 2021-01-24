@@ -1,0 +1,20 @@
+{
+  "delivery_callback_url": null,
+  "default_apn_notification_protocol_version": "4",
+  "fcm_credential_sid": null,
+  "default_fcm_notification_protocol_version": "3",
+  "date_updated": null,
+  "apn_credential_sid": null,
+  "friendly_name": null,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "messaging_service_sid": null,
+  "url": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2021-01-24T01:56:08Z",
+  "delivery_callback_enabled": false,
+  "log_enabled": true,
+  "links": {
+    "notifications": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications",
+    "bindings": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings"
+  }
+}

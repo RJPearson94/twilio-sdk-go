@@ -1,0 +1,1288 @@
+{
+  "packageName": "v1",
+  "name": "Notify",
+  "documentation": {
+    "description": "Notify client is used to manage resources for Twilio Notify",
+    "twilioDocsLink": "https://www.twilio.com/docs/notify"
+  },
+  "config": {
+    "beta": false,
+    "subDomain": "notify",
+    "apiVersion": "v1"
+  },
+  "subClients": [
+    {
+      "name": "Services",
+      "packageName": "services",
+      "documentation": {
+        "description": "Client for managing service resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Services",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new service",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource#create-a-service-resource"
+          },
+          "input": {
+            "name": "CreateServiceInput",
+            "structure": "ServiceInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new service resource"
+            }
+          },
+          "response": {
+            "name": "CreateServiceResponse",
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the created service"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Services",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of services",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource#read-multiple-service-resources"
+          },
+          "response": {
+            "structure": "ServicesPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the services page"
+            }
+          },
+          "pagination": {
+            "name": "ServicesPaginator",
+            "page": {
+              "name": "ServicesPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Services",
+              "structure": "PageServiceResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "packageName": "service",
+      "function": {
+        "parameters": {
+          "serviceSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "serviceSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific service resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource"
+      },
+      "subClients": [
+        {
+          "name": "Bindings",
+          "packageName": "bindings",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing service bindings resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/binding-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a service binding resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/notify/api/binding-resource#create-a-binding-resource"
+              },
+              "input": {
+                "structure": "CreateBindingInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new service binding"
+                }
+              },
+              "response": {
+                "name": "CreateBindingResponse",
+                "structure": "BindingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved service binding"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of service bindings",
+                "twilioDocsLink": "https://www.twilio.com/docs/notify/api/binding-resource#read-multiple-binding-resources"
+              },
+              "response": {
+                "structure": "BindingsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the service bindings page"
+                }
+              },
+              "pagination": {
+                "name": "BindingsPaginator",
+                "page": {
+                  "name": "BindingsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Bindings",
+                  "structure": "PageBindingResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Binding",
+          "packageName": "binding",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "bindingSid"
+            }
+          },
+          "function": {
+            "parameters": {
+              "bindingSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific service binding resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/binding-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a service binding resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/notify/api/binding-resource#fetch-a-binding-resource"
+              },
+              "response": {
+                "name": "FetchBindingResponse",
+                "structure": "BindingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved service binding"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/Bindings/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a service binding resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/notify/api/binding-resource#delete-a-binding-resource"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Notifications",
+          "packageName": "notifications",
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing service notification resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/notification-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/Notifications",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a service notification resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/notify/api/notification-resource#create-a-notification-resource"
+              },
+              "input": {
+                "structure": "CreateNotificationInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new service notification"
+                }
+              },
+              "response": {
+                "name": "CreateNotificationResponse",
+                "structure": "NotificationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved service notification"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource#fetch-a-service-resource"
+          },
+          "response": {
+            "name": "FetchServiceResponse",
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved service"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a service resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource#update-a-service-resource"
+          },
+          "input": {
+            "name": "UpdateServiceInput",
+            "structure": "ServiceInput",
+            "documentation": {
+              "description": "defines input fields for updating a service resource"
+            }
+          },
+          "response": {
+            "name": "UpdateServiceResponse",
+            "structure": "ServiceResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated service"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Services/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a service resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/service-resource#delete-a-service-resource"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Credentials",
+      "packageName": "credentials",
+      "documentation": {
+        "description": "Client for managing credential resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Credentials",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "creates a new credential",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource#create-a-credential-resource"
+          },
+          "input": {
+            "structure": "CreateCredentialInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new credential resource"
+            }
+          },
+          "response": {
+            "name": "CreateCredentialResponse",
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the created credential"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Credentials",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of credentials",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource#read-multiple-credential-resources"
+          },
+          "response": {
+            "structure": "CredentialsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the credentials page"
+            }
+          },
+          "pagination": {
+            "name": "CredentialsPaginator",
+            "page": {
+              "name": "CredentialsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Credentials",
+              "structure": "PageCredentialResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Credential",
+      "packageName": "credential",
+      "function": {
+        "parameters": {
+          "credentialSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "credentialSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific role resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Credentials/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a credential resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource#fetch-a-credential-resource"
+          },
+          "response": {
+            "name": "FetchCredentialResponse",
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved credential"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Credentials/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a credentials resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource#update-a-credential-resource"
+          },
+          "input": {
+            "name": "UpdateCredentialInput",
+            "structure": "CredentialInput",
+            "documentation": {
+              "description": "defines input fields for updating a credential resource"
+            }
+          },
+          "response": {
+            "name": "UpdateCredentialResponse",
+            "structure": "CredentialResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated credential"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Credentials/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a credentials resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/notify/api/credential-resource#delete-a-credential-resource"
+          }
+        }
+      ]
+    }
+  ],
+  "structures": {
+    "ServiceInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "APNCredentialSid",
+          "type": "string",
+          "value": "ApnCredentialSid",
+          "required": false
+        },
+        {
+          "name": "DefaultAPNNotificationProtocolVersion",
+          "type": "string",
+          "value": "DefaultApnNotificationProtocolVersion",
+          "required": false
+        },
+        {
+          "name": "FCMCredentialSid",
+          "type": "string",
+          "value": "FcmCredentialSid",
+          "required": false
+        },
+        {
+          "name": "DefaultFCMNotificationProtocolVersion",
+          "type": "string",
+          "value": "DefaultFcmNotificationProtocolVersion",
+          "required": false
+        },
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "MessagingServiceSid",
+          "required": false
+        },
+        {
+          "name": "LogEnabled",
+          "type": "bool",
+          "value": "LogEnabled",
+          "required": false
+        },
+        {
+          "name": "DeliveryCallbackURL",
+          "type": "string",
+          "value": "DeliveryCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "DeliveryCallbackEnabled",
+          "type": "bool",
+          "value": "DeliveryCallbackEnabled",
+          "required": false
+        }
+      ]
+    },
+    "ServicesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Services",
+          "type": "array",
+          "items": {
+            "structure": "ServiceResponse"
+          },
+          "value": "services",
+          "required": true
+        }
+      ]
+    },
+    "ServiceResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "APNCredentialSid",
+          "type": "string",
+          "value": "apn_credential_sid",
+          "required": false
+        },
+        {
+          "name": "DefaultAPNNotificationProtocolVersion",
+          "type": "string",
+          "value": "default_apn_notification_protocol_version",
+          "required": true
+        },
+        {
+          "name": "FCMCredentialSid",
+          "type": "string",
+          "value": "fcm_credential_sid",
+          "required": false
+        },
+        {
+          "name": "DefaultFCMNotificationProtocolVersion",
+          "type": "string",
+          "value": "default_fcm_notification_protocol_version",
+          "required": true
+        },
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "messaging_service_sid",
+          "required": false
+        },
+        {
+          "name": "LogEnabled",
+          "type": "bool",
+          "value": "log_enabled",
+          "required": true
+        },
+        {
+          "name": "DeliveryCallbackURL",
+          "type": "string",
+          "value": "delivery_callback_url",
+          "required": false
+        },
+        {
+          "name": "DeliveryCallbackEnabled",
+          "type": "bool",
+          "value": "delivery_callback_enabled",
+          "required": true
+        }
+      ]
+    },
+    "CreateCredentialInput": {
+      "type": "URLEncoded",
+      "extends": "CredentialInput",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": true
+        }
+      ]
+    },
+    "CredentialInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Certificate",
+          "type": "string",
+          "value": "Certificate",
+          "required": false
+        },
+        {
+          "name": "PrivateKey",
+          "type": "string",
+          "value": "PrivateKey",
+          "required": false
+        },
+        {
+          "name": "Sandbox",
+          "type": "bool",
+          "value": "Sandbox",
+          "required": false
+        },
+        {
+          "name": "Secret",
+          "type": "string",
+          "value": "Secret",
+          "required": false
+        }
+      ]
+    },
+    "CredentialsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Credentials",
+          "type": "array",
+          "items": {
+            "structure": "CredentialResponse"
+          },
+          "value": "credentials",
+          "required": true
+        }
+      ]
+    },
+    "CredentialResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "Sandbox",
+          "type": "bool",
+          "value": "sandbox",
+          "required": false
+        }
+      ]
+    },
+    "CreateBindingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "Identity",
+          "required": true
+        },
+        {
+          "name": "BindingType",
+          "type": "string",
+          "value": "BindingType",
+          "required": true
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "value": "Address",
+          "required": true
+        },
+        {
+          "name": "Tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Tag",
+          "required": false
+        },
+        {
+          "name": "NotificationProtocolVersion",
+          "type": "string",
+          "value": "NotificationProtocolVersion",
+          "required": false
+        },
+        {
+          "name": "CredentialSid",
+          "type": "string",
+          "value": "CredentialSid",
+          "required": false
+        }
+      ]
+    },
+    "BindingsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Bindings",
+          "type": "array",
+          "items": {
+            "structure": "BindingResponse"
+          },
+          "value": "bindings",
+          "required": true
+        }
+      ]
+    },
+    "BindingResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "NotificationProtocolVersion",
+          "type": "string",
+          "value": "notification_protocol_version",
+          "required": true
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "value": "address",
+          "required": true
+        },
+        {
+          "name": "BindingType",
+          "type": "string",
+          "value": "binding_type",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "CredentialSid",
+          "type": "string",
+          "value": "credential_sid",
+          "required": false
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "Tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "tags",
+          "required": true
+        }
+      ]
+    },
+    "CreateNotificationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Body",
+          "type": "string",
+          "value": "Body",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "string",
+          "value": "Priority",
+          "required": false
+        },
+        {
+          "name": "Ttl",
+          "type": "int",
+          "value": "Ttl",
+          "required": false
+        },
+        {
+          "name": "Title",
+          "type": "string",
+          "value": "Title",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "Sound",
+          "required": false
+        },
+        {
+          "name": "Action",
+          "type": "string",
+          "value": "Action",
+          "required": false
+        },
+        {
+          "name": "Data",
+          "type": "string",
+          "value": "Data",
+          "required": false
+        },
+        {
+          "name": "APN",
+          "type": "string",
+          "value": "Apn",
+          "required": false
+        },
+        {
+          "name": "SMS",
+          "type": "string",
+          "value": "Sms",
+          "required": false
+        },
+        {
+          "name": "FCM",
+          "type": "string",
+          "value": "Fcm",
+          "required": false
+        },
+        {
+          "name": "ToBindings",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "ToBinding",
+          "required": false
+        },
+        {
+          "name": "Tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Tag",
+          "required": false
+        },
+        {
+          "name": "Identities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "Identity",
+          "required": false
+        },
+        {
+          "name": "DeliveryCallbackURL",
+          "type": "string",
+          "value": "DeliveryCallbackUrl",
+          "required": false
+        }
+      ]
+    },
+    "NotificationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "Body",
+          "type": "string",
+          "value": "body",
+          "required": false
+        },
+        {
+          "name": "Sound",
+          "type": "string",
+          "value": "sound",
+          "required": false
+        },
+        {
+          "name": "SMS",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "sms",
+          "required": false
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "Tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "tags",
+          "required": true
+        },
+        {
+          "name": "TTL",
+          "type": "int",
+          "value": "ttl",
+          "required": true
+        },
+        {
+          "name": "Priority",
+          "type": "string",
+          "value": "priority",
+          "required": true
+        },
+        {
+          "name": "APN",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "apn",
+          "required": false
+        },
+        {
+          "name": "Data",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "data",
+          "required": false
+        },
+        {
+          "name": "FCM",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "fcm",
+          "required": false
+        },
+        {
+          "name": "Action",
+          "type": "string",
+          "value": "action",
+          "required": false
+        },
+        {
+          "name": "Identities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "identities",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
+}

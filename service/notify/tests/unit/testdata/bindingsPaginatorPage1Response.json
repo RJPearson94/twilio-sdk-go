@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=0",
+    "previous_page_url": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "bindings"
+  },
+  "bindings": [
+    {
+      "notification_protocol_version": "default",
+      "tags": [],
+      "date_updated": null,
+      "address": "+10123456789",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "binding_type": "sms",
+      "sid": "BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "date_created": "2021-01-24T01:56:08Z",
+      "service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "credential_sid": null,
+      "identity": "TestID"
+    }
+  ]
+}

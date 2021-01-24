@@ -15,7 +15,7 @@
       "name": "Services",
       "packageName": "services",
       "documentation": {
-        "description": "Client for managing messaging resources",
+        "description": "Client for managing service resources",
         "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api"
       },
       "operations": [
@@ -26,20 +26,20 @@
             "method": "Post"
           },
           "documentation": {
-            "description": "creates a new messaging",
+            "description": "creates a new service",
             "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#create-a-service-resource"
           },
           "input": {
             "structure": "CreateServiceInput",
             "documentation": {
-              "description": "defines the input fields for creating a new messaging resource"
+              "description": "defines the input fields for creating a new service resource"
             }
           },
           "response": {
             "name": "CreateServiceResponse",
             "structure": "ServiceResponse",
             "documentation": {
-              "description": "defines the response fields for the created messaging"
+              "description": "defines the response fields for the created service"
             }
           }
         },
@@ -109,7 +109,7 @@
         }
       },
       "documentation": {
-        "description": "Client for managing a specific messaging resource",
+        "description": "Client for managing a specific service resource",
         "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api"
       },
       "subClients": [
@@ -729,14 +729,14 @@
             ]
           },
           "documentation": {
-            "description": "retrieves a messaging resource",
+            "description": "retrieves a service resource",
             "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#fetch-a-service-resource"
           },
           "response": {
             "name": "FetchServiceResponse",
             "structure": "ServiceResponse",
             "documentation": {
-              "description": "defines the response fields for the retrieved messaging"
+              "description": "defines the response fields for the retrieved service"
             }
           }
         },
@@ -757,20 +757,20 @@
             ]
           },
           "documentation": {
-            "description": "modifies a messaging resource",
+            "description": "modifies a service resource",
             "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#update-a-service-resource"
           },
           "input": {
             "structure": "UpdateServiceInput",
             "documentation": {
-              "description": "defines input fields for updating a messaging resource"
+              "description": "defines input fields for updating a service resource"
             }
           },
           "response": {
             "name": "UpdateServiceResponse",
             "structure": "ServiceResponse",
             "documentation": {
-              "description": "defines the response fields for the updated messaging"
+              "description": "defines the response fields for the updated service"
             }
           }
         },
@@ -791,7 +791,7 @@
             ]
           },
           "documentation": {
-            "description": "removes a messaging resource from the account",
+            "description": "removes a service resource from the account",
             "twilioDocsLink": "https://www.twilio.com/docs/sms/services/api#delete-a-service-resource"
           }
         }

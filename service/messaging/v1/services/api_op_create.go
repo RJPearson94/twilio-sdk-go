@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 )
 
-// CreateServiceInput defines the input fields for creating a new messaging resource
+// CreateServiceInput defines the input fields for creating a new service resource
 type CreateServiceInput struct {
 	AreaCodeGeomatch      *bool   `form:"AreaCodeGeomatch,omitempty"`
 	FallbackMethod        *string `form:"FallbackMethod,omitempty"`
@@ -27,7 +27,7 @@ type CreateServiceInput struct {
 	ValidityPeriod        *int    `form:"ValidityPeriod,omitempty"`
 }
 
-// CreateServiceResponse defines the response fields for the created messaging
+// CreateServiceResponse defines the response fields for the created service
 type CreateServiceResponse struct {
 	AccountSid            string     `json:"account_sid"`
 	AreaCodeGeomatch      bool       `json:"area_code_geomatch"`
@@ -50,14 +50,14 @@ type CreateServiceResponse struct {
 	ValidityPeriod        int        `json:"validity_period"`
 }
 
-// Create creates a new messaging
+// Create creates a new service
 // See https://www.twilio.com/docs/sms/services/api#create-a-service-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Create(input *CreateServiceInput) (*CreateServiceResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
-// CreateWithContext creates a new messaging
+// CreateWithContext creates a new service
 // See https://www.twilio.com/docs/sms/services/api#create-a-service-resource for more details
 func (c Client) CreateWithContext(context context.Context, input *CreateServiceInput) (*CreateServiceResponse, error) {
 	op := client.Operation{

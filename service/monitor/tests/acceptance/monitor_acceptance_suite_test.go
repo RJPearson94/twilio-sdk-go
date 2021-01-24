@@ -1,4 +1,4 @@
-// +build acceptance proxy_acceptance
+// +build acceptance monitor_acceptance
 
 package acceptance
 

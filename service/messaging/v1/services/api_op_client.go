@@ -3,7 +3,7 @@ package services
 
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
-// Client for managing messaging resources
+// Client for managing service resources
 // See https://www.twilio.com/docs/sms/services/api for more details
 type Client struct {
 	client *client.Client
