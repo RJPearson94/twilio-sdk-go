@@ -7,7 +7,7 @@ require (
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/go-resty/resty/v2 v2.4.0
-	github.com/google/uuid v1.1.5
+	github.com/google/uuid v1.2.0
 	github.com/jarcoal/httpmock v1.0.7
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
