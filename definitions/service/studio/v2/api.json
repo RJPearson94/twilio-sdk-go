@@ -6,7 +6,7 @@
     "twilioDocsLink": "https://www.twilio.com/docs/studio"
   },
   "config": {
-    "beta": true,
+    "beta": false,
     "subDomain": "studio",
     "apiVersion": "v2"
   },

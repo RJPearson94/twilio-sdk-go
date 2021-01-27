@@ -6,7 +6,7 @@
     "twilioDocsLink": "https://www.twilio.com/docs/sync"
   },
   "config": {
-    "beta": true,
+    "beta": false,
     "subDomain": "sync",
     "apiVersion": "v1"
   },

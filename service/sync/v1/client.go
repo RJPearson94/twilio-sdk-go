@@ -10,7 +10,6 @@ import (
 
 // Sync client is used to manage resources for Twilio Sync
 // See https://www.twilio.com/docs/sync for more details
-// This client is currently in beta and subject to change. Please use with caution
 type Sync struct {
 	client *client.Client
 
@@ -40,7 +39,7 @@ func (s Sync) GetClient() *client.Client {
 // New creates a new instance of the client using session data and config
 func New(sess *session.Session, clientConfig *client.Config) *Sync {
 	config := client.NewAPIClientConfig(clientConfig)
-	config.Beta = true
+	config.Beta = false
 	config.SubDomain = "sync"
 	config.APIVersion = "v1"
 

@@ -11,7 +11,6 @@ import (
 
 // Studio client is used to manage resources for Twilio Studio
 // See https://www.twilio.com/docs/studio for more details
-// This client is currently in beta and subject to change. Please use with caution
 type Studio struct {
 	client *client.Client
 
@@ -43,7 +42,7 @@ func (s Studio) GetClient() *client.Client {
 // New creates a new instance of the client using session data and config
 func New(sess *session.Session, clientConfig *client.Config) *Studio {
 	config := client.NewAPIClientConfig(clientConfig)
-	config.Beta = true
+	config.Beta = false
 	config.SubDomain = "studio"
 	config.APIVersion = "v2"
 
