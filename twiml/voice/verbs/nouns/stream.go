@@ -3,10 +3,12 @@ package nouns
 import "encoding/xml"
 
 type StreamAttributes struct {
-	ConnectorName *string `xml:"connectorName,attr,omitempty"`
-	Name          *string `xml:"name,attr,omitempty"`
-	Track         *string `xml:"track,attr,omitempty"`
-	URL           *string `xml:"url,attr,omitempty"`
+	ConnectorName        *string `xml:"connectorName,attr,omitempty"`
+	Name                 *string `xml:"name,attr,omitempty"`
+	StatusCallback       *string `xml:"status_callback,attr,omitempty"`
+	StatusCallbackMethod *string `xml:"status_callback_method,attr,omitempty"`
+	Track                *string `xml:"track,attr,omitempty"`
+	URL                  *string `xml:"url,attr,omitempty"`
 }
 
 type Stream struct {

@@ -13,6 +13,10 @@ FEATURES
 - **New Resource:** Bindings
 - **New Resource:** Notification
 
+### TwiML
+
+- Add `status_callback` and `status_callback_method` attributes to the voice response stream noun
+
 ## v0.11.0 (2021-01-23)
 
 ### Conversations
