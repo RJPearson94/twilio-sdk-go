@@ -11,7 +11,7 @@ require (
 	github.com/jarcoal/httpmock v1.0.8
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
-	github.com/onsi/ginkgo v1.14.2
+	github.com/onsi/ginkgo v1.15.0
 	github.com/onsi/gomega v1.10.4
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )
