@@ -41,7 +41,7 @@ generate:
 generate-service-api-version:
 	@echo "==> regenerating $(SERVICE) $(API_VERSION)"
 	rm -rf ./service/$(SERVICE)/$(API_VERSION)
-	cd tools && go run ./cli/codegen --definition ../definitions/service/$(SERVICE)/$(API_VERSION) --target ../service/$(SERVICE)/$(API_VERSION)
+	cd tools && go run ./cli/codegen/service --definition ../definitions/service/$(SERVICE)/$(API_VERSION) --target ../service/$(SERVICE)/$(API_VERSION)
 	goimports -w ./service/$(SERVICE)/$(API_VERSION)
 
 .PHONY: download build test fmt tools generate generate-service-api-version reportcard goreportcard-refresh

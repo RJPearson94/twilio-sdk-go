@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	apioperation "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/api_operation"
+	apioperation "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/service/api_operation"
 )
 
 var _ = Describe("API Operation CodeGen", func() {

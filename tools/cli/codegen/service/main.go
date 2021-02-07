@@ -9,9 +9,9 @@ import (
 	"path"
 	"runtime"
 
-	apiclient "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/api_client"
-	apioperation "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/api_operation"
-	client "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/client"
+	apiclient "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/service/api_client"
+	apioperation "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/service/api_operation"
+	client "github.com/RJPearson94/twilio-sdk-go-tools/cli/codegen/service/client"
 
 	"github.com/iancoleman/strcase"
 	"github.com/santhosh-tekuri/jsonschema/v2"
