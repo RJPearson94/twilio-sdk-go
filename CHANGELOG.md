@@ -1,8 +1,14 @@
 ## v0.13.0 (unreleased)
 
+FEATURES
+
 ### Serverless
 
 - Add `Runtime` field to serverless build input and response structs
+
+### TwiML
+
+- Add `referMethod` and `referUrl` attributes to the voice response dial verb
 
 ## v0.12.0 (2021-02-08)
 

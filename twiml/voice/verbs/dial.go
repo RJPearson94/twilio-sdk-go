@@ -18,8 +18,10 @@ type DialAttributes struct {
 	RecordingStatusCallbackEvent  *string `xml:"recordingStatusCallbackEvent,attr,omitempty"`
 	RecordingStatusCallbackMethod *string `xml:"recordingStatusCallbackMethod,attr,omitempty"`
 	RecordingTrack                *string `xml:"recordingTrack,attr,omitempty"`
-	Sequential                    *bool   `xml:"sequential,attr,omitempty"`
+	ReferMethod                   *string `xml:"referMethod,attr,omitempty"`
+	ReferURL                	  *string `xml:"referUrl,attr,omitempty"`
 	RingTone                      *string `xml:"ringTone,attr,omitempty"`
+	Sequential                    *bool   `xml:"sequential,attr,omitempty"`
 	TimeLimit                     *int    `xml:"timeLimit,attr,omitempty"`
 	Timeout                       *int    `xml:"timeout,attr,omitempty"`
 	Trim                          *int    `xml:"trim,attr,omitempty"`
