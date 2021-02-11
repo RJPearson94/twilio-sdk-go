@@ -44,6 +44,7 @@ type FetchBuildResponse struct {
 	DateUpdated      *time.Time              `json:"date_updated,omitempty"`
 	Dependencies     *[]FetchDependency      `json:"dependencies,omitempty"`
 	FunctionVersions *[]FetchFunctionVersion `json:"function_versions,omitempty"`
+	Runtime          string                  `json:"runtime"`
 	ServiceSid       string                  `json:"service_sid"`
 	Sid              string                  `json:"sid"`
 	Status           string                  `json:"status"`

@@ -14,6 +14,7 @@ type CreateBuildInput struct {
 	AssetVersions    *[]string `form:"AssetVersions,omitempty"`
 	Dependencies     *string   `form:"Dependencies,omitempty"`
 	FunctionVersions *[]string `form:"FunctionVersions,omitempty"`
+	Runtime          *string   `form:"Runtime,omitempty"`
 }
 
 type CreateAssetVersion struct {
@@ -51,6 +52,7 @@ type CreateBuildResponse struct {
 	DateUpdated      *time.Time               `json:"date_updated,omitempty"`
 	Dependencies     *[]CreateDependency      `json:"dependencies,omitempty"`
 	FunctionVersions *[]CreateFunctionVersion `json:"function_versions,omitempty"`
+	Runtime          string                   `json:"runtime"`
 	ServiceSid       string                   `json:"service_sid"`
 	Sid              string                   `json:"sid"`
 	Status           string                   `json:"status"`

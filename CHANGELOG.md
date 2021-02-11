@@ -1,3 +1,9 @@
+## v0.13.0 (unreleased)
+
+### Serverless
+
+- Add `Runtime` field to serverless build input and response structs
+
 ## v0.12.0 (2021-02-08)
 
 NOTES

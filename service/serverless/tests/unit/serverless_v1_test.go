@@ -2999,6 +2999,7 @@ var _ = Describe("Serverless V1", func() {
 				Expect(dependencies[0].Name).To(Equal("twilio"))
 				Expect(dependencies[0].Version).To(Equal("3.6.3"))
 
+				Expect(resp.Runtime).To(Equal("node10"))
 				Expect(resp.Status).To(Equal("building"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
@@ -3100,6 +3101,7 @@ var _ = Describe("Serverless V1", func() {
 				Expect(dependencies[0].Name).To(Equal("twilio"))
 				Expect(dependencies[0].Version).To(Equal("3.6.3"))
 
+				Expect(builds[0].Runtime).To(Equal("node10"))
 				Expect(builds[0].Status).To(Equal("building"))
 				Expect(builds[0].DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
 				Expect(builds[0].DateUpdated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
@@ -3270,6 +3272,7 @@ var _ = Describe("Serverless V1", func() {
 				Expect(dependencies[0].Name).To(Equal("twilio"))
 				Expect(dependencies[0].Version).To(Equal("3.6.3"))
 
+				Expect(resp.Runtime).To(Equal("node10"))
 				Expect(resp.Status).To(Equal("building"))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2018-11-10T20:00:00Z"))

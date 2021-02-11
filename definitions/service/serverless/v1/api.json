@@ -2970,6 +2970,12 @@
           "type": "string",
           "value": "Dependencies",
           "required": false
+        },
+        {
+          "name": "Runtime",
+          "type": "string",
+          "value": "Runtime",
+          "required": false
         }
       ]
     },
@@ -3157,6 +3163,12 @@
           "name": "Status",
           "type": "string",
           "value": "status",
+          "required": true
+        },
+        {
+          "name": "Runtime",
+          "type": "string",
+          "value": "runtime",
           "required": true
         }
       ]

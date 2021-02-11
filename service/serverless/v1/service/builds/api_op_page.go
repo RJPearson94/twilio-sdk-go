@@ -37,6 +37,7 @@ type PageBuildResponse struct {
 	DateUpdated      *time.Time             `json:"date_updated,omitempty"`
 	Dependencies     *[]PageDependency      `json:"dependencies,omitempty"`
 	FunctionVersions *[]PageFunctionVersion `json:"function_versions,omitempty"`
+	Runtime          string                 `json:"runtime"`
 	ServiceSid       string                 `json:"service_sid"`
 	Sid              string                 `json:"sid"`
 	Status           string                 `json:"status"`

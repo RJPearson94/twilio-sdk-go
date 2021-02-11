@@ -13,6 +13,7 @@
       "sid": "ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
       "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "service_sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "runtime": "node10",
       "asset_versions": [
         {
           "sid": "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
