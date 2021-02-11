@@ -1,5 +1,12 @@
 ## v0.13.0 (unreleased)
 
+FIXES
+
+### TwiML
+
+- Correct StatusCallback xml attribute name `statusCallback` on voice response stream verb
+- Correct StatusCallbackMethod xml attribute name `statusCallbackMethod` on voice response stream verb
+
 FEATURES
 
 ### Serverless
