@@ -46,6 +46,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recordings"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list"
+	sipCredential "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credential"
+	sipCredentials "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_address"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_addresses"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session"
@@ -62,15 +70,15 @@ var _ = Describe("API V2010", func() {
 		log.Panicf("%s", err)
 	}
 
-	apiSession := api.New(session.New(creds), &client.Config{
+	apiClient := api.New(session.New(creds), &client.Config{
 		RetryAttempts: utils.Int(0),
 	}).V2010
 
-	httpmock.ActivateNonDefault(apiSession.GetClient().GetRestyClient().GetClient())
+	httpmock.ActivateNonDefault(apiClient.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()
 
 	Describe("Given the accounts client", func() {
-		accountsClient := apiSession.Accounts
+		accountsClient := apiClient.Accounts
 
 		Describe("When the assistant is successfully created", func() {
 			createInput := &accounts.CreateAccountInput{}
@@ -280,7 +288,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a account sid", func() {
-		accountClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		accountClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the account is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -320,7 +328,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("AC71").Fetch()
+			resp, err := apiClient.Account("AC71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -376,7 +384,7 @@ var _ = Describe("API V2010", func() {
 				Status: utils.String("closed"),
 			}
 
-			resp, err := apiSession.Account("AC71").Update(updateInput)
+			resp, err := apiClient.Account("AC71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -388,7 +396,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the keys client", func() {
-		keysClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Keys
+		keysClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Keys
 
 		Describe("When the key is successfully created", func() {
 			createInput := &keys.CreateKeyInput{
@@ -601,7 +609,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a key sid", func() {
-		keyClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		keyClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the key is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Keys/SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -637,7 +645,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -689,7 +697,7 @@ var _ = Describe("API V2010", func() {
 				FriendlyName: utils.String("Test 2"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -718,7 +726,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Key("SK71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -726,7 +734,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the messages client", func() {
-		messagesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Messages
+		messagesClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Messages
 
 		Describe("When the message is successfully created", func() {
 			createInput := &messages.CreateMessageInput{
@@ -980,7 +988,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a message sid", func() {
-		messageClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		messageClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the message is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -1030,7 +1038,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1096,7 +1104,7 @@ var _ = Describe("API V2010", func() {
 				Body: "Test",
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1125,7 +1133,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SM71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1133,7 +1141,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the feedbacks client", func() {
-		feedbacksClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedbacks
+		feedbacksClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedbacks
 
 		Describe("When the feedback is successfully created", func() {
 			createInput := &messageFeedbacks.CreateFeedbackInput{
@@ -1190,7 +1198,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the media attachments client", func() {
-		mediaAttachmentsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachments
+		mediaAttachmentsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachments
 
 		Describe("When the page of media are successfully retrieved", func() {
 			pageOptions := &media_attachments.MediaPageOptions{
@@ -1346,7 +1354,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a media attachment sid", func() {
-		mediaAttachmentClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachment("MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		mediaAttachmentClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachment("MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the media is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -1384,7 +1392,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachment("ME71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachment("ME71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1413,14 +1421,14 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachment("ME71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MediaAttachment("ME71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 		})
 
 		Describe("Given I have a balance client", func() {
-			balanceClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Balance()
+			balanceClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Balance()
 
 			Describe("When the balance is successfully retrieved", func() {
 				httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Balance.json",
@@ -1467,7 +1475,7 @@ var _ = Describe("API V2010", func() {
 		})
 
 		Describe("Given I have a tokens client", func() {
-			tokensClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Tokens
+			tokensClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Tokens
 
 			Describe("When the token is successfully created", func() {
 				httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tokens.json",
@@ -1539,7 +1547,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the queues client", func() {
-		queuesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queues
+		queuesClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queues
 
 		Describe("When the queue is successfully created", func() {
 			createInput := &queues.CreateQueueInput{
@@ -1766,7 +1774,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a queue sid", func() {
-		queueClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		queueClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the queue is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -1806,7 +1814,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QU71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QU71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1862,7 +1870,7 @@ var _ = Describe("API V2010", func() {
 				FriendlyName: utils.String("Test 2"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QU71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QU71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1891,7 +1899,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QU71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QU71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1899,7 +1907,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the members client", func() {
-		membersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Members
+		membersClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Members
 
 		Describe("When the page of members are successfully retrieved", func() {
 			pageOptions := &members.MembersPageOptions{
@@ -2054,7 +2062,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a member sid", func() {
-		memberClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		memberClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the member is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -2091,7 +2099,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("CA71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("CA71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2157,7 +2165,7 @@ var _ = Describe("API V2010", func() {
 				URL: "http://localhost",
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("CA71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Queue("QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Member("CA71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2169,7 +2177,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the calls client", func() {
-		callsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls
+		callsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls
 
 		Describe("When the call is successfully created", func() {
 			createInput := &calls.CreateCallInput{
@@ -2449,7 +2457,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a call sid", func() {
-		callClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		callClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the call is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -2505,7 +2513,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CA71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CA71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2577,7 +2585,7 @@ var _ = Describe("API V2010", func() {
 				Status: utils.String("Completed"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CA71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CA71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2606,7 +2614,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CA71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CA71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2614,7 +2622,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the conferences client", func() {
-		conferencesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conferences
+		conferencesClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conferences
 
 		Describe("When the page of conferences are successfully retrieved", func() {
 			pageOptions := &conferences.ConferencesPageOptions{
@@ -2773,7 +2781,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a conference sid", func() {
-		conferenceClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		conferenceClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the conference is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -2814,7 +2822,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CF71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CF71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2871,7 +2879,7 @@ var _ = Describe("API V2010", func() {
 				Status: utils.String("Completed"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CF71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CF71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -2883,7 +2891,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the participants client", func() {
-		participantsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participants
+		participantsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participants
 
 		Describe("When the participant is successfully created", func() {
 			createInput := &participants.CreateParticipantInput{
@@ -3139,7 +3147,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a participant sid", func() {
-		participantClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		participantClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the participant is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -3184,7 +3192,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -3245,7 +3253,7 @@ var _ = Describe("API V2010", func() {
 				Muted: utils.Bool(true),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -3274,7 +3282,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("CA71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -3282,7 +3290,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the addresses client", func() {
-		addressesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Addresses
+		addressesClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Addresses
 
 		Describe("When the address is successfully created", func() {
 			createInput := &addresses.CreateAddressInput{
@@ -3634,7 +3642,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a address sid", func() {
-		addressClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		addressClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the address is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses/ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -3681,7 +3689,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -3744,7 +3752,7 @@ var _ = Describe("API V2010", func() {
 				PostalCode: utils.String("Fake Postal Code"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -3773,7 +3781,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Address("AD71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -3781,7 +3789,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the recordings client", func() {
-		recordingsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
+		recordingsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
 
 		Describe("When the page of recordings are successfully retrieved", func() {
 			pageOptions := &recordings.RecordingsPageOptions{
@@ -3946,7 +3954,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a recording sid", func() {
-		recordingClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		recordingClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the recording is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -3993,7 +4001,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4069,7 +4077,7 @@ var _ = Describe("API V2010", func() {
 				Status: "completed",
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4098,7 +4106,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4106,7 +4114,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the call recordings client", func() {
-		recordingsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
+		recordingsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
 
 		Describe("When the recordings is successfully created", func() {
 			createInput := &callRecordings.CreateRecordingInput{}
@@ -4330,7 +4338,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a call recording sid", func() {
-		recordingClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		recordingClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the recording is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -4377,7 +4385,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4389,7 +4397,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the conference recordings client", func() {
-		recordingsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
+		recordingsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recordings
 
 		Describe("When the recordings is successfully created", func() {
 			createInput := &conferenceRecordings.CreateRecordingInput{}
@@ -4613,7 +4621,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a conference recording sid", func() {
-		recordingClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		recordingClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the recording is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -4660,7 +4668,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Conference("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RE71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4672,7 +4680,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the feedback summaries client", func() {
-		feedbackSummariesClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummaries
+		feedbackSummariesClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummaries
 
 		Describe("When the feedback summary is successfully created", func() {
 			createInput := &feedback_summaries.CreateFeedbackSummaryInput{
@@ -4770,7 +4778,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a feedback summary sid", func() {
-		feedbackSummaryClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		feedbackSummaryClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the feedback summary is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -4816,7 +4824,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FS71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FS71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4845,7 +4853,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FS71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Calls.FeedbackSummary("FS71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -4853,7 +4861,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the feedbacks client", func() {
-		feedbacksClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedbacks
+		feedbacksClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedbacks
 
 		Describe("When the feedback is successfully created", func() {
 			createInput := &callFeedbacks.CreateFeedbackInput{
@@ -4924,7 +4932,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a feedback sid", func() {
-		feedbackClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedback()
+		feedbackClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Call("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Feedback()
 
 		Describe("When the feedback is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Feedback.json",
@@ -5042,7 +5050,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the applications client", func() {
-		applicationsClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Applications
+		applicationsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Applications
 
 		Describe("When the application is successfully created", func() {
 			createInput := &applications.CreateApplicationInput{}
@@ -5274,7 +5282,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a application sid", func() {
-		applicationClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		applicationClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the application is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -5325,7 +5333,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -5392,7 +5400,7 @@ var _ = Describe("API V2010", func() {
 				FriendlyName: utils.String("Test"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -5421,7 +5429,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Application("AP71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -5429,7 +5437,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the available phone number countries client", func() {
-		availablePhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumbers
+		availablePhoneNumbersClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumbers
 
 		Describe("When the page of available phone number countries are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers.json",
@@ -5483,7 +5491,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have an available phone number country code", func() {
-		availablePhoneNumberClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB")
+		availablePhoneNumberClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB")
 
 		Describe("When the available phone number country is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB.json",
@@ -5518,7 +5526,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("New").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("New").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -5530,7 +5538,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the available local phone number countries client", func() {
-		availableLocalPhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").Local
+		availableLocalPhoneNumbersClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").Local
 
 		Describe("When the page of available local phone number countries are successfully retrieved", func() {
 			pageOptions := &local.AvailablePhoneNumbersPageOptions{
@@ -5607,7 +5615,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the available toll free phone number countries client", func() {
-		availableTollFreePhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").TollFree
+		availableTollFreePhoneNumbersClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").TollFree
 
 		Describe("When the page of available toll free phone number countries are successfully retrieved", func() {
 			pageOptions := &toll_free.AvailablePhoneNumbersPageOptions{
@@ -5684,7 +5692,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the available mobile phone number countries client", func() {
-		availableMobilePhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").Mobile
+		availableMobilePhoneNumbersClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").AvailablePhoneNumber("GB").Mobile
 
 		Describe("When the page of available mobile phone number countries are successfully retrieved", func() {
 			pageOptions := &mobile.AvailablePhoneNumbersPageOptions{
@@ -5761,7 +5769,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given the incoming phone numbers client", func() {
-		incomingPhoneNumbersClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumbers
+		incomingPhoneNumbersClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumbers
 
 		Describe("When the incoming phone number is successfully created", func() {
 			createInput := &incoming_phone_numbers.CreateIncomingPhoneNumberInput{
@@ -6031,7 +6039,7 @@ var _ = Describe("API V2010", func() {
 	})
 
 	Describe("Given I have a incoming phone number sid", func() {
-		incomingPhoneNumberClient := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		incomingPhoneNumberClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the incoming phone number is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
@@ -6099,7 +6107,7 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Fetch()
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -6183,7 +6191,7 @@ var _ = Describe("API V2010", func() {
 				AddressSid: utils.String("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 			}
 
-			resp, err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Update(updateInput)
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -6212,12 +6220,1494 @@ var _ = Describe("API V2010", func() {
 				},
 			)
 
-			err := apiSession.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Delete()
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IncomingPhoneNumber("PN71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 		})
 	})
+
+	Describe("Given the credential lists client", func() {
+		credentialListsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialLists
+
+		Describe("When the credential list is successfully created", func() {
+			createInput := &credential_lists.CreateCredentialListInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create credential list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list request does not contain a friendly name", func() {
+			createInput := &credential_lists.CreateCredentialListInput{}
+
+			resp, err := credentialListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create credential list api returns a 500 response", func() {
+			createInput := &credential_lists.CreateCredentialListInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of credential lists are successfully retrieved", func() {
+			pageOptions := &credential_lists.CredentialListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the credential lists page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				credentialLists := resp.CredentialLists
+				Expect(credentialLists).ToNot(BeNil())
+				Expect(len(credentialLists)).To(Equal(1))
+
+				Expect(credentialLists[0].Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentialLists[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentialLists[0].FriendlyName).To(Equal("Test"))
+				Expect(credentialLists[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(credentialLists[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of credential lists api returns a 500 response", func() {
+			pageOptions := &credential_lists.CredentialListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the credential lists page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated credential lists are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialListsClient.NewCredentialListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated credential lists current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated credential lists results should be returned", func() {
+				Expect(len(paginator.CredentialLists)).To(Equal(3))
+			})
+		})
+
+		Describe("When the credential lists api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialListsClient.NewCredentialListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated credential lists current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a credential list sid", func() {
+		credentialListClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the credential list is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialListClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get credential list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CL71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CL71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateCredentialListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &credential_list.UpdateCredentialListInput{
+				FriendlyName: "Test 2",
+			}
+
+			resp, err := credentialListClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update credential list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test 2"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the credential list request does not contain a friendly name", func() {
+			updateInput := &credential_list.UpdateCredentialListInput{}
+
+			resp, err := credentialListClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CL71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &credential_list.UpdateCredentialListInput{
+				FriendlyName: "Test 2",
+			}
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CL71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := credentialListClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CL71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CL71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the Credentials client", func() {
+		credentialsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Credentials
+
+		Describe("When the credential is successfully created", func() {
+			createInput := &sipCredentials.CreateCredentialInput{
+				Username: "Test",
+				Password: "test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create credential response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CredentialListSid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Username).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the credential request does not contain an password", func() {
+			createInput := &sipCredentials.CreateCredentialInput{
+				Username: "Test",
+			}
+
+			resp, err := credentialsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential request does not contain a username", func() {
+			createInput := &sipCredentials.CreateCredentialInput{
+				Password: "test",
+			}
+
+			resp, err := credentialsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create credential api returns a 500 response", func() {
+			createInput := &sipCredentials.CreateCredentialInput{
+				Username: "Test",
+				Password: "test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of credentials are successfully retrieved", func() {
+			pageOptions := &sipCredentials.CredentialsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the credentials page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				credentials := resp.Credentials
+				Expect(credentials).ToNot(BeNil())
+				Expect(len(credentials)).To(Equal(1))
+
+				Expect(credentials[0].Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentials[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentials[0].CredentialListSid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentials[0].Username).To(Equal("Test"))
+				Expect(credentials[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(credentials[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of credentials api returns a 500 response", func() {
+			pageOptions := &sipCredentials.CredentialsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the credentials page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated credentials are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialsClient.NewCredentialsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated Credentials current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated Credentials results should be returned", func() {
+				Expect(len(paginator.Credentials)).To(Equal(3))
+			})
+		})
+
+		Describe("When the credentials api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialsClient.NewCredentialsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated Credentials current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a credential sid", func() {
+		credentialClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Credential("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the credential is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get credential response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CredentialListSid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Username).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the credential api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CR71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Credential("CR71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateCredentialResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &sipCredential.UpdateCredentialInput{
+				Password: "Test 2",
+			}
+
+			resp, err := credentialClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update credential response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.CredentialListSid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Username).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the credential request does not contain an password", func() {
+			updateInput := &sipCredential.UpdateCredentialInput{}
+
+			resp, err := credentialClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update Credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CR71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &sipCredential.UpdateCredentialInput{
+				Password: "Test 2",
+			}
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Credential("CR71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update credential response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := credentialClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the credential api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CR71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Credential("CR71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the IP access control lists client", func() {
+		ipAccessControlListsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlLists
+
+		Describe("When the IP access control list is successfully created", func() {
+			createInput := &ip_access_control_lists.CreateIpAccessControlListInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create IP access control list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list request does not contain a friendly name", func() {
+			createInput := &ip_access_control_lists.CreateIpAccessControlListInput{}
+
+			resp, err := ipAccessControlListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create IP access control list api returns a 500 response", func() {
+			createInput := &ip_access_control_lists.CreateIpAccessControlListInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of IP access control lists are successfully retrieved", func() {
+			pageOptions := &ip_access_control_lists.IpAccessControlListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the IP access control lists page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				ipAccessControlLists := resp.IpAccessControlLists
+				Expect(ipAccessControlLists).ToNot(BeNil())
+				Expect(len(ipAccessControlLists)).To(Equal(1))
+
+				Expect(ipAccessControlLists[0].Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAccessControlLists[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAccessControlLists[0].FriendlyName).To(Equal("Test"))
+				Expect(ipAccessControlLists[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(ipAccessControlLists[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of IP access control lists api returns a 500 response", func() {
+			pageOptions := &ip_access_control_lists.IpAccessControlListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the IP access control lists page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated IP access control lists are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := ipAccessControlListsClient.NewIpAccessControlListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated IP access control lists current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated IP access control lists results should be returned", func() {
+				Expect(len(paginator.IpAccessControlLists)).To(Equal(3))
+			})
+		})
+
+		Describe("When the IP access control lists api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := ipAccessControlListsClient.NewIpAccessControlListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated IP access control lists current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a IP access control list sid", func() {
+		ipAccessControlListClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the IP access control list is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get IP access control list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/AL71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("AL71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateIpAccessControlListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &ip_access_control_list.UpdateIpAccessControlListInput{
+				FriendlyName: "Test 2",
+			}
+
+			resp, err := ipAccessControlListClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update IP access control list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test 2"))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the IP access control list request does not contain a friendly name", func() {
+			updateInput := &ip_access_control_list.UpdateIpAccessControlListInput{}
+
+			resp, err := ipAccessControlListClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/AL71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &ip_access_control_list.UpdateIpAccessControlListInput{
+				FriendlyName: "Test 2",
+			}
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("AL71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := ipAccessControlListClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/AL71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("AL71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the IP Addresses client", func() {
+		ipAddressesClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAddresses
+
+		Describe("When the IP Address is successfully created", func() {
+			createInput := &ip_addresses.CreateIpAddressInput{
+				FriendlyName: "Test",
+				IpAddress:    "127.0.0.1",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAddressResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := ipAddressesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create IP Address response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.IpAccessControlListSid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.IpAddress).To(Equal("127.0.0.1"))
+				Expect(resp.CidrPrefixLength).To(Equal(32))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the IP Address request does not contain an IP Address", func() {
+			createInput := &ip_addresses.CreateIpAddressInput{
+				FriendlyName: "Test",
+			}
+
+			resp, err := ipAddressesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create IP Address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP Address request does not contain a friendly name", func() {
+			createInput := &ip_addresses.CreateIpAddressInput{
+				IpAddress: "127.0.0.1",
+			}
+
+			resp, err := ipAddressesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create IP Address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create IP Address api returns a 500 response", func() {
+			createInput := &ip_addresses.CreateIpAddressInput{
+				FriendlyName: "Test",
+				IpAddress:    "127.0.0.1",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := ipAddressesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create IP Address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of IP Addresses are successfully retrieved", func() {
+			pageOptions := &ip_addresses.IpAddressesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAddressesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := ipAddressesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the IP Addresses page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				ipAddresses := resp.IpAddresses
+				Expect(ipAddresses).ToNot(BeNil())
+				Expect(len(ipAddresses)).To(Equal(1))
+
+				Expect(ipAddresses[0].Sid).To(Equal("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAddresses[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAddresses[0].IpAccessControlListSid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAddresses[0].FriendlyName).To(Equal("Test"))
+				Expect(ipAddresses[0].IpAddress).To(Equal("127.0.0.1"))
+				Expect(ipAddresses[0].CidrPrefixLength).To(Equal(32))
+				Expect(ipAddresses[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(ipAddresses[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of IP Addresses api returns a 500 response", func() {
+			pageOptions := &ip_addresses.IpAddressesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := ipAddressesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the IP Addresses page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated IP Addresses are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAddressesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAddressesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := ipAddressesClient.NewIpAddressesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated IP Addresses current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated IP Addresses results should be returned", func() {
+				Expect(len(paginator.IpAddresses)).To(Equal(3))
+			})
+		})
+
+		Describe("When the IP Addresses api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := ipAddressesClient.NewIpAddressesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated IP Addresses current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a IP Address sid", func() {
+		ipAddressClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAddress("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the IP Address is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses/IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAddressResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := ipAddressClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get IP Address response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.IpAccessControlListSid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.IpAddress).To(Equal("127.0.0.1"))
+				Expect(resp.CidrPrefixLength).To(Equal(32))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the IP Address api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses/IP71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAddress("IP71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get IP Address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP Address is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses/IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateIpAddressResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &ip_address.UpdateIpAddressInput{}
+
+			resp, err := ipAddressClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update IP Address response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.IpAccessControlListSid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.IpAddress).To(Equal("127.0.0.1"))
+				Expect(resp.CidrPrefixLength).To(Equal(32))
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the IP Address api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses/IP71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &ip_address.UpdateIpAddressInput{}
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAddress("IP71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update IP Address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP Address is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses/IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := ipAddressClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the IP Address api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses/IP71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAddress("IP71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
 })
 
 func ExpectInternalServerError(err error) {

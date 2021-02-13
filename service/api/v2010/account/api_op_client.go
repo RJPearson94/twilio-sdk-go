@@ -24,6 +24,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queues"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/recordings"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 )
 
@@ -55,6 +56,7 @@ type Client struct {
 	Queues                *queues.Client
 	Recording             func(string) *recording.Client
 	Recordings            *recordings.Client
+	Sip                   *sip.Client
 	Tokens                *tokens.Client
 }
 
@@ -163,6 +165,9 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		Recordings: recordings.New(client, recordings.ClientProperties{
+			AccountSid: properties.Sid,
+		}),
+		Sip: sip.New(client, sip.ClientProperties{
 			AccountSid: properties.Sid,
 		}),
 		Tokens: tokens.New(client, tokens.ClientProperties{

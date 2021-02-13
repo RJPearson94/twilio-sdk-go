@@ -30,6 +30,14 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/messages"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queue"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/queues"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list"
+	sipCredential "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credential"
+	sipCredentials "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_address"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_addresses"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -48,11 +56,11 @@ var _ = Describe("API Acceptance Tests", func() {
 		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
-	apiSession := twilio.NewWithCredentials(creds).API.V2010
+	apiClient := twilio.NewWithCredentials(creds).API.V2010
 
 	Describe("Given the account clients", func() {
 		It("Then the account is created, fetched and updated", func() {
-			accountsClient := apiSession.Accounts
+			accountsClient := apiClient.Accounts
 
 			createResp, createErr := accountsClient.Create(&accounts.CreateAccountInput{})
 			Expect(createErr).To(BeNil())
@@ -71,7 +79,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Accounts)).Should(BeNumerically(">=", 1))
 
-			accountClient := apiSession.Account(createResp.Sid)
+			accountClient := apiClient.Account(createResp.Sid)
 
 			fetchResp, fetchErr := accountClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -87,7 +95,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the balance client", func() {
 		It("Then the balance is fetched", func() {
-			balanceClient := apiSession.Account(accountSid).Balance()
+			balanceClient := apiClient.Account(accountSid).Balance()
 
 			fetchResp, fetchErr := balanceClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -101,7 +109,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 		BeforeEach(func() {
 			// Create sub account so if the key is leaked the parent account isn't compromised
-			resp, err := apiSession.Accounts.Create(&accounts.CreateAccountInput{})
+			resp, err := apiClient.Accounts.Create(&accounts.CreateAccountInput{})
 			if err != nil {
 				Fail(fmt.Sprintf("Failed to create account. Error %s", err.Error()))
 			}
@@ -109,7 +117,7 @@ var _ = Describe("API Acceptance Tests", func() {
 		})
 
 		AfterEach(func() {
-			if _, err := apiSession.Account(accountSid).Update(&account.UpdateAccountInput{
+			if _, err := apiClient.Account(accountSid).Update(&account.UpdateAccountInput{
 				Status: utils.String("closed"),
 			}); err != nil {
 				Fail(fmt.Sprintf("Failed to delete account. Error %s", err.Error()))
@@ -117,7 +125,7 @@ var _ = Describe("API Acceptance Tests", func() {
 		})
 
 		It("Then the key is created, fetched, updated and deleted", func() {
-			keysClient := apiSession.Account(accountSid).Keys
+			keysClient := apiClient.Account(accountSid).Keys
 
 			createResp, createErr := keysClient.Create(&keys.CreateKeyInput{})
 			Expect(createErr).To(BeNil())
@@ -136,7 +144,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Keys)).Should(BeNumerically(">=", 1))
 
-			keyClient := apiSession.Account(accountSid).Key(createResp.Sid)
+			keyClient := apiClient.Account(accountSid).Key(createResp.Sid)
 
 			fetchResp, fetchErr := keyClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -153,7 +161,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the message clients", func() {
 		It("Then the message is created, fetched, updated and deleted", func() {
-			messagesClient := apiSession.Account(accountSid).Messages
+			messagesClient := apiClient.Account(accountSid).Messages
 
 			createResp, createErr := messagesClient.Create(&messages.CreateMessageInput{
 				To:   os.Getenv("DESTINATION_PHONE_NUMBER"),
@@ -164,7 +172,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			poll(30, 1000, apiSession, accountSid, createResp.Sid)
+			poll(30, 1000, apiClient, accountSid, createResp.Sid)
 
 			pageResp, pageErr := messagesClient.Page(&messages.MessagesPageOptions{})
 			Expect(pageErr).To(BeNil())
@@ -178,7 +186,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Messages)).Should(BeNumerically(">=", 1))
 
-			messageClient := apiSession.Account(accountSid).Message(createResp.Sid)
+			messageClient := apiClient.Account(accountSid).Message(createResp.Sid)
 
 			fetchResp, fetchErr := messageClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -190,7 +198,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 
-			poll(30, 1000, apiSession, accountSid, createResp.Sid)
+			poll(30, 1000, apiClient, accountSid, createResp.Sid)
 
 			deleteErr := messageClient.Delete()
 			Expect(deleteErr).To(BeNil())
@@ -199,7 +207,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the token client", func() {
 		It("Then the token is created", func() {
-			tokensClient := apiSession.Account(accountSid).Tokens
+			tokensClient := apiClient.Account(accountSid).Tokens
 
 			createResp, createErr := tokensClient.Create(&tokens.CreateTokenInput{
 				Ttl: utils.Int(1),
@@ -211,7 +219,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the queue clients", func() {
 		It("Then the queue is created, fetched, updated and deleted", func() {
-			queuesClient := apiSession.Account(accountSid).Queues
+			queuesClient := apiClient.Account(accountSid).Queues
 
 			createResp, createErr := queuesClient.Create(&queues.CreateQueueInput{
 				FriendlyName: uuid.New().String(),
@@ -232,7 +240,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Queues)).Should(BeNumerically(">=", 1))
 
-			queueClient := apiSession.Account(accountSid).Queue(createResp.Sid)
+			queueClient := apiClient.Account(accountSid).Queue(createResp.Sid)
 
 			fetchResp, fetchErr := queueClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -249,7 +257,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the call clients", func() {
 		It("Then the call is created, fetched, updated and deleted", func() {
-			callsClient := apiSession.Account(accountSid).Calls
+			callsClient := apiClient.Account(accountSid).Calls
 
 			twiMLResponse := voice.New()
 			twiMLResponse.Say("Hello World")
@@ -276,7 +284,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Calls)).Should(BeNumerically(">=", 1))
 
-			callClient := apiSession.Account(accountSid).Call(createResp.Sid)
+			callClient := apiClient.Account(accountSid).Call(createResp.Sid)
 
 			fetchResp, fetchErr := callClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -295,7 +303,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the address clients", func() {
 		It("Then the address is created, fetched, updated and deleted", func() {
-			addressesClient := apiSession.Account(accountSid).Addresses
+			addressesClient := apiClient.Account(accountSid).Addresses
 
 			createResp, createErr := addressesClient.Create(&addresses.CreateAddressInput{
 				CustomerName:       os.Getenv("TWILIO_CUSTOMER_NAME"),
@@ -322,7 +330,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Addresses)).Should(BeNumerically(">=", 1))
 
-			addressClient := apiSession.Account(accountSid).Address(createResp.Sid)
+			addressClient := apiClient.Account(accountSid).Address(createResp.Sid)
 
 			fetchResp, fetchErr := addressClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -339,7 +347,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the feedback summary clients", func() {
 		It("Then the feedback summary is created, fetched and deleted", func() {
-			feedbackSummariesClient := apiSession.Account(accountSid).Calls.FeedbackSummaries
+			feedbackSummariesClient := apiClient.Account(accountSid).Calls.FeedbackSummaries
 
 			createResp, createErr := feedbackSummariesClient.Create(&feedback_summaries.CreateFeedbackSummaryInput{
 				StartDate: "2019-10-03",
@@ -349,7 +357,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			feedbackSummaryClient := apiSession.Account(accountSid).Calls.FeedbackSummary(createResp.Sid)
+			feedbackSummaryClient := apiClient.Account(accountSid).Calls.FeedbackSummary(createResp.Sid)
 
 			fetchResp, fetchErr := feedbackSummaryClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -368,7 +376,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			twiMLResponse.Say("Hello World")
 			twiML, _ := twiMLResponse.ToTwiML()
 
-			resp, err := apiSession.Account(accountSid).Calls.Create(&calls.CreateCallInput{
+			resp, err := apiClient.Account(accountSid).Calls.Create(&calls.CreateCallInput{
 				To:    os.Getenv("DESTINATION_PHONE_NUMBER"),
 				From:  os.Getenv("TWILIO_PHONE_NUMBER"),
 				TwiML: twiML,
@@ -378,7 +386,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			}
 			callSid = resp.Sid
 
-			_, endCallErr := apiSession.Account(accountSid).Call(callSid).Update(&call.UpdateCallInput{
+			_, endCallErr := apiClient.Account(accountSid).Call(callSid).Update(&call.UpdateCallInput{
 				Status: utils.String("completed"),
 			})
 			if endCallErr != nil {
@@ -387,13 +395,13 @@ var _ = Describe("API Acceptance Tests", func() {
 		})
 
 		AfterEach(func() {
-			if err := apiSession.Account(accountSid).Call(callSid).Delete(); err != nil {
+			if err := apiClient.Account(accountSid).Call(callSid).Delete(); err != nil {
 				Fail(fmt.Sprintf("Failed to delete call. Error %s", err.Error()))
 			}
 		})
 
 		It("Then the feedback is created, fetched and updated", func() {
-			feedbacksClient := apiSession.Account(accountSid).Call(callSid).Feedbacks
+			feedbacksClient := apiClient.Account(accountSid).Call(callSid).Feedbacks
 
 			createResp, createErr := feedbacksClient.Create(&feedbacks.CreateFeedbackInput{
 				QualityScore: 5,
@@ -402,7 +410,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
 
-			feedbackClient := apiSession.Account(accountSid).Call(callSid).Feedback()
+			feedbackClient := apiClient.Account(accountSid).Call(callSid).Feedback()
 
 			fetchResp, fetchErr := feedbackClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -419,7 +427,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the application clients", func() {
 		It("Then the application is created, fetched, updated and deleted", func() {
-			applicationsClient := apiSession.Account(accountSid).Applications
+			applicationsClient := apiClient.Account(accountSid).Applications
 
 			createResp, createErr := applicationsClient.Create(&applications.CreateApplicationInput{})
 			Expect(createErr).To(BeNil())
@@ -438,7 +446,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(paginator.Error()).To(BeNil())
 			Expect(len(paginator.Applications)).Should(BeNumerically(">=", 1))
 
-			applicationClient := apiSession.Account(accountSid).Application(createResp.Sid)
+			applicationClient := apiClient.Account(accountSid).Application(createResp.Sid)
 
 			fetchResp, fetchErr := applicationClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -457,14 +465,14 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the available phone number countries clients", func() {
 		It("Then the countries are fetched", func() {
-			countriesClient := apiSession.Account(accountSid).AvailablePhoneNumbers
+			countriesClient := apiClient.Account(accountSid).AvailablePhoneNumbers
 
 			pageResp, pageErr := countriesClient.Page()
 			Expect(pageErr).To(BeNil())
 			Expect(pageResp).ToNot(BeNil())
 			Expect(len(pageResp.Countries)).Should(BeNumerically(">=", 1))
 
-			countryClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB")
+			countryClient := apiClient.Account(accountSid).AvailablePhoneNumber("GB")
 
 			fetchResp, fetchErr := countryClient.Fetch()
 			Expect(fetchErr).To(BeNil())
@@ -474,7 +482,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the available toll free phone numbers clients", func() {
 		It("Then the available phone numbers are fetched", func() {
-			availablePhoneNumbersClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB").TollFree
+			availablePhoneNumbersClient := apiClient.Account(accountSid).AvailablePhoneNumber("GB").TollFree
 
 			pageResp, pageErr := availablePhoneNumbersClient.Page(&toll_free.AvailablePhoneNumbersPageOptions{})
 			Expect(pageErr).To(BeNil())
@@ -485,7 +493,7 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the available local phone numbers clients", func() {
 		It("Then the available phone numbers are fetched", func() {
-			availablePhoneNumbersClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB").Local
+			availablePhoneNumbersClient := apiClient.Account(accountSid).AvailablePhoneNumber("GB").Local
 
 			pageResp, pageErr := availablePhoneNumbersClient.Page(&local.AvailablePhoneNumbersPageOptions{})
 			Expect(pageErr).To(BeNil())
@@ -496,12 +504,209 @@ var _ = Describe("API Acceptance Tests", func() {
 
 	Describe("Given the available mobile phone numbers clients", func() {
 		It("Then the available phone numbers are fetched", func() {
-			availablePhoneNumbersClient := apiSession.Account(accountSid).AvailablePhoneNumber("GB").Mobile
+			availablePhoneNumbersClient := apiClient.Account(accountSid).AvailablePhoneNumber("GB").Mobile
 
 			pageResp, pageErr := availablePhoneNumbersClient.Page(&mobile.AvailablePhoneNumbersPageOptions{})
 			Expect(pageErr).To(BeNil())
 			Expect(pageResp).ToNot(BeNil())
 			Expect(len(pageResp.AvailablePhoneNumbers)).Should(BeNumerically(">=", 1))
+		})
+	})
+
+	Describe("Given the SIP credential list clients", func() {
+		It("Then the credential list is created, fetched, updated and deleted", func() {
+			credentialListsClient := apiClient.Account(accountSid).Sip.CredentialLists
+
+			createResp, createErr := credentialListsClient.Create(&credential_lists.CreateCredentialListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := credentialListsClient.Page(&credential_lists.CredentialListsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.CredentialLists)).Should(BeNumerically(">=", 1))
+
+			paginator := credentialListsClient.NewCredentialListsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.CredentialLists)).Should(BeNumerically(">=", 1))
+
+			credentialListClient := apiClient.Account(accountSid).Sip.CredentialList(createResp.Sid)
+
+			fetchResp, fetchErr := credentialListClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := credentialListClient.Update(&credential_list.UpdateCredentialListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := credentialListClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the SIP credential clients", func() {
+
+		var credentialListSid string
+
+		BeforeEach(func() {
+			resp, err := apiClient.Account(accountSid).Sip.CredentialLists.Create(&credential_lists.CreateCredentialListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create credential list. Error %s", err.Error()))
+			}
+			credentialListSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := apiClient.Account(accountSid).Sip.CredentialList(credentialListSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete credential list. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the credential is created, fetched, updated and deleted", func() {
+			credentialsClient := apiClient.Account(accountSid).Sip.CredentialList(credentialListSid).Credentials
+
+			createResp, createErr := credentialsClient.Create(&sipCredentials.CreateCredentialInput{
+				Username: uuid.New().String()[0:32],
+				Password: "A" + uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := credentialsClient.Page(&sipCredentials.CredentialsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Credentials)).Should(BeNumerically(">=", 1))
+
+			paginator := credentialsClient.NewCredentialsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Credentials)).Should(BeNumerically(">=", 1))
+
+			credentialClient := apiClient.Account(accountSid).Sip.CredentialList(credentialListSid).Credential(createResp.Sid)
+
+			fetchResp, fetchErr := credentialClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := credentialClient.Update(&sipCredential.UpdateCredentialInput{
+				Password: "B" + uuid.New().String(),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := credentialClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the IP Access Control list clients", func() {
+		It("Then the IP Access Control list is created, fetched, updated and deleted", func() {
+			ipAccessControlListsClient := apiClient.Account(accountSid).Sip.IpAccessControlLists
+
+			createResp, createErr := ipAccessControlListsClient.Create(&ip_access_control_lists.CreateIpAccessControlListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := ipAccessControlListsClient.Page(&ip_access_control_lists.IpAccessControlListsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.IpAccessControlLists)).Should(BeNumerically(">=", 1))
+
+			paginator := ipAccessControlListsClient.NewIpAccessControlListsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.IpAccessControlLists)).Should(BeNumerically(">=", 1))
+
+			ipAccessControlListClient := apiClient.Account(accountSid).Sip.IpAccessControlList(createResp.Sid)
+
+			fetchResp, fetchErr := ipAccessControlListClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := ipAccessControlListClient.Update(&ip_access_control_list.UpdateIpAccessControlListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := ipAccessControlListClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the IP address clients", func() {
+		var ipAccessControlListSid string
+
+		BeforeEach(func() {
+			resp, err := apiClient.Account(accountSid).Sip.IpAccessControlLists.Create(&ip_access_control_lists.CreateIpAccessControlListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create IP access control list. Error %s", err.Error()))
+			}
+			ipAccessControlListSid = resp.Sid
+		})
+
+		AfterEach(func() {
+			if err := apiClient.Account(accountSid).Sip.IpAccessControlList(ipAccessControlListSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete IP access control list. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the credential is created, fetched, updated and deleted", func() {
+			ipAddressesClient := apiClient.Account(accountSid).Sip.IpAccessControlList(ipAccessControlListSid).IpAddresses
+
+			createResp, createErr := ipAddressesClient.Create(&ip_addresses.CreateIpAddressInput{
+				FriendlyName: uuid.New().String(),
+				IpAddress:    "127.0.0.1",
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := ipAddressesClient.Page(&ip_addresses.IpAddressesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.IpAddresses)).Should(BeNumerically(">=", 1))
+
+			paginator := ipAddressesClient.NewIpAddressesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.IpAddresses)).Should(BeNumerically(">=", 1))
+
+			ipAddressClient := apiClient.Account(accountSid).Sip.IpAccessControlList(ipAccessControlListSid).IpAddress(createResp.Sid)
+
+			fetchResp, fetchErr := ipAddressClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := ipAddressClient.Update(&ip_address.UpdateIpAddressInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := ipAddressClient.Delete()
+			Expect(deleteErr).To(BeNil())
 		})
 	})
 

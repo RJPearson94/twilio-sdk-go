@@ -9,9 +9,21 @@ FIXES
 
 FEATURES
 
+### API
+
+- **New Resource:** SIP Credential Lists
+- **New Resource:** SIP Credentials
+- **New Resource:** SIP IP Access Control Lists
+- **New Resource:** SIP IP Addresses
+
 ### Serverless
 
 - Add `Runtime` field to serverless build input and response structs
+
+### Trunking
+
+- **New Resource:** Credential Lists
+- **New Resource:** IP Access Control Lists
 
 ### TwiML
 

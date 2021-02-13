@@ -631,6 +631,402 @@
               }
             }
           ]
+        },
+        {
+          "name": "Credential Lists",
+          "packageName": "credential_lists",
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing credential list resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/credentiallist-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/CredentialLists",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "associates a credential list resource with the SIP trunk",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/credentiallist-resource#create-a-credentiallist-resource"
+              },
+              "input": {
+                "structure": "CreateCredentialListInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new credential list resource"
+                }
+              },
+              "response": {
+                "name": "CreateCredentialListResponse",
+                "structure": "CredentialListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created credential list resource"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/CredentialLists",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of credential list resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/credentiallist-resource#read-multiple-credentiallist-resources"
+              },
+              "response": {
+                "structure": "CredentialListsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the credential lists page"
+                }
+              },
+              "pagination": {
+                "name": "CredentialListsPaginator",
+                "page": {
+                  "name": "CredentialListsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "CredentialLists",
+                  "structure": "PageCredentialListResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Credential List",
+          "packageName": "credential_list",
+          "function": {
+            "parameters": {
+              "credentialListSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "credentialListSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific credential list resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/credentiallist-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/CredentialLists/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a credential list resource"
+              },
+              "response": {
+                "name": "FetchCredentialListResponse",
+                "structure": "CredentialListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved credential list resource"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/CredentialLists/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a credential list resource from the SIP trunk",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/credentiallist-resource#delete-a-credentiallist-resource"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ip Access Control Lists",
+          "packageName": "ip_access_control_lists",
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing IP access control list resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/ipaccesscontrollist-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/IpAccessControlLists",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "associates an IP access control list resource with the SIP trunk",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/ipaccesscontrollist-resource#create-an-ipaccesscontrollist-resource"
+              },
+              "input": {
+                "structure": "CreateIpAccessControlListInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new IP access control list resource"
+                }
+              },
+              "response": {
+                "name": "CreateIpAccessControlListResponse",
+                "structure": "IpAccessControlListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created IP access control list resource"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/IpAccessControlLists",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  }
+                ],
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of IP access control list resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/ipaccesscontrollist-resource#read-multiple-ipaccesscontrollist-resources"
+              },
+              "response": {
+                "structure": "IpAccessControlListsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the IP access control lists page"
+                }
+              },
+              "pagination": {
+                "name": "IpAccessControlListsPaginator",
+                "page": {
+                  "name": "IpAccessControlListsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "IpAccessControlLists",
+                  "structure": "PageIpAccessControlListResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ip Access Control List",
+          "packageName": "ip_access_control_list",
+          "function": {
+            "parameters": {
+              "ipAccessControlListSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "trunkSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "ipAccessControlListSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific IP access control list resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/ipaccesscontrollist-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/IpAccessControlLists/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a IP access control list resource"
+              },
+              "response": {
+                "name": "FetchIpAccessControlListResponse",
+                "structure": "IpAccessControlListResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved IP access control list resource"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Trunks/{trunkSid}/IpAccessControlLists/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "trunkSid",
+                    "value": {
+                      "onService": true,
+                      "property": "trunkSid",
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a IP access control list resource from the SIP trunk",
+                "twilioDocsLink": "https://www.twilio.com/docs/sip-trunking/api/ipaccesscontrollist-resource#delete-an-ipaccesscontrollist-resource"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1235,6 +1631,104 @@
           "name": "Mode",
           "type": "string",
           "value": "mode",
+          "required": true
+        }
+      ]
+    },
+    "CreateCredentialListInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "CredentialListSid",
+          "type": "string",
+          "value": "CredentialListSid",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "CredentialLists",
+          "type": "array",
+          "items": {
+            "structure": "CredentialListResponse"
+          },
+          "value": "credential_lists",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "TrunkSid",
+          "type": "string",
+          "value": "trunk_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "CreateIpAccessControlListInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "IpAccessControlListSid",
+          "type": "string",
+          "value": "IpAccessControlListSid",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlLists",
+          "type": "array",
+          "items": {
+            "structure": "IpAccessControlListResponse"
+          },
+          "value": "ip_access_control_lists",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "TrunkSid",
+          "type": "string",
+          "value": "trunk_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
           "required": true
         }
       ]

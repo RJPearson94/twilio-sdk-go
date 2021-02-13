@@ -14,6 +14,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/credential_lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/ip_access_control_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_url"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/origination_urls"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking/v1/trunk/phone_number"
@@ -34,15 +36,15 @@ var _ = Describe("Trunking V1", func() {
 		log.Panicf("%s", err)
 	}
 
-	trunkingSession := trunking.New(session.New(creds), &client.Config{
+	trunkingClient := trunking.New(session.New(creds), &client.Config{
 		RetryAttempts: utils.Int(0),
 	}).V1
 
-	httpmock.ActivateNonDefault(trunkingSession.GetClient().GetRestyClient().GetClient())
+	httpmock.ActivateNonDefault(trunkingClient.GetClient().GetRestyClient().GetClient())
 	defer httpmock.DeactivateAndReset()
 
 	Describe("Given the Elastic SIP Trunk Client", func() {
-		trunksClient := trunkingSession.Trunks
+		trunksClient := trunkingClient.Trunks
 
 		Describe("When the trunk is successfully created", func() {
 			createInput := &trunks.CreateTrunkInput{}
@@ -276,7 +278,7 @@ var _ = Describe("Trunking V1", func() {
 	})
 
 	Describe("Given I have a Trunk SID", func() {
-		trunkClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		trunkClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the trunk is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -326,7 +328,7 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			resp, err := trunkingSession.Trunk("TK71").Fetch()
+			resp, err := trunkingClient.Trunk("TK71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -389,7 +391,7 @@ var _ = Describe("Trunking V1", func() {
 
 			updateInput := &trunk.UpdateTrunkInput{}
 
-			resp, err := trunkingSession.Trunk("TK71").Update(updateInput)
+			resp, err := trunkingClient.Trunk("TK71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -418,7 +420,7 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			err := trunkingSession.Trunk("TK71").Delete()
+			err := trunkingClient.Trunk("TK71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -426,7 +428,7 @@ var _ = Describe("Trunking V1", func() {
 	})
 
 	Describe("Given the Origination URL Client", func() {
-		originationURLsClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURLs
+		originationURLsClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURLs
 
 		Describe("When the origination url is successfully created", func() {
 			createInput := &origination_urls.CreateOriginationURLInput{
@@ -692,7 +694,7 @@ var _ = Describe("Trunking V1", func() {
 	})
 
 	Describe("Given I have a Origination URL SID", func() {
-		originationURLClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		originationURLClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
 		Describe("When the origination url is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -735,7 +737,7 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OU71").Fetch()
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OU71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -790,7 +792,7 @@ var _ = Describe("Trunking V1", func() {
 
 			updateInput := &origination_url.UpdateOriginationURLInput{}
 
-			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OU71").Update(updateInput)
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OU71").Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -819,7 +821,7 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OU71").Delete()
+			err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").OriginationURL("OU71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -827,9 +829,9 @@ var _ = Describe("Trunking V1", func() {
 	})
 
 	Describe("Given the Phone Number Client", func() {
-		phoneNumbersClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumbers
+		phoneNumbersClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumbers
 
-		Describe("When the phone number is successfully created", func() {
+		Describe("When the  is successfully created", func() {
 			createInput := &phone_numbers.CreatePhoneNumberInput{
 				PhoneNumberSid: "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 			}
@@ -848,7 +850,7 @@ var _ = Describe("Trunking V1", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the create phone number response should be returned", func() {
+			It("Then the create  response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -882,7 +884,7 @@ var _ = Describe("Trunking V1", func() {
 			})
 		})
 
-		Describe("When the phone number does not contain a sip url", func() {
+		Describe("When the  does not contain a sip url", func() {
 			createInput := &phone_numbers.CreatePhoneNumberInput{}
 
 			resp, err := phoneNumbersClient.Create(createInput)
@@ -890,12 +892,12 @@ var _ = Describe("Trunking V1", func() {
 				ExpectInvalidInputError(err)
 			})
 
-			It("Then the create phone number response should be nil", func() {
+			It("Then the create  response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the create phone number API returns a 500 response", func() {
+		Describe("When the create  API returns a 500 response", func() {
 			createInput := &phone_numbers.CreatePhoneNumberInput{
 				PhoneNumberSid: "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 			}
@@ -914,12 +916,12 @@ var _ = Describe("Trunking V1", func() {
 				ExpectInternalServerError(err)
 			})
 
-			It("Then the create phone number response should be nil", func() {
+			It("Then the create  response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the page of phone numbers are successfully retrieved", func() {
+		Describe("When the page of s are successfully retrieved", func() {
 			pageOptions := &phone_numbers.PhoneNumbersPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
@@ -939,7 +941,7 @@ var _ = Describe("Trunking V1", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the phone number page response should be returned", func() {
+			It("Then the  page response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 
 				meta := resp.Meta
@@ -988,7 +990,7 @@ var _ = Describe("Trunking V1", func() {
 			})
 		})
 
-		Describe("When the page of phone numbers api returns a 500 response", func() {
+		Describe("When the page of s api returns a 500 response", func() {
 			pageOptions := &phone_numbers.PhoneNumbersPageOptions{
 				PageSize: utils.Int(50),
 				Page:     utils.Int(0),
@@ -1008,12 +1010,12 @@ var _ = Describe("Trunking V1", func() {
 				ExpectInternalServerError(err)
 			})
 
-			It("Then the phone numbers page response should be nil", func() {
+			It("Then the s page response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the paginated phone numbers are successfully retrieved", func() {
+		Describe("When the paginated s are successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorResponse.json")
@@ -1047,16 +1049,16 @@ var _ = Describe("Trunking V1", func() {
 				Expect(paginator.Error()).To(BeNil())
 			})
 
-			It("Then the paginated phone numbers current page should be returned", func() {
+			It("Then the paginated s current page should be returned", func() {
 				Expect(paginator.CurrentPage()).ToNot(BeNil())
 			})
 
-			It("Then the paginated phone numbers results should be returned", func() {
+			It("Then the paginated s results should be returned", func() {
 				Expect(len(paginator.PhoneNumbers)).To(Equal(3))
 			})
 		})
 
-		Describe("When the phone numbers api returns a 500 response when making a paginated request", func() {
+		Describe("When the s api returns a 500 response when making a paginated request", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorResponse.json")
@@ -1090,16 +1092,16 @@ var _ = Describe("Trunking V1", func() {
 				ExpectInternalServerError(paginator.Error())
 			})
 
-			It("Then the paginated phone numbers current page should be nil", func() {
+			It("Then the paginated s current page should be nil", func() {
 				Expect(paginator.CurrentPage()).To(BeNil())
 			})
 		})
 	})
 
 	Describe("Given I have a Phone Number SID", func() {
-		phoneNumberClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+		phoneNumberClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-		Describe("When the phone number is successfully retrieved", func() {
+		Describe("When the  is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/phoneNumberResponse.json")
@@ -1114,7 +1116,7 @@ var _ = Describe("Trunking V1", func() {
 				Expect(err).To(BeNil())
 			})
 
-			It("Then the get phone number response should be returned", func() {
+			It("Then the get  response should be returned", func() {
 				Expect(resp).ToNot(BeNil())
 				Expect(resp.Sid).To(Equal("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -1148,7 +1150,7 @@ var _ = Describe("Trunking V1", func() {
 			})
 		})
 
-		Describe("When the get phone number response returns a 404", func() {
+		Describe("When the get  response returns a 404", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PN71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -1158,17 +1160,17 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Fetch()
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
 
-			It("Then the get phone number response should be nil", func() {
+			It("Then the get  response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
 
-		Describe("When the phone number is successfully deleted", func() {
+		Describe("When the  is successfully deleted", func() {
 			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
 
 			err := phoneNumberClient.Delete()
@@ -1177,7 +1179,7 @@ var _ = Describe("Trunking V1", func() {
 			})
 		})
 
-		Describe("When the delete phone number response returns a 404", func() {
+		Describe("When the delete  response returns a 404", func() {
 			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PN71",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
@@ -1187,7 +1189,7 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Delete()
+			err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").PhoneNumber("PN71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1195,9 +1197,9 @@ var _ = Describe("Trunking V1", func() {
 	})
 
 	Describe("Given I have a Recording client", func() {
-		recordingClient := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording()
+		recordingClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording()
 
-		Describe("When the phone number is successfully retrieved", func() {
+		Describe("When the  is successfully retrieved", func() {
 			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording",
 				func(req *http.Request) (*http.Response, error) {
 					fixture, _ := ioutil.ReadFile("testdata/recordingResponse.json")
@@ -1229,7 +1231,7 @@ var _ = Describe("Trunking V1", func() {
 				},
 			)
 
-			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording().Fetch()
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording().Fetch()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1275,7 +1277,7 @@ var _ = Describe("Trunking V1", func() {
 
 			updateInput := &recording.UpdateRecordingInput{}
 
-			resp, err := trunkingSession.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording().Update(updateInput)
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording().Update(updateInput)
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})
@@ -1285,6 +1287,611 @@ var _ = Describe("Trunking V1", func() {
 			})
 		})
 	})
+
+	Describe("Given the Credential Lists Client", func() {
+		credentialListsClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").CredentialLists
+
+		Describe("When the credential list is successfully created", func() {
+			createInput := &credential_lists.CreateCredentialListInput{
+				CredentialListSid: "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create credential list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the credential list does not contain a sip url", func() {
+			createInput := &credential_lists.CreateCredentialListInput{}
+
+			resp, err := credentialListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create credential list API returns a 500 response", func() {
+			createInput := &credential_lists.CreateCredentialListInput{
+				CredentialListSid: "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create credential list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of credential lists are successfully retrieved", func() {
+			pageOptions := &credential_lists.CredentialListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the credential list page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("credential_lists"))
+
+				credentialLists := resp.CredentialLists
+				Expect(credentialLists).ToNot(BeNil())
+				Expect(len(credentialLists)).To(Equal(1))
+
+				Expect(credentialLists[0].Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentialLists[0].TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentialLists[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(credentialLists[0].FriendlyName).To(Equal("Test"))
+				Expect(credentialLists[0].DateUpdated).To(BeNil())
+				Expect(credentialLists[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(credentialLists[0].URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of credential lists api returns a 500 response", func() {
+			pageOptions := &credential_lists.CredentialListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := credentialListsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the credential lists page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated credential lists are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialListsClient.NewCredentialListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated credential lists current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated credential lists results should be returned", func() {
+				Expect(len(paginator.CredentialLists)).To(Equal(3))
+			})
+		})
+
+		Describe("When the credential lists api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := credentialListsClient.NewCredentialListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated credential lists current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a Credential List SID", func() {
+		credentialListClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").CredentialList("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the credential list is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/credentialListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := credentialListClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get credential list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get credential list response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").CredentialList("CL71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get Credential List response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the credential list is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := credentialListClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete credential list response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").CredentialList("CL71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given the IP Access Control Lists Client", func() {
+		ipAccessControlListsClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAccessControlLists
+
+		Describe("When the IP access control list is successfully created", func() {
+			createInput := &ip_access_control_lists.CreateIpAccessControlListInput{
+				IpAccessControlListSid: "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create IP access control list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the IP access control list does not contain a sip url", func() {
+			createInput := &ip_access_control_lists.CreateIpAccessControlListInput{}
+
+			resp, err := ipAccessControlListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create IP access control list API returns a 500 response", func() {
+			createInput := &ip_access_control_lists.CreateIpAccessControlListInput{
+				IpAccessControlListSid: "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create IP access control list response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of IP access control lists are successfully retrieved", func() {
+			pageOptions := &ip_access_control_lists.IpAccessControlListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the IP access control list page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("ip_access_control_lists"))
+
+				ipAccessControlLists := resp.IpAccessControlLists
+				Expect(ipAccessControlLists).ToNot(BeNil())
+				Expect(len(ipAccessControlLists)).To(Equal(1))
+
+				Expect(ipAccessControlLists[0].Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAccessControlLists[0].TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAccessControlLists[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(ipAccessControlLists[0].FriendlyName).To(Equal("Test"))
+				Expect(ipAccessControlLists[0].DateUpdated).To(BeNil())
+				Expect(ipAccessControlLists[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(ipAccessControlLists[0].URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of IP access control lists api returns a 500 response", func() {
+			pageOptions := &ip_access_control_lists.IpAccessControlListsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the IP access control lists page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated IP access control lists are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := ipAccessControlListsClient.NewIpAccessControlListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated IP access control lists current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated IP access control lists results should be returned", func() {
+				Expect(len(paginator.IpAccessControlLists)).To(Equal(3))
+			})
+		})
+
+		Describe("When the IP access control lists api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/phoneNumbersPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := ipAccessControlListsClient.NewIpAccessControlListsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated IP access control lists current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a IP Access Control List SID", func() {
+		ipAccessControlListClient := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAccessControlList("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the IP access control list is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/ipAccessControlListResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := ipAccessControlListClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get IP access control list response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.TrunkSid).To(Equal("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Test"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.URL).To(Equal("https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the get IP access control list response returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/AL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAccessControlList("AL71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get IP Access Control List response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the IP access control list is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := ipAccessControlListClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the delete IP access control list response returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/AL71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := trunkingClient.Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").IpAccessControlList("AL71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
 })
 
 func ExpectInternalServerError(err error) {

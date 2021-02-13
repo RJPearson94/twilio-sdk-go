@@ -31,7 +31,7 @@ func main() {
 
 	for paginator.Next() {
 		currentPage := paginator.CurrentPage()
-		log.Printf("%v phone number((s) found on page %v", len(currentPage.PhoneNumbers), currentPage.Meta.Page)
+		log.Printf("%v phone number(s) found on page %v", len(currentPage.PhoneNumbers), currentPage.Meta.Page)
 	}
 
 	if paginator.Error() != nil {

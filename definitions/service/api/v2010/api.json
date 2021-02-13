@@ -4513,6 +4513,1082 @@
               }
             }
           ]
+        },
+        {
+          "name": "Sip",
+          "packageName": "sip",
+          "documentation": {
+            "description": "Client for managing Session Initiation Protocol (SIP) resources"
+          },
+          "properties": {
+            "accountSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "subClients": [
+            {
+              "name": "Credential Lists",
+              "packageName": "credential_lists",
+              "documentation": {
+                "description": "Client for managing credential list resources"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/CredentialLists.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a credential list resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#create-a-sip-credentiallist-resource"
+                  },
+                  "input": {
+                    "name": "CreateCredentialListInput",
+                    "structure": "CredentialListInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new credential list"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateCredentialListResponse",
+                    "structure": "CredentialListResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new credential list"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/CredentialLists.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of credential lists",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#update-a-sip-credentiallist-resource"
+                  },
+                  "response": {
+                    "structure": "CredentialListsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the credential list page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "CredentialListsPaginator",
+                    "page": {
+                      "name": "CredentialListsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "CredentialLists",
+                      "structure": "PageCredentialListResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Credential List",
+              "packageName": "credential_list",
+              "documentation": {
+                "description": "Client for managing a specific Credential List resource"
+              },
+              "function": {
+                "parameters": {
+                  "credentialListSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "credentialListSid"
+                }
+              },
+              "subClients": [
+                {
+                  "name": "Credentials",
+                  "packageName": "credentials",
+                  "documentation": {
+                    "description": "Client for managing credential resources"
+                  },
+                  "properties": {
+                    "accountSid": {
+                      "dataType": "string",
+                      "parentProperty": "accountSid"
+                    },
+                    "credentialListSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    }
+                  },
+                  "operations": [
+                    {
+                      "name": "Create",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{credentialListSid}/Credentials.json",
+                        "method": "Post",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "credentialListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "credentialListSid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "creates a SIP credential resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credential-resource#create-a-sip-credential-resource"
+                      },
+                      "input": {
+                        "structure": "CreateCredentialInput",
+                        "documentation": {
+                          "description": "defines input fields for creating a new SIP credential"
+                        }
+                      },
+                      "response": {
+                        "name": "CreateCredentialResponse",
+                        "structure": "CredentialResponse",
+                        "documentation": {
+                          "description": "defines the response fields for creating a new SIP credential"
+                        }
+                      }
+                    },
+                    {
+                      "name": "Page",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{credentialListSid}/Credentials.json",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "credentialListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "credentialListSid",
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "queryParams": [
+                          {
+                            "name": "PageSize",
+                            "type": "int",
+                            "required": false
+                          },
+                          {
+                            "name": "Page",
+                            "type": "int",
+                            "required": false
+                          },
+                          {
+                            "name": "PageToken",
+                            "type": "string",
+                            "required": false
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "retrieves a page of SIP credentials",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credential-resource#read-multiple-sip-credential-resources"
+                      },
+                      "response": {
+                        "structure": "CredentialsPageResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the SIP credentials page"
+                        }
+                      },
+                      "pagination": {
+                        "name": "CredentialsPaginator",
+                        "page": {
+                          "name": "CredentialsPage",
+                          "nextToken": "PageToken",
+                          "nextPage": {
+                            "meta": false,
+                            "property": "NextPageURI"
+                          },
+                          "items": "Credentials",
+                          "structure": "PageCredentialResponse"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Credential",
+                  "packageName": "credential",
+                  "documentation": {
+                    "description": "Client for managing a specific credential resource"
+                  },
+                  "function": {
+                    "parameters": {
+                      "credentialSid": {
+                        "dataType": "string"
+                      }
+                    }
+                  },
+                  "properties": {
+                    "accountSid": {
+                      "dataType": "string",
+                      "parentProperty": "accountSid"
+                    },
+                    "credentialListSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    },
+                    "sid": {
+                      "dataType": "string",
+                      "functionParameter": "credentialSid"
+                    }
+                  },
+                  "operations": [
+                    {
+                      "name": "Fetch",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{credentialListSid}/Credentials/{sid}.json",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "credentialListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "credentialListSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "property": "sid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "retrieves a SIP credential resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credential-resource#fetch-a-sip-credential-resource"
+                      },
+                      "response": {
+                        "name": "FetchCredentialResponse",
+                        "structure": "CredentialResponse",
+                        "documentation": {
+                          "description": "defines the response fields for retrieving a SIP credential"
+                        }
+                      }
+                    },
+                    {
+                      "name": "Update",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{credentialListSid}/Credentials/{sid}.json",
+                        "method": "Post",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "credentialListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "credentialListSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "property": "sid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "modifies a SIP credential resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credential-resource#update-a-sip-credential-resource"
+                      },
+                      "input": {
+                        "structure": "UpdateCredentialInput",
+                        "documentation": {
+                          "description": "defines input fields for updating a SIP credential"
+                        }
+                      },
+                      "response": {
+                        "name": "UpdateCredentialResponse",
+                        "structure": "CredentialResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the updated SIP credential"
+                        }
+                      }
+                    },
+                    {
+                      "name": "Delete",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{credentialListSid}/Credentials/{sid}.json",
+                        "method": "Delete",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "credentialListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "credentialListSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "property": "sid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "removes a SIP credential from the account",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credential-resource#delete-a-sip-credential-resource"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a credential list resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#fetch-a-sip-credentiallist-resource"
+                  },
+                  "response": {
+                    "name": "FetchCredentialListResponse",
+                    "structure": "CredentialListResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a credential list"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{sid}.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a credential list resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#update-a-sip-credentiallist-resource"
+                  },
+                  "input": {
+                    "name": "UpdateCredentialListInput",
+                    "structure": "CredentialListInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a credential list"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateCredentialListResponse",
+                    "structure": "CredentialListResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated credential list"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/CredentialLists/{sid}.json",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a credential list from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#delete-a-sip-credentiallist-resource"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Ip Access Control Lists",
+              "packageName": "ip_access_control_lists",
+              "documentation": {
+                "description": "Client for managing IP access control list resources"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a IP access control list resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource#create-a-sip-ipaccesscontrollist-resource"
+                  },
+                  "input": {
+                    "name": "CreateIpAccessControlListInput",
+                    "structure": "IpAccessControlListInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new IP access control list"
+                    }
+                  },
+                  "response": {
+                    "name": "IpAccessControlListResponse",
+                    "structure": "IpAccessControlListResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new IP access control list"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of IP access control lists",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource#read-multiple-sip-ipaccesscontrollist-resources"
+                  },
+                  "response": {
+                    "structure": "IpAccessControlListsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the IP access control lists page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "IpAccessControlListsPaginator",
+                    "page": {
+                      "name": "IpAccessControlListsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "IpAccessControlLists",
+                      "structure": "PageIpAccessControlListResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Ip Access Control List",
+              "packageName": "ip_access_control_list",
+              "documentation": {
+                "description": "Client for managing a specific IP Access Control List resource"
+              },
+              "function": {
+                "parameters": {
+                  "ipAccessControlListSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "ipAccessControlListSid"
+                }
+              },
+              "subClients": [
+                {
+                  "name": "Ip Addresses",
+                  "packageName": "ip_addresses",
+                  "documentation": {
+                    "description": "Client for managing IP address resources"
+                  },
+                  "properties": {
+                    "accountSid": {
+                      "dataType": "string",
+                      "parentProperty": "accountSid"
+                    },
+                    "ipAccessControlListSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    }
+                  },
+                  "operations": [
+                    {
+                      "name": "Create",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{ipAccessControlListSid}/IpAddresses.json",
+                        "method": "Post",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "ipAccessControlListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "ipAccessControlListSid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "creates a IP address resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaddress-resource#create-a-sip-ipaddress-resource"
+                      },
+                      "input": {
+                        "structure": "CreateIpAddressInput",
+                        "documentation": {
+                          "description": "defines input fields for creating a new IP address resource"
+                        }
+                      },
+                      "response": {
+                        "name": "CreateIpAddressResponse",
+                        "structure": "IpAddressResponse",
+                        "documentation": {
+                          "description": "defines the response fields for creating a new IP address resource"
+                        }
+                      }
+                    },
+                    {
+                      "name": "Page",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{ipAccessControlListSid}/IpAddresses.json",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "ipAccessControlListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "ipAccessControlListSid",
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "queryParams": [
+                          {
+                            "name": "PageSize",
+                            "type": "int",
+                            "required": false
+                          },
+                          {
+                            "name": "Page",
+                            "type": "int",
+                            "required": false
+                          },
+                          {
+                            "name": "PageToken",
+                            "type": "string",
+                            "required": false
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "retrieves a page of IP addresses",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaddress-resource#read-multiple-sip-ipaddress-resources"
+                      },
+                      "response": {
+                        "structure": "IpAddressesPageResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the IP addresses page"
+                        }
+                      },
+                      "pagination": {
+                        "name": "IpAddressesPaginator",
+                        "page": {
+                          "name": "IpAddressesPage",
+                          "nextToken": "PageToken",
+                          "nextPage": {
+                            "meta": false,
+                            "property": "NextPageURI"
+                          },
+                          "items": "IpAddresses",
+                          "structure": "PageIpAddressResponse"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Ip Address",
+                  "packageName": "ip_address",
+                  "documentation": {
+                    "description": "Client for managing a specific IP Address resource"
+                  },
+                  "function": {
+                    "parameters": {
+                      "ipAddressSid": {
+                        "dataType": "string"
+                      }
+                    }
+                  },
+                  "properties": {
+                    "accountSid": {
+                      "dataType": "string",
+                      "parentProperty": "accountSid"
+                    },
+                    "ipAccessControlListSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    },
+                    "sid": {
+                      "dataType": "string",
+                      "functionParameter": "ipAddressSid"
+                    }
+                  },
+                  "operations": [
+                    {
+                      "name": "Fetch",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{ipAccessControlListSid}/IpAddresses/{sid}.json",
+                        "method": "Get",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "ipAccessControlListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "ipAccessControlListSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "property": "sid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "retrieves a IP address resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaddress-resource#fetch-a-sip-ipaddress-resource"
+                      },
+                      "response": {
+                        "name": "FetchIpAddressResponse",
+                        "structure": "IpAddressResponse",
+                        "documentation": {
+                          "description": "defines the response fields for retrieving a IP address"
+                        }
+                      }
+                    },
+                    {
+                      "name": "Update",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{ipAccessControlListSid}/IpAddresses/{sid}.json",
+                        "method": "Post",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "ipAccessControlListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "ipAccessControlListSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "property": "sid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "modifies a IP address resource",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaddress-resource#update-a-sip-ipaddress-resource"
+                      },
+                      "input": {
+                        "structure": "UpdateIpAddressInput",
+                        "documentation": {
+                          "description": "defines input fields for updating a IP address"
+                        }
+                      },
+                      "response": {
+                        "name": "UpdateIpAddressResponse",
+                        "structure": "IpAddressResponse",
+                        "documentation": {
+                          "description": "defines the response fields for the updated IP address"
+                        }
+                      }
+                    },
+                    {
+                      "name": "Delete",
+                      "http": {
+                        "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{ipAccessControlListSid}/IpAddresses/{sid}.json",
+                        "method": "Delete",
+                        "pathParams": [
+                          {
+                            "name": "accountSid",
+                            "value": {
+                              "onService": true,
+                              "property": "accountSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "ipAccessControlListSid",
+                            "value": {
+                              "onService": true,
+                              "property": "ipAccessControlListSid",
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "name": "sid",
+                            "value": {
+                              "onService": true,
+                              "property": "sid",
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "documentation": {
+                        "description": "removes a IP address from the account",
+                        "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaddress-resource#delete-a-sip-ipaddress-resource"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a IP control access list resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource#fetch-a-sip-ipaccesscontrollist-resource"
+                  },
+                  "response": {
+                    "name": "FetchIpAccessControlListResponse",
+                    "structure": "IpAccessControlListResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a credential list"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{sid}.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a IP control access list resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource#update-a-sip-ipaccesscontrollist-resource"
+                  },
+                  "input": {
+                    "name": "UpdateIpAccessControlListInput",
+                    "structure": "IpAccessControlListInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a IP control access list"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateIpAccessControlListResponse",
+                    "structure": "IpAccessControlListResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated IP control access list"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/IpAccessControlLists/{sid}.json",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a IP control access list from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource#delete-a-sip-ipaccesscontrollist-resource"
+                  }
+                }
+              ]
+            }
+          ],
+          "operations": []
         }
       ],
       "operations": [
@@ -7544,6 +8620,258 @@
           "name": "Capabilities",
           "structure": "IncomingPhoneNumberCapabilitiesResponse",
           "value": "capabilities",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "CredentialLists",
+          "type": "array",
+          "items": {
+            "structure": "CredentialListResponse"
+          },
+          "value": "credential_lists",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "CreateCredentialInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Username",
+          "type": "string",
+          "value": "Username",
+          "required": true
+        },
+        {
+          "name": "Password",
+          "type": "string",
+          "value": "Password",
+          "required": true
+        }
+      ]
+    },
+    "UpdateCredentialInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Password",
+          "type": "string",
+          "value": "Password",
+          "required": true
+        }
+      ]
+    },
+    "CredentialsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Credentials",
+          "type": "array",
+          "items": {
+            "structure": "CredentialResponse"
+          },
+          "value": "credentials",
+          "required": true
+        }
+      ]
+    },
+    "CredentialResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "CredentialListSid",
+          "type": "string",
+          "value": "credential_list_sid",
+          "required": true
+        },
+        {
+          "name": "Username",
+          "type": "string",
+          "value": "username",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "IpAccessControlLists",
+          "type": "array",
+          "items": {
+            "structure": "IpAccessControlListResponse"
+          },
+          "value": "ip_access_control_lists",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "CreateIpAddressInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "IpAddress",
+          "type": "string",
+          "value": "IpAddress",
+          "required": true
+        },
+        {
+          "name": "CidrPrefixLength",
+          "type": "int",
+          "value": "CidrPrefixLength",
+          "required": false
+        }
+      ]
+    },
+    "UpdateIpAddressInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "IpAddress",
+          "type": "string",
+          "value": "IpAddress",
+          "required": false
+        },
+        {
+          "name": "CidrPrefixLength",
+          "type": "int",
+          "value": "CidrPrefixLength",
+          "required": false
+        }
+      ]
+    },
+    "IpAddressesPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "IpAddresses",
+          "type": "array",
+          "items": {
+            "structure": "IpAddressResponse"
+          },
+          "value": "ip_addresses",
+          "required": true
+        }
+      ]
+    },
+    "IpAddressResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlListSid",
+          "type": "string",
+          "value": "ip_access_control_list_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "IpAddress",
+          "type": "string",
+          "value": "ip_address",
+          "required": true
+        },
+        {
+          "name": "CidrPrefixLength",
+          "type": "int",
+          "value": "cidr_prefix_length",
           "required": true
         }
       ]

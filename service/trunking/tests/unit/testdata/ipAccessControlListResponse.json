@@ -1,0 +1,9 @@
+{
+  "date_updated": null,
+  "friendly_name": "Test",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "sid": "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2020-06-27T23:00:00Z",
+  "trunk_sid": "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
