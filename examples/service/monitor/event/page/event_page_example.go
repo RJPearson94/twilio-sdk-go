@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var monitorSession *v1.Monitor
+var monitorClient *v1.Monitor
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -21,11 +21,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	monitorSession = twilio.NewWithCredentials(creds).Monitor.V1
+	monitorClient = twilio.NewWithCredentials(creds).Monitor.V1
 }
 
 func main() {
-	resp, err := monitorSession.
+	resp, err := monitorClient.
 		Events.
 		Page(&events.EventsPageOptions{})
 

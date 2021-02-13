@@ -11,7 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/twiml/voice"
 )
 
-var apiSession *v2010.V2010
+var apiClient *v2010.V2010
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -22,7 +22,7 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	apiSession = twilio.NewWithCredentials(creds).API.V2010
+	apiClient = twilio.NewWithCredentials(creds).API.V2010
 }
 
 func main() {
@@ -30,7 +30,7 @@ func main() {
 	twiMLResponse.Say("Hello World")
 	twiML, _ := twiMLResponse.ToTwiML()
 
-	resp, err := apiSession.
+	resp, err := apiClient.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Calls.
 		Create(&calls.CreateCallInput{

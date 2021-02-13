@@ -11,7 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-var faxSession *v1.Fax
+var faxClient *v1.Fax
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -22,11 +22,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	faxSession = twilio.NewWithCredentials(creds).Fax.V1
+	faxClient = twilio.NewWithCredentials(creds).Fax.V1
 }
 
 func main() {
-	resp, err := faxSession.
+	resp, err := faxClient.
 		Fax("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&fax.UpdateFaxInput{
 			Status: utils.String("cancelled"),

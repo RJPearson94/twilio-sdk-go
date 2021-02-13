@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-var flexSession *v1.Flex
+var flexClient *v1.Flex
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -23,11 +23,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	flexSession = twilio.NewWithCredentials(creds).Flex.V1
+	flexClient = twilio.NewWithCredentials(creds).Flex.V1
 }
 
 func main() {
-	resp, err := flexSession.
+	resp, err := flexClient.
 		FlexFlows.
 		Create(&flex_flows.CreateFlexFlowInput{
 			FriendlyName:    uuid.New().String(),

@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var trunkingSession *v1.Trunking
+var trunkingClient *v1.Trunking
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -20,11 +20,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	trunkingSession = twilio.NewWithCredentials(creds).Trunking.V1
+	trunkingClient = twilio.NewWithCredentials(creds).Trunking.V1
 }
 
 func main() {
-	err := trunkingSession.
+	err := trunkingClient.
 		Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		OriginationURL("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Delete()

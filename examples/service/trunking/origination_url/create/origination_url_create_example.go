@@ -11,7 +11,7 @@ import (
 	"github.com/google/uuid"
 )
 
-var trunkingSession *v1.Trunking
+var trunkingClient *v1.Trunking
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -22,11 +22,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	trunkingSession = twilio.NewWithCredentials(creds).Trunking.V1
+	trunkingClient = twilio.NewWithCredentials(creds).Trunking.V1
 }
 
 func main() {
-	resp, err := trunkingSession.
+	resp, err := trunkingClient.
 		Trunk("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		OriginationURLs.
 		Create(&origination_urls.CreateOriginationURLInput{

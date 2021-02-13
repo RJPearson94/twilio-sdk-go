@@ -11,7 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-var studioSession *v2.Studio
+var studioClient *v2.Studio
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -22,11 +22,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	studioSession = twilio.NewWithCredentials(creds).Studio.V2
+	studioClient = twilio.NewWithCredentials(creds).Studio.V2
 }
 
 func main() {
-	resp, err := studioSession.
+	resp, err := studioClient.
 		Flow("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Executions.
 		Create(&executions.CreateExecutionInput{

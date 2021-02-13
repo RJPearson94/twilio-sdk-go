@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var apiSession *v2010.V2010
+var apiClient *v2010.V2010
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -20,11 +20,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	apiSession = twilio.NewWithCredentials(creds).API.V2010
+	apiClient = twilio.NewWithCredentials(creds).API.V2010
 }
 
 func main() {
-	paginator := apiSession.
+	paginator := apiClient.
 		Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Message("SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		MediaAttachments.

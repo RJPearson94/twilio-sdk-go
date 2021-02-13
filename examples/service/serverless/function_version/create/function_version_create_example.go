@@ -11,7 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var serverlessSession *v1.Serverless
+var serverlessClient *v1.Serverless
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -22,11 +22,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	serverlessSession = twilio.NewWithCredentials(creds).Serverless.V1
+	serverlessClient = twilio.NewWithCredentials(creds).Serverless.V1
 }
 
 func main() {
-	resp, err := serverlessSession.
+	resp, err := serverlessClient.
 		Service("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Function("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Versions.

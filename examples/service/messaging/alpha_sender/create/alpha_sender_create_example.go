@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var messagingSession *v1.Messaging
+var messagingClient *v1.Messaging
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -21,11 +21,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	messagingSession = twilio.NewWithCredentials(creds).Messaging.V1
+	messagingClient = twilio.NewWithCredentials(creds).Messaging.V1
 }
 
 func main() {
-	resp, err := messagingSession.
+	resp, err := messagingClient.
 		Service("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		AlphaSenders.
 		Create(&alpha_senders.CreateAlphaSenderInput{

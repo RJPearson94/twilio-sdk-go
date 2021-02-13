@@ -11,7 +11,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
-var proxySession *v1.Proxy
+var proxyClient *v1.Proxy
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -22,11 +22,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	proxySession = twilio.NewWithCredentials(creds).Proxy.V1
+	proxyClient = twilio.NewWithCredentials(creds).Proxy.V1
 }
 
 func main() {
-	resp, err := proxySession.
+	resp, err := proxyClient.
 		Service("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Session("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Update(&session.UpdateSessionInput{

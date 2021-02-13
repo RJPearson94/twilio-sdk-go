@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var notifySession *v1.Notify
+var notifyClient *v1.Notify
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -20,11 +20,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	notifySession = twilio.NewWithCredentials(creds).Notify.V1
+	notifyClient = twilio.NewWithCredentials(creds).Notify.V1
 }
 
 func main() {
-	paginator := notifySession.
+	paginator := notifyClient.
 		Services.
 		NewServicesPaginator()
 

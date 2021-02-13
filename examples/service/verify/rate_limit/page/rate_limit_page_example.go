@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var verifySession *v2.Verify
+var verifyClient *v2.Verify
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -21,11 +21,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	verifySession = twilio.NewWithCredentials(creds).Verify.V2
+	verifyClient = twilio.NewWithCredentials(creds).Verify.V2
 }
 
 func main() {
-	resp, err := verifySession.
+	resp, err := verifyClient.
 		Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		RateLimits.
 		Page(&rate_limits.RateLimitsPageOptions{})

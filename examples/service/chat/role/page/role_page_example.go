@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var chatSession *v2.Chat
+var chatClient *v2.Chat
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -21,11 +21,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	chatSession = twilio.NewWithCredentials(creds).Chat.V2
+	chatClient = twilio.NewWithCredentials(creds).Chat.V2
 }
 
 func main() {
-	resp, err := chatSession.
+	resp, err := chatClient.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Roles.
 		Page(&roles.RolesPageOptions{})

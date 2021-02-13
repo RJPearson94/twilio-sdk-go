@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var syncSession *v1.Sync
+var syncClient *v1.Sync
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -20,11 +20,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	syncSession = twilio.NewWithCredentials(creds).Sync.V1
+	syncClient = twilio.NewWithCredentials(creds).Sync.V1
 }
 
 func main() {
-	paginator := syncSession.
+	paginator := syncClient.
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Documents.
 		NewDocumentsPaginator()

@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var autopilotSession *v1.Autopilot
+var autopilotClient *v1.Autopilot
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -21,11 +21,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	autopilotSession = twilio.NewWithCredentials(creds).Autopilot.V1
+	autopilotClient = twilio.NewWithCredentials(creds).Autopilot.V1
 }
 
 func main() {
-	resp, err := autopilotSession.
+	resp, err := autopilotClient.
 		Assistant("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Defaults().
 		Update(&defaults.UpdateDefaultInput{})

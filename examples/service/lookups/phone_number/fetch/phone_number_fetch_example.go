@@ -9,7 +9,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var lookupSession *v1.Lookups
+var lookupClient *v1.Lookups
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -20,11 +20,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	lookupSession = twilio.NewWithCredentials(creds).Lookups.V1
+	lookupClient = twilio.NewWithCredentials(creds).Lookups.V1
 }
 
 func main() {
-	resp, err := lookupSession.
+	resp, err := lookupClient.
 		PhoneNumber("+10123456789").
 		Fetch(nil)
 

@@ -10,7 +10,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
-var taskrouterSession *v1.TaskRouter
+var taskrouterClient *v1.TaskRouter
 
 func init() {
 	creds, err := credentials.New(credentials.Account{
@@ -21,11 +21,11 @@ func init() {
 		log.Panicf("%s", err.Error())
 	}
 
-	taskrouterSession = twilio.NewWithCredentials(creds).TaskRouter.V1
+	taskrouterClient = twilio.NewWithCredentials(creds).TaskRouter.V1
 }
 
 func main() {
-	resp, err := taskrouterSession.
+	resp, err := taskrouterClient.
 		Workspace("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Workers.
 		Page(&workers.WorkersPageOptions{})
