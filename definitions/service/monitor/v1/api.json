@@ -178,7 +178,7 @@
                 "required": false
               },
               {
-                "name": "SourceIPAddress",
+                "name": "SourceIpAddress",
                 "type": "string",
                 "required": false
               },
@@ -468,7 +468,7 @@
           "required": true
         },
         {
-          "name": "SourceIPAddress",
+          "name": "SourceIpAddress",
           "type": "string",
           "value": "source_ip_address",
           "required": true

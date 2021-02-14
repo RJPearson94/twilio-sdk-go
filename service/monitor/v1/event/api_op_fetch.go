@@ -22,7 +22,7 @@ type FetchEventResponse struct {
 	ResourceType    string                 `json:"resource_type"`
 	Sid             string                 `json:"sid"`
 	Source          string                 `json:"source"`
-	SourceIPAddress string                 `json:"source_ip_address"`
+	SourceIpAddress string                 `json:"source_ip_address"`
 	URL             string                 `json:"url"`
 }
 

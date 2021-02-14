@@ -11,8 +11,8 @@ import (
 
 // CreateParticipantInput defines input fields for adding a new participant
 type CreateParticipantInput struct {
-	BYOC                                    *string   `form:"Byoc,omitempty"`
 	Beep                                    *string   `form:"Beep,omitempty"`
+	Byoc                                    *string   `form:"Byoc,omitempty"`
 	CallReason                              *string   `form:"CallReason,omitempty"`
 	CallSidToCoach                          *string   `form:"CallSidToCoach,omitempty"`
 	CallerID                                *string   `form:"CallerId,omitempty"`

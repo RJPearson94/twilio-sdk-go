@@ -6584,7 +6584,7 @@
           "required": false
         },
         {
-          "name": "BYOC",
+          "name": "Byoc",
           "type": "string",
           "value": "Byoc",
           "required": false
@@ -7344,7 +7344,7 @@
           "required": false
         },
         {
-          "name": "BYOC",
+          "name": "Byoc",
           "type": "string",
           "value": "Byoc",
           "required": false

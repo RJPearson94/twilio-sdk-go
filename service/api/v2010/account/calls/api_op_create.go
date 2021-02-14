@@ -15,7 +15,7 @@ type CreateCallInput struct {
 	AsyncAMD                           *bool     `form:"AsyncAmd,omitempty"`
 	AsyncAMDStatusCallback             *string   `form:"AsyncAmdStatusCallback,omitempty"`
 	AsyncAmdStatusCallbackMethod       *string   `form:"AsyncAmdStatusCallbackMethod,omitempty"`
-	BYOC                               *string   `form:"Byoc,omitempty"`
+	Byoc                               *string   `form:"Byoc,omitempty"`
 	CallReason                         *string   `form:"CallReason,omitempty"`
 	CallerID                           *string   `form:"CallerId,omitempty"`
 	FallbackMethod                     *string   `form:"FallbackMethod,omitempty"`

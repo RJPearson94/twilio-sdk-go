@@ -7,6 +7,16 @@ FIXES
 - Correct StatusCallback xml attribute name `statusCallback` on voice response stream verb
 - Correct StatusCallbackMethod xml attribute name `statusCallbackMethod` on voice response stream verb
 
+### API
+
+- Rename `BYOC` attribute to `Byoc` on CreateCallInput struct to keep consistency with the rest of the SDK **Breaking Change**
+- Rename `BYOC` attribute to `Byoc` on CreateParticipantInput struct to keep consistency with the rest of the SDK **Breaking Change**
+
+### Monitor
+
+- Rename `SourceIPAddress` attribute to `SourceIpAddress` on Monitor response structs to keep consistency with the rest of the SDK **Breaking Change**
+- Correct Source IP Address query param name on EventsPageOptions, was `SourceIPAddress`, now `SourceIpAddress`
+
 FEATURES
 
 ### API
