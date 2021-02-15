@@ -5586,6 +5586,245 @@
                   }
                 }
               ]
+            },
+            {
+              "name": "Domains",
+              "packageName": "domains",
+              "documentation": {
+                "description": "Client for managing SIP domain resources"
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Create",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/Domains.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "creates a SIP domain resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-resource#create-a-sipdomain-resource"
+                  },
+                  "input": {
+                    "structure": "CreateDomainInput",
+                    "documentation": {
+                      "description": "defines input fields for creating a new SIP domain"
+                    }
+                  },
+                  "response": {
+                    "name": "CreateDomainResponse",
+                    "structure": "DomainResponse",
+                    "documentation": {
+                      "description": "defines the response fields for creating a new SIP domain"
+                    }
+                  }
+                },
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/Domains.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of SIP domains",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-resource#read-multiple-sipdomain-resources"
+                  },
+                  "response": {
+                    "structure": "DomainsPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the SIP domains page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "DomainsPaginator",
+                    "page": {
+                      "name": "DomainsPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": false,
+                        "property": "NextPageURI"
+                      },
+                      "items": "Domains",
+                      "structure": "PageDomainResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Domain",
+              "packageName": "domain",
+              "documentation": {
+                "description": "Client for managing a specific SIP domain resource"
+              },
+              "function": {
+                "parameters": {
+                  "domainSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "accountSid": {
+                  "dataType": "string",
+                  "parentProperty": "accountSid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "domainSid"
+                }
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/Domains/{sid}.json",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a SIP domain resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-resource#fetch-a-sipdomain-resource"
+                  },
+                  "response": {
+                    "name": "FetchDomainResponse",
+                    "structure": "DomainResponse",
+                    "documentation": {
+                      "description": "defines the response fields for retrieving a SIP domain"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/Domains/{sid}.json",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a SIP domain resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-resource#update-a-sipdomain-resource"
+                  },
+                  "input": {
+                    "structure": "UpdateDomainInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a SIP domain"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateDomainResponse",
+                    "structure": "DomainResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated SIP domain"
+                    }
+                  }
+                },
+                {
+                  "name": "Delete",
+                  "http": {
+                    "uri": "/Accounts/{accountSid}/SIP/Domains/{sid}.json",
+                    "method": "Delete",
+                    "pathParams": [
+                      {
+                        "name": "accountSid",
+                        "value": {
+                          "onService": true,
+                          "property": "accountSid",
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "property": "sid",
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "removes a SIP domain resource from the account",
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-resource#delete-a-sipdomain-resource"
+                  }
+                }
+              ]
             }
           ],
           "operations": []
@@ -8873,6 +9112,224 @@
           "type": "int",
           "value": "cidr_prefix_length",
           "required": true
+        }
+      ]
+    },
+    "CreateDomainInput": {
+      "type": "URLEncoded",
+      "extends": "BaseDomainInput",
+      "properties": [
+        {
+          "name": "DomainName",
+          "type": "string",
+          "value": "DomainName",
+          "required": true
+        }
+      ]
+    },
+    "UpdateDomainInput": {
+      "type": "URLEncoded",
+      "extends": "BaseDomainInput",
+      "properties": [
+        {
+          "name": "DomainName",
+          "type": "string",
+          "value": "DomainName",
+          "required": false
+        }
+      ]
+    },
+    "BaseDomainInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "VoiceURL",
+          "type": "string",
+          "value": "VoiceUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceMethod",
+          "type": "string",
+          "value": "VoiceMethod",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackURL",
+          "type": "string",
+          "value": "VoiceFallbackUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackMethod",
+          "type": "string",
+          "value": "VoiceFallbackMethod",
+          "required": false
+        },
+        {
+          "name": "VoiceStatusCallbackURL",
+          "type": "string",
+          "value": "VoiceStatusCallbackUrl",
+          "required": false
+        },
+        {
+          "name": "VoiceStatusCallbackMethod",
+          "type": "string",
+          "value": "VoiceStatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "SipRegistration",
+          "type": "bool",
+          "value": "SipRegistration",
+          "required": false
+        },
+        {
+          "name": "EmergencyCallingEnabled",
+          "type": "bool",
+          "value": "EmergencyCallingEnabled",
+          "required": false
+        },
+        {
+          "name": "Secure",
+          "type": "bool",
+          "value": "Secure",
+          "required": false
+        },
+        {
+          "name": "ByocTrunkSid",
+          "type": "string",
+          "value": "ByocTrunkSid",
+          "required": false
+        },
+        {
+          "name": "EmergencyCallerSid",
+          "type": "string",
+          "value": "EmergencyCallerSid",
+          "required": false
+        }
+      ]
+    },
+    "DomainsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "Domains",
+          "type": "array",
+          "items": {
+            "structure": "DomainResponse"
+          },
+          "value": "domains",
+          "required": true
+        }
+      ]
+    },
+    "DomainResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "AuthType",
+          "type": "string",
+          "value": "auth_type",
+          "required": false
+        },
+        {
+          "name": "ApiVersion",
+          "type": "string",
+          "value": "api_version",
+          "required": true
+        },
+        {
+          "name": "DomainName",
+          "type": "string",
+          "value": "domain_name",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "VoiceURL",
+          "type": "string",
+          "value": "voice_url",
+          "required": false
+        },
+        {
+          "name": "VoiceMethod",
+          "type": "string",
+          "value": "voice_method",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackURL",
+          "type": "string",
+          "value": "voice_fallback_url",
+          "required": false
+        },
+        {
+          "name": "VoiceFallbackMethod",
+          "type": "string",
+          "value": "voice_fallback_method",
+          "required": false
+        },
+        {
+          "name": "VoiceStatusCallbackURL",
+          "type": "string",
+          "value": "voice_status_callback_url",
+          "required": false
+        },
+        {
+          "name": "VoiceStatusCallbackMethod",
+          "type": "string",
+          "value": "voice_status_callback_method",
+          "required": false
+        },
+        {
+          "name": "SipRegistration",
+          "type": "bool",
+          "value": "sip_registration",
+          "required": true
+        },
+        {
+          "name": "EmergencyCallingEnabled",
+          "type": "bool",
+          "value": "emergency_calling_enabled",
+          "required": true
+        },
+        {
+          "name": "Secure",
+          "type": "bool",
+          "value": "secure",
+          "required": true
+        },
+        {
+          "name": "ByocTrunkSid",
+          "type": "string",
+          "value": "byoc_trunk_sid",
+          "required": false
+        },
+        {
+          "name": "EmergencyCallerSid",
+          "type": "string",
+          "value": "emergency_caller_sid",
+          "required": false
         }
       ]
     },

@@ -9,12 +9,12 @@ FIXES
 
 ### API
 
-- Rename `BYOC` attribute to `Byoc` on CreateCallInput struct to keep consistency with the rest of the SDK **Breaking Change**
-- Rename `BYOC` attribute to `Byoc` on CreateParticipantInput struct to keep consistency with the rest of the SDK **Breaking Change**
+- Rename `BYOC` field to `Byoc` on CreateCallInput struct to keep consistency with the rest of the SDK **Breaking Change**
+- Rename `BYOC` field to `Byoc` on CreateParticipantInput struct to keep consistency with the rest of the SDK **Breaking Change**
 
 ### Monitor
 
-- Rename `SourceIPAddress` attribute to `SourceIpAddress` on Monitor response structs to keep consistency with the rest of the SDK **Breaking Change**
+- Rename `SourceIPAddress` field to `SourceIpAddress` on Monitor response structs to keep consistency with the rest of the SDK **Breaking Change**
 - Correct Source IP Address query param name on EventsPageOptions, was `SourceIPAddress`, now `SourceIpAddress`
 
 FEATURES
@@ -25,6 +25,7 @@ FEATURES
 - **New Resource:** SIP Credentials
 - **New Resource:** SIP IP Access Control Lists
 - **New Resource:** SIP IP Addresses
+- **New Resource:** SIP Domain
 
 ### Serverless
 

@@ -34,6 +34,8 @@ import (
 	sipCredential "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credential"
 	sipCredentials "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domains"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_addresses"
@@ -706,6 +708,44 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := ipAddressClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the SIP domain clients", func() {
+		It("Then the domain is created, fetched, updated and deleted", func() {
+			domainsClient := apiClient.Account(accountSid).Sip.Domains
+
+			createResp, createErr := domainsClient.Create(&domains.CreateDomainInput{
+				DomainName: uuid.New().String() + ".sip.twilio.com",
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := domainsClient.Page(&domains.DomainsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Domains)).Should(BeNumerically(">=", 1))
+
+			paginator := domainsClient.NewDomainsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Domains)).Should(BeNumerically(">=", 1))
+
+			domainClient := apiClient.Account(accountSid).Sip.Domain(createResp.Sid)
+
+			fetchResp, fetchErr := domainClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := domainClient.Update(&domain.UpdateDomainInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := domainClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

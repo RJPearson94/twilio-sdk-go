@@ -5,6 +5,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domains"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_lists"
 )
@@ -17,6 +19,8 @@ type Client struct {
 
 	CredentialList       func(string) *credential_list.Client
 	CredentialLists      *credential_lists.Client
+	Domain               func(string) *domain.Client
+	Domains              *domains.Client
 	IpAccessControlList  func(string) *ip_access_control_list.Client
 	IpAccessControlLists *ip_access_control_lists.Client
 }
@@ -40,6 +44,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 			})
 		},
 		CredentialLists: credential_lists.New(client, credential_lists.ClientProperties{
+			AccountSid: properties.AccountSid,
+		}),
+		Domain: func(domainSid string) *domain.Client {
+			return domain.New(client, domain.ClientProperties{
+				AccountSid: properties.AccountSid,
+				Sid:        domainSid,
+			})
+		},
+		Domains: domains.New(client, domains.ClientProperties{
 			AccountSid: properties.AccountSid,
 		}),
 		IpAccessControlList: func(ipAccessControlListSid string) *ip_access_control_list.Client {

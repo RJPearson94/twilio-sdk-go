@@ -50,6 +50,8 @@ import (
 	sipCredential "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credential"
 	sipCredentials "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_lists"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domains"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_address"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_addresses"
@@ -7708,6 +7710,405 @@ var _ = Describe("API V2010", func() {
 		})
 	})
 
+	Describe("Given the domains client", func() {
+		domainsClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.Domains
+
+		Describe("When the domains is successfully created", func() {
+			createInput := &domains.CreateDomainInput{
+				DomainName: "test" + ".sip.twilio.com",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/domainResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := domainsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create domain response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ApiVersion).To(Equal("2010-04-01"))
+				Expect(resp.AuthType).To(BeNil())
+				Expect(resp.ByocTrunkSid).To(BeNil())
+				Expect(resp.DomainName).To(Equal("test.sip.twilio.com"))
+				Expect(resp.EmergencyCallerSid).To(BeNil())
+				Expect(resp.EmergencyCallingEnabled).To(Equal(false))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.Secure).To(Equal(false))
+				Expect(resp.SipRegistration).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(BeNil())
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(BeNil())
+				Expect(resp.VoiceStatusCallbackMethod).To(BeNil())
+				Expect(resp.VoiceStatusCallbackURL).To(BeNil())
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the domain request does not contain a domain", func() {
+			createInput := &domains.CreateDomainInput{}
+
+			resp, err := domainsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create domain response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create domain api returns a 500 response", func() {
+			createInput := &domains.CreateDomainInput{
+				DomainName: "test" + ".sip.twilio.com",
+			}
+
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := domainsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create domains response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of domains are successfully retrieved", func() {
+			pageOptions := &domains.DomainsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/domainsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := domainsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the domains page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				Expect(resp.Page).To(Equal(0))
+				Expect(resp.Start).To(Equal(0))
+				Expect(resp.End).To(Equal(1))
+				Expect(resp.PageSize).To(Equal(50))
+				Expect(resp.FirstPageURI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json?PageSize=50&Page=0"))
+				Expect(resp.PreviousPageURI).To(BeNil())
+				Expect(resp.URI).To(Equal("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json?PageSize=50&Page=0"))
+				Expect(resp.NextPageURI).To(BeNil())
+
+				domains := resp.Domains
+				Expect(domains).ToNot(BeNil())
+				Expect(len(domains)).To(Equal(1))
+
+				Expect(domains[0].Sid).To(Equal("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(domains[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(domains[0].ApiVersion).To(Equal("2010-04-01"))
+				Expect(domains[0].AuthType).To(BeNil())
+				Expect(domains[0].ByocTrunkSid).To(BeNil())
+				Expect(domains[0].DomainName).To(Equal("test.sip.twilio.com"))
+				Expect(domains[0].EmergencyCallerSid).To(BeNil())
+				Expect(domains[0].EmergencyCallingEnabled).To(Equal(false))
+				Expect(domains[0].FriendlyName).To(BeNil())
+				Expect(domains[0].Secure).To(Equal(false))
+				Expect(domains[0].SipRegistration).To(Equal(false))
+				Expect(domains[0].VoiceFallbackMethod).To(BeNil())
+				Expect(domains[0].VoiceFallbackURL).To(BeNil())
+				Expect(domains[0].VoiceMethod).To(BeNil())
+				Expect(domains[0].VoiceStatusCallbackMethod).To(BeNil())
+				Expect(domains[0].VoiceStatusCallbackURL).To(BeNil())
+				Expect(domains[0].VoiceURL).To(BeNil())
+				Expect(domains[0].DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(domains[0].DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the page of domains api returns a 500 response", func() {
+			pageOptions := &domains.DomainsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := domainsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the domains page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated domains are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/domainsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/domainsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := domainsClient.NewDomainsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated domains current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated domains results should be returned", func() {
+				Expect(len(paginator.Domains)).To(Equal(3))
+			})
+		})
+
+		Describe("When the domains api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/domainsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := domainsClient.NewDomainsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated domains current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a domain sid", func() {
+		domainClient := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.Domain("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the domain is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/domainResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := domainClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get domains response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ApiVersion).To(Equal("2010-04-01"))
+				Expect(resp.AuthType).To(BeNil())
+				Expect(resp.ByocTrunkSid).To(BeNil())
+				Expect(resp.DomainName).To(Equal("test.sip.twilio.com"))
+				Expect(resp.EmergencyCallerSid).To(BeNil())
+				Expect(resp.EmergencyCallingEnabled).To(Equal(false))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.Secure).To(Equal(false))
+				Expect(resp.SipRegistration).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(BeNil())
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(BeNil())
+				Expect(resp.VoiceStatusCallbackMethod).To(BeNil())
+				Expect(resp.VoiceStatusCallbackURL).To(BeNil())
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the domain api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SD71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.Domain("SD71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get domain response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the domain is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateDomainResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &domain.UpdateDomainInput{}
+
+			resp, err := domainClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update domain response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ApiVersion).To(Equal("2010-04-01"))
+				Expect(resp.AuthType).To(BeNil())
+				Expect(resp.ByocTrunkSid).To(BeNil())
+				Expect(resp.DomainName).To(Equal("test.sip.twilio.com"))
+				Expect(resp.EmergencyCallerSid).To(BeNil())
+				Expect(resp.EmergencyCallingEnabled).To(Equal(false))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.Secure).To(Equal(false))
+				Expect(resp.SipRegistration).To(Equal(false))
+				Expect(resp.VoiceFallbackMethod).To(BeNil())
+				Expect(resp.VoiceFallbackURL).To(BeNil())
+				Expect(resp.VoiceMethod).To(BeNil())
+				Expect(resp.VoiceStatusCallbackMethod).To(BeNil())
+				Expect(resp.VoiceStatusCallbackURL).To(BeNil())
+				Expect(resp.VoiceURL).To(BeNil())
+				Expect(resp.DateCreated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:00:00Z"))
+				Expect(resp.DateUpdated.Time.Format(time.RFC3339)).To(Equal("2020-06-27T23:10:00Z"))
+			})
+		})
+
+		Describe("When the domain api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SD71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &domain.UpdateDomainInput{}
+
+			resp, err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.Domain("SD71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update domain response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the domain is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json", httpmock.NewStringResponder(204, ""))
+
+			err := domainClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the domain api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SD71.json",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := apiClient.Account("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Sip.Domain("SD71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
 })
 
 func ExpectInternalServerError(err error) {
