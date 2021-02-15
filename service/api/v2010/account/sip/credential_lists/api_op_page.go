@@ -40,14 +40,14 @@ type CredentialListsPageResponse struct {
 }
 
 // Page retrieves a page of credential lists
-// See https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#update-a-sip-credentiallist-resource for more details
+// See https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#read-multiple-sip-credentiallist-resources for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
 func (c Client) Page(options *CredentialListsPageOptions) (*CredentialListsPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of credential lists
-// See https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#update-a-sip-credentiallist-resource for more details
+// See https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#read-multiple-sip-credentiallist-resources for more details
 func (c Client) PageWithContext(context context.Context, options *CredentialListsPageOptions) (*CredentialListsPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

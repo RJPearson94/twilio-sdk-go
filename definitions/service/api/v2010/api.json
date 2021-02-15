@@ -4610,7 +4610,7 @@
                   },
                   "documentation": {
                     "description": "retrieves a page of credential lists",
-                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#update-a-sip-credentiallist-resource"
+                    "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#read-multiple-sip-credentiallist-resources"
                   },
                   "response": {
                     "structure": "CredentialListsPageResponse",
@@ -5716,6 +5716,779 @@
                   "functionParameter": "domainSid"
                 }
               },
+              "subClients": [
+                {
+                  "name": "Auth",
+                  "packageName": "auth",
+                  "documentation": {
+                    "description": "Client for managing SIP domain auth resources"
+                  },
+                  "properties": {
+                    "accountSid": {
+                      "dataType": "string",
+                      "parentProperty": "accountSid"
+                    },
+                    "domainSid": {
+                      "dataType": "string",
+                      "parentProperty": "sid"
+                    }
+                  },
+                  "subClients": [
+                    {
+                      "name": "Calls",
+                      "packageName": "calls",
+                      "documentation": {
+                        "description": "Client for managing SIP domain auth call resources"
+                      },
+                      "properties": {
+                        "accountSid": {
+                          "dataType": "string",
+                          "parentProperty": "accountSid"
+                        },
+                        "domainSid": {
+                          "dataType": "string",
+                          "parentProperty": "domainSid"
+                        }
+                      },
+                      "subClients": [
+                        {
+                          "name": "Credential List Mappings",
+                          "packageName": "credential_list_mappings",
+                          "documentation": {
+                            "description": "Client for managing credential list mapping resources"
+                          },
+                          "properties": {
+                            "accountSid": {
+                              "dataType": "string",
+                              "parentProperty": "accountSid"
+                            },
+                            "domainSid": {
+                              "dataType": "string",
+                              "parentProperty": "domainSid"
+                            }
+                          },
+                          "operations": [
+                            {
+                              "name": "Create",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/CredentialListMappings.json",
+                                "method": "Post",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "creates a credential list mapping resource",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallistmapping-resource#create-a-sip-credentiallistmapping-resource"
+                              },
+                              "input": {
+                                "structure": "CreateCredentialListMappingInput",
+                                "documentation": {
+                                  "description": "defines input fields for creating a new credential list mapping"
+                                }
+                              },
+                              "response": {
+                                "name": "CreateCredentialListMappingResponse",
+                                "structure": "CredentialListMappingResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for creating a new credential list mapping"
+                                }
+                              }
+                            },
+                            {
+                              "name": "Page",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/CredentialListMappings.json",
+                                "method": "Get",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ],
+                                "queryParams": [
+                                  {
+                                    "name": "PageSize",
+                                    "type": "int",
+                                    "required": false
+                                  },
+                                  {
+                                    "name": "Page",
+                                    "type": "int",
+                                    "required": false
+                                  },
+                                  {
+                                    "name": "PageToken",
+                                    "type": "string",
+                                    "required": false
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "retrieves a page of credential list mappings",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallistmapping-resource#read-multiple-sip-credentiallistmapping-resources"
+                              },
+                              "response": {
+                                "structure": "CredentialListMappingsPageResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for the credential list mapping page"
+                                }
+                              },
+                              "pagination": {
+                                "name": "CredentialListMappingsPaginator",
+                                "page": {
+                                  "name": "CredentialListMappingsPage",
+                                  "nextToken": "PageToken",
+                                  "nextPage": {
+                                    "meta": false,
+                                    "property": "NextPageURI"
+                                  },
+                                  "items": "CredentialListMappings",
+                                  "structure": "PageCredentialListMappingResponse"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Credential List Mapping",
+                          "packageName": "credential_list_mapping",
+                          "documentation": {
+                            "description": "Client for managing a specific Credential List Mapping resource"
+                          },
+                          "function": {
+                            "parameters": {
+                              "credentialListMappingSid": {
+                                "dataType": "string"
+                              }
+                            }
+                          },
+                          "properties": {
+                            "accountSid": {
+                              "dataType": "string",
+                              "parentProperty": "accountSid"
+                            },
+                            "domainSid": {
+                              "dataType": "string",
+                              "parentProperty": "domainSid"
+                            },
+                            "sid": {
+                              "dataType": "string",
+                              "functionParameter": "credentialListMappingSid"
+                            }
+                          },
+                          "operations": [
+                            {
+                              "name": "Fetch",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/CredentialListMappings/{sid}.json",
+                                "method": "Get",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "sid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "sid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "retrieves a credential list mapping resource",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallistmapping-resource#fetch-a-sip-credentiallistmapping-resource"
+                              },
+                              "response": {
+                                "name": "FetchCredentialListMappingResponse",
+                                "structure": "CredentialListMappingResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for retrieving a credential list mapping"
+                                }
+                              }
+                            },
+                            {
+                              "name": "Delete",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/CredentialListMappings/{sid}.json",
+                                "method": "Delete",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "sid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "sid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "removes a credential list mapping from the account",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-credentiallistmapping-resource#delete-a-sip-credentiallistmapping-resource"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Ip Access Control List Mappings",
+                          "packageName": "ip_access_control_list_mappings",
+                          "documentation": {
+                            "description": "Client for managing IP access control list mapping resources"
+                          },
+                          "properties": {
+                            "accountSid": {
+                              "dataType": "string",
+                              "parentProperty": "accountSid"
+                            },
+                            "domainSid": {
+                              "dataType": "string",
+                              "parentProperty": "domainSid"
+                            }
+                          },
+                          "operations": [
+                            {
+                              "name": "Create",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/IpAccessControlListMappings.json",
+                                "method": "Post",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "creates a IP access control list mapping resource",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollistmapping-resource#create-a-sip-ipaccesscontrollistmapping-resource"
+                              },
+                              "input": {
+                                "structure": "CreateIpAccessControlListMappingInput",
+                                "documentation": {
+                                  "description": "defines input fields for creating a new IP access control list mapping"
+                                }
+                              },
+                              "response": {
+                                "name": "IpAccessControlListMappingResponse",
+                                "structure": "IpAccessControlListMappingResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for creating a new IP access control list mapping"
+                                }
+                              }
+                            },
+                            {
+                              "name": "Page",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/IpAccessControlListMappings.json",
+                                "method": "Get",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ],
+                                "queryParams": [
+                                  {
+                                    "name": "PageSize",
+                                    "type": "int",
+                                    "required": false
+                                  },
+                                  {
+                                    "name": "Page",
+                                    "type": "int",
+                                    "required": false
+                                  },
+                                  {
+                                    "name": "PageToken",
+                                    "type": "string",
+                                    "required": false
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "retrieves a page of IP access control list mappings",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollistmapping-resource#read-multiple-sip-ipaccesscontrollistmapping-resources"
+                              },
+                              "response": {
+                                "structure": "IpAccessControlListMappingsPageResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for the IP access control list mappings page"
+                                }
+                              },
+                              "pagination": {
+                                "name": "IpAccessControlListMappingsPaginator",
+                                "page": {
+                                  "name": "IpAccessControlListMappingsPage",
+                                  "nextToken": "PageToken",
+                                  "nextPage": {
+                                    "meta": false,
+                                    "property": "NextPageURI"
+                                  },
+                                  "items": "IpAccessControlListMappings",
+                                  "structure": "PageIpAccessControlListMappingResponse"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Ip Access Control List Mapping",
+                          "packageName": "ip_access_control_list_mapping",
+                          "documentation": {
+                            "description": "Client for managing a specific IP Access Control List Mapping resource"
+                          },
+                          "function": {
+                            "parameters": {
+                              "ipAccessControlListMappingSid": {
+                                "dataType": "string"
+                              }
+                            }
+                          },
+                          "properties": {
+                            "accountSid": {
+                              "dataType": "string",
+                              "parentProperty": "accountSid"
+                            },
+                            "domainSid": {
+                              "dataType": "string",
+                              "parentProperty": "domainSid"
+                            },
+                            "sid": {
+                              "dataType": "string",
+                              "functionParameter": "ipAccessControlListMappingSid"
+                            }
+                          },
+                          "operations": [
+                            {
+                              "name": "Fetch",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/IpAccessControlListMappings/{sid}.json",
+                                "method": "Get",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "sid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "sid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "retrieves a IP control access list mapping resource",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollistmapping-resource#fetch-a-sip-ipaccesscontrollistmapping-resource"
+                              },
+                              "response": {
+                                "name": "FetchIpAccessControlListMappingResponse",
+                                "structure": "IpAccessControlListMappingResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for retrieving a credential list mapping"
+                                }
+                              }
+                            },
+                            {
+                              "name": "Delete",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Calls/IpAccessControlListMappings/{sid}.json",
+                                "method": "Delete",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "sid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "sid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "removes a IP control access list mapping from the account",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollistmapping-resource#delete-a-sip-ipaccesscontrollistmapping-resource"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "operations": []
+                    },
+                    {
+                      "name": "Registrations",
+                      "packageName": "registrations",
+                      "documentation": {
+                        "description": "Client for managing SIP domain auth registrations resources"
+                      },
+                      "properties": {
+                        "accountSid": {
+                          "dataType": "string",
+                          "parentProperty": "accountSid"
+                        },
+                        "domainSid": {
+                          "dataType": "string",
+                          "parentProperty": "domainSid"
+                        }
+                      },
+                      "subClients": [
+                        {
+                          "name": "Credential List Mappings",
+                          "packageName": "credential_list_mappings",
+                          "documentation": {
+                            "description": "Client for managing credential list mapping resources"
+                          },
+                          "properties": {
+                            "accountSid": {
+                              "dataType": "string",
+                              "parentProperty": "accountSid"
+                            },
+                            "domainSid": {
+                              "dataType": "string",
+                              "parentProperty": "domainSid"
+                            }
+                          },
+                          "operations": [
+                            {
+                              "name": "Create",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Registrations/CredentialListMappings.json",
+                                "method": "Post",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "creates a credential list mapping resource",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-registration-credentiallistmapping-resource#create-a-sip-domain-registration-credentiallistmapping-resource"
+                              },
+                              "input": {
+                                "structure": "CreateCredentialListMappingInput",
+                                "documentation": {
+                                  "description": "defines input fields for creating a new credential list mapping"
+                                }
+                              },
+                              "response": {
+                                "name": "CreateCredentialListMappingResponse",
+                                "structure": "CredentialListMappingResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for creating a new credential list mapping"
+                                }
+                              }
+                            },
+                            {
+                              "name": "Page",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Registrations/CredentialListMappings.json",
+                                "method": "Get",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ],
+                                "queryParams": [
+                                  {
+                                    "name": "PageSize",
+                                    "type": "int",
+                                    "required": false
+                                  },
+                                  {
+                                    "name": "Page",
+                                    "type": "int",
+                                    "required": false
+                                  },
+                                  {
+                                    "name": "PageToken",
+                                    "type": "string",
+                                    "required": false
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "retrieves a page of credential list mappings",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-registration-credentiallistmapping-resource#read-a-sip-domain-registration-credentiallistmapping-resource"
+                              },
+                              "response": {
+                                "structure": "CredentialListMappingsPageResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for the credential list mapping page"
+                                }
+                              },
+                              "pagination": {
+                                "name": "CredentialListMappingsPaginator",
+                                "page": {
+                                  "name": "CredentialListMappingsPage",
+                                  "nextToken": "PageToken",
+                                  "nextPage": {
+                                    "meta": false,
+                                    "property": "NextPageURI"
+                                  },
+                                  "items": "CredentialListMappings",
+                                  "structure": "PageCredentialListMappingResponse"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Credential List Mapping",
+                          "packageName": "credential_list_mapping",
+                          "documentation": {
+                            "description": "Client for managing a specific Credential List Mapping resource"
+                          },
+                          "function": {
+                            "parameters": {
+                              "credentialListMappingSid": {
+                                "dataType": "string"
+                              }
+                            }
+                          },
+                          "properties": {
+                            "accountSid": {
+                              "dataType": "string",
+                              "parentProperty": "accountSid"
+                            },
+                            "domainSid": {
+                              "dataType": "string",
+                              "parentProperty": "domainSid"
+                            },
+                            "sid": {
+                              "dataType": "string",
+                              "functionParameter": "credentialListMappingSid"
+                            }
+                          },
+                          "operations": [
+                            {
+                              "name": "Fetch",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Registrations/CredentialListMappings/{sid}.json",
+                                "method": "Get",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "sid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "sid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "retrieves a credential list mapping resource",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-registration-credentiallistmapping-resource#fetch-a-sip-domain-registration-credentiallistmapping-resource"
+                              },
+                              "response": {
+                                "name": "FetchCredentialListMappingResponse",
+                                "structure": "CredentialListMappingResponse",
+                                "documentation": {
+                                  "description": "defines the response fields for retrieving a credential list mapping"
+                                }
+                              }
+                            },
+                            {
+                              "name": "Delete",
+                              "http": {
+                                "uri": "/Accounts/{accountSid}/SIP/Domains/{domainSid}/Auth/Registrations/CredentialListMappings/{sid}.json",
+                                "method": "Delete",
+                                "pathParams": [
+                                  {
+                                    "name": "accountSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "accountSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "domainSid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "domainSid",
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "name": "sid",
+                                    "value": {
+                                      "onService": true,
+                                      "property": "sid",
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              },
+                              "documentation": {
+                                "description": "removes a credential list mapping from the account",
+                                "twilioDocsLink": "https://www.twilio.com/docs/voice/sip/api/sip-domain-registration-credentiallistmapping-resource#delete-a-sip-domain-registration-credentiallistmapping-resource"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "operations": []
+                    }
+                  ],
+                  "operations": []
+                }
+              ],
               "operations": [
                 {
                   "name": "Fetch",
@@ -9330,6 +10103,94 @@
           "type": "string",
           "value": "emergency_caller_sid",
           "required": false
+        }
+      ]
+    },
+    "CreateIpAccessControlListMappingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "IpAccessControlListSid",
+          "type": "string",
+          "value": "IpAccessControlListSid",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListMappingsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "IpAccessControlListMappings",
+          "type": "array",
+          "items": {
+            "structure": "IpAccessControlListMappingResponse"
+          },
+          "value": "contents",
+          "required": true
+        }
+      ]
+    },
+    "IpAccessControlListMappingResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        }
+      ]
+    },
+    "CreateCredentialListMappingInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "CredentialListSid",
+          "type": "string",
+          "value": "CredentialListSid",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListMappingsPageResponse": {
+      "type": "JSON",
+      "extends": "BasePageResponse",
+      "properties": [
+        {
+          "name": "CredentialListMappings",
+          "type": "array",
+          "items": {
+            "structure": "CredentialListMappingResponse"
+          },
+          "value": "contents",
+          "required": true
+        }
+      ]
+    },
+    "CredentialListMappingResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
         }
       ]
     },

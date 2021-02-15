@@ -26,6 +26,9 @@ FEATURES
 - **New Resource:** SIP IP Access Control Lists
 - **New Resource:** SIP IP Addresses
 - **New Resource:** SIP Domain
+- **New Resource:** SIP Credential List Mapping
+- **New Resource:** SIP Registration Credential List Mapping
+- **New Resource:** SIP IP Access Control List Mapping
 
 ### Serverless
 

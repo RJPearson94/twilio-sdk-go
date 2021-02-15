@@ -1,7 +1,10 @@
 // Package domain contains auto-generated files. DO NOT MODIFY
 package domain
 
-import "github.com/RJPearson94/twilio-sdk-go/client"
+import (
+	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain/auth"
+)
 
 // Client for managing a specific SIP domain resource
 type Client struct {
@@ -9,6 +12,8 @@ type Client struct {
 
 	accountSid string
 	sid        string
+
+	Auth *auth.Client
 }
 
 // ClientProperties are the properties required to manage the domain resources
@@ -24,5 +29,10 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		accountSid: properties.AccountSid,
 		sid:        properties.Sid,
+
+		Auth: auth.New(client, auth.ClientProperties{
+			AccountSid: properties.AccountSid,
+			DomainSid:  properties.Sid,
+		}),
 	}
 }

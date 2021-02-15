@@ -35,6 +35,9 @@ import (
 	sipCredentials "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_list/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/credential_lists"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain/auth/calls/credential_list_mappings"
+	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain/auth/calls/ip_access_control_list_mappings"
+	registrationCredentialListMappings "github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domain/auth/registrations/credential_list_mappings"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/domains"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list"
 	"github.com/RJPearson94/twilio-sdk-go/service/api/v2010/account/sip/ip_access_control_list/ip_address"
@@ -674,7 +677,7 @@ var _ = Describe("API Acceptance Tests", func() {
 			}
 		})
 
-		It("Then the credential is created, fetched, updated and deleted", func() {
+		It("Then the IP address is created, fetched, updated and deleted", func() {
 			ipAddressesClient := apiClient.Account(accountSid).Sip.IpAccessControlList(ipAccessControlListSid).IpAddresses
 
 			createResp, createErr := ipAddressesClient.Create(&ip_addresses.CreateIpAddressInput{
@@ -746,6 +749,198 @@ var _ = Describe("API Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := domainClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the IP access control list mapping clients", func() {
+		var domainSid string
+		var ipAccessControlListSid string
+
+		BeforeEach(func() {
+			resp, err := apiClient.Account(accountSid).Sip.Domains.Create(&domains.CreateDomainInput{
+				DomainName: uuid.New().String() + ".sip.twilio.com",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create SIP domain. Error %s", err.Error()))
+			}
+			domainSid = resp.Sid
+
+			ipAccessControlListsResp, ipAccessControlListsErr := apiClient.Account(accountSid).Sip.IpAccessControlLists.Create(&ip_access_control_lists.CreateIpAccessControlListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if ipAccessControlListsErr != nil {
+				Fail(fmt.Sprintf("Failed to create IP access control list. Error %s", ipAccessControlListsErr.Error()))
+			}
+			ipAccessControlListSid = ipAccessControlListsResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := apiClient.Account(accountSid).Sip.Domain(domainSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete SIP domain. Error %s", err.Error()))
+			}
+			if err := apiClient.Account(accountSid).Sip.IpAccessControlList(ipAccessControlListSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete IP access control list. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the IP access control list mapping is created, fetched and deleted", func() {
+			ipAccessControlListMappingsClient := apiClient.Account(accountSid).Sip.Domain(domainSid).Auth.Calls.IpAccessControlListMappings
+
+			createResp, createErr := ipAccessControlListMappingsClient.Create(&ip_access_control_list_mappings.CreateIpAccessControlListMappingInput{
+				IpAccessControlListSid: ipAccessControlListSid,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := ipAccessControlListMappingsClient.Page(&ip_access_control_list_mappings.IpAccessControlListMappingsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.IpAccessControlListMappings)).Should(BeNumerically(">=", 1))
+
+			paginator := ipAccessControlListMappingsClient.NewIpAccessControlListMappingsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.IpAccessControlListMappings)).Should(BeNumerically(">=", 1))
+
+			ipAccessControlListMappingClient := apiClient.Account(accountSid).Sip.Domain(domainSid).Auth.Calls.IpAccessControlListMapping(createResp.Sid)
+
+			fetchResp, fetchErr := ipAccessControlListMappingClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			deleteErr := ipAccessControlListMappingClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the credential list mapping clients", func() {
+		var domainSid string
+		var credentialListSid string
+
+		BeforeEach(func() {
+			resp, err := apiClient.Account(accountSid).Sip.Domains.Create(&domains.CreateDomainInput{
+				DomainName: uuid.New().String() + ".sip.twilio.com",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create SIP domain. Error %s", err.Error()))
+			}
+			domainSid = resp.Sid
+
+			credentialListResp, credentialListErr := apiClient.Account(accountSid).Sip.CredentialLists.Create(&credential_lists.CreateCredentialListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if credentialListErr != nil {
+				Fail(fmt.Sprintf("Failed to create credential list. Error %s", credentialListErr.Error()))
+			}
+			credentialListSid = credentialListResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := apiClient.Account(accountSid).Sip.Domain(domainSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete SIP domain. Error %s", err.Error()))
+			}
+			if err := apiClient.Account(accountSid).Sip.CredentialList(credentialListSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete credential list. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the credential list mapping is created, fetched and deleted", func() {
+			credentialListMappingsClient := apiClient.Account(accountSid).Sip.Domain(domainSid).Auth.Calls.CredentialListMappings
+
+			createResp, createErr := credentialListMappingsClient.Create(&credential_list_mappings.CreateCredentialListMappingInput{
+				CredentialListSid: credentialListSid,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := credentialListMappingsClient.Page(&credential_list_mappings.CredentialListMappingsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.CredentialListMappings)).Should(BeNumerically(">=", 1))
+
+			paginator := credentialListMappingsClient.NewCredentialListMappingsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.CredentialListMappings)).Should(BeNumerically(">=", 1))
+
+			credentialListMappingClient := apiClient.Account(accountSid).Sip.Domain(domainSid).Auth.Calls.CredentialListMapping(createResp.Sid)
+
+			fetchResp, fetchErr := credentialListMappingClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			deleteErr := credentialListMappingClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the SIP registration credential list mapping clients", func() {
+		var domainSid string
+		var credentialListSid string
+
+		BeforeEach(func() {
+			resp, err := apiClient.Account(accountSid).Sip.Domains.Create(&domains.CreateDomainInput{
+				DomainName: uuid.New().String() + ".sip.twilio.com",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create SIP domain. Error %s", err.Error()))
+			}
+			domainSid = resp.Sid
+
+			credentialListResp, credentialListErr := apiClient.Account(accountSid).Sip.CredentialLists.Create(&credential_lists.CreateCredentialListInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if credentialListErr != nil {
+				Fail(fmt.Sprintf("Failed to create credential list. Error %s", credentialListErr.Error()))
+			}
+			credentialListSid = credentialListResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := apiClient.Account(accountSid).Sip.Domain(domainSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete SIP domain. Error %s", err.Error()))
+			}
+			if err := apiClient.Account(accountSid).Sip.CredentialList(credentialListSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete credential list. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the credential list mapping is created, fetched and deleted", func() {
+			credentialListMappingsClient := apiClient.Account(accountSid).Sip.Domain(domainSid).Auth.Registrations.CredentialListMappings
+
+			createResp, createErr := credentialListMappingsClient.Create(&registrationCredentialListMappings.CreateCredentialListMappingInput{
+				CredentialListSid: credentialListSid,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := credentialListMappingsClient.Page(&registrationCredentialListMappings.CredentialListMappingsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.CredentialListMappings)).Should(BeNumerically(">=", 1))
+
+			paginator := credentialListMappingsClient.NewCredentialListMappingsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.CredentialListMappings)).Should(BeNumerically(">=", 1))
+
+			credentialListMappingClient := apiClient.Account(accountSid).Sip.Domain(domainSid).Auth.Registrations.CredentialListMapping(createResp.Sid)
+
+			fetchResp, fetchErr := credentialListMappingClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			deleteErr := credentialListMappingClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})
