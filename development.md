@@ -2,9 +2,7 @@
 
 These instruction are here to help aid you in setting up your development environment to allow you to build and test the SDK.
 
-**NOTE:** Currently you will have to set it up on your own machine as [Github Codespaces](https://github.com/features/codespaces/) are currently in Beta. Once this feature becomes available I will try to add support ASAP.
-
-> ⚠️ A significant amount of code in this project is auto-generated, if a change is required to this code please modify the corresponding api definition and re-generate the files. Do not modify a auto-generated file directly, as any modifications will be overridden when the [code generation tooling](../tools/cli/codegen) is run.
+> ⚠️ A significant amount of code in this project is auto-generated if a change is required to this code please modify the corresponding API definition and re-generate the files. Do not modify an auto-generated file directly, as any modifications will be overridden when the [code generation tooling](../tools/cli/codegen) is run.
 
 ## Prerequisites
 
@@ -48,13 +46,13 @@ $GOPATH/bin/twilio-sdk-go
 
 A significant amount of the SDK is auto-generated from API definition JSON files, these files are the source of truth and should be updated instead of the API clients and API operations.
 
-To regenerate and format an service using it's corresponding API definition can be done via the following command:
+To regenerate and format a service using its corresponding API definition can be done via the following command:
 
 ```sh
 make generate-service-api-version SERVICE=<<service_name>> API_VERSION=<<api_version>>
 ```
 
-An example usage can be seen below
+An example can be seen below
 
 ```sh
 make generate-service-api-version SERVICE=flex API_VERSION=v1
@@ -62,15 +60,15 @@ make generate-service-api-version SERVICE=flex API_VERSION=v1
 
 ## Testing
 
-In order to test all of the SDK, run the following command
+To test all of the SDK, run the following command
 
 ```sh
 make test
 ```
 
-In order to run all of the Acceptance tests, run the following command
+To run all of the Acceptance tests, run the following command
 
-> ⚠️ These test will provision real resources on Twilio and could cost money.
+> ⚠️ These tests will provision real resources on Twilio and could cost money.
 
 ```sh
 make testacc
