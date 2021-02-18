@@ -2545,9 +2545,9 @@
           "required": true
         },
         {
-          "name": "Disabled",
+          "name": "Archived",
           "type": "bool",
-          "value": "disabled",
+          "value": "archived",
           "required": true
         }
       ]
@@ -2641,9 +2641,9 @@
           "required": true
         },
         {
-          "name": "Disabled",
+          "name": "Archived",
           "type": "bool",
-          "value": "disabled",
+          "value": "archived",
           "required": true
         },
         {
@@ -2747,9 +2747,9 @@
           "required": false
         },
         {
-          "name": "Disabled",
+          "name": "Archived",
           "type": "bool",
-          "value": "disabled",
+          "value": "archived",
           "required": true
         },
         {

@@ -20,9 +20,9 @@ type CreateVersionInput struct {
 // CreateVersionResponse defines the response fields for the created plugin version
 type CreateVersionResponse struct {
 	AccountSid  string    `json:"account_sid"`
+	Archived    bool      `json:"archived"`
 	Changelog   *string   `json:"changelog,omitempty"`
 	DateCreated time.Time `json:"date_created"`
-	Disabled    bool      `json:"disabled"`
 	PluginSid   string    `json:"plugin_sid"`
 	PluginURL   string    `json:"plugin_url"`
 	Private     bool      `json:"private"`

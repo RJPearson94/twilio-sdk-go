@@ -19,9 +19,9 @@ type CreateConfigurationInput struct {
 // CreateConfigurationResponse defines the response fields for the created plugin configuration
 type CreateConfigurationResponse struct {
 	AccountSid  string    `json:"account_sid"`
+	Archived    bool      `json:"archived"`
 	DateCreated time.Time `json:"date_created"`
 	Description *string   `json:"description,omitempty"`
-	Disabled    bool      `json:"disabled"`
 	Name        string    `json:"name"`
 	Sid         string    `json:"sid"`
 	URL         string    `json:"url"`

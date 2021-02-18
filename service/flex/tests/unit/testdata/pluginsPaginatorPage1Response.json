@@ -15,7 +15,7 @@
       "date_updated": null,
       "friendly_name": "test",
       "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      "disabled": false,
+      "archived": false,
       "url": "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
       "sid": "FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
       "date_created": "2016-08-01T22:10:40Z",

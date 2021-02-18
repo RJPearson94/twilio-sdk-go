@@ -19,10 +19,10 @@ type CreatePluginInput struct {
 // CreatePluginResponse defines the response fields for the created plugin
 type CreatePluginResponse struct {
 	AccountSid   string     `json:"account_sid"`
+	Archived     bool       `json:"archived"`
 	DateCreated  time.Time  `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated,omitempty"`
 	Description  *string    `json:"description,omitempty"`
-	Disabled     bool       `json:"disabled"`
 	FriendlyName string     `json:"friendly_name"`
 	Sid          string     `json:"sid"`
 	URL          string     `json:"url"`

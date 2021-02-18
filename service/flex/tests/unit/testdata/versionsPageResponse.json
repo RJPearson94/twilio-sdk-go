@@ -14,7 +14,7 @@
       "url": "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "private": false,
       "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      "disabled": false,
+      "archived": false,
       "version": "1.0.0",
       "plugin_url": "https://example.com",
       "sid": "FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",

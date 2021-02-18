@@ -12,9 +12,9 @@ import (
 // FetchVersionResponse defines the response fields for the retrieved plugin version resource
 type FetchVersionResponse struct {
 	AccountSid  string    `json:"account_sid"`
+	Archived    bool      `json:"archived"`
 	Changelog   *string   `json:"changelog,omitempty"`
 	DateCreated time.Time `json:"date_created"`
-	Disabled    bool      `json:"disabled"`
 	PluginSid   string    `json:"plugin_sid"`
 	PluginURL   string    `json:"plugin_url"`
 	Private     bool      `json:"private"`

@@ -12,9 +12,9 @@ import (
 // FetchConfigurationResponse defines the response fields for the retrieved plugin configuration resource
 type FetchConfigurationResponse struct {
 	AccountSid  string    `json:"account_sid"`
+	Archived    bool      `json:"archived"`
 	DateCreated time.Time `json:"date_created"`
 	Description *string   `json:"description,omitempty"`
-	Disabled    bool      `json:"disabled"`
 	Name        string    `json:"name"`
 	Sid         string    `json:"sid"`
 	URL         string    `json:"url"`

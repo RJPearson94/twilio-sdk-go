@@ -2,7 +2,7 @@
   "description": null,
   "url": "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "disabled": false,
+  "archived": false,
   "sid": "FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "date_created": "2016-08-01T22:10:40Z",
   "name": "test",
