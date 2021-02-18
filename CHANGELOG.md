@@ -1,10 +1,12 @@
 ## v0.13.1 (unreleased)
 
+FIXES
+
 ### Flex
 
-- Replace `Disabled` field with an `Archived` field on `CreatePluginResponse`, `PagePluginResponse`, `FetchPluginResponse` and `UpdatePluginResponse` structs, this matches the updated Twilio API response
-- Replace `Disabled` field with an `Archived` field on `CreateVersionResponse`, `PageVersionResponse` and `FetchVersionResponse` structs, this matches the updated Twilio API response
-- Replace `Disabled` field with an `Archived` field on `CreateConfigurationResponse`, `PageConfigurationResponse` and `FetchConfigurationResponse` structs, this matches the updated Twilio API response
+- Replace `Disabled` field with an `Archived` field on `CreatePluginResponse`, `PagePluginResponse`, `FetchPluginResponse` and `UpdatePluginResponse` structs, this matches the updated Twilio API response **Breaking Change**
+- Replace `Disabled` field with an `Archived` field on `CreateVersionResponse`, `PageVersionResponse` and `FetchVersionResponse` structs, this matches the updated Twilio API response **Breaking Change**
+- Replace `Disabled` field with an `Archived` field on `CreateConfigurationResponse`, `PageConfigurationResponse` and `FetchConfigurationResponse` structs, this matches the updated Twilio API response **Breaking Change**
 
 ## v0.13.0 (2021-02-16)
 
