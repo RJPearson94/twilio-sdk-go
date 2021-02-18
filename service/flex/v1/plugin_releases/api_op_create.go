@@ -26,12 +26,14 @@ type CreateReleaseResponse struct {
 // Create creates a new plugin release resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/release#create-a-pluginrelease-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Create(input *CreateReleaseInput) (*CreateReleaseResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
 // CreateWithContext creates a new plugin release resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/release#create-a-pluginrelease-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) CreateWithContext(context context.Context, input *CreateReleaseInput) (*CreateReleaseResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

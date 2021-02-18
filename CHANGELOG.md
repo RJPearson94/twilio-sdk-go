@@ -1,5 +1,9 @@
 ## v0.13.1 (unreleased)
 
+NOTES
+
+Add missing beta tag to Flex Plugin Service resources
+
 FIXES
 
 ### Flex

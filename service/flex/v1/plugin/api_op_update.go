@@ -31,12 +31,14 @@ type UpdatePluginResponse struct {
 // Update modifies a plugin resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin#update-a-plugin-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Update(input *UpdatePluginInput) (*UpdatePluginResponse, error) {
 	return c.UpdateWithContext(context.Background(), input)
 }
 
 // UpdateWithContext modifies a plugin resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin#update-a-plugin-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) UpdateWithContext(context context.Context, input *UpdatePluginInput) (*UpdatePluginResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

@@ -4,6 +4,7 @@ package plugin
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 // Client for managing a specific plugin resource
+// This client is currently in beta and subject to change. Please use with caution
 type Client struct {
 	client *client.Client
 

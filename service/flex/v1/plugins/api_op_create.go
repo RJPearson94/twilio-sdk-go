@@ -32,12 +32,14 @@ type CreatePluginResponse struct {
 // Create creates a new plugin resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin#create-a-plugin-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Create(input *CreatePluginInput) (*CreatePluginResponse, error) {
 	return c.CreateWithContext(context.Background(), input)
 }
 
 // CreateWithContext creates a new plugin resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin#create-a-plugin-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) CreateWithContext(context context.Context, input *CreatePluginInput) (*CreatePluginResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodPost,

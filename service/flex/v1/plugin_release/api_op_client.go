@@ -5,6 +5,7 @@ import "github.com/RJPearson94/twilio-sdk-go/client"
 
 // Client for managing a specific plugin release resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/release for more details
+// This client is currently in beta and subject to change. Please use with caution
 type Client struct {
 	client *client.Client
 

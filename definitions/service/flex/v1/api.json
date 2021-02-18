@@ -579,6 +579,9 @@
         "description": "Client for managing plugin resources",
         "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin"
       },
+      "config": {
+        "beta": true
+      },
       "operations": [
         {
           "name": "Create",
@@ -657,6 +660,9 @@
     {
       "name": "Plugin",
       "packageName": "plugin",
+      "config": {
+        "beta": true
+      },
       "function": {
         "parameters": {
           "pluginSid": {
@@ -678,6 +684,9 @@
         {
           "name": "Versions",
           "packageName": "versions",
+          "config": {
+            "beta": true
+          },
           "properties": {
             "pluginSid": {
               "dataType": "string",
@@ -785,6 +794,9 @@
         {
           "name": "Version",
           "packageName": "version",
+          "config": {
+            "beta": true
+          },
           "function": {
             "parameters": {
               "versionSid": {
@@ -914,6 +926,9 @@
     {
       "name": "Plugin Configurations",
       "packageName": "plugin_configurations",
+      "config": {
+        "beta": true
+      },
       "documentation": {
         "description": "Client for managing plugin configuration resources",
         "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration"
@@ -997,6 +1012,9 @@
     {
       "name": "Plugin Configuration",
       "packageName": "plugin_configuration",
+      "config": {
+        "beta": true
+      },
       "function": {
         "parameters": {
           "configurationSid": {
@@ -1018,6 +1036,9 @@
         {
           "name": "Plugins",
           "packageName": "plugins",
+          "config": {
+            "beta": true
+          },
           "properties": {
             "configurationSid": {
               "dataType": "string",
@@ -1090,6 +1111,9 @@
         {
           "name": "Plugin",
           "packageName": "plugin",
+          "config": {
+            "beta": true
+          },
           "function": {
             "parameters": {
               "pluginSid": {
@@ -1183,6 +1207,9 @@
     {
       "name": "Plugin Releases",
       "packageName": "plugin_releases",
+      "config": {
+        "beta": true
+      },
       "documentation": {
         "description": "Client for managing plugin release resources",
         "twilioDocsLink": "https://www.twilio.com/docs/flex/developer/plugins/api/release"
@@ -1264,6 +1291,9 @@
     {
       "name": "Plugin Release",
       "packageName": "plugin_release",
+      "config": {
+        "beta": true
+      },
       "function": {
         "parameters": {
           "releaseSid": {

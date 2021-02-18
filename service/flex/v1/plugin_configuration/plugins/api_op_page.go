@@ -51,11 +51,13 @@ type PluginsPageResponse struct {
 
 // Page retrieves a page of plugin resources
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Page(options *PluginsPageOptions) (*PluginsPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of plugin resources
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) PageWithContext(context context.Context, options *PluginsPageOptions) (*PluginsPageResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

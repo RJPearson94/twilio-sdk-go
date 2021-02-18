@@ -21,12 +21,14 @@ type FetchReleaseResponse struct {
 // Fetch retrieves a plugin release resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/release#fetch-a-pluginrelease-resource for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Fetch() (*FetchReleaseResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
 // FetchWithContext retrieves a plugin release resource
 // See https://www.twilio.com/docs/flex/developer/plugins/api/release#fetch-a-pluginrelease-resource for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) FetchWithContext(context context.Context) (*FetchReleaseResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

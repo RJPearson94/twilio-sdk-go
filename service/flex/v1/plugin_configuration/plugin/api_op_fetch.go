@@ -26,11 +26,13 @@ type FetchPluginResponse struct {
 
 // Fetch retrieves a plugin resource
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Fetch() (*FetchPluginResponse, error) {
 	return c.FetchWithContext(context.Background())
 }
 
 // FetchWithContext retrieves a plugin resource
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) FetchWithContext(context context.Context) (*FetchPluginResponse, error) {
 	op := client.Operation{
 		Method: http.MethodGet,

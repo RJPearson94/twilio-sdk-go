@@ -48,12 +48,14 @@ type ConfigurationsPageResponse struct {
 // Page retrieves a page of plugin configuration resources
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration#read-multiple-pluginconfiguration-resources for more details
 // Context is defaulted to Background. See https://golang.org/pkg/context/#Background for more information
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) Page(options *ConfigurationsPageOptions) (*ConfigurationsPageResponse, error) {
 	return c.PageWithContext(context.Background(), options)
 }
 
 // PageWithContext retrieves a page of plugin configuration resources
 // See https://www.twilio.com/docs/flex/developer/plugins/api/plugin-configuration#read-multiple-pluginconfiguration-resources for more details
+// This resource is currently in beta and subject to change. Please use with caution
 func (c Client) PageWithContext(context context.Context, options *ConfigurationsPageOptions) (*ConfigurationsPageResponse, error) {
 	op := client.Operation{
 		Method:      http.MethodGet,
