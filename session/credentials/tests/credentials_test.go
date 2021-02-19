@@ -14,7 +14,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("Account details specified are invalid. Validation errors: [SID is required]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -28,7 +29,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("Account details specified are invalid. Validation errors: [Auth token is required]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -36,14 +38,15 @@ var _ = Describe("Credentials", func() {
 			})
 		})
 
-		Context("A invalid sid format", func() {
+		Context("An invalid sid format", func() {
 			creds, err := credentials.New(credentials.Account{
 				Sid:       "Test Sid",
 				AuthToken: "Test Token",
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("Account details specified are invalid. Validation errors: [SID (Test Sid) must start with AC]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -69,7 +72,7 @@ var _ = Describe("Credentials", func() {
 		})
 	})
 
-	Describe("When invalid Api Key credential are supplied", func() {
+	Describe("When invalid API Key credential are supplied", func() {
 		Context("No Sid supplied", func() {
 			creds, err := credentials.New(credentials.APIKey{
 				Account: "ACxxxxxxxxxxx",
@@ -77,7 +80,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("API Key details specified are invalid. Validation errors: [SID is required]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -92,7 +96,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("API Key details specified are invalid. Validation errors: [Value is required]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -107,7 +112,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("API Key details specified are invalid. Validation errors: [Account SID is required]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -115,7 +121,7 @@ var _ = Describe("Credentials", func() {
 			})
 		})
 
-		Context("A invalid sid format", func() {
+		Context("An invalid sid format", func() {
 			creds, err := credentials.New(credentials.APIKey{
 				Account: "ACxxxxxxxxxxx",
 				Sid:     "Test Sid",
@@ -123,7 +129,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("API Key details specified are invalid. Validation errors: [SID (Test Sid) must start with SK]"))
 			})
 
 			It("Then credentials are nil", func() {
@@ -131,7 +138,7 @@ var _ = Describe("Credentials", func() {
 			})
 		})
 
-		Context("A invalid account sid format", func() {
+		Context("An invalid account sid format", func() {
 			creds, err := credentials.New(credentials.APIKey{
 				Account: "Test account",
 				Sid:     "SKxxxxxxxxxxx",
@@ -139,7 +146,8 @@ var _ = Describe("Credentials", func() {
 			})
 
 			It("Then an error is returned", func() {
-				Expect(err).To(HaveOccurred())
+				Expect(err).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("API Key details specified are invalid. Validation errors: [Account SID (Test account) must start with AC]"))
 			})
 
 			It("Then credentials are nil", func() {

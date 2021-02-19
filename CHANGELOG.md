@@ -1,3 +1,11 @@
+## v0.14.1 (unreleased)
+
+FIXES
+
+### SDK
+
+Improve error logging for account and API key credential validation failures. Previously the error messages currently don't identify what caused a validation failure to occur. This has been updated to provide a detailed breakdown of all of the validation failures which occurred
+
 ## v0.14.0 (2021-02-18)
 
 NOTES
