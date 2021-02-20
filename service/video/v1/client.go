@@ -3,6 +3,8 @@ package v1
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/rooms"
 	"github.com/RJPearson94/twilio-sdk-go/session"
@@ -13,8 +15,10 @@ import (
 type Video struct {
 	client *client.Client
 
-	Room  func(string) *room.Client
-	Rooms *rooms.Client
+	Recording  func(string) *recording.Client
+	Recordings *recordings.Client
+	Room       func(string) *room.Client
+	Rooms      *rooms.Client
 }
 
 // NewWithClient creates a new instance of the client with a HTTP client
@@ -22,6 +26,12 @@ func NewWithClient(client *client.Client) *Video {
 	return &Video{
 		client: client,
 
+		Recording: func(recordingSid string) *recording.Client {
+			return recording.New(client, recording.ClientProperties{
+				Sid: recordingSid,
+			})
+		},
+		Recordings: recordings.New(client),
 		Room: func(roomSid string) *room.Client {
 			return room.New(client, room.ClientProperties{
 				Sid: roomSid,

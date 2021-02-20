@@ -17,6 +17,8 @@ FEATURES
 ### Video
 
 - **New Resource:** Rooms
+- **New Resource:** Room Recordings
+- **New Resource:** Recordings
 
 ## v0.14.1 (2021-02-19)
 

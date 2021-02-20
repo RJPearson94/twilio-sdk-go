@@ -133,6 +133,203 @@
         "description": "Client for managing a specific room resource",
         "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource"
       },
+      "subClients": [
+        {
+          "name": "Recordings",
+          "packageName": "recordings",
+          "properties": {
+            "roomSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing recording resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Rooms/{roomSid}/Recordings",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "SourceSid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "GroupingSid",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "MediaType",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreatedAfter",
+                    "type": "time.Time",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreatedBefore",
+                    "type": "time.Time",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "roomSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "roomSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of recordings",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource#get-list-resource"
+              },
+              "response": {
+                "structure": "RecordingsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the recordings page"
+                }
+              },
+              "pagination": {
+                "name": "RecordingsPaginator",
+                "page": {
+                  "name": "RecordingsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Recordings",
+                  "structure": "PageRecordingResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Recording",
+          "packageName": "recording",
+          "function": {
+            "parameters": {
+              "recordingSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "roomSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "recordingSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific recording resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Rooms/{roomSid}/Recordings/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "roomSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "roomSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a recording resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource#get-instance"
+              },
+              "response": {
+                "name": "FetchRecordingResponse",
+                "structure": "RecordingResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved recording"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Rooms/{roomSid}/Recordings/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "roomSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "roomSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a recording resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource#delete-instance"
+              }
+            }
+          ]
+        }
+      ],
       "operations": [
         {
           "name": "Fetch",
@@ -194,6 +391,165 @@
             "documentation": {
               "description": "defines the response fields for the updated room"
             }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recordings",
+      "packageName": "recordings",
+      "documentation": {
+        "description": "Client for managing recording resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource"
+      },
+      "operations": [
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Recordings",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "SourceSid",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "GroupingSid",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "MediaType",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedAfter",
+                "type": "time.Time",
+                "required": false
+              },
+              {
+                "name": "DateCreatedBefore",
+                "type": "time.Time",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of recordings",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource#get-list-resource"
+          },
+          "response": {
+            "structure": "RecordingsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the recordings page"
+            }
+          },
+          "pagination": {
+            "name": "RecordingsPaginator",
+            "page": {
+              "name": "RecordingsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Recordings",
+              "structure": "PageRecordingResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recording",
+      "packageName": "recording",
+      "function": {
+        "parameters": {
+          "recordingSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "recordingSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific recording resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Recordings/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a recording resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource#get-instance"
+          },
+          "response": {
+            "name": "FetchRecordingResponse",
+            "structure": "RecordingResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved recording"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Recordings/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a recording resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/recordings-resource#delete-instance"
           }
         }
       ]
@@ -365,6 +721,138 @@
           "type": "string",
           "value": "status_callback",
           "required": false
+        }
+      ]
+    },
+    "RecordingsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Recordings",
+          "type": "array",
+          "items": {
+            "structure": "RecordingResponse"
+          },
+          "value": "recordings",
+          "required": true
+        }
+      ]
+    },
+    "RecordingGroupingSidsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ParticipantSid",
+          "type": "string",
+          "value": "participant_sid",
+          "required": true
+        },
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        }
+      ]
+    },
+    "RecordingResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "ContainerFormat",
+          "type": "string",
+          "value": "container_format",
+          "required": true
+        },
+        {
+          "name": "TrackName",
+          "type": "string",
+          "value": "track_name",
+          "required": true
+        },
+        {
+          "name": "Offset",
+          "type": "int",
+          "value": "offset",
+          "required": true
+        },
+        {
+          "name": "Codec",
+          "type": "string",
+          "value": "codec",
+          "required": true
+        },
+        {
+          "name": "SourceSid",
+          "type": "string",
+          "value": "source_sid",
+          "required": true
+        },
+        {
+          "name": "Duration",
+          "type": "int",
+          "value": "duration",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        },
+        {
+          "name": "Size",
+          "type": "int",
+          "value": "size",
+          "required": true
+        },
+        {
+          "name": "GroupingSids",
+          "structure": "RecordingGroupingSidsResponse",
+          "value": "grouping_sids",
+          "required": true
         }
       ]
     },

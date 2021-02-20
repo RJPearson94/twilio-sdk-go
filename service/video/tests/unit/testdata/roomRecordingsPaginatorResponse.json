@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings?PageSize=50&Page=0",
+    "next_page_url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "recordings"
+  },
+  "recordings": [
+    {
+      "status": "completed",
+      "grouping_sids": {
+        "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "participant_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      },
+      "container_format": "mka",
+      "track_name": "test",
+      "offset": 171092213859,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "codec": "opus",
+      "source_sid": "MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "duration": 15,
+      "date_created": "2021-02-20T10:00:00Z",
+      "type": "audio",
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "size": 4234,
+      "links": {
+        "media": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media"
+      }
+    },
+    {
+      "status": "completed",
+      "grouping_sids": {
+        "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "participant_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      },
+      "container_format": "mka",
+      "track_name": "test",
+      "offset": 171092213859,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "codec": "opus",
+      "source_sid": "MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "duration": 15,
+      "date_created": "2021-02-20T10:00:00Z",
+      "type": "audio",
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "size": 4234,
+      "links": {
+        "media": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/Media"
+      }
+    }
+  ]
+}
