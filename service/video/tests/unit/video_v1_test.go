@@ -13,6 +13,9 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/video"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hook"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hooks"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/compositions"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
@@ -72,7 +75,7 @@ var _ = Describe("Video V1", func() {
 				Expect(resp.EndTime).To(BeNil())
 				Expect(resp.Duration).To(BeNil())
 				Expect(resp.MaxConcurrentPublishedTracks).To(BeNil())
-				Expect(resp.StatusCallbackMethod).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
 				Expect(resp.StatusCallback).To(BeNil())
 				Expect(resp.Type).To(Equal("group"))
 				Expect(resp.MediaRegion).To(Equal(utils.String("us1")))
@@ -151,7 +154,7 @@ var _ = Describe("Video V1", func() {
 				Expect(rooms[0].EndTime).To(BeNil())
 				Expect(rooms[0].Duration).To(BeNil())
 				Expect(rooms[0].MaxConcurrentPublishedTracks).To(BeNil())
-				Expect(rooms[0].StatusCallbackMethod).To(BeNil())
+				Expect(rooms[0].StatusCallbackMethod).To(Equal("POST"))
 				Expect(rooms[0].StatusCallback).To(BeNil())
 				Expect(rooms[0].Type).To(Equal("group"))
 				Expect(rooms[0].MediaRegion).To(Equal(utils.String("us1")))
@@ -299,7 +302,7 @@ var _ = Describe("Video V1", func() {
 				Expect(resp.EndTime).To(BeNil())
 				Expect(resp.Duration).To(BeNil())
 				Expect(resp.MaxConcurrentPublishedTracks).To(BeNil())
-				Expect(resp.StatusCallbackMethod).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
 				Expect(resp.StatusCallback).To(BeNil())
 				Expect(resp.Type).To(Equal("group"))
 				Expect(resp.MediaRegion).To(Equal(utils.String("us1")))
@@ -360,7 +363,7 @@ var _ = Describe("Video V1", func() {
 				Expect(resp.EndTime.Format(time.RFC3339)).To(Equal("2021-02-20T10:05:00Z"))
 				Expect(resp.Duration).To(Equal(utils.Int(320)))
 				Expect(resp.MaxConcurrentPublishedTracks).To(BeNil())
-				Expect(resp.StatusCallbackMethod).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
 				Expect(resp.StatusCallback).To(BeNil())
 				Expect(resp.Type).To(Equal("group"))
 				Expect(resp.MediaRegion).To(Equal(utils.String("us1")))
@@ -378,7 +381,7 @@ var _ = Describe("Video V1", func() {
 				ExpectInvalidInputError(err)
 			})
 
-			It("Then the update service response should be nil", func() {
+			It("Then the update room response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
@@ -918,6 +921,739 @@ var _ = Describe("Video V1", func() {
 			)
 
 			err := videoSession.Room("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Recording("RT71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a compositions client", func() {
+		compositionsClient := videoSession.Compositions
+
+		Describe("When the composition resource is successfully created", func() {
+			createInput := &compositions.CreateCompositionInput{
+				RoomSid: "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/Compositions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := compositionsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create composition response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Status).To(Equal("enqueued"))
+				Expect(resp.Trim).To(Equal(true))
+				Expect(resp.VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(resp.DateCompleted).To(BeNil())
+				Expect(resp.Format).To(Equal("mp4"))
+				Expect(resp.DateDeleted).To(BeNil())
+				Expect(resp.Duration).To(Equal(0))
+				Expect(resp.Bitrate).To(Equal(0))
+				Expect(resp.AudioSources).To(Equal([]string{"RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}))
+				Expect(resp.RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Size).To(Equal(0))
+				Expect(resp.Resolution).To(Equal("640x480"))
+				Expect(resp.AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the create composition request does not contain a room sid", func() {
+			createInput := &compositions.CreateCompositionInput{}
+
+			resp, err := compositionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create composition response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create compositions api returns a 500 response", func() {
+			createInput := &compositions.CreateCompositionInput{
+				RoomSid: "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/Compositions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := compositionsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create composition response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of compositions are successfully retrieved", func() {
+			pageOptions := &compositions.CompositionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the compositions page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://video.twilio.com/v1/Compositions?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://video.twilio.com/v1/Compositions?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("compositions"))
+
+				compositions := resp.Compositions
+				Expect(compositions).ToNot(BeNil())
+				Expect(len(compositions)).To(Equal(1))
+
+				Expect(compositions[0].Sid).To(Equal("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(compositions[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(compositions[0].Status).To(Equal("enqueued"))
+				Expect(compositions[0].Trim).To(Equal(true))
+				Expect(compositions[0].VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(compositions[0].DateCompleted).To(BeNil())
+				Expect(compositions[0].Format).To(Equal("mp4"))
+				Expect(compositions[0].DateDeleted).To(BeNil())
+				Expect(compositions[0].Duration).To(Equal(0))
+				Expect(compositions[0].AudioSources).To(Equal([]string{"RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}))
+				Expect(compositions[0].RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(compositions[0].Size).To(Equal(0))
+				Expect(compositions[0].Resolution).To(Equal("640x480"))
+				Expect(compositions[0].AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(compositions[0].DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(compositions[0].URL).To(Equal("https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of compositions api returns a 500 response", func() {
+			pageOptions := &compositions.CompositionsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := compositionsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the compositions page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated compositions are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := compositionsClient.NewCompositionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated compositions current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated compositions results should be returned", func() {
+				Expect(len(paginator.Compositions)).To(Equal(3))
+			})
+		})
+
+		Describe("When the compositions api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := compositionsClient.NewCompositionsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated compositions current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a composition sid", func() {
+		compositionClient := videoSession.Composition("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the composition resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get composition resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Status).To(Equal("enqueued"))
+				Expect(resp.Trim).To(Equal(true))
+				Expect(resp.VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(resp.DateCompleted).To(BeNil())
+				Expect(resp.Format).To(Equal("mp4"))
+				Expect(resp.DateDeleted).To(BeNil())
+				Expect(resp.Duration).To(Equal(0))
+				Expect(resp.Bitrate).To(Equal(0))
+				Expect(resp.AudioSources).To(Equal([]string{"RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}))
+				Expect(resp.RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Size).To(Equal(0))
+				Expect(resp.Resolution).To(Equal("640x480"))
+				Expect(resp.AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the composition resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Compositions/CJ71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := videoSession.Composition("CJ71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get composition response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the composition resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := compositionClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the composition resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://video.twilio.com/v1/Compositions/CJ71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := videoSession.Composition("CJ71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a composition hooks client", func() {
+		compositionHooksClient := videoSession.CompositionHooks
+
+		Describe("When the composition hooks resource is successfully created", func() {
+			createInput := &composition_hooks.CreateCompositionHookInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/CompositionHooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionHookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := compositionHooksClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create composition hooks response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("test"))
+				Expect(resp.Trim).To(Equal(true))
+				Expect(resp.VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(resp.Format).To(Equal("mp4"))
+				Expect(resp.AudioSources).To(Equal([]string{"*"}))
+				Expect(resp.Resolution).To(Equal("640x480"))
+				Expect(resp.Enabled).To(Equal(true))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the create composition hooks request does not contain a friendly name", func() {
+			createInput := &composition_hooks.CreateCompositionHookInput{}
+
+			resp, err := compositionHooksClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create composition hook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create composition hooks api returns a 500 response", func() {
+			createInput := &composition_hooks.CreateCompositionHookInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/CompositionHooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := compositionHooksClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create composition hook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of composition hooks are successfully retrieved", func() {
+			pageOptions := &composition_hooks.CompositionHooksPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionHooksPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionHooksClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the composition hooks page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://video.twilio.com/v1/CompositionHooks?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://video.twilio.com/v1/CompositionHooks?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("composition_hooks"))
+
+				compositionHooks := resp.CompositionHooks
+				Expect(compositionHooks).ToNot(BeNil())
+				Expect(len(compositionHooks)).To(Equal(1))
+
+				Expect(compositionHooks[0].Sid).To(Equal("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(compositionHooks[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(compositionHooks[0].FriendlyName).To(Equal("test"))
+				Expect(compositionHooks[0].Trim).To(Equal(true))
+				Expect(compositionHooks[0].VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(compositionHooks[0].Format).To(Equal("mp4"))
+				Expect(compositionHooks[0].AudioSources).To(Equal([]string{"*"}))
+				Expect(compositionHooks[0].Resolution).To(Equal("640x480"))
+				Expect(compositionHooks[0].Enabled).To(Equal(true))
+				Expect(compositionHooks[0].StatusCallback).To(BeNil())
+				Expect(compositionHooks[0].StatusCallbackMethod).To(Equal("POST"))
+				Expect(compositionHooks[0].AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(compositionHooks[0].DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(compositionHooks[0].DateUpdated).To(BeNil())
+				Expect(compositionHooks[0].URL).To(Equal("https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of composition hooks api returns a 500 response", func() {
+			pageOptions := &composition_hooks.CompositionHooksPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := compositionHooksClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the composition hooks page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated compositionHooks are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionHooksPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionHooksPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := compositionHooksClient.NewCompositionHooksPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated composition hooks current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated composition hooks results should be returned", func() {
+				Expect(len(paginator.CompositionHooks)).To(Equal(3))
+			})
+		})
+
+		Describe("When the composition hooks api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionHooksPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := compositionHooksClient.NewCompositionHooksPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated composition hooks current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a composition hook sid", func() {
+		compositionHookClient := videoSession.CompositionHook("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the composition hook resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionHookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionHookClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get composition hook resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("test"))
+				Expect(resp.Trim).To(Equal(true))
+				Expect(resp.VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(resp.Format).To(Equal("mp4"))
+				Expect(resp.AudioSources).To(Equal([]string{"*"}))
+				Expect(resp.Resolution).To(Equal("640x480"))
+				Expect(resp.Enabled).To(Equal(true))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the composition hook resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionHooks/HK71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := videoSession.CompositionHook("HK71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get composition hook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the composition hook resource is successfully updated", func() {
+			updateInput := &composition_hook.UpdateCompositionHookInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateCompositionHookResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionHookClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update composition hook resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("new test"))
+				Expect(resp.Trim).To(Equal(true))
+				Expect(resp.VideoLayout).To(Equal(map[string]interface{}{}))
+				Expect(resp.Format).To(Equal("mp4"))
+				Expect(resp.AudioSources).To(Equal([]string{"*"}))
+				Expect(resp.Resolution).To(Equal("640x480"))
+				Expect(resp.Enabled).To(Equal(true))
+				Expect(resp.StatusCallback).To(BeNil())
+				Expect(resp.StatusCallbackMethod).To(Equal("POST"))
+				Expect(resp.AudioSourcesExcluded).To(Equal([]string{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2021-02-20T10:05:00Z"))
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update composition hooks request does not contain a friendly name", func() {
+			updateInput := &composition_hook.UpdateCompositionHookInput{}
+
+			resp, err := compositionHookClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update composition hook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the composition hook resource api returns a 404", func() {
+			updateInput := &composition_hook.UpdateCompositionHookInput{
+				FriendlyName: "Test",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/CompositionHooks/HK71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := videoSession.CompositionHook("HK71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update composition hook response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the composition hook resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := compositionHookClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the composition hook resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://video.twilio.com/v1/CompositionHooks/HK71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := videoSession.CompositionHook("HK71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
 			})

@@ -1,0 +1,17 @@
+{
+  "trim": true,
+  "video_layout": {},
+  "audio_sources_excluded": [],
+  "format": "mp4",
+  "date_updated": null,
+  "friendly_name": "test",
+  "enabled": true,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "audio_sources": ["*"],
+  "sid": "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2021-02-20T10:00:00Z",
+  "resolution": "640x480",
+  "status_callback_method": "POST",
+  "status_callback": null
+}

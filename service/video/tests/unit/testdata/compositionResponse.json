@@ -1,0 +1,22 @@
+{
+  "status": "enqueued",
+  "trim": true,
+  "video_layout": {},
+  "date_completed": null,
+  "format": "mp4",
+  "url": "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "bitrate": 0,
+  "date_deleted": null,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "duration": 0,
+  "audio_sources": ["RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"],
+  "sid": "CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2021-02-20T10:00:00Z",
+  "size": 0,
+  "resolution": "640x480",
+  "audio_sources_excluded": [],
+  "links": {
+    "media": "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media"
+  }
+}

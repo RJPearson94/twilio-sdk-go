@@ -553,6 +553,390 @@
           }
         }
       ]
+    },
+    {
+      "name": "Compositions",
+      "packageName": "compositions",
+      "documentation": {
+        "description": "Client for managing composition resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/compositions-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Compositions",
+            "method": "Post"
+          },
+
+          "documentation": {
+            "description": "creates a new composition",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/compositions-resource#create-composition-http-post"
+          },
+          "input": {
+            "structure": "CreateCompositionInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new composition"
+            }
+          },
+          "response": {
+            "name": "CreateCompositionResponse",
+            "structure": "CompositionResponse",
+            "documentation": {
+              "description": "defines the response fields for the created composition"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Compositions",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "RoomSid",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedAfter",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedBefore",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of compositions",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/compositions-resource#get-list-http-get"
+          },
+          "response": {
+            "structure": "CompositionsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the compositions page"
+            }
+          },
+          "pagination": {
+            "name": "CompositionsPaginator",
+            "page": {
+              "name": "CompositionsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Compositions",
+              "structure": "PageCompositionResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Composition",
+      "packageName": "composition",
+      "function": {
+        "parameters": {
+          "compositionSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "compositionSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific composition resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/compositions-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Compositions/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a composition resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/compositions-resource#get-composition-http-get"
+          },
+          "response": {
+            "name": "FetchCompositionResponse",
+            "structure": "CompositionResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved composition"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/Compositions/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a composition resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/compositions-resource#delete-composition-http-delete"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Composition Hooks",
+      "packageName": "composition_hooks",
+      "documentation": {
+        "description": "Client for managing composition hook resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/CompositionHooks",
+            "method": "Post"
+          },
+
+          "documentation": {
+            "description": "creates a new composition hook",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks#hks-post"
+          },
+          "input": {
+            "name": "CreateCompositionHookInput",
+            "structure": "CompositionHookInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new composition hook"
+            }
+          },
+          "response": {
+            "name": "CreateCompositionHookResponse",
+            "structure": "CompositionHookResponse",
+            "documentation": {
+              "description": "defines the response fields for the created composition hook"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/CompositionHooks",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "Enabled",
+                "type": "bool",
+                "required": false
+              },
+              {
+                "name": "FriendlyName",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedAfter",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedBefore",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of composition hooks",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks#hks-get-parameters"
+          },
+          "response": {
+            "structure": "CompositionHooksPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the composition hooks page"
+            }
+          },
+          "pagination": {
+            "name": "CompositionHooksPaginator",
+            "page": {
+              "name": "CompositionHooksPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "CompositionHooks",
+              "structure": "PageCompositionHookResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Composition Hook",
+      "packageName": "composition_hook",
+      "function": {
+        "parameters": {
+          "compositionHookSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "compositionHookSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific composition hook resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/CompositionHooks/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a composition hook resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks#hk-get"
+          },
+          "response": {
+            "name": "FetchCompositionHookResponse",
+            "structure": "CompositionHookResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved composition hook"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/CompositionHooks/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a composition hook resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks#hk-post"
+          },
+          "input": {
+            "name": "UpdateCompositionHookInput",
+            "structure": "CompositionHookInput",
+            "documentation": {
+              "description": "defines input fields for updating a composition hook resource. NOTE: This API does not support partial updates, please supply all necesary fields"
+            }
+          },
+          "response": {
+            "name": "UpdateCompositionHookResponse",
+            "structure": "CompositionHookResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated composition hook"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "http": {
+            "uri": "/CompositionHooks/{sid}",
+            "method": "Delete",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "removes a composition hook resource from the account",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/composition-hooks#hk-delete"
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -714,7 +1098,7 @@
           "name": "StatusCallbackMethod",
           "type": "string",
           "value": "status_callback_method",
-          "required": false
+          "required": true
         },
         {
           "name": "StatusCallback",
@@ -853,6 +1237,374 @@
           "structure": "RecordingGroupingSidsResponse",
           "value": "grouping_sids",
           "required": true
+        }
+      ]
+    },
+    "CreateCompositionInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "RoomSid",
+          "required": true
+        },
+        {
+          "name": "VideoLayout",
+          "type": "string",
+          "value": "VideoLayout",
+          "required": false
+        },
+        {
+          "name": "AudioSources",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "AudioSources",
+          "required": false
+        },
+        {
+          "name": "AudioSourcesExcluded",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "AudioSourcesExcluded",
+          "required": false
+        },
+        {
+          "name": "Resolution",
+          "type": "string",
+          "value": "Resolution",
+          "required": false
+        },
+        {
+          "name": "Format",
+          "type": "string",
+          "value": "Format",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "Trim",
+          "type": "bool",
+          "value": "Trim",
+          "required": false
+        }
+      ]
+    },
+    "CompositionsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Compositions",
+          "type": "array",
+          "items": {
+            "structure": "CompositionResponse"
+          },
+          "value": "compositions",
+          "required": true
+        }
+      ]
+    },
+    "CompositionResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "Trim",
+          "type": "bool",
+          "value": "trim",
+          "required": true
+        },
+        {
+          "name": "VideoLayout",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "video_layout",
+          "required": true
+        },
+        {
+          "name": "DateCompleted",
+          "type": "time.Time",
+          "value": "date_completed",
+          "required": false
+        },
+        {
+          "name": "Format",
+          "type": "string",
+          "value": "format",
+          "required": true
+        },
+        {
+          "name": "Bitrate",
+          "type": "int",
+          "value": "bitrate",
+          "required": true
+        },
+        {
+          "name": "DateDeleted",
+          "type": "time.Time",
+          "value": "date_deleted",
+          "required": false
+        },
+        {
+          "name": "Duration",
+          "type": "int",
+          "value": "duration",
+          "required": true
+        },
+        {
+          "name": "AudioSources",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "audio_sources",
+          "required": true
+        },
+        {
+          "name": "AudioSourcesExcluded",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "audio_sources_excluded",
+          "required": true
+        },
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        },
+        {
+          "name": "Size",
+          "type": "int",
+          "value": "size",
+          "required": true
+        },
+        {
+          "name": "Resolution",
+          "type": "string",
+          "value": "resolution",
+          "required": true
+        }
+      ]
+    },
+    "CompositionHookInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": false
+        },
+        {
+          "name": "VideoLayout",
+          "type": "string",
+          "value": "VideoLayout",
+          "required": false
+        },
+        {
+          "name": "AudioSources",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "AudioSources",
+          "required": false
+        },
+        {
+          "name": "AudioSourcesExcluded",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "AudioSourcesExcluded",
+          "required": false
+        },
+        {
+          "name": "Resolution",
+          "type": "string",
+          "value": "Resolution",
+          "required": false
+        },
+        {
+          "name": "Format",
+          "type": "string",
+          "value": "Format",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "Trim",
+          "type": "bool",
+          "value": "Trim",
+          "required": false
+        }
+      ]
+    },
+    "CompositionHooksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "CompositionHooks",
+          "type": "array",
+          "items": {
+            "structure": "CompositionHookResponse"
+          },
+          "value": "composition_hooks",
+          "required": true
+        }
+      ]
+    },
+    "CompositionHookResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Trim",
+          "type": "bool",
+          "value": "trim",
+          "required": true
+        },
+        {
+          "name": "VideoLayout",
+          "type": "map",
+          "items": {
+            "type": "interface{}"
+          },
+          "value": "video_layout",
+          "required": true
+        },
+        {
+          "name": "Format",
+          "type": "string",
+          "value": "format",
+          "required": true
+        },
+        {
+          "name": "AudioSources",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "audio_sources",
+          "required": true
+        },
+        {
+          "name": "AudioSourcesExcluded",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "audio_sources_excluded",
+          "required": true
+        },
+        {
+          "name": "Resolution",
+          "type": "string",
+          "value": "resolution",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "status_callback_method",
+          "required": true
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "status_callback",
+          "required": false
         }
       ]
     },

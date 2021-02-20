@@ -19,6 +19,8 @@ FEATURES
 - **New Resource:** Rooms
 - **New Resource:** Room Recordings
 - **New Resource:** Recordings
+- **New Resource:** Compositions
+- **New Resource:** Composition Hooks
 
 ## v0.14.1 (2021-02-19)
 

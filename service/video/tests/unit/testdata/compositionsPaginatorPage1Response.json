@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://video.twilio.com/v1/Compositions?PageSize=50&Page=0",
+    "previous_page_url": "https://video.twilio.com/v1/Compositions?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://video.twilio.com/v1/Compositions?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "compositions"
+  },
+  "compositions": [
+    {
+      "status": "enqueued",
+      "trim": true,
+      "video_layout": {},
+      "date_completed": null,
+      "format": "mp4",
+      "url": "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "bitrate": 0,
+      "date_deleted": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "duration": 0,
+      "audio_sources": ["RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"],
+      "sid": "CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3",
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2021-02-20T10:00:00Z",
+      "size": 0,
+      "resolution": "640x480",
+      "audio_sources_excluded": [],
+      "links": {
+        "media": "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Media"
+      }
+    }
+  ]
+}

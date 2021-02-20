@@ -23,7 +23,7 @@ type FetchRoomResponse struct {
 	Sid                          string     `json:"sid"`
 	Status                       string     `json:"status"`
 	StatusCallback               *string    `json:"status_callback,omitempty"`
-	StatusCallbackMethod         *string    `json:"status_callback_method,omitempty"`
+	StatusCallbackMethod         string     `json:"status_callback_method"`
 	Type                         string     `json:"type"`
 	URL                          string     `json:"url"`
 	UniqueName                   string     `json:"unique_name"`

@@ -25,7 +25,7 @@
       "media_region": "us1",
       "max_concurrent_published_tracks": null,
       "type": "group",
-      "status_callback_method": null,
+      "status_callback_method": "POST",
       "status_callback": null,
       "links": {
         "recordings": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3/Recordings",

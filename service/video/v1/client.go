@@ -3,6 +3,10 @@ package v1
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hook"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hooks"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/compositions"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
@@ -15,10 +19,14 @@ import (
 type Video struct {
 	client *client.Client
 
-	Recording  func(string) *recording.Client
-	Recordings *recordings.Client
-	Room       func(string) *room.Client
-	Rooms      *rooms.Client
+	Composition      func(string) *composition.Client
+	CompositionHook  func(string) *composition_hook.Client
+	CompositionHooks *composition_hooks.Client
+	Compositions     *compositions.Client
+	Recording        func(string) *recording.Client
+	Recordings       *recordings.Client
+	Room             func(string) *room.Client
+	Rooms            *rooms.Client
 }
 
 // NewWithClient creates a new instance of the client with a HTTP client
@@ -26,6 +34,18 @@ func NewWithClient(client *client.Client) *Video {
 	return &Video{
 		client: client,
 
+		Composition: func(compositionSid string) *composition.Client {
+			return composition.New(client, composition.ClientProperties{
+				Sid: compositionSid,
+			})
+		},
+		CompositionHook: func(compositionHookSid string) *composition_hook.Client {
+			return composition_hook.New(client, composition_hook.ClientProperties{
+				Sid: compositionHookSid,
+			})
+		},
+		CompositionHooks: composition_hooks.New(client),
+		Compositions:     compositions.New(client),
 		Recording: func(recordingSid string) *recording.Client {
 			return recording.New(client, recording.ClientProperties{
 				Sid: recordingSid,

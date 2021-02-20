@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://video.twilio.com/v1/CompositionHooks?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://video.twilio.com/v1/CompositionHooks?PageSize=50&Page=0",
+    "next_page_url": "https://video.twilio.com/v1/CompositionHooks?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "composition_hooks"
+  },
+  "composition_hooks": [
+    {
+      "trim": true,
+      "video_layout": {},
+      "audio_sources_excluded": [],
+      "format": "mp4",
+      "date_updated": null,
+      "friendly_name": "test",
+      "enabled": true,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "audio_sources": ["*"],
+      "sid": "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2021-02-20T10:00:00Z",
+      "resolution": "640x480",
+      "status_callback_method": "POST",
+      "status_callback": null
+    },
+    {
+      "trim": true,
+      "video_layout": {},
+      "audio_sources_excluded": [],
+      "format": "mp4",
+      "date_updated": null,
+      "friendly_name": "test",
+      "enabled": true,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "audio_sources": ["*"],
+      "sid": "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2021-02-20T10:00:00Z",
+      "resolution": "640x480",
+      "status_callback_method": "POST",
+      "status_callback": null
+    }
+  ]
+}
