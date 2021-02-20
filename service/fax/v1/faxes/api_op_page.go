@@ -20,7 +20,7 @@ type FaxesPageOptions struct {
 	From                  *string
 	To                    *string
 	DateCreatedOnOrBefore *time.Time
-	DateCreatedAfters     *time.Time
+	DateCreatedAfter      *time.Time
 }
 
 type PageFaxResponse struct {

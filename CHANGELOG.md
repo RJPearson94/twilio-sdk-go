@@ -1,5 +1,11 @@
 ## v0.15.0 (unreleased)
 
+FIXES
+
+### Fax
+
+- **Fix:** Update `FaxesPageOptions` field from `DateCreatedAfters` to `DateCreatedAfter`. **Breaking Change**
+
 FEATURES
 
 ### Flex

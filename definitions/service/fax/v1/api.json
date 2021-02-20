@@ -81,7 +81,7 @@
                 "required": false
               },
               {
-                "name": "DateCreatedAfters",
+                "name": "DateCreatedAfter",
                 "type": "time.Time",
                 "required": false
               }
