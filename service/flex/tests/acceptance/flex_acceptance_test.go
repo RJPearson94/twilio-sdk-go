@@ -158,7 +158,7 @@ var _ = Describe("Flex Acceptance Tests", func() {
 	})
 
 	Describe("Given the plugin clients", func() {
-		It("Then the plugin is created, fetched and updated", func() {
+		It("Then the plugin is created, fetched, updated and archived", func() {
 			pluginsClient := flexSession.Plugins
 
 			createResp, createErr := pluginsClient.Create(&plugins.CreatePluginInput{
@@ -189,6 +189,10 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			updateResp, updateErr := pluginClient.Update(&plugin.UpdatePluginInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
+
+			archiveResp, archiveErr := pluginClient.Archive()
+			Expect(archiveErr).To(BeNil())
+			Expect(archiveResp).ToNot(BeNil())
 		})
 	})
 
@@ -206,7 +210,13 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			pluginSid = pluginResp.Sid
 		})
 
-		It("Then the version is created and fetched", func() {
+		AfterEach(func() {
+			if _, err := flexSession.Plugin(pluginSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the version is created, fetched and archived", func() {
 			versionsClient := flexSession.Plugin(pluginSid).Versions
 
 			createResp, createErr := versionsClient.Create(&versions.CreateVersionInput{
@@ -234,6 +244,10 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			fetchResp, fetchErr := versionClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
+
+			archiveResp, archiveErr := versionClient.Archive()
+			Expect(archiveErr).To(BeNil())
+			Expect(archiveResp).ToNot(BeNil())
 		})
 	})
 
@@ -259,6 +273,16 @@ var _ = Describe("Flex Acceptance Tests", func() {
 				Fail(fmt.Sprintf("Failed to create flex plugin version. Error %s", versionErr.Error()))
 			}
 			pluginVersionSid = versionResp.Sid
+		})
+
+		AfterEach(func() {
+			if _, err := flexSession.Plugin(pluginSid).Version(pluginVersionSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin version. Error %s", err.Error()))
+			}
+
+			if _, err := flexSession.Plugin(pluginSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin. Error %s", err.Error()))
+			}
 		})
 
 		It("Then the plugin configuration is created and fetched", func() {
@@ -291,6 +315,10 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			fetchResp, fetchErr := pluginConfigurationClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
+
+			archiveResp, archiveErr := pluginConfigurationClient.Archive()
+			Expect(archiveErr).To(BeNil())
+			Expect(archiveResp).ToNot(BeNil())
 		})
 	})
 
@@ -328,6 +356,20 @@ var _ = Describe("Flex Acceptance Tests", func() {
 				Fail(fmt.Sprintf("Failed to create flex plugin configuration. Error %s", configurationErr.Error()))
 			}
 			configurationSid = configurationResp.Sid
+		})
+
+		AfterEach(func() {
+			if _, err := flexSession.PluginConfiguration(configurationSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin configuration. Error %s", err.Error()))
+			}
+
+			if _, err := flexSession.Plugin(pluginSid).Version(pluginVersionSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin version. Error %s", err.Error()))
+			}
+
+			if _, err := flexSession.Plugin(pluginSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin. Error %s", err.Error()))
+			}
 		})
 
 		It("Then the plugin is fetched", func() {
@@ -389,7 +431,21 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			configurationSid = configurationResp.Sid
 		})
 
-		It("Then the release is created and fetched", func() {
+		AfterEach(func() {
+			if _, err := flexSession.PluginConfiguration(configurationSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin configuration. Error %s", err.Error()))
+			}
+
+			if _, err := flexSession.Plugin(pluginSid).Version(pluginVersionSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin version. Error %s", err.Error()))
+			}
+
+			if _, err := flexSession.Plugin(pluginSid).Archive(); err != nil {
+				Fail(fmt.Sprintf("Failed to archive plugin. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the release is created, fetched and superseeded", func() {
 			pluginReleasesClient := flexSession.PluginReleases
 
 			createResp, createErr := pluginReleasesClient.Create(&plugin_releases.CreateReleaseInput{
@@ -416,6 +472,13 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			fetchResp, fetchErr := pluginReleaseClient.Fetch()
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
+
+			// The release has to be superseeded to allow supporting resources to be archived
+			superseededResp, superseededErr := pluginReleasesClient.Create(&plugin_releases.CreateReleaseInput{
+				ConfigurationId: os.Getenv("TWILIO_FLEX_DEFAULT_CONFIGURATION"),
+			})
+			Expect(superseededErr).To(BeNil())
+			Expect(superseededResp).ToNot(BeNil())
 		})
 	})
 

@@ -1777,6 +1777,55 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
+
+		Describe("When the plugin is successfully archived", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Archive",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/archivePluginResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := pluginClient.Archive()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the archive plugin response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("test"))
+				Expect(resp.UniqueName).To(Equal("test"))
+				Expect(resp.Description).To(BeNil())
+				Expect(resp.Archived).To(Equal(true))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the archive plugin response returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Archive",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := pluginClient.Archive()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the archive plugin response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
 	})
 
 	Describe("Given the plugin versions client", func() {
@@ -2082,6 +2131,56 @@ var _ = Describe("Flex V1", func() {
 				Expect(resp).To(BeNil())
 			})
 		})
+
+		Describe("When the plugin version is successfully archived", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Archive",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/archiveVersionResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := versionClient.Archive()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the archive plugin version response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.PluginSid).To(Equal("FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.PluginURL).To(Equal("https://example.com"))
+				Expect(resp.Version).To(Equal("1.0.0"))
+				Expect(resp.Changelog).To(BeNil())
+				Expect(resp.Private).To(Equal(false))
+				Expect(resp.Archived).To(Equal(true))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the archive plugin version response returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Plugins/FPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/FVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Archive",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := versionClient.Archive()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the archive plugin version response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
 	})
 
 	Describe("Given the plugin configurations client", func() {
@@ -2362,6 +2461,53 @@ var _ = Describe("Flex V1", func() {
 			})
 
 			It("Then the get plugin configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the plugin configuration is successfully archived", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Archive",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/archivePluginConfigurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := configurationClient.Archive()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the archive plugin configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Sid).To(Equal("FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Archived).To(Equal(true))
+				Expect(resp.Description).To(BeNil())
+				Expect(resp.Name).To(Equal("test"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2016-08-01T22:10:40Z"))
+				Expect(resp.URL).To(Equal("https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the archive plugin configuration response returns a 500", func() {
+			httpmock.RegisterResponder("POST", "https://flex-api.twilio.com/v1/PluginService/Configurations/FJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Archive",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := configurationClient.Archive()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the archive plugin configuration response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})

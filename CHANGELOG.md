@@ -1,3 +1,13 @@
+## v0.15.0 (unreleased)
+
+FEATURES
+
+### Flex
+
+- Add the ability to archive a plugin
+- Add the ability to archive a plugin version
+- Add the ability to archive a plugin configuration
+
 ## v0.14.1 (2021-02-19)
 
 FIXES

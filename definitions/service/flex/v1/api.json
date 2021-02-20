@@ -854,6 +854,41 @@
                   "description": "defines the response fields for the retrieved plugin version resource"
                 }
               }
+            },
+            {
+              "name": "Archive",
+              "http": {
+                "uri": "/PluginService/Plugins/{pluginSid}/Versions/{sid}/Archive",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "pluginSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "pluginSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "archives a plugin version resource"
+              },
+              "response": {
+                "name": "ArchiveVersionResponse",
+                "structure": "VersionResponse",
+                "documentation": {
+                  "description": "defines the response fields for the archived plugin version resource"
+                }
+              }
             }
           ]
         }
@@ -918,6 +953,33 @@
             "structure": "PluginResponse",
             "documentation": {
               "description": "defines the response fields for the updated plugin"
+            }
+          }
+        },
+        {
+          "name": "Archive",
+          "http": {
+            "uri": "/PluginService/Plugins/{sid}/Archive",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "archives a plugin resource"
+          },
+          "response": {
+            "name": "ArchivePluginResponse",
+            "structure": "PluginResponse",
+            "documentation": {
+              "description": "defines the response fields for the archived plugin"
             }
           }
         }
@@ -1199,6 +1261,33 @@
             "structure": "PluginConfigurationResponse",
             "documentation": {
               "description": "defines the response fields for the retrieved plugin configuration resource"
+            }
+          }
+        },
+        {
+          "name": "Archive",
+          "http": {
+            "uri": "/PluginService/Configurations/{sid}/Archive",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "archives a plugin configuration resource"
+          },
+          "response": {
+            "name": "ArchiveConfigurationResponse",
+            "structure": "PluginConfigurationResponse",
+            "documentation": {
+              "description": "defines the response fields for the archived plugin configuration resource"
             }
           }
         }
