@@ -14,6 +14,10 @@ FEATURES
 - Add the ability to archive a plugin version
 - Add the ability to archive a plugin configuration
 
+### Video
+
+- **New Resource:** Rooms
+
 ## v0.14.1 (2021-02-19)
 
 FIXES

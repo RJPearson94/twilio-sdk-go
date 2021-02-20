@@ -1,0 +1,24 @@
+{
+  "status": "in-progress",
+  "unique_name": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_updated": null,
+  "video_codecs": ["VP8", "H264"],
+  "max_participants": 50,
+  "record_participants_on_connect": false,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "end_time": null,
+  "sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "duration": null,
+  "date_created": "2021-02-20T10:00:00Z",
+  "media_region": "us1",
+  "max_concurrent_published_tracks": null,
+  "type": "group",
+  "status_callback_method": null,
+  "status_callback": null,
+  "links": {
+    "recordings": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings",
+    "participants": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+    "recording_rules": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RecordingRules"
+  }
+}

@@ -1,0 +1,454 @@
+{
+  "packageName": "v1",
+  "name": "Video",
+  "documentation": {
+    "description": "Video client is used to manage resources for Programmable Video",
+    "twilioDocsLink": "https://www.twilio.com/docs/video"
+  },
+  "config": {
+    "beta": false,
+    "subDomain": "video",
+    "apiVersion": "v1"
+  },
+  "subClients": [
+    {
+      "name": "Rooms",
+      "packageName": "rooms",
+      "documentation": {
+        "description": "Client for managing room resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource"
+      },
+      "operations": [
+        {
+          "name": "Create",
+          "http": {
+            "uri": "/Rooms",
+            "method": "Post"
+          },
+
+          "documentation": {
+            "description": "creates a new room",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource#create-room"
+          },
+          "input": {
+            "structure": "CreateRoomInput",
+            "documentation": {
+              "description": "defines the input fields for creating a new room"
+            }
+          },
+          "response": {
+            "name": "CreateRoomResponse",
+            "structure": "RoomResponse",
+            "documentation": {
+              "description": "defines the response fields for the created room"
+            }
+          }
+        },
+        {
+          "name": "Page",
+          "http": {
+            "uri": "/Rooms",
+            "method": "Get",
+            "queryParams": [
+              {
+                "name": "PageSize",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "Page",
+                "type": "int",
+                "required": false
+              },
+              {
+                "name": "PageToken",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "Status",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "UniqueName",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedAfter",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "DateCreatedBefore",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a page of rooms",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource#get-list-resource"
+          },
+          "response": {
+            "structure": "RoomsPageResponse",
+            "documentation": {
+              "description": "defines the response fields for the rooms page"
+            }
+          },
+          "pagination": {
+            "name": "RoomsPaginator",
+            "page": {
+              "name": "RoomsPage",
+              "nextToken": "PageToken",
+              "nextPage": {
+                "meta": true,
+                "property": "NextPageURL"
+              },
+              "items": "Rooms",
+              "structure": "PageRoomResponse"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Room",
+      "packageName": "room",
+      "function": {
+        "parameters": {
+          "roomSid": {
+            "dataType": "string"
+          }
+        }
+      },
+      "properties": {
+        "sid": {
+          "dataType": "string",
+          "functionParameter": "roomSid"
+        }
+      },
+      "documentation": {
+        "description": "Client for managing a specific room resource",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/Rooms/{sid}",
+            "method": "Get",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "retrieves a room resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource#get-instance"
+          },
+          "response": {
+            "name": "FetchRoomResponse",
+            "structure": "RoomResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved room"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/Rooms/{sid}",
+            "method": "Post",
+            "pathParams": [
+              {
+                "name": "sid",
+                "value": {
+                  "onService": true,
+                  "type": "string",
+                  "property": "sid"
+                }
+              }
+            ]
+          },
+          "documentation": {
+            "description": "modifies a room resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/rooms-resource#post-instance"
+          },
+          "input": {
+            "structure": "UpdateRoomInput",
+            "documentation": {
+              "description": "defines input fields for updating a room resource"
+            }
+          },
+          "response": {
+            "name": "UpdateRoomResponse",
+            "structure": "RoomResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated room"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "structures": {
+    "CreateRoomInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": false
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "UniqueName",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "StatusCallback",
+          "required": false
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "StatusCallbackMethod",
+          "required": false
+        },
+        {
+          "name": "MaxParticipants",
+          "type": "int",
+          "value": "MaxParticipants",
+          "required": false
+        },
+        {
+          "name": "RecordParticipantsOnConnect",
+          "type": "bool",
+          "value": "RecordParticipantsOnConnect",
+          "required": false
+        },
+        {
+          "name": "VideoCodecs",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "VideoCodecs",
+          "required": false
+        },
+        {
+          "name": "MediaRegion",
+          "type": "string",
+          "value": "MediaRegion",
+          "required": false
+        }
+      ]
+    },
+    "UpdateRoomInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": true
+        }
+      ]
+    },
+    "RoomsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Rooms",
+          "type": "array",
+          "items": {
+            "structure": "RoomResponse"
+          },
+          "value": "rooms",
+          "required": true
+        }
+      ]
+    },
+    "RoomResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "UniqueName",
+          "type": "string",
+          "value": "unique_name",
+          "required": true
+        },
+        {
+          "name": "VideoCodecs",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "video_codecs",
+          "required": false
+        },
+        {
+          "name": "MaxParticipants",
+          "type": "int",
+          "value": "max_participants",
+          "required": true
+        },
+        {
+          "name": "RecordParticipantsOnConnect",
+          "type": "bool",
+          "value": "record_participants_on_connect",
+          "required": true
+        },
+        {
+          "name": "EndTime",
+          "type": "time.Time",
+          "value": "end_time",
+          "required": false
+        },
+        {
+          "name": "Duration",
+          "type": "int",
+          "value": "duration",
+          "required": false
+        },
+        {
+          "name": "MediaRegion",
+          "type": "string",
+          "value": "media_region",
+          "required": false
+        },
+        {
+          "name": "MaxConcurrentPublishedTracks",
+          "type": "int",
+          "value": "max_concurrent_published_tracks",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "StatusCallbackMethod",
+          "type": "string",
+          "value": "status_callback_method",
+          "required": false
+        },
+        {
+          "name": "StatusCallback",
+          "type": "string",
+          "value": "status_callback",
+          "required": false
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        }
+      ]
+    },
+    "BaseResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    }
+  }
+}

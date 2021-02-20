@@ -19,6 +19,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/taskrouter"
 	"github.com/RJPearson94/twilio-sdk-go/service/trunking"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify"
+	"github.com/RJPearson94/twilio-sdk-go/service/video"
 	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/twiml"
@@ -44,6 +45,7 @@ type Twilio struct {
 	Trunking      *trunking.Trunking
 	TwiML         *twiml.TwiML
 	Verify        *verify.Verify
+	Video         *video.Video
 }
 
 // New create a new instance of the client using session data
@@ -72,6 +74,7 @@ func NewWithConfig(sess *session.Session, config *client.Config) *Twilio {
 		Trunking:      trunking.New(sess, config),
 		TwiML:         twiml.New(),
 		Verify:        verify.New(sess, config),
+		Video:         video.New(sess, config),
 	}
 }
 
