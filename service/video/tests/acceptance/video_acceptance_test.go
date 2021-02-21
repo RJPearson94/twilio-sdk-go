@@ -116,4 +116,5 @@ var _ = Describe("Video Acceptance Tests", func() {
 	// TODO Add Recording tests
 	// TODO Add Room Recording tests
 	// TODO Add Composition tests
+	// TODO Add Participant tests
 })

@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=0",
+    "next_page_url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "participants"
+  },
+  "participants": [
+    {
+      "status": "in-progress",
+      "date_updated": null,
+      "start_time": "2021-02-20T10:00:00Z",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "duration": null,
+      "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "end_time": null,
+      "sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2021-02-20T10:00:00Z",
+      "identity": "Test",
+      "links": {
+        "subscribed_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks",
+        "published_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks",
+        "subscribe_rules": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules"
+      }
+    },
+    {
+      "status": "in-progress",
+      "date_updated": null,
+      "start_time": "2021-02-20T10:00:00Z",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "duration": null,
+      "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "end_time": null,
+      "sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2021-02-20T10:00:00Z",
+      "identity": "Test",
+      "links": {
+        "subscribed_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/SubscribedTracks",
+        "published_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/PublishedTracks",
+        "subscribe_rules": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2/SubscribeRules"
+      }
+    }
+  ]
+}

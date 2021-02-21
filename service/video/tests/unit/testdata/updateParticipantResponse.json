@@ -1,0 +1,18 @@
+{
+  "status": "disconnected",
+  "date_updated": "2021-02-20T10:05:00Z",
+  "start_time": "2021-02-20T10:00:00Z",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "duration": 300,
+  "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "end_time": "2021-02-20T10:05:00Z",
+  "sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2021-02-20T10:00:00Z",
+  "identity": "Test",
+  "links": {
+    "subscribed_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks",
+    "published_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks",
+    "subscribe_rules": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules"
+  }
+}

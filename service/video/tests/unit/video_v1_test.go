@@ -19,6 +19,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participants"
 	roomRecording "github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/recording"
 	roomRecordings "github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/rooms"
@@ -1656,6 +1658,282 @@ var _ = Describe("Video V1", func() {
 			err := videoSession.CompositionHook("HK71").Delete()
 			It("Then an error should be returned", func() {
 				ExpectNotFoundError(err)
+			})
+		})
+	})
+
+	Describe("Given I have a participant client", func() {
+		participantsClient := videoSession.Room("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participants
+
+		Describe("When the page of participants are successfully retrieved", func() {
+			pageOptions := &participants.ParticipantsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := participantsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the participants page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("participants"))
+
+				participants := resp.Participants
+				Expect(participants).ToNot(BeNil())
+				Expect(len(participants)).To(Equal(1))
+
+				Expect(participants[0].Sid).To(Equal("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].Status).To(Equal("in-progress"))
+				Expect(participants[0].StartTime.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(participants[0].Duration).To(BeNil())
+				Expect(participants[0].EndTime).To(BeNil())
+				Expect(participants[0].RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(participants[0].Identity).To(Equal("Test"))
+				Expect(participants[0].DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(participants[0].DateUpdated).To(BeNil())
+				Expect(participants[0].URL).To(Equal("https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of participants api returns a 500 response", func() {
+			pageOptions := &participants.ParticipantsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := participantsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the participants page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated participants are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := participantsClient.NewParticipantsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated participants current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated participants results should be returned", func() {
+				Expect(len(paginator.Participants)).To(Equal(3))
+			})
+		})
+
+		Describe("When the participants api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := participantsClient.NewParticipantsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated participants current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a participant sid", func() {
+		participantClient := videoSession.Room("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the participant resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/participantResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := participantClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get participant resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Status).To(Equal("in-progress"))
+				Expect(resp.StartTime.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.Duration).To(BeNil())
+				Expect(resp.EndTime).To(BeNil())
+				Expect(resp.RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Identity).To(Equal("Test"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the participant resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PA71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := videoSession.Room("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("PA71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get participant response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the participant resource is successfully updated", func() {
+			updateInput := &participant.UpdateParticipantInput{
+				Status: utils.String("completed"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateParticipantResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := participantClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update participant resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Status).To(Equal("disconnected"))
+				Expect(resp.StartTime.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.Duration).To(Equal(utils.Int(300)))
+				Expect(resp.EndTime.Format(time.RFC3339)).To(Equal("2021-02-20T10:05:00Z"))
+				Expect(resp.RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Identity).To(Equal("Test"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2021-02-20T10:05:00Z"))
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the participant resource api returns a 404", func() {
+			updateInput := &participant.UpdateParticipantInput{
+				Status: utils.String("completed"),
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PA71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := videoSession.Room("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("PA71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update participant response should be nil", func() {
+				Expect(resp).To(BeNil())
 			})
 		})
 	})

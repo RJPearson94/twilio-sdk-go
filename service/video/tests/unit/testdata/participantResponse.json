@@ -1,0 +1,18 @@
+{
+  "status": "in-progress",
+  "date_updated": null,
+  "start_time": "2021-02-20T10:00:00Z",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "duration": null,
+  "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "end_time": null,
+  "sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2021-02-20T10:00:00Z",
+  "identity": "Test",
+  "links": {
+    "subscribed_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks",
+    "published_tracks": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks",
+    "subscribe_rules": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules"
+  }
+}

@@ -328,6 +328,204 @@
               }
             }
           ]
+        },
+        {
+          "name": "Participants",
+          "packageName": "participants",
+          "properties": {
+            "roomSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing participant resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
+          },
+          "operations": [
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Rooms/{roomSid}/Participants",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Status",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Identity",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreatedAfter",
+                    "type": "time.Time",
+                    "required": false
+                  },
+                  {
+                    "name": "DateCreatedBefore",
+                    "type": "time.Time",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "roomSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "roomSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of participants",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants#http-get-2"
+              },
+              "response": {
+                "structure": "ParticipantsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the participant page"
+                }
+              },
+              "pagination": {
+                "name": "ParticipantsPaginator",
+                "page": {
+                  "name": "ParticipantsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Participants",
+                  "structure": "PageParticipantResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Participant",
+          "packageName": "participant",
+          "function": {
+            "parameters": {
+              "participantSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "roomSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "participantSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific participant resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Rooms/{roomSid}/Participants/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "roomSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "roomSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a participant resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants#http-get-1"
+              },
+              "response": {
+                "name": "FetchParticipantResponse",
+                "structure": "ParticipantResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved participant"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Rooms/{roomSid}/Participants/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "roomSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "roomSid"
+                    }
+                  },
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a participant resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants#http-post"
+              },
+              "input": {
+                "structure": "UpdateParticipantInput",
+                "documentation": {
+                  "description": "defines input fields for updating a participant resource"
+                }
+              },
+              "response": {
+                "name": "UpdateParticipantResponse",
+                "structure": "ParticipantResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated participant"
+                }
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -1604,6 +1802,79 @@
           "name": "StatusCallback",
           "type": "string",
           "value": "status_callback",
+          "required": false
+        }
+      ]
+    },
+    "UpdateParticipantInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "Status",
+          "required": false
+        }
+      ]
+    },
+    "ParticipantsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Participants",
+          "type": "array",
+          "items": {
+            "structure": "ParticipantResponse"
+          },
+          "value": "participants",
+          "required": true
+        }
+      ]
+    },
+    "ParticipantResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "Status",
+          "type": "string",
+          "value": "status",
+          "required": true
+        },
+        {
+          "name": "StartTime",
+          "type": "time.Time",
+          "value": "start_time",
+          "required": true
+        },
+        {
+          "name": "EndTime",
+          "type": "time.Time",
+          "value": "end_time",
+          "required": false
+        },
+        {
+          "name": "Identity",
+          "type": "string",
+          "value": "identity",
+          "required": true
+        },
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        },
+        {
+          "name": "Duration",
+          "type": "int",
+          "value": "duration",
           "required": false
         }
       ]

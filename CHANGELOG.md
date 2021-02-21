@@ -19,6 +19,7 @@ FEATURES
 - **New Resource:** Rooms
 - **New Resource:** Room Recordings
 - **New Resource:** Recordings
+- **New Resource:** Participants
 - **New Resource:** Compositions
 - **New Resource:** Composition Hooks
 

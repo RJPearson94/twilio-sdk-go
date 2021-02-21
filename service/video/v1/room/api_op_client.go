@@ -3,6 +3,8 @@ package room
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participants"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/recording"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/recordings"
 )
@@ -14,8 +16,10 @@ type Client struct {
 
 	sid string
 
-	Recording  func(string) *recording.Client
-	Recordings *recordings.Client
+	Participant  func(string) *participant.Client
+	Participants *participants.Client
+	Recording    func(string) *recording.Client
+	Recordings   *recordings.Client
 }
 
 // ClientProperties are the properties required to manage the room resources
@@ -30,6 +34,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 
 		sid: properties.Sid,
 
+		Participant: func(participantSid string) *participant.Client {
+			return participant.New(client, participant.ClientProperties{
+				RoomSid: properties.Sid,
+				Sid:     participantSid,
+			})
+		},
+		Participants: participants.New(client, participants.ClientProperties{
+			RoomSid: properties.Sid,
+		}),
 		Recording: func(recordingSid string) *recording.Client {
 			return recording.New(client, recording.ClientProperties{
 				RoomSid: properties.Sid,
