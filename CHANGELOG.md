@@ -22,6 +22,8 @@ FEATURES
 - **New Resource:** Participants
 - **New Resource:** Compositions
 - **New Resource:** Composition Hooks
+- **New Resource:** Participant Published Tracks
+- **New Resource:** Participant Subscribed Tracks
 
 ## v0.14.1 (2021-02-19)
 

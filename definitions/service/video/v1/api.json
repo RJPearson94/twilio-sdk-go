@@ -446,6 +446,328 @@
             "description": "Client for managing a specific participant resource",
             "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
           },
+          "subClients": [
+            {
+              "name": "Subscribed Tracks",
+              "packageName": "subscribed_tracks",
+              "properties": {
+                "roomSid": {
+                  "dataType": "string",
+                  "parentProperty": "roomSid"
+                },
+                "participantSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing subscribed track resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Rooms/{roomSid}/Participants/{participantSid}/SubscribedTracks",
+                    "method": "Get",
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ],
+                    "pathParams": [
+                      {
+                        "name": "roomSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "roomSid"
+                        }
+                      },
+                      {
+                        "name": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "participantSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of subscribed tracks",
+                    "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#get-stl"
+                  },
+                  "response": {
+                    "structure": "SubscribedTracksPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the subscribed track page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "SubscribedTracksPaginator",
+                    "page": {
+                      "name": "SubscribedTracksPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "SubscribedTracks",
+                      "structure": "PageSubscribedTrackResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Subscribed Track",
+              "packageName": "subscribed_track",
+              "function": {
+                "parameters": {
+                  "subcribedTrackSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "roomSid": {
+                  "dataType": "string",
+                  "parentProperty": "roomSid"
+                },
+                "participantSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "subcribedTrackSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific subscribed track resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Rooms/{roomSid}/Participants/{participantSid}/SubscribedTracks/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "roomSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "roomSid"
+                        }
+                      },
+                      {
+                        "name": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "participantSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a subscribed track resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#get-st"
+                  },
+                  "response": {
+                    "name": "FetchSubscribedTrackResponse",
+                    "structure": "SubscribedTrackResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved subscribed track"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Published Tracks",
+              "packageName": "published_tracks",
+              "properties": {
+                "roomSid": {
+                  "dataType": "string",
+                  "parentProperty": "roomSid"
+                },
+                "participantSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing published track resources",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions"
+              },
+              "operations": [
+                {
+                  "name": "Page",
+                  "http": {
+                    "uri": "/Rooms/{roomSid}/Participants/{participantSid}/PublishedTracks",
+                    "method": "Get",
+                    "queryParams": [
+                      {
+                        "name": "PageSize",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "Page",
+                        "type": "int",
+                        "required": false
+                      },
+                      {
+                        "name": "PageToken",
+                        "type": "string",
+                        "required": false
+                      }
+                    ],
+                    "pathParams": [
+                      {
+                        "name": "roomSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "roomSid"
+                        }
+                      },
+                      {
+                        "name": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "participantSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a page of published tracks",
+                    "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#get-stl"
+                  },
+                  "response": {
+                    "structure": "PublishedTracksPageResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the published track page"
+                    }
+                  },
+                  "pagination": {
+                    "name": "PublishedTracksPaginator",
+                    "page": {
+                      "name": "PublishedTracksPage",
+                      "nextToken": "PageToken",
+                      "nextPage": {
+                        "meta": true,
+                        "property": "NextPageURL"
+                      },
+                      "items": "PublishedTracks",
+                      "structure": "PagePublishedTrackResponse"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Published Track",
+              "packageName": "published_track",
+              "function": {
+                "parameters": {
+                  "publishedTrackSid": {
+                    "dataType": "string"
+                  }
+                }
+              },
+              "properties": {
+                "roomSid": {
+                  "dataType": "string",
+                  "parentProperty": "roomSid"
+                },
+                "participantSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                },
+                "sid": {
+                  "dataType": "string",
+                  "functionParameter": "publishedTrackSid"
+                }
+              },
+              "documentation": {
+                "description": "Client for managing a specific published track resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Rooms/{roomSid}/Participants/{participantSid}/PublishedTracks/{sid}",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "roomSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "roomSid"
+                        }
+                      },
+                      {
+                        "name": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "participantSid"
+                        }
+                      },
+                      {
+                        "name": "sid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "sid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a published track resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#get-st"
+                  },
+                  "response": {
+                    "name": "FetchPublishedTrackResponse",
+                    "structure": "PublishedTrackResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved published track"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
           "operations": [
             {
               "name": "Fetch",
@@ -1876,6 +2198,170 @@
           "type": "int",
           "value": "duration",
           "required": false
+        }
+      ]
+    },
+    "SubscribedTracksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "SubscribedTracks",
+          "type": "array",
+          "items": {
+            "structure": "SubscribedTrackResponse"
+          },
+          "value": "subscribed_tracks",
+          "required": true
+        }
+      ]
+    },
+    "SubscribedTrackResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "Kind",
+          "type": "string",
+          "value": "kind",
+          "required": true
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        },
+        {
+          "name": "PublisherSid",
+          "type": "string",
+          "value": "publisher_sid",
+          "required": true
+        },
+        {
+          "name": "ParticipantSid",
+          "type": "string",
+          "value": "participant_sid",
+          "required": true
+        }
+      ]
+    },
+    "PublishedTracksPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "PublishedTracks",
+          "type": "array",
+          "items": {
+            "structure": "PublishedTrackResponse"
+          },
+          "value": "published_tracks",
+          "required": true
+        }
+      ]
+    },
+    "PublishedTrackResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "Kind",
+          "type": "string",
+          "value": "kind",
+          "required": true
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "value": "name",
+          "required": true
+        },
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        },
+        {
+          "name": "ParticipantSid",
+          "type": "string",
+          "value": "participant_sid",
+          "required": true
         }
       ]
     },

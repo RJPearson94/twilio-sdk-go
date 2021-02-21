@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks?PageSize=50&Page=0",
+    "next_page_url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "published_tracks"
+  },
+  "published_tracks": [
+    {
+      "kind": "audio",
+      "name": "test",
+      "date_updated": null,
+      "sid": "MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "enabled": true,
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks/MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2021-02-20T10:00:00Z",
+      "publisher_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "participant_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "kind": "audio",
+      "name": "test",
+      "date_updated": null,
+      "sid": "MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "enabled": true,
+      "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks/MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2",
+      "date_created": "2021-02-20T10:00:00Z",
+      "publisher_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "participant_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

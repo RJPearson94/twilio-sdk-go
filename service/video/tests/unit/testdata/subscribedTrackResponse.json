@@ -1,0 +1,12 @@
+{
+  "kind": "audio",
+  "name": "test",
+  "date_updated": null,
+  "sid": "MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "enabled": true,
+  "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks/MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "date_created": "2021-02-20T10:00:00Z",
+  "publisher_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+  "participant_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
