@@ -4,7 +4,7 @@ package published_track
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 // Client for managing a specific published track resource
-// See https://www.twilio.com/docs/video/api/participants for more details
+// See https://www.twilio.com/docs/video/api/track-subscriptions for more details
 type Client struct {
 	client *client.Client
 

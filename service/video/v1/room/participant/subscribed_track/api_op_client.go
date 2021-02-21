@@ -4,7 +4,7 @@ package subscribed_track
 import "github.com/RJPearson94/twilio-sdk-go/client"
 
 // Client for managing a specific subscribed track resource
-// See https://www.twilio.com/docs/video/api/participants for more details
+// See https://www.twilio.com/docs/video/api/track-subscriptions#st-resource for more details
 type Client struct {
 	client *client.Client
 

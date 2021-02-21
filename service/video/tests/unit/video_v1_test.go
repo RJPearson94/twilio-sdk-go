@@ -21,6 +21,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant/published_tracks"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant/subscribe_rules"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant/subscribed_tracks"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participants"
 	roomRecording "github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/recording"
@@ -2363,6 +2364,129 @@ var _ = Describe("Video V1", func() {
 			})
 
 			It("Then the get subscribed track response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a subscribe rules client", func() {
+		subscribeRulesClient := videoSession.Room("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").Participant("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").SubscribeRules()
+
+		Describe("When the subscribe rules resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/subscribeRulesResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := subscribeRulesClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get subscribe rules resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ParticipantSid).To(Equal("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Rules).To(Equal([]subscribe_rules.FetchSubscribeRuleResponse{
+					{
+						All:      utils.Bool(true),
+						Type:     "include",
+						Kind:     nil,
+						Priority: nil,
+						Track:    nil,
+					},
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+			})
+		})
+
+		Describe("When the subscribe rules resource api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := subscribeRulesClient.Fetch()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get subscribe rules response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the subscribe rules resource is successfully updated", func() {
+			updateInput := &subscribe_rules.UpdateSubscribeRulesInput{
+				Rules: "[]",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateSubscribeRulesResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := subscribeRulesClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update subscribe rules resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.RoomSid).To(Equal("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.ParticipantSid).To(Equal("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.Rules).To(Equal([]subscribe_rules.UpdateSubscribeRuleResponse{}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2021-02-20T10:00:00Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2021-02-20T10:05:00Z"))
+			})
+		})
+
+		Describe("When the update subscribe rules request does not contain rules", func() {
+			updateInput := &subscribe_rules.UpdateSubscribeRulesInput{}
+
+			resp, err := subscribeRulesClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update subscribe rules response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the subscribe rules resource api returns a 500", func() {
+			updateInput := &subscribe_rules.UpdateSubscribeRulesInput{
+				Rules: "[]",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := subscribeRulesClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the update subscribe rules response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})

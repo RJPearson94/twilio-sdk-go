@@ -462,7 +462,7 @@
               },
               "documentation": {
                 "description": "Client for managing subscribed track resources",
-                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions"
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#st-resource"
               },
               "operations": [
                 {
@@ -558,7 +558,7 @@
               },
               "documentation": {
                 "description": "Client for managing a specific subscribed track resource",
-                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#st-resource"
               },
               "operations": [
                 {
@@ -718,7 +718,7 @@
               },
               "documentation": {
                 "description": "Client for managing a specific published track resource",
-                "twilioDocsLink": "https://www.twilio.com/docs/video/api/participants"
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions"
               },
               "operations": [
                 {
@@ -762,6 +762,107 @@
                     "structure": "PublishedTrackResponse",
                     "documentation": {
                       "description": "defines the response fields for the retrieved published track"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Subscribe Rules",
+              "packageName": "subscribe_rules",
+              "properties": {
+                "roomSid": {
+                  "dataType": "string",
+                  "parentProperty": "roomSid"
+                },
+                "participantSid": {
+                  "dataType": "string",
+                  "parentProperty": "sid"
+                }
+              },
+              "function": {
+                "parameters": {}
+              },
+              "documentation": {
+                "description": "Client for managing a specific subscribe rules resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#sl-resource"
+              },
+              "operations": [
+                {
+                  "name": "Fetch",
+                  "http": {
+                    "uri": "/Rooms/{roomSid}/Participants/{participantSid}/SubscribeRules",
+                    "method": "Get",
+                    "pathParams": [
+                      {
+                        "name": "roomSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "roomSid"
+                        }
+                      },
+                      {
+                        "name": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "participantSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "retrieves a subscribe rules resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#sr-get"
+                  },
+                  "response": {
+                    "name": "FetchSubscribeRulesResponse",
+                    "structure": "SubscribeRulesResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the retrieved subscribe rules"
+                    }
+                  }
+                },
+                {
+                  "name": "Update",
+                  "http": {
+                    "uri": "/Rooms/{roomSid}/Participants/{participantSid}/SubscribeRules",
+                    "method": "Post",
+                    "pathParams": [
+                      {
+                        "name": "roomSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "roomSid"
+                        }
+                      },
+                      {
+                        "name": "participantSid",
+                        "value": {
+                          "onService": true,
+                          "type": "string",
+                          "property": "participantSid"
+                        }
+                      }
+                    ]
+                  },
+                  "documentation": {
+                    "description": "modifies a subscribe rules resource",
+                    "twilioDocsLink": "https://www.twilio.com/docs/video/api/track-subscriptions#sr-post"
+                  },
+                  "input": {
+                    "structure": "UpdateSubscribeRulesInput",
+                    "documentation": {
+                      "description": "defines input fields for updating a subscribe rules resource"
+                    }
+                  },
+                  "response": {
+                    "name": "UpdateSubscribeRulesResponse",
+                    "structure": "SubscribeRulesResponse",
+                    "documentation": {
+                      "description": "defines the response fields for the updated subscribe rules"
                     }
                   }
                 }
@@ -2362,6 +2463,96 @@
           "type": "string",
           "value": "participant_sid",
           "required": true
+        }
+      ]
+    },
+    "UpdateSubscribeRulesInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Rules",
+          "type": "string",
+          "value": "Rules",
+          "required": true
+        }
+      ]
+    },
+    "SubscribeRuleResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "All",
+          "type": "bool",
+          "value": "all",
+          "required": false
+        },
+        {
+          "name": "Publisher",
+          "type": "string",
+          "value": "publisher",
+          "required": false
+        },
+        {
+          "name": "Track",
+          "type": "string",
+          "value": "track",
+          "required": false
+        },
+        {
+          "name": "Kind",
+          "type": "string",
+          "value": "kind",
+          "required": false
+        },
+        {
+          "name": "Priority",
+          "type": "string",
+          "value": "priority",
+          "required": false
+        }
+      ]
+    },
+    "SubscribeRulesResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "RoomSid",
+          "type": "string",
+          "value": "room_sid",
+          "required": true
+        },
+        {
+          "name": "ParticipantSid",
+          "type": "string",
+          "value": "participant_sid",
+          "required": true
+        },
+        {
+          "name": "Rules",
+          "type": "array",
+          "items": {
+            "structure": "SubscribeRuleResponse"
+          },
+          "value": "rules",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
         }
       ]
     },

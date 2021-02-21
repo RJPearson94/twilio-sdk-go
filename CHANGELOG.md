@@ -24,6 +24,7 @@ FEATURES
 - **New Resource:** Composition Hooks
 - **New Resource:** Participant Published Tracks
 - **New Resource:** Participant Subscribed Tracks
+- **New Resource:** Participant Subscibe Rules
 
 ## v0.14.1 (2021-02-19)
 

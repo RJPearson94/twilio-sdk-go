@@ -1,0 +1,16 @@
+{
+  "room_sid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "participant_sid": "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "rules": [
+    {
+      "type": "include",
+      "all": true,
+      "publisher": null,
+      "track": null,
+      "kind": null,
+      "priority": null
+    }
+  ],
+  "date_updated": null,
+  "date_created": "2021-02-20T10:00:00Z"
+}
