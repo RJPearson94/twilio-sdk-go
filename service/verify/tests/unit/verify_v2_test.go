@@ -20,6 +20,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/challenges"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/factor"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity/factors"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configurations"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
@@ -3319,6 +3321,395 @@ var _ = Describe("Verify V2", func() {
 
 			It("Then the update challenge response should be nil", func() {
 				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a messaging configurations client", func() {
+		messagingConfigurationsClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MessagingConfigurations
+
+		Describe("When the messaging configuration resource is successfully created", func() {
+			createInput := &messaging_configurations.CreateMessagingConfigurationInput{
+				Country:             "all",
+				MessagingServiceSid: "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messagingConfigurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := messagingConfigurationsClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create messaging configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Country).To(Equal("all"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.MessagingServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all"))
+			})
+		})
+
+		Describe("When the messaging configuration request does not contain a country", func() {
+			createInput := &messaging_configurations.CreateMessagingConfigurationInput{
+				MessagingServiceSid: "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			resp, err := messagingConfigurationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create messaging configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the messaging configuration request does not contain a messaging service sid", func() {
+			createInput := &messaging_configurations.CreateMessagingConfigurationInput{
+				Country: "all",
+			}
+
+			resp, err := messagingConfigurationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the create messaging configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the create messaging configurations api returns a 500 response", func() {
+			createInput := &messaging_configurations.CreateMessagingConfigurationInput{
+				Country:             "all",
+				MessagingServiceSid: "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			}
+
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := messagingConfigurationsClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create messaging configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of messaging configurations are successfully retrieved", func() {
+			pageOptions := &messaging_configurations.MessagingConfigurationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messagingConfigurationsPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := messagingConfigurationsClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the messaging configurations page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("messaging_configurations"))
+
+				messagingConfigurations := resp.MessagingConfigurations
+				Expect(messagingConfigurations).ToNot(BeNil())
+				Expect(len(messagingConfigurations)).To(Equal(1))
+
+				Expect(messagingConfigurations[0].Country).To(Equal("all"))
+				Expect(messagingConfigurations[0].ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(messagingConfigurations[0].MessagingServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(messagingConfigurations[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(messagingConfigurations[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(messagingConfigurations[0].DateUpdated).To(BeNil())
+				Expect(messagingConfigurations[0].URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all"))
+			})
+		})
+
+		Describe("When the page of messaging configurations api returns a 500 response", func() {
+			pageOptions := &messaging_configurations.MessagingConfigurationsPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := messagingConfigurationsClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the messaging configurations page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated messaging configurations are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messagingConfigurationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messagingConfigurationsPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := messagingConfigurationsClient.NewMessagingConfigurationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated messaging configurations current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated messaging configurations results should be returned", func() {
+				Expect(len(paginator.MessagingConfigurations)).To(Equal(3))
+			})
+		})
+
+		Describe("When the messaging configurations api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messagingConfigurationsPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := messagingConfigurationsClient.NewMessagingConfigurationsPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated messaging configurations current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a messaging configuration sid", func() {
+		messagingConfigurationClient := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MessagingConfiguration("all")
+
+		Describe("When the messaging configuration resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/messagingConfigurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := messagingConfigurationClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get messaging configuration resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Country).To(Equal("all"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.MessagingServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all"))
+			})
+		})
+
+		Describe("When the messaging configuration resource api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/unknown",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MessagingConfiguration("unknown").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get messaging configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the messaging configuration resource is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateMessagingConfigurationResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &messaging_configuration.UpdateMessagingConfigurationInput{
+				MessagingServiceSid: "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+			}
+
+			resp, err := messagingConfigurationClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update messaging configuration response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Country).To(Equal("all"))
+				Expect(resp.ServiceSid).To(Equal("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.MessagingServiceSid).To(Equal("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))
+				Expect(resp.URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all"))
+			})
+		})
+
+		Describe("When the update messaging configuration request does not contain a messaging service sid", func() {
+			updateInput := &messaging_configuration.UpdateMessagingConfigurationInput{}
+
+			resp, err := messagingConfigurationClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInvalidInputError(err)
+			})
+
+			It("Then the update messaging configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the update messaging configuration resource api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/unknown",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &messaging_configuration.UpdateMessagingConfigurationInput{
+				MessagingServiceSid: "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+			}
+
+			resp, err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MessagingConfiguration("unknown").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update messaging configuration response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the messaging configuration resource is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all", httpmock.NewStringResponder(204, ""))
+
+			err := messagingConfigurationClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the messaging configuration resource api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/unknown",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := verifySession.Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").MessagingConfiguration("unknown").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
 			})
 		})
 	})

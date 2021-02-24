@@ -1,0 +1,9 @@
+{
+  "date_updated": "2020-06-20T20:55:24Z",
+  "country": "all",
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all",
+  "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+  "date_created": "2020-06-20T20:50:24Z",
+  "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

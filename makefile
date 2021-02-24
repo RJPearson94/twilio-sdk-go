@@ -1,4 +1,4 @@
-TEST?=$$(go list ./... | grep -v 'vendor' | grep -v 'examples' | grep -v '.history')
+TEST?=$$(go list ./... | grep -v 'vendor' | grep -v '.history')
 
 default: build
 

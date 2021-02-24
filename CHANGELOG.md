@@ -14,6 +14,10 @@ FEATURES
 - Add the ability to archive a plugin version
 - Add the ability to archive a plugin configuration
 
+### Verify
+
+- **New Resource:** Service Messaging Configurations
+
 ### Video
 
 - **New Resource:** Rooms

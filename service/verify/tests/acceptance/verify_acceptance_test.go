@@ -9,9 +9,12 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go"
+	messagingServices "github.com/RJPearson94/twilio-sdk-go/service/messaging/v1/services"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entities"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configurations"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/bucket"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit/buckets"
@@ -33,6 +36,7 @@ var _ = Describe("Verify Acceptance Tests", func() {
 		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
+	messagingSession := twilio.NewWithCredentials(creds).Messaging.V1
 	verifySession := twilio.NewWithCredentials(creds).Verify.V2
 
 	Describe("Given the verify service clients", func() {
@@ -358,7 +362,7 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			createResp, createErr := webhooksClient.Create(&webhooks.CreateWebhookInput{
 				FriendlyName: uuid.New().String(),
 				EventTypes:   []string{"*"},
-				WebhookURL:   "http://localhost/webhook",
+				WebhookURL:   "https://example.com/webhook",
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
@@ -387,6 +391,78 @@ var _ = Describe("Verify Acceptance Tests", func() {
 			Expect(updateResp).ToNot(BeNil())
 
 			deleteErr := webhookClient.Delete()
+			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the verify messaging configuration clients", func() {
+
+		var serviceSid string
+		var messagingServiceSid string
+
+		BeforeEach(func() {
+			resp, err := verifySession.Services.Create(&services.CreateServiceInput{
+				FriendlyName: "Test Service",
+			})
+			if err != nil {
+				Fail(fmt.Sprintf("Failed to create service. Error %s", err.Error()))
+			}
+			serviceSid = resp.Sid
+
+			messagingServiceResp, messagingServiceErr := messagingSession.Services.Create(&messagingServices.CreateServiceInput{
+				FriendlyName: uuid.New().String(),
+			})
+			if messagingServiceErr != nil {
+				Fail(fmt.Sprintf("Failed to create messaging service. Error %s", messagingServiceErr.Error()))
+			}
+			messagingServiceSid = messagingServiceResp.Sid
+		})
+
+		AfterEach(func() {
+			if err := verifySession.Service(serviceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete service. Error %s", err.Error()))
+			}
+			if err := messagingSession.Service(messagingServiceSid).Delete(); err != nil {
+				Fail(fmt.Sprintf("Failed to delete messaging service. Error %s", err.Error()))
+			}
+		})
+
+		It("Then the messaging configuration is created, fetched, updated and deleted", func() {
+			messagingConfigurationsClient := verifySession.Service(serviceSid).MessagingConfigurations
+
+			createResp, createErr := messagingConfigurationsClient.Create(&messaging_configurations.CreateMessagingConfigurationInput{
+				Country:             "all",
+				MessagingServiceSid: messagingServiceSid,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Country).ToNot(BeNil())
+
+			pageResp, pageErr := messagingConfigurationsClient.Page(&messaging_configurations.MessagingConfigurationsPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.MessagingConfigurations)).Should(BeNumerically(">=", 1))
+
+			paginator := messagingConfigurationsClient.NewMessagingConfigurationsPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.MessagingConfigurations)).Should(BeNumerically(">=", 1))
+
+			messagingConfigurationClient := verifySession.Service(serviceSid).MessagingConfiguration(createResp.Country)
+
+			fetchResp, fetchErr := messagingConfigurationClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := messagingConfigurationClient.Update(&messaging_configuration.UpdateMessagingConfigurationInput{
+				MessagingServiceSid: messagingServiceSid,
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := messagingConfigurationClient.Delete()
 			Expect(deleteErr).To(BeNil())
 		})
 	})

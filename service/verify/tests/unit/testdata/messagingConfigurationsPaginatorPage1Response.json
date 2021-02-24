@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "page": 1,
+    "page_size": 50,
+    "first_page_url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?PageSize=50&Page=0",
+    "previous_page_url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?PageSize=50&Page=0&TaskToken=zyx9876",
+    "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations?PageSize=50&Page=1&TaskToken=abc1234",
+    "next_page_url": null,
+    "key": "messaging_configurations"
+  },
+  "messaging_configurations": [
+    {
+      "date_updated": null,
+      "country": "all",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessagingConfigurations/all",
+      "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-20T20:50:24Z",
+      "service_sid": "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ]
+}

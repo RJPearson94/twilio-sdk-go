@@ -1923,6 +1923,240 @@
               }
             }
           ]
+        },
+        {
+          "name": "Messaging Configurations",
+          "packageName": "messaging_configurations",
+          "documentation": {
+            "description": "Client for managing messaging configuration resources"
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            }
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Services/{serviceSid}/MessagingConfigurations",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "creates a new messaging configuration"
+              },
+              "input": {
+                "structure": "CreateMessagingConfigurationInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new messaging configuration"
+                }
+              },
+              "response": {
+                "name": "CreateMessagingConfigurationResponse",
+                "structure": "MessagingConfigurationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created messaging configuration"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Services/{serviceSid}/MessagingConfigurations",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ],
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of messaging configuration"
+              },
+              "response": {
+                "structure": "MessagingConfigurationsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the messaging configuration page"
+                }
+              },
+              "pagination": {
+                "name": "MessagingConfigurationsPaginator",
+                "page": {
+                  "name": "MessagingConfigurationsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "MessagingConfigurations",
+                  "structure": "PageMessagingConfigurationResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Messaging Configuration",
+          "packageName": "messaging_configuration",
+          "function": {
+            "parameters": {
+              "countryCode": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "serviceSid": {
+              "dataType": "string",
+              "parentProperty": "sid"
+            },
+            "countryCode": {
+              "dataType": "string",
+              "functionParameter": "countryCode"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific messaging configuration resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Services/{serviceSid}/MessagingConfigurations/{countryCode}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "countryCode",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "countryCode"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a messaging configuration resource"
+              },
+              "response": {
+                "name": "FetchMessagingConfigurationResponse",
+                "structure": "MessagingConfigurationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved messaging configuration"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Services/{serviceSid}/MessagingConfigurations/{countryCode}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "countryCode",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "countryCode"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a messaging configuration resource"
+              },
+              "input": {
+                "structure": "UpdateMessagingConfigurationInput",
+                "documentation": {
+                  "description": "defines input fields for updating a messaging configuration resource"
+                }
+              },
+              "response": {
+                "name": "UpdateMessagingConfigurationResponse",
+                "structure": "MessagingConfigurationResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated messaging configuration"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Services/{serviceSid}/MessagingConfigurations/{countryCode}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "serviceSid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "serviceSid"
+                    }
+                  },
+                  {
+                    "name": "countryCode",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "countryCode"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a messaging configuration resource from the account"
+              }
+            }
+          ]
         }
       ],
       "operations": [
@@ -3355,6 +3589,101 @@
           "name": "Key",
           "type": "string",
           "value": "key",
+          "required": true
+        }
+      ]
+    },
+    "CreateMessagingConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Country",
+          "type": "string",
+          "value": "Country",
+          "required": true
+        },
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "MessagingServiceSid",
+          "required": true
+        }
+      ]
+    },
+    "UpdateMessagingConfigurationInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "MessagingServiceSid",
+          "required": true
+        }
+      ]
+    },
+    "MessagingConfigurationsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "MessagingConfigurations",
+          "type": "array",
+          "items": {
+            "structure": "MessagingConfigurationResponse"
+          },
+          "value": "messaging_configurations",
+          "required": true
+        }
+      ]
+    },
+    "MessagingConfigurationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Country",
+          "type": "string",
+          "value": "country",
+          "required": true
+        },
+        {
+          "name": "MessagingServiceSid",
+          "type": "string",
+          "value": "messaging_service_sid",
+          "required": true
+        },
+        {
+          "name": "ServiceSid",
+          "type": "string",
+          "value": "service_sid",
+          "required": true
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
           "required": true
         }
       ]

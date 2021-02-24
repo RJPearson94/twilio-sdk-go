@@ -6,7 +6,7 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go"
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/verify/v2"
-	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/webhooks"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configuration"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 )
 
@@ -27,16 +27,14 @@ func init() {
 func main() {
 	resp, err := verifyClient.
 		Service("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
-		Webhooks.
-		Create(&webhooks.CreateWebhookInput{
-			FriendlyName: "Test Rate Limit",
-			EventTypes:   []string{"*"},
-			WebhookURL:   "https://example.com/webhook",
+		MessagingConfiguration("all").
+		Update(&messaging_configuration.UpdateMessagingConfigurationInput{
+			MessagingServiceSid: "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
 		})
 
 	if err != nil {
 		log.Panicf("%s", err.Error())
 	}
 
-	log.Printf("SID: %s", resp.Sid)
+	log.Printf("Country: %s", resp.Country)
 }

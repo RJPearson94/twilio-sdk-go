@@ -6,6 +6,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/access_tokens"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entities"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/entity"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/messaging_configurations"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limit"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/rate_limits"
 	"github.com/RJPearson94/twilio-sdk-go/service/verify/v2/service/verification"
@@ -22,16 +24,18 @@ type Client struct {
 
 	sid string
 
-	AccessTokens      *access_tokens.Client
-	Entities          *entities.Client
-	Entity            func(string) *entity.Client
-	RateLimit         func(string) *rate_limit.Client
-	RateLimits        *rate_limits.Client
-	Verification      func(string) *verification.Client
-	VerificationCheck *verification_check.Client
-	Verifications     *verifications.Client
-	Webhook           func(string) *webhook.Client
-	Webhooks          *webhooks.Client
+	AccessTokens            *access_tokens.Client
+	Entities                *entities.Client
+	Entity                  func(string) *entity.Client
+	MessagingConfiguration  func(string) *messaging_configuration.Client
+	MessagingConfigurations *messaging_configurations.Client
+	RateLimit               func(string) *rate_limit.Client
+	RateLimits              *rate_limits.Client
+	Verification            func(string) *verification.Client
+	VerificationCheck       *verification_check.Client
+	Verifications           *verifications.Client
+	Webhook                 func(string) *webhook.Client
+	Webhooks                *webhooks.Client
 }
 
 // ClientProperties are the properties required to manage the service resources
@@ -58,6 +62,15 @@ func New(client *client.Client, properties ClientProperties) *Client {
 				ServiceSid: properties.Sid,
 			})
 		},
+		MessagingConfiguration: func(countryCode string) *messaging_configuration.Client {
+			return messaging_configuration.New(client, messaging_configuration.ClientProperties{
+				CountryCode: countryCode,
+				ServiceSid:  properties.Sid,
+			})
+		},
+		MessagingConfigurations: messaging_configurations.New(client, messaging_configurations.ClientProperties{
+			ServiceSid: properties.Sid,
+		}),
 		RateLimit: func(rateLimitSid string) *rate_limit.Client {
 			return rate_limit.New(client, rate_limit.ClientProperties{
 				ServiceSid: properties.Sid,
