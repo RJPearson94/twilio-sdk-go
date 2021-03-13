@@ -3,6 +3,7 @@ package acceptance
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
@@ -473,12 +474,14 @@ var _ = Describe("Flex Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			// The release has to be superseeded to allow supporting resources to be archived
-			superseededResp, superseededErr := pluginReleasesClient.Create(&plugin_releases.CreateReleaseInput{
+			// The release has to be superseded to allow supporting resources to be archived
+			supersededResp, supersededErr := pluginReleasesClient.Create(&plugin_releases.CreateReleaseInput{
 				ConfigurationId: os.Getenv("TWILIO_FLEX_DEFAULT_CONFIGURATION"),
 			})
-			Expect(superseededErr).To(BeNil())
-			Expect(superseededResp).ToNot(BeNil())
+			Expect(supersededErr).To(BeNil())
+			Expect(supersededResp).ToNot(BeNil())
+
+			time.Sleep(5 * time.Second) // Sleep to allow configuration to propogate
 		})
 	})
 

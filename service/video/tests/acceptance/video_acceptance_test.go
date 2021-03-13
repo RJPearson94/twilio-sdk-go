@@ -9,12 +9,10 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/RJPearson94/twilio-sdk-go"
-	"github.com/RJPearson94/twilio-sdk-go/client"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hook"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hooks"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/rooms"
-	"github.com/RJPearson94/twilio-sdk-go/session"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
@@ -28,9 +26,7 @@ var _ = Describe("Video Acceptance Tests", func() {
 		Fail(fmt.Sprintf("Failed to create credentials. Error %s", err.Error()))
 	}
 
-	videoSession := twilio.NewWithConfig(session.New(creds), &client.Config{
-		DebugEnabled: utils.Bool(true),
-	}).Video.V1
+	videoSession := twilio.NewWithCredentials(creds).Video.V1
 
 	Describe("Given the video room clients", func() {
 		It("Then the room is created, fetched and updated", func() {
