@@ -1,6 +1,8 @@
 package verbs
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type ReceiveAttributes struct {
 	Action     *string `xml:"action,attr,omitempty"`

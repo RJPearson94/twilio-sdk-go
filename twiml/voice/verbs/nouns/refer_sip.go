@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type ReferSipAttributes struct {
 	Method               *string `xml:"method,attr,omitempty"`

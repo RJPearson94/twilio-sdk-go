@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 
 	"github.com/RJPearson94/twilio-sdk-go/twiml/fax/verbs"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 // FaxResponse provides the structure and functions for generation TwiML that can be used
@@ -41,6 +42,5 @@ func (m *FaxResponse) ToString() (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	twiML := xml.Header + string(output)
-	return &twiML, nil
+	return utils.String(xml.Header + string(output)), nil
 }

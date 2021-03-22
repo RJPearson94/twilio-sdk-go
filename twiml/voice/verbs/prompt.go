@@ -14,18 +14,17 @@ type PromptAttributes struct {
 type Prompt struct {
 	XMLName xml.Name `xml:"Prompt"`
 
-	*PromptAttributes
-
+	PromptAttributes
 	Children []interface{}
 }
 
 func (p *Prompt) Pause() {
-	p.Children = append(p.Children, &Pause{})
+	p.PauseWithAttributes(PauseAttributes{})
 }
 
 func (p *Prompt) PauseWithAttributes(attributes PauseAttributes) {
 	p.Children = append(p.Children, &Pause{
-		PauseAttributes: &attributes,
+		PauseAttributes: attributes,
 	})
 }
 
@@ -36,14 +35,12 @@ func (p *Prompt) Play(url *string) {
 }
 
 func (p *Prompt) Say(message string) {
-	p.Children = append(p.Children, &Say{
-		Text: message,
-	})
+	p.SayWithAttributes(SayAttributes{}, message)
 }
 
 func (p *Prompt) SayWithAttributes(attributes SayAttributes, message string) {
 	p.Children = append(p.Children, &Say{
 		Text:          message,
-		SayAttributes: &attributes,
+		SayAttributes: attributes,
 	})
 }

@@ -36,12 +36,7 @@ type Dial struct {
 }
 
 func (d *Dial) Client(identity *string) *nouns.Client {
-	client := &nouns.Client{
-		Text:     identity,
-		Children: make([]interface{}, 0),
-	}
-	d.Children = append(d.Children, client)
-	return client
+	return d.ClientWithAttributes(nouns.ClientAttributes{}, identity)
 }
 
 func (d *Dial) ClientWithAttributes(attributes nouns.ClientAttributes, identity *string) *nouns.Client {
@@ -55,9 +50,7 @@ func (d *Dial) ClientWithAttributes(attributes nouns.ClientAttributes, identity 
 }
 
 func (d *Dial) Conference(name string) {
-	d.Children = append(d.Children, &nouns.Conference{
-		Text: name,
-	})
+	d.ConferenceWithAttributes(nouns.ConferenceAttributes{}, name)
 }
 
 func (d *Dial) ConferenceWithAttributes(attributes nouns.ConferenceAttributes, name string) {
@@ -68,9 +61,7 @@ func (d *Dial) ConferenceWithAttributes(attributes nouns.ConferenceAttributes, n
 }
 
 func (d *Dial) Number(phoneNumber string) {
-	d.Children = append(d.Children, &nouns.Number{
-		Text: phoneNumber,
-	})
+	d.NumberWithAttributes(nouns.NumberAttributes{}, phoneNumber)
 }
 
 func (d *Dial) NumberWithAttributes(attributes nouns.NumberAttributes, phoneNumber string) {
@@ -81,14 +72,12 @@ func (d *Dial) NumberWithAttributes(attributes nouns.NumberAttributes, phoneNumb
 }
 
 func (d *Dial) Queue(name string) {
-	d.Children = append(d.Children, &nouns.Queue{
-		Text: name,
-	})
+	d.QueueWithAttributes(nouns.QueueAttributes{}, name)
 }
 
 func (d *Dial) QueueWithAttributes(attributes nouns.QueueAttributes, name string) {
 	d.Children = append(d.Children, &nouns.Queue{
-		QueueAttributes: &attributes,
+		QueueAttributes: attributes,
 		Text:            name,
 	})
 }
@@ -100,9 +89,7 @@ func (d *Dial) Sim(simSid string) {
 }
 
 func (d *Dial) Sip(sipURL string) {
-	d.Children = append(d.Children, &nouns.Sip{
-		Text: sipURL,
-	})
+	d.SipWithAttributes(nouns.SipAttributes{}, sipURL)
 }
 
 func (d *Dial) SipWithAttributes(attributes nouns.SipAttributes, sipURL string) {

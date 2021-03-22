@@ -1,6 +1,8 @@
 package verbs
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type RecordAttributes struct {
 	Action                        *string `xml:"action,attr,omitempty"`
@@ -20,5 +22,5 @@ type RecordAttributes struct {
 type Record struct {
 	XMLName xml.Name `xml:"Record"`
 
-	*RecordAttributes
+	RecordAttributes
 }

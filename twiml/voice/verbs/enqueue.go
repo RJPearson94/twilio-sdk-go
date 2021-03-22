@@ -19,18 +19,15 @@ type Enqueue struct {
 	Text    *string  `xml:",chardata"`
 
 	EnqueueAttributes
-
 	Children []interface{}
 }
 
-func (c *Enqueue) Task(body string) {
-	c.Children = append(c.Children, nouns.Task{
-		Text: body,
-	})
+func (e *Enqueue) Task(body string) {
+	e.TaskWithAttributes(nouns.TaskAttributes{}, body)
 }
 
-func (c *Enqueue) TaskWithAttributes(attributes nouns.TaskAttributes, body string) {
-	c.Children = append(c.Children, nouns.Task{
+func (e *Enqueue) TaskWithAttributes(attributes nouns.TaskAttributes, body string) {
+	e.Children = append(e.Children, nouns.Task{
 		Text:           body,
 		TaskAttributes: attributes,
 	})

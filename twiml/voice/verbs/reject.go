@@ -1,6 +1,8 @@
 package verbs
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type RejectAttributes struct {
 	Reason *string `xml:"reason,attr,omitempty"`
@@ -9,5 +11,5 @@ type RejectAttributes struct {
 type Reject struct {
 	XMLName xml.Name `xml:"Reject"`
 
-	*RejectAttributes
+	RejectAttributes
 }

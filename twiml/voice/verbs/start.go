@@ -14,22 +14,17 @@ type StartAttributes struct {
 type Start struct {
 	XMLName xml.Name `xml:"Start"`
 
-	*StartAttributes
-
+	StartAttributes
 	Children []interface{}
 }
 
 func (s *Start) Siprec() *nouns.Siprec {
-	siprec := &nouns.Siprec{
-		Children: make([]interface{}, 0),
-	}
-	s.Children = append(s.Children, siprec)
-	return siprec
+	return s.SiprecWithAttributes(nouns.SiprecAttributes{})
 }
 
 func (s *Start) SiprecWithAttributes(attributes nouns.SiprecAttributes) *nouns.Siprec {
 	siprec := &nouns.Siprec{
-		SiprecAttributes: &attributes,
+		SiprecAttributes: attributes,
 		Children:         make([]interface{}, 0),
 	}
 	s.Children = append(s.Children, siprec)
@@ -37,16 +32,12 @@ func (s *Start) SiprecWithAttributes(attributes nouns.SiprecAttributes) *nouns.S
 }
 
 func (s *Start) Stream() *nouns.Stream {
-	stream := &nouns.Stream{
-		Children: make([]interface{}, 0),
-	}
-	s.Children = append(s.Children, stream)
-	return stream
+	return s.StreamWithAttributes(nouns.StreamAttributes{})
 }
 
 func (s *Start) StreamWithAttributes(attributes nouns.StreamAttributes) *nouns.Stream {
 	stream := &nouns.Stream{
-		StreamAttributes: &attributes,
+		StreamAttributes: attributes,
 		Children:         make([]interface{}, 0),
 	}
 	s.Children = append(s.Children, stream)

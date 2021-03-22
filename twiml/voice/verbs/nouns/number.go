@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type NumberAttributes struct {
 	BYOC                 *string `xml:"byoc,attr,omitempty"`

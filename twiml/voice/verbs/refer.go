@@ -14,14 +14,12 @@ type ReferAttributes struct {
 type Refer struct {
 	XMLName xml.Name `xml:"Refer"`
 
-	*ReferAttributes
+	ReferAttributes
 	Children []interface{}
 }
 
 func (r *Refer) ReferSip(sipURL string) {
-	r.Children = append(r.Children, &nouns.ReferSip{
-		Text: sipURL,
-	})
+	r.ReferSipWithAttributes(nouns.ReferSipAttributes{}, sipURL)
 }
 
 func (r *Refer) ReferSipWithAttributes(attributes nouns.ReferSipAttributes, sipURL string) {
@@ -32,9 +30,7 @@ func (r *Refer) ReferSipWithAttributes(attributes nouns.ReferSipAttributes, sipU
 }
 
 func (r *Refer) Sip(sipURL string) {
-	r.Children = append(r.Children, &nouns.Sip{
-		Text: sipURL,
-	})
+	r.SipWithAttributes(nouns.SipAttributes{}, sipURL)
 }
 
 func (r *Refer) SipWithAttributes(attributes nouns.SipAttributes, sipURL string) {
