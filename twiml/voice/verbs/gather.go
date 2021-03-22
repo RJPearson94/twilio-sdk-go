@@ -28,43 +28,38 @@ type GatherAttributes struct {
 type Gather struct {
 	XMLName xml.Name `xml:"Gather"`
 
-	*GatherAttributes
-
+	GatherAttributes
 	Children []interface{}
 }
 
 func (g *Gather) Pause() {
-	g.Children = append(g.Children, &Pause{})
+	g.PauseWithAttributes(PauseAttributes{})
 }
 
 func (g *Gather) PauseWithAttributes(attributes PauseAttributes) {
 	g.Children = append(g.Children, &Pause{
-		PauseAttributes: &attributes,
+		PauseAttributes: attributes,
 	})
 }
 
 func (g *Gather) Play(url *string) {
-	g.Children = append(g.Children, &Play{
-		Text: url,
-	})
+	g.PlayWithAttributes(PlayAttributes{}, url)
 }
 
 func (g *Gather) PlayWithAttributes(attributes PlayAttributes, url *string) {
 	g.Children = append(g.Children, &Play{
 		Text:           url,
-		PlayAttributes: &attributes,
+		PlayAttributes: attributes,
 	})
 }
 
 func (g *Gather) Say(message string) {
-	g.Children = append(g.Children, &Say{
-		Text: message,
-	})
+	g.SayWithAttributes(SayAttributes{}, message)
 }
 
 func (g *Gather) SayWithAttributes(attributes SayAttributes, message string) {
 	g.Children = append(g.Children, &Say{
 		Text:          message,
-		SayAttributes: &attributes,
+		SayAttributes: attributes,
 	})
 }

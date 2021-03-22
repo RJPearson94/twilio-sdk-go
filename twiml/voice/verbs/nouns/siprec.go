@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type SiprecAttributes struct {
 	ConnectorName *string `xml:"connectorName,attr,omitempty"`
@@ -11,17 +13,16 @@ type SiprecAttributes struct {
 type Siprec struct {
 	XMLName xml.Name `xml:"Siprec"`
 
-	*SiprecAttributes
-
+	SiprecAttributes
 	Children []interface{}
 }
 
 func (s *Siprec) Parameter() {
-	s.Children = append(s.Children, &Parameter{})
+	s.ParameterWithAttributes(ParameterAttributes{})
 }
 
 func (s *Siprec) ParameterWithAttributes(attributes ParameterAttributes) {
 	s.Children = append(s.Children, &Parameter{
-		ParameterAttributes: &attributes,
+		ParameterAttributes: attributes,
 	})
 }

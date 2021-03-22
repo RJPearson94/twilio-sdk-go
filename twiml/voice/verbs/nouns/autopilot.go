@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type Autopilot struct {
 	XMLName xml.Name `xml:"Autopilot"`

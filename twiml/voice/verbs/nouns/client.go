@@ -17,7 +17,6 @@ type Client struct {
 	Text    *string  `xml:",chardata"`
 
 	ClientAttributes
-
 	Children []interface{}
 }
 
@@ -28,11 +27,11 @@ func (c *Client) Identity(clientIdentity string) {
 }
 
 func (c *Client) Parameter() {
-	c.Children = append(c.Children, &Parameter{})
+	c.ParameterWithAttributes(ParameterAttributes{})
 }
 
 func (c *Client) ParameterWithAttributes(attributes ParameterAttributes) {
 	c.Children = append(c.Children, &Parameter{
-		ParameterAttributes: &attributes,
+		ParameterAttributes: attributes,
 	})
 }

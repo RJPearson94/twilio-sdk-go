@@ -1,6 +1,8 @@
 package verbs
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type SayAttributes struct {
 	Language *string `xml:"language,attr,omitempty"`
@@ -12,5 +14,5 @@ type Say struct {
 	XMLName xml.Name `xml:"Say"`
 	Text    string   `xml:",chardata"`
 
-	*SayAttributes
+	SayAttributes
 }

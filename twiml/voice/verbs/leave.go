@@ -1,6 +1,8 @@
 package verbs
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type Leave struct {
 	XMLName xml.Name `xml:"Leave"`

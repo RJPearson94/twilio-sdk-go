@@ -15,10 +15,9 @@ type MessageAttributes struct {
 
 type Message struct {
 	XMLName xml.Name `xml:"Message"`
+	Text    *string  `xml:",chardata"`
 
 	MessageAttributes
-
-	Text     *string `xml:",chardata"`
 	Children []interface{}
 }
 

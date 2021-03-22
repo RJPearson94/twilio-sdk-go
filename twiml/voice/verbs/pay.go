@@ -30,30 +30,27 @@ type PayAttributes struct {
 type Pay struct {
 	XMLName xml.Name `xml:"Pay"`
 
-	*PayAttributes
-
+	PayAttributes
 	Children []interface{}
 }
 
 func (p *Pay) Parameter() {
-	p.Children = append(p.Children, &nouns.Parameter{})
+	p.ParameterWithAttributes(nouns.ParameterAttributes{})
 }
 
 func (p *Pay) ParameterWithAttributes(attributes nouns.ParameterAttributes) {
 	p.Children = append(p.Children, &nouns.Parameter{
-		ParameterAttributes: &attributes,
+		ParameterAttributes: attributes,
 	})
 }
 
 func (p *Pay) Prompt() *Prompt {
-	prompt := &Prompt{}
-	p.Children = append(p.Children, prompt)
-	return prompt
+	return p.PromptWithAttributes(PromptAttributes{})
 }
 
 func (p *Pay) PromptWithAttributes(attributes PromptAttributes) *Prompt {
 	prompt := &Prompt{
-		PromptAttributes: &attributes,
+		PromptAttributes: attributes,
 	}
 	p.Children = append(p.Children, prompt)
 	return prompt

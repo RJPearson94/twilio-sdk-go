@@ -1,6 +1,8 @@
 package verbs
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type SmsAttributes struct {
 	Action         *string `xml:"action,attr,omitempty"`
@@ -14,5 +16,5 @@ type Sms struct {
 	XMLName xml.Name `xml:"Sms"`
 	Text    string   `xml:",chardata"`
 
-	*SmsAttributes
+	SmsAttributes
 }

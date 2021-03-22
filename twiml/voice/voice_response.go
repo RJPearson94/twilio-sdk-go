@@ -5,12 +5,14 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs"
 	"github.com/RJPearson94/twilio-sdk-go/twiml/voice/verbs/nouns"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 // VoiceResponse provides the structure and functions for generation TwiML that can be used
 // on Programmable Voice. See https://www.twilio.com/docs/voice/twiml for more details
 type VoiceResponse struct {
-	XMLName  xml.Name `xml:"Response"`
+	XMLName xml.Name `xml:"Response"`
+
 	Children []interface{}
 }
 
@@ -21,279 +23,230 @@ func New() *VoiceResponse {
 	}
 }
 
-func (m *VoiceResponse) Connect() *verbs.Connect {
-	connect := &verbs.Connect{
-		Children: make([]interface{}, 0),
-	}
-
-	m.Children = append(m.Children, connect)
-	return connect
+func (v *VoiceResponse) Connect() *verbs.Connect {
+	return v.ConnectWithAttributes(verbs.ConnectAttributes{})
 }
 
-func (m *VoiceResponse) ConnectWithAttributes(attributes verbs.ConnectAttributes) *verbs.Connect {
+func (v *VoiceResponse) ConnectWithAttributes(attributes verbs.ConnectAttributes) *verbs.Connect {
 	connect := &verbs.Connect{
-		ConnectAttributes: &attributes,
+		ConnectAttributes: attributes,
 		Children:          make([]interface{}, 0),
 	}
 
-	m.Children = append(m.Children, connect)
+	v.Children = append(v.Children, connect)
 	return connect
 }
 
-func (m *VoiceResponse) Dial(phoneNumber *string) *verbs.Dial {
-	dial := &verbs.Dial{
-		Text:     phoneNumber,
-		Children: make([]interface{}, 0),
-	}
-
-	m.Children = append(m.Children, dial)
-	return dial
+func (v *VoiceResponse) Dial(phoneNumber *string) *verbs.Dial {
+	return v.DialWithAttributes(verbs.DialAttributes{}, phoneNumber)
 }
 
-func (m *VoiceResponse) DialWithAttributes(attributes verbs.DialAttributes, phoneNumber *string) *verbs.Dial {
+func (v *VoiceResponse) DialWithAttributes(attributes verbs.DialAttributes, phoneNumber *string) *verbs.Dial {
 	dial := &verbs.Dial{
 		DialAttributes: attributes,
 		Text:           phoneNumber,
 		Children:       make([]interface{}, 0),
 	}
 
-	m.Children = append(m.Children, dial)
+	v.Children = append(v.Children, dial)
 	return dial
 }
 
-func (m *VoiceResponse) Enqueue(name *string) *verbs.Enqueue {
-	enqueue := &verbs.Enqueue{
-		Text:     name,
-		Children: make([]interface{}, 0),
-	}
-
-	m.Children = append(m.Children, enqueue)
-	return enqueue
+func (v *VoiceResponse) Enqueue(name *string) *verbs.Enqueue {
+	return v.EnqueueWithAttributes(verbs.EnqueueAttributes{}, name)
 }
 
-func (m *VoiceResponse) EnqueueWithAttributes(attributes verbs.EnqueueAttributes, name *string) *verbs.Enqueue {
+func (v *VoiceResponse) EnqueueWithAttributes(attributes verbs.EnqueueAttributes, name *string) *verbs.Enqueue {
 	enqueue := &verbs.Enqueue{
 		EnqueueAttributes: attributes,
 		Text:              name,
 		Children:          make([]interface{}, 0),
 	}
 
-	m.Children = append(m.Children, enqueue)
+	v.Children = append(v.Children, enqueue)
 	return enqueue
 }
 
-func (m *VoiceResponse) Gather() *verbs.Gather {
-	gather := &verbs.Gather{
-		Children: make([]interface{}, 0),
-	}
-
-	m.Children = append(m.Children, gather)
-	return gather
+func (v *VoiceResponse) Gather() *verbs.Gather {
+	return v.GatherWithAttributes(verbs.GatherAttributes{})
 }
 
-func (m *VoiceResponse) GatherWithAttributes(attributes verbs.GatherAttributes) *verbs.Gather {
+func (v *VoiceResponse) GatherWithAttributes(attributes verbs.GatherAttributes) *verbs.Gather {
 	gather := &verbs.Gather{
-		GatherAttributes: &attributes,
+		GatherAttributes: attributes,
 		Children:         make([]interface{}, 0),
 	}
 
-	m.Children = append(m.Children, gather)
+	v.Children = append(v.Children, gather)
 	return gather
 }
 
-func (m *VoiceResponse) Hangup() {
-	m.Children = append(m.Children, &verbs.Hangup{})
+func (v *VoiceResponse) Hangup() {
+	v.Children = append(v.Children, &verbs.Hangup{})
 }
 
-func (m *VoiceResponse) Leave() {
-	m.Children = append(m.Children, &verbs.Leave{})
+func (v *VoiceResponse) Leave() {
+	v.Children = append(v.Children, &verbs.Leave{})
 }
 
-func (m *VoiceResponse) Pause() {
-	m.Children = append(m.Children, &verbs.Pause{})
+func (v *VoiceResponse) Pause() {
+	v.PauseWithAttributes(verbs.PauseAttributes{})
 }
 
-func (m *VoiceResponse) PauseWithAttributes(attributes verbs.PauseAttributes) {
-	m.Children = append(m.Children, &verbs.Pause{
-		PauseAttributes: &attributes,
+func (v *VoiceResponse) PauseWithAttributes(attributes verbs.PauseAttributes) {
+	v.Children = append(v.Children, &verbs.Pause{
+		PauseAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Pay() *verbs.Pay {
-	pay := &verbs.Pay{
-		Children: make([]interface{}, 0),
-	}
-	m.Children = append(m.Children, pay)
-	return pay
+func (v *VoiceResponse) Pay() *verbs.Pay {
+	return v.PayWithAttributes(verbs.PayAttributes{})
 }
 
-func (m *VoiceResponse) PayWithAttributes(attributes verbs.PayAttributes) *verbs.Pay {
+func (v *VoiceResponse) PayWithAttributes(attributes verbs.PayAttributes) *verbs.Pay {
 	pay := &verbs.Pay{
-		PayAttributes: &attributes,
+		PayAttributes: attributes,
 		Children:      make([]interface{}, 0),
 	}
-	m.Children = append(m.Children, pay)
+	v.Children = append(v.Children, pay)
 	return pay
 }
 
-func (m *VoiceResponse) Play(url *string) {
-	m.Children = append(m.Children, &verbs.Play{
-		Text: url,
-	})
+func (v *VoiceResponse) Play(url *string) {
+	v.PlayWithAttributes(verbs.PlayAttributes{}, url)
 }
 
-func (m *VoiceResponse) PlayWithAttributes(attributes verbs.PlayAttributes, url *string) {
-	m.Children = append(m.Children, &verbs.Play{
+func (v *VoiceResponse) PlayWithAttributes(attributes verbs.PlayAttributes, url *string) {
+	v.Children = append(v.Children, &verbs.Play{
 		Text:           url,
-		PlayAttributes: &attributes,
+		PlayAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Prompt() *verbs.Prompt {
-	prompt := &verbs.Prompt{}
-	m.Children = append(m.Children, prompt)
-	return prompt
+func (v *VoiceResponse) Prompt() *verbs.Prompt {
+	return v.PromptWithAttributes(verbs.PromptAttributes{})
 }
 
-func (m *VoiceResponse) PromptWithAttributes(attributes verbs.PromptAttributes) *verbs.Prompt {
+func (v *VoiceResponse) PromptWithAttributes(attributes verbs.PromptAttributes) *verbs.Prompt {
 	prompt := &verbs.Prompt{
-		PromptAttributes: &attributes,
+		PromptAttributes: attributes,
 	}
-	m.Children = append(m.Children, prompt)
+	v.Children = append(v.Children, prompt)
 	return prompt
 }
 
-func (m *VoiceResponse) Queue(name string) {
-	m.Children = append(m.Children, &nouns.Queue{
-		Text: name,
-	})
+func (v *VoiceResponse) Queue(name string) {
+	v.QueueWithAttributes(nouns.QueueAttributes{}, name)
 }
 
-func (m *VoiceResponse) QueueWithAttributes(attributes nouns.QueueAttributes, name string) {
-	m.Children = append(m.Children, &nouns.Queue{
-		QueueAttributes: &attributes,
+func (v *VoiceResponse) QueueWithAttributes(attributes nouns.QueueAttributes, name string) {
+	v.Children = append(v.Children, &nouns.Queue{
+		QueueAttributes: attributes,
 		Text:            name,
 	})
 }
 
-func (m *VoiceResponse) Record() {
-	m.Children = append(m.Children, &verbs.Record{})
+func (v *VoiceResponse) Record() {
+	v.RecordWithAttributes(verbs.RecordAttributes{})
 }
 
-func (m *VoiceResponse) RecordWithAttributes(attributes verbs.RecordAttributes) {
-	m.Children = append(m.Children, &verbs.Record{
-		RecordAttributes: &attributes,
+func (v *VoiceResponse) RecordWithAttributes(attributes verbs.RecordAttributes) {
+	v.Children = append(v.Children, &verbs.Record{
+		RecordAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Redirect(url string) {
-	m.Children = append(m.Children, &verbs.Redirect{
-		Text: url,
-	})
+func (v *VoiceResponse) Redirect(url string) {
+	v.RedirectWithAttributes(verbs.RedirectAttributes{}, url)
 }
 
-func (m *VoiceResponse) RedirectWithAttributes(attributes verbs.RedirectAttributes, url string) {
-	m.Children = append(m.Children, &verbs.Redirect{
+func (v *VoiceResponse) RedirectWithAttributes(attributes verbs.RedirectAttributes, url string) {
+	v.Children = append(v.Children, &verbs.Redirect{
 		Text:               url,
-		RedirectAttributes: &attributes,
+		RedirectAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Refer() *verbs.Refer {
-	refer := &verbs.Refer{}
-	m.Children = append(m.Children, refer)
-	return refer
+func (v *VoiceResponse) Refer() *verbs.Refer {
+	return v.ReferWithAttributes(verbs.ReferAttributes{})
 }
 
-func (m *VoiceResponse) ReferWithAttributes(attributes verbs.ReferAttributes) *verbs.Refer {
+func (v *VoiceResponse) ReferWithAttributes(attributes verbs.ReferAttributes) *verbs.Refer {
 	refer := &verbs.Refer{
-		ReferAttributes: &attributes,
+		ReferAttributes: attributes,
 	}
-	m.Children = append(m.Children, refer)
+	v.Children = append(v.Children, refer)
 	return refer
 }
 
-func (m *VoiceResponse) Reject() {
-	m.Children = append(m.Children, &verbs.Reject{})
+func (v *VoiceResponse) Reject() {
+	v.RejectWithAttributes(verbs.RejectAttributes{})
 }
 
-func (m *VoiceResponse) RejectWithAttributes(attributes verbs.RejectAttributes) {
-	m.Children = append(m.Children, &verbs.Reject{
-		RejectAttributes: &attributes,
+func (v *VoiceResponse) RejectWithAttributes(attributes verbs.RejectAttributes) {
+	v.Children = append(v.Children, &verbs.Reject{
+		RejectAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Say(message string) {
-	m.Children = append(m.Children, &verbs.Say{
-		Text: message,
-	})
+func (v *VoiceResponse) Say(message string) {
+	v.SayWithAttributes(verbs.SayAttributes{}, message)
 }
 
-func (m *VoiceResponse) SayWithAttributes(attributes verbs.SayAttributes, message string) {
-	m.Children = append(m.Children, &verbs.Say{
+func (v *VoiceResponse) SayWithAttributes(attributes verbs.SayAttributes, message string) {
+	v.Children = append(v.Children, &verbs.Say{
 		Text:          message,
-		SayAttributes: &attributes,
+		SayAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Sms(message string) {
-	m.Children = append(m.Children, &verbs.Sms{
-		Text: message,
-	})
+func (v *VoiceResponse) Sms(message string) {
+	v.SmsWithAttributes(verbs.SmsAttributes{}, message)
 }
 
-func (m *VoiceResponse) SmsWithAttributes(attributes verbs.SmsAttributes, message string) {
-	m.Children = append(m.Children, &verbs.Sms{
+func (v *VoiceResponse) SmsWithAttributes(attributes verbs.SmsAttributes, message string) {
+	v.Children = append(v.Children, &verbs.Sms{
 		Text:          message,
-		SmsAttributes: &attributes,
+		SmsAttributes: attributes,
 	})
 }
 
-func (m *VoiceResponse) Start() *verbs.Start {
-	start := &verbs.Start{
-		Children: make([]interface{}, 0),
-	}
-	m.Children = append(m.Children, start)
-	return start
+func (v *VoiceResponse) Start() *verbs.Start {
+	return v.StartWithAttributes(verbs.StartAttributes{})
 }
 
-func (m *VoiceResponse) StartWithAttributes(attributes verbs.StartAttributes) *verbs.Start {
+func (v *VoiceResponse) StartWithAttributes(attributes verbs.StartAttributes) *verbs.Start {
 	start := &verbs.Start{
-		StartAttributes: &attributes,
+		StartAttributes: attributes,
 		Children:        make([]interface{}, 0),
 	}
-	m.Children = append(m.Children, start)
+	v.Children = append(v.Children, start)
 	return start
 }
 
-func (m *VoiceResponse) Stop() *verbs.Stop {
-	stop := &verbs.Stop{
-		Children: make([]interface{}, 0),
-	}
-	m.Children = append(m.Children, stop)
-	return stop
+func (v *VoiceResponse) Stop() *verbs.Stop {
+	return v.StopWithAttributes(verbs.StopAttributes{})
 }
 
-func (m *VoiceResponse) StopWithAttributes(attributes verbs.StopAttributes) *verbs.Stop {
+func (v *VoiceResponse) StopWithAttributes(attributes verbs.StopAttributes) *verbs.Stop {
 	stop := &verbs.Stop{
-		StopAttributes: &attributes,
+		StopAttributes: attributes,
 		Children:       make([]interface{}, 0),
 	}
-	m.Children = append(m.Children, stop)
+	v.Children = append(v.Children, stop)
 	return stop
 }
 
 // ToTwiML generates the TwiML string or returns an error if the response cannot be marshalled
-func (m *VoiceResponse) ToTwiML() (*string, error) {
-	return m.ToString()
+func (v *VoiceResponse) ToTwiML() (*string, error) {
+	return v.ToString()
 }
 
 // ToString generates the TwiML string or returns an error if the response cannot be marshalled
-func (m *VoiceResponse) ToString() (*string, error) {
-	output, err := xml.Marshal(m)
+func (v *VoiceResponse) ToString() (*string, error) {
+	output, err := xml.Marshal(v)
 	if err != nil {
 		return nil, err
 	}
-	twiML := xml.Header + string(output)
-	return &twiML, nil
+	return utils.String(xml.Header + string(output)), nil
 }

@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type RoomAttributes struct {
 	ParticipantIdentity *string `xml:"participantIdentity,attr,omitempty"`

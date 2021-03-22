@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type SipAttributes struct {
 	Method               *string `xml:"method,attr,omitempty"`

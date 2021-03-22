@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type TaskAttributes struct {
 	Priority *int `xml:"priority,attr,omitempty"`

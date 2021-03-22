@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 
 	"github.com/RJPearson94/twilio-sdk-go/twiml/messaging/verbs"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 // MessagingResponse provides the structure and functions for generation TwiML that can be used
@@ -21,13 +22,7 @@ func New() *MessagingResponse {
 }
 
 func (m *MessagingResponse) Message(body *string) *verbs.Message {
-	message := &verbs.Message{
-		Text:     body,
-		Children: make([]interface{}, 0),
-	}
-
-	m.Children = append(m.Children, message)
-	return message
+	return m.MessageWithAttributes(verbs.MessageAttributes{}, body)
 }
 
 func (m *MessagingResponse) MessageWithAttributes(attributes verbs.MessageAttributes, body *string) *verbs.Message {
@@ -42,9 +37,7 @@ func (m *MessagingResponse) MessageWithAttributes(attributes verbs.MessageAttrib
 }
 
 func (m *MessagingResponse) Redirect(url string) {
-	m.Children = append(m.Children, &verbs.Redirect{
-		Text: url,
-	})
+	m.RedirectWithAttributes(verbs.RedirectAttributes{}, url)
 }
 
 func (m *MessagingResponse) RedirectWithAttributes(attributes verbs.RedirectAttributes, url string) {
@@ -65,6 +58,5 @@ func (m *MessagingResponse) ToString() (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	twiML := xml.Header + string(output)
-	return &twiML, nil
+	return utils.String(xml.Header + string(output)), nil
 }

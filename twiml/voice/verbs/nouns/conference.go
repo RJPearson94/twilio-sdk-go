@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type ConferenceAttributes struct {
 	Beep                          *string `xml:"beep,attr,omitempty"`

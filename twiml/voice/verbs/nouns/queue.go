@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type QueueAttributes struct {
 	Method              *string `xml:"method,attr,omitempty"`
@@ -13,5 +15,5 @@ type Queue struct {
 	XMLName xml.Name `xml:"Queue"`
 	Text    string   `xml:",chardata"`
 
-	*QueueAttributes
+	QueueAttributes
 }

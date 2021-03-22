@@ -1,6 +1,8 @@
 package nouns
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type StreamAttributes struct {
 	ConnectorName        *string `xml:"connectorName,attr,omitempty"`
@@ -14,16 +16,16 @@ type StreamAttributes struct {
 type Stream struct {
 	XMLName xml.Name `xml:"Stream"`
 
-	*StreamAttributes
+	StreamAttributes
 	Children []interface{}
 }
 
 func (s *Stream) Parameter() {
-	s.Children = append(s.Children, &Parameter{})
+	s.ParameterWithAttributes(ParameterAttributes{})
 }
 
 func (s *Stream) ParameterWithAttributes(attributes ParameterAttributes) {
 	s.Children = append(s.Children, &Parameter{
-		ParameterAttributes: &attributes,
+		ParameterAttributes: attributes,
 	})
 }
