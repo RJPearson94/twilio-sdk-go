@@ -266,7 +266,11 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := webhookClient.Update(&conversationWebhook.UpdateWebhookInput{})
+			updateResp, updateErr := webhookClient.Update(&conversationWebhook.UpdateWebhookInput{
+				Configuration: &conversationWebhook.UpdateWebhookConfigurationInput{
+					URL: utils.String("https://localhost.com/webhook2"),
+				},
+			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 
@@ -787,7 +791,11 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := webhookClient.Update(&serviceConversationWebhook.UpdateWebhookInput{})
+			updateResp, updateErr := webhookClient.Update(&serviceConversationWebhook.UpdateWebhookInput{
+				Configuration: &serviceConversationWebhook.UpdateWebhookConfigurationInput{
+					URL: utils.String("https://localhost.com/webhook2"),
+				},
+			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 

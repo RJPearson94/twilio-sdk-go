@@ -456,7 +456,11 @@ var _ = Describe("Chat Acceptance Tests", func() {
 			Expect(fetchErr).To(BeNil())
 			Expect(fetchResp).ToNot(BeNil())
 
-			updateResp, updateErr := webhookClient.Update(&webhook.UpdateChannelWebhookInput{})
+			updateResp, updateErr := webhookClient.Update(&webhook.UpdateChannelWebhookInput{
+				Configuration: &webhook.UpdateChannelWebhookConfigurationInput{
+					URL: utils.String("https://localhost.com/webhook2"),
+				},
+			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
 

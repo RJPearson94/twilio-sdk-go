@@ -8,6 +8,7 @@ import (
 	v2 "github.com/RJPearson94/twilio-sdk-go/service/chat/v2"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat/v2/service/channel/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
+	"github.com/RJPearson94/twilio-sdk-go/utils"
 )
 
 var chatClient *v2.Chat
@@ -29,7 +30,11 @@ func main() {
 		Service("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
 		Webhook("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").
-		Update(&webhook.UpdateChannelWebhookInput{})
+		Update(&webhook.UpdateChannelWebhookInput{
+			Configuration: &webhook.UpdateChannelWebhookConfigurationInput{
+				URL: utils.String("https://localhost.com/webhook"),
+			},
+		})
 
 	if err != nil {
 		log.Panicf("%s", err.Error())
