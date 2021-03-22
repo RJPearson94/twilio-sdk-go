@@ -114,6 +114,51 @@ var _ = Describe("Voice Response TwiML", func() {
 		})
 	})
 
+	Describe("Given I need to generate a voice response with virtual agent attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/connectVirtualAgentWithAttributes.golden.xml")
+
+			response := voice.New()
+			connect := response.Connect()
+			connect.VirtualAgentWithAttributes(nouns.VirtualAgentAttributes{
+				ConnectorName: "test-connector",
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
+	Describe("Given I need to generate a voice response with all virtual agent attributes", func() {
+		Describe("When the twiML is generated", func() {
+			goldenData, _ := ioutil.ReadFile("testdata/connectVirtualAgentWithAllAttributes.golden.xml")
+
+			response := voice.New()
+			connect := response.Connect()
+			connect.VirtualAgentWithAttributes(nouns.VirtualAgentAttributes{
+				ConnectorName:     "test-connector",
+				Language:          utils.String("en-US"),
+				SentimentAnalysis: utils.Bool(true),
+				StatusCallback:    utils.String("http://localhost/callback"),
+			})
+			twiML, err := response.ToTwiML()
+
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the twiML should match the golden data", func() {
+				CompareXML(*twiML, string(goldenData))
+			})
+		})
+	})
+
 	Describe("Given I need to generate a voice response with dial noun", func() {
 		Describe("When the twiML is generated", func() {
 			goldenData, _ := ioutil.ReadFile("testdata/dial.golden.xml")

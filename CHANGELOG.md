@@ -1,3 +1,9 @@
+## v0.17.0 (unreleased)
+
+### TwiML - voice
+
+- **New Noun:** Virtual Agent, this noun can be set when using the Connect verb
+
 ## v0.16.0 (2021-03-22)
 
 NOTES

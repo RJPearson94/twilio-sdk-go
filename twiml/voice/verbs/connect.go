@@ -53,3 +53,9 @@ func (c *Connect) StreamWithAttributes(attributes nouns.StreamAttributes) *nouns
 	c.Children = append(c.Children, stream)
 	return stream
 }
+
+func (c *Connect) VirtualAgentWithAttributes(attributes nouns.VirtualAgentAttributes) {
+	c.Children = append(c.Children, &nouns.VirtualAgent{
+		VirtualAgentAttributes: attributes,
+	})
+}
