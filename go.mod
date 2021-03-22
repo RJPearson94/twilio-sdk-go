@@ -1,6 +1,6 @@
 module github.com/RJPearson94/twilio-sdk-go
 
-go 1.14
+go 1.15
 
 require (
 	github.com/go-playground/form v3.1.4+incompatible

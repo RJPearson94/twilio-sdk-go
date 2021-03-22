@@ -2,11 +2,18 @@
 
 These instruction are here to help aid you in setting up your development environment to allow you to build and test the SDK.
 
+This project is compatible with the following versions of Golang:
+
+| Version | Supported |
+| ------- | --------- |
+| 1.15.x  | Yes       |
+| 1.16.x  | Yes       |
+
 > ⚠️ A significant amount of code in this project is auto-generated if a change is required to this code please modify the corresponding API definition and re-generate the files. Do not modify an auto-generated file directly, as any modifications will be overridden when the [code generation tooling](../tools/cli/codegen) is run.
 
 ## Prerequisites
 
-- [Go](https://golang.org/doc/install) 1.14
+- [Go](https://golang.org/doc/install) 1.15 or above
 
 **NOTE:** This project uses [Go Modules](https://blog.golang.org/using-go-modules)
 
