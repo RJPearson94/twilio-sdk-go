@@ -1,3 +1,11 @@
+## v0.16.0 (2021-03-22)
+
+NOTES
+
+This Go SDK supports version 1.15 and 1.16, to fall in line with Golang's support strategy of supporting the last 2 major versions. You may still be able to use this SDK with older versions of Golang however it is not recommended/ supported.
+
+Refactoring of TwiML to remove the pointers for noun and verb attributes because Golang panicked on version 1.15.x and above. This change also introduces consistency in the TwiML implementation. The majority of TwiML users will be unaffected by this change however if you initialised the verb and noun structs this is a **breaking change**
+
 ## v0.15.0 (2021-03-13)
 
 FIXES
