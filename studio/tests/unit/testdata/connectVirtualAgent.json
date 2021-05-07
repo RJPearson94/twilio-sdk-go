@@ -1,0 +1,15 @@
+{
+  "name": "ConnectVirtualAgent",
+  "type": "connect-virtual-agent",
+  "transitions": [
+    {
+      "event": "hangup"
+    },
+    {
+      "event": "return"
+    }
+  ],
+  "properties": {
+    "connector": "test-connector"
+  }
+}

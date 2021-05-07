@@ -1,0 +1,18 @@
+{
+  "name": "EnqueueCall",
+  "type": "enqueue-call",
+  "transitions": [
+    {
+      "event": "callComplete"
+    },
+    {
+      "event": "callFailure"
+    },
+    {
+      "event": "failedToEnqueue"
+    }
+  ],
+  "properties": {
+    "workflow_sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  }
+}

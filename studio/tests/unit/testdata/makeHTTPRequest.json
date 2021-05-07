@@ -1,0 +1,17 @@
+{
+  "name": "MakeHTTPRequest",
+  "type": "make-http-request",
+  "transitions": [
+    {
+      "event": "failed"
+    },
+    {
+      "event": "success"
+    }
+  ],
+  "properties": {
+    "method": "GET",
+    "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+    "url": "https://test.com"
+  }
+}

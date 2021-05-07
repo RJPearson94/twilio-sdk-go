@@ -1,0 +1,17 @@
+{
+  "name": "ConnectCallTo",
+  "type": "connect-call-to",
+  "transitions": [
+    {
+      "event": "callCompleted"
+    },
+    {
+      "event": "hangup"
+    }
+  ],
+  "properties": {
+    "caller_id": "{{contact.channel.address}}",
+    "noun": "sim",
+    "to": "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  }
+}

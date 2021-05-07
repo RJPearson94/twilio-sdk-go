@@ -1,0 +1,72 @@
+{
+  "name": "Connect call to",
+  "type": "connect-call-to",
+  "transitions": [
+    {
+      "name": "CallCompleted",
+      "value": "callCompleted",
+      "required": false
+    },
+    {
+      "name": "Hangup",
+      "value": "hangup",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "To",
+      "type": "string",
+      "value": "to",
+      "required": false
+    },
+    {
+      "name": "SipEndpoint",
+      "type": "string",
+      "value": "sip_endpoint",
+      "required": false
+    },
+    {
+      "name": "SipUsername",
+      "type": "string",
+      "value": "sip_username",
+      "required": false
+    },
+    {
+      "name": "SipPassword",
+      "type": "string",
+      "value": "sip_password",
+      "required": false
+    },
+    {
+      "name": "Noun",
+      "type": "string",
+      "value": "noun",
+      "required": true
+    },
+    {
+      "name": "CallerID",
+      "type": "string",
+      "value": "caller_id",
+      "required": true
+    },
+    {
+      "name": "Record",
+      "type": "bool",
+      "value": "record",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

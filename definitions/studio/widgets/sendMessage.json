@@ -1,0 +1,66 @@
+{
+  "name": "Send message",
+  "type": "send-message",
+  "transitions": [
+    {
+      "name": "Sent",
+      "value": "sent",
+      "required": false
+    },
+    {
+      "name": "Failed",
+      "value": "failed",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "From",
+      "type": "string",
+      "value": "from",
+      "required": true
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "value": "to",
+      "required": true
+    },
+    {
+      "name": "Body",
+      "type": "string",
+      "value": "body",
+      "required": true
+    },
+    {
+      "name": "Service",
+      "type": "string",
+      "value": "service",
+      "required": false
+    },
+    {
+      "name": "Channel",
+      "type": "string",
+      "value": "channel",
+      "required": false
+    },
+    {
+      "name": "Attributes",
+      "type": "string",
+      "value": "attributes",
+      "required": false
+    },
+    {
+      "name": "MediaURL",
+      "type": "string",
+      "value": "media_url",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

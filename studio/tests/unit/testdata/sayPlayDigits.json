@@ -1,0 +1,12 @@
+{
+  "name": "SayPlay",
+  "type": "say-play",
+  "transitions": [
+    {
+      "event": "audioComplete"
+    }
+  ],
+  "properties": {
+    "digits": "123"
+  }
+}

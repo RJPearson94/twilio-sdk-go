@@ -1,0 +1,24 @@
+{
+  "name": "ConnectVirtualAgent",
+  "type": "connect-virtual-agent",
+  "transitions": [
+    {
+      "event": "hangup",
+      "next": "hangup"
+    },
+    {
+      "event": "return",
+      "next": "return"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "connector": "test-connector",
+    "sentiment_analysis": "true",
+    "language": "en-US",
+    "status_callback": "https://test.com"
+  }
+}

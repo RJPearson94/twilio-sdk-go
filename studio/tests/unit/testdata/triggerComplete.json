@@ -1,0 +1,24 @@
+{
+  "name": "Trigger",
+  "type": "trigger",
+  "transitions": [
+    {
+      "event": "incomingCall",
+      "next": "call"
+    },
+    {
+      "event": "incomingMessage",
+      "next": "message"
+    },
+    {
+      "event": "incomingRequest",
+      "next": "request"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

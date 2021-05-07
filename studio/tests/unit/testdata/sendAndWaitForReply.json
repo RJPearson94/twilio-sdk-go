@@ -1,0 +1,21 @@
+{
+  "name": "SendAndWaitForReply",
+  "type": "send-and-wait-for-reply",
+  "transitions": [
+    {
+      "event": "deliveryFailure"
+    },
+    {
+      "event": "incomingMessage",
+      "next": "test"
+    },
+    {
+      "event": "timeout"
+    }
+  ],
+  "properties": {
+    "from": "{{flow.channel.address}}",
+    "body": "Test",
+    "timeout": "3600"
+  }
+}

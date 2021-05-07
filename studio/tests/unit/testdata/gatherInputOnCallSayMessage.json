@@ -1,0 +1,18 @@
+{
+  "name": "GatherInputOnCall",
+  "type": "gather-input-on-call",
+  "transitions": [
+    {
+      "event": "keypress"
+    },
+    {
+      "event": "speech"
+    },
+    {
+      "event": "timeout"
+    }
+  ],
+  "properties": {
+    "say": "Hello World"
+  }
+}

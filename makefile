@@ -1,4 +1,5 @@
-TEST?=$$(go list ./... | grep -v 'vendor' | grep -v '.example' | grep -v '.history')
+TEST?=$$(go list ./... | grep -v 'vendor' | grep -v 'examples' | grep -v '.history')
+WIDGETS?=$$(find ./definitions/studio/widgets/* -execdir basename {} .json ';')
 
 default: build
 
@@ -44,4 +45,15 @@ generate-service-api-version:
 	cd tools && go run ./cli/codegen/service --definition ../definitions/service/$(SERVICE)/$(API_VERSION) --target ../service/$(SERVICE)/$(API_VERSION)
 	goimports -w ./service/$(SERVICE)/$(API_VERSION)
 
-.PHONY: download build test fmt tools generate generate-service-api-version reportcard goreportcard-refresh
+generate-studio-widget:
+	@echo "==> regenerating $(WIDGET)"
+	cd tools && go run ./cli/codegen/studio --definition ../definitions/studio/widgets/$(WIDGET).json --target ../studio/widgets
+	goimports -w ./studio/widgets
+
+generate-all-studio-widgets:
+	rm -rf ./studio/widgets
+	for widget in $(WIDGETS); do \
+		make generate-studio-widget WIDGET=$$widget; \
+	done
+
+.PHONY: download build test fmt tools generate generate-service-api-version generate-studio-widget generate-all-studio-widgets reportcard goreportcard-refresh

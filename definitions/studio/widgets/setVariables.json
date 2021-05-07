@@ -1,0 +1,46 @@
+{
+  "name": "Set variables",
+  "type": "set-variables",
+  "transitions": [
+    {
+      "name": "Next",
+      "value": "next",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Variables",
+      "type": "array",
+      "items": {
+        "structure": "Variable"
+      },
+      "value": "variables",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "Variable": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

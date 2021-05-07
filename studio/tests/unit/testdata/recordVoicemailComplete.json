@@ -1,0 +1,32 @@
+{
+  "name": "RecordVoicemail",
+  "type": "record-voicemail",
+  "transitions": [
+    {
+      "event": "hangup",
+      "next": "hangup"
+    },
+    {
+      "event": "noAudio",
+      "next": "noAudio"
+    },
+    {
+      "event": "recordingComplete",
+      "next": "recordingComplete"
+    }
+  ],
+  "properties": {
+    "transcribe": true,
+    "trim": "trim-silence",
+    "transcription_callback_url": "http://localhost.com/transcript",
+    "play_beep": "true",
+    "finish_on_key": "1",
+    "recording_status_callback_url": "http://localhost.com/recording",
+    "timeout": 10,
+    "max_length": 1000,
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

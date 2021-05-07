@@ -1,0 +1,113 @@
+{
+  "name": "Gather input on call",
+  "type": "gather-input-on-call",
+  "transitions": [
+    {
+      "name": "Keypress",
+      "value": "keypress",
+      "required": false
+    },
+    {
+      "name": "Speech",
+      "value": "speech",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "value": "timeout",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Play",
+      "type": "string",
+      "value": "play",
+      "required": false
+    },
+    {
+      "name": "Say",
+      "type": "string",
+      "value": "say",
+      "required": false
+    },
+    {
+      "name": "Voice",
+      "type": "string",
+      "value": "voice",
+      "required": false
+    },
+    {
+      "name": "Hints",
+      "type": "string",
+      "value": "hints",
+      "required": false
+    },
+    {
+      "name": "FinishOnKey",
+      "type": "string",
+      "value": "finish_on_key",
+      "required": false
+    },
+    {
+      "name": "Language",
+      "type": "string",
+      "value": "language",
+      "required": false
+    },
+    {
+      "name": "StopGather",
+      "type": "bool",
+      "value": "stop_gather",
+      "required": false
+    },
+    {
+      "name": "SpeechModel",
+      "type": "string",
+      "value": "speech_model",
+      "required": false
+    },
+    {
+      "name": "ProfanityFilter",
+      "type": "string",
+      "value": "profanity_filter",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "NumberOfDigits",
+      "type": "int",
+      "value": "number_of_digits",
+      "required": false
+    },
+    {
+      "name": "SpeechTimeout",
+      "type": "string",
+      "value": "speech_timeout",
+      "required": false
+    },
+    {
+      "name": "Loop",
+      "type": "int",
+      "value": "loop",
+      "required": false
+    },
+    {
+      "name": "GatherLanguage",
+      "type": "string",
+      "value": "gather_language",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

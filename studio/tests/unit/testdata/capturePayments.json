@@ -1,0 +1,27 @@
+{
+  "name": "CapturePayments",
+  "type": "capture-payments",
+  "transitions": [
+    {
+      "event": "hangup"
+    },
+    {
+      "event": "maxFailedAttempts"
+    },
+    {
+      "event": "payInterrupted"
+    },
+    {
+      "event": "providerError"
+    },
+    {
+      "event": "success"
+    },
+    {
+      "event": "validationError"
+    }
+  ],
+  "properties": {
+    "payment_token_type": "reusable"
+  }
+}

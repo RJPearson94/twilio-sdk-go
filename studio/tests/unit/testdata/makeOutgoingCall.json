@@ -1,0 +1,22 @@
+{
+  "name": "MakeOutgoingCall",
+  "type": "make-outgoing-call-v2",
+  "transitions": [
+    {
+      "event": "answered"
+    },
+    {
+      "event": "busy"
+    },
+    {
+      "event": "failed"
+    },
+    {
+      "event": "noAnswer"
+    }
+  ],
+  "properties": {
+    "from": "{{flow.channel.address}}",
+    "to": "{{contact.channel.address}}"
+  }
+}

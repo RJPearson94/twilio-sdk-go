@@ -1,0 +1,31 @@
+{
+  "name": "SendAndWaitForReply",
+  "type": "send-and-wait-for-reply",
+  "transitions": [
+    {
+      "event": "deliveryFailure",
+      "next": "deliveryFailure"
+    },
+    {
+      "event": "incomingMessage",
+      "next": "incomingMessage"
+    },
+    {
+      "event": "timeout",
+      "next": "timeout"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "from": "{{flow.channel.address}}",
+    "body": "Test",
+    "timeout": "3600",
+    "service": "{{trigger.message.InstanceSid}}",
+    "channel": "{{trigger.message.ChannelSid}}",
+    "media_url": "https://test.com",
+    "attributes": "{\"name\":\"{{trigger.message.ChannelAttributes.from}}\",\"channelType\":\"{{trigger.message.ChannelAttributes.channel_type}}\",\"channelSid\":\"{{trigger.message.ChannelSid}}\"}"
+  }
+}

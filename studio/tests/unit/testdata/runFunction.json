@@ -1,0 +1,16 @@
+{
+  "name": "RunFunction",
+  "type": "run-function",
+  "transitions": [
+    {
+      "event": "fail"
+    },
+    {
+      "event": "success"
+    }
+  ],
+  "properties": {
+    "service_sid": "default",
+    "url": "https://test-function.twil.io/test-function"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "SendToAutopilot",
+  "type": "send-to-auto-pilot",
+  "transitions": [
+    {
+      "event": "failure",
+      "next": "failure"
+    },
+    {
+      "event": "sessionEnded",
+      "next": "sessionEnded"
+    },
+    {
+      "event": "timeout",
+      "next": "timeout"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "autopilot_assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "from": "{{flow.channel.address}}",
+    "body": "{{trigger.message.Body}}",
+    "timeout": 14400,
+    "chat_channel": "{{trigger.message.ChannelSid}}",
+    "memory_parameters": [
+      {
+        "key": "key",
+        "value": "value"
+      }
+    ],
+    "chat_attributes": "{\"name\":\"{{trigger.message.ChannelAttributes.from}}\",\"channelType\":\"{{trigger.message.ChannelAttributes.channel_type}}\",\"channelSid\":\"{{trigger.message.ChannelSid}}\"}",
+    "chat_service": "{{trigger.message.InstanceSid}}",
+    "target_task": "Task"
+  }
+}

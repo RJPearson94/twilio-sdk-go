@@ -1,0 +1,24 @@
+{
+  "name": "SplitBasedOn",
+  "type": "split-based-on",
+  "transitions": [
+    {
+      "event": "noMatch"
+    },
+    {
+      "event": "match",
+      "next": "match",
+      "conditions": [
+        {
+          "friendly_name": "If value equal_to test",
+          "arguments": ["{{contact.channel.address}}"],
+          "type": "equal_to",
+          "value": "test"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "input": "{{contact.channel.address}}"
+  }
+}

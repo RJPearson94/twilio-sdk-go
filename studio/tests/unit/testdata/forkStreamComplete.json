@@ -1,0 +1,27 @@
+{
+  "name": "ForkStream",
+  "type": "fork-stream",
+  "transitions": [
+    {
+      "event": "next",
+      "next": "next"
+    }
+  ],
+  "properties": {
+    "stream_name": "test",
+    "stream_transport_type": "siprec",
+    "stream_action": "start",
+    "stream_connector": "connector",
+    "stream_track": "inbound_track",
+    "stream_parameters": [
+      {
+        "value": "value",
+        "key": "key"
+      }
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

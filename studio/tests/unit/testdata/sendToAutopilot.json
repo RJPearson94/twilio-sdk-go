@@ -1,0 +1,21 @@
+{
+  "name": "SendToAutopilot",
+  "type": "send-to-auto-pilot",
+  "transitions": [
+    {
+      "event": "failure"
+    },
+    {
+      "event": "sessionEnded"
+    },
+    {
+      "event": "timeout"
+    }
+  ],
+  "properties": {
+    "autopilot_assistant_sid": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "from": "{{flow.channel.address}}",
+    "body": "{{trigger.message.Body}}",
+    "timeout": 14400
+  }
+}

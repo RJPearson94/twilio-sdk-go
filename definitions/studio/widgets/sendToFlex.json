@@ -1,0 +1,71 @@
+{
+  "name": "Send to Flex",
+  "type": "send-to-flex",
+  "transitions": [
+    {
+      "name": "CallComplete",
+      "value": "callComplete",
+      "required": false
+    },
+    {
+      "name": "FailedToEnqueue",
+      "value": "failedToEnqueue",
+      "required": false
+    },
+    {
+      "name": "CallFailure",
+      "value": "callFailure",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Workflow",
+      "type": "string",
+      "value": "workflow",
+      "required": true
+    },
+    {
+      "name": "Channel",
+      "type": "string",
+      "value": "channel",
+      "required": true
+    },
+    {
+      "name": "Attributes",
+      "type": "string",
+      "value": "attributes",
+      "required": false
+    },
+    {
+      "name": "Priority",
+      "type": "string",
+      "value": "priority",
+      "required": false
+    },
+    {
+      "name": "WaitURLMethod",
+      "type": "string",
+      "value": "waitUrlMethod",
+      "required": false
+    },
+    {
+      "name": "WaitURL",
+      "type": "string",
+      "value": "waitUrl",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "string",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Split based on",
+  "type": "split-based-on",
+  "transitions": [
+    {
+      "name": "NoMatch",
+      "value": "noMatch",
+      "required": false
+    }
+  ],
+  "conditionalTransitions": [
+    {
+      "name": "Matches",
+      "value": "match",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Input",
+      "type": "string",
+      "value": "input",
+      "required": true
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

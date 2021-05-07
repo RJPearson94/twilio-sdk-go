@@ -1,0 +1,130 @@
+{
+  "name": "Make outgoing call",
+  "type": "make-outgoing-call-v2",
+  "transitions": [
+    {
+      "name": "Answered",
+      "value": "answered",
+      "required": false
+    },
+    {
+      "name": "Busy",
+      "value": "busy",
+      "required": false
+    },
+    {
+      "name": "NoAnswer",
+      "value": "noAnswer",
+      "required": false
+    },
+    {
+      "name": "Failed",
+      "value": "failed",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "From",
+      "type": "string",
+      "value": "from",
+      "required": true
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "value": "to",
+      "required": true
+    },
+    {
+      "name": "MachineDetectionSpeechThreshold",
+      "type": "string",
+      "value": "machine_detection_speech_threshold",
+      "required": false
+    },
+    {
+      "name": "DetectAnsweringMachine",
+      "type": "bool",
+      "value": "detect_answering_machine",
+      "required": false
+    },
+    {
+      "name": "SendDigits",
+      "type": "string",
+      "value": "send_digits",
+      "required": false
+    },
+    {
+      "name": "SipAuthUsername",
+      "type": "string",
+      "value": "sip_auth_username",
+      "required": false
+    },
+    {
+      "name": "SipAuthPassword",
+      "type": "string",
+      "value": "sip_auth_password",
+      "required": false
+    },
+    {
+      "name": "RecordingStatusCallbackURL",
+      "type": "string",
+      "value": "recording_status_callback",
+      "required": false
+    },
+    {
+      "name": "RecordingChannels",
+      "type": "string",
+      "value": "recording_channels",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "MachineDetection",
+      "type": "string",
+      "value": "machine_detection",
+      "required": false
+    },
+    {
+      "name": "Trim",
+      "type": "string",
+      "value": "trim",
+      "required": false
+    },
+    {
+      "name": "Record",
+      "type": "bool",
+      "value": "record",
+      "required": false
+    },
+    {
+      "name": "MachineDetectionSpeechEndThreshold",
+      "type": "string",
+      "value": "machine_detection_speech_end_threshold",
+      "required": false
+    },
+    {
+      "name": "MachineDetectionTimeout",
+      "type": "string",
+      "value": "machine_detection_timeout",
+      "required": false
+    },
+    {
+      "name": "MachineDetectionSilenceTimeout",
+      "type": "string",
+      "value": "machine_detection_silence_timeout",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

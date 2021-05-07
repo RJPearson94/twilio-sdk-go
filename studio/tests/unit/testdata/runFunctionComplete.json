@@ -1,0 +1,30 @@
+{
+  "name": "RunFunction",
+  "type": "run-function",
+  "transitions": [
+    {
+      "event": "fail",
+      "next": "fail"
+    },
+    {
+      "event": "success",
+      "next": "success"
+    }
+  ],
+  "properties": {
+    "service_sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "environment_sid": "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "function_sid": "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "parameters": [
+      {
+        "value": "value",
+        "key": "key"
+      }
+    ],
+    "url": "https://test-function.twil.io/test-function"
+  }
+}

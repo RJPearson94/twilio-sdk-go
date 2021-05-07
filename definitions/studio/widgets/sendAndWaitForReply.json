@@ -1,0 +1,74 @@
+{
+  "name": "Send and wait for reply",
+  "type": "send-and-wait-for-reply",
+  "documentation": {
+    "description": "widget allows you to send a SMS and wait for a reply"
+  },
+  "transitions": [
+    {
+      "name": "DeliveryFailure",
+      "value": "deliveryFailure",
+      "required": false
+    },
+    {
+      "name": "IncomingMessage",
+      "value": "incomingMessage",
+      "required": true
+    },
+    {
+      "name": "Timeout",
+      "value": "timeout",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "From",
+      "type": "string",
+      "value": "from",
+      "required": true
+    },
+    {
+      "name": "Body",
+      "type": "string",
+      "value": "body",
+      "required": true
+    },
+    {
+      "name": "Timeout",
+      "type": "string",
+      "value": "timeout",
+      "required": true
+    },
+    {
+      "name": "Service",
+      "type": "string",
+      "value": "service",
+      "required": false
+    },
+    {
+      "name": "Channel",
+      "type": "string",
+      "value": "channel",
+      "required": false
+    },
+    {
+      "name": "Attributes",
+      "type": "string",
+      "value": "attributes",
+      "required": false
+    },
+    {
+      "name": "MediaURL",
+      "type": "string",
+      "value": "media_url",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

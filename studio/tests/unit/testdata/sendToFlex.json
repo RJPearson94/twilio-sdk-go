@@ -1,0 +1,20 @@
+{
+  "name": "SendToFlex",
+  "type": "send-to-flex",
+  "transitions": [
+    {
+      "event": "callComplete"
+    },
+    {
+      "event": "callFailure"
+    },
+    {
+      "event": "failedToEnqueue"
+    }
+  ],
+  "properties": {
+    "workflow": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "channel": "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "attributes": "{\"name\":\"{{trigger.message.ChannelAttributes.from}}\",\"channelType\":\"{{trigger.message.ChannelAttributes.channel_type}}\",\"channelSid\":\"{{trigger.message.ChannelSid}}\"}"
+  }
+}

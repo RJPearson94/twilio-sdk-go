@@ -1,0 +1,17 @@
+{
+  "name": "SetVariables",
+  "type": "set-variables",
+  "transitions": [
+    {
+      "event": "next"
+    }
+  ],
+  "properties": {
+    "variables": [
+      {
+        "value": "value",
+        "key": "key"
+      }
+    ]
+  }
+}

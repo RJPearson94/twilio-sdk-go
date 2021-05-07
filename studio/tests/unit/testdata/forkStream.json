@@ -1,0 +1,16 @@
+{
+  "name": "ForkStream",
+  "type": "fork-stream",
+  "transitions": [
+    {
+      "event": "next"
+    }
+  ],
+  "properties": {
+    "stream_name": "test",
+    "stream_transport_type": "websocket",
+    "stream_action": "start",
+    "stream_track": "inbound_track",
+    "stream_url": "wss://test.com"
+  }
+}

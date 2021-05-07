@@ -1,0 +1,31 @@
+{
+  "name": "SendToFlex",
+  "type": "send-to-flex",
+  "transitions": [
+    {
+      "event": "callComplete",
+      "next": "complete"
+    },
+    {
+      "event": "callFailure",
+      "next": "failure"
+    },
+    {
+      "event": "failedToEnqueue",
+      "next": "enqueue"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "workflow": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "channel": "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "attributes": "{\"name\":\"{{trigger.message.ChannelAttributes.from}}\",\"channelType\":\"{{trigger.message.ChannelAttributes.channel_type}}\",\"channelSid\":\"{{trigger.message.ChannelSid}}\"}",
+    "priority": "10",
+    "waitUrlMethod": "POST",
+    "timeout": "3600",
+    "waitUrl": "https://test.com/hold"
+  }
+}

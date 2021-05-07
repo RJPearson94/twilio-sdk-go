@@ -1,0 +1,13 @@
+{
+  "name": "ForkStream",
+  "type": "fork-stream",
+  "transitions": [
+    {
+      "event": "next"
+    }
+  ],
+  "properties": {
+    "stream_transport_type": "websocket",
+    "stream_action": "stop"
+  }
+}

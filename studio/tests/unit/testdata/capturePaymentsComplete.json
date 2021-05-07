@@ -1,0 +1,55 @@
+{
+  "name": "CapturePayments",
+  "type": "capture-payments",
+  "transitions": [
+    {
+      "event": "hangup",
+      "next": "hangup"
+    },
+    {
+      "event": "maxFailedAttempts",
+      "next": "maxFailedAttempts"
+    },
+    {
+      "event": "payInterrupted",
+      "next": "payInterrupted"
+    },
+    {
+      "event": "providerError",
+      "next": "providerError"
+    },
+    {
+      "event": "success",
+      "next": "success"
+    },
+    {
+      "event": "validationError",
+      "next": "validationError"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "min_postal_code_length": 3,
+    "payment_connector": "stripe",
+    "payment_amount": "10.99",
+    "description": "Pay Bill",
+    "language": "en-GB",
+    "timeout": 5,
+    "security_code": true,
+    "max_attempts": 2,
+    "currency": "usd",
+    "postal_code": "false",
+    "payment_token_type": "reusable",
+    "parameters": [
+      {
+        "value": "value",
+        "key": "key"
+      }
+    ],
+    "payment_method": "ACH_DEBIT",
+    "valid_card_types": ["visa", "amex"]
+  }
+}

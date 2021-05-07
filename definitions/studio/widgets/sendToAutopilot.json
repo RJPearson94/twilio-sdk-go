@@ -1,0 +1,104 @@
+{
+  "name": "Send to Autopilot",
+  "type": "send-to-auto-pilot",
+  "transitions": [
+    {
+      "name": "SessionEnded",
+      "value": "sessionEnded",
+      "required": false
+    },
+    {
+      "name": "Failure",
+      "value": "failure",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "value": "timeout",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "AutopilotAssistantSid",
+      "type": "string",
+      "value": "autopilot_assistant_sid",
+      "required": true
+    },
+    {
+      "name": "From",
+      "type": "string",
+      "value": "from",
+      "required": true
+    },
+    {
+      "name": "ChatAttributes",
+      "type": "string",
+      "value": "chat_attributes",
+      "required": false
+    },
+    {
+      "name": "ChatService",
+      "type": "string",
+      "value": "chat_service",
+      "required": false
+    },
+    {
+      "name": "ChatChannel",
+      "type": "string",
+      "value": "chat_channel",
+      "required": false
+    },
+    {
+      "name": "Body",
+      "type": "string",
+      "value": "body",
+      "required": true
+    },
+    {
+      "name": "TargetTask",
+      "type": "string",
+      "value": "target_task",
+      "required": false
+    },
+    {
+      "name": "MemoryParameters",
+      "type": "array",
+      "items": {
+        "structure": "MemoryParameter"
+      },
+      "value": "memory_parameters",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": true
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "MemoryParameter": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

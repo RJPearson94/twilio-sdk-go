@@ -1,0 +1,16 @@
+{
+  "name": "RecordVoicemail",
+  "type": "record-voicemail",
+  "transitions": [
+    {
+      "event": "hangup"
+    },
+    {
+      "event": "noAudio"
+    },
+    {
+      "event": "recordingComplete"
+    }
+  ],
+  "properties": {}
+}

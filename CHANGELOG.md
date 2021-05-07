@@ -4,6 +4,10 @@
 
 - **New Noun:** Virtual Agent, this noun can be set when using the Connect verb
 
+### Studio
+
+- Add the ability to define a Studio Flow definition using Golang. The definitions are built up from an number of widgets i.e. Run function, make HTTP request, etc. The SDK supports all 20 widgets defined in the [docs](https://www.twilio.com/docs/studio/widget-library)
+
 ## v0.16.0 (2021-03-22)
 
 NOTES

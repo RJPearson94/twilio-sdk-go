@@ -1,0 +1,71 @@
+{
+  "name": "Enqueue call",
+  "type": "enqueue-call",
+  "transitions": [
+    {
+      "name": "CallComplete",
+      "value": "callComplete",
+      "required": false
+    },
+    {
+      "name": "FailedToEnqueue",
+      "value": "failedToEnqueue",
+      "required": false
+    },
+    {
+      "name": "CallFailure",
+      "value": "callFailure",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "WaitURL",
+      "type": "string",
+      "value": "wait_url",
+      "required": false
+    },
+    {
+      "name": "WaitURLMethod",
+      "type": "string",
+      "value": "wait_url_method",
+      "required": false
+    },
+    {
+      "name": "WorkflowSid",
+      "type": "string",
+      "value": "workflow_sid",
+      "required": false
+    },
+    {
+      "name": "Priority",
+      "type": "int",
+      "value": "priority",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "TaskAttributes",
+      "type": "string",
+      "value": "task_attributes",
+      "required": false
+    },
+    {
+      "name": "QueueName",
+      "type": "string",
+      "value": "queue_name",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

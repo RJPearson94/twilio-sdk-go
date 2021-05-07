@@ -1,0 +1,19 @@
+{
+  "name": "AddTwiMLRedirect",
+  "type": "add-twiml-redirect",
+  "transitions": [
+    {
+      "event": "fail"
+    },
+    {
+      "event": "return"
+    },
+    {
+      "event": "timeout"
+    }
+  ],
+  "properties": {
+    "method": "POST",
+    "url": "https://test.com/twiml"
+  }
+}

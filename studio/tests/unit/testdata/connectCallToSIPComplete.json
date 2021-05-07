@@ -1,0 +1,27 @@
+{
+  "name": "ConnectCallTo",
+  "type": "connect-call-to",
+  "transitions": [
+    {
+      "event": "callCompleted",
+      "next": "callCompleted"
+    },
+    {
+      "event": "hangup",
+      "next": "hangup"
+    }
+  ],
+  "properties": {
+    "caller_id": "{{contact.channel.address}}",
+    "record": true,
+    "noun": "sip",
+    "timeout": 30,
+    "sip_username": "test",
+    "sip_password": "test2",
+    "sip_endpoint": "sip:test@test.com",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

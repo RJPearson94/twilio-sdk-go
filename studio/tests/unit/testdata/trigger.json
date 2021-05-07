@@ -1,0 +1,16 @@
+{
+  "name": "Trigger",
+  "type": "trigger",
+  "transitions": [
+    {
+      "event": "incomingCall"
+    },
+    {
+      "event": "incomingMessage"
+    },
+    {
+      "event": "incomingRequest"
+    }
+  ],
+  "properties": {}
+}

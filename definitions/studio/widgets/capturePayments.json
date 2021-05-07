@@ -1,0 +1,152 @@
+{
+  "name": "Capture Payments",
+  "type": "capture-payments",
+  "transitions": [
+    {
+      "name": "Success",
+      "value": "success",
+      "required": false
+    },
+    {
+      "name": "MaxFailedAttempts",
+      "value": "maxFailedAttempts",
+      "required": false
+    },
+    {
+      "name": "ProviderError",
+      "value": "providerError",
+      "required": false
+    },
+    {
+      "name": "PayInterrupted",
+      "value": "payInterrupted",
+      "required": false
+    },
+    {
+      "name": "Hangup",
+      "value": "hangup",
+      "required": false
+    },
+    {
+      "name": "ValidationError",
+      "value": "validationError",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "PaymentTokenType",
+      "type": "string",
+      "value": "payment_token_type",
+      "required": false
+    },
+    {
+      "name": "MinPostalCodeLength",
+      "type": "int",
+      "value": "min_postal_code_length",
+      "required": false
+    },
+    {
+      "name": "PaymentConnector",
+      "type": "string",
+      "value": "payment_connector",
+      "required": false
+    },
+    {
+      "name": "PaymentAmount",
+      "type": "string",
+      "value": "payment_amount",
+      "required": false
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "value": "description",
+      "required": false
+    },
+    {
+      "name": "Language",
+      "type": "string",
+      "value": "language",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "SecurityCode",
+      "type": "bool",
+      "value": "security_code",
+      "required": false
+    },
+    {
+      "name": "MaxAttempts",
+      "type": "int",
+      "value": "max_attempts",
+      "required": false
+    },
+    {
+      "name": "Currency",
+      "type": "string",
+      "value": "currency",
+      "required": false
+    },
+    {
+      "name": "PostalCode",
+      "type": "string",
+      "value": "postal_code",
+      "required": false
+    },
+    {
+      "name": "PaymentMethod",
+      "type": "string",
+      "value": "payment_method",
+      "required": false
+    },
+    {
+      "name": "ValidCardTypes",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "value": "valid_card_types",
+      "required": false
+    },
+    {
+      "name": "Parameters",
+      "type": "array",
+      "items": {
+        "structure": "Parameter"
+      },
+      "value": "parameters",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "Parameter": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

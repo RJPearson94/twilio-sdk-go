@@ -1,0 +1,55 @@
+{
+  "name": "Say play",
+  "type": "say-play",
+  "transitions": [
+    {
+      "name": "AudioComplete",
+      "value": "audioComplete",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Language",
+      "type": "string",
+      "value": "language",
+      "required": false
+    },
+    {
+      "name": "Say",
+      "type": "string",
+      "value": "say",
+      "required": false
+    },
+    {
+      "name": "Voice",
+      "type": "string",
+      "value": "voice",
+      "required": false
+    },
+    {
+      "name": "Loop",
+      "type": "int",
+      "value": "loop",
+      "required": false
+    },
+    {
+      "name": "Play",
+      "type": "string",
+      "value": "play",
+      "required": false
+    },
+    {
+      "name": "Digits",
+      "type": "string",
+      "value": "digits",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

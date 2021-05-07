@@ -1,0 +1,75 @@
+{
+  "name": "Make HTTP request",
+  "type": "make-http-request",
+  "transitions": [
+    {
+      "name": "Success",
+      "value": "success",
+      "required": false
+    },
+    {
+      "name": "Failed",
+      "value": "failed",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Method",
+      "type": "string",
+      "value": "method",
+      "required": true
+    },
+    {
+      "name": "ContentType",
+      "type": "string",
+      "value": "content_type",
+      "required": true
+    },
+    {
+      "name": "Body",
+      "type": "string",
+      "value": "body",
+      "required": false
+    },
+    {
+      "name": "URL",
+      "type": "string",
+      "value": "url",
+      "required": true
+    },
+    {
+      "name": "Parameters",
+      "type": "array",
+      "items": {
+        "structure": "Parameter"
+      },
+      "value": "parameters",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "Parameter": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

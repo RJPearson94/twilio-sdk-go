@@ -1,0 +1,27 @@
+{
+  "name": "SendMessage",
+  "type": "send-message",
+  "transitions": [
+    {
+      "event": "failed",
+      "next": "failed"
+    },
+    {
+      "event": "sent",
+      "next": "sent"
+    }
+  ],
+  "properties": {
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "from": "{{flow.channel.address}}",
+    "to": "{{contact.channel.address}}",
+    "body": "Hello World",
+    "service": "{{trigger.message.InstanceSid}}",
+    "channel": "{{trigger.message.ChannelSid}}",
+    "attributes": "{\"name\":\"{{trigger.message.ChannelAttributes.from}}\",\"channelType\":\"{{trigger.message.ChannelAttributes.channel_type}}\",\"channelSid\":\"{{trigger.message.ChannelSid}}\"}",
+    "media_url": "https://test.com"
+  }
+}

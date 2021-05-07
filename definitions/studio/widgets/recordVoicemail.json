@@ -1,0 +1,77 @@
+{
+  "name": "Record voicemail",
+  "type": "record-voicemail",
+  "transitions": [
+    {
+      "name": "RecordingComplete",
+      "value": "recordingComplete",
+      "required": false
+    },
+    {
+      "name": "NoAudio",
+      "value": "noAudio",
+      "required": false
+    },
+    {
+      "name": "Hangup",
+      "value": "hangup",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Transcribe",
+      "type": "bool",
+      "value": "transcribe",
+      "required": false
+    },
+    {
+      "name": "Trim",
+      "type": "string",
+      "value": "trim",
+      "required": false
+    },
+    {
+      "name": "TranscriptionCallbackURL",
+      "type": "string",
+      "value": "transcription_callback_url",
+      "required": false
+    },
+    {
+      "name": "RecordingStatusCallbackURL",
+      "type": "string",
+      "value": "recording_status_callback_url",
+      "required": false
+    },
+    {
+      "name": "PlayBeep",
+      "type": "string",
+      "value": "play_beep",
+      "required": false
+    },
+    {
+      "name": "FinishOnKey",
+      "type": "string",
+      "value": "finish_on_key",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "type": "int",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "MaxLength",
+      "type": "int",
+      "value": "max_length",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

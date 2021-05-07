@@ -1,0 +1,82 @@
+{
+  "name": "Fork stream",
+  "type": "fork-stream",
+  "transitions": [
+    {
+      "name": "Next",
+      "value": "next",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "StreamName",
+      "type": "string",
+      "value": "stream_name",
+      "required": false
+    },
+    {
+      "name": "StreamTransportType",
+      "type": "string",
+      "value": "stream_transport_type",
+      "required": false
+    },
+    {
+      "name": "StreamAction",
+      "type": "string",
+      "value": "stream_action",
+      "required": true
+    },
+    {
+      "name": "StreamTrack",
+      "type": "string",
+      "value": "stream_track",
+      "required": false
+    },
+    {
+      "name": "StreamURL",
+      "type": "string",
+      "value": "stream_url",
+      "required": false
+    },
+    {
+      "name": "StreamConnector",
+      "type": "string",
+      "value": "stream_connector",
+      "required": false
+    },
+    {
+      "name": "StreamParameters",
+      "type": "array",
+      "items": {
+        "structure": "StreamParameter"
+      },
+      "value": "stream_parameters",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "StreamParameter": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

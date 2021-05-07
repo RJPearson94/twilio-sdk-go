@@ -1,0 +1,26 @@
+{
+  "name": "RecordCall",
+  "type": "record-call",
+  "transitions": [
+    {
+      "event": "failed",
+      "next": "failed"
+    },
+    {
+      "event": "success",
+      "next": "success"
+    }
+  ],
+  "properties": {
+    "record_call": true,
+    "trim": "do-not-trim",
+    "recording_status_callback": "http://localhost.com",
+    "recording_status_callback_method": "GET",
+    "recording_status_callback_events": "in-progress completed",
+    "recording_channels": "mono",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

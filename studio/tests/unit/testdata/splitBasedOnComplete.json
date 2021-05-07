@@ -1,0 +1,41 @@
+{
+  "name": "SplitBasedOn",
+  "type": "split-based-on",
+  "transitions": [
+    {
+      "event": "noMatch",
+      "next": "noMatch"
+    },
+    {
+      "event": "match",
+      "next": "match",
+      "conditions": [
+        {
+          "friendly_name": "If value equal_to test",
+          "arguments": ["{{contact.channel.address}}"],
+          "type": "equal_to",
+          "value": "test"
+        }
+      ]
+    },
+    {
+      "event": "match",
+      "next": "match2",
+      "conditions": [
+        {
+          "friendly_name": "If value not_equal_to test 2",
+          "arguments": ["{{contact.channel.address}}"],
+          "type": "not_equal_to",
+          "value": "test 2"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "input": "{{contact.channel.address}}",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

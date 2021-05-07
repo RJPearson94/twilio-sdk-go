@@ -1,0 +1,37 @@
+{
+  "name": "GatherInputOnCall",
+  "type": "gather-input-on-call",
+  "transitions": [
+    {
+      "event": "keypress",
+      "next": "keypress"
+    },
+    {
+      "event": "speech",
+      "next": "speech"
+    },
+    {
+      "event": "timeout",
+      "next": "timeout"
+    }
+  ],
+  "properties": {
+    "voice": "alice",
+    "hints": "test,test2",
+    "finish_on_key": "1",
+    "say": "Hello World",
+    "language": "en-US",
+    "stop_gather": true,
+    "speech_model": "phone_call",
+    "profanity_filter": "true",
+    "timeout": 5,
+    "number_of_digits": 3,
+    "speech_timeout": "auto",
+    "loop": 1,
+    "gather_language": "en-US",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

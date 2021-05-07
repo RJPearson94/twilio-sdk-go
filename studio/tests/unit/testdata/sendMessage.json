@@ -1,0 +1,17 @@
+{
+  "name": "SendMessage",
+  "type": "send-message",
+  "transitions": [
+    {
+      "event": "failed"
+    },
+    {
+      "event": "sent"
+    }
+  ],
+  "properties": {
+    "from": "{{flow.channel.address}}",
+    "to": "{{contact.channel.address}}",
+    "body": "Hello World"
+  }
+}

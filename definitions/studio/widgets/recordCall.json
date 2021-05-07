@@ -1,0 +1,60 @@
+{
+  "name": "Record call",
+  "type": "record-call",
+  "transitions": [
+    {
+      "name": "Success",
+      "value": "success",
+      "required": false
+    },
+    {
+      "name": "Failed",
+      "value": "failed",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "RecordCall",
+      "type": "bool",
+      "value": "record_call",
+      "required": true
+    },
+    {
+      "name": "Trim",
+      "type": "string",
+      "value": "trim",
+      "required": false
+    },
+    {
+      "name": "RecordingStatusCallbackURL",
+      "type": "string",
+      "value": "recording_status_callback",
+      "required": false
+    },
+    {
+      "name": "RecordingStatusCallbackMethod",
+      "type": "string",
+      "value": "recording_status_callback_method",
+      "required": false
+    },
+    {
+      "name": "RecordingStatusCallbackEvents",
+      "type": "string",
+      "value": "recording_status_callback_events",
+      "required": false
+    },
+    {
+      "name": "RecordingChannels",
+      "type": "string",
+      "value": "recording_channels",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

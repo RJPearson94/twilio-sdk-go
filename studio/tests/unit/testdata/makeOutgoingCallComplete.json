@@ -1,0 +1,43 @@
+{
+  "name": "MakeOutgoingCall",
+  "type": "make-outgoing-call-v2",
+  "transitions": [
+    {
+      "event": "answered",
+      "next": "answered"
+    },
+    {
+      "event": "busy",
+      "next": "busy"
+    },
+
+    {
+      "event": "failed",
+      "next": "failed"
+    },
+    {
+      "event": "noAnswer",
+      "next": "noAnswer"
+    }
+  ],
+  "properties": {
+    "from": "{{flow.channel.address}}",
+    "to": "{{contact.channel.address}}",
+    "machine_detection": "Enable",
+    "machine_detection_speech_threshold": "100",
+    "machine_detection_speech_end_threshold": "150",
+    "machine_detection_timeout": "10",
+    "machine_detection_silence_timeout": "1000",
+    "detect_answering_machine": true,
+    "send_digits": "1234",
+    "sip_auth_username": "test",
+    "sip_auth_password": "test2",
+    "timeout": 10,
+    "trim": "trim-silence",
+    "record": true,
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "EnqueueCall",
+  "type": "enqueue-call",
+  "transitions": [
+    {
+      "event": "callComplete",
+      "next": "callComplete"
+    },
+    {
+      "event": "callFailure",
+      "next": "callFailure"
+    },
+    {
+      "event": "failedToEnqueue",
+      "next": "failedToEnqueue"
+    }
+  ],
+  "properties": {
+    "workflow_sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "wait_url": "http://localhost.com",
+    "wait_url_method": "POST",
+    "priority": 1,
+    "task_attributes": "{\"test\": \"test\"}",
+    "timeout": 10,
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

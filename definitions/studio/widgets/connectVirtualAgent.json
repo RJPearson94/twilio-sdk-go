@@ -1,0 +1,48 @@
+{
+  "name": "Connect virtual agent",
+  "type": "connect-virtual-agent",
+  "transitions": [
+    {
+      "name": "Return",
+      "value": "return",
+      "required": false
+    },
+    {
+      "name": "Hangup",
+      "value": "hangup",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Connector",
+      "type": "string",
+      "value": "connector",
+      "required": true
+    },
+    {
+      "name": "Language",
+      "type": "string",
+      "value": "language",
+      "required": false
+    },
+    {
+      "name": "StatusCallbackURL",
+      "type": "string",
+      "value": "status_callback",
+      "required": false
+    },
+    {
+      "name": "SentimentAnalysis",
+      "type": "string",
+      "value": "sentiment_analysis",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "SayPlay",
+  "type": "say-play",
+  "transitions": [
+    {
+      "event": "audioComplete",
+      "next": "audioComplete"
+    }
+  ],
+  "properties": {
+    "loop": 2,
+    "say": "Test",
+    "language": "en-US",
+    "voice": "alice",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}

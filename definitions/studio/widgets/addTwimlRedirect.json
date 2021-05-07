@@ -1,0 +1,47 @@
+{
+  "name": "Add Twiml redirect",
+  "type": "add-twiml-redirect",
+  "transitions": [
+    {
+      "name": "Fail",
+      "value": "fail",
+      "required": false
+    },
+    {
+      "name": "Return",
+      "value": "return",
+      "required": false
+    },
+    {
+      "name": "Timeout",
+      "value": "timeout",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Method",
+      "type": "string",
+      "value": "method",
+      "required": false
+    },
+    {
+      "name": "URL",
+      "type": "string",
+      "value": "url",
+      "required": true
+    },
+    {
+      "name": "Timeout",
+      "type": "string",
+      "value": "timeout",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}

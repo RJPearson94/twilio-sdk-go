@@ -1,0 +1,15 @@
+{
+  "name": "RecordCall",
+  "type": "record-call",
+  "transitions": [
+    {
+      "event": "failed"
+    },
+    {
+      "event": "success"
+    }
+  ],
+  "properties": {
+    "record_call": false
+  }
+}

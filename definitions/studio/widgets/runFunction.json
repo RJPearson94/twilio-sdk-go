@@ -1,0 +1,75 @@
+{
+  "name": "Run function",
+  "type": "run-function",
+  "transitions": [
+    {
+      "name": "Success",
+      "value": "success",
+      "required": false
+    },
+    {
+      "name": "Fail",
+      "value": "fail",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "ServiceSid",
+      "type": "string",
+      "value": "service_sid",
+      "required": false
+    },
+    {
+      "name": "EnvironmentSid",
+      "type": "string",
+      "value": "environment_sid",
+      "required": false
+    },
+    {
+      "name": "FunctionSid",
+      "type": "string",
+      "value": "function_sid",
+      "required": false
+    },
+    {
+      "name": "URL",
+      "type": "string",
+      "value": "url",
+      "required": true
+    },
+    {
+      "name": "Parameters",
+      "type": "array",
+      "items": {
+        "structure": "Parameter"
+      },
+      "value": "parameters",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "Parameter": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

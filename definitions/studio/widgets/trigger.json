@@ -1,0 +1,29 @@
+{
+  "name": "Trigger",
+  "type": "trigger",
+  "transitions": [
+    {
+      "name": "IncomingMessage",
+      "value": "incomingMessage",
+      "required": false
+    },
+    {
+      "name": "IncomingCall",
+      "value": "incomingCall",
+      "required": false
+    },
+    {
+      "name": "IncomingRequest",
+      "value": "incomingRequest",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ]
+}
