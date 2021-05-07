@@ -53,6 +53,7 @@ type UpdateServiceInput struct {
 	PostWebhookURL               *string                          `form:"PostWebhookUrl,omitempty"`
 	PreWebhookRetryCount         *int                             `form:"PreWebhookRetryCount,omitempty"`
 	PreWebhookURL                *string                          `form:"PreWebhookUrl,omitempty"`
+	ReachabilityEnabled          *bool                            `form:"ReachabilityEnabled,omitempty"`
 	ReadStatusEnabled            *bool                            `form:"ReadStatusEnabled,omitempty"`
 	TypingIndicatorTimeout       *int                             `form:"TypingIndicatorTimeout,omitempty"`
 	WebhookFilters               *[]string                        `form:"WebhookFilters,omitempty"`

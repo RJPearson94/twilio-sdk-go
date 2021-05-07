@@ -3015,6 +3015,12 @@
           "required": false
         },
         {
+          "name": "ReachabilityEnabled",
+          "type": "bool",
+          "value": "ReachabilityEnabled",
+          "required": false
+        },
+        {
           "name": "TypingIndicatorTimeout",
           "type": "int",
           "value": "TypingIndicatorTimeout",
