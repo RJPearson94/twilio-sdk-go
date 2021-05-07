@@ -2,10 +2,11 @@ package utils
 
 // TwilioError represents the error object returned by the Twilio API when an error occurs
 type TwilioError struct {
-	Code     *int    `json:"code"`
-	Message  string  `json:"message"`
-	MoreInfo *string `json:"more_info"`
-	Status   int     `json:"status"`
+	Code     *int                    `json:"code,omitempty"`
+	Details  *map[string]interface{} `json:"details,omitempty"`
+	Message  string                  `json:"message"`
+	MoreInfo *string                 `json:"more_info,omitempty"`
+	Status   int                     `json:"status"`
 }
 
 // IsNotFoundError check if the error is a not found error

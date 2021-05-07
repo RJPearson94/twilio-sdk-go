@@ -15,6 +15,7 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/executions"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/revisions"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow/test_users"
+	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flow_validation"
 	"github.com/RJPearson94/twilio-sdk-go/service/studio/v2/flows"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
 	"github.com/RJPearson94/twilio-sdk-go/utils"
@@ -129,6 +130,67 @@ var _ = Describe("Studio Acceptance Tests", func() {
 
 			deleteErr := flowClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the Studio Flow Validation", func() {
+		It("Then a valid flow is validated", func() {
+			flowValidationClient := studioSession.FlowValidation
+
+			createResp, createErr := flowValidationClient.Validate(&flow_validation.ValidateFlowInput{
+				FriendlyName: uuid.New().String(),
+				Status:       "draft",
+				Definition:   flowDefinition,
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Valid).To(Equal(true))
+		})
+
+		It("Then an invalid flow is validated", func() {
+			flowValidationClient := studioSession.FlowValidation
+
+			createResp, createErr := flowValidationClient.Validate(&flow_validation.ValidateFlowInput{
+				FriendlyName: uuid.New().String(),
+				Status:       "draft",
+				Definition: `{
+	"description": "An invalid Flow",
+	"states": [
+		{
+		"name": "Trigger",
+		"type": "trigger",
+		"transitions": [
+			{
+			"event": "incomingMessage"
+			},
+			{
+			"next": "invalidTransition",
+			"event": "incomingCall"
+			},
+			{
+			"event": "incomingRequest"
+			}
+		],
+		"properties": {
+			"offset": {
+			"x": 0,
+			"y": 0
+			}
+		}
+		}
+	],
+	"initial_state": "Trigger",
+	"flags": {
+		"allow_concurrent_calls": true
+	}
+}`,
+			})
+			Expect(createErr).ToNot(BeNil())
+			Expect(createResp).To(BeNil())
+
+			twilioErr := createErr.(*utils.TwilioError)
+			Expect(twilioErr.Status).To(Equal(400))
+			Expect(twilioErr.Details).ToNot(BeNil())
 		})
 	})
 

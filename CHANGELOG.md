@@ -8,6 +8,10 @@ FIXES
 
 FEATURES
 
+### SDK
+
+- Add support for details on the `TwilioError` struct. This is helpful for debugging validation issues when validating a studio flow
+
 ### Studio
 
 - Add the ability to define a Studio Flow definition using Golang. The definitions are built up from an number of widgets i.e. Run function, make HTTP request, etc. The SDK supports all 20 widgets defined in the [docs](https://www.twilio.com/docs/studio/widget-library)
