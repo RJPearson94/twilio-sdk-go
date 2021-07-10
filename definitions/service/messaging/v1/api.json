@@ -903,6 +903,12 @@
           "type": "bool",
           "value": "SynchronousValidation",
           "required": false
+        },
+        {
+          "name": "UseInboundWebhookOnNumber",
+          "type": "bool",
+          "value": "UseInboundWebhookOnNumber",
+          "required": false
         }
       ]
     },
@@ -1012,6 +1018,12 @@
           "name": "SynchronousValidation",
           "type": "bool",
           "value": "synchronous_validation",
+          "required": true
+        },
+        {
+          "name": "UseInboundWebhookOnNumber",
+          "type": "bool",
+          "value": "use_inbound_webhook_on_number",
           "required": true
         }
       ]

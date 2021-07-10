@@ -18,6 +18,7 @@
   "scan_message_content": "inherit",
   "area_code_geomatch": true,
   "status_callback": null,
+  "use_inbound_webhook_on_number": false,
   "links": {
     "broadcasts": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Broadcasts",
     "messages": "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages",

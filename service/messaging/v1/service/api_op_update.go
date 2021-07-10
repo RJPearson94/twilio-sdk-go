@@ -11,43 +11,45 @@ import (
 
 // UpdateServiceInput defines input fields for updating a service resource
 type UpdateServiceInput struct {
-	AreaCodeGeomatch      *bool   `form:"AreaCodeGeomatch,omitempty"`
-	FallbackMethod        *string `form:"FallbackMethod,omitempty"`
-	FallbackToLongCode    *bool   `form:"FallbackToLongCode,omitempty"`
-	FallbackURL           *string `form:"FallbackUrl,omitempty"`
-	FriendlyName          *string `form:"FriendlyName,omitempty"`
-	InboundMethod         *string `form:"InboundMethod,omitempty"`
-	InboundRequestURL     *string `form:"InboundRequestUrl,omitempty"`
-	MmsConverter          *bool   `form:"MmsConverter,omitempty"`
-	ScanMessageContent    *string `form:"ScanMessageContent,omitempty"`
-	SmartEncoding         *bool   `form:"SmartEncoding,omitempty"`
-	StatusCallback        *string `form:"StatusCallback,omitempty"`
-	StickySender          *bool   `form:"StickySender,omitempty"`
-	SynchronousValidation *bool   `form:"SynchronousValidation,omitempty"`
-	ValidityPeriod        *int    `form:"ValidityPeriod,omitempty"`
+	AreaCodeGeomatch          *bool   `form:"AreaCodeGeomatch,omitempty"`
+	FallbackMethod            *string `form:"FallbackMethod,omitempty"`
+	FallbackToLongCode        *bool   `form:"FallbackToLongCode,omitempty"`
+	FallbackURL               *string `form:"FallbackUrl,omitempty"`
+	FriendlyName              *string `form:"FriendlyName,omitempty"`
+	InboundMethod             *string `form:"InboundMethod,omitempty"`
+	InboundRequestURL         *string `form:"InboundRequestUrl,omitempty"`
+	MmsConverter              *bool   `form:"MmsConverter,omitempty"`
+	ScanMessageContent        *string `form:"ScanMessageContent,omitempty"`
+	SmartEncoding             *bool   `form:"SmartEncoding,omitempty"`
+	StatusCallback            *string `form:"StatusCallback,omitempty"`
+	StickySender              *bool   `form:"StickySender,omitempty"`
+	SynchronousValidation     *bool   `form:"SynchronousValidation,omitempty"`
+	UseInboundWebhookOnNumber *bool   `form:"UseInboundWebhookOnNumber,omitempty"`
+	ValidityPeriod            *int    `form:"ValidityPeriod,omitempty"`
 }
 
 // UpdateServiceResponse defines the response fields for the updated service
 type UpdateServiceResponse struct {
-	AccountSid            string     `json:"account_sid"`
-	AreaCodeGeomatch      bool       `json:"area_code_geomatch"`
-	DateCreated           time.Time  `json:"date_created"`
-	DateUpdated           *time.Time `json:"date_updated,omitempty"`
-	FallbackMethod        string     `json:"fallback_method"`
-	FallbackToLongCode    bool       `json:"fallback_to_long_code"`
-	FallbackURL           *string    `json:"fallback_url,omitempty"`
-	FriendlyName          string     `json:"friendly_name"`
-	InboundMethod         string     `json:"inbound_method"`
-	InboundRequestURL     *string    `json:"inbound_request_url,omitempty"`
-	MmsConverter          bool       `json:"mms_converter"`
-	ScanMessageContent    string     `json:"scan_message_content"`
-	Sid                   string     `json:"sid"`
-	SmartEncoding         bool       `json:"smart_encoding"`
-	StatusCallback        *string    `json:"status_callback,omitempty"`
-	StickySender          bool       `json:"sticky_sender"`
-	SynchronousValidation bool       `json:"synchronous_validation"`
-	URL                   string     `json:"url"`
-	ValidityPeriod        int        `json:"validity_period"`
+	AccountSid                string     `json:"account_sid"`
+	AreaCodeGeomatch          bool       `json:"area_code_geomatch"`
+	DateCreated               time.Time  `json:"date_created"`
+	DateUpdated               *time.Time `json:"date_updated,omitempty"`
+	FallbackMethod            string     `json:"fallback_method"`
+	FallbackToLongCode        bool       `json:"fallback_to_long_code"`
+	FallbackURL               *string    `json:"fallback_url,omitempty"`
+	FriendlyName              string     `json:"friendly_name"`
+	InboundMethod             string     `json:"inbound_method"`
+	InboundRequestURL         *string    `json:"inbound_request_url,omitempty"`
+	MmsConverter              bool       `json:"mms_converter"`
+	ScanMessageContent        string     `json:"scan_message_content"`
+	Sid                       string     `json:"sid"`
+	SmartEncoding             bool       `json:"smart_encoding"`
+	StatusCallback            *string    `json:"status_callback,omitempty"`
+	StickySender              bool       `json:"sticky_sender"`
+	SynchronousValidation     bool       `json:"synchronous_validation"`
+	URL                       string     `json:"url"`
+	UseInboundWebhookOnNumber bool       `json:"use_inbound_webhook_on_number"`
+	ValidityPeriod            int        `json:"validity_period"`
 }
 
 // Update modifies a service resource

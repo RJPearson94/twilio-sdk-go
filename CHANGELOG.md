@@ -1,3 +1,12 @@
+## v0.18.0 (unreleased)
+
+FEATURES
+
+### Messaging
+
+- Add `UseInboundWebhookOnNumber` response field to service create, fetch and update response structs
+- Add `UseInboundWebhookOnNumber` input field to service create and update input structs
+
 ## v0.17.0 (2021-05-08)
 
 FIXES
