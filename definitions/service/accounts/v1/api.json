@@ -1,0 +1,586 @@
+{
+  "packageName": "v1",
+  "name": "Accounts",
+  "config": {
+    "beta": false,
+    "subDomain": "accounts",
+    "apiVersion": "v1"
+  },
+  "documentation": {
+    "description": "Client for managing account resources"
+  },
+  "subClients": [
+    {
+      "name": "Credentials",
+      "packageName": "credentials",
+      "documentation": {
+        "description": "Client for managing a credential resources",
+        "twilioDocsLink": "https://www.twilio.com/docs/iam/credentials/api"
+      },
+      "subClients": [
+        {
+          "name": "Public Keys",
+          "packageName": "public_keys",
+          "documentation": {
+            "description": "Client for managing public resources"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Credentials/PublicKeys",
+                "method": "Post"
+              },
+              "documentation": {
+                "description": "creates a public key resource"
+              },
+              "input": {
+                "structure": "CreatePublicKeyInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new public key resource"
+                }
+              },
+              "response": {
+                "name": "CreatePublicKeyResponse",
+                "structure": "CredentialResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created public key"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Credentials/PublicKeys",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of public key resources"
+              },
+              "response": {
+                "structure": "PublicKeysPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the public key resources page"
+                }
+              },
+              "pagination": {
+                "name": "PublicKeysPaginator",
+                "page": {
+                  "name": "PublicKeysPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Credentials",
+                  "structure": "PagePublicKeyCredentialsResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Public Key",
+          "packageName": "public_key",
+          "function": {
+            "parameters": {
+              "publicKeySid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "publicKeySid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific public key resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/iam/credentials/api"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Credentials/PublicKeys/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a public key resource"
+              },
+              "response": {
+                "name": "FetchPublicKeyResponse",
+                "structure": "CredentialResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved public key resource"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Credentials/PublicKeys/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a public key resource"
+              },
+              "input": {
+                "structure": "UpdatePublicKeyInput",
+                "documentation": {
+                  "description": "defines input fields for updating a public key resource"
+                }
+              },
+              "response": {
+                "name": "UpdatePublicKeyResponse",
+                "structure": "CredentialResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated public key resource"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Credentials/PublicKeys/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a public key resource from the account"
+              }
+            }
+          ]
+        },
+        {
+          "name": "AWSCredentials",
+          "packageName": "aws_credentials",
+          "documentation": {
+            "description": "Client for managing public resources"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Credentials/AWS",
+                "method": "Post"
+              },
+              "documentation": {
+                "description": "creates a aws credential resource"
+              },
+              "input": {
+                "structure": "CreateAWSCredentialInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new aws credential resource"
+                }
+              },
+              "response": {
+                "name": "CreateAWSCredentialResponse",
+                "structure": "CredentialResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created aws credential"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Credentials/AWS",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of aws credential resources"
+              },
+              "response": {
+                "structure": "AWSCredentialsPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the aws credential resources page"
+                }
+              },
+              "pagination": {
+                "name": "AWSCredentialsPaginator",
+                "page": {
+                  "name": "AWSCredentialsPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Credentials",
+                  "structure": "PageAWSCredentialsResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "AWSCredential",
+          "packageName": "aws_credential",
+          "function": {
+            "parameters": {
+              "awsCredentialSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "awsCredentialSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific aws credential resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Credentials/AWS/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a aws credential resource"
+              },
+              "response": {
+                "name": "FetchAWSCredentialResponse",
+                "structure": "CredentialResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved aws credential resource"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Credentials/AWS/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a aws credential resource"
+              },
+              "input": {
+                "structure": "UpdateAWSCredentialInput",
+                "documentation": {
+                  "description": "defines input fields for updating a aws credential resource"
+                }
+              },
+              "response": {
+                "name": "UpdateAWSCredentialResponse",
+                "structure": "CredentialResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated aws credential resource"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Credentials/AWS/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a aws credential resource from the account"
+              }
+            }
+          ]
+        }
+      ],
+      "operations": []
+    }
+  ],
+  "structures": {
+    "CreatePublicKeyInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "PublicKey",
+          "type": "string",
+          "value": "PublicKey",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "AccountSid",
+          "required": false
+        }
+      ]
+    },
+    "UpdatePublicKeyInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "PublicKeysPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Credentials",
+          "type": "array",
+          "items": {
+            "structure": "CredentialResponse",
+            "structureName": "PublicKeyCredentialsResponse"
+          },
+          "value": "credentials",
+          "required": true
+        }
+      ]
+    },
+    "CreateAWSCredentialInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Credentials",
+          "type": "string",
+          "value": "Credentials",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "AccountSid",
+          "required": false
+        }
+      ]
+    },
+    "UpdateAWSCredentialInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        }
+      ]
+    },
+    "AWSCredentialsPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Credentials",
+          "type": "array",
+          "items": {
+            "structure": "CredentialResponse",
+            "structureName": "AWSCredentialsResponse"
+          },
+          "value": "credentials",
+          "required": true
+        }
+      ]
+    },
+    "CredentialResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Sid",
+          "type": "string",
+          "value": "sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "type": "time.Time",
+          "value": "date_created",
+          "required": true
+        },
+        {
+          "name": "DateUpdated",
+          "type": "time.Time",
+          "value": "date_updated",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "MetaResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Page",
+          "type": "int",
+          "value": "page",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "type": "int",
+          "value": "page_size",
+          "required": true
+        },
+        {
+          "name": "FirstPageURL",
+          "type": "string",
+          "value": "first_page_url",
+          "required": true
+        },
+        {
+          "name": "PreviousPageURL",
+          "type": "string",
+          "value": "previous_page_url",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        },
+        {
+          "name": "NextPageURL",
+          "type": "string",
+          "value": "next_page_url",
+          "required": false
+        },
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        }
+      ]
+    }
+  }
+}

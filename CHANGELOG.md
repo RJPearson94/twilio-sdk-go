@@ -2,6 +2,11 @@
 
 FEATURES
 
+### Accounts
+
+- **New Resource:** Credentials - AWS
+- **New Resource:** Credentials - Public Keys
+
 ### Messaging
 
 - Add `UseInboundWebhookOnNumber` response field to service create, fetch and update response structs

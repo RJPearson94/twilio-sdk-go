@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "page": 0,
+    "page_size": 50,
+    "first_page_url": "https://accounts.twilio.com/v1/Credentials/PublicKeys?PageSize=50&Page=0",
+    "previous_page_url": null,
+    "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys?PageSize=50&Page=0",
+    "next_page_url": "https://accounts.twilio.com/v1/Credentials/PublicKeys?PageSize=50&Page=1&PageToken=abc1234",
+    "key": "credentials"
+  },
+  "credentials": [
+    {
+      "date_updated": null,
+      "friendly_name": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "date_created": "2020-06-27T23:00:00Z"
+    },
+    {
+      "date_updated": null,
+      "friendly_name": null,
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+      "date_created": "2020-06-27T23:00:00Z"
+    }
+  ]
+}

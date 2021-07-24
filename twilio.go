@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
+	"github.com/RJPearson94/twilio-sdk-go/service/accounts"
 	"github.com/RJPearson94/twilio-sdk-go/service/api"
 	"github.com/RJPearson94/twilio-sdk-go/service/autopilot"
 	"github.com/RJPearson94/twilio-sdk-go/service/chat"
@@ -27,6 +28,7 @@ import (
 
 // Twilio clients manage all the available Twilio services & resources within the SDK
 type Twilio struct {
+	Accounts      *accounts.Accounts
 	API           *api.API
 	Autopilot     *autopilot.Autopilot
 	Chat          *chat.Chat
@@ -56,6 +58,7 @@ func New(sess *session.Session) *Twilio {
 // NewWithConfig create a new instance of the client using session data and config
 func NewWithConfig(sess *session.Session, config *client.Config) *Twilio {
 	return &Twilio{
+		Accounts:      accounts.New(sess, config),
 		API:           api.New(sess, config),
 		Autopilot:     autopilot.New(sess, config),
 		Chat:          chat.New(sess, config),
