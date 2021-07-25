@@ -1,0 +1,5 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "friendly_name": "Basic Recording Settings",
+  "url": "https://video.twilio.com/v1/RecordingSettings/Default"
+}

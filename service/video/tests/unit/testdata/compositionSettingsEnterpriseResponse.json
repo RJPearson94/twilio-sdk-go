@@ -1,0 +1,10 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "friendly_name": "Enterprise Composition Settings",
+  "aws_credentials_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "encryption_key_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1",
+  "aws_s3_url": "https://test-bucket.s3.amazonaws.com/composition/",
+  "aws_storage_enabled": true,
+  "encryption_enabled": false,
+  "url": "https://video.twilio.com/v1/CompositionSettings/Default"
+}

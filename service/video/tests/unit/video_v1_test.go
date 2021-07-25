@@ -15,8 +15,10 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/service/video"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hook"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hooks"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_settings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/compositions"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording_settings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recordings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room/participant"
@@ -2411,7 +2413,7 @@ var _ = Describe("Video V1", func() {
 					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
 					resp := make(map[string]interface{})
 					json.Unmarshal(fixture, &resp)
-					return httpmock.NewJsonResponse(404, resp)
+					return httpmock.NewJsonResponse(500, resp)
 				},
 			)
 
@@ -2487,6 +2489,278 @@ var _ = Describe("Video V1", func() {
 			})
 
 			It("Then the update subscribe rules response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have the composition settings client", func() {
+		compositionSettingsClient := videoSession.CompositionSettings()
+
+		Describe("When the composition settings resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionSettingsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionSettingsClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get composition settings resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Basic Composition Settings"))
+				Expect(resp.AWSCredentialSid).To(BeNil())
+				Expect(resp.EncryptionKeySid).To(BeNil())
+				Expect(resp.AWSS3URL).To(BeNil())
+				Expect(resp.AWSStorageEnabled).To(BeNil())
+				Expect(resp.EncryptionEnabled).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/CompositionSettings/Default"))
+			})
+		})
+
+		Describe("When the composition settings resource is successfully retrieved for enterprise account", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionSettingsEnterpriseResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionSettingsClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get composition settings resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Enterprise Composition Settings"))
+				Expect(resp.AWSCredentialSid).To(Equal(utils.String("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.EncryptionKeySid).To(Equal(utils.String("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1")))
+				Expect(resp.AWSS3URL).To(Equal(utils.String("https://test-bucket.s3.amazonaws.com/composition/")))
+				Expect(resp.AWSStorageEnabled).To(Equal(utils.Bool(true)))
+				Expect(resp.EncryptionEnabled).To(Equal(utils.Bool(false)))
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/CompositionSettings/Default"))
+			})
+		})
+
+		Describe("When the composition settings resource api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/CompositionSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := compositionSettingsClient.Fetch()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get composition settings response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the composition settings resource is successfully updated", func() {
+			updateInput := &composition_settings.UpdateCompositionSettingsInput{
+				FriendlyName: "Basic Composition Settings",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/CompositionSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/compositionSettingsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := compositionSettingsClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update composition settings resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Basic Composition Settings"))
+				Expect(resp.AWSCredentialSid).To(BeNil())
+				Expect(resp.EncryptionKeySid).To(BeNil())
+				Expect(resp.AWSS3URL).To(BeNil())
+				Expect(resp.AWSStorageEnabled).To(BeNil())
+				Expect(resp.EncryptionEnabled).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/CompositionSettings/Default"))
+			})
+		})
+
+		Describe("When the composition settings resource api returns a 500", func() {
+			updateInput := &composition_settings.UpdateCompositionSettingsInput{
+				FriendlyName: "Basic Composition Settings",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/CompositionSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := compositionSettingsClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the update composition settings response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have the recording settings client", func() {
+		recordingSettingsClient := videoSession.RecordingSettings()
+
+		Describe("When the recording settings resource is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/RecordingSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingSettingsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingSettingsClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get recording settings resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Basic Recording Settings"))
+				Expect(resp.AWSCredentialSid).To(BeNil())
+				Expect(resp.EncryptionKeySid).To(BeNil())
+				Expect(resp.AWSS3URL).To(BeNil())
+				Expect(resp.AWSStorageEnabled).To(BeNil())
+				Expect(resp.EncryptionEnabled).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/RecordingSettings/Default"))
+			})
+		})
+
+		Describe("When the recording settings resource is successfully retrieved for enterprise account", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/RecordingSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingSettingsEnterpriseResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingSettingsClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get recording settings resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Enterprise Recording Settings"))
+				Expect(resp.AWSCredentialSid).To(Equal(utils.String("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")))
+				Expect(resp.EncryptionKeySid).To(Equal(utils.String("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1")))
+				Expect(resp.AWSS3URL).To(Equal(utils.String("https://test-bucket.s3.amazonaws.com/recording/")))
+				Expect(resp.AWSStorageEnabled).To(Equal(utils.Bool(true)))
+				Expect(resp.EncryptionEnabled).To(Equal(utils.Bool(false)))
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/RecordingSettings/Default"))
+			})
+		})
+
+		Describe("When the recording settings resource api returns a 500", func() {
+			httpmock.RegisterResponder("GET", "https://video.twilio.com/v1/RecordingSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingSettingsClient.Fetch()
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the get recording settings response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the recording settings resource is successfully updated", func() {
+			updateInput := &recording_settings.UpdateRecordingSettingsInput{
+				FriendlyName: "Basic Recording Settings",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/RecordingSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/recordingSettingsResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := recordingSettingsClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update recording settings resource response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal("Basic Recording Settings"))
+				Expect(resp.AWSCredentialSid).To(BeNil())
+				Expect(resp.EncryptionKeySid).To(BeNil())
+				Expect(resp.AWSS3URL).To(BeNil())
+				Expect(resp.AWSStorageEnabled).To(BeNil())
+				Expect(resp.EncryptionEnabled).To(BeNil())
+				Expect(resp.URL).To(Equal("https://video.twilio.com/v1/RecordingSettings/Default"))
+			})
+		})
+
+		Describe("When the recording settings resource api returns a 500", func() {
+			updateInput := &recording_settings.UpdateRecordingSettingsInput{
+				FriendlyName: "Basic Recording Settings",
+			}
+
+			httpmock.RegisterResponder("POST", "https://video.twilio.com/v1/RecordingSettings/Default",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := recordingSettingsClient.Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the update recording settings response should be nil", func() {
 				Expect(resp).To(BeNil())
 			})
 		})

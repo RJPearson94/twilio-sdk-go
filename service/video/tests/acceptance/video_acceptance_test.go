@@ -11,6 +11,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hook"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_hooks"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/composition_settings"
+	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/recording_settings"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/room"
 	"github.com/RJPearson94/twilio-sdk-go/service/video/v1/rooms"
 	"github.com/RJPearson94/twilio-sdk-go/session/credentials"
@@ -62,7 +64,6 @@ var _ = Describe("Video Acceptance Tests", func() {
 			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
-
 		})
 	})
 
@@ -110,6 +111,38 @@ var _ = Describe("Video Acceptance Tests", func() {
 
 			deleteErr := compositionHookClient.Delete()
 			Expect(deleteErr).To(BeNil())
+		})
+	})
+
+	Describe("Given the video recording settings clients", func() {
+		It("Then the recording settings is created, fetched and updated", func() {
+			recordingSettingsClient := videoSession.RecordingSettings()
+
+			fetchResp, fetchErr := recordingSettingsClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := recordingSettingsClient.Update(&recording_settings.UpdateRecordingSettingsInput{
+				FriendlyName: "Basic Recording Setting",
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the video composition settings clients", func() {
+		It("Then the composition settings is created, fetched and updated", func() {
+			compositionSettingsClient := videoSession.CompositionSettings()
+
+			fetchResp, fetchErr := compositionSettingsClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := compositionSettingsClient.Update(&composition_settings.UpdateCompositionSettingsInput{
+				FriendlyName: "Basic Composition Setting",
+			})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
 		})
 	})
 

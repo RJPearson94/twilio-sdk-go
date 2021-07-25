@@ -12,6 +12,11 @@ FEATURES
 - Add `UseInboundWebhookOnNumber` response field to service create, fetch and update response structs
 - Add `UseInboundWebhookOnNumber` input field to service create and update input structs
 
+### Video
+
+- **New Resource:** Composition Settings
+- **New Resource:** Recording Settings
+
 ## v0.17.0 (2021-05-08)
 
 FIXES

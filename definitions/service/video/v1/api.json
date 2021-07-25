@@ -1558,6 +1558,116 @@
           }
         }
       ]
+    },
+    {
+      "name": "Recording Settings",
+      "packageName": "recording_settings",
+      "function": {
+        "parameters": {}
+      },
+      "documentation": {
+        "description": "Client for managing the default recording settings",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/encrypted-recordings"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/RecordingSettings/Default",
+            "method": "Get"
+          },
+          "documentation": {
+            "description": "retrieves the default recording settings",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/encrypted-recordings#http-get"
+          },
+          "response": {
+            "name": "FetchRecordingSettingsResponse",
+            "structure": "RecordingSettingsResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved recording settings"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/RecordingSettings/Default",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "modifies default recording settings",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/encrypted-recordings#http-post"
+          },
+          "input": {
+            "structure": "UpdateRecordingSettingsInput",
+            "documentation": {
+              "description": "defines input fields for updating recording settings"
+            }
+          },
+          "response": {
+            "name": "UpdateRecordingSettingsResponse",
+            "structure": "RecordingSettingsResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated recording settings"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Composition Settings",
+      "packageName": "composition_settings",
+      "function": {
+        "parameters": {}
+      },
+      "documentation": {
+        "description": "Client for managing the default composition settings",
+        "twilioDocsLink": "https://www.twilio.com/docs/video/api/encrypted-compositions"
+      },
+      "operations": [
+        {
+          "name": "Fetch",
+          "http": {
+            "uri": "/CompositionSettings/Default",
+            "method": "Get"
+          },
+          "documentation": {
+            "description": "retrieves the default composition settings",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/encrypted-compositions#http-get"
+          },
+          "response": {
+            "name": "FetchCompositionSettingsResponse",
+            "structure": "CompositionSettingsResponse",
+            "documentation": {
+              "description": "defines the response fields for the retrieved composition settings"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "http": {
+            "uri": "/CompositionSettings/Default",
+            "method": "Post"
+          },
+          "documentation": {
+            "description": "modifies default composition settings",
+            "twilioDocsLink": "https://www.twilio.com/docs/video/api/encrypted-compositions#http-post"
+          },
+          "input": {
+            "structure": "UpdateCompositionSettingsInput",
+            "documentation": {
+              "description": "defines input fields for updating composition settings"
+            }
+          },
+          "response": {
+            "name": "UpdateCompositionSettingsResponse",
+            "structure": "CompositionSettingsResponse",
+            "documentation": {
+              "description": "defines the response fields for the updated composition settings"
+            }
+          }
+        }
+      ]
     }
   ],
   "structures": {
@@ -2553,6 +2663,200 @@
           "type": "time.Time",
           "value": "date_updated",
           "required": false
+        }
+      ]
+    },
+    "UpdateRecordingSettingsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true,
+          "validation": {
+            "ignore": true
+          }
+        },
+        {
+          "name": "AWSCredentialSid",
+          "type": "string",
+          "value": "AwsCredentialsSid",
+          "required": false
+        },
+        {
+          "name": "EncryptionKeySid",
+          "type": "string",
+          "value": "EncryptionKeySid",
+          "required": false
+        },
+        {
+          "name": "AWSS3URL",
+          "type": "string",
+          "value": "AwsS3Url",
+          "required": false
+        },
+        {
+          "name": "AWSStorageEnabled",
+          "type": "bool",
+          "value": "AwsStorageEnabled",
+          "required": false
+        },
+        {
+          "name": "EncryptionEnabled",
+          "type": "bool",
+          "value": "EncryptionEnabled",
+          "required": false
+        }
+      ]
+    },
+    "RecordingSettingsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "AWSCredentialSid",
+          "type": "string",
+          "value": "aws_credentials_sid",
+          "required": false
+        },
+        {
+          "name": "EncryptionKeySid",
+          "type": "string",
+          "value": "encryption_key_sid",
+          "required": false
+        },
+        {
+          "name": "AWSS3URL",
+          "type": "string",
+          "value": "aws_s3_url",
+          "required": false
+        },
+        {
+          "name": "AWSStorageEnabled",
+          "type": "bool",
+          "value": "aws_storage_enabled",
+          "required": false
+        },
+        {
+          "name": "EncryptionEnabled",
+          "type": "bool",
+          "value": "encryption_enabled",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
+        }
+      ]
+    },
+    "UpdateCompositionSettingsInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": true,
+          "validation": {
+            "ignore": true
+          }
+        },
+        {
+          "name": "AWSCredentialSid",
+          "type": "string",
+          "value": "AwsCredentialsSid",
+          "required": false
+        },
+        {
+          "name": "EncryptionKeySid",
+          "type": "string",
+          "value": "EncryptionKeySid",
+          "required": false
+        },
+        {
+          "name": "AWSS3URL",
+          "type": "string",
+          "value": "AwsS3Url",
+          "required": false
+        },
+        {
+          "name": "AWSStorageEnabled",
+          "type": "bool",
+          "value": "AwsStorageEnabled",
+          "required": false
+        },
+        {
+          "name": "EncryptionEnabled",
+          "type": "bool",
+          "value": "EncryptionEnabled",
+          "required": false
+        }
+      ]
+    },
+    "CompositionSettingsResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "AccountSid",
+          "type": "string",
+          "value": "account_sid",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": true
+        },
+        {
+          "name": "AWSCredentialSid",
+          "type": "string",
+          "value": "aws_credentials_sid",
+          "required": false
+        },
+        {
+          "name": "EncryptionKeySid",
+          "type": "string",
+          "value": "encryption_key_sid",
+          "required": false
+        },
+        {
+          "name": "AWSS3URL",
+          "type": "string",
+          "value": "aws_s3_url",
+          "required": false
+        },
+        {
+          "name": "AWSStorageEnabled",
+          "type": "bool",
+          "value": "aws_storage_enabled",
+          "required": false
+        },
+        {
+          "name": "EncryptionEnabled",
+          "type": "bool",
+          "value": "encryption_enabled",
+          "required": false
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "url",
+          "required": true
         }
       ]
     },
