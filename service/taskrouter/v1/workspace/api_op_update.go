@@ -11,12 +11,13 @@ import (
 
 // UpdateWorkspaceInput defines input fields for updating a workspace resource
 type UpdateWorkspaceInput struct {
+	DefaultActivitySid   *string `form:"DefaultActivitySid,omitempty"`
 	EventCallbackURL     *string `form:"EventCallbackUrl,omitempty"`
 	EventsFilter         *string `form:"EventsFilter,omitempty"`
 	FriendlyName         *string `form:"FriendlyName,omitempty"`
 	MultiTaskEnabled     *bool   `form:"MultiTaskEnabled,omitempty"`
 	PrioritizeQueueOrder *string `form:"PrioritizeQueueOrder,omitempty"`
-	Template             *string `form:"Template,omitempty"`
+	TimeoutActivitySid   *string `form:"TimeoutActivitySid,omitempty"`
 }
 
 // UpdateWorkspaceResponse defines the response fields for the updated workspace

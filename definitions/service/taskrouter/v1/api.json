@@ -3383,6 +3383,12 @@
           "type": "string",
           "value": "FriendlyName",
           "required": true
+        },
+        {
+          "name": "Template",
+          "type": "string",
+          "value": "Template",
+          "required": false
         }
       ]
     },
@@ -3394,6 +3400,18 @@
           "name": "FriendlyName",
           "type": "string",
           "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "DefaultActivitySid",
+          "type": "string",
+          "value": "DefaultActivitySid",
+          "required": false
+        },
+        {
+          "name": "TimeoutActivitySid",
+          "type": "string",
+          "value": "TimeoutActivitySid",
           "required": false
         }
       ]
@@ -3417,12 +3435,6 @@
           "name": "MultiTaskEnabled",
           "type": "bool",
           "value": "MultiTaskEnabled",
-          "required": false
-        },
-        {
-          "name": "Template",
-          "type": "string",
-          "value": "Template",
           "required": false
         },
         {

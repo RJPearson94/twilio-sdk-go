@@ -1,3 +1,16 @@
+## v0.19.0 (unreleased)
+
+FEATURES
+
+### TaskRouter
+
+- Add `DefaultActivitySid` input field to workspace update input struct
+- Add `TimeoutActivitySid` input field to workspace update input struct
+
+FIXES
+
+- Remove `Template` input field from workspace update input struct, as this value cannot be updated
+
 ## v0.18.0 (2021-07-25)
 
 FEATURES
