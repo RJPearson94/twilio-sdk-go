@@ -16,6 +16,11 @@
       "name": "IncomingRequest",
       "value": "incomingRequest",
       "required": false
+    },
+    {
+      "name": "IncomingParent",
+      "value": "incomingParent",
+      "required": false
     }
   ],
   "properties": [

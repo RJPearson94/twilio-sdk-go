@@ -1,0 +1,63 @@
+{
+  "name": "Run Subflow",
+  "type": "run-subflow",
+  "transitions": [
+    {
+      "name": "Completed",
+      "value": "completed",
+      "required": false
+    },
+    {
+      "name": "Failed",
+      "value": "failed",
+      "required": false
+    }
+  ],
+  "properties": [
+    {
+      "name": "FlowSid",
+      "type": "string",
+      "value": "flow_sid",
+      "required": true
+    },
+    {
+      "name": "FlowRevision",
+      "type": "string",
+      "value": "flow_revision",
+      "required": true
+    },
+    {
+      "name": "Parameters",
+      "type": "array",
+      "items": {
+        "structure": "Parameter"
+      },
+      "value": "parameters",
+      "required": false
+    },
+    {
+      "name": "Offset",
+      "type": "properties.Offset",
+      "value": "offset",
+      "required": false
+    }
+  ],
+  "structures": {
+    "Parameter": {
+      "properties": [
+        {
+          "name": "Key",
+          "type": "string",
+          "value": "key",
+          "required": true
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "value": "value",
+          "required": true
+        }
+      ]
+    }
+  }
+}

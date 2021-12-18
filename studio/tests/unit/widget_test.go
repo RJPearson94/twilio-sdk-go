@@ -32,6 +32,7 @@ var _ = Describe("Studio", func() {
 				IncomingCall:    utils.String("call"),
 				IncomingMessage: utils.String("message"),
 				IncomingRequest: utils.String("request"),
+				IncomingParent:  utils.String("parent"),
 			},
 			Properties: widgets.TriggerProperties{
 				Offset: &properties.Offset{
@@ -263,6 +264,48 @@ var _ = Describe("Studio", func() {
 		}
 
 		assertJSONMatches(runFunction, runFunctionJSON)
+	})
+
+	Describe("Run subflow widget with basic config", func() {
+		runSubflowJSON, _ := ioutil.ReadFile("testdata/runSubflow.json")
+
+		runSubflow := widgets.RunSubflow{
+			Name: "RunSubflow",
+			Properties: widgets.RunSubflowProperties{
+				FlowSid:      "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				FlowRevision: "1",
+			},
+		}
+
+		assertJSONMatches(runSubflow, runSubflowJSON)
+	})
+
+	Describe("Run subflow widget with all config", func() {
+		runSubflowJSON, _ := ioutil.ReadFile("testdata/runSubflowComplete.json")
+
+		runSubflow := widgets.RunSubflow{
+			Name: "RunSubflow",
+			NextTransitions: widgets.RunSubflowNextTransitions{
+				Completed: utils.String("completed"),
+				Failed:    utils.String("failed"),
+			},
+			Properties: widgets.RunSubflowProperties{
+				FlowSid:      "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				FlowRevision: "1",
+				Parameters: &[]widgets.RunSubflowParameter{
+					{
+						Value: "value",
+						Key:   "key",
+					},
+				},
+				Offset: &properties.Offset{
+					X: 0,
+					Y: 0,
+				},
+			},
+		}
+
+		assertJSONMatches(runSubflow, runSubflowJSON)
 	})
 
 	Describe("Send and wait for reply widget with basic config", func() {

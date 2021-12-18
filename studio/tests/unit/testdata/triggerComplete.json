@@ -11,6 +11,10 @@
       "next": "message"
     },
     {
+      "event": "incomingParent",
+      "next": "parent"
+    },
+    {
       "event": "incomingRequest",
       "next": "request"
     }

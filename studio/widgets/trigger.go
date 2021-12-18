@@ -12,6 +12,7 @@ import (
 type TriggerNextTransitions struct {
 	IncomingCall    *string
 	IncomingMessage *string
+	IncomingParent  *string
 	IncomingRequest *string
 }
 
@@ -43,6 +44,10 @@ func (widget Trigger) ToState() (*flow.State, error) {
 		{
 			Event: "incomingMessage",
 			Next:  widget.NextTransitions.IncomingMessage,
+		},
+		{
+			Event: "incomingParent",
+			Next:  widget.NextTransitions.IncomingParent,
 		},
 		{
 			Event: "incomingRequest",

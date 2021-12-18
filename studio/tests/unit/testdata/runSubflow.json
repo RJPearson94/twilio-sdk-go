@@ -1,0 +1,16 @@
+{
+  "name": "RunSubflow",
+  "type": "run-subflow",
+  "transitions": [
+    {
+      "event": "completed"
+    },
+    {
+      "event": "failed"
+    }
+  ],
+  "properties": {
+    "flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "flow_revision": "1"
+  }
+}

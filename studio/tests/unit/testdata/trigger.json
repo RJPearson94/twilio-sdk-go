@@ -9,6 +9,9 @@
       "event": "incomingMessage"
     },
     {
+      "event": "incomingParent"
+    },
+    {
       "event": "incomingRequest"
     }
   ],
