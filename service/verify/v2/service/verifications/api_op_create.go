@@ -11,17 +11,19 @@ import (
 
 // CreateVerificationInput defines the input fields for creating a new verification
 type CreateVerificationInput struct {
-	Amount               *string `form:"Amount,omitempty"`
-	AppHash              *string `form:"AppHash,omitempty"`
-	Channel              string  `validate:"required" form:"Channel"`
-	ChannelConfiguration *string `form:"ChannelConfiguration,omitempty"`
-	CustomCode           *string `form:"CustomCode,omitempty"`
-	CustomFriendlyName   *string `form:"CustomFriendlyName,omitempty"`
-	Locale               *string `form:"Locale,omitempty"`
-	Payee                *string `form:"Payee,omitempty"`
-	RateLimits           *string `form:"RateLimits,omitempty"`
-	SendDigits           *string `form:"SendDigits,omitempty"`
-	To                   string  `validate:"required" form:"To"`
+	Amount                      *string `form:"Amount,omitempty"`
+	AppHash                     *string `form:"AppHash,omitempty"`
+	Channel                     string  `validate:"required" form:"Channel"`
+	ChannelConfiguration        *string `form:"ChannelConfiguration,omitempty"`
+	CustomCode                  *string `form:"CustomCode,omitempty"`
+	CustomFriendlyName          *string `form:"CustomFriendlyName,omitempty"`
+	Locale                      *string `form:"Locale,omitempty"`
+	Payee                       *string `form:"Payee,omitempty"`
+	RateLimits                  *string `form:"RateLimits,omitempty"`
+	SendDigits                  *string `form:"SendDigits,omitempty"`
+	TemplateCustomSubstitutions *string `form:"TemplateCustomSubstitutions,omitempty"`
+	TemplateSid                 *string `form:"TemplateSid,omitempty"`
+	To                          string  `validate:"required" form:"To"`
 }
 
 type CreateVerificationCarrierLookupResponse struct {

@@ -2774,6 +2774,18 @@
           "type": "string",
           "value": "AppHash",
           "required": false
+        },
+        {
+          "name": "TemplateSid",
+          "type": "string",
+          "value": "TemplateSid",
+          "required": false
+        },
+        {
+          "name": "TemplateCustomSubstitutions",
+          "type": "string",
+          "value": "TemplateCustomSubstitutions",
+          "required": false
         }
       ]
     },
