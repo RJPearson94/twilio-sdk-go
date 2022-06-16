@@ -1,3 +1,12 @@
+## v0.21.0 (unreleased)
+
+FEATURES
+
+### Verify
+
+- Add `Version` response field to webhook create, fetch and update response structs
+- Add `Version` input field to webhook create and update input structs
+
 ## v0.20.0 (2022-06-16)
 
 FEATURES

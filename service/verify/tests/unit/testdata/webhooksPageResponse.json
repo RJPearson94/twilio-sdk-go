@@ -17,6 +17,7 @@
       "url": "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "webhook_method": "POST",
       "event_types": ["*"],
+      "version": "v2",
       "sid": "YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
       "date_created": "2020-06-20T20:50:24Z",
       "webhook_url": "http://localhost/webhook",

@@ -39,6 +39,7 @@ type PageWebhookResponse struct {
 	Sid           string     `json:"sid"`
 	Status        string     `json:"status"`
 	URL           string     `json:"url"`
+	Version       string     `json:"version"`
 	WebhookMethod string     `json:"webhook_method"`
 	WebhookURL    string     `json:"webhook_url"`
 }

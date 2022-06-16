@@ -3144,6 +3144,12 @@
           "type": "string",
           "value": "Status",
           "required": false
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "Version",
+          "required": false
         }
       ]
     },
@@ -3175,6 +3181,12 @@
           "name": "Status",
           "type": "string",
           "value": "Status",
+          "required": false
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "Version",
           "required": false
         }
       ]
@@ -3240,6 +3252,12 @@
           "name": "Status",
           "type": "string",
           "value": "status",
+          "required": true
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "value": "version",
           "required": true
         }
       ]

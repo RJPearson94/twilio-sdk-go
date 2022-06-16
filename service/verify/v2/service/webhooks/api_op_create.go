@@ -14,6 +14,7 @@ type CreateWebhookInput struct {
 	EventTypes   []string `validate:"required" form:"EventTypes"`
 	FriendlyName string   `validate:"required" form:"FriendlyName"`
 	Status       *string  `form:"Status,omitempty"`
+	Version      *string  `form:"Version,omitempty"`
 	WebhookURL   string   `validate:"required" form:"WebhookUrl"`
 }
 
@@ -28,6 +29,7 @@ type CreateWebhookResponse struct {
 	Sid           string     `json:"sid"`
 	Status        string     `json:"status"`
 	URL           string     `json:"url"`
+	Version       string     `json:"version"`
 	WebhookMethod string     `json:"webhook_method"`
 	WebhookURL    string     `json:"webhook_url"`
 }

@@ -14,6 +14,7 @@ type UpdateWebhookInput struct {
 	EventTypes   *[]string `form:"EventTypes,omitempty"`
 	FriendlyName *string   `form:"FriendlyName,omitempty"`
 	Status       *string   `form:"Status,omitempty"`
+	Version      *string   `form:"Version,omitempty"`
 	WebhookURL   *string   `form:"WebhookUrl,omitempty"`
 }
 
@@ -28,6 +29,7 @@ type UpdateWebhookResponse struct {
 	Sid           string     `json:"sid"`
 	Status        string     `json:"status"`
 	URL           string     `json:"url"`
+	Version       string     `json:"version"`
 	WebhookMethod string     `json:"webhook_method"`
 	WebhookURL    string     `json:"webhook_url"`
 }
