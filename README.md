@@ -14,6 +14,7 @@ This project is compatible with the following versions of Golang:
 | ------- | --------- |
 | 1.15.x  | Yes       |
 | 1.16.x  | Yes       |
+| 1.17.x  | Yes       |
 
 > ⚠️ **Disclaimer**: This project is not an official Twilio project and is not supported or endorsed by Twilio in any way. It is maintained in [my](https://github.com/RJPearson94) free time.
 

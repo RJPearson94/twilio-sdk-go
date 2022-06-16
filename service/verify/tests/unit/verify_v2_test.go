@@ -81,6 +81,7 @@ var _ = Describe("Verify V2", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.TtsName).To(BeNil())
 				Expect(resp.MailerSid).To(BeNil())
+				Expect(resp.DefaultTemplateSid).To(BeNil())
 				Expect(resp.Psd2Enabled).To(Equal(false))
 				Expect(resp.DoNotShareWarningEnabled).To(Equal(false))
 				Expect(resp.FriendlyName).To(Equal("Test Service"))
@@ -93,6 +94,12 @@ var _ = Describe("Verify V2", func() {
 					ApnCredentialSid: nil,
 					IncludeDate:      true,
 					FcmCredentialSid: nil,
+				}))
+				Expect(resp.Totp).To(Equal(services.CreateServiceTotpResponse{
+					TimeStep:   30,
+					Skew:       1,
+					CodeLength: 6,
+					Issuer:     "test",
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -176,6 +183,13 @@ var _ = Describe("Verify V2", func() {
 					FcmCredentialSid: nil,
 				}
 
+				totpResponse := services.PageServiceTotpResponse{
+					TimeStep:   30,
+					Skew:       1,
+					CodeLength: 6,
+					Issuer:     "test",
+				}
+
 				services := resp.Services
 				Expect(services).ToNot(BeNil())
 				Expect(len(services)).To(Equal(1))
@@ -184,6 +198,7 @@ var _ = Describe("Verify V2", func() {
 				Expect(services[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(services[0].TtsName).To(BeNil())
 				Expect(services[0].MailerSid).To(BeNil())
+				Expect(services[0].DefaultTemplateSid).To(BeNil())
 				Expect(services[0].Psd2Enabled).To(Equal(false))
 				Expect(services[0].DoNotShareWarningEnabled).To(Equal(false))
 				Expect(services[0].FriendlyName).To(Equal("Test Service"))
@@ -193,6 +208,7 @@ var _ = Describe("Verify V2", func() {
 				Expect(services[0].SkipSmsToLandlines).To(Equal(true))
 				Expect(services[0].LookupEnabled).To(Equal(true))
 				Expect(services[0].Push).To(Equal(pushResponse))
+				Expect(services[0].Totp).To(Equal(totpResponse))
 				Expect(services[0].DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(services[0].DateUpdated).To(BeNil())
 				Expect(services[0].URL).To(Equal("https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
@@ -331,6 +347,7 @@ var _ = Describe("Verify V2", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.TtsName).To(BeNil())
 				Expect(resp.MailerSid).To(BeNil())
+				Expect(resp.DefaultTemplateSid).To(BeNil())
 				Expect(resp.Psd2Enabled).To(Equal(false))
 				Expect(resp.DoNotShareWarningEnabled).To(Equal(false))
 				Expect(resp.FriendlyName).To(Equal("Test Service"))
@@ -343,6 +360,12 @@ var _ = Describe("Verify V2", func() {
 					ApnCredentialSid: nil,
 					IncludeDate:      true,
 					FcmCredentialSid: nil,
+				}))
+				Expect(resp.Totp).To(Equal(service.FetchServiceTotpResponse{
+					TimeStep:   30,
+					Skew:       1,
+					CodeLength: 6,
+					Issuer:     "test",
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated).To(BeNil())
@@ -393,6 +416,7 @@ var _ = Describe("Verify V2", func() {
 				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 				Expect(resp.TtsName).To(BeNil())
 				Expect(resp.MailerSid).To(BeNil())
+				Expect(resp.DefaultTemplateSid).To(BeNil())
 				Expect(resp.Psd2Enabled).To(Equal(false))
 				Expect(resp.DoNotShareWarningEnabled).To(Equal(false))
 				Expect(resp.FriendlyName).To(Equal("Test Service"))
@@ -405,6 +429,12 @@ var _ = Describe("Verify V2", func() {
 					ApnCredentialSid: nil,
 					IncludeDate:      true,
 					FcmCredentialSid: nil,
+				}))
+				Expect(resp.Totp).To(Equal(service.UpdateServiceTotpResponse{
+					TimeStep:   30,
+					Skew:       1,
+					CodeLength: 6,
+					Issuer:     "test",
 				}))
 				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2020-06-20T20:50:24Z"))
 				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2020-06-20T20:55:24Z"))

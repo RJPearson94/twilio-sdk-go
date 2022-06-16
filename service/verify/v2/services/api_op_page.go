@@ -41,6 +41,7 @@ type PageServiceResponse struct {
 	CustomCodeEnabled        bool                    `json:"custom_code_enabled"`
 	DateCreated              time.Time               `json:"date_created"`
 	DateUpdated              *time.Time              `json:"date_updated,omitempty"`
+	DefaultTemplateSid       *string                 `json:"default_template_sid,omitempty"`
 	DoNotShareWarningEnabled bool                    `json:"do_not_share_warning_enabled"`
 	DtmfInputRequired        bool                    `json:"dtmf_input_required"`
 	FriendlyName             string                  `json:"friendly_name"`
@@ -50,8 +51,16 @@ type PageServiceResponse struct {
 	Push                     PageServicePushResponse `json:"push"`
 	Sid                      string                  `json:"sid"`
 	SkipSmsToLandlines       bool                    `json:"skip_sms_to_landlines"`
+	Totp                     PageServiceTotpResponse `json:"totp"`
 	TtsName                  *string                 `json:"tts_name,omitempty"`
 	URL                      string                  `json:"url"`
+}
+
+type PageServiceTotpResponse struct {
+	CodeLength int    `json:"code_length"`
+	Issuer     string `json:"issuer"`
+	Skew       int    `json:"skew"`
+	TimeStep   int    `json:"time_step"`
 }
 
 // ServicesPageResponse defines the response fields for the services page

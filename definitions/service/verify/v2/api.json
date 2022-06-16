@@ -2294,6 +2294,35 @@
         }
       ]
     },
+    "ServiceTotpInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "Issuer",
+          "type": "string",
+          "value": "Issuer",
+          "required": false
+        },
+        {
+          "name": "TimeStep",
+          "type": "int",
+          "value": "TimeStep",
+          "required": false
+        },
+        {
+          "name": "CodeLength",
+          "type": "int",
+          "value": "CodeLength",
+          "required": false
+        },
+        {
+          "name": "Skew",
+          "type": "int",
+          "value": "Skew",
+          "required": false
+        }
+      ]
+    },
     "BaseServiceInput": {
       "type": "URLEncoded",
       "properties": [
@@ -2349,6 +2378,18 @@
           "name": "Push",
           "structure": "ServicePushInput",
           "value": "Push",
+          "required": false
+        },
+        {
+          "name": "Totp",
+          "structure": "ServiceTotpInput",
+          "value": "Totp",
+          "required": false
+        },
+        {
+          "name": "DefaultTemplateSid",
+          "type": "string",
+          "value": "DefaultTemplateSid",
           "required": false
         }
       ]
@@ -2442,6 +2483,18 @@
           "structure": "ServicePushResponse",
           "value": "push",
           "required": true
+        },
+        {
+          "name": "Totp",
+          "structure": "ServiceTotpResponse",
+          "value": "totp",
+          "required": true
+        },
+        {
+          "name": "DefaultTemplateSid",
+          "type": "string",
+          "value": "default_template_sid",
+          "required": false
         }
       ]
     },
@@ -2465,6 +2518,35 @@
           "type": "string",
           "value": "fcm_credential_sid",
           "required": false
+        }
+      ]
+    },
+    "ServiceTotpResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Issuer",
+          "type": "string",
+          "value": "issuer",
+          "required": true
+        },
+        {
+          "name": "TimeStep",
+          "type": "int",
+          "value": "time_step",
+          "required": true
+        },
+        {
+          "name": "Skew",
+          "type": "int",
+          "value": "skew",
+          "required": true
+        },
+        {
+          "name": "CodeLength",
+          "type": "int",
+          "value": "code_length",
+          "required": true
         }
       ]
     },

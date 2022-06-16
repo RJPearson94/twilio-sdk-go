@@ -15,6 +15,13 @@ type FetchServicePushResponse struct {
 	IncludeDate      bool    `json:"include_date"`
 }
 
+type FetchServiceTotpResponse struct {
+	CodeLength int    `json:"code_length"`
+	Issuer     string `json:"issuer"`
+	Skew       int    `json:"skew"`
+	TimeStep   int    `json:"time_step"`
+}
+
 // FetchServiceResponse defines the response fields for the retrieved service
 type FetchServiceResponse struct {
 	AccountSid               string                   `json:"account_sid"`
@@ -22,6 +29,7 @@ type FetchServiceResponse struct {
 	CustomCodeEnabled        bool                     `json:"custom_code_enabled"`
 	DateCreated              time.Time                `json:"date_created"`
 	DateUpdated              *time.Time               `json:"date_updated,omitempty"`
+	DefaultTemplateSid       *string                  `json:"default_template_sid,omitempty"`
 	DoNotShareWarningEnabled bool                     `json:"do_not_share_warning_enabled"`
 	DtmfInputRequired        bool                     `json:"dtmf_input_required"`
 	FriendlyName             string                   `json:"friendly_name"`
@@ -31,6 +39,7 @@ type FetchServiceResponse struct {
 	Push                     FetchServicePushResponse `json:"push"`
 	Sid                      string                   `json:"sid"`
 	SkipSmsToLandlines       bool                     `json:"skip_sms_to_landlines"`
+	Totp                     FetchServiceTotpResponse `json:"totp"`
 	TtsName                  *string                  `json:"tts_name,omitempty"`
 	URL                      string                   `json:"url"`
 }

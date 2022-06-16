@@ -7,6 +7,13 @@ FEATURES
 - Add `Run Subflow` widget
 - Add `IncomingParent` transition to the trigger widget
 
+### Verify
+
+- Add `DefaultTemplateSid` response field to service create, fetch and update response structs
+- Add `DefaultTemplateSid` input field to service create and update input structs
+- Add `Totp` response struct to service create, fetch and update response structs
+- Add `Totp` input struct to service create and update input structs
+
 ## v0.19.0 (2021-09-05)
 
 FEATURES

@@ -15,10 +15,18 @@ type UpdateServicePushInput struct {
 	IncludeDate      *bool   `form:"IncludeDate,omitempty"`
 }
 
+type UpdateServiceTotpInput struct {
+	CodeLength *int    `form:"CodeLength,omitempty"`
+	Issuer     *string `form:"Issuer,omitempty"`
+	Skew       *int    `form:"Skew,omitempty"`
+	TimeStep   *int    `form:"TimeStep,omitempty"`
+}
+
 // UpdateServiceInput defines input fields for updating a service resource
 type UpdateServiceInput struct {
 	CodeLength               *int                    `form:"CodeLength,omitempty"`
 	CustomCodeEnabled        *bool                   `form:"CustomCodeEnabled,omitempty"`
+	DefaultTemplateSid       *string                 `form:"DefaultTemplateSid,omitempty"`
 	DoNotShareWarningEnabled *bool                   `form:"DoNotShareWarningEnabled,omitempty"`
 	DtmfInputRequired        *bool                   `form:"DtmfInputRequired,omitempty"`
 	FriendlyName             *string                 `form:"FriendlyName,omitempty"`
@@ -26,6 +34,7 @@ type UpdateServiceInput struct {
 	Psd2Enabled              *bool                   `form:"Psd2Enabled,omitempty"`
 	Push                     *UpdateServicePushInput `form:"Push,omitempty"`
 	SkipSmsToLandlines       *bool                   `form:"SkipSmsToLandlines,omitempty"`
+	Totp                     *UpdateServiceTotpInput `form:"Totp,omitempty"`
 	TtsName                  *string                 `form:"TtsName,omitempty"`
 }
 
@@ -35,6 +44,13 @@ type UpdateServicePushResponse struct {
 	IncludeDate      bool    `json:"include_date"`
 }
 
+type UpdateServiceTotpResponse struct {
+	CodeLength int    `json:"code_length"`
+	Issuer     string `json:"issuer"`
+	Skew       int    `json:"skew"`
+	TimeStep   int    `json:"time_step"`
+}
+
 // UpdateServiceResponse defines the response fields for the updated service
 type UpdateServiceResponse struct {
 	AccountSid               string                    `json:"account_sid"`
@@ -42,6 +58,7 @@ type UpdateServiceResponse struct {
 	CustomCodeEnabled        bool                      `json:"custom_code_enabled"`
 	DateCreated              time.Time                 `json:"date_created"`
 	DateUpdated              *time.Time                `json:"date_updated,omitempty"`
+	DefaultTemplateSid       *string                   `json:"default_template_sid,omitempty"`
 	DoNotShareWarningEnabled bool                      `json:"do_not_share_warning_enabled"`
 	DtmfInputRequired        bool                      `json:"dtmf_input_required"`
 	FriendlyName             string                    `json:"friendly_name"`
@@ -51,6 +68,7 @@ type UpdateServiceResponse struct {
 	Push                     UpdateServicePushResponse `json:"push"`
 	Sid                      string                    `json:"sid"`
 	SkipSmsToLandlines       bool                      `json:"skip_sms_to_landlines"`
+	Totp                     UpdateServiceTotpResponse `json:"totp"`
 	TtsName                  *string                   `json:"tts_name,omitempty"`
 	URL                      string                    `json:"url"`
 }
