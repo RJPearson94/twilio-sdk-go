@@ -31,6 +31,7 @@ type CreateServiceInput struct {
 	DtmfInputRequired        *bool                   `form:"DtmfInputRequired,omitempty"`
 	FriendlyName             string                  `validate:"required" form:"FriendlyName"`
 	LookupEnabled            *bool                   `form:"LookupEnabled,omitempty"`
+	MailerSid                *string                 `form:"MailerSid,omitempty"`
 	Psd2Enabled              *bool                   `form:"Psd2Enabled,omitempty"`
 	Push                     *CreateServicePushInput `form:"Push,omitempty"`
 	SkipSmsToLandlines       *bool                   `form:"SkipSmsToLandlines,omitempty"`

@@ -1,3 +1,11 @@
+## v0.22.0 (unreleased)
+
+FEATURES
+
+### Verify
+
+- Add `MailerSid` input field to service create and update input structs
+
 ## v0.21.0 (2022-06-17)
 
 FEATURES

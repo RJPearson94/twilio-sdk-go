@@ -31,6 +31,7 @@ type UpdateServiceInput struct {
 	DtmfInputRequired        *bool                   `form:"DtmfInputRequired,omitempty"`
 	FriendlyName             *string                 `form:"FriendlyName,omitempty"`
 	LookupEnabled            *bool                   `form:"LookupEnabled,omitempty"`
+	MailerSid                *string                 `form:"MailerSid,omitempty"`
 	Psd2Enabled              *bool                   `form:"Psd2Enabled,omitempty"`
 	Push                     *UpdateServicePushInput `form:"Push,omitempty"`
 	SkipSmsToLandlines       *bool                   `form:"SkipSmsToLandlines,omitempty"`
