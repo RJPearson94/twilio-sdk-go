@@ -12,6 +12,6 @@ require (
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/onsi/ginkgo v1.16.4
-	github.com/onsi/gomega v1.14.0
+	github.com/onsi/gomega v1.24.1
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )
