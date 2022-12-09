@@ -1,0 +1,21 @@
+{
+  "auto_creation": {
+    "conversation_service_sid": null,
+    "studio_flow_sid": null,
+    "binding_name": null,
+    "enabled": false,
+    "webhook_method": null,
+    "webhook_filters": null,
+    "webhook_url": null,
+    "studio_retry_count": null,
+    "type": "default"
+  },
+  "date_updated": null,
+  "sid": "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "friendly_name": null,
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "url": "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "address": "+4477123456789",
+  "date_created": "2022-12-02T22:29:04Z",
+  "type": "sms"
+}

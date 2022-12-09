@@ -10,6 +10,8 @@ import (
 
 	"github.com/RJPearson94/twilio-sdk-go"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/address"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/addresses"
 	configurationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
@@ -963,6 +965,45 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			updateResp, updateErr := webhookClient.Update(&configurationWebhook.UpdateWebhookInput{})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
+		})
+	})
+
+	Describe("Given the configuration address clients", func() {
+		It("Then the address configuration is created, fetched, updated and deleted", func() {
+			addressesClient := conversationsSession.Configuration().Addresses
+
+			createResp, createErr := addressesClient.Create(&addresses.CreateAddressInput{
+				Type:    "sms",
+				Address: os.Getenv("TWILIO_PHONE_NUMBER"),
+			})
+			Expect(createErr).To(BeNil())
+			Expect(createResp).ToNot(BeNil())
+			Expect(createResp.Sid).ToNot(BeNil())
+
+			pageResp, pageErr := addressesClient.Page(&addresses.AddressesPageOptions{})
+			Expect(pageErr).To(BeNil())
+			Expect(pageResp).ToNot(BeNil())
+			Expect(len(pageResp.Addresses)).Should(BeNumerically(">=", 1))
+
+			paginator := addressesClient.NewAddressesPaginator()
+			for paginator.Next() {
+			}
+
+			Expect(paginator.Error()).To(BeNil())
+			Expect(len(paginator.Addresses)).Should(BeNumerically(">=", 1))
+
+			addressClient := conversationsSession.Configuration().Address(createResp.Sid)
+
+			fetchResp, fetchErr := addressClient.Fetch()
+			Expect(fetchErr).To(BeNil())
+			Expect(fetchResp).ToNot(BeNil())
+
+			updateResp, updateErr := addressClient.Update(&address.UpdateAddressInput{})
+			Expect(updateErr).To(BeNil())
+			Expect(updateResp).ToNot(BeNil())
+
+			deleteErr := addressClient.Delete()
+			Expect(deleteErr).To(BeNil())
 		})
 	})
 

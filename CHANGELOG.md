@@ -1,3 +1,17 @@
+## v0.23.0 (unreleased)
+
+FIXES
+
+### Conversations
+
+- The Twilio API returns the Sandbox flag as either True or False string when fetching Twilio Conversation Credentials details and not a bool. Thanks to @bbl232 for the fix
+
+FEATURES
+
+### Conversations
+
+- **New Resource:** Conversation Address Configuration
+
 ## v0.22.0 (2022-06-18)
 
 FEATURES

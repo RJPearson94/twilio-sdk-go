@@ -14,6 +14,8 @@ import (
 	"github.com/RJPearson94/twilio-sdk-go/client"
 	conversationsClient "github.com/RJPearson94/twilio-sdk-go/service/conversations"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/address"
+	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/addresses"
 	configurationWebhook "github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/configuration/webhook"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation"
 	"github.com/RJPearson94/twilio-sdk-go/service/conversations/v1/conversation/message"
@@ -6951,6 +6953,373 @@ var _ = Describe("Conversation V1", func() {
 			})
 		})
 	})
+
+	Describe("Given the conversation addresses client", func() {
+		addressesClient := conversationsSession.Configuration().Addresses
+
+		Describe("When the address is successfully created", func() {
+			createInput := &addresses.CreateAddressInput{
+				Type:    "sms",
+				Address: "+4477123456789",
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration/Addresses",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/addressResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(201, resp)
+				},
+			)
+
+			resp, err := addressesClient.Create(createInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the create address response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.Address).To(Equal("+4477123456789"))
+				Expect(resp.Type).To(Equal("sms"))
+				Expect(resp.AutoCreation).To(Equal(addresses.CreateAutoCreationResponse{
+					Enabled: false,
+					Type:    "default",
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2022-12-02T22:29:04Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the create address api returns a 500 response", func() {
+			createInput := &addresses.CreateAddressInput{
+				Type:    "sms",
+				Address: "+4477123456789",
+			}
+
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration/Addresses",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := addressesClient.Create(createInput)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the create address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the page of addresses are successfully retrieved", func() {
+			pageOptions := &addresses.AddressesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/addressesPageResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := addressesClient.Page(pageOptions)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the addresses page response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+
+				meta := resp.Meta
+				Expect(meta).ToNot(BeNil())
+				Expect(meta.Page).To(Equal(0))
+				Expect(meta.PageSize).To(Equal(50))
+				Expect(meta.FirstPageURL).To(Equal("https://conversations.twilio.com/v1/Configuration/Addresses?PageSize=50&Page=0"))
+				Expect(meta.PreviousPageURL).To(BeNil())
+				Expect(meta.URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Addresses?PageSize=50&Page=0"))
+				Expect(meta.NextPageURL).To(BeNil())
+				Expect(meta.Key).To(Equal("address_configurations"))
+
+				addressConfigurations := resp.Addresses
+				Expect(addressConfigurations).ToNot(BeNil())
+				Expect(len(addressConfigurations)).To(Equal(1))
+
+				Expect(addressConfigurations[0].Sid).To(Equal("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(addressConfigurations[0].AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(addressConfigurations[0].FriendlyName).To(BeNil())
+				Expect(addressConfigurations[0].Address).To(Equal("+4477123456789"))
+				Expect(addressConfigurations[0].Type).To(Equal("sms"))
+				Expect(addressConfigurations[0].AutoCreation).To(Equal(addresses.PageAutoCreationResponse{
+					Enabled: false,
+					Type:    "default",
+				}))
+				Expect(addressConfigurations[0].DateCreated.Format(time.RFC3339)).To(Equal("2022-12-02T22:29:04Z"))
+				Expect(addressConfigurations[0].DateUpdated).To(BeNil())
+				Expect(addressConfigurations[0].URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the page of addresses api returns a 500 response", func() {
+			pageOptions := &addresses.AddressesPageOptions{
+				PageSize: utils.Int(50),
+				Page:     utils.Int(0),
+			}
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses?Page=0&PageSize=50",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			resp, err := addressesClient.Page(pageOptions)
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(err)
+			})
+
+			It("Then the addresses page response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the paginated addresses are successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/addressesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/addressesPaginatorPage1Response.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			counter := 0
+			paginator := addressesClient.NewAddressesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then no error should be returned", func() {
+				Expect(paginator.Error()).To(BeNil())
+			})
+
+			It("Then the paginated addresses current page should be returned", func() {
+				Expect(paginator.CurrentPage()).ToNot(BeNil())
+			})
+
+			It("Then the paginated addresses results should be returned", func() {
+				Expect(len(paginator.Addresses)).To(Equal(3))
+			})
+		})
+
+		Describe("When the addresses api returns a 500 response when making a paginated request", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/addressesPaginatorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses?Page=1&PageSize=50&PageToken=abc1234",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/internalServerErrorResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(500, resp)
+				},
+			)
+
+			counter := 0
+			paginator := addressesClient.NewAddressesPaginator()
+
+			for paginator.Next() {
+				counter++
+
+				if counter > 2 {
+					Fail("Too many paginated requests have been made")
+				}
+			}
+
+			It("Then an error should be returned", func() {
+				ExpectInternalServerError(paginator.Error())
+			})
+
+			It("Then the paginated addresses current page should be nil", func() {
+				Expect(paginator.CurrentPage()).To(BeNil())
+			})
+		})
+	})
+
+	Describe("Given I have a service conversation address sid", func() {
+		addressClient := conversationsSession.Configuration().Address("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+		Describe("When the address is successfully retrieved", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/addressResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			resp, err := addressClient.Fetch()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the get address response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(BeNil())
+				Expect(resp.Address).To(Equal("+4477123456789"))
+				Expect(resp.Type).To(Equal("sms"))
+				Expect(resp.AutoCreation).To(Equal(address.FetchAutoCreationResponse{
+					Enabled: false,
+					Type:    "default",
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2022-12-02T22:29:04Z"))
+				Expect(resp.DateUpdated).To(BeNil())
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the address api returns a 404", func() {
+			httpmock.RegisterResponder("GET", "https://conversations.twilio.com/v1/Configuration/Addresses/IG71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			resp, err := conversationsSession.Configuration().Address("IG71").Fetch()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the get address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the address is successfully updated", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/updateAddressResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(200, resp)
+				},
+			)
+
+			updateInput := &address.UpdateAddressInput{
+				FriendlyName: utils.String("Test address"),
+			}
+
+			resp, err := addressClient.Update(updateInput)
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+
+			It("Then the update address response should be returned", func() {
+				Expect(resp).ToNot(BeNil())
+				Expect(resp.Sid).To(Equal("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.AccountSid).To(Equal("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+				Expect(resp.FriendlyName).To(Equal(utils.String("Test Address")))
+				Expect(resp.Address).To(Equal("+4477123456789"))
+				Expect(resp.Type).To(Equal("sms"))
+				Expect(resp.AutoCreation).To(Equal(address.UpdateAutoCreationResponse{
+					Enabled: false,
+					Type:    "default",
+				}))
+				Expect(resp.DateCreated.Format(time.RFC3339)).To(Equal("2022-12-02T22:29:04Z"))
+				Expect(resp.DateUpdated.Format(time.RFC3339)).To(Equal("2022-12-02T23:29:04Z"))
+				Expect(resp.URL).To(Equal("https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+			})
+		})
+
+		Describe("When the update address api returns a 404", func() {
+			httpmock.RegisterResponder("POST", "https://conversations.twilio.com/v1/Configuration/Addresses/IG71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			updateInput := &address.UpdateAddressInput{
+				FriendlyName: utils.String("Test address"),
+			}
+
+			resp, err := conversationsSession.Configuration().Address("IG71").Update(updateInput)
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+
+			It("Then the update address response should be nil", func() {
+				Expect(resp).To(BeNil())
+			})
+		})
+
+		Describe("When the address is successfully deleted", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", httpmock.NewStringResponder(204, ""))
+
+			err := addressClient.Delete()
+			It("Then no error should be returned", func() {
+				Expect(err).To(BeNil())
+			})
+		})
+
+		Describe("When the address api returns a 404", func() {
+			httpmock.RegisterResponder("DELETE", "https://conversations.twilio.com/v1/Configuration/Addresses/IG71",
+				func(req *http.Request) (*http.Response, error) {
+					fixture, _ := ioutil.ReadFile("testdata/notFoundResponse.json")
+					resp := make(map[string]interface{})
+					json.Unmarshal(fixture, &resp)
+					return httpmock.NewJsonResponse(404, resp)
+				},
+			)
+
+			err := conversationsSession.Configuration().Address("IG71").Delete()
+			It("Then an error should be returned", func() {
+				ExpectNotFoundError(err)
+			})
+		})
+	})
+
 })
 
 func ExpectInvalidInputError(err error) {

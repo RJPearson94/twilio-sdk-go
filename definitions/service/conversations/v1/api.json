@@ -3988,6 +3988,198 @@
       },
       "subClients": [
         {
+          "name": "Addresses",
+          "packageName": "addresses",
+          "documentation": {
+            "description": "Client for managing address configuration resources",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource"
+          },
+          "operations": [
+            {
+              "name": "Create",
+              "http": {
+                "uri": "/Configuration/Addresses",
+                "method": "Post"
+              },
+              "documentation": {
+                "description": "creates a new address configuration",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource#create-an-addressconfiguration-resource"
+              },
+              "input": {
+                "structure": "CreateAddressInput",
+                "documentation": {
+                  "description": "defines the input fields for creating a new address configuration resource"
+                }
+              },
+              "response": {
+                "name": "CreateAddressResponse",
+                "structure": "AddressResponse",
+                "documentation": {
+                  "description": "defines the response fields for the created address configuration"
+                }
+              }
+            },
+            {
+              "name": "Page",
+              "http": {
+                "uri": "/Configuration/Addresses",
+                "method": "Get",
+                "queryParams": [
+                  {
+                    "name": "PageSize",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "Page",
+                    "type": "int",
+                    "required": false
+                  },
+                  {
+                    "name": "PageToken",
+                    "type": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "Type",
+                    "type": "string",
+                    "required": false
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a page of address configurations",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource#read-multiple-addressconfiguration-resources"
+              },
+              "response": {
+                "structure": "AddressesPageResponse",
+                "documentation": {
+                  "description": "defines the response fields for the address configurations page"
+                }
+              },
+              "pagination": {
+                "name": "AddressesPaginator",
+                "page": {
+                  "name": "AddressesPage",
+                  "nextToken": "PageToken",
+                  "nextPage": {
+                    "meta": true,
+                    "property": "NextPageURL"
+                  },
+                  "items": "Addresses",
+                  "structure": "PageAddressResponse"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Address",
+          "packageName": "address",
+          "function": {
+            "parameters": {
+              "addressSid": {
+                "dataType": "string"
+              }
+            }
+          },
+          "properties": {
+            "sid": {
+              "dataType": "string",
+              "functionParameter": "addressSid"
+            }
+          },
+          "documentation": {
+            "description": "Client for managing a specific address configuration resource",
+            "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource"
+          },
+          "operations": [
+            {
+              "name": "Fetch",
+              "http": {
+                "uri": "/Configuration/Addresses/{sid}",
+                "method": "Get",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "retrieves a address configuration resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource#fetch-an-addressconfiguration-resource"
+              },
+              "response": {
+                "name": "FetchAddressResponse",
+                "structure": "AddressResponse",
+                "documentation": {
+                  "description": "defines the response fields for the retrieved address configuration"
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "http": {
+                "uri": "/Configuration/Addresses/{sid}",
+                "method": "Post",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "modifies a address configuration resource",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource#update-an-addressconfiguration-resource"
+              },
+              "input": {
+                "structure": "UpdateAddressInput",
+                "documentation": {
+                  "description": "defines input fields for updating a address configuration resource"
+                }
+              },
+              "response": {
+                "name": "UpdateAddressResponse",
+                "structure": "AddressResponse",
+                "documentation": {
+                  "description": "defines the response fields for the updated address configuration"
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "http": {
+                "uri": "/Configuration/Addresses/{sid}",
+                "method": "Delete",
+                "pathParams": [
+                  {
+                    "name": "sid",
+                    "value": {
+                      "onService": true,
+                      "type": "string",
+                      "property": "sid"
+                    }
+                  }
+                ]
+              },
+              "documentation": {
+                "description": "removes a address configuration resource from the account",
+                "twilioDocsLink": "https://www.twilio.com/docs/conversations/api/address-configuration-resource#delete-an-addressconfiguration-resource"
+              }
+            }
+          ]
+        },
+        {
           "name": "Webhook",
           "packageName": "webhook",
           "function": {
@@ -5899,6 +6091,232 @@
           },
           "value": "message_types",
           "required": true
+        }
+      ]
+    },
+    "CreateAddressInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "value": "Address",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": true
+        },
+        {
+          "name": "AutoCreation",
+          "structure": "AutoCreationInput",
+          "value": "auto_creation",
+          "required": false
+        }
+      ]
+    },
+    "UpdateAddressInput": {
+      "type": "URLEncoded",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "FriendlyName",
+          "required": false
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "value": "Address",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": false
+        },
+        {
+          "name": "AutoCreation",
+          "structure": "AutoCreationInput",
+          "value": "auto_creation",
+          "required": false
+        }
+      ]
+    },
+    "AutoCreationInput": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "ConversationServiceSid",
+          "type": "string",
+          "value": "ConversationServiceSid",
+          "required": false
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "Enabled",
+          "required": true
+        },
+        {
+          "name": "StudioFlowSid",
+          "type": "string",
+          "value": "StudioFlowSid",
+          "required": false
+        },
+        {
+          "name": "StudioRetryCount",
+          "type": "int",
+          "value": "StudioRetryCount",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "Type",
+          "required": true
+        },
+        {
+          "name": "WebhookFilters",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "WebhookFilters",
+          "required": false
+        },
+        {
+          "name": "WebhookMethod",
+          "type": "string",
+          "value": "WebhookMethod",
+          "required": false
+        },
+        {
+          "name": "WebhookUrl",
+          "type": "string",
+          "value": "WebhookUrl",
+          "required": false
+        }
+      ]
+    },
+    "AddressesPageResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "Meta",
+          "structure": "MetaResponse",
+          "value": "meta",
+          "required": true
+        },
+        {
+          "name": "Addresses",
+          "type": "array",
+          "items": {
+            "structure": "AddressResponse"
+          },
+          "value": "address_configurations",
+          "required": true
+        }
+      ]
+    },
+    "AddressResponse": {
+      "type": "JSON",
+      "extends": "BaseResponse",
+      "properties": [
+        {
+          "name": "FriendlyName",
+          "type": "string",
+          "value": "friendly_name",
+          "required": false
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "value": "address",
+          "required": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "AutoCreation",
+          "structure": "AutoCreationResponse",
+          "value": "auto_creation",
+          "required": true
+        }
+      ]
+    },
+    "AutoCreationResponse": {
+      "type": "JSON",
+      "properties": [
+        {
+          "name": "BindingName",
+          "type": "string",
+          "value": "binding_name",
+          "required": false
+        },
+        {
+          "name": "ConversationServiceSid",
+          "type": "string",
+          "value": "conversation_service_sid",
+          "required": false
+        },
+        {
+          "name": "Enabled",
+          "type": "bool",
+          "value": "enabled",
+          "required": true
+        },
+        {
+          "name": "StudioFlowSid",
+          "type": "string",
+          "value": "studio_flow_sid",
+          "required": false
+        },
+        {
+          "name": "StudioRetryCount",
+          "type": "int",
+          "value": "studio_retry_count",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "value": "type",
+          "required": true
+        },
+        {
+          "name": "WebhookFilters",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "value": "webhook_filters",
+          "required": false
+        },
+        {
+          "name": "WebhookMethod",
+          "type": "string",
+          "value": "webhook_method",
+          "required": false
+        },
+        {
+          "name": "WebhookUrl",
+          "type": "string",
+          "value": "webhook_url",
+          "required": false
         }
       ]
     },
