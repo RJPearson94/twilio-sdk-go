@@ -1,3 +1,11 @@
+# v0.23.1 (unreleased)
+
+FIXES
+
+### Conversations
+
+- Corrects name of the auto creation form fields when creating or editing Conversation Address Configuration
+
 ## v0.23.0 (2022-12-09)
 
 FIXES

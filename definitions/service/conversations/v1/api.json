@@ -6118,7 +6118,7 @@
         {
           "name": "AutoCreation",
           "structure": "AutoCreationInput",
-          "value": "auto_creation",
+          "value": "AutoCreation",
           "required": false
         }
       ]
@@ -6147,7 +6147,7 @@
         {
           "name": "AutoCreation",
           "structure": "AutoCreationInput",
-          "value": "auto_creation",
+          "value": "AutoCreation",
           "required": false
         }
       ]

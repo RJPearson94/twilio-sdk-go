@@ -23,7 +23,7 @@ type UpdateAutoCreationInput struct {
 // UpdateAddressInput defines input fields for updating a address configuration resource
 type UpdateAddressInput struct {
 	Address      *string                  `form:"Address,omitempty"`
-	AutoCreation *UpdateAutoCreationInput `form:"auto_creation,omitempty"`
+	AutoCreation *UpdateAutoCreationInput `form:"AutoCreation,omitempty"`
 	FriendlyName *string                  `form:"FriendlyName,omitempty"`
 	Type         *string                  `form:"Type,omitempty"`
 }

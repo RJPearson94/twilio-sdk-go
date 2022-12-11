@@ -23,7 +23,7 @@ type CreateAutoCreationInput struct {
 // CreateAddressInput defines the input fields for creating a new address configuration resource
 type CreateAddressInput struct {
 	Address      string                   `validate:"required" form:"Address"`
-	AutoCreation *CreateAutoCreationInput `form:"auto_creation,omitempty"`
+	AutoCreation *CreateAutoCreationInput `form:"AutoCreation,omitempty"`
 	FriendlyName *string                  `form:"FriendlyName,omitempty"`
 	Type         string                   `validate:"required" form:"Type"`
 }
