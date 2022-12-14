@@ -11,10 +11,10 @@ import (
 
 type CreateAutoCreationInput struct {
 	ConversationServiceSid *string   `form:"ConversationServiceSid,omitempty"`
-	Enabled                bool      `form:"Enabled"`
+	Enabled                *bool     `form:"Enabled,omitempty"`
 	StudioFlowSid          *string   `form:"StudioFlowSid,omitempty"`
 	StudioRetryCount       *int      `form:"StudioRetryCount,omitempty"`
-	Type                   string    `validate:"required" form:"Type"`
+	Type                   *string   `form:"Type,omitempty"`
 	WebhookFilters         *[]string `form:"WebhookFilters,omitempty"`
 	WebhookMethod          *string   `form:"WebhookMethod,omitempty"`
 	WebhookUrl             *string   `form:"WebhookUrl,omitempty"`

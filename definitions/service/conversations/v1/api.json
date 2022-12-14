@@ -6165,7 +6165,7 @@
           "name": "Enabled",
           "type": "bool",
           "value": "Enabled",
-          "required": true
+          "required": false
         },
         {
           "name": "StudioFlowSid",
@@ -6183,7 +6183,7 @@
           "name": "Type",
           "type": "string",
           "value": "Type",
-          "required": true
+          "required": false
         },
         {
           "name": "WebhookFilters",

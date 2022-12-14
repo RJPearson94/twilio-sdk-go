@@ -975,18 +975,11 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 			createResp, createErr := addressesClient.Create(&addresses.CreateAddressInput{
 				Type:    "sms",
 				Address: os.Getenv("TWILIO_PHONE_NUMBER"),
-				AutoCreation: &addresses.CreateAutoCreationInput{
-					Enabled:        true,
-					Type:           "webhook",
-					WebhookFilters: &[]string{"onMessageAdded"},
-					WebhookMethod:  utils.String("POST"),
-					WebhookUrl:     utils.String("https://localhost/webhook-url"),
-				},
 			})
 			Expect(createErr).To(BeNil())
 			Expect(createResp).ToNot(BeNil())
 			Expect(createResp.Sid).ToNot(BeNil())
-			Expect(createResp.AutoCreation.Enabled).To(Equal(true))
+			Expect(createResp.AutoCreation.Enabled).To(Equal(false))
 
 			pageResp, pageErr := addressesClient.Page(&addresses.AddressesPageOptions{})
 			Expect(pageErr).To(BeNil())
@@ -1008,13 +1001,12 @@ var _ = Describe("Conversations Acceptance Tests", func() {
 
 			updateResp, updateErr := addressClient.Update(&address.UpdateAddressInput{
 				AutoCreation: &address.UpdateAutoCreationInput{
-					Enabled: false,
-					Type:    "webhook",
+					Enabled: utils.Bool(true),
 				},
 			})
 			Expect(updateErr).To(BeNil())
 			Expect(updateResp).ToNot(BeNil())
-			Expect(updateResp.AutoCreation.Enabled).To(Equal(false))
+			Expect(updateResp.AutoCreation.Enabled).To(Equal(true))
 
 			deleteErr := addressClient.Delete()
 			Expect(deleteErr).To(BeNil())

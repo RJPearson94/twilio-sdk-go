@@ -1,3 +1,11 @@
+# v0.23.2 (unreleased)
+
+FIXES
+
+### Conversations
+
+- Auto Creation enabled and type are optional in the schema definition, this corrects an issue which made them mandatory
+
 # v0.23.1 (2022-12-11)
 
 FIXES
