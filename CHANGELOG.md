@@ -1,3 +1,11 @@
+# v0.23.3 (2022-12-14)
+
+FIXES
+
+### Conversations
+
+- Remove type and address as they cannot be updated
+
 # v0.23.2 (2022-12-14)
 
 FIXES

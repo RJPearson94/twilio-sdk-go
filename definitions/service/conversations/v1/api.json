@@ -6133,18 +6133,6 @@
           "required": false
         },
         {
-          "name": "Address",
-          "type": "string",
-          "value": "Address",
-          "required": false
-        },
-        {
-          "name": "Type",
-          "type": "string",
-          "value": "Type",
-          "required": false
-        },
-        {
           "name": "AutoCreation",
           "structure": "AutoCreationInput",
           "value": "AutoCreation",
