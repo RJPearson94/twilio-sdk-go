@@ -1,3 +1,11 @@
+# v0.24.0 (2022-12-18)
+
+FEATURES
+
+### SDK
+
+- Allow initialisation of session credential without validating the supplied values. This is implemented because some tools may initialise the client before credentials are supplied
+
 # v0.23.3 (2022-12-14)
 
 FIXES

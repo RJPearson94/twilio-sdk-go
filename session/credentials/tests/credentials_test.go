@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("Credentials", func() {
-	Describe("When invalid Account credential are supplied", func() {
+	Describe("When invalid Account credential are supplied (with validation)", func() {
 		Context("No Sid supplied", func() {
 			creds, err := credentials.New(credentials.Account{
 				AuthToken: "Test Token",
@@ -55,6 +55,46 @@ var _ = Describe("Credentials", func() {
 		})
 	})
 
+	Describe("When invalid Account credential are supplied (without validation)", func() {
+		Context("No Sid supplied", func() {
+			creds := credentials.NewWithNoValidation(credentials.Account{
+				AuthToken: "Test Token",
+			})
+
+			It("Then credentials are not nil", func() {
+				Expect(creds).ToNot(BeNil())
+				Expect(creds.AccountSid).To(Equal(""))
+				Expect(creds.Username).To(Equal(""))
+				Expect(creds.Password).To(Equal("Test Token"))
+			})
+		})
+
+		Context("No Auth Token supplied", func() {
+			creds := credentials.NewWithNoValidation(credentials.Account{
+				Sid: "ACxxxxxxxxxxx",
+			})
+
+			It("Then credentials are not nil", func() {
+				Expect(creds.AccountSid).To(Equal("ACxxxxxxxxxxx"))
+				Expect(creds.Username).To(Equal("ACxxxxxxxxxxx"))
+				Expect(creds.Password).To(Equal(""))
+			})
+		})
+
+		Context("An invalid sid format", func() {
+			creds := credentials.NewWithNoValidation(credentials.Account{
+				Sid:       "Test Sid",
+				AuthToken: "Test Token",
+			})
+
+			It("Then credentials are not nil", func() {
+				Expect(creds.AccountSid).To(Equal("Test Sid"))
+				Expect(creds.Username).To(Equal("Test Sid"))
+				Expect(creds.Password).To(Equal("Test Token"))
+			})
+		})
+	})
+
 	Describe("When valid Account credential are supplied", func() {
 		creds, err := credentials.New(credentials.Account{
 			Sid:       "ACxxxxxxxxxxx",
@@ -65,7 +105,7 @@ var _ = Describe("Credentials", func() {
 			Expect(err).To(BeNil())
 		})
 
-		It("Then credentials are nil", func() {
+		It("Then credentials are not nil", func() {
 			Expect(creds).ToNot(BeNil())
 			Expect(creds.Username).To(Equal("ACxxxxxxxxxxx"))
 			Expect(creds.Password).To(Equal("Test Token"))
@@ -167,7 +207,7 @@ var _ = Describe("Credentials", func() {
 			Expect(err).To(BeNil())
 		})
 
-		It("Then credentials are nil", func() {
+		It("Then credentials are not nil", func() {
 			Expect(creds).ToNot(BeNil())
 			Expect(creds.AccountSid).To(Equal("ACxxxxxxxxxxx"))
 			Expect(creds.Username).To(Equal("SKxxxxxxxxxxx"))
