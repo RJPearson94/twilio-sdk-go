@@ -1,4 +1,4 @@
-# 0.25.0 (unreleased)
+# 0.25.0 (2022-12-20)
 
 ### Serverless
 
