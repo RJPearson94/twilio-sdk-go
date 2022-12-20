@@ -22,6 +22,7 @@ type CreateServiceResponse struct {
 	AccountSid         string     `json:"account_sid"`
 	DateCreated        time.Time  `json:"date_created"`
 	DateUpdated        *time.Time `json:"date_updated,omitempty"`
+	DomainBase         string     `json:"domain_base"`
 	FriendlyName       string     `json:"friendly_name"`
 	IncludeCredentials bool       `json:"include_credentials"`
 	Sid                string     `json:"sid"`

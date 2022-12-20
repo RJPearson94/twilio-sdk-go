@@ -2398,6 +2398,12 @@
           "type": "bool",
           "value": "ui_editable",
           "required": true
+        },
+        {
+          "name": "DomainBase",
+          "type": "string",
+          "value": "domain_base",
+          "required": true
         }
       ]
     },

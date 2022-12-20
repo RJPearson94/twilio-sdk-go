@@ -1,3 +1,9 @@
+# 0.25.0 (unreleased)
+
+### Serverless
+
+- Add `DomainBase` response field to service create, fetch and update response structs
+
 # v0.24.0 (2022-12-18)
 
 FEATURES
